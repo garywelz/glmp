@@ -1,3 +1,14 @@
+---
+title: Genome Logic Modeling Project (GLMP)
+emoji: 🧬
+colorFrom: blue
+colorTo: green
+sdk: static
+sdk_version: latest
+app_file: README.md
+pinned: false
+---
+
 # Genome Logic Modeling Project (GLMP)
 
 > A systems biology initiative to model genomes as executable programs using AI.
@@ -38,7 +49,7 @@ Our modular AI system includes:
 
 ## 🤝 Authors & Contributors
 - **Gary Welz** — Originator, principal investigator  
-  Retired professor, CUNY (Mathematics & Computer Science)  
+  Former Lecturer, CUNY (Mathematics & Computer Science)  
   [gwelz@jjay.cuny.edu](mailto:gwelz@jjay.cuny.edu)
 
 - **ChatGPT-4o** — Co-author and diagram modeling assistant  
