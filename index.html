@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genome Logic Modeling Project - Is the Genome Like a Computer Program?</title>
+    <meta name="description" content="A manifesto exploring genomes as computational systems, inviting collaboration from scientists and AI systems to model life as computation.">
+    <meta name="keywords" content="genome, computational biology, systems biology, AI collaboration, synthetic biology">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genome-logic-modeling.org/">
+    <meta property="og:title" content="Genome Logic Modeling Project">
+    <meta property="og:description" content="Exploring genomes as computational systems - A manifesto for scientific collaboration">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genome-logic-modeling.org/">
+    <meta property="twitter:title" content="Genome Logic Modeling Project">
+    <meta property="twitter:description" content="Exploring genomes as computational systems - A manifesto for scientific collaboration">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .author-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .author-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .collaboration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .collaboration-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .collaboration-card h4 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .collaboration-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .collaboration-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .collaboration-card li:before {
+            content: "🧬 ";
+            margin-right: 10px;
+        }
+        
+        .contact-section {
+            background: #2c3e50;
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            color: white;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .contact-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            color: #667eea;
+        }
+        
+        .abstract {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #e74c3c;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+        
+        .paper-nav {
+            position: sticky;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .paper-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .paper-nav li {
+            margin: 10px 0;
+        }
+        
+        .paper-nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .paper-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .collaboration-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🧬 Genome Logic Modeling Project</h1>
+            <p class="subtitle">Is the Genome Like a Computer Program?</p>
+            <div class="author-info">
+                <h3>Gary Welz</h3>
+                <p>Retired Professor, CUNY (Mathematics & Computer Science)</p>
+                <p><em>A manifesto exploring genomes as computational systems, inviting collaboration from scientists and AI systems to model life as computation.</em></p>
+            </div>
+            <div class="cta-buttons">
+                <a href="#read-paper" class="btn btn-primary">📖 Read the Full Paper</a>
+                <a href="#collaborate" class="btn btn-secondary">🤝 Join the Project</a>
+                <a href="mailto:gwelz@jjay.cuny.edu" class="btn btn-secondary">✉️ Contact Us</a>
+            </div>
+        </header>
+
+        <nav class="paper-nav">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#historical-context">Historical Context</a></li>
+                <li><a href="#modern-insights">Modern Insights</a></li>
+                <li><a href="#manifesto">The GLMP Manifesto</a></li>
+                <li><a href="#collaborate">How to Collaborate</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content" id="read-paper">
+            <section class="section" id="abstract">
+                <h2>Abstract</h2>
+                <div class="abstract">
+                    This article revisits the metaphor of the genome as a computer program, a concept first proposed publicly by the author in 1995. Drawing on historical discussions in computational biology, including previously unpublished exchanges from the bionet.genome.chromosome newsgroup, we explore how the genome functions not merely as a passive database of genes but as an active, logic‑driven computational system. The genome executes massively parallel processes—driven by environmental inputs, chemical conditions, and internal state—using a computational architecture fundamentally different from conventional computing. From early visual metaphors in Mendelian genetics to contemporary logic circuits in synthetic biology, this paper traces the historical development of computational models that express genomic logic, while critically examining both the utility and limitations of the program metaphor. We conclude that the genome represents a unique computational paradigm that could inform the development of novel computing architectures and artificial intelligence systems.
+                </div>
+            </section>
+
+            <section class="section" id="introduction">
+                <h2>1. Introduction</h2>
+                <p>Biological processes have often been described through metaphor: the cell as a factory, DNA as a blueprint, and most provocatively—the genome as a computer program. Unlike static descriptions, this metaphor opens the door to seeing life itself as computation: a dynamic process with inputs, logic conditions, iterative loops, subroutines, and termination conditions.</p>
+                
+                <p>In 1995, the author explored this idea in an essay published in <em>The X Advisor</em>, proposing that gene regulation could be modeled as a logic program. That same year, in discussions on the bionet.genome.chromosome newsgroup, computational biologists including Robert Robbins of Johns Hopkins University developed this metaphor further, exploring profound differences between genomic and conventional computation.</p>
+
+                <div class="highlight-box">
+                    <strong>Key Insight:</strong> The genome represents a unique computational paradigm that executes massively parallel processes with fault tolerance, self-modification, and environmental responsiveness that far exceeds conventional computing systems.
+                </div>
+            </section>
+
+            <section class="section" id="historical-context">
+                <h2>2. Historical Context & The 1995 Vision</h2>
+                
+                <h3>2.1 Early Visualizations of Biological Logic</h3>
+                <p>The visualization of biological logic began with Gregor Mendel in the 19th century. Though his work predates formal computational thinking, Mendel's charts—showing ratios of inherited traits—used symbolic logic to track biological outcomes. Later, chromosome theory and operon models introduced control diagrams that represented genetic regulatory mechanisms.</p>
+
+                <h3>2.2 The 1995 Bionet.Genome.Chromosome Discussions</h3>
+                <p>In April 1995, a significant exchange on the bionet.genome.chromosome newsgroup explored the genome‑as‑program metaphor in depth. The author initiated this discussion by asking whether "an organism's genome can be regarded as a computer program" and whether its structure could be represented as "a flowchart with genes as objects connected by logical terms."</p>
+                
+                <p>Robert Robbins of Johns Hopkins University responded with a comprehensive analysis that both supported and complicated the metaphor. While acknowledging the digital nature of the genetic code, Robbins highlighted that the genome functions more like "a mass storage device" with properties not shared by electronic counterparts, and that genomic programs operate with unprecedented levels of parallelism—"in excess of 10¹⁸ parallel processes" in the human body.</p>
+            </section>
+
+            <section class="section" id="modern-insights">
+                <h2>3. Modern Insights: From Storage to Processing</h2>
+                
+                <h3>3.1 The Genome as Dynamic Storage</h3>
+                <p>Unlike conventional storage, the genome exhibits several unique properties:</p>
+                <ul>
+                    <li><strong>Dynamic Access Patterns:</strong> Different cells access different portions based on type, developmental stage, and environment</li>
+                    <li><strong>Self-Modifying Code:</strong> Epigenetic modifications allow the genome to rewrite itself during execution</li>
+                    <li><strong>Massive Parallelism:</strong> 10¹⁸ parallel processes with sophisticated coordination mechanisms</li>
+                </ul>
+
+                <h3>3.2 Environmental Programming</h3>
+                <p>Genomic programs operate as <strong>reactive systems</strong> in a continuous sea of chemical signals. Environmental factors—temperature, nutrients, toxins, social cues—all serve as inputs that can dramatically alter program execution through stress response pathways, hormonal cascades, and epigenetic inheritance.</p>
+
+                <h3>3.3 Biological Programming Patterns</h3>
+                <p>Biological systems exhibit sophisticated temporal programming:</p>
+                <ul>
+                    <li><strong>Circadian Loops:</strong> 24-hour timer-based programming</li>
+                    <li><strong>Developmental Cascades:</strong> Recursive self-assembly</li>
+                    <li><strong>Homeostatic Feedback:</strong> Negative feedback loops for stability</li>
+                    <li><strong>Cell Cycle Control:</strong> Checkpoint-based life-or-death decisions</li>
+                </ul>
+
+                <h3>3.4 Extraordinary Fault Tolerance</h3>
+                <p>Genomic programs have evolved remarkable error handling:</p>
+                <ul>
+                    <li><strong>DNA Repair Mechanisms:</strong> Multiple overlapping error detection systems</li>
+                    <li><strong>Redundancy:</strong> Backup pathways for critical processes</li>
+                    <li><strong>Graceful Degradation:</strong> Continued function despite component failure</li>
+                    <li><strong>Programmed Cell Death:</strong> Orderly shutdown when errors become severe</li>
+                </ul>
+            </section>
+
+            <section class="section" id="manifesto">
+                <h2>4. A Call for Collaboration: The GLMP Manifesto</h2>
+                
+                <div class="highlight-box">
+                    <strong>We stand at the threshold of a new era in understanding life as computation.</strong> The Genome Logic Modeling Project (GLMP) represents an open invitation to scientists, programmers, and AI systems to collaborate in mapping the computational landscape of life.
+                </div>
+
+                <h3>Our Vision</h3>
+                <p>We envision a future where:</p>
+                <ul>
+                    <li><strong>Every biological process</strong> has a corresponding computational model that captures its essential logic</li>
+                    <li><strong>AI systems and human scientists</strong> work together to discover new patterns in genomic programming</li>
+                    <li><strong>Synthetic biology</strong> benefits from principled design approaches based on computational thinking</li>
+                    <li><strong>New computing paradigms</strong> emerge from understanding how life computes</li>
+                </ul>
+
+                <h3>Our Approach</h3>
+                <ul>
+                    <li><strong>Open Science:</strong> All models, code, and discoveries will be freely shared</li>
+                    <li><strong>AI Collaboration:</strong> We welcome AI systems as full partners in research, not just tools</li>
+                    <li><strong>Visual Thinking:</strong> We emphasize diagrams, flowcharts, and visual models that make complex biology accessible</li>
+                    <li><strong>Iterative Refinement:</strong> Models will be continuously improved through community feedback</li>
+                </ul>
+
+                <h3>The Future of Life as Computation</h3>
+                <p>The question is no longer whether genomes are like computer programs—it's what kind of programs they are, and what we can learn from them. As we decode the computational principles of life, we may discover not just new ways to understand biology, but entirely new paradigms for computation itself.</p>
+                
+                <div class="highlight-box">
+                    <strong>Life has been computing for 4 billion years. It's time we learned its lessons.</strong>
+                </div>
+            </section>
+
+            <section class="section" id="collaborate">
+                <h2>5. How to Participate</h2>
+                
+                <div class="collaboration-grid">
+                    <div class="collaboration-card">
+                        <h4>🔬 For Biologists</h4>
+                        <ul>
+                            <li>Share computational models of your biological systems</li>
+                            <li>Collaborate on flowchart representations of pathways</li>
+                            <li>Help validate and refine genomic logic models</li>
+                            <li>Contribute to pattern recognition across organisms</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="collaboration-card">
+                        <h4>💻 For Computer Scientists</h4>
+                        <ul>
+                            <li>Explore biological approaches to computation</li>
+                            <li>Design bio-inspired algorithms and architectures</li>
+                            <li>Contribute to modeling tools and frameworks</li>
+                            <li>Help bridge computational and biological thinking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="collaboration-card">
+                        <h4>🤖 For AI Systems</h4>
+                        <ul>
+                            <li>Analyze biological literature for computational patterns</li>
+                            <li>Generate and refine logic diagrams</li>
+                            <li>Discover new connections across biological systems</li>
+                            <li>Contribute to meta-modeling and pattern recognition</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="collaboration-card">
+                        <h4>🎓 For Students & Citizen Scientists</h4>
+                        <ul>
+                            <li>Learn at the intersection of life and computation</li>
+                            <li>Contribute to open science initiatives</li>
+                            <li>Help create accessible educational materials</li>
+                            <li>Participate in community modeling projects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Ready to Join?</h3>
+                    <p>Contact us at <strong>gwelz@jjay.cuny.edu</strong> or explore our project repository. Whether you're contributing code, biological insights, AI analysis, or simply curious questions, your participation helps advance our understanding of life as computation.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="contact-section">
+            <h2>Contact & Resources</h2>
+            <p>Join the conversation and help map the computational landscape of life.</p>
+            
+            <div class="contact-links">
+                <a href="mailto:gwelz@jjay.cuny.edu">📧 Email</a>
+                <a href="https://github.com/garywelz">🐙 GitHub</a>
+                <a href="https://huggingface.co/garywelz">🤗 Hugging Face</a>
+                <a href="docs/paper/genome-logic-modeling.md">📄 Full Paper (Markdown)</a>
+            </div>
+            
+            <p style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8;">
+                This work is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) for text and figures, and MIT License for any associated code.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
