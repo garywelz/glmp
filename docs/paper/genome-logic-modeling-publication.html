@@ -82,6 +82,21 @@
             line-height: 1.4;
         }
         
+        .figure-image {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .figure-image.large {
+            max-width: 80%;
+            max-height: 600px;
+        }
+        
+        .figure-image.very-large {
+            max-width: 70%;
+            max-height: 500px;
+        }
+        
         p {
             text-align: justify;
             margin-bottom: 15px;
@@ -134,26 +149,75 @@
 
     <h3>2.1 Early Visualizations of Biological Logic</h3>
     <p>The visualization of biological logic began with Gregor Mendel in the 19th century. Though his work predates formal computational thinking, Mendel's charts—showing ratios of inherited traits—used symbolic logic to track biological outcomes. Later, chromosome theory and operon models introduced control diagrams that represented genetic regulatory mechanisms.</p>
+    
+    <h4>2.1.1 Mendel's Punnett Square and Computational Logic</h4>
+    <p>The Punnett square, named after British geneticist Reginald Punnett (1875-1967), represents one of the earliest systematic approaches to modeling genetic inheritance as a computational process. Punnett, a collaborator of William Bateson who coined the term "genetics," developed this visualization method to predict the outcomes of genetic crosses. The square format provides a systematic way to compute all possible combinations of parental alleles, making it one of the first "genetic algorithms" in computational biology.</p>
+    
+    <p>The Punnett square in Figure 1 demonstrates a monohybrid cross between two heterozygous parents (Aa × Aa). Each cell in the 2×2 grid represents a possible genotype outcome, with the probability of each outcome determined by the rules of Mendelian inheritance. This systematic enumeration of possibilities mirrors the truth table approach used in digital logic design, where all possible input combinations are explicitly listed to determine output states.</p>
+    
+    <p>The computational logic underlying the Punnett square can be expressed through Boolean operations. Consider a simple genetic system where allele A is dominant and allele a is recessive. The phenotypic expression follows these logical rules:</p>
+    
+    <p><strong>Dominance Logic (OR operation):</strong><br>
+    Phenotype = A OR A = Dominant trait<br>
+    This follows the logical rule: if either allele is A, the dominant phenotype is expressed.</p>
+    
+    <p><strong>Recessive Logic (AND operation):</strong><br>
+    Phenotype = a AND a = Recessive trait<br>
+    This follows the logical rule: only if both alleles are a is the recessive phenotype expressed.</p>
+    
+    <p>The Punnett square can be extended to more complex genetic systems. For example, a dihybrid cross (AaBb × AaBb) creates a 4×4 grid with 16 possible combinations, demonstrating how genetic complexity scales exponentially with the number of genes involved. This combinatorial explosion is a fundamental characteristic of genetic computation that distinguishes it from simple linear processes.</p>
+    
+    <p>The logical structure of Mendelian inheritance can be formalized using truth tables, similar to those used in digital circuit design:</p>
+    
+    <p><strong>Truth Table for Dominant/Recessive Inheritance:</strong></p>
+    <table border="1" style="border-collapse: collapse; margin: 20px 0;">
+        <tr><th>Allele 1</th><th>Allele 2</th><th>Genotype</th><th>Phenotype</th><th>Logic</th></tr>
+        <tr><td>A</td><td>A</td><td>AA</td><td>Dominant</td><td>1 OR 1 = 1</td></tr>
+        <tr><td>A</td><td>a</td><td>Aa</td><td>Dominant</td><td>1 OR 0 = 1</td></tr>
+        <tr><td>a</td><td>A</td><td>aA</td><td>Dominant</td><td>0 OR 1 = 1</td></tr>
+        <tr><td>a</td><td>a</td><td>aa</td><td>Recessive</td><td>0 AND 0 = 0</td></tr>
+    </table>
+    
+    <p>This truth table approach reveals that genetic inheritance operates through fundamental logical operations: OR for dominance (presence of dominant allele) and AND for recessiveness (absence of dominant alleles). These same logical operations form the basis of digital computation, establishing a direct parallel between genetic and computational logic.</p>
+    
+    <p>The Punnett square method demonstrates several key principles of genetic computation: (1) systematic enumeration of possibilities, (2) probabilistic outcomes based on combinatorial rules, (3) hierarchical organization of genetic information, and (4) the ability to predict complex outcomes from simple rules. These principles would later be formalized in computational genetics and serve as the foundation for modern genetic algorithms and evolutionary computation.</p>
 
     <div class="figure-container">
         <img src="figures/historical/punnett_square.svg" alt="Mendel's Punnett Square" style="max-width: 100%; height: auto;">
-        <div class="figure-caption">Figure 2: Mendel's Punnett Square</div>
+        <div class="figure-caption">Figure 1: Mendel's Punnett Square (1866)</div>
         <div class="figure-description">
-            Gregor Mendel's Punnett square illustrating the 3:1 phenotypic ratio in monohybrid crosses. 
-            This simple grid laid the groundwork for visualizing inheritance as predictable combinations—an early form of "genetic logic."
+            Punnett square showing a monohybrid cross (Aa × Aa) with the resulting 3:1 phenotypic ratio. 
+            Each cell represents a possible genotype outcome demonstrating Mendelian inheritance patterns. 
+            Source: Wikipedia Commons.
         </div>
     </div>
 
     <h3>2.2 The Development of Computational Metaphors</h3>
-    <p>In the 1960s, François Jacob and Jacques Monod's lac operon model introduced a logic gate–like system for regulating gene expression, paving the way for computational thinking in molecular biology. This early model showed how gene expression could be controlled through what resembled conditional logic.</p>
+    <p>The transition from Mendelian genetics to molecular biology in the mid-20th century marked a crucial evolution in computational thinking about biological systems. This period saw the emergence of sophisticated models that explicitly treated genetic regulation as a computational process, moving beyond simple inheritance patterns to complex regulatory networks.</p>
+    
+    <h4>2.2.1 The Lac Operon: A Biological Logic Circuit</h4>
+    <p>In the 1960s, François Jacob and Jacques Monod's lac operon model introduced a logic gate–like system for regulating gene expression, paving the way for computational thinking in molecular biology. This revolutionary model showed how gene expression could be controlled through what resembled conditional logic, establishing the foundation for understanding genetic regulation as a computational process.</p>
+    
+    <p>Jacob and Monod's work on the lac operon in Escherichia coli revealed a sophisticated regulatory system that operates through logical principles. The operon consists of three structural genes (lacZ, lacY, lacA) that are coordinately regulated by a single promoter and operator region. The system responds to two environmental inputs: the presence of lactose (the substrate) and the absence of glucose (the preferred energy source).</p>
+    
+    <p>The computational logic of the lac operon can be expressed as a Boolean function:</p>
+    <p><strong>Lac Operon Logic:</strong><br>
+    Expression = (Lactose present) AND (Glucose absent)<br>
+    This logical function determines whether the operon is transcribed and the enzymes are produced.</p>
+    
+    <p>The regulatory mechanism involves two key proteins: the lac repressor (encoded by lacI) and the catabolite activator protein (CAP). The lac repressor acts as a NOT gate—it binds to the operator and prevents transcription unless lactose is present. CAP acts as an AND gate—it enhances transcription only when glucose is absent. Together, these regulatory proteins implement a complex logical circuit that integrates multiple environmental signals.</p>
+    
+    <p>The lac operon model demonstrated several key principles of biological computation: (1) the use of regulatory proteins as logic gates, (2) the integration of multiple inputs through logical operations, (3) the ability to respond to environmental conditions through conditional logic, and (4) the coordination of multiple genes through shared regulatory elements. These principles would later be formalized in computational models of gene regulatory networks and serve as the foundation for synthetic biology.</p>
+    
+    <p>Jacob and Monod's work earned them the Nobel Prize in Physiology or Medicine in 1965, recognizing the profound implications of their discovery for understanding how genetic information is processed and regulated. Their model established the conceptual framework for viewing genetic regulation as a computational process, influencing generations of researchers in molecular biology and computational biology.</p>
 
     <div class="figure-container">
         <img src="figures/historical/lac_operon.svg" alt="Lac Operon Model" style="max-width: 100%; height: auto;">
-        <div class="figure-caption">Figure 3: Jacob & Monod's Lac Operon Model (1961)</div>
+        <div class="figure-caption">Figure 2: Jacob & Monod's Lac Operon Model (1961)</div>
         <div class="figure-description">
-            The lac operon model introduced logic gate–like systems for regulating gene expression, 
-            showing how gene expression could be controlled through conditional logic. This model 
-            paved the way for computational thinking in molecular biology.
+            Schematic representation of the lac operon regulatory system showing the interaction between 
+            regulatory proteins (lac repressor and CAP) and DNA elements (operator and promoter). 
+            The diagram illustrates the logical circuit structure of genetic regulation. Source: Jacob & Monod (1961).
         </div>
     </div>
 
@@ -167,13 +231,12 @@
 
     <div class="figure-container">
         <img src="figures/historical/b-galchart2.gif" alt="β-Galactosidase Regulation Flowchart (1995)" style="max-width: 100%; height: auto;">
-        <div class="figure-caption">Figure 1: β-Galactosidase Regulation Flowchart (1995)</div>
+        <div class="figure-caption">Figure 3: β-Galactosidase Regulation Flowchart (1995)</div>
         <div class="figure-description">
-            The author's original computational flowchart representing the lac operon as a decision-tree program. 
-            Decision diamonds represent conditional logic (lactose and glucose presence), rectangles represent 
-            biological processes, and feedback loops show regulatory mechanisms. This diagram was among the first to 
-            explicitly model gene regulation using programming logic constructs, demonstrating how genetic circuits 
-            could be understood through computational metaphors.
+            The author's original 1995 computational flowchart representing the lac operon as a decision-tree program. 
+            Decision diamonds show conditional logic, rectangles show biological processes, and feedback loops 
+            show regulatory mechanisms. This was among the first attempts to model genetic regulation using 
+            computational constructs.
         </div>
     </div>
 
@@ -181,31 +244,53 @@
 
     <p>The article was featured on a bioinformatics resource list curated by Professor Inge Jonassen at the University of Bergen, where it appeared alongside foundational references like PubMed, In Silico Biology, and DNA Computers.</p>
 
+    <h4>2.4.1 Flowchart Examples in Computational Biology</h4>
+    <p>The use of flowcharts to represent biological processes has become increasingly sophisticated in modern computational biology. Contemporary flowcharts often integrate multiple data types, computational algorithms, and biological processes into unified visual representations. These modern flowcharts serve as computational roadmaps, guiding researchers through complex analytical pipelines and decision-making processes.</p>
+    
+    <p>Modern biological flowcharts typically include several key elements: (1) data input nodes representing experimental or computational data sources, (2) processing nodes showing analytical algorithms or computational methods, (3) decision points representing conditional logic based on statistical thresholds or biological criteria, (4) output nodes displaying results or predictions, and (5) feedback loops showing iterative refinement processes. This structure mirrors the computational architecture of modern bioinformatics pipelines.</p>
+    
+    <p>The flowchart in Figure 3.1 demonstrates a fascinating example of how biological metaphors have been adopted in computer science. This figure, from a network security paper (Al-Haija et al., 2014), shows a genetic algorithm flowchart that uses biological terminology—"thrive," "extinct," "mutate"—to describe computational processes for intrusion detection. This illustrates the profound influence of biological thinking on computational approaches, even in domains far removed from biology itself.</p>
+    
+    <p>The use of biological metaphors in this network security application is particularly revealing. The algorithm treats potential security threats as a "population" that can "thrive" (successful attacks), "go extinct" (failed attacks), or "mutate" (evolve new attack strategies). This demonstrates how the genome-as-program metaphor has influenced computational thinking across multiple disciplines, creating a shared language between biological and computational systems.</p>
+    
+    <p>This example shows that the computational principles underlying biological systems—population dynamics, selection pressure, adaptation, and evolution—have become fundamental tools in computer science. The fact that network security researchers chose biological terminology to describe their algorithms underscores the intuitive appeal and explanatory power of biological metaphors in computational contexts.</p>
+    
+    <div class="figure-container">
+        <img src="figures/modern/Flow-chart-of-genetic-algorithm_W640.jpg" alt="Modern Genetic Algorithm Flowchart" class="figure-image">
+        <div class="figure-caption">Figure 3.1: Modern Genetic Algorithm Flowchart</div>
+        <div class="figure-description">
+            Contemporary flowchart showing the integration of genetic algorithms with artificial neural networks 
+            for computational biology applications. This example demonstrates modern computational approaches 
+            to biological problem-solving. Source: Al-Haija et al. (2014) - Used Genetic Algorithm for Support 
+            Artificial Neural Network in Intrusion Detection System.
+        </div>
+    </div>
+
     <h3>2.5 Modern Visualization Systems</h3>
     <p>Since then, influential graphical systems have emerged for representing genomic data and processes: Martin Krzywinski's Circos (2009), Höhna's probabilistic phylogenetic networks (2014), Koutrouli's network visualizations (2020), and O'Donoghue's reviews (2018). These systems have grappled with the challenge of representing the multi-dimensional and massively parallel nature of genomic processes.</p>
     
     <div class="figure-container">
-        <img src="figures/modern/circos_2009.png" alt="Circos Genome Visualization (2009)" class="figure-image">
+        <img src="figures/modern/circos_kryswinski_2009.jpg" alt="Circos Genome Visualization (2009)" class="figure-image">
         <div class="figure-caption">Figure 3: Circos Genome Visualization (2009)</div>
-        <div class="figure-description">Martin Krzywinski's circular layout for comparative genomics, showing complex genomic relationships in a circular format that can represent multiple data types simultaneously.</div>
+        <div class="figure-description">Martin Krzywinski's authentic Circos plot showing chromosomes with mismatched syntenic links, demonstrating the circular layout for comparative genomics and structural variations. This innovative visualization technique represents a breakthrough in genomic data representation, using circular layouts to display complex multi-dimensional relationships between genomic regions. The Circos plot shows how different chromosomes (represented as segments around the circle) are connected by syntenic links (curved ribbons), revealing evolutionary relationships and structural variations. This visualization approach addresses the challenge of representing massive amounts of genomic data in an intuitive format, allowing researchers to identify patterns and relationships that would be impossible to see in linear representations. The circular layout enables the display of multiple data types simultaneously, making it an essential tool for modern comparative genomics and evolutionary studies. Source: Krzywinski et al. (2009).</div>
     </div>
     
     <div class="figure-container">
-        <img src="figures/modern/hohna_2014.png" alt="Probabilistic Phylogenetic Networks (2014)" class="figure-image">
+        <img src="figures/modern/hohna_2014.jpg" alt="Probabilistic Phylogenetic Networks (2014)" class="figure-image">
         <div class="figure-caption">Figure 4: Probabilistic Phylogenetic Networks (2014)</div>
-        <div class="figure-description">Höhna et al.'s probabilistic graphical models showing evolutionary relationships with uncertainty bands, demonstrating how modern visualization systems handle biological complexity.</div>
+        <div class="figure-description">Höhna et al.'s authentic probabilistic graphical models showing evolutionary relationships with uncertainty bands, demonstrating how modern visualization systems handle biological complexity. This sophisticated visualization represents a significant advancement in phylogenetic analysis, incorporating uncertainty and probabilistic relationships into evolutionary tree representations. The model shows how modern computational approaches can handle the inherent uncertainty in biological data, using probabilistic frameworks to represent evolutionary relationships rather than deterministic trees. This approach acknowledges that biological processes are inherently stochastic and that our understanding of evolutionary relationships contains uncertainty. The visualization demonstrates how computational methods can represent complex biological relationships in ways that traditional deterministic models cannot, providing more realistic and nuanced representations of evolutionary processes. This probabilistic approach has become essential for modern evolutionary biology and demonstrates how computational thinking has evolved to handle biological complexity. Source: Höhna et al. (2014).</div>
     </div>
     
     <div class="figure-container">
-        <img src="figures/modern/koutrouli_2020.png" alt="Biological Network Visualization (2020)" class="figure-image">
+        <img src="figures/modern/koutrouli_network.webp" alt="Biological Network Visualization (2020)" class="figure-image">
         <div class="figure-caption">Figure 5: Biological Network Visualization (2020)</div>
-        <div class="figure-description">Koutrouli et al.'s gene interaction networks showing regulatory relationships and pathways, illustrating the network-based approach to biological visualization.</div>
+        <div class="figure-description">Koutrouli et al.'s authentic biological network visualization showing gene interaction networks and regulatory relationships, illustrating the network-based approach to biological visualization using graph theory. This sophisticated network representation demonstrates how modern computational biology uses graph theory to model complex biological systems. The visualization shows genes as nodes and their interactions as edges, revealing the intricate web of regulatory relationships that govern cellular processes. This network-based approach represents a fundamental shift from linear, sequential thinking to systems-level understanding of biological complexity. The graph structure allows researchers to identify hubs, modules, and emergent properties that would be invisible in traditional linear representations. This approach acknowledges that biological systems are inherently networked and that understanding requires analysis of the entire system rather than individual components. The visualization demonstrates how computational methods can represent the complexity of biological networks in ways that traditional diagrams cannot, providing insights into system-level properties and emergent behaviors. Source: Koutrouli et al. (2020).</div>
     </div>
     
     <div class="figure-container">
         <img src="figures/modern/odonoghue_2018.png" alt="Biomedical Data Visualization (2018)" class="figure-image">
         <div class="figure-caption">Figure 6: Biomedical Data Visualization (2018)</div>
-        <div class="figure-description">O'Donoghue et al.'s multi-dimensional biomedical data showing gene expression patterns, demonstrating heatmap-based approaches to biological data representation.</div>
+        <div class="figure-description">O'Donoghue et al.'s multi-dimensional biomedical data showing gene expression patterns, demonstrating heatmap-based approaches to biological data representation. This sophisticated visualization technique represents a crucial advancement in handling the massive datasets generated by modern genomics. The heatmap format allows researchers to visualize complex multi-dimensional data in an intuitive color-coded format, where each cell represents the expression level of a gene under specific conditions. This approach enables the identification of expression patterns, clustering of genes with similar expression profiles, and the discovery of regulatory relationships across multiple conditions. The visualization demonstrates how computational methods can transform raw numerical data into meaningful biological insights, revealing patterns that would be impossible to detect through manual analysis. This approach has become essential for modern genomics, transcriptomics, and systems biology, enabling researchers to handle the complexity and scale of contemporary biological datasets. The heatmap represents a bridge between raw data and biological understanding, demonstrating how computational visualization can reveal the logic embedded in biological systems.</div>
     </div>
 
     <h2>3. The Genome as a Mass Storage Device</h2>
@@ -237,35 +322,104 @@
     <p>These resemble constructs such as IF-THEN, WHILE, SWITCH-CASE, and HALT in conventional computation.</p>
 
     <h3>4.2 Chemical Reactions as Computational Operations</h3>
-    <p>At the molecular level, chemical reactions function as the basic operational units of genomic computation:</p>
-    <p>Enzyme-substrate interactions act as logic gates; concentration thresholds create decision points; feedback loops implement iterative processing; signal amplification cascades resemble computational scaling.</p>
+    <p>At the molecular level, chemical reactions function as the basic operational units of genomic computation. These reactions operate through principles that can be understood as computational processes, though they differ fundamentally from digital computation in their analog, probabilistic nature.</p>
+    
+    <p><strong>Enzyme-Substrate Interactions as Logic Gates</strong>: Enzymes function as molecular logic gates, where the presence of specific substrates triggers catalytic reactions. These interactions follow Michaelis-Menten kinetics, creating sigmoidal response curves that resemble threshold logic functions. The enzyme's specificity for its substrate acts as a recognition mechanism, similar to how a logic gate responds only to specific input combinations.</p>
+    
+    <p><strong>Concentration Thresholds as Decision Points</strong>: Biological systems use concentration gradients and threshold mechanisms to make decisions. For example, the lac operon's response to lactose depends on the concentration of allolactose exceeding a critical threshold. These thresholds create binary-like decision points in otherwise continuous systems, enabling discrete logic-like behavior from analog chemical processes.</p>
+    
+    <p><strong>Feedback Loops as Iterative Processing</strong>: Biochemical feedback mechanisms implement iterative computational processes. Positive feedback creates amplification cascades (similar to computational scaling), while negative feedback provides stability and regulation. These loops can create oscillatory behavior, bistable switches, and other complex dynamics that resemble computational algorithms for pattern generation and control.</p>
+    
+    <p><strong>Signal Amplification as Computational Scaling</strong>: Biological systems use cascading reactions to amplify weak signals, similar to how computational systems use amplifiers and buffers. The phosphorylation cascade in signal transduction pathways, for example, can amplify a single extracellular signal into thousands of intracellular responses, demonstrating how biological systems achieve computational scaling through chemical mechanisms.</p>
+    
+    <p><strong>Stochastic Processes as Probabilistic Computation</strong>: Unlike deterministic digital computation, biological reactions are inherently stochastic. This probabilistic nature creates computational properties not found in conventional computing, including noise tolerance, adaptive responses, and emergent behaviors that arise from the statistical properties of molecular interactions.</p>
 
     <h2>5. Massive Parallelism: Beyond Sequential Computing</h2>
     <p>Perhaps the most profound difference between genomic and conventional computation lies in the scale and nature of parallelism involved.</p>
 
     <h3>5.1 Unprecedented Scale of Parallel Processing</h3>
     <p>As Robbins calculated in 1995, "The expression of the human genome involves the simultaneous expression and (potential) interaction of something probably in excess of 10^18 parallel processes." This number derives from approximately 10^13 cells in the human body, each running 10^5-10^6 processes in parallel, with potential interactions between any processes in any cells.</p>
+    
+    <p>This scale of parallelism is fundamentally different from any human-engineered computing system. To put this in perspective, the world's most powerful supercomputers operate with approximately 10^6-10^7 processing cores, while the human body operates with 10^18 parallel processes. This represents a difference of 11-12 orders of magnitude, making biological computation the most massively parallel system known to exist.</p>
+    
+    <p>The implications of this scale are profound. Each cell in the human body is simultaneously executing thousands of biochemical reactions, processing environmental signals, maintaining homeostasis, and coordinating with neighboring cells. These processes are not merely concurrent but truly parallel, with each reaction occurring independently and simultaneously. The coordination between these processes emerges from the physical and chemical properties of the system rather than from centralized control mechanisms.</p>
+    
+    <p>This massive parallelism enables biological systems to achieve computational capabilities that are impossible with sequential or even moderately parallel systems. For example, the immune system can simultaneously monitor for thousands of different pathogens, the nervous system can process multiple sensory inputs in real-time, and the metabolic system can maintain homeostasis across multiple organ systems simultaneously. These capabilities arise not from sophisticated algorithms but from the sheer scale of parallel processing available in biological systems.</p>
 
     <h3>5.2 True Parallelism vs. Time-Sharing</h3>
     <p>Unlike computer "parallel processing" that often involves time-sharing a smaller number of processors, genomic parallelism involves true simultaneous execution: "each single cell has millions of programs executing in a truly parallel (i.e., independent execution, no time sharing) mode."</p>
+    
+    <p>This distinction between true parallelism and time-sharing is crucial for understanding biological computation. In conventional computing, "parallel" systems typically use time-sharing, where a limited number of processors rapidly switch between different tasks, creating the illusion of simultaneous execution. Even modern multi-core processors use sophisticated scheduling algorithms to manage task allocation and context switching.</p>
+    
+    <p>In contrast, biological systems achieve true parallelism through physical separation and chemical independence. Each molecule in a cell can react independently and simultaneously with other molecules, without requiring any scheduling or coordination mechanism. This independence arises from the fundamental properties of chemical reactions—each reaction occurs based on local conditions and molecular interactions, not on system-wide scheduling decisions.</p>
+    
+    <p>This true parallelism has profound implications for system design and behavior. In time-shared systems, bottlenecks can occur when multiple processes compete for limited resources. In biological systems, such bottlenecks are rare because each process operates independently with its own local resources. This independence also means that biological systems are inherently fault-tolerant—the failure of one process does not necessarily affect others, and the system can continue operating even with significant component failures.</p>
+    
+    <p>The absence of centralized control in biological systems is both a strength and a challenge. On one hand, it eliminates single points of failure and enables robust, adaptive behavior. On the other hand, it makes biological systems difficult to understand and predict, as their behavior emerges from the collective interactions of countless independent processes rather than from explicit algorithms or control structures.</p>
 
     <h3>5.3 The Developmental Bootloader</h3>
     <p>Development begins with a specialized "bootloader" sequence that activates the zygotic genome after fertilization. This process transitions from maternal to zygotic control, initiates cascades of gene expression in precise sequence, establishes the initial conditions for all subsequent development, and creates a developmental trajectory with remarkable robustness.</p>
+    
+    <p>The zygotic genome activation (ZGA) represents one of the most critical computational events in development. During early development, the embryo relies on maternal RNA and proteins deposited in the egg, but at a specific developmental stage, the zygotic genome "boots up" and begins transcribing its own genes. This transition is analogous to a computer bootloader that initializes the operating system, establishing the basic computational environment for all subsequent operations.</p>
+    
+    <p>The bootloader process involves several computational elements that mirror those found in computer systems. First, there is a precise timing mechanism that determines when ZGA occurs—this timing is critical and must be coordinated with other developmental events. Second, there is a hierarchical activation sequence, where certain genes (often called "pioneer" genes) must be activated first to establish the conditions for subsequent gene expression. Third, there are feedback mechanisms that ensure the bootloader process is robust and can recover from errors or perturbations.</p>
+    
+    <p>This bootloader analogy extends beyond the initial activation. Throughout development, there are multiple "reboot" events where cells transition between different developmental states. For example, during cellular differentiation, cells undergo transcriptional reprogramming that resembles a system reboot, where the cell's computational state is reset and a new program begins executing. These transitions are often triggered by specific signals or environmental conditions, similar to how computer systems can be configured to boot different operating systems based on user input or system state.</p>
+    
+    <p>The robustness of the developmental bootloader is remarkable. Despite variations in environmental conditions, genetic background, and random molecular noise, development proceeds with remarkable consistency. This robustness suggests that the bootloader process has evolved sophisticated error-checking and recovery mechanisms, similar to those found in reliable computer systems. The ability to maintain developmental integrity despite perturbations is essential for the survival and reproduction of organisms, making the bootloader one of the most critical computational systems in biology.</p>
 
     <h3>5.4 Emergent Properties from Massive Parallelism</h3>
     <p>This unprecedented parallelism enables emergent properties not found in sequential computing: robust error correction through redundant processes, self-organization without central control, pattern formation through reaction-diffusion dynamics, and adaptation to changing conditions without explicit programming.</p>
+    
+    <p><strong>Robust Error Correction Through Redundancy</strong>: Biological systems achieve remarkable reliability through massive redundancy rather than through precise error-free operation. Each cell contains multiple copies of critical genes, and many cellular processes have backup mechanisms that can compensate for failures. This redundancy is made possible by the massive parallelism of biological systems—if one process fails, others can take over without affecting overall system function. This approach to error correction is fundamentally different from conventional computing, where reliability is typically achieved through precise design and error detection rather than through redundancy.</p>
+    
+    <p><strong>Self-Organization Without Central Control</strong>: The massive parallelism of biological systems enables self-organization, where complex patterns and behaviors emerge from the collective interactions of many simple components. This self-organization occurs without any central controller or coordinator—each component follows simple local rules, and the overall system behavior emerges from their collective interactions. Examples include the formation of cellular patterns during development, the synchronization of circadian rhythms across multiple cells, and the coordination of immune responses across the body. This emergent behavior is a direct consequence of the massive parallelism and local interactions that characterize biological systems.</p>
+    
+    <p><strong>Pattern Formation Through Reaction-Diffusion Dynamics</strong>: The parallel nature of biological systems enables complex pattern formation through reaction-diffusion mechanisms. These patterns emerge from the interaction between chemical reactions (which create and destroy molecules) and diffusion (which spreads molecules through space). The classic example is Alan Turing's model of animal coat patterns, where simple chemical reactions occurring in parallel across a developing embryo create complex spatial patterns. These patterns emerge spontaneously from the parallel execution of simple chemical rules, demonstrating how massive parallelism can create complex, organized structures without explicit programming.</p>
+    
+    <p><strong>Adaptation Without Explicit Programming</strong>: Biological systems can adapt to changing conditions without any explicit programming for those conditions. This adaptation occurs through the parallel operation of many different processes, each responding to local conditions. When environmental conditions change, some processes may be enhanced while others are suppressed, leading to an overall adaptation of the system. This adaptive behavior emerges from the collective response of many parallel processes rather than from explicit algorithms for adaptation. The ability to adapt to novel conditions without explicit programming is one of the most remarkable properties of biological systems and is a direct consequence of their massive parallelism.</p>
+    
+    <p><strong>Collective Intelligence Through Distributed Processing</strong>: The massive parallelism of biological systems enables forms of collective intelligence that are impossible in sequential systems. For example, the immune system can simultaneously monitor for thousands of different pathogens, learn from encounters with new pathogens, and mount appropriate responses. This collective intelligence emerges from the parallel operation of many different cell types, each contributing specialized knowledge and capabilities to the overall system. The intelligence of the system as a whole exceeds the capabilities of any individual component, demonstrating how massive parallelism can create emergent computational capabilities.</p>
 
     <h2>6. The Cell as a Virtual Machine</h2>
     <p>One of Robbins' most profound insights was that genomic programs execute on virtual machines defined by other genomic programs.</p>
 
     <h3>6.1 Self-Defining Execution Environment</h3>
     <p>"Genome programs execute on a virtual machine that is defined by some of the genomic programs that are executing. Thus, in trying to understand the genome, we are trying to reverse engineer binaries for an unknown CPU, in fact for a virtual CPU whose properties are encoded in the binaries we are trying to reverse engineer."</p>
+    
+    <p>This insight reveals one of the most profound challenges in understanding biological computation. Unlike conventional computing, where the hardware (CPU, memory, etc.) is designed independently of the software that runs on it, in biological systems the "hardware" and "software" are co-evolved and mutually dependent. The cellular machinery that interprets the genome (the virtual machine) is itself encoded in the genome, creating a circular dependency that makes biological systems fundamentally different from engineered computing systems.</p>
+    
+    <p>This self-defining nature has several important implications. First, it means that biological systems are inherently self-modifying—the programs can change the machine that executes them. This capability enables biological systems to adapt and evolve in ways that are impossible for conventional computers. For example, during development, cells can change their transcriptional machinery, modify their chromatin structure, and alter their metabolic networks, effectively reprogramming the virtual machine on which they run.</p>
+    
+    <p>Second, this self-defining nature creates a fundamental challenge for reverse engineering. In conventional computing, we can understand a program by understanding the hardware it runs on. In biological systems, we must simultaneously understand both the program (the genome) and the machine (the cellular machinery), even though each depends on the other. This circular dependency makes biological systems much more difficult to understand and model than conventional computing systems.</p>
+    
+    <p>Third, this self-defining nature enables biological systems to achieve levels of integration and optimization that are impossible in conventional computing. Because the hardware and software co-evolved, they are perfectly matched to each other, enabling biological systems to achieve remarkable efficiency and robustness. This integration also means that biological systems can adapt to new challenges by modifying both their programs and their execution environment simultaneously.</p>
 
     <h3>6.2 Probabilistic Op Codes</h3>
     <p>Unlike the deterministic operations of conventional computers, "genomic op codes are probabilistic, rather than deterministic. That is, when control hits a particular op code, there is a certain probability that a certain action will occur."</p>
+    
+    <p>This probabilistic nature of biological computation is fundamental to understanding how biological systems operate. Every biochemical reaction, every gene expression event, and every cellular process has an inherent element of randomness. This randomness is not a defect or limitation but a fundamental feature of biological computation that enables unique capabilities not found in deterministic systems.</p>
+    
+    <p>The probabilistic nature of biological operations arises from several sources. First, molecular interactions are inherently stochastic due to thermal motion and the random collision of molecules. Second, the binding of transcription factors to DNA, the initiation of transcription, and the translation of mRNA all involve probabilistic events. Third, the cellular environment is constantly changing, creating uncertainty about the conditions under which operations will occur.</p>
+    
+    <p>This probabilistic nature has profound implications for biological computation. It means that biological systems must be robust to noise and uncertainty, and that they can exploit randomness to achieve behaviors that would be impossible in deterministic systems. For example, probabilistic gene expression can enable cells to explore different states and adapt to changing conditions, while deterministic systems would be locked into fixed behaviors.</p>
+    
+    <p>The probabilistic nature of biological computation also enables forms of learning and adaptation that are impossible in deterministic systems. By sampling from probability distributions, biological systems can explore different strategies and learn from the outcomes. This probabilistic exploration is essential for evolution, development, and learning, enabling biological systems to discover new solutions to complex problems.</p>
+    
+    <p>However, this probabilistic nature also creates challenges for understanding and predicting biological systems. Unlike deterministic systems, where the same inputs always produce the same outputs, biological systems can produce different outcomes even under identical conditions. This variability makes biological systems more difficult to model and predict, but it also makes them more robust and adaptable than deterministic systems.</p>
 
     <h3>6.3 The Genome as an AI Agent</h3>
     <p>This self-modifying, probabilistic system bears more resemblance to modern AI architectures than to conventional computing: Like neural networks, it operates with weighted probabilities; like reinforcement learning systems, it optimizes toward outcomes; like agent-based systems, it balances multiple objectives; unlike current AI, it developed through natural selection rather than design.</p>
+    
+    <p><strong>Neural Network Parallels</strong>: Biological systems operate through networks of interacting components that process information in parallel, similar to artificial neural networks. In both cases, the behavior of the system emerges from the collective activity of many simple processing units. However, biological networks are more sophisticated than artificial neural networks in several ways. They can modify their own structure and connectivity, they operate with multiple types of signals (chemical, electrical, mechanical), and they can change their computational properties based on context and experience.</p>
+    
+    <p><strong>Reinforcement Learning Analogies</strong>: Biological systems learn through trial and error, optimizing their behavior based on feedback from the environment. This learning process resembles reinforcement learning, where an agent learns to maximize rewards by exploring different actions and observing their consequences. However, biological reinforcement learning is more sophisticated than artificial versions, as it can modify not only its behavior but also its own learning mechanisms and objectives. This meta-learning capability enables biological systems to adapt their learning strategies to different environments and challenges.</p>
+    
+    <p><strong>Multi-Objective Optimization</strong>: Biological systems must balance multiple competing objectives simultaneously, such as growth, reproduction, survival, and energy efficiency. This multi-objective optimization is similar to the challenges faced by AI agents in complex environments. However, biological systems have evolved sophisticated mechanisms for balancing these objectives, including hierarchical control systems, priority-based decision making, and adaptive trade-offs that change based on environmental conditions.</p>
+    
+    <p><strong>Emergent Intelligence</strong>: The intelligence of biological systems emerges from the collective behavior of many simple components, rather than from a centralized control system. This emergent intelligence is similar to the behavior of swarm intelligence systems and multi-agent AI systems. However, biological systems achieve levels of coordination and cooperation that far exceed current artificial multi-agent systems, demonstrating how evolution can discover sophisticated solutions to complex coordination problems.</p>
+    
+    <p><strong>Adaptive Architecture</strong>: Unlike artificial AI systems, which have fixed architectures designed by humans, biological systems can modify their own computational architecture in response to experience and environmental conditions. This adaptive architecture enables biological systems to optimize their computational capabilities for specific tasks and environments, creating specialized processing systems that are perfectly suited to their particular challenges.</p>
 
     <h2>7. Case Studies in Genomic Programming</h2>
     <p>Different organisms demonstrate different "programming paradigms" at the genomic level:</p>
@@ -275,24 +429,66 @@
     <strong>Trigger</strong>: Contact with host cell<br>
     <strong>Computational simplicity</strong>: Limited conditionals, linear execution<br>
     <strong>Optimization</strong>: Maximum efficiency in minimal code</p>
+    
+    <p>Viruses represent the most minimal form of biological computation, with genomes that are optimized for maximum efficiency in minimal code. The viral "program" is essentially a bootloader that hijacks the host cell's computational machinery to reproduce itself. This minimalism makes viruses excellent models for understanding the fundamental principles of biological computation, as they demonstrate how complex behaviors can emerge from simple, linear programs.</p>
+    
+    <p>The viral life cycle follows a simple linear sequence: attachment to a host cell, entry into the cell, replication of viral components, assembly of new virus particles, and release from the cell. This linear execution is similar to a simple computer program with minimal branching and no complex control structures. However, even this simple program must handle multiple contingencies, such as different types of host cells, varying environmental conditions, and host immune responses.</p>
+    
+    <p>The computational efficiency of viruses is remarkable. Some viruses can encode their entire program in fewer than 10,000 nucleotides, yet they can successfully infect, replicate, and spread through host populations. This efficiency is achieved through several strategies: overlapping genes that encode multiple proteins, regulatory sequences that serve multiple functions, and the exploitation of host cell machinery for most computational tasks. This minimalism demonstrates how biological systems can achieve complex outcomes through the efficient use of limited computational resources.</p>
+    
+    <p>However, this minimalism also creates vulnerabilities. Viruses have limited ability to adapt to changing conditions, and they are highly dependent on their host cells for most computational functions. This dependence makes viruses excellent models for understanding the trade-offs between computational efficiency and robustness, as well as the relationship between program complexity and adaptability.</p>
 
     <h3>7.2 Unicellular Organisms: Autonomous Agents</h3>
     <p><strong>Program</strong>: Eat → Grow → Divide<br>
     <strong>Loop structure</strong>: WHILE food_present DO grow<br>
     <strong>Event triggers</strong>: Mitosis on threshold conditions<br>
     <strong>State-based logic</strong>: Different metabolic states based on environmental conditions</p>
+    
+    <p>Unicellular organisms represent a more sophisticated form of biological computation, with programs that must balance multiple objectives while operating autonomously in complex environments. Unlike viruses, which are essentially parasites that hijack host machinery, unicellular organisms must implement their own computational infrastructure while also performing the basic functions of life: metabolism, growth, reproduction, and response to environmental changes.</p>
+    
+    <p>The computational architecture of unicellular organisms is based on state machines that can transition between different metabolic states based on environmental conditions. For example, bacteria can switch between aerobic and anaerobic metabolism, between different carbon sources, and between growth and survival modes. These state transitions are triggered by environmental signals and are implemented through complex regulatory networks that integrate multiple inputs to make decisions about cellular behavior.</p>
+    
+    <p>The cell cycle represents a fundamental computational loop that drives cellular behavior. This loop includes phases for growth, DNA replication, and cell division, with checkpoints that ensure each phase is completed correctly before proceeding to the next. These checkpoints implement error detection and correction mechanisms that are essential for maintaining genomic integrity. The cell cycle demonstrates how biological systems can implement complex control structures using simple molecular mechanisms.</p>
+    
+    <p>Unicellular organisms also demonstrate sophisticated signal processing capabilities. They can detect and respond to multiple environmental signals simultaneously, integrating information about nutrient availability, temperature, pH, and the presence of other organisms. This signal integration enables cells to make complex decisions about their behavior, such as whether to grow, divide, form spores, or enter a dormant state. These decision-making processes resemble the control systems used in autonomous robots and other artificial agents.</p>
+    
+    <p>The computational capabilities of unicellular organisms are particularly impressive given their simplicity. A single bacterial cell can implement complex behaviors such as chemotaxis (movement toward or away from chemicals), quorum sensing (communication with other cells), and biofilm formation (cooperative behavior with other cells). These capabilities demonstrate how biological systems can achieve sophisticated computational outcomes through the coordinated action of simple molecular components.</p>
 
     <h3>7.3 Multicellular Organisms: Distributed Systems</h3>
     <p><strong>Subroutines</strong>: Cellular differentiation, immune responses<br>
     <strong>Conditional branches</strong>: Hormone levels, cell signaling<br>
     <strong>Coordinated processes</strong>: Development, aging, reproduction<br>
     <strong>Distributed computation</strong>: Different cells executing different aspects of the overall program</p>
+    
+    <p>Multicellular organisms represent the most complex form of biological computation, with programs that must coordinate the behavior of thousands to trillions of cells while maintaining the integrity and functionality of the entire organism. This coordination requires sophisticated communication systems, hierarchical control structures, and distributed decision-making mechanisms that far exceed the complexity of any artificial distributed system.</p>
+    
+    <p>The computational architecture of multicellular organisms is based on cellular differentiation, where different cells execute different programs while sharing the same genome. This differentiation is controlled by complex regulatory networks that integrate multiple signals to determine cellular fate. The process of differentiation resembles the creation of specialized subroutines in a computer program, where different components perform different functions while working together to achieve overall system goals.</p>
+    
+    <p>Communication between cells is essential for coordinating the behavior of multicellular organisms. This communication occurs through multiple mechanisms, including direct cell-to-cell contact, secreted signaling molecules, and electrical signals in the nervous system. These communication systems enable cells to share information about their state, coordinate their activities, and respond collectively to environmental changes. The complexity of these communication networks rivals that of modern computer networks, with multiple protocols, routing mechanisms, and error correction systems.</p>
+    
+    <p>The immune system represents one of the most sophisticated computational systems in multicellular organisms. It must simultaneously monitor for thousands of different pathogens, learn from encounters with new pathogens, and mount appropriate responses while avoiding attacks on the organism's own cells. This system operates through distributed algorithms that involve multiple cell types, each contributing specialized knowledge and capabilities to the overall immune response. The immune system demonstrates how biological systems can achieve collective intelligence through the coordinated action of many simple components.</p>
+    
+    <p>Development represents another remarkable computational achievement of multicellular organisms. Starting from a single cell, development creates complex three-dimensional structures with precise spatial organization and functional specialization. This process involves the coordinated action of thousands of genes across millions of cells, with precise timing and spatial control. The computational complexity of development is staggering, involving the simultaneous execution of thousands of parallel processes with complex interdependencies and feedback loops.</p>
+    
+    <p>The computational capabilities of multicellular organisms are particularly impressive given the challenges they face. They must maintain homeostasis across multiple organ systems, respond to changing environmental conditions, and coordinate complex behaviors such as movement, feeding, and reproduction. These capabilities demonstrate how biological systems can achieve sophisticated computational outcomes through the coordinated action of many simple components, creating emergent properties that exceed the capabilities of any individual component.</p>
 
     <h3>7.4 Organism Life Cycles as Executable Programs</h3>
     <p>The complete life cycle of an organism can be modeled as a program execution: <strong>Initialization</strong>: Fertilization and early development; <strong>Main function</strong>: Growth and maintenance; <strong>Subroutines</strong>: Reproduction, repair, immune response; <strong>Termination conditions</strong>: Senescence and death.</p>
+    
+    <p>The life cycle of an organism represents a complete computational program that executes from conception to death. This program includes multiple phases, each with its own computational requirements and challenges. The life cycle demonstrates how biological systems can implement complex, long-running programs that must adapt to changing conditions while maintaining system integrity and functionality.</p>
+    
+    <p>The initialization phase begins with fertilization and includes early development, when the organism's basic computational architecture is established. This phase is critical for setting up the conditions that will determine the organism's developmental trajectory and ultimate capabilities. The initialization phase includes the zygotic genome activation discussed earlier, as well as the establishment of basic body plans and organ systems. This phase demonstrates how biological systems can implement complex initialization procedures that set up the computational environment for all subsequent operations.</p>
+    
+    <p>The main function phase encompasses the majority of the organism's life, during which it must maintain homeostasis, respond to environmental changes, and perform the basic functions of life. This phase involves the continuous execution of multiple parallel processes, including metabolism, growth, repair, and response to environmental stimuli. The main function phase demonstrates how biological systems can maintain stable operation over extended periods while adapting to changing conditions and recovering from perturbations.</p>
+    
+    <p>The subroutines phase includes specialized functions that are executed as needed, such as reproduction, immune responses, and repair mechanisms. These subroutines are triggered by specific conditions and can interrupt or modify the execution of the main function. The subroutines phase demonstrates how biological systems can implement modular, reusable computational components that can be activated as needed to handle specific challenges or opportunities.</p>
+    
+    <p>The termination phase includes senescence and death, when the organism's computational systems begin to degrade and eventually cease operation. This phase is important for understanding the limits of biological computation and the mechanisms that control system lifespan. The termination phase demonstrates how biological systems can implement graceful degradation and shutdown procedures that minimize damage to the system and its environment.</p>
+    
+    <p>The life cycle demonstrates several important principles of biological computation. First, it shows how biological systems can implement complex, long-running programs that must adapt to changing conditions. Second, it demonstrates the importance of modular design, where different functions are implemented as separate subroutines that can be activated as needed. Third, it shows how biological systems can maintain system integrity and functionality over extended periods despite constant environmental challenges and internal changes.</p>
 
     <h2>8. Case Study: The β-Galactosidase Flowchart as Genomic Logic</h2>
-    <p>The author's original 1995 flowchart of β-galactosidase regulation in the lac operon (Figure 1) serves as a concrete example of how genomic processes can be represented using computational logic structures. This diagram was among the first to explicitly model gene regulation as a computer program flowchart.</p>
+    <p>The author's original 1995 flowchart of β-galactosidase regulation in the lac operon (Figure 3) serves as a concrete example of how genomic processes can be represented using computational logic structures. This diagram was among the first to explicitly model gene regulation as a computer program flowchart.</p>
 
     <h3>8.1 Computational Elements in the Lac Operon</h3>
     <p>The flowchart demonstrates several key computational concepts:</p>
@@ -325,15 +521,15 @@
     <p>Contemporary approaches to representing genomic computation have attempted to address these limitations through network diagrams showing interaction rather than sequence, heat maps representing multiple states simultaneously, multi-dimensional representations capturing regulatory relationships, and dynamic simulations rather than static diagrams. However, even these advanced visualization systems struggle with the fundamental challenge identified in 1995: representing true parallelism in comprehensible visual formats.</p>
     
     <div class="figure-container">
-        <img src="figures/contemporary/color_vision_2021.png" alt="Color Vision Genetics (2021)" class="figure-image">
-        <div class="figure-caption">Figure 7: Color Vision Genetics (2021)</div>
-        <div class="figure-description">Jacobs & Elmer's genetic basis of color vision differences showing gene variants and phenotypes, demonstrating how modern genetics visualizes complex trait inheritance.</div>
+        <img src="figures/modern/color_vision2023A.jpg" alt="Color Vision Genetics (2023)" class="figure-image">
+        <div class="figure-caption">Figure 7: Color Vision Genetics (2023)</div>
+        <div class="figure-description">Nardone et al.'s genome-wide association study of color vision defects in Silk Road populations, showing modern genetic analysis techniques for complex traits. This sophisticated analysis represents the cutting edge of modern genetic research, demonstrating how computational approaches can identify genetic factors underlying complex phenotypic traits. The study uses genome-wide association analysis to identify genetic variants associated with color vision defects, revealing the complex genetic architecture underlying what appears to be a simple trait. This approach demonstrates how modern computational genetics can handle the complexity of polygenic traits, where multiple genetic variants contribute to phenotypic variation. The visualization shows how computational methods can extract meaningful patterns from massive genomic datasets, revealing the genetic logic underlying biological traits. This represents a significant advancement from Mendel's simple single-gene inheritance to understanding complex genetic interactions and their phenotypic consequences. The study demonstrates how computational approaches can reveal the genetic "programs" that underlie biological traits, even in complex, multi-gene systems. Source: Nardone et al. (2023).</div>
     </div>
     
     <div class="figure-container">
-        <img src="figures/contemporary/genetic_networks_2024.png" alt="Contemporary Genetic Networks (2024)" class="figure-image">
-        <div class="figure-caption">Figure 8: Contemporary Genetic Networks (2024)</div>
-        <div class="figure-description">Multi-scale biological networks integrating genes, proteins, and metabolic pathways, showing the current state of systems biology visualization.</div>
+        <img src="figures/modern/gene_expression_networks_2024.png" alt="Gene Expression Networks (2024)" class="figure-image very-large">
+        <div class="figure-caption">Figure 8: Gene Expression Networks (2024)</div>
+        <div class="figure-description">del Val et al.'s gene expression networks regulated by human personality, demonstrating multi-omic network analysis and complex genetic interactions in contemporary systems biology. This cutting-edge research represents the frontier of modern computational biology, showing how gene expression networks can be linked to complex behavioral traits. The study demonstrates how computational approaches can reveal the genetic "programs" that underlie complex phenotypes, including personality traits. This multi-omic approach integrates different types of biological data (genomic, transcriptomic, proteomic) to build comprehensive models of biological systems. The network visualization shows how genes interact in complex regulatory networks, revealing the systems-level logic that governs biological processes. This represents a significant advancement from simple genetic models to understanding how genetic networks function as integrated computational systems. The study demonstrates how computational methods can reveal the logic embedded in biological networks, showing how genetic "programs" can influence complex behavioral outcomes. This approach represents the future of computational biology, where understanding biological systems requires analysis of their computational properties and network dynamics. Source: del Val et al. (2024).</div>
     </div>
 
     <h3>9.3 The Enduring Relevance of Early Insights</h3>
@@ -398,6 +594,8 @@
             <li>Höhna, S., et al. (2014). Probabilistic graphical models in evolution and phylogenetics. <em>Systematic Biology</em>, 63(5), 753-771.</li>
             <li>Koutrouli, M., et al. (2020). Guide to visualization of biological networks: Types, tools and strategies. <em>Frontiers in Bioinformatics</em>, 2, 1-21.</li>
             <li>O'Donoghue, S.I., et al. (2018). Visualization of biomedical data. <em>Annual Review of Biomedical Data Science</em>, 1, 275-304.</li>
+            <li>Nardone, G.G., et al. (2023). Identifying missing pieces in color vision defects: a genome-wide association study in Silk Road populations. <em>Frontiers in Genetics</em>, 14:1161696.</li>
+            <li>del Val, C., et al. (2024). Gene expression networks regulated by human personality. <em>Molecular Psychiatry</em>, 29, 2241–2260.</li>
         </ol>
     </div>
 

@@ -27,22 +27,22 @@ All required images for the GLMP paper have been created as professional placeho
 ## Modern Visualization Systems ✅ COMPLETED
 
 ### 4. Circos Genome Visualization (2009)
-- **Status**: ✅ COMPLETED
-- **File**: `docs/paper/figures/modern/circos_2009.png`
-- **Source**: Generated placeholder using matplotlib
-- **Description**: Martin Krzywinski's circular layout for comparative genomics
+- **Status**: ✅ COMPLETED - AUTHENTIC IMAGE
+- **File**: `docs/paper/figures/modern/circos_kryswinski_2009.jpg`
+- **Source**: Authentic Circos plot from ResearchGate (Krzywinski et al. 2009)
+- **Description**: Martin Krzywinski's authentic Circos plot showing chromosomes with mismatched syntenic links
 
 ### 5. Probabilistic Phylogenetic Networks (2014)
-- **Status**: ✅ COMPLETED
-- **File**: `docs/paper/figures/modern/hohna_2014.png`
-- **Source**: Generated placeholder using matplotlib
-- **Description**: Höhna et al.'s probabilistic graphical models for evolution
+- **Status**: ✅ COMPLETED - AUTHENTIC IMAGE
+- **File**: `docs/paper/figures/modern/hohna_2014.jpg`
+- **Source**: Authentic figure from BioRxiv preprint (Höhna et al. 2014)
+- **Description**: Höhna et al.'s authentic probabilistic graphical models for evolution
 
 ### 6. Biological Network Visualization (2020)
-- **Status**: ✅ COMPLETED
-- **File**: `docs/paper/figures/modern/koutrouli_2020.png`
-- **Source**: Generated placeholder using matplotlib
-- **Description**: Koutrouli et al.'s gene interaction networks
+- **Status**: ✅ COMPLETED - AUTHENTIC IMAGE
+- **File**: `docs/paper/figures/modern/koutrouli_network.webp`
+- **Source**: Authentic figure from Frontiers in Bioengineering and Biotechnology (Koutrouli et al. 2020)
+- **Description**: Koutrouli et al.'s authentic biological network visualization using graph theory
 
 ### 7. Biomedical Data Visualization (2018)
 - **Status**: ✅ COMPLETED
@@ -52,17 +52,17 @@ All required images for the GLMP paper have been created as professional placeho
 
 ## Contemporary Examples ✅ COMPLETED
 
-### 8. Color Vision Genetics (2021)
-- **Status**: ✅ COMPLETED
-- **File**: `docs/paper/figures/contemporary/color_vision_2021.png`
-- **Source**: Generated placeholder using matplotlib
-- **Description**: Jacobs & Elmer's genetic basis of color vision differences
+### 8. Color Vision Genetics (2023)
+- **Status**: ✅ COMPLETED - AUTHENTIC IMAGE
+- **File**: `docs/paper/figures/modern/color_vision2023A.jpg`
+- **Source**: Authentic figure from Frontiers in Genetics (Nardone et al. 2023)
+- **Description**: Nardone et al.'s genome-wide association study of color vision defects in Silk Road populations
 
-### 9. Contemporary Genetic Networks (2024)
-- **Status**: ✅ COMPLETED
-- **File**: `docs/paper/figures/contemporary/genetic_networks_2024.png`
-- **Source**: Generated placeholder using matplotlib
-- **Description**: Multi-scale biological networks integrating genes, proteins, and metabolites
+### 9. Gene Expression Networks (2024)
+- **Status**: ✅ COMPLETED - AUTHENTIC IMAGE
+- **File**: `docs/paper/figures/modern/gene_expression_networks_2024.png`
+- **Source**: Authentic figure from Nature Molecular Psychiatry (del Val et al. 2024)
+- **Description**: del Val et al.'s gene expression networks regulated by human personality, showing multi-omic network analysis
 
 ## Implementation Details
 
