@@ -28,7 +28,10 @@ The **Genome Logic Modeling Project (GLMP)** aims to represent biological proces
 - Tracing the visual evolution of genetic diagrams from Mendel to modern AI systems biology.
 
 ## 📖 Featured Paper
-**[Is the Genome Like a Computer Program?](paper/genome-logic-modeling.md)** - A comprehensive analysis of the genome-as-computer-program metaphor, tracing its development from 1995 to present.
+**[Is the Genome Like a Computer Program?](index.html)** - A comprehensive analysis of the genome-as-computer-program metaphor, tracing its development from 1995 to present.
+
+## 🚀 Community Contributions
+**[ProcessDSL + FlowCell-10 Proposal](docs/paper/community/contributions/ProcessDSL_FlowCell10_Proposal_with_Mermaid.md)** - A pilot initiative to integrate the "genome as program" concept with cellular process flowcharting, featuring Mermaid diagrams and DeepMind Virtual Cell integration.
 
 ## 🤖 AI Agents
 Our modular AI system includes:

@@ -218,6 +218,14 @@ class GeneticCircuit:
 - **Issues**: Report bugs or request features via GitHub Issues
 - **Wiki**: Check the project wiki for additional documentation
 - **Examples**: Review existing code examples for patterns
+- **Contributions**: See [Community Contributions](./contributions/) for examples of accepted work
+
+### Featured Contributions
+Check out our [Community Contributions](./contributions/) section to see examples of the kind of work we welcome, including:
+- Research proposals (like the ProcessDSL + FlowCell-10 proposal)
+- Gene circuit analyses
+- Visualization tools
+- Educational materials
 
 ### Contact Information
 - **Email**: gwelz@jjay.cuny.edu
