@@ -1,0 +1,38 @@
+%% Mermaid Rendering Instructions (Cursor Safe)
+%% --------------------------------------------------------------
+%% DO NOT REMOVE OR SIMPLIFY NODES.
+%% Each biological or chemical step must be shown as a separate box.
+%% Use unique node IDs (e.g., A1, A2...) to avoid collapsing.
+%% Use subgraphs to preserve visual grouping and prevent simplification.
+%% Use long or HTML-formatted labels to fix node width.
+%% Insert dummy nodes (e.g., Spacer1[" "]) if spacing is needed.
+%% Mermaid config: useMaxWidth=false, curve='linear', htmlLabels=true.
+%% -------------------------------------------------------------------
+
+flowchart TD
+
+    subgraph Input
+        A1[Lactose] --> A2[LacY (Permease)]
+    end
+
+    subgraph Induction
+        A2 --> A3[Allolactose]
+        A3 --> A4[LacI Repressor]
+        A4 -.-|Inactivated| A5[Promoter (Plac)]
+    end
+
+    subgraph Expression
+        A5 --> A6[RNA Polymerase]
+        A6 --> A7[LacZYA Transcript]
+        A7 --> A8[β-galactosidase (LacZ)]
+        A7 --> A9[Permease (LacY)]
+        A7 --> A10[Transacetylase (LacA)]
+    end
+
+    subgraph Output
+        A1 --> A8
+        A8 --> A11[Glucose + Galactose]
+    end
+
+    %% Optional spacer to help layout
+    Spacer1[" "] --> Spacer2[" "]

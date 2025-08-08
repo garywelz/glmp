@@ -1,0 +1,54 @@
+flowchart TD
+    A[Low Glucose] --> B[Snf1 Activation]
+    B --> C[Snf1 Phosphorylation]
+    C --> D[Catabolite Repression Relief]
+    D --> E[Gluconeogenic Gene Expression]
+    E --> F[PEPCK Production]
+    F --> G[FBPase Production]
+    G --> H[G6Pase Production]
+    
+    %% Gluconeogenic pathway
+    I[Pyruvate] --> J[Pyruvate Carboxylase]
+    J --> K[Oxaloacetate]
+    K --> L[PEPCK]
+    L --> M[Phosphoenolpyruvate]
+    M --> N[Gluconeogenic Enzymes]
+    N --> O[Fructose-1,6-BP]
+    O --> P[FBPase]
+    P --> Q[Fructose-6-P]
+    Q --> R[Glucose-6-P]
+    R --> S[G6Pase]
+    S --> T[Glucose]
+    
+    %% Alternative substrates
+    U[Lactate] --> V[Lactate Dehydrogenase]
+    V --> I
+    
+    W[Glycerol] --> X[Glycerol Kinase]
+    X --> Y[Glycerol-3-P]
+    Y --> Z[DHAP]
+    Z --> N
+    
+    %% Regulation
+    AA[High Glucose] --> BB[Snf1 Inhibition]
+    BB --> CC[Gluconeogenesis Repression]
+    
+    DD[Low Energy] --> EE[AMPK Activation]
+    EE --> FF[Gluconeogenesis Induction]
+    
+    %% Key proteins
+    GG[Snf1] --> B
+    HH[PEPCK] --> L
+    II[FBPase] --> P
+    JJ[G6Pase] --> S
+    
+    %% Styling
+    classDef trigger fill:#ffcccc
+    classDef enzyme fill:#ccffcc
+    classDef metabolite fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A,U,W trigger
+    class F,G,H,J,L,P,S enzyme
+    class I,K,M,O,Q,R,T metabolite
+    class GG,HH,II,JJ protein

@@ -1,0 +1,81 @@
+graph TD
+    A[Protein Degradation] --> B[Amino Acid Release]
+    B --> C{Amino Acid Type?}
+    C -->|Glucogenic| D[Pyruvate Formation]
+    C -->|Ketogenic| E[Acetyl-CoA Formation]
+    C -->|Both| F[Multiple Pathways]
+    
+    D --> G[Gluconeogenesis Entry]
+    G --> H[Glucose Production]
+    
+    E --> I[TCA Cycle Entry]
+    I --> J[Energy Production]
+    
+    F --> K[Ammonia Release]
+    K --> L[Urea Cycle]
+    L --> M[Urea Production]
+    M --> N[Nitrogen Excretion]
+    
+    %% Alternative pathway
+    B --> O[Transamination]
+    O --> P[Glutamate Formation]
+    P --> Q[Glutamate Dehydrogenase]
+    Q --> R[Ammonia Production]
+    R --> L
+    
+    %% Regulation
+    H --> S[Energy Status]
+    J --> S
+    N --> T[Nitrogen Balance]
+    S --> U{Energy Sufficient?}
+    T --> V{Nitrogen Sufficient?}
+    U -->|Yes| W[Catabolism Inhibition]
+    U -->|No| X[Catabolism Continuation]
+    V -->|Yes| Y[Nitrogen Conservation]
+    V -->|No| Z[Nitrogen Excretion]
+    
+    %% Key proteins
+    AA[Proteases] --> B
+    BB[Transaminases] --> O
+    CC[Glutamate Dehydrogenase] --> Q
+    DD[Urea Cycle Enzymes] --> L
+    EE[Pyruvate] --> D
+    FF[Acetyl-CoA] --> E
+    GG[Ammonia] --> K
+    HH[Urea] --> M
+    
+    %% Styling
+    style A fill:#ff6b6b
+    style B fill:#4ecdc4
+    style C fill:#45b7d1
+    style D fill:#45b7d1
+    style E fill:#45b7d1
+    style F fill:#4ecdc4
+    style G fill:#4ecdc4
+    style H fill:#96ceb4
+    style I fill:#4ecdc4
+    style J fill:#96ceb4
+    style K fill:#45b7d1
+    style L fill:#4ecdc4
+    style M fill:#96ceb4
+    style N fill:#96ceb4
+    style O fill:#4ecdc4
+    style P fill:#45b7d1
+    style Q fill:#feca57
+    style R fill:#45b7d1
+    style S fill:#45b7d1
+    style T fill:#45b7d1
+    style U fill:#45b7d1
+    style V fill:#45b7d1
+    style W fill:#4ecdc4
+    style X fill:#4ecdc4
+    style Y fill:#4ecdc4
+    style Z fill:#4ecdc4
+    style AA fill:#feca57
+    style BB fill:#feca57
+    style CC fill:#feca57
+    style DD fill:#feca57
+    style EE fill:#feca57
+    style FF fill:#feca57
+    style GG fill:#feca57
+    style HH fill:#feca57

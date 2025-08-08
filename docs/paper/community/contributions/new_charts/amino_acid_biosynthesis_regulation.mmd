@@ -1,0 +1,44 @@
+flowchart TD
+    A[Amino Acid Deficiency] --> B[GCN4 Translation]
+    B --> C[Gcn4 Nuclear Import]
+    C --> D[Gcn4 Binding to GCN4]
+    D --> E[Amino Acid Biosynthesis Genes]
+    E --> F[Amino Acid Production]
+    F --> G[Amino Acid Accumulation]
+    G --> H[Feedback Inhibition]
+    H --> I[Enzyme Inhibition]
+    I --> J[Reduced Biosynthesis]
+    
+    %% GCN2 pathway
+    K[Uncharged tRNA] --> L[GCN2 Activation]
+    L --> M[eIF2α Phosphorylation]
+    M --> N[Translation Inhibition]
+    N --> O[GCN4 Translation]
+    O --> B
+    
+    %% Amino acid specific regulation
+    P[Specific AA Deficiency] --> Q[Specific Regulator]
+    Q --> R[Specific Biosynthesis Genes]
+    R --> S[Specific AA Production]
+    
+    %% Feedback loops
+    G --> T[GCN4 Degradation]
+    T --> U[Reduced Transcription]
+    U --> V[Biosynthesis Shutdown]
+    
+    %% Key proteins
+    W[GCN4] --> C
+    X[GCN2] --> L
+    Y[eIF2α] --> M
+    Z[GCN1] --> L
+    
+    %% Styling
+    classDef deficiency fill:#ffcccc
+    classDef biosynthesis fill:#ccffcc
+    classDef feedback fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A,K,P deficiency
+    class B,C,D,E,F,G biosynthesis
+    class H,I,J,T,U,V feedback
+    class W,X,Y,Z protein

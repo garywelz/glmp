@@ -1,0 +1,30 @@
+flowchart TD
+    A[Heat Stress] --> B[HSF1 Activation]
+    B --> C[HSF1 Trimerization]
+    C --> D[HSF1 Nuclear Localization]
+    D --> E[HSF1 Binding to HSE]
+    E --> F[HSP Gene Transcription]
+    F --> G[HSP70/HSP90 Production]
+    G --> H[Protein Refolding]
+    H --> I[Stress Relief]
+    I --> J[HSF1 Deactivation]
+    J --> K[Return to Basal State]
+    
+    %% Feedback loops
+    G --> L[HSP70 Binds HSF1]
+    L --> M[HSF1 Inactivation]
+    M --> N[Reduced HSP Transcription]
+    
+    %% Alternative stress responses
+    A --> O[Other Stress Pathways]
+    O --> P[Oxidative Stress Response]
+    O --> Q[ER Stress Response]
+    
+    %% Styling
+    classDef stress fill:#ffcccc
+    classDef response fill:#ccffcc
+    classDef regulation fill:#ccccff
+    
+    class A stress
+    class B,C,D,E,F,G,H,I response
+    class J,K,L,M,N regulation

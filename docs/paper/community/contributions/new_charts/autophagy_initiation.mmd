@@ -1,0 +1,42 @@
+flowchart TD
+    A[Nutrient Deprivation] --> B[TORC1 Inhibition]
+    B --> C[Atg1 Complex Activation]
+    C --> D[Atg13 Phosphorylation]
+    D --> E[Atg1-Atg13-Atg17 Assembly]
+    E --> F[PAS Formation]
+    F --> G[Atg9 Vesicle Recruitment]
+    G --> H[PI3K Complex Activation]
+    H --> I[PI3P Production]
+    I --> J[Atg8-PE Conjugation]
+    J --> K[Autophagosome Formation]
+    K --> L[Vacuole Fusion]
+    L --> M[Autophagic Degradation]
+    
+    %% Alternative triggers
+    A --> N[Oxidative Stress]
+    A --> O[ER Stress]
+    A --> P[Protein Aggregation]
+    
+    %% Regulatory feedback
+    M --> Q[Nutrient Release]
+    Q --> R[TORC1 Reactivation]
+    R --> S[Autophagy Inhibition]
+    
+    %% Key proteins
+    T[Atg1] --> C
+    U[Atg13] --> D
+    V[Atg17] --> E
+    W[Atg9] --> G
+    X[Vps34] --> H
+    Y[Atg8] --> J
+    
+    %% Styling
+    classDef trigger fill:#ffcccc
+    classDef activation fill:#ccffcc
+    classDef process fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A,N,O,P trigger
+    class B,C,D,E,F,G,H,I,J,K,L,M activation
+    class Q,R,S process
+    class T,U,V,W,X,Y protein

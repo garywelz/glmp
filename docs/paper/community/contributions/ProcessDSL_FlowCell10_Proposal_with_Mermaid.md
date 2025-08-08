@@ -58,7 +58,11 @@ process Glycolysis in Cytosol:
 
 ## 4. Expanded Glycolysis Flowchart (Mermaid)
 
-Below is an example from FlowCell-10 showing **Glycolysis in Yeast** with branch and loop structure, rendered with Mermaid:
+Below is an example from FlowCell-10 showing **Glycolysis in Yeast** with branch and loop structure:
+
+![Glycolysis Pathway](YeastFlowchart1.drawio.png)
+
+*Note: The original Mermaid code is preserved below for reference and future rendering:*
 
 ```mermaid
 flowchart TD
@@ -98,12 +102,5 @@ flowchart TD
 - Enables counterfactual simulations and intervention planning.
 - Creates training data for AI models to learn biological program induction.
 
----
 
-## 7. Suggested DeepMind Contacts
-
-1. **Demis Hassabis** – CEO, DeepMind (vision for Virtual Cell)  
-2. **Pushmeet Kohli** – Head of AI for Science, DeepMind  
-3. **John Jumper** – Lead researcher on AlphaFold  
-4. **Kathryn Tunyasuvunakool** – Research scientist, AlphaFold/biology modeling  
-5. **Alexander Zisserman** – Research scientist, graph and vision integration  
+---  

@@ -1,0 +1,70 @@
+graph TD
+    A[Termination Signal] --> B{Termination Type?}
+    B -->|PolyA Signal| C[PolyA Signal Recognition]
+    B -->|Terminator Sequence| D[Terminator Recognition]
+    B -->|Rho-Dependent| E[Rho Factor Binding]
+    
+    C --> F[CPSF Binding]
+    F --> G[PolyA Site Cleavage]
+    G --> H[PolyA Tail Addition]
+    H --> I[Transcription Termination]
+    
+    D --> J[Terminator Sequence]
+    J --> K[RNA Hairpin Formation]
+    K --> L[Transcription Termination]
+    
+    E --> M[Rho Helicase Activity]
+    M --> N[RNA Release]
+    N --> L
+    
+    I --> O[Transcription Termination Complete]
+    L --> O
+    
+    %% Alternative pathway
+    A --> P[Antitermination Factor]
+    P --> Q[Transcription Continuation]
+    Q --> R[Readthrough Transcription]
+    
+    %% Regulation
+    O --> S[Termination Status]
+    S --> T{Termination Required?}
+    T -->|Yes| U[Termination Activation]
+    T -->|No| V[Termination Inhibition]
+    
+    %% Key proteins
+    W[CPSF] --> F
+    X[PolyA Polymerase] --> H
+    Y[Rho Factor] --> E
+    Z[Antitermination Factors] --> P
+    AA[Termination Factors] --> I
+    BB[Cleavage Factors] --> G
+    
+    %% Styling
+    style A fill:#ff6b6b
+    style B fill:#45b7d1
+    style C fill:#feca57
+    style D fill:#4ecdc4
+    style E fill:#feca57
+    style F fill:#feca57
+    style G fill:#4ecdc4
+    style H fill:#4ecdc4
+    style I fill:#96ceb4
+    style J fill:#45b7d1
+    style K fill:#4ecdc4
+    style L fill:#96ceb4
+    style M fill:#4ecdc4
+    style N fill:#4ecdc4
+    style O fill:#96ceb4
+    style P fill:#feca57
+    style Q fill:#4ecdc4
+    style R fill:#96ceb4
+    style S fill:#45b7d1
+    style T fill:#45b7d1
+    style U fill:#4ecdc4
+    style V fill:#4ecdc4
+    style W fill:#feca57
+    style X fill:#feca57
+    style Y fill:#feca57
+    style Z fill:#feca57
+    style AA fill:#feca57
+    style BB fill:#feca57

@@ -1,0 +1,45 @@
+flowchart TD
+    A[Cell Size Check] --> B{Size Adequate?}
+    B -->|No| C[Continue Growth]
+    C --> A
+    B -->|Yes| D[Nutrient Check]
+    D --> E{Nutrients Sufficient?}
+    E -->|No| F[G1 Arrest]
+    E -->|Yes| G[Cln3-Cdk1 Activation]
+    G --> H[Cln1/2 Transcription]
+    H --> I[Cln1/2-Cdk1 Complexes]
+    I --> J[Whi5 Phosphorylation]
+    J --> K[Whi5 Nuclear Export]
+    K --> L[SBF/MBF Activation]
+    L --> M[S-Phase Gene Expression]
+    M --> N[DNA Replication Initiation]
+    N --> O[G1/S Transition Complete]
+    
+    %% Checkpoints
+    P[DNA Damage Check] --> Q{DNA Intact?}
+    Q -->|No| R[G1 Arrest]
+    Q -->|Yes| G
+    
+    %% Environmental signals
+    S[Stress Signals] --> T{Stress Present?}
+    T -->|Yes| U[G1 Arrest]
+    T -->|No| D
+    
+    %% Key proteins
+    V[Cln3] --> G
+    W[Cln1] --> I
+    X[Cln2] --> I
+    Y[Whi5] --> J
+    Z[Swi4] --> L
+    AA[Swi6] --> L
+    
+    %% Styling
+    classDef checkpoint fill:#ffcccc
+    classDef activation fill:#ccffcc
+    classDef arrest fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A,D,P,S checkpoint
+    class G,H,I,J,K,L,M,N,O activation
+    class C,F,R,U arrest
+    class V,W,X,Y,Z,AA protein

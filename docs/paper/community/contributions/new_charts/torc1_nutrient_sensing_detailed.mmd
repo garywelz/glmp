@@ -1,0 +1,64 @@
+flowchart TD
+    A[Nutrient Availability] --> B{Nutrients Present?}
+    B -->|No| C[Starvation Response]
+    C --> D[TORC1 Inhibition]
+    D --> E[Autophagy Induction]
+    E --> F[Protein Degradation]
+    F --> G[Nutrient Recycling]
+    
+    B -->|Yes| H[Nutrient Sensing]
+    H --> I[Gtr1/2 Activation]
+    I --> J[Rag GTPases]
+    J --> K[TORC1 Recruitment]
+    K --> L[TORC1 Activation]
+    L --> M[Phosphorylation Cascade]
+    
+    %% TORC1 targets
+    M --> N[Ribosomal Protein S6K]
+    N --> O[Translation Initiation]
+    O --> P[Protein Synthesis]
+    
+    M --> Q[4E-BP Phosphorylation]
+    Q --> R[eIF4E Release]
+    R --> S[Cap-Dependent Translation]
+    
+    M --> T[Sch9 Phosphorylation]
+    T --> U[Transcription Activation]
+    U --> V[Growth Gene Expression]
+    
+    %% Feedback regulation
+    P --> W[Protein Accumulation]
+    W --> X[Feedback Inhibition]
+    X --> Y[TORC1 Downregulation]
+    
+    %% Alternative pathways
+    Z[Growth Factors] --> AA[PI3K Activation]
+    AA --> BB[AKT Phosphorylation]
+    BB --> CC[TSC Inhibition]
+    CC --> DD[TORC1 Activation]
+    
+    %% Stress responses
+    EE[Stress Signals] --> FF[TORC1 Inhibition]
+    FF --> GG[Stress Response Genes]
+    GG --> HH[Cell Protection]
+    
+    %% Key proteins
+    II[TOR1] --> L
+    JJ[Kog1] --> L
+    KK[Lst8] --> L
+    LL[Gtr1] --> I
+    MM[Gtr2] --> I
+    NN[Sch9] --> T
+    
+    %% Styling
+    classDef nutrient fill:#ffcccc
+    classDef activation fill:#ccffcc
+    classDef inhibition fill:#ccccff
+    classDef target fill:#ffffcc
+    classDef protein fill:#ffccff
+    
+    class A,B,H nutrient
+    class I,J,K,L,M,N,O,P,Q,R,S,T,U,V activation
+    class C,D,E,F,G,FF,GG,HH inhibition
+    class W,X,Y target
+    class II,JJ,KK,LL,MM,NN protein

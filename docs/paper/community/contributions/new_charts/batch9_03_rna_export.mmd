@@ -1,0 +1,65 @@
+graph TD
+    A[mRNA Processing Complete] --> B{Export Type?}
+    B -->|Nuclear Export| C[NXF1/NXT1 Binding]
+    B -->|Alternative Export| D[Alternative Export Factor]
+    B -->|Quality Control| E[Export Quality Check]
+    
+    C --> F[mRNA-NXF1 Complex]
+    F --> G[Nuclear Pore Complex]
+    G --> H[Nuclear Export]
+    H --> I[Cytoplasmic Release]
+    I --> J[Export Complete]
+    
+    D --> K[Alternative Export Pathway]
+    K --> L[Alternative Export]
+    L --> J
+    
+    E --> M[Export Quality Control]
+    M --> N{Quality Check Pass?}
+    N -->|Yes| O[Export Proceed]
+    N -->|No| P[Export Block]
+    O --> J
+    P --> Q[RNA Degradation]
+    
+    %% Regulation
+    J --> R[Export Status]
+    R --> S{Export Required?}
+    S -->|Yes| T[Export Activation]
+    S -->|No| U[Export Inhibition]
+    
+    %% Key proteins
+    V[NXF1] --> C
+    W[NXT1] --> C
+    X[Nuclear Pore Complex] --> G
+    Y[Export Factors] --> D
+    Z[Quality Control Factors] --> E
+    AA[Export Regulators] --> J
+    
+    %% Styling
+    style A fill:#96ceb4
+    style B fill:#45b7d1
+    style C fill:#feca57
+    style D fill:#feca57
+    style E fill:#feca57
+    style F fill:#45b7d1
+    style G fill:#feca57
+    style H fill:#4ecdc4
+    style I fill:#4ecdc4
+    style J fill:#96ceb4
+    style K fill:#4ecdc4
+    style L fill:#4ecdc4
+    style M fill:#4ecdc4
+    style N fill:#45b7d1
+    style O fill:#4ecdc4
+    style P fill:#4ecdc4
+    style Q fill:#96ceb4
+    style R fill:#45b7d1
+    style S fill:#45b7d1
+    style T fill:#4ecdc4
+    style U fill:#4ecdc4
+    style V fill:#feca57
+    style W fill:#feca57
+    style X fill:#feca57
+    style Y fill:#feca57
+    style Z fill:#feca57
+    style AA fill:#feca57

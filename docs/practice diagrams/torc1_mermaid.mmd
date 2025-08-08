@@ -1,0 +1,19 @@
+
+flowchart TD
+  AA[Amino Acid / Nutrient Signals] --> AB[EGO Complex (Ego1-3) + Gtr1/2]
+  AB --> AC[TORC1 Activation]  
+  AC --> AD[Sch9 kinase branch]  
+  AC --> AE[PP2A/Sit4 branch]  
+
+  AD --> AF[Ribosome Biogenesis & Protein Translation ↑]
+  AE -- Tap42/PP2A → downstream --> AG[NPR1 inhibition → Amino Acid Transport ↑]
+
+  AC -. Negative regulation .-> AH[Atg13 phosphorylation → Inhibit Atg1 complex]
+  AH -->|Inhibition| AI[Autophagy suppressed]
+
+  subgraph Stress / Starvation
+    AA2[Low Nutrients] --> AB2[EGO inactive → TORC1 off]
+    AB2 --> AC2[TORC1 Inactive]
+    AC2 --> AH2[Atg13 de-phosphorylated + Atg1 complex formed]
+    AH2 --> AJ[Autophagy induced via Atg1-Atg13-Atg17 complex]
+  end

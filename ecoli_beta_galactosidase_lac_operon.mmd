@@ -1,0 +1,177 @@
+%% E. coli Beta-Galactosidase (Lac Operon) - Programming Framework Analysis
+%% This flowchart demonstrates the computational logic of bacterial gene regulation
+%% Color coding: Triggers (red), Proteins (yellow), Enzymes (green), Intermediates (blue), Products (light green)
+
+graph TD
+    %% Environmental Inputs
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    E[Low Energy Status] --> F[Energy Stress Signal]
+    
+    %% Lactose Processing Pathway
+    B --> G[Lactose Permease LacY]
+    G --> H[Lactose Inside Cell]
+    H --> I[Lactose Availability]
+    
+    %% Glucose Processing Pathway  
+    D --> J[Glucose Transporters]
+    J --> K[Glucose Inside Cell]
+    K --> L[High Glucose Status]
+    
+    %% Regulatory Logic Gates
+    I --> M{Is Lactose Present?}
+    L --> N{Is Glucose Present?}
+    F --> O{Is Energy Low?}
+    
+    %% Lac Repressor Logic
+    M -->|No| P[Lac Repressor Active]
+    M -->|Yes| Q[Lac Repressor Inactive]
+    P --> R[Repressor Binds Operator]
+    R --> S[Transcription Blocked]
+    Q --> T[Repressor Released]
+    T --> U[Operator Free]
+    
+    %% CAP-cAMP Logic
+    N -->|Yes| V[Low cAMP Levels]
+    N -->|No| W[High cAMP Levels]
+    O --> W
+    W --> X[cAMP-CAP Complex]
+    V --> Y[No CAP Binding]
+    X --> Z[CAP Binds Promoter]
+    Y --> AA[No CAP Binding]
+    
+    %% Transcription Initiation Logic
+    U --> BB{Operator Free?}
+    Z --> CC{CAP Bound?}
+    BB -->|Yes| DD[RNA Polymerase Binding]
+    BB -->|No| EE[Transcription Blocked]
+    CC -->|Yes| DD
+    CC -->|No| FF[Weak Transcription]
+    
+    %% Transcription and Translation
+    DD --> GG[Transcription Initiation]
+    FF --> GG
+    GG --> HH[lacZ mRNA Synthesis]
+    GG --> II[lacY mRNA Synthesis]
+    GG --> JJ[lacA mRNA Synthesis]
+    
+    %% Translation Processes
+    HH --> KK[LacZ Translation]
+    II --> LL[LacY Translation]
+    JJ --> MM[LacA Translation]
+    
+    %% Protein Processing
+    KK --> NN[Beta-Galactosidase Enzyme]
+    LL --> OO[Lactose Permease]
+    MM --> PP[Galactoside Acetyltransferase]
+    
+    %% Functional Outputs
+    NN --> QQ[Lactose Hydrolysis]
+    OO --> RR[Lactose Transport]
+    PP --> SS[Galactoside Modification]
+    
+    %% Lactose Metabolism
+    QQ --> TT[Glucose + Galactose]
+    RR --> UU[Lactose Uptake]
+    SS --> VV[Detoxification]
+    
+    %% Energy Production
+    TT --> WW[Glycolysis]
+    UU --> XX[Lactose Processing]
+    VV --> YY[Cell Protection]
+    
+    %% Feedback Loops
+    WW --> ZZ[Energy Production]
+    XX --> AAA[Lactose Consumption]
+    YY --> BBB[Cell Survival]
+    
+    %% Energy Status Update
+    ZZ --> CCC[Energy Status Improved]
+    AAA --> DDD[Lactose Depletion]
+    BBB --> EEE[Cell Health]
+    
+    %% Regulatory Feedback
+    CCC --> FFF[Reduced Energy Stress]
+    DDD --> GGG[Reduced Lactose Signal]
+    EEE --> HHH[Maintained Homeostasis]
+    
+    %% Return to Regulatory Logic
+    FFF --> O
+    GGG --> M
+    HHH --> III[System Equilibrium]
+    
+    %% Key Regulatory Proteins
+    JJJ[LacI Repressor] --> P
+    KKK[CAP Protein] --> X
+    LLL[cAMP] --> X
+    MMM[RNA Polymerase] --> GG
+    NNN[LacZ Gene] --> HH
+    OOO[LacY Gene] --> II
+    PPP[LacA Gene] --> JJ
+    
+    %% Styling - Programming Framework Colors
+    style A fill:#ff6b6b
+    style C fill:#ff6b6b
+    style E fill:#ff6b6b
+    style G fill:#4ecdc4
+    style J fill:#4ecdc4
+    style H fill:#45b7d1
+    style K fill:#45b7d1
+    style I fill:#45b7d1
+    style L fill:#45b7d1
+    style M fill:#45b7d1
+    style N fill:#45b7d1
+    style O fill:#45b7d1
+    style P fill:#4ecdc4
+    style Q fill:#4ecdc4
+    style R fill:#4ecdc4
+    style S fill:#96ceb4
+    style T fill:#4ecdc4
+    style U fill:#45b7d1
+    style V fill:#4ecdc4
+    style W fill:#4ecdc4
+    style X fill:#4ecdc4
+    style Y fill:#4ecdc4
+    style Z fill:#4ecdc4
+    style AA fill:#4ecdc4
+    style BB fill:#45b7d1
+    style CC fill:#45b7d1
+    style DD fill:#4ecdc4
+    style EE fill:#96ceb4
+    style FF fill:#4ecdc4
+    style GG fill:#4ecdc4
+    style HH fill:#96ceb4
+    style II fill:#96ceb4
+    style JJ fill:#96ceb4
+    style KK fill:#4ecdc4
+    style LL fill:#4ecdc4
+    style MM fill:#4ecdc4
+    style NN fill:#feca57
+    style OO fill:#feca57
+    style PP fill:#feca57
+    style QQ fill:#4ecdc4
+    style RR fill:#4ecdc4
+    style SS fill:#4ecdc4
+    style TT fill:#45b7d1
+    style UU fill:#45b7d1
+    style VV fill:#45b7d1
+    style WW fill:#4ecdc4
+    style XX fill:#4ecdc4
+    style YY fill:#4ecdc4
+    style ZZ fill:#96ceb4
+    style AAA fill:#96ceb4
+    style BBB fill:#96ceb4
+    style CCC fill:#45b7d1
+    style DDD fill:#45b7d1
+    style EEE fill:#45b7d1
+    style FFF fill:#45b7d1
+    style GGG fill:#45b7d1
+    style HHH fill:#45b7d1
+    style III fill:#96ceb4
+    style JJJ fill:#feca57
+    style KKK fill:#feca57
+    style LLL fill:#feca57
+    style MMM fill:#feca57
+    style NNN fill:#feca57
+    style OOO fill:#feca57
+    style PPP fill:#feca57

@@ -1,0 +1,46 @@
+flowchart TD
+    A[ER Stress] --> B[Unfolded Proteins Accumulate]
+    B --> C[BiP Release from Ire1]
+    C --> D[Ire1 Oligomerization]
+    D --> E[Ire1 Autophosphorylation]
+    E --> F[HAC1 mRNA Splicing]
+    F --> G[Hac1 Translation]
+    G --> H[Hac1 Nuclear Import]
+    H --> I[UPR Target Gene Expression]
+    I --> J[ER Chaperone Production]
+    J --> K[ERAD Activation]
+    K --> L[Protein Folding/Deletion]
+    L --> M[ER Stress Relief]
+    
+    %% Alternative UPR branches
+    A --> N[PERK Pathway]
+    N --> O[eIF2α Phosphorylation]
+    O --> P[Translation Inhibition]
+    
+    A --> Q[ATF6 Pathway]
+    Q --> R[ATF6 Cleavage]
+    R --> S[ER Chaperone Genes]
+    
+    %% Feedback regulation
+    M --> T[BiP Reassociation]
+    T --> U[Ire1 Inactivation]
+    U --> V[UPR Shutdown]
+    
+    %% Key proteins
+    W[Ire1] --> D
+    X[BiP] --> C
+    Y[Hac1] --> G
+    Z[PERK] --> N
+    AA[ATF6] --> Q
+    
+    %% Styling
+    classDef stress fill:#ffcccc
+    classDef response fill:#ccffcc
+    classDef regulation fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A,B stress
+    class C,D,E,F,G,H,I,J,K,L,M response
+    class N,O,P,Q,R,S regulation
+    class T,U,V process
+    class W,X,Y,Z,AA protein

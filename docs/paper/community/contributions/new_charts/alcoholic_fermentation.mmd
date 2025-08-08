@@ -1,0 +1,50 @@
+flowchart TD
+    A[Glucose] --> B[Glycolysis]
+    B --> C[Pyruvate]
+    C --> D[Pyruvate Decarboxylase]
+    D --> E[Acetaldehyde]
+    E --> F[Alcohol Dehydrogenase]
+    F --> G[Ethanol]
+    G --> H[NAD+ Regeneration]
+    H --> I[Glycolysis Continues]
+    
+    %% Oxygen regulation
+    J[Oxygen Availability] --> K{Oxygen Present?}
+    K -->|No| L[Fermentation Mode]
+    L --> A
+    
+    K -->|Yes| M[Respiration Mode]
+    M --> N[Pyruvate to TCA]
+    N --> O[Respiration Inhibition]
+    
+    %% Glucose repression
+    P[High Glucose] --> Q[Catabolite Repression]
+    Q --> R[Respiration Inhibition]
+    R --> L
+    
+    %% pH regulation
+    S[Low pH] --> T[Acid Stress Response]
+    T --> U[Fermentation Adaptation]
+    U --> V[Acid Tolerance]
+    
+    %% Energy status
+    W[Low Energy] --> X[Fermentation Induction]
+    X --> Y[ATP Production]
+    Y --> Z[Cell Survival]
+    
+    %% Key proteins
+    AA[Pdc1] --> D
+    BB[Adh1] --> F
+    CC[Adh2] --> F
+    DD[Snf1] --> Q
+    
+    %% Styling
+    classDef substrate fill:#ffcccc
+    classDef enzyme fill:#ccffcc
+    classDef product fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A substrate
+    class B,D,F enzyme
+    class C,E,G product
+    class AA,BB,CC,DD protein

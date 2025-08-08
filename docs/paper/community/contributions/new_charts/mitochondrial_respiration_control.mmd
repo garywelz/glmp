@@ -1,0 +1,47 @@
+flowchart TD
+    A[Oxygen Availability] --> B{Oxygen Present?}
+    B -->|No| C[Fermentation Mode]
+    C --> D[Pyruvate to Ethanol]
+    D --> E[NAD+ Regeneration]
+    E --> F[Glycolysis Continues]
+    
+    B -->|Yes| G[Respiration Mode]
+    G --> H[Pyruvate to Acetyl-CoA]
+    H --> I[TCA Cycle Activation]
+    I --> J[NADH Production]
+    J --> K[Electron Transport Chain]
+    K --> L[ATP Synthesis]
+    L --> M[Oxygen Consumption]
+    
+    %% Oxygen sensing
+    N[Oxygen Sensor] --> O[Transcription Factors]
+    O --> P[Respiratory Gene Expression]
+    P --> Q[Cytochrome Complexes]
+    Q --> K
+    
+    %% Glucose repression
+    R[High Glucose] --> S[Catabolite Repression]
+    S --> T[Respiration Inhibition]
+    T --> C
+    
+    %% Energy status
+    U[Low Energy] --> V[AMPK Activation]
+    V --> W[Respiration Induction]
+    W --> G
+    
+    %% Key proteins
+    X[Snf1] --> V
+    Y[Hap1] --> O
+    Z[Hap2/3/4/5] --> O
+    AA[Cytochrome c] --> Q
+    
+    %% Styling
+    classDef oxygen fill:#ffcccc
+    classDef respiration fill:#ccffcc
+    classDef fermentation fill:#ccccff
+    classDef protein fill:#ffffcc
+    
+    class A,B,N oxygen
+    class G,H,I,J,K,L,M respiration
+    class C,D,E,F fermentation
+    class X,Y,Z,AA protein

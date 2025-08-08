@@ -1,0 +1,69 @@
+graph TD
+    A[Misfolded Protein Detection] --> B{Protein Location?}
+    B -->|Cytoplasm| C[Hsp70 Recognition]
+    B -->|ER| D[BiP Recognition]
+    B -->|Mitochondria| E[Hsp60 Recognition]
+    
+    C --> F[Refolding Attempt]
+    F --> G{Refolding Successful?}
+    G -->|Yes| H[Functional Protein]
+    G -->|No| I[Ubiquitin Tagging]
+    
+    D --> J[ERAD Pathway]
+    J --> K[Retrotranslocation]
+    K --> I
+    
+    E --> L[Mitochondrial QC]
+    L --> M[Protease Degradation]
+    M --> N[Mitochondrial Protein Degradation]
+    
+    I --> O[Proteasome Targeting]
+    O --> P[Protein Degradation]
+    P --> Q[Quality Control Complete]
+    
+    %% Alternative pathway
+    A --> R[Aggregation Prevention]
+    R --> S[Chaperone Sequestration]
+    S --> T[Aggresome Formation]
+    T --> U[Selective Autophagy]
+    U --> V[Aggregate Clearance]
+    
+    %% Key proteins
+    W[Hsp70] --> C
+    X[BiP] --> D
+    Y[Hsp60] --> E
+    Z[Ubiquitin] --> I
+    AA[Proteasome] --> O
+    BB[Chaperones] --> S
+    CC[Autophagy Machinery] --> U
+    
+    %% Styling
+    style A fill:#ff6b6b
+    style B fill:#45b7d1
+    style C fill:#feca57
+    style D fill:#feca57
+    style E fill:#feca57
+    style F fill:#4ecdc4
+    style G fill:#45b7d1
+    style H fill:#96ceb4
+    style I fill:#4ecdc4
+    style J fill:#4ecdc4
+    style K fill:#4ecdc4
+    style L fill:#4ecdc4
+    style M fill:#feca57
+    style N fill:#96ceb4
+    style O fill:#feca57
+    style P fill:#4ecdc4
+    style Q fill:#96ceb4
+    style R fill:#4ecdc4
+    style S fill:#feca57
+    style T fill:#45b7d1
+    style U fill:#4ecdc4
+    style V fill:#96ceb4
+    style W fill:#feca57
+    style X fill:#feca57
+    style Y fill:#feca57
+    style Z fill:#feca57
+    style AA fill:#feca57
+    style BB fill:#feca57
+    style CC fill:#feca57
