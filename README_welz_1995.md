@@ -31,7 +31,7 @@ Welz identified a critical challenge in scientific research: the tendency to foc
 
 ### Files
 - `welz_1995_genome_programming.html` - Clean, modern HTML version of the original article
-- `beta_galactosidase_flowchart.png` - High-resolution version of the original flowchart
+- `b-galchart2.gif` - Original 1995 flowchart from the article
 - `welz.genome0.shtml` - Original archived HTML from Wayback Machine (March 10, 1997)
 
 ### Key Sections
