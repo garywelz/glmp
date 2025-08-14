@@ -54,7 +54,7 @@ These systems demonstrate biological implementations of decision logic, temporal
 - **Fractional Distillation** (Crude Oil Refining) - Temperature-dependent separation, multi-stage optimization
 - **Contact Process** (Sulfuric Acid Production) - Catalytic oxidation, equilibrium control, absorption systems
 - **Universal Computational Patterns** demonstrating cross-domain applicability of the Programming Framework
-- **Consistent Color-Coding** with biological systems: triggers (red), catalysts (teal), intermediates (blue), products (green), byproducts (yellow)
+- **Consistent Color-Coding** with biological systems: triggers (red), catalysts (orange), intermediates (blue), products (green), byproducts (yellow)
 
 This collection demonstrates that the Programming Framework transcends traditional disciplinary boundaries, revealing universal computational patterns that bridge biological and chemical systems.
 
