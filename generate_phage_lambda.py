@@ -1,0 +1,398 @@
+#!/usr/bin/env python3
+
+def generate_phage_lambda():
+    # Read template
+    with open('html_template.html', 'r') as f:
+        template = f.read()
+    
+    # Define content
+    content = {
+        'TITLE': 'Phage λ Decision Switch: Viral Computational Logic',
+        'GRADIENT_START': '#667eea',
+        'GRADIENT_END': '#764ba2',
+        'HEADER_ICON': '🦠',
+        'HEADER_TITLE': 'Phage λ Decision Switch',
+        'HEADER_SUBTITLE': 'Viral Computational Logic and Binary Decision Making',
+        'INTRO_TITLE': 'The Lambda Decision: Biology\'s Most Famous Switch',
+        'INTRO_TEXT': 'Bacteriophage lambda represents one of the most elegant examples of biological computation ever discovered. Upon infection, the virus faces a fundamental binary decision: <strong>lyse or lysogenize</strong>. This decision involves sophisticated computational logic including bistable switches, competitive inhibition, positive feedback loops, and threshold detection mechanisms.',
+        'HIGHLIGHT_BG': '#e3f2fd',
+        'HIGHLIGHT_BORDER': '#2196f3',
+        'HIGHLIGHT_TITLE': 'Computational Significance',
+        'HIGHLIGHT_TEXT': 'The lambda decision switch demonstrates how biological systems implement Boolean logic, digital decision-making, and state memory - fundamental concepts in computer science realized through molecular interactions.',
+        'TOC_TITLE': '📋 Lambda Decision Logic - 10 Computational Processes',
+        'TOC_ITEMS': '''
+            <li><a href="#infection-initiation">1. Infection → CII Stabilization Logic</a></li>
+            <li><a href="#early-gene-control">2. PR/PL Early Gene Control</a></li>
+            <li><a href="#ci-autoregulation">3. CI Auto-regulation</a></li>
+            <li><a href="#cro-antagonism">4. Cro Antagonism</a></li>
+            <li><a href="#promoter-dynamics">5. Promoter Occupancy Dynamics</a></li>
+            <li><a href="#decision-thresholding">6. Decision Thresholding (MOI)</a></li>
+            <li><a href="#lysogeny-maintenance">7. Maintenance of Lysogeny</a></li>
+            <li><a href="#dna-damage-induction">8. Induction by DNA Damage</a></li>
+            <li><a href="#lytic-cascade">9. Lytic Late Gene Cascade</a></li>
+            <li><a href="#decision-integration">10. Decision Integration Logic</a></li>
+        ''',
+        'PROCESS_ITEMS': '''
+            <!-- Process 1: Infection → CII Stabilization Logic -->
+            <div class="process-item" id="infection-initiation">
+                <h3>1. Infection → CII Stabilization Logic</h3>
+                <p>The initial computational logic determining CII protein stability and early decision bias toward lysogeny or lysis.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Phage Injection] --> B[DNA Circularization]
+    B --> C[Early Transcription]
+    C --> D[CII Protein Synthesis]
+    D --> E{Host Protease Activity?}
+    E -->|High| F[CII Degradation]
+    E -->|Low| G[CII Stabilization]
+    F --> H[Lytic Bias]
+    G --> I[Lysogenic Bias]
+    J[Host Conditions] --> K[Protease Regulation]
+    K --> E
+    L[Multiplicity of Infection] --> M[CII Concentration]
+    M --> N{CII Threshold?}
+    N -->|Above| O[Lysogenic Switch]
+    N -->|Below| P[Lytic Default]
+    
+    style A fill:#ff6b6b,color:#fff
+    style E fill:#74c0fc,color:#fff
+    style G fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style P fill:#ff6b6b,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 2: PR/PL Early Gene Control -->
+            <div class="process-item" id="early-gene-control">
+                <h3>2. PR/PL Early Gene Control</h3>
+                <p>Computational logic governing early gene expression through the PR and PL promoters, setting up the decision circuitry.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Lambda DNA] --> B[PR Promoter]
+    A --> C[PL Promoter]
+    B --> D[cI Gene Transcription]
+    B --> E[cII Gene Transcription]
+    B --> F[cIII Gene Transcription]
+    C --> G[N Protein Synthesis]
+    C --> H[Early Lytic Genes]
+    G --> I[Antitermination]
+    A --> J[Extended Transcription]
+    J --> K[cII/cIII Enhancement]
+    D --> L[CI Repressor]
+    E --> M[CII Activator]
+    F --> N[CIII Protease Inhibitor]
+    L --> O{CI Concentration?}
+    O -->|High| P[PR/PL Repression]
+    O -->|Low| Q[Continued Transcription]
+    
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style O fill:#74c0fc,color:#fff
+    style P fill:#b197fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 3: CI Auto-regulation -->
+            <div class="process-item" id="ci-autoregulation">
+                <h3>3. CI Auto-regulation</h3>
+                <p>The positive feedback mechanism where CI repressor regulates its own expression, creating a bistable switch for lysogeny maintenance.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[CI Protein] --> B[OR Operator Binding]
+    B --> C{Operator Occupancy?}
+    C -->|OR1/OR2| D[PRM Activation]
+    C -->|OR3| E[PRM Repression]
+    D --> F[CI Transcription]
+    F --> G[More CI Protein]
+    G --> H[Positive Feedback]
+    H --> B
+    I[Low CI] --> J[OR1 Binding Only]
+    J --> K[PRM Transcription]
+    K --> L[CI Increase]
+    M[High CI] --> N[OR3 Binding]
+    N --> O[PRM Shutoff]
+    O --> P[CI Decrease]
+    Q[Cooperative Binding] --> R[Hill Function]
+    R --> S[Bistable Switch]
+    
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#ffd43b,color:#000
+    style H fill:#b197fc,color:#fff
+    style S fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 4: Cro Antagonism -->
+            <div class="process-item" id="cro-antagonism">
+                <h3>4. Cro Antagonism</h3>
+                <p>The competitive inhibition logic between CI and Cro proteins for operator binding, implementing mutual exclusion.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[CI vs Cro Competition] --> B{Operator Binding Affinity?}
+    B -->|CI Higher| C[CI Binds OR1/OR2]
+    B -->|Cro Higher| D[Cro Binds OR3/OR2/OR1]
+    C --> E[PRM Activated]
+    C --> F[PR Repressed]
+    E --> G[More CI]
+    F --> H[Less Cro]
+    D --> I[PR Activated]
+    D --> J[PRM Repressed]
+    I --> K[More Cro]
+    J --> L[Less CI]
+    M[DNA Damage] --> N[RecA Activation]
+    N --> O[CI Cleavage]
+    O --> P[CI Inactivation]
+    P --> Q[Cro Takes Over]
+    R[Competitive Exclusion] --> S[Winner Take All]
+    S --> T[Bistable Outcome]
+    
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#74c0fc,color:#fff
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style T fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 5: Promoter Occupancy Dynamics -->
+            <div class="process-item" id="promoter-dynamics">
+                <h3>5. Promoter Occupancy Dynamics</h3>
+                <p>Mathematical modeling of promoter occupancy states and cooperative binding effects that determine transcriptional output.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Operator Sites] --> B[OR1 - High CI Affinity]
+    A --> C[OR2 - Medium CI Affinity]
+    A --> D[OR3 - Low CI Affinity]
+    E[Low CI Concentration] --> F[OR1 Occupied Only]
+    F --> G[PRM Activated, PR Active]
+    H[Medium CI Concentration] --> I[OR1 + OR2 Occupied]
+    I --> J[Maximum PRM, PR Repressed]
+    K[High CI Concentration] --> L[All Sites Occupied]
+    L --> M[PRM Repressed, PR Blocked]
+    N[Cooperative Binding] --> O[Hill Coefficient > 1]
+    O --> P[Sigmoidal Response]
+    P --> Q[Sharp Transition]
+    R[Cro Binding Order] --> S[OR3 > OR2 > OR1]
+    S --> T[Opposite CI Pattern]
+    T --> U[Mutual Exclusion]
+    
+    style E fill:#ff6b6b,color:#fff
+    style H fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style Q fill:#b197fc,color:#fff
+    style U fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 6: Decision Thresholding (MOI) -->
+            <div class="process-item" id="decision-thresholding">
+                <h3>6. Decision Thresholding (Multiplicity of Infection)</h3>
+                <p>How the number of infecting phages (MOI) creates a concentration threshold that biases the lysis/lysogeny decision.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Multiplicity of Infection] --> B{MOI Level?}
+    B -->|Low MOI| C[Single Infection]
+    B -->|High MOI| D[Multiple Infections]
+    C --> E[Limited CII]
+    C --> F[Lytic Tendency]
+    E --> G[Insufficient Lysogeny Signal]
+    D --> H[Additive CII]
+    D --> I[Lysogenic Tendency]
+    H --> J[Threshold Exceeded]
+    K[CII Threshold Model] --> L[Sigmoid Function]
+    L --> M[Probability Distribution]
+    M --> N[Decision Statistics]
+    O[Environmental Stress] --> P[Protease Activity]
+    P --> Q[CII Stability]
+    Q --> R[Threshold Modulation]
+    S[Population Heterogeneity] --> T[Bet Hedging]
+    T --> U[Mixed Outcomes]
+    U --> V[Evolutionary Strategy]
+    
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style N fill:#b197fc,color:#fff
+    style V fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 7: Maintenance of Lysogeny -->
+            <div class="process-item" id="lysogeny-maintenance">
+                <h3>7. Maintenance of Lysogeny</h3>
+                <p>The stable memory state maintained by CI auto-regulation, implementing biological digital memory.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Established Lysogen] --> B[CI Repressor Present]
+    B --> C[PR/PL Repression]
+    C --> D[Lytic Genes Silent]
+    E[PRM Promoter] --> F[CI Auto-regulation]
+    F --> G[Homeostatic Control]
+    G --> H[Stable CI Levels]
+    I[OR1/OR2 Occupancy] --> J[Optimal PRM Activity]
+    J --> K[CI Maintenance]
+    K --> L[Memory Persistence]
+    M[Perturbations] --> N{CI Disruption?}
+    N -->|Minor| O[Self-Correction]
+    N -->|Major| P[Memory Loss]
+    O --> Q[Return to Stability]
+    P --> R[Lytic Induction]
+    S[Heritability] --> T[Daughter Cell Inheritance]
+    T --> U[Epigenetic Memory]
+    U --> V[Stable Lysogeny]
+    
+    style A fill:#ff6b6b,color:#fff
+    style G fill:#ffd43b,color:#000
+    style L fill:#b197fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style V fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 8: DNA Damage Induction -->
+            <div class="process-item" id="dna-damage-induction">
+                <h3>8. Induction by DNA Damage</h3>
+                <p>The signal transduction pathway that converts DNA damage into CI inactivation, triggering lytic development.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[DNA Damage] --> B[RecA Activation]
+    B --> C[RecA* Formation]
+    C --> D[CI Cleavage Activity]
+    D --> E[CI Auto-proteolysis]
+    E --> F[CI Inactivation]
+    F --> G[OR Operator Release]
+    G --> H[PR Promoter Activation]
+    H --> I[Cro Expression]
+    I --> J[Lytic Gene Cascade]
+    K[UV Radiation] --> L[Thymine Dimers]
+    L --> M[Replication Block]
+    M --> N[ssDNA Formation]
+    N --> B
+    O[SOS Response] --> P[RecA Induction]
+    P --> Q[Amplified Signal]
+    Q --> R[Rapid CI Clearance]
+    S[Timing Control] --> T[CI Half-life]
+    T --> U[Induction Kinetics]
+    U --> V[Lytic Commitment]
+    
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style J fill:#b197fc,color:#fff
+    style V fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 9: Lytic Late Gene Cascade -->
+            <div class="process-item" id="lytic-cascade">
+                <h3>9. Lytic Late Gene Cascade</h3>
+                <p>The temporal program of lytic development, implementing a genetic timer and developmental cascade.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Lytic Commitment] --> B[Early Lytic Genes]
+    B --> C[N Antitermination]
+    C --> D[Q Protein Expression]
+    D --> E[Late Gene Activation]
+    F[DNA Replication] --> G[Replication Timing]
+    G --> H[Late Promoter Activation]
+    H --> I[Structural Proteins]
+    J[Head Proteins] --> K[Capsid Assembly]
+    L[Tail Proteins] --> M[Tail Assembly]
+    N[DNA Packaging] --> O[Progeny Assembly]
+    P[Lysis Proteins] --> Q[Holin Expression]
+    Q --> R[Membrane Permeabilization]
+    R --> S[Endolysin Release]
+    S --> T[Cell Wall Digestion]
+    T --> U[Cell Lysis]
+    V[Temporal Control] --> W[Regulatory Cascade]
+    W --> X[Ordered Expression]
+    X --> Y[Efficient Assembly]
+    
+    style A fill:#ff6b6b,color:#fff
+    style D fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style U fill:#b197fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 10: Decision Integration Logic -->
+            <div class="process-item" id="decision-integration">
+                <h3>10. Decision Integration Logic</h3>
+                <p>The master control logic integrating all decision inputs into the final binary choice between lysis and lysogeny.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    A[Multiple Inputs] --> B[CII Stabilization]
+    A --> C[Host Conditions]
+    A --> D[MOI Signal]
+    A --> E[DNA Damage Status]
+    B --> F[Lysogenic Bias Weight]
+    C --> G[Environmental Weight]
+    D --> H[Population Weight]
+    E --> I[Stress Weight]
+    J[Integration Function] --> K{Weighted Sum > Threshold?}
+    K -->|Yes| L[Lysogenic Decision]
+    K -->|No| M[Lytic Decision]
+    L --> N[CI Dominance]
+    N --> O[Stable Repression]
+    O --> P[Integrated Prophage]
+    M --> Q[Cro Dominance]
+    Q --> R[Lytic Program]
+    R --> S[Progeny Production]
+    T[Decision Memory] --> U[State Maintenance]
+    U --> V[Switch Stability]
+    V --> W[Biological Computing]
+    
+    style A fill:#ff6b6b,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style W fill:#b197fc,color:#fff
+                    </div>
+                </div>
+            </div>
+        ''',
+        'FOOTER_TEXT': 'This analysis demonstrates how bacteriophage lambda implements sophisticated computational logic including bistable switches, competitive inhibition, positive feedback loops, threshold detection, and digital memory - fundamental concepts in computer science realized through molecular interactions.',
+        'FOOTER_QUOTE': 'Phage λ Decision Switch: The paradigm of biological computation'
+    }
+    
+    # Replace placeholders
+    for key, value in content.items():
+        template = template.replace(f'{{{{{key}}}}}', value)
+    
+    # Write the file
+    with open('phage_lambda_decision_switch.html', 'w') as f:
+        f.write(template)
+    
+    print("Generated phage_lambda_decision_switch.html")
+
+if __name__ == "__main__":
+    generate_phage_lambda()
+
+
+

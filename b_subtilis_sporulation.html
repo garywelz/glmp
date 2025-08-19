@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B. subtilis Sporulation: Developmental Programming</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        /* Ensure proper rendering of Greek characters */
+        h1, h2, h3, p, li, a {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .highlight {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-left: 4px solid #2196f3;
+            margin: 1rem 0;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-legend span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .color-legend .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧬 B. subtilis Sporulation</h1>
+            <p>Developmental Programming and Environmental Decision-Making</p>
+        </div>
+        <div class="content">
+            <div class="intro">
+                <h2>Sporulation: Biology's Ultimate Developmental Switch</h2>
+                <p>Bacillus subtilis sporulation represents one of the most sophisticated examples of environmental decision-making in biology. Faced with starvation, the bacterium executes a complex developmental program involving cell-cell communication, asymmetric division, differential gene expression, and coordinated morphogenesis to create a highly resistant endospore.</p>
+                <div class="highlight">
+                    <strong>Computational Significance:</strong> Sporulation demonstrates how biological systems implement environmental sensing, commitment switches, developmental cascades, cell-cell communication, and morphogenetic programs - fundamental concepts in distributed computing and developmental biology.
+                </div>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Sporulation Development - 10 Programmatic Processes</h2>
+                <ul>
+                    <li><a href="#spo0a-phosphorelay">1. Spo0A Phosphorelay</a></li>
+                    <li><a href="#sigma-cascades">2. σ<sup>H</sup>/σ<sup>F</sup>/σ<sup>E</sup>/σ<sup>G</sup> Cascades</a></li>
+                    <li><a href="#cell-signaling">3. Cell-Cell Signaling (SpoIIR/SpoIIGA)</a></li>
+                    <li><a href="#forespore-mother">4. Forespore vs Mother-Cell Programs</a></li>
+                    <li><a href="#engulfment-checkpoints">5. Engulfment Checkpoints</a></li>
+                    <li><a href="#dna-translocation">6. DNA Translocation Logic</a></li>
+                    <li><a href="#feed-forward">7. Feed-Forward Loops</a></li>
+                    <li><a href="#stress-inputs">8. Stress Inputs (Nutrient, Crowding)</a></li>
+                    <li><a href="#commitment-paths">9. Commitment vs Abort Paths</a></li>
+                    <li><a href="#spore-maturation">10. Spore Maturation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: Spo0A Phosphorelay -->
+            <div class="process-item" id="spo0a-phosphorelay">
+                <h3>1. Spo0A Phosphorelay</h3>
+                <p>The master regulatory phosphorelay integrating multiple environmental signals to control sporulation initiation.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Starvation Signal] --> B[KinA Activation]
+    A --> C[KinB Activation]
+    A --> D[KinC Activation]
+    B --> E[KinA Autophosphorylation]
+    C --> F[KinB Autophosphorylation]
+    D --> G[KinC Autophosphorylation]
+    E --> H[Phosphate Transfer to Spo0F]
+    F --> H
+    G --> H
+    H --> I[Spo0F~P Formation]
+    I --> J[Phosphate Transfer to Spo0B]
+    J --> K[Spo0B~P Formation]
+    K --> L[Phosphate Transfer to Spo0A]
+    L --> M[Spo0A~P Formation]
+    M --> N[Spo0A Activation]
+    N --> O[Sporulation Initiation]
+    O --> P[Developmental Program Start]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#ffd43b,color:#000
+    style O fill:#b197fc,color:#fff
+    style P fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 2: Sigma Factor Cascades -->
+            <div class="process-item" id="sigma-cascades">
+                <h3>2. σ<sup>H</sup>/σ<sup>F</sup>/σ<sup>E</sup>/σ<sup>G</sup> Cascades</h3>
+                <p>Temporal cascade of sigma factors orchestrating the sequential gene expression program during sporulation.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Spo0A~P Active] --> B[σ^H Expression]
+    B --> C[σ^H Activation]
+    C --> D[Early Sporulation Genes]
+    D --> E[Asymmetric Division]
+    E --> F[σ^F Activation in Forespore]
+    F --> G[Forespore-Specific Genes]
+    G --> H[SpoIIR Expression]
+    H --> I[SpoIIR Secretion]
+    I --> J[SpoIIGA Activation]
+    J --> K[σ^E Processing]
+    K --> L[σ^E Activation in Mother Cell]
+    L --> M[Mother Cell-Specific Genes]
+    M --> N[Engulfment Initiation]
+    N --> O[σ^G Activation]
+    O --> P[Late Forespore Genes]
+    P --> Q[Spore Maturation Initiation]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style C fill:#ffd43b,color:#000
+    style D fill:#51cf66,color:#fff
+    style E fill:#b197fc,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#51cf66,color:#fff
+    style L fill:#ffd43b,color:#000
+    style M fill:#51cf66,color:#fff
+    style N fill:#b197fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#51cf66,color:#fff
+    style Q fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 3: Cell-Cell Signaling -->
+            <div class="process-item" id="cell-signaling">
+                <h3>3. Cell-Cell Signaling (SpoIIR/SpoIIGA)</h3>
+                <p>Intercellular communication system coordinating development between forespore and mother cell compartments.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[σ^F in Forespore] --> B[SpoIIR Gene Expression]
+    B --> C[SpoIIR Protein Synthesis]
+    C --> D[SpoIIR Secretion]
+    D --> E[SpoIIR in Intercompartment Space]
+    E --> F[SpoIIR Binding to SpoIIGA]
+    F --> G[SpoIIGA Activation]
+    G --> H[σ^E Pro-protein Processing]
+    H --> I[σ^E Activation]
+    I --> J[Mother Cell Gene Expression]
+    J --> K[Engulfment Proteins]
+    K --> L[Membrane Remodeling]
+    L --> M[Compartment Separation]
+    M --> N[Independent Development]
+    N --> O[Coordinated Morphogenesis]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style C fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style E fill:#74c0fc,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#ffd43b,color:#000
+    style H fill:#51cf66,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#51cf66,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#51cf66,color:#fff
+    style M fill:#b197fc,color:#fff
+    style N fill:#b197fc,color:#fff
+    style O fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 4: Forespore vs Mother-Cell Programs -->
+            <div class="process-item" id="forespore-mother">
+                <h3>4. Forespore vs Mother-Cell Programs</h3>
+                <p>Divergent developmental programs creating specialized cell fates from a single asymmetric division.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Asymmetric Division] --> B[Forespore Compartment]
+    A --> C[Mother Cell Compartment]
+    B --> D[σ^F Activation]
+    C --> E[σ^E Activation]
+    D --> F[Forespore-Specific Genes]
+    E --> G[Mother Cell-Specific Genes]
+    F --> H[Spore Coat Proteins]
+    F --> I[Spore Core Proteins]
+    F --> J[Germination Proteins]
+    G --> K[Engulfment Proteins]
+    G --> L[Spore Coat Assembly]
+    G --> M[Spore Maturation]
+    H --> N[Spore Coat Formation]
+    I --> O[Spore Core Assembly]
+    J --> P[Germination Readiness]
+    K --> Q[Membrane Engulfment]
+    L --> R[Spore Coat Assembly]
+    M --> S[Spore Maturation]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#b197fc,color:#fff
+    style C fill:#b197fc,color:#fff
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#b197fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style P fill:#b197fc,color:#fff
+    style Q fill:#b197fc,color:#fff
+    style R fill:#b197fc,color:#fff
+    style S fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 5: Engulfment Checkpoints -->
+            <div class="process-item" id="engulfment-checkpoints">
+                <h3>5. Engulfment Checkpoints</h3>
+                <p>Quality control mechanisms monitoring forespore engulfment and preventing aberrant sporulation.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Engulfment Initiation] --> B{Membrane Fusion?}
+    B -->|Yes| C[Engulfment Proceeds]
+    B -->|No| D[Engulfment Arrest]
+    C --> E[Forespore Isolation]
+    D --> F[Abortive Sporulation]
+    E --> G[σ^G Activation Check]
+    G --> H{σ^G Active?}
+    H -->|Yes| I[Late Gene Expression]
+    H -->|No| J[σ^G Activation Wait]
+    I --> K[Spore Maturation]
+    J --> G
+    K --> L[Mature Spore Formation]
+    L --> M[Engulfment Success]
+    F --> N[Return to Vegetative Growth]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#74c0fc,color:#fff
+    style C fill:#b197fc,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#b197fc,color:#fff
+    style F fill:#b197fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#b197fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#b197fc,color:#fff
+    style M fill:#b197fc,color:#fff
+    style N fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 6: DNA Translocation Logic -->
+            <div class="process-item" id="dna-translocation">
+                <h3>6. DNA Translocation Logic</h3>
+                <p>Sophisticated machinery ensuring complete chromosome transfer into the forespore compartment.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Asymmetric Division] --> B[DNA Replication]
+    B --> C[Chromosome Segregation]
+    C --> D[SpoIIIE Assembly]
+    D --> E[SpoIIIE DNA Pump]
+    E --> F[Chromosome Translocation]
+    F --> G{Complete Transfer?}
+    G -->|Yes| H[Forespore Chromosome Complete]
+    G -->|No| I[Continued Translocation]
+    H --> J[σ^G Activation]
+    I --> F
+    J --> K[Late Gene Expression]
+    K --> L[Spore Development]
+    L --> M[Complete Genome Transfer]
+    M --> N[Spore Viability]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style C fill:#51cf66,color:#fff
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#b197fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#51cf66,color:#fff
+    style L fill:#b197fc,color:#fff
+    style M fill:#b197fc,color:#fff
+    style N fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 7: Feed-Forward Loops -->
+            <div class="process-item" id="feed-forward">
+                <h3>7. Feed-Forward Loops</h3>
+                <p>Regulatory circuits providing temporal control and noise filtering in the sporulation program.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Spo0A~P] --> B[σ^H Expression]
+    A --> C[σ^F Expression]
+    B --> D[σ^H Activity]
+    C --> E[σ^F Activity]
+    D --> F[Early Genes]
+    E --> G[Forespore Genes]
+    F --> H[SpoIIR Expression]
+    G --> I[SpoIIR Expression]
+    H --> J[SpoIIGA Activation]
+    I --> J
+    J --> K[σ^E Processing]
+    K --> L[σ^E Activity]
+    L --> M[Mother Cell Genes]
+    M --> N[Engulfment]
+    N --> O[σ^G Activation]
+    O --> P[Late Genes]
+    P --> Q[Spore Maturation]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style C fill:#51cf66,color:#fff
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#51cf66,color:#fff
+    style L fill:#ffd43b,color:#000
+    style M fill:#51cf66,color:#fff
+    style N fill:#b197fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#51cf66,color:#fff
+    style Q fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 8: Stress Inputs -->
+            <div class="process-item" id="stress-inputs">
+                <h3>8. Stress Inputs (Nutrient, Crowding)</h3>
+                <p>Environmental monitoring systems that assess starvation conditions and population density for sporulation timing.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Nutrient Depletion] --> B[Starvation Signal]
+    A --> C[Energy Stress]
+    C --> D[ATP Depletion]
+    D --> E[KinA Activation]
+    F[Population Density] --> G[Quorum Sensing]
+    G --> H[ComX Pheromone]
+    H --> I[ComP/ComA Activation]
+    I --> J[KinB Activation]
+    K[DNA Damage] --> L[SOS Response]
+    L --> M[RecA Activation]
+    M --> N[KinC Activation]
+    E --> O[Spo0A Phosphorelay]
+    J --> O
+    N --> O
+    O --> P[Sporulation Decision]
+    P --> Q{Commit to Sporulation?}
+    Q -->|Yes| R[Sporulation Initiation]
+    Q -->|No| S[Return to Growth]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#74c0fc,color:#fff
+    style E fill:#ffd43b,color:#000
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ff6b6b,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#b197fc,color:#fff
+    style S fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 9: Commitment vs Abort Paths -->
+            <div class="process-item" id="commitment-paths">
+                <h3>9. Commitment vs Abort Paths</h3>
+                <p>Decision circuitry determining whether to commit to sporulation or abort the process and return to vegetative growth.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Spo0A~P Accumulation] --> B{Threshold Reached?}
+    B -->|Yes| C[Commitment to Sporulation]
+    B -->|No| D[Abort Sporulation]
+    C --> E[σ^H Expression]
+    D --> F[Return to Vegetative Growth]
+    E --> G[Asymmetric Division]
+    G --> H{Division Success?}
+    H -->|Yes| I[Forespore Formation]
+    H -->|No| J[Abort Sporulation]
+    I --> K[Engulfment]
+    J --> F
+    K --> L{Engulfment Success?}
+    L -->|Yes| M[Spore Maturation]
+    L -->|No| N[Abort Sporulation]
+    M --> O[Mature Spore]
+    N --> F
+    O --> P[Sporulation Success]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#74c0fc,color:#fff
+    style C fill:#b197fc,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#b197fc,color:#fff
+    style G fill:#b197fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#b197fc,color:#fff
+    style J fill:#ff6b6b,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style O fill:#b197fc,color:#fff
+    style P fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 10: Spore Maturation -->
+            <div class="process-item" id="spore-maturation">
+                <h3>10. Spore Maturation</h3>
+                <p>Final developmental program creating the mature, resistant endospore capable of surviving extreme conditions.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Engulfment Complete] --> B[Spore Coat Assembly]
+    B --> C[Spore Coat Proteins]
+    C --> D[Spore Coat Layers]
+    D --> E[Spore Coat Cross-linking]
+    E --> F[Spore Coat Maturation]
+    F --> G[Spore Core Dehydration]
+    G --> H[Small Acid-Soluble Proteins]
+    H --> I[DNA Protection]
+    I --> J[Spore Core Stabilization]
+    J --> K[Calcium Dipicolinate]
+    K --> L[Spore Heat Resistance]
+    L --> M[Spore Germination Proteins]
+    M --> N[Germination Readiness]
+    N --> O[Mature Endospore]
+    O --> P[Environmental Resistance]
+    P --> Q[Developmental Success]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#51cf66,color:#fff
+    style C fill:#ffd43b,color:#000
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#b197fc,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#ffd43b,color:#000
+    style I fill:#b197fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#b197fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#b197fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style P fill:#b197fc,color:#fff
+    style Q fill:#b197fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="footer">
+                <p><strong>Generated using the Programming Framework methodology</strong></p>
+                <p>This analysis demonstrates how B. subtilis sporulation implements sophisticated developmental programming including environmental sensing, commitment switches, cell-cell communication, morphogenetic programs, and quality control systems - fundamental concepts in distributed computing and developmental biology.</p>
+                <p><em>B. subtilis Sporulation: The paradigm of biological developmental programming</em></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#feca57',
+                tertiaryColor: '#4ecdc4'
+            }
+        });
+    </script>
+</body>
+</html> 

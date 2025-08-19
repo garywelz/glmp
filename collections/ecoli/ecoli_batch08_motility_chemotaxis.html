@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 08: Motility & Chemotaxis - Programming Framework Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .color-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,.08);
+            background: #fff;
+            font-size: 0.9rem;
+        }
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 E. coli Batch 08: Motility & Chemotaxis</h1>
+            <p>Programming Framework Analysis - Comprehensive Motility Systems</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>Motility & Chemotaxis: Bacterial Navigation, Propulsion, and Environmental Sensing</h2>
+                <p>This batch contains 6 fundamental E. coli processes responsible for bacterial motility, navigation, and environmental sensing. These processes represent the core computational systems that ensure proper bacterial movement, chemotaxis, and environmental adaptation.</p>
+                
+                <p>Each process demonstrates sophisticated biological programming with signal processing, motor control, adaptive behavior, and environmental navigation that functions as a biological guidance and propulsion platform.</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Table of Contents - 6 Motility & Chemotaxis Processes</h2>
+                <ul>
+                    <li><a href="#chemotaxis">1. Chemotaxis</a></li>
+                    <li><a href="#flagellar-assembly">2. Flagellar Assembly</a></li>
+                    <li><a href="#flagellar-motor">3. Flagellar Motor</a></li>
+                    <li><a href="#swimming-tumbling">4. Swimming vs Tumbling</a></li>
+                    <li><a href="#aerotaxis">5. Aerotaxis</a></li>
+                    <li><a href="#ph-taxis">6. pH Taxis</a></li>
+                </ul>
+            </div>
+
+            <!-- Process 1: Chemotaxis -->
+            <div class="process-item" id="chemotaxis">
+                <h3>1. Chemotaxis</h3>
+                <p>Detailed analysis of bacterial chemotaxis using the Programming Framework, revealing computational logic for environmental navigation and adaptive behavior.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Chemical Attractants] --> B[Attractant Detection]
+    C[Chemical Repellents] --> D[Repellent Detection]
+    E[Gradient Changes] --> F[Temporal Sensing]
+    
+    %% Receptor Systems
+    B --> G[Tar Receptor]
+    B --> H[Tsr Receptor]
+    D --> I[Tap Receptor]
+    D --> J[Trg Receptor]
+    F --> K[Receptor Clusters]
+    
+    %% Signal Transduction
+    G --> L[CheW Coupling]
+    H --> L
+    I --> L
+    J --> L
+    K --> L
+    L --> M[CheA Kinase]
+    
+    %% Phosphorylation Cascade
+    M --> N{CheA Active?}
+    N -->|Yes| O[CheA Autophosphorylation]
+    N -->|No| P[No Phosphorylation]
+    O --> Q[CheY Phosphorylation]
+    P --> R[CheY Inactive]
+    
+    %% Motor Control Logic
+    Q --> S{CheY-P Level?}
+    S -->|High| T[Clockwise Rotation]
+    S -->|Low| U[Counterclockwise Rotation]
+    R --> U
+    
+    %% Swimming Behavior
+    T --> V[Tumbling]
+    U --> W[Smooth Swimming]
+    V --> X[Random Direction]
+    W --> Y[Straight Movement]
+    
+    %% Adaptation System
+    Q --> Z[CheZ Phosphatase]
+    Z --> AA[CheY Dephosphorylation]
+    AA --> BB[Signal Termination]
+    
+    %% Methylation Control
+    M --> CC[CheB Activation]
+    CC --> DD[Receptor Demethylation]
+    DD --> EE[Reduced Sensitivity]
+    
+    %% Counter-Adaptation
+    FF[CheR Methyltransferase] --> GG[Receptor Methylation]
+    GG --> HH[Increased Sensitivity]
+    EE --> II[Adaptation State]
+    HH --> II
+    
+    %% Behavioral Outputs
+    X --> JJ[Exploration]
+    Y --> KK[Gradient Following]
+    JJ --> LL{Better Environment?}
+    KK --> MM{Attractant Increasing?}
+    
+    %% Decision Logic
+    LL -->|Yes| MM
+    LL -->|No| V
+    MM -->|Yes| W
+    MM -->|No| V
+    
+    %% Integration
+    W --> NN[Chemotaxis]
+    NN --> OO[Environmental Navigation]
+    OO --> PP[Adaptive Behavior]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#74c0fc,color:#fff
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#ffd43b,color:#000
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#ffd43b,color:#000
+    style DD fill:#ffd43b,color:#000
+    style EE fill:#ffd43b,color:#000
+    style FF fill:#ffd43b,color:#000
+    style GG fill:#ffd43b,color:#000
+    style HH fill:#ffd43b,color:#000
+    style II fill:#ffd43b,color:#000
+    style JJ fill:#ffd43b,color:#000
+    style KK fill:#ffd43b,color:#000
+    style LL fill:#74c0fc,color:#fff
+    style MM fill:#74c0fc,color:#fff
+    style NN fill:#ffd43b,color:#000
+    style OO fill:#ffd43b,color:#000
+    style PP fill:#ffd43b,color:#000
+    
+    style PP fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 2: Flagellar Assembly -->
+            <div class="process-item" id="flagellar-assembly">
+                <h3>2. Flagellar Assembly</h3>
+                <p>Analysis of bacterial flagellar assembly demonstrating flagellum construction, protein export, and motor assembly.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Flagellar Gene Expression
+    A[Flagellar Genes] --> B[FliA Sigma Factor]
+    B --> C[Class 2 Genes]
+    C --> D[Class 3 Genes]
+    D --> E[Class 4 Genes]
+    
+    %% Basal Body Assembly
+    E --> F[MS Ring Assembly]
+    F --> G[Rod Assembly]
+    G --> H[L Ring Assembly]
+    H --> I[P Ring Assembly]
+    I --> J[Basal Body Complete]
+    
+    %% Hook Assembly
+    J --> K[Hook Protein Export]
+    K --> L[FlgE Polymerization]
+    L --> M[Hook Filament]
+    M --> N[Hook Length Control]
+    N --> O[Hook Complete]
+    
+    %% Filament Assembly
+    O --> P[Filament Protein Export]
+    P --> Q[FliC Polymerization]
+    Q --> R[Filament Growth]
+    R --> S[Filament Length]
+    S --> T[Flagellum Complete]
+    
+    %% Motor Assembly
+    T --> U[Motor Proteins]
+    U --> V[Stator Assembly]
+    V --> W[Rotor Assembly]
+    W --> X[Motor Function]
+    X --> Y[Flagellar Motility]
+    
+    %% Integration
+    Y --> Z[Flagellar Assembly]
+    Z --> AA[Motility System]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#ffd43b,color:#000
+    
+    style AA fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 3: Flagellar Motor -->
+            <div class="process-item" id="flagellar-motor">
+                <h3>3. Flagellar Motor</h3>
+                <p>Analysis of bacterial flagellar motor demonstrating motor function, energy transduction, and rotation control.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Energy Source
+    A[Proton Motive Force] --> B[Proton Channel]
+    B --> C[Proton Flow]
+    C --> D[Energy Transduction]
+    D --> E[Motor Rotation]
+    
+    %% Motor Components
+    E --> F[Rotor Assembly]
+    F --> G[Stator Assembly]
+    G --> H[Motor Complex]
+    H --> I[Torque Generation]
+    I --> J[Flagellar Rotation]
+    
+    %% Rotation Control
+    J --> K{CheY-P Level?}
+    K -->|High| L[Clockwise Rotation]
+    K -->|Low| M[Counterclockwise Rotation]
+    L --> N[Tumbling Behavior]
+    M --> O[Smooth Swimming]
+    
+    %% Motor Regulation
+    N --> P[Motor Switching]
+    O --> P
+    P --> Q[Directional Control]
+    Q --> R[Behavioral Response]
+    R --> S[Environmental Adaptation]
+    
+    %% Integration
+    S --> T[Flagellar Motor]
+    T --> U[Motility Control]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#74c0fc,color:#fff
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    
+    style U fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 4: Swimming vs Tumbling -->
+            <div class="process-item" id="swimming-tumbling">
+                <h3>4. Swimming vs Tumbling</h3>
+                <p>Analysis of bacterial swimming and tumbling behavior demonstrating movement patterns and behavioral switching.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Behavioral States
+    A[Environmental Conditions] --> B{Attractant Gradient?}
+    B -->|Yes| C[Smooth Swimming]
+    B -->|No| D[Tumbling]
+    
+    %% Smooth Swimming
+    C --> E[Flagellar Bundle]
+    E --> F[Counterclockwise Rotation]
+    F --> G[Straight Movement]
+    G --> H[Gradient Following]
+    H --> I[Attractant Accumulation]
+    
+    %% Tumbling
+    D --> J[Flagellar Dispersal]
+    J --> K[Clockwise Rotation]
+    K --> L[Random Reorientation]
+    L --> M[New Direction]
+    M --> N[Exploration]
+    
+    %% Behavioral Switching
+    I --> O{Continue Swimming?}
+    N --> P{New Direction Favorable?}
+    O -->|Yes| C
+    O -->|No| D
+    P -->|Yes| C
+    P -->|No| D
+    
+    %% Integration
+    C --> Q[Swimming vs Tumbling]
+    D --> Q
+    Q --> R[Behavioral Adaptation]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#74c0fc,color:#fff
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    
+    style R fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 5: Aerotaxis -->
+            <div class="process-item" id="aerotaxis">
+                <h3>5. Aerotaxis</h3>
+                <p>Analysis of bacterial aerotaxis demonstrating oxygen sensing, gradient detection, and aerobic navigation.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Oxygen Sensing
+    A[Oxygen Gradient] --> B[Oxygen Detection]
+    B --> C[Aerotaxis Receptors]
+    C --> D[Signal Transduction]
+    D --> E[Response Regulation]
+    
+    %% Aerobic Response
+    E --> F{High Oxygen?}
+    F -->|Yes| G[Positive Aerotaxis]
+    F -->|No| H[Negative Aerotaxis]
+    G --> I[Oxygen Seeking]
+    H --> J[Oxygen Avoidance]
+    
+    %% Navigation
+    I --> K[Swimming Toward Oxygen]
+    J --> L[Swimming Away]
+    K --> M[Optimal Oxygen Level]
+    L --> N[Low Oxygen Environment]
+    
+    %% Integration
+    M --> O[Aerotaxis]
+    N --> O
+    O --> P[Oxygen Homeostasis]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#74c0fc,color:#fff
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    
+    style P fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 6: pH Taxis -->
+            <div class="process-item" id="ph-taxis">
+                <h3>6. pH Taxis</h3>
+                <p>Analysis of bacterial pH taxis demonstrating pH sensing, acid/base avoidance, and pH gradient navigation.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% pH Sensing
+    A[pH Gradient] --> B[pH Detection]
+    B --> C[pH Receptors]
+    C --> D[Signal Processing]
+    D --> E[pH Response]
+    
+    %% pH Response
+    E --> F{Optimal pH?}
+    F -->|Yes| G[Neutral pH Behavior]
+    F -->|No| H[pH Avoidance]
+    G --> I[Maintain Position]
+    H --> J[pH Seeking]
+    
+    %% Navigation
+    J --> K[Swimming Toward Optimal pH]
+    K --> L[pH Gradient Following]
+    L --> M[Optimal pH Environment]
+    M --> N[pH Homeostasis]
+    
+    %% Integration
+    N --> O[pH Taxis]
+    O --> P[Environmental Adaptation]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#74c0fc,color:#fff
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    
+    style P fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Generated using the Programming Framework methodology</strong></p>
+                <p>This batch demonstrates the computational nature of E. coli motility and chemotaxis systems</p>
+                <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+                <p><em>Batch 08 of 15: Motility & Chemotaxis</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

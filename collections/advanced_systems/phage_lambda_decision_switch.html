@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phage λ Decision Switch: Viral Computational Logic</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
+        }
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+            border-radius: 10px; 
+            overflow: hidden; 
+        }
+        .header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 2rem; 
+            text-align: center; 
+        }
+        .header h1 { 
+            margin: 0; 
+            font-size: 2.5rem; 
+            font-weight: 300; 
+        }
+        .content { 
+            padding: 2rem; 
+        }
+        .intro { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+        }
+        .toc { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+        }
+        .toc ul { 
+            list-style: none; 
+            padding: 0; 
+        }
+        .toc li { 
+            margin: 0.5rem 0; 
+        }
+        .toc a { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: 500; 
+        }
+        .process-item { 
+            margin: 2rem 0; 
+            padding: 1.5rem; 
+            border: 1px solid #dee2e6; 
+            border-radius: 8px; 
+            background: #fafafa; 
+        }
+        .process-item h3 { 
+            color: #495057; 
+            margin-bottom: 1rem; 
+        }
+        .mermaid-container { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin: 1rem 0; 
+            overflow-x: auto; 
+        }
+        .footer { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            text-align: center; 
+            border-top: 1px solid #dee2e6; 
+            margin-top: 2rem; 
+        }
+        .highlight { 
+            background: #e3f2fd; 
+            padding: 1rem; 
+            border-left: 4px solid #2196f3; 
+            margin: 1rem 0; 
+        }
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .color-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,.08);
+            background: #fff;
+            font-size: 0.9rem;
+        }
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 Phage λ Decision Switch</h1>
+            <p>Viral Computational Logic and Binary Decision Making</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>The Lambda Decision: Biology's Most Famous Switch</h2>
+                <p>Bacteriophage lambda represents one of the most elegant examples of biological computation ever discovered. Upon infection, the virus faces a fundamental binary decision: <strong>lyse or lysogenize</strong>. This decision involves sophisticated computational logic including bistable switches, competitive inhibition, positive feedback loops, and threshold detection mechanisms.</p>
+                
+                <div class="highlight">
+                    <strong>Computational Significance:</strong> The lambda decision switch demonstrates how biological systems implement Boolean logic, digital decision-making, and state memory - fundamental concepts in computer science realized through molecular interactions.
+                </div>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Lambda Decision Logic - 10 Computational Processes</h2>
+                <ul>
+                    <li><a href="#infection-initiation">1. Infection → CII Stabilization Logic</a></li>
+                    <li><a href="#early-gene-control">2. PR/PL Early Gene Control</a></li>
+                    <li><a href="#ci-autoregulation">3. CI Auto-regulation</a></li>
+                    <li><a href="#cro-antagonism">4. Cro Antagonism</a></li>
+                    <li><a href="#promoter-dynamics">5. Promoter Occupancy Dynamics</a></li>
+                    <li><a href="#decision-thresholding">6. Decision Thresholding (MOI)</a></li>
+                    <li><a href="#lysogeny-maintenance">7. Maintenance of Lysogeny</a></li>
+                    <li><a href="#dna-damage-induction">8. Induction by DNA Damage</a></li>
+                    <li><a href="#lytic-cascade">9. Lytic Late Gene Cascade</a></li>
+                    <li><a href="#decision-integration">10. Decision Integration Logic</a></li>
+                </ul>
+            </div>
+
+            <!-- Process 1: Infection → CII Stabilization Logic -->
+            <div class="process-item" id="infection-initiation">
+                <h3>1. Infection → CII Stabilization Logic</h3>
+                <p>The initial computational logic determining CII protein stability and early decision bias toward lysogeny or lysis.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Initial Infection
+    A[Phage Injection] --> B[DNA Circularization]
+    B --> C[Early Transcription]
+    C --> D[CII Protein Synthesis]
+    %% CII Stability Decision
+    D --> E{Host Protease Activity?}
+    E -->|High| F[CII Degradation]
+    E -->|Low| G[CII Stabilization]
+    %% Decision Bias
+    F --> H[Lytic Bias]
+    G --> I[Lysogenic Bias]
+    %% Environmental Factors
+    J[Host Conditions] --> K[Protease Regulation]
+    K --> E
+    L[Multiplicity of Infection] --> M[CII Concentration]
+    M --> N{CII Threshold?}
+    N -->|Above| O[Lysogenic Switch]
+    N -->|Below| P[Lytic Default]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style J fill:#ff6b6b,color:#fff
+    style L fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 2: PR/PL Early Gene Control -->
+            <div class="process-item" id="early-gene-control">
+                <h3>2. PR/PL Early Gene Control</h3>
+                <p>Computational logic governing early gene expression through the PR and PL promoters, setting up the decision circuitry.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Promoter Setup
+    A[Lambda DNA] --> B[PR Promoter]
+    A --> C[PL Promoter]
+    %% PR Promoter Outputs
+    B --> D[cI Gene Transcription]
+    B --> E[cII Gene Transcription]
+    B --> F[cIII Gene Transcription]
+    %% PL Promoter Outputs
+    C --> G[N Protein Synthesis]
+    C --> H[Early Lytic Genes]
+    %% Antitermination Logic
+    G --> I[Antitermination]
+    I --> J[Extended Transcription]
+    J --> K[cII/cIII Enhancement]
+    %% Protein Products
+    D --> L[CI Repressor]
+    E --> M[CII Activator]
+    F --> N[CIII Protease Inhibitor]
+    %% CI Feedback Control
+    L --> O{CI Concentration?}
+    O -->|High| P[PR/PL Repression]
+    O -->|Low| Q[Continued Transcription]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 3: CI Auto-regulation -->
+            <div class="process-item" id="ci-autoregulation">
+                <h3>3. CI Auto-regulation</h3>
+                <p>The positive feedback mechanism where CI repressor regulates its own expression, creating a bistable switch for lysogeny maintenance.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% CI Auto-regulation Loop
+    A[CI Protein] --> B[OR Operator Binding]
+    B --> C{Operator Occupancy?}
+    C -->|OR1/OR2| D[PRM Activation]
+    C -->|OR3| E[PRM Repression]
+    %% Positive Feedback
+    D --> F[CI Transcription]
+    F --> G[More CI Protein]
+    G --> H[Positive Feedback]
+    H --> B
+    %% Low CI State
+    I[Low CI] --> J[OR1 Binding Only]
+    J --> K[PRM Transcription]
+    K --> L[CI Increase]
+    %% High CI State
+    M[High CI] --> N[OR3 Binding]
+    N --> O[PRM Shutoff]
+    O --> P[CI Decrease]
+    %% Cooperative Binding
+    Q[Cooperative Binding] --> R[Hill Function]
+    R --> S[Bistable Switch]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style C fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 4: Cro Antagonism -->
+            <div class="process-item" id="cro-antagonism">
+                <h3>4. Cro Antagonism</h3>
+                <p>The competitive inhibition logic between CI and Cro proteins for operator binding, implementing mutual exclusion.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Competitive Binding
+    A[CI vs Cro Competition] --> B{Operator Binding Affinity?}
+    B -->|CI Higher| C[CI Binds OR1/OR2]
+    B -->|Cro Higher| D[Cro Binds OR3/OR2/OR1]
+    %% CI Dominant State
+    C --> E[PRM Activated]
+    C --> F[PR Repressed]
+    E --> G[More CI]
+    F --> H[Less Cro]
+    %% Cro Dominant State
+    D --> I[PR Activated]
+    D --> J[PRM Repressed]
+    I --> K[More Cro]
+    J --> L[Less CI]
+    %% DNA Damage Induction
+    M[DNA Damage] --> N[RecA Activation]
+    N --> O[CI Cleavage]
+    O --> P[CI Inactivation]
+    P --> Q[Cro Takes Over]
+    %% Competitive Exclusion
+    R[Competitive Exclusion] --> S[Winner Take All]
+    S --> T[Bistable Outcome]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style R fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 5: Promoter Occupancy Dynamics -->
+            <div class="process-item" id="promoter-dynamics">
+                <h3>5. Promoter Occupancy Dynamics</h3>
+                <p>Dynamic equilibrium between CI and Cro binding at operator sites, creating a digital switch mechanism.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Operator Sites
+    A[OR1 Site] --> B[OR2 Site]
+    B --> C[OR3 Site]
+    %% CI Binding States
+    D[CI Monomer] --> E[CI Dimer Formation]
+    E --> F[OR1 Binding]
+    F --> G[OR2 Cooperative Binding]
+    G --> H[OR3 Binding]
+    %% Cro Binding States
+    I[Cro Monomer] --> J[Cro Dimer Formation]
+    J --> K[OR3 Binding]
+    K --> L[OR2 Binding]
+    L --> M[OR1 Binding]
+    %% Competitive Dynamics
+    N[CI vs Cro Competition] --> O{Binding Affinity?}
+    O -->|CI Higher| P[CI Dominant State]
+    O -->|Cro Higher| Q[Cro Dominant State]
+    %% State Transitions
+    P --> R[Lysogenic State]
+    Q --> S[Lytic State]
+    R --> T[Stable Lysogeny]
+    S --> U[Viral Replication]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 6: Decision Thresholding (MOI) -->
+            <div class="process-item" id="decision-thresholding">
+                <h3>6. Decision Thresholding (MOI)</h3>
+                <p>Multiplicity of infection as a digital threshold for switching between lysogenic and lytic outcomes.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% MOI Input
+    A[Multiplicity of Infection] --> B[MOI Assessment]
+    B --> C{MOI Threshold?}
+    %% Low MOI Path
+    C -->|Low MOI| D[CII Stabilization]
+    D --> E[CII Accumulation]
+    E --> F[CII Threshold Reached]
+    F --> G[Lysogenic Switch]
+    %% High MOI Path
+    C -->|High MOI| H[CII Degradation]
+    H --> I[CII Below Threshold]
+    I --> J[Lytic Default]
+    %% Environmental Factors
+    K[Host Protease Activity] --> L[CII Half-life]
+    L --> M[CII Concentration]
+    M --> N{CII Above Threshold?}
+    N -->|Yes| O[Lysogenic Bias]
+    N -->|No| P[Lytic Bias]
+    %% Decision Integration
+    G --> Q[Lysogenic Decision]
+    J --> R[Lytic Decision]
+    O --> S[Lysogenic Maintenance]
+    P --> T[Lytic Cascade]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 7: Maintenance of Lysogeny -->
+            <div class="process-item" id="lysogeny-maintenance">
+                <h3>7. Maintenance of Lysogeny</h3>
+                <p>Stable maintenance of the lysogenic state through CI auto-regulation and repressor stability.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Lysogenic State
+    A[Lysogenic State] --> B[CI Repressor Active]
+    B --> C[PR/PL Repression]
+    C --> D[Lytic Genes Silenced]
+    D --> E[Lysogeny Maintenance]
+    %% CI Auto-regulation
+    E --> F[CI Auto-regulation]
+    F --> G[PRM Activation]
+    G --> H[CI Synthesis]
+    H --> I[CI Repressor]
+    I --> J[Positive Feedback]
+    J --> F
+    %% Stability Mechanisms
+    K[CI Stability] --> L[Protease Resistance]
+    L --> M[Long Half-life]
+    M --> N[Stable Repression]
+    N --> O[Lysogeny Persistence]
+    %% Environmental Monitoring
+    P[Host Conditions] --> Q[Stress Detection]
+    Q --> R{DNA Damage?}
+    R -->|No| S[Lysogeny Continues]
+    R -->|Yes| T[Induction Triggered]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style P fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style C fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 8: Induction by DNA Damage -->
+            <div class="process-item" id="dna-damage-induction">
+                <h3>8. Induction by DNA Damage</h3>
+                <p>DNA damage response triggering the switch from lysogeny to lytic development through RecA-mediated CI cleavage.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% DNA Damage Detection
+    A[DNA Damage] --> B[RecA Activation]
+    B --> C[RecA Filament Formation]
+    C --> D[CI Repressor Cleavage]
+    D --> E[CI Inactivation]
+    %% Induction Cascade
+    E --> F[PR/PL Derepression]
+    F --> G[Cro Synthesis]
+    G --> H[Cro Repressor]
+    H --> I[PRM Repression]
+    I --> J[CI Synthesis Blocked]
+    %% Lytic Development
+    J --> K[Lytic Gene Expression]
+    K --> L[DNA Replication]
+    L --> M[Viral Assembly]
+    M --> N[Cell Lysis]
+    N --> O[Viral Release]
+    %% SOS Response Integration
+    P[SOS Response] --> Q[RecA Induction]
+    Q --> R[DNA Repair]
+    R --> S[Cell Survival]
+    S --> T[Viral Escape]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style P fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 9: Lytic Late Gene Cascade -->
+            <div class="process-item" id="lytic-cascade">
+                <h3>9. Lytic Late Gene Cascade</h3>
+                <p>Sequential activation of late genes for viral assembly and cell lysis during lytic development.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Late Gene Activation
+    A[Lytic Development] --> B[Late Gene Cascade]
+    B --> C[DNA Replication Genes]
+    C --> D[Structural Protein Genes]
+    D --> E[Assembly Protein Genes]
+    E --> F[Lysis Protein Genes]
+    %% DNA Replication
+    G[Viral DNA Replication] --> H[Concatemer Formation]
+    H --> I[DNA Packaging]
+    I --> J[Viral Genome Maturation]
+    %% Protein Synthesis
+    K[Structural Proteins] --> L[Capsid Assembly]
+    L --> M[Head Formation]
+    M --> N[Tail Assembly]
+    N --> O[Viral Particle Assembly]
+    %% Cell Lysis
+    P[Lysis Proteins] --> Q[Cell Wall Degradation]
+    Q --> R[Membrane Disruption]
+    R --> S[Cell Lysis]
+    S --> T[Viral Release]
+    %% Integration
+    O --> U[Viral Assembly Complete]
+    T --> V[Lytic Cycle Complete]
+    U --> W[Infectious Particles]
+    V --> X[Host Cell Destruction]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style P fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 10: Decision Integration Logic -->
+            <div class="process-item" id="decision-integration">
+                <h3>10. Decision Integration Logic</h3>
+                <p>Integration of all environmental and cellular signals to execute the final binary decision between lysogeny and lysis.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Input Integration
+    A[Environmental Signals] --> B[Signal Integration]
+    C[Host Cell Status] --> B
+    D[Viral Genome State] --> B
+    E[MOI Assessment] --> B
+    %% Decision Processing
+    B --> F[Decision Logic Processing]
+    F --> G{Decision Threshold?}
+    G -->|Lysogenic| H[Lysogenic Pathway]
+    G -->|Lytic| I[Lytic Pathway]
+    %% Lysogenic Execution
+    H --> J[CI Repressor Activation]
+    J --> K[Lysogenic Gene Expression]
+    K --> L[Lysogeny Establishment]
+    L --> M[Stable Integration]
+    %% Lytic Execution
+    I --> N[Cro Repressor Activation]
+    N --> O[Lytic Gene Expression]
+    O --> P[Viral Replication]
+    P --> Q[Cell Lysis]
+    %% Outcome
+    M --> R[Lysogenic Outcome]
+    Q --> S[Lytic Outcome]
+    R --> T[Viral Persistence]
+    S --> U[Viral Propagation]
+    %% Styling - Biological Color Scheme
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style B fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Generated using the Programming Framework methodology</strong></p>
+                <p>This collection demonstrates the computational nature of viral decision-making systems</p>
+                <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

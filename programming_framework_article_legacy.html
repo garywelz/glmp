@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Programming Framework for Complex Systems: From Biology to Mathematics</title>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; margin: 0; background: #ffffff; color: #000000; line-height: 1.6; font-size: 12pt; }
+        .container { max-width: 800px; margin: 0 auto; padding: 1.5rem; }
+        h1, h2, h3 { color: #000000; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 18pt; text-align: center; }
+        h2 { font-size: 16pt; border-bottom: 2px solid #000; padding-bottom: 0.5rem; }
+        h3 { font-size: 14pt; }
+        p { margin-bottom: 1rem; text-align: justify; }
+        .figure { margin: 1rem 0; text-align: center; border: 1px solid #ccc; padding: 1rem; background: #f9f9f9; }
+        .figure-caption { margin-top: 1rem; font-style: italic; text-align: left; }
+        .mermaid { background: white; padding: 1rem; border-radius: 4px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true } });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>A Programming Framework for Complex Systems: From Biology to Mathematics</h1>
+        
+        <div style="text-align: center; margin: 2rem 0; font-size: 14pt;">
+            <p><strong>Gary Welz</strong></p>
+            <p style="font-size: 12pt; color: #666; margin-top: 0.5rem;">
+                Retired Faculty Member<br>
+                John Jay College, CUNY (Department of Mathematics and Computer Science)<br>
+                Borough of Manhattan Community College, CUNY<br>
+                CUNY Graduate Center (New Media Lab)<br>
+                Email: gwelz@jjay.cuny.edu
+            </p>
+        </div>
+
+        <p><strong>Abstract.</strong> We present a systematic visualization methodology—the Programming Framework—for analyzing complex systems across multiple domains. Using Mermaid Markdown syntax and large language model (LLM) processing, we demonstrate the framework's application to representative biological and chemical systems. The methodology leverages text-based process descriptions to generate standardized flowchart representations, enabling systematic comparison and pattern recognition across traditionally separate disciplines. Analysis of 297 representative processes reveals common computational patterns that may transcend domain boundaries. The complete dataset and methodology are publicly available through the Genome Logic Modeling Project (GLMP) Hugging Face Space, serving as the primary evidence base for this methodology.</p>
+
+        <h2>Introduction</h2>
+        <p>Complex systems across biology, chemistry, and physics exhibit remarkable similarities in their organizational principles despite operating at vastly different scales and domains. Traditional analysis methods often remain siloed within specific disciplines, limiting our ability to identify common patterns and computational logic that govern system behavior. Here, we present the Programming Framework, a systematic methodology that translates complex system dynamics into standardized computational representations using Mermaid Markdown syntax and LLM processing.</p>
+
+        <p>The framework employs a visual programming language based on flowchart logic, where system components are categorized into five functional classes with domain-specific color coding. This color-coded system enables rapid identification of system architecture and computational logic patterns.</p>
+
+        <h2>Representative Applications</h2>
+
+        <h3>Case Study: β-Galactosidase Analysis (2025)</h3>
+        <p>The β-galactosidase system represents one of the most well-characterized examples of genetic regulation in molecular biology. Using modern tools and AI assistance, we can now create sophisticated and detailed visualizations that demonstrate the full computational complexity of the lac operon system. This represents the current state of the Programming Framework methodology, showing how environmental inputs (lactose, glucose, energy status) are processed through regulatory logic gates to control gene expression and metabolic pathways:</p>
+
+        <div class="figure">
+            <div class="mermaid">
+graph TD
+    %% Initial Setup
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    E[Low Energy Status] --> F[Energy Stress Signal] B
+    -->
+    G[Lactose Permease LacY] G
+    -->
+    H[Lactose Inside Cell] H
+    -->
+    I[Lactose Availability] D
+    -->
+    J[Glucose Transporters] J
+    -->
+    K[Glucose Inside Cell] K
+    -->
+    L[High Glucose Status] I
+    --> M{Is Lactose Present?} L
+    --> N{Is Glucose Present?} F
+    --> O{Is Energy Low?} M
+    -->|No|
+    P[Lac Repressor Active] M
+    -->|Yes|
+    Q[Lac Repressor Inactive] P
+    -->
+    R[Repressor Binds Operator] R
+    -->
+    S[Transcription Blocked] Q
+    -->
+    T[Repressor Released] T
+    -->
+    U[Operator Free] N
+    -->|Yes|
+    V[Low cAMP Levels] N
+    -->|No|
+    W[High cAMP Levels] O
+    --> W W
+    -->
+    X[cAMP-CAP Complex] V
+    -->
+    Y[No CAP Binding] X
+    -->
+    Z[CAP Binds Promoter] Y
+    --> A
+    A[No CAP Binding] U
+    --> BB{Operator Free?} Z
+    --> CC{CAP Bound?} BB
+    -->|Yes| D
+    D[RNA Polymerase Binding] BB
+    -->|No| E
+    E[Transcription Blocked] CC
+    -->|Yes| DD CC
+    -->|No| F
+    F[Weak Transcription] DD
+    --> G
+    G[Transcription Initiation] FF
+    --> GG GG
+    --> H
+    H[lacZ mRNA Synthesis] GG
+    --> I
+    I[lacY mRNA Synthesis] GG
+    --> J
+    J[lacA mRNA Synthesis] HH
+    --> K
+    K[LacZ Translation] II
+    --> L
+    L[LacY Translation] JJ
+    --> M
+    M[LacA Translation] KK
+    --> N
+    N[Beta-Galactosidase Enzyme] LL
+    --> O
+    O[Lactose Permease] MM
+    --> P
+    P[Galactoside Acetyltransferase] NN
+    --> Q
+    Q[Lactose Hydrolysis] OO
+    --> R
+    R[Lactose Transport] PP
+    --> S
+    S[Galactoside Modification] QQ
+    --> T
+    T[Glucose + Galactose] RR
+    --> U
+    U[Lactose Uptake] SS
+    --> V
+    V[Detoxification] TT
+    --> W
+    W[Glycolysis] UU
+    --> X
+    X[Lactose Processing] VV
+    --> Y
+    Y[Cell Protection] WW
+    --> Z
+    Z[Energy Production] XX
+    --> AA
+    A[Lactose Consumption] YY
+    --> BB
+    B[Cell Survival] ZZ
+    --> CC
+    C[Energy Status Improved] AAA
+    --> DD
+    D[Lactose Depletion] BBB
+    --> EE
+    E[Cell Health] CCC
+    --> FF
+    F[Reduced Energy Stress] DDD
+    --> GG
+    G[Reduced Lactose Signal] EEE
+    --> HH
+    H[Maintained Homeostasis] FFF
+    --> O GGG
+    --> M HHH
+    --> II
+    I[System Equilibrium]
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff style C fill:#ff6b6b,color:#fff style E fill:#ff6b6b,color:#fff style G fill:#ffd43b,color:#000 style J fill:#ffd43b,color:#000 style H fill:#51cf66,color:#fff style K fill:#51cf66,color:#fff style I fill:#51cf66,color:#fff style L fill:#51cf66,color:#fff style M fill:#51cf66,color:#fff style N fill:#51cf66,color:#fff style O fill:#51cf66,color:#fff style P fill:#ffd43b,color:#000 style Q fill:#ffd43b,color:#000 style R fill:#ffd43b,color:#000 style S fill:#74c0fc,color:#fff style T fill:#ffd43b,color:#000 style U fill:#51cf66,color:#fff style V fill:#ffd43b,color:#000 style W fill:#ffd43b,color:#000 style X fill:#ffd43b,color:#000 style Y fill:#ffd43b,color:#000 style Z fill:#ffd43b,color:#000 style AA fill:#ffd43b,color:#000 style BB fill:#51cf66,color:#fff style CC fill:#51cf66,color:#fff style DD fill:#ffd43b,color:#000 style EE fill:#74c0fc,color:#fff style FF fill:#ffd43b,color:#000 style GG fill:#ffd43b,color:#000 style HH fill:#74c0fc,color:#fff style II fill:#74c0fc,color:#fff style JJ fill:#74c0fc,color:#fff style KK fill:#ffd43b,color:#000 style LL fill:#ffd43b,color:#000 style MM fill:#ffd43b,color:#000 style NN fill:#ffd43b,color:#000 style OO fill:#ffd43b,color:#000 style PP fill:#ffd43b,color:#000 style QQ fill:#ffd43b,color:#000 style RR fill:#ffd43b,color:#000 style SS fill:#ffd43b,color:#000 style TT fill:#51cf66,color:#fff style UU fill:#51cf66,color:#fff style VV fill:#51cf66,color:#fff style WW fill:#ffd43b,color:#000 style XX fill:#ffd43b,color:#000 style YY fill:#ffd43b,color:#000 style ZZ fill:#74c0fc,color:#fff style AAA fill:#74c0fc,color:#fff style BBB fill:#74c0fc,color:#fff style CCC fill:#51cf66,color:#fff style DDD fill:#51cf66,color:#fff style EEE fill:#51cf66,color:#fff style FFF fill:#51cf66,color:#fff style GGG fill:#51cf66,color:#fff style HHH fill:#51cf66,color:#fff style III fill:#74c0fc,color:#fff
+                    </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Conditions
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Catalysts & Enzymes
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Chemical Processing
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> 2025 β-Galactosidase Regulation Flowchart - Current Framework. This comprehensive computational flowchart demonstrates the Programming Framework's ability to represent complex genetic regulatory networks with complete feedback loops and system equilibrium. The visualization shows environmental inputs, regulatory complexes and enzymes, intermediate states and logic gates, functional outputs, and key regulatory proteins, revealing the sophisticated computational logic underlying lactose metabolism in E. coli including CAP-cAMP regulation, protein synthesis, and dynamic feedback control.
+            </div>
+        </div>
+
+        <h3>Case Study: Algorithm Execution Analysis</h3>
+        <p>To demonstrate the framework's applicability to computer science, we applied the methodology to algorithm execution, specifically a sorting algorithm. This example shows how the same computational logic can be applied to fundamental computer science processes:</p>
+
+        <div class="figure">
+            <div class="mermaid">
+flowchart TD 
+A[Input Array 5,2,8,1,9] --> B[Array Size Analysis] 
+C[Sorting Criteria Ascending] --> D[Algorithm Selection] 
+E[Memory Constraints] --> F[Resource Assessment] B 
+--> 
+G[Array Initialization] D 
+--> 
+H[QuickSort Algorithm Selection] F 
+--> 
+I[Memory Allocation] G 
+--> 
+J[Array Copy to Working Memory] H 
+--> 
+K[Pivot Selection Strategy] I 
+--> 
+L[Stack Space Allocation] J 
+--> 
+M[Choose Pivot 5] K 
+--> 
+N[Partitioning Logic Setup] L 
+--> 
+O[Recursive Call Stack] M 
+--> 
+P[Compare Elements to Pivot] P 
+--> 
+Q[Element Swapping Operations] Q 
+--> 
+R[Partition Boundary Tracking] R 
+--> 
+S[Left Sub-array 2,1] R 
+--> 
+T[Right Sub-array 8,9] O 
+--> 
+U[Recursive Function Calls] S 
+--> 
+V[Pivot Selection 2] V 
+--> 
+W[Partitioning 1 and 2] W 
+--> 
+X[Base Case Single Element] T 
+--> 
+Y[Pivot Selection 8] Y 
+--> 
+Z[Partitioning 8,9] Z 
+--> A 
+A[Recursive Sort 8,9] X 
+--> B 
+B[Sorted Left 1,2] AA 
+--> C 
+C[Sorted Right 8,9] BB 
+--> D 
+D[Combine Results] CC 
+--> DD DD 
+--> E 
+E[Final Sorted Array 1,2,5,8,9] EE 
+--> F 
+F[Algorithm Completion] FF 
+--> G 
+G[Performance Metrics Calculation] GG 
+--> H 
+H[Time Complexity O n log n] GG 
+--> I 
+I[Space Complexity O log n] GG 
+--> J 
+J[Stability Assessment Unstable] classDef trigger fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff classDef structure fill:#fd7e14,stroke:#333,stroke-width:2px,color:#fff classDef operation fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000 classDef intermediate fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff classDef product fill:#4dabf7,stroke:#333,stroke-width:2px,color:#fff class A,C,E trigger class G,J,S,T structure class H,K,M,P,Q,R,V,W,Y,Z operation class B,D,F,I,L,N,O,U,X,AA,BB,CC,DD,EE,FF,GG,HH,II,JJ intermediate class EE product
+</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Inputs & Data
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Algorithms & Functions
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Processing Steps
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediate States
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Outputs & Results
+                </div>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Algorithm Execution Flowchart. This computer science process visualization demonstrates the framework's applicability to fundamental computational processes. The flowchart shows input data and parameters, data structures and arrays, algorithmic operations and comparisons, intermediate states and recursive calls, and final sorted output, revealing the computational logic underlying algorithm execution and complexity analysis.
+            </div>
+        </div>
+
+        <h3>Case Study: Water Electrolysis Analysis</h3>
+        <p>To demonstrate the framework's applicability beyond biological systems, we applied the methodology to water electrolysis, a fundamental chemical process. This example shows how the same computational logic can be applied to physical chemistry systems:</p>
+
+        <div class="figure">
+            <div class="mermaid">
+flowchart TD 
+A[Water Supply] --> B[Water Purification] 
+C[Electrical Power] --> D[Power Regulation] 
+E[Electrolyte Supply] --> F[Electrolyte Preparation] B 
+--> 
+G[Purified Water] D 
+--> 
+H[Controlled Voltage] F 
+--> 
+I[Electrolyte Solution] G 
+--> 
+J[Anode Compartment] G 
+--> 
+K[Cathode Compartment] I 
+--> 
+L[Electrolyte Circulation] H 
+--> 
+M[Electron Flow] J 
+--> 
+N[Water Oxidation at Anode] N 
+--> 
+O[Oxygen Gas Evolution] N 
+--> 
+P[Proton Release] N 
+--> 
+Q[Electron Transfer] K 
+--> 
+R[Proton Reduction at Cathode] R 
+--> 
+S[Hydrogen Gas Evolution] R 
+--> 
+T[Electron Consumption] O 
+--> 
+U[Oxygen Collection] S 
+--> 
+V[Hydrogen Collection] U 
+--> 
+W[Oxygen Drying] V 
+--> 
+X[Hydrogen Drying] W 
+--> 
+Y[Oxygen Compression] X 
+--> 
+Z[Hydrogen Compression] Y 
+--> A 
+A[Compressed Oxygen Gas] Z 
+--> B 
+B[Compressed Hydrogen Gas] M 
+--> C 
+C[Current Monitoring] L 
+--> D 
+D[Temperature Control] CC 
+--> E 
+E[Process Optimization] DD 
+--> EE classDef trigger fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff classDef catalyst fill:#20c997,stroke:#333,stroke-width:2px,color:#fff classDef intermediate fill:#4dabf7,stroke:#333,stroke-width:2px,color:#fff classDef product fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff classDef byproduct fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000 class A,C,E trigger class J,K,M,N,R catalyst class B,D,F,G,H,I,L,O,P,Q,S,T,U,V,W,X,Y,Z,CC,DD,EE intermediate class AA,BB product class P byproduct
+</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Reactants & Conditions
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Catalysts & Enzymes
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Chemical Reactions
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 3.</strong> Water Electrolysis Process Flowchart. This detailed chemical process visualization demonstrates the framework's cross-disciplinary applicability. The flowchart shows electrical inputs, electrode catalysts, intermediate reactions, and gas products, revealing the computational logic of electrochemical water splitting with comprehensive process control and optimization.
+            </div>
+        </div>
+
+        <h3>Case Study: Quantum Tunneling Analysis</h3>
+        <p>To demonstrate the framework's applicability to fundamental physics, we applied the methodology to quantum tunneling, a phenomenon where particles can pass through classically forbidden energy barriers. This example shows how the same computational logic can be applied to quantum mechanical systems:</p>
+
+        <div class="figure">
+            <div class="mermaid">
+flowchart TD 
+A[Particle Energy E] --> B[Energy Assessment] 
+C[Barrier Height V0] --> D[Barrier Analysis] 
+E[Barrier Width a] --> F[Geometric Constraints] B 
+--> 
+G[Wave Function Initialization] D 
+--> 
+H[Potential Energy Profile] F 
+--> 
+I[Spatial Boundary Conditions] G 
+--> 
+J[Incident Wave Function ψ₁] H 
+--> 
+K[Barrier Region ψ₂] I 
+--> 
+L[Transmitted Wave Function ψ₃] J 
+--> 
+M[Wave Function Matching] K 
+--> 
+N[Exponential Decay in Barrier] L 
+--> 
+O[Transmission Coefficient Calculation] M 
+--> 
+P[Boundary Condition Equations] N 
+--> 
+Q[Quantum Amplitude Processing] O 
+--> 
+R[Probability Density Analysis] P 
+--> 
+S[Wave Function Continuity] Q 
+--> 
+T[Quantum Interference Effects] R 
+--> 
+U[Transmission Probability T] S 
+--> V{Classical Prediction} T 
+--> W{Quantum Reality} U 
+--> 
+X[Measured Transmission] V 
+-->|E < V0: T = 0| 
+Y[Classical Forbidden] W 
+-->|E < V0: T > 0| 
+Z[Quantum Tunneling] X 
+--> A 
+A[Particle Detection Beyond Barrier] Y 
+--> B 
+B[Classical Prediction Failure] Z 
+--> C 
+C[Quantum Tunneling Success] AA 
+--> D 
+D[Energy Verification] CC 
+--> E 
+E[Wave Function Collapse] DD 
+--> F 
+F[Final Particle State] classDef trigger fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff classDef field fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000 classDef quantum fill:#20c997,stroke:#333,stroke-width:2px,color:#fff classDef intermediate fill:#4dabf7,stroke:#333,stroke-width:2px,color:#fff classDef product fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff class A,C,E trigger class J,K,L field class M,N,O,P,Q,R quantum class B,D,F,G,H,I,S,T,U,V,W,X,Y,Z,AA,BB,CC,DD,EE,FF intermediate class FF product
+</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Conditions
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Wave Functions & Fields
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Quantum Processing
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+                </div>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 4.</strong> Quantum Tunneling Process Flowchart. This physics process visualization demonstrates the framework's applicability to quantum mechanical systems. The flowchart shows energy inputs, wave functions and fields, quantum processing operations, intermediate calculations, and final measurement outcomes, revealing the computational logic underlying quantum tunneling phenomena.
+            </div>
+        </div>
+
+        <h3>Case Study: Mathematical Proof Tree Analysis</h3>
+        <p>To demonstrate the framework's applicability to pure mathematics, we applied the methodology to mathematical proof construction, a fundamental process in mathematical logic. This example shows how the same computational logic can be applied to formal mathematical reasoning. The framework could similarly be applied to algorithm analysis, group theory operations, calculus processes, and other mathematical domains:</p>
+
+        <div class="figure">
+            <div class="mermaid">
+flowchart TD 
+A[Peano Axioms] --> B[Axiom Processing] 
+C[Given n in Natural Numbers] --> D[Input Validation] 
+E[Goal Prove P n] --> F[Target Identification] B 
+--> 
+G[Mathematical Universe Setup] D 
+--> 
+H[Variable Declaration] F 
+--> 
+I[Proof Strategy Selection] G 
+--> 
+J[Induction Hypothesis P k] H 
+--> 
+K[Base Case Analysis] I 
+--> 
+L[Inductive Step Planning] K 
+--> 
+M[P 0 Verification] M 
+--> 
+N[Base Case Success] N 
+--> 
+O[Induction Foundation] L 
+--> 
+P[Assume P k for k in Natural Numbers] P 
+--> 
+Q[Show P k plus 1 follows] Q 
+--> 
+R[Inductive Step Execution] R 
+--> 
+S[Algebraic Manipulation] S 
+--> 
+T[Logical Deduction] T 
+--> 
+U[Theorem Application] U 
+--> 
+V[Sub-proof Construction] V 
+--> 
+W[Lemma Application] W 
+--> 
+X[Contradiction Analysis] X 
+--> 
+Y[Logical Consistency Check] Y 
+--> 
+Z[Mathematical Rigor Verification] Z 
+--> A 
+A[Proof Completeness Assessment] AA 
+--> BB{Proof Complete?} BB 
+-->|No| C 
+C[Identify Gap] BB 
+-->|Yes| D 
+D[Proof Validated] CC 
+--> E 
+E[Additional Lemma Needed] EE 
+--> F 
+F[Sub-proof Construction] FF 
+--> G 
+G[Gap Resolution] GG 
+--> Y DD 
+--> H 
+H[Theorem P n Proven] HH 
+--> I 
+I[Mathematical Truth Established] II 
+--> J 
+J[Proof Tree Complete] classDef trigger fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff classDef logical fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000 classDef deduction fill:#20c997,stroke:#333,stroke-width:2px,color:#fff classDef intermediate fill:#4dabf7,stroke:#333,stroke-width:2px,color:#fff classDef product fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff class A,C,E trigger class J,P,Q logical class S,T,U,V,W,X deduction class B,D,F,G,H,I,K,L,M,N,O,R,Y,Z,AA,BB,CC,DD,EE,FF,GG,HH,II,JJ intermediate class JJ product
+</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Axioms & Assumptions
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Theorems & Methods
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Logical Steps
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediate Results
+                </div>
+                <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                    <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Conclusions
+                </div>
+            </div>
+            <div class="figure-caption">
+                <strong>Figure 5.</strong> Mathematical Proof Tree Flowchart. This mathematical process visualization demonstrates the framework's applicability to formal mathematical reasoning. The flowchart shows axioms and given conditions, logical structures and hypotheses, deduction steps and theorem applications, intermediate calculations and sub-proofs, and final proven theorems, revealing the computational logic underlying mathematical proof construction.
+            </div>
+        </div>
+
+        <h2>Conclusion</h2>
+        <p>The Programming Framework represents a systematic approach to complex system visualization that bridges traditional disciplinary boundaries. By providing a standardized language for describing system dynamics, the framework enables systematic comparison and pattern recognition across diverse domains.</p>
+
+        <p>The successful application to both biological networks and industrial chemical processes demonstrates the framework's potential for cross-disciplinary analysis. Future work will extend the framework to additional domains, develop automated analysis tools, and explore applications in synthetic biology and systems engineering.</p>
+
+        <p>This methodology contributes to the development of unified approaches to complex systems, where common computational principles can be identified and applied across traditionally separate disciplines. The framework's accessibility and standardization make it a valuable tool for researchers, educators, and students working across the boundaries of biology, chemistry, and computational science.</p>
+    </div>
+</body>
+</html>

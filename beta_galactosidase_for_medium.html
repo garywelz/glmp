@@ -1,0 +1,135 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>β-Galactosidase Flowchart for Medium</title> <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script> <style> body { margin: 0; padding: 20px; background: white; font-family: Arial, sans-serif; } .mermaid { background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px; } .download-btn { position: fixed; top: 20px; right: 20px; background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; } .download-btn:hover { background: #0056b3; } .instructions { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #007bff; } </style> </head> <body> <div class="instructions"> <h3>📋 Instructions for Medium:</h3> <ol> <li>Right-click on the flowchart below</li> <li>Select "Save image as. " or "Copy image"</li> <li>Save as PNG or SVG file</li> <li>Upload to Medium as an image</li> </ol> </div> <button class="download-btn" onclick="downloadSVG()">💾 Download SVG</button> <div class="mermaid">
+graph TD
+    %% Initial Setup
+    %% Environmental Inputs
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    E[Low Energy Status] --> F[Energy Stress Signal] %% Lactose Processing Pathway B
+    -->
+    G[Lactose Permease LacY] G
+    -->
+    H[Lactose Inside Cell] H
+    -->
+    I[Lactose Availability] %% Glucose Processing Pathway D
+    -->
+    J[Glucose Transporters] J
+    -->
+    K[Glucose Inside Cell] K
+    -->
+    L[High Glucose Status] %% Regulatory Logic Gates I
+    --> M{Is Lactose Present?} L
+    --> N{Is Glucose Present?} F
+    --> O{Is Energy Low?}
+    %% Lac Repressor Logic M
+    -->|No|
+    P[Lac Repressor Active] M
+    -->|Yes|
+    Q[Lac Repressor Inactive] P
+    -->
+    R[Repressor Binds Operator] R
+    -->
+    S[Transcription Blocked] Q
+    -->
+    T[Repressor Released] T
+    -->
+    U[Operator Free] %% CAP-cAMP Logic N
+    -->|Yes|
+    V[Low cAMP Levels] N
+    -->|No|
+    W[High cAMP Levels] O
+    --> W W
+    -->
+    X[cAMP-CAP Complex] V
+    -->
+    Y[No CAP Binding] X
+    -->
+    Z[CAP Binds Promoter] Y
+    --> A
+    A[No CAP Binding] %% Transcription Initiation Logic U
+    --> BB{Operator Free?} Z
+    --> CC{CAP Bound?} BB
+    -->|Yes| D
+    D[RNA Polymerase Binding] BB
+    -->|No| E
+    E[Transcription Blocked] CC
+    -->|Yes| DD CC
+    -->|No| F
+    F[Weak Transcription] %% Transcription and Translation DD
+    --> G
+    G[Transcription Initiation] FF
+    --> GG GG
+    --> H
+    H[lacZ mRNA Synthesis] GG
+    --> I
+    I[lacY mRNA Synthesis] GG
+    --> J
+    J[lacA mRNA Synthesis] %% Translation Processes HH
+    --> K
+    K[LacZ Translation] II
+    --> L
+    L[LacY Translation] JJ
+    --> M
+    M[LacA Translation] %% Protein Processing KK
+    --> N
+    N[Beta-Galactosidase Enzyme] LL
+    --> O
+    O[Lactose Permease] MM
+    --> P
+    P[Galactoside Acetyltransferase] %% Functional Outputs NN
+    --> Q
+    Q[Lactose Hydrolysis] OO
+    --> R
+    R[Lactose Transport] PP
+    --> S
+    S[Galactoside Modification] %% Lactose Metabolism QQ
+    --> T
+    T[Glucose + Galactose] RR
+    --> U
+    U[Lactose Uptake] SS
+    --> V
+    V[Detoxification] %% Energy Production TT
+    --> W
+    W[Glycolysis] UU
+    --> X
+    X[Lactose Processing] VV
+    --> Y
+    Y[Cell Protection] %% Feedback Loops WW
+    --> Z
+    Z[Energy Production] XX
+    --> AA
+    A[Lactose Consumption] YY
+    --> BB
+    B[Cell Survival] %% Energy Status Update ZZ
+    --> CC
+    C[Energy Status Improved] AAA
+    --> DD
+    D[Lactose Depletion] BBB
+    --> EE
+    E[Cell Health] %% Regulatory Feedback CCC
+    --> FF
+    F[Reduced Energy Stress] DDD
+    --> GG
+    G[Reduced Lactose Signal] EEE
+    --> HH
+    H[Maintained Homeostasis] %% Return to Regulatory Logic FFF
+    --> O GGG
+    --> M HHH
+    --> II
+    I[System Equilibrium] %% Key Regulatory Proteins JJ
+    J[LacI Repressor]
+    --> P KK
+    K[CAP Protein]
+    --> X LL
+    L[cAMP]
+    --> X MM
+    M[RNA Polymerase]
+    --> GG NN
+    N[LacZ Gene]
+    --> HH OO
+    O[LacY Gene]
+    --> II PP
+    P[LacA Gene]
+    --> JJ %% Styling - Programming Framework Colors
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff style C fill:#ff6b6b,color:#fff style E fill:#ff6b6b,color:#fff style G fill:#ffd43b,color:#000 style J fill:#ffd43b,color:#000 style H fill:#74c0fc,color:#fff style K fill:#74c0fc,color:#fff style I fill:#74c0fc,color:#fff style L fill:#74c0fc,color:#fff style M fill:#74c0fc,color:#fff style N fill:#74c0fc,color:#fff style O fill:#74c0fc,color:#fff style P fill:#ffd43b,color:#000 style Q fill:#ffd43b,color:#000 style R fill:#ffd43b,color:#000 style S fill:#b197fc,color:#fff style T fill:#ffd43b,color:#000 style U fill:#74c0fc,color:#fff style V fill:#ffd43b,color:#000 style W fill:#ffd43b,color:#000 style X fill:#ffd43b,color:#000 style Y fill:#ffd43b,color:#000 style Z fill:#ffd43b,color:#000 style AA fill:#ffd43b,color:#000 style BB fill:#74c0fc,color:#fff style CC fill:#74c0fc,color:#fff style DD fill:#ffd43b,color:#000 style EE fill:#b197fc,color:#fff style FF fill:#ffd43b,color:#000 style GG fill:#ffd43b,color:#000 style HH fill:#b197fc,color:#fff style II fill:#b197fc,color:#fff style JJ fill:#b197fc,color:#fff style KK fill:#ffd43b,color:#000 style LL fill:#ffd43b,color:#000 style MM fill:#ffd43b,color:#000 style NN fill:#ffd43b,color:#000 style OO fill:#ffd43b,color:#000 style PP fill:#ffd43b,color:#000 style QQ fill:#ffd43b,color:#000 style RR fill:#ffd43b,color:#000 style SS fill:#ffd43b,color:#000 style TT fill:#74c0fc,color:#fff style UU fill:#74c0fc,color:#fff style VV fill:#74c0fc,color:#fff style WW fill:#ffd43b,color:#000 style XX fill:#ffd43b,color:#000 style YY fill:#ffd43b,color:#000 style ZZ fill:#b197fc,color:#fff style AAA fill:#b197fc,color:#fff style BBB fill:#b197fc,color:#fff style CCC fill:#74c0fc,color:#fff style DDD fill:#74c0fc,color:#fff style EEE fill:#74c0fc,color:#fff style FFF fill:#74c0fc,color:#fff style GGG fill:#74c0fc,color:#fff style HHH fill:#74c0fc,color:#fff style III fill:#b197fc,color:#fff style JJJ fill:#ffd43b,color:#000 style KKK fill:#ffd43b,color:#000 style LLL fill:#ffd43b,color:#000 style MMM fill:#ffd43b,color:#000 style NNN fill:#ffd43b,color:#000 style OOO fill:#ffd43b,color:#000 style PPP fill:#ffd43b,color:#000
+                    </div> <script> mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'linear', nodeSpacing: 30, rankSpacing: 40 }, themeVariables: { fontFamily: 'Arial, sans-serif', fontSize: '14px', primaryColor: '#ff6b6b', primaryTextColor: '#ffffff', primaryBorderColor: '#ff6b6b', lineColor: '#333333', secondaryColor: '#feca57', tertiaryColor: '#4ecdc4' } }); function downloadSVG() { const svgElement = document.querySelector('.mermaid svg'); if (svgElement) { const svgData = new XMLSerializer().serializeToString(svgElement); const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'}); const svgUrl = URL.createObjectURL(svgBlob); const downloadLink = document.createElement('a'); downloadLink.href = svgUrl; downloadLink.download = 'beta_galactosidase_flowchart.svg'; document.body.appendChild(downloadLink); downloadLink.click(); document.body.removeChild(downloadLink); URL.revokeObjectURL(svgUrl); } else { alert('SVG not ready yet. Please wait a moment and try again.'); } } </script> </body> </html>

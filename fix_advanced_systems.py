@@ -1,0 +1,897 @@
+#!/usr/bin/env python3
+"""
+Fix Advanced Systems Files
+Recreates all corrupted advanced_systems files with proper HTML structure and Mermaid formatting.
+"""
+
+import os
+import re
+
+def create_phage_t7_time_cascade():
+    """Recreate phage T7 time cascade file with proper formatting."""
+    content = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phage T7 Time Cascade: Temporal Gene Expression Control</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 50,
+                rankSpacing: 50,
+                padding: 20
+            },
+            themeVariables: {
+                fontFamily: 'Arial Unicode MS, Arial, sans-serif'
+            }
+        });
+    </script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
+        }
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+            border-radius: 10px; 
+            overflow: hidden; 
+        }
+        .header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 2rem; 
+            text-align: center; 
+        }
+        .header h1 { 
+            margin: 0; 
+            font-size: 2.5rem; 
+            font-weight: 300; 
+        }
+        .content { 
+            padding: 2rem; 
+        }
+        .intro { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+        }
+        .toc { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+        }
+        .toc ul { 
+            list-style: none; 
+            padding: 0; 
+        }
+        .toc li { 
+            margin: 0.5rem 0; 
+        }
+        .toc a { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: 500; 
+        }
+        .process-item { 
+            margin: 2rem 0; 
+            padding: 1.5rem; 
+            border: 1px solid #dee2e6; 
+            border-radius: 8px; 
+            background: #fafafa; 
+        }
+        .process-item h3 { 
+            color: #495057; 
+            margin-bottom: 1rem; 
+        }
+        .mermaid-container { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin: 1rem 0; 
+            overflow-x: auto; 
+        }
+        .footer { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            text-align: center; 
+            border-top: 1px solid #dee2e6; 
+            margin-top: 2rem; 
+        }
+        .highlight { 
+            background: #e3f2fd; 
+            padding: 1rem; 
+            border-left: 4px solid #2196f3; 
+            margin: 1rem 0; 
+        }
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .color-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,.08);
+            background: #fff;
+            font-size: 0.9rem;
+        }
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 Phage T7 Time Cascade</h1>
+            <p>Temporal Gene Expression Control and Host Takeover</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>The T7 Temporal Program: Biology's Most Precise Timer</h2>
+                <p>Bacteriophage T7 implements one of the most sophisticated temporal control systems in biology. The virus uses a precisely timed cascade of gene expression to systematically take over the host cell, demonstrating how biological systems can implement complex timing mechanisms through transcriptional regulation.</p>
+                
+                <div class="highlight">
+                    <strong>Computational Significance:</strong> The T7 time cascade demonstrates how biological systems implement temporal programming, sequential gene expression, and host resource management - fundamental concepts in systems biology and synthetic biology.
+                </div>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 T7 Temporal Cascade - 10 Time-Controlled Processes</h2>
+                <ul>
+                    <li><a href="#class-i-early">1. Class I Early Genes (0-5 min)</a></li>
+                    <li><a href="#t7-rnap-expression">2. T7 RNAP Expression (5-8 min)</a></li>
+                    <li><a href="#class-ii-takeover">3. Class II Promoter Take-over (8-12 min)</a></li>
+                    <li><a href="#primase-replication">4. Primase/Replication Coupling (10-15 min)</a></li>
+                    <li><a href="#class-iii-promoters">5. Class III Strong Promoters (15-20 min)</a></li>
+                    <li><a href="#rnap-processivity">6. RNAP Processivity Controls (Throughout)</a></li>
+                    <li><a href="#anti-host-factors">7. Anti-host Transcription Factors (8-25 min)</a></li>
+                    <li><a href="#dna-replication">8. DNA Replication Amplification (10-25 min)</a></li>
+                    <li><a href="#assembly-cascade">9. Assembly Cascade (20-30 min)</a></li>
+                    <li><a href="#lysis-timing">10. Lysis Timing Control (25-30 min)</a></li>
+                </ul>
+            </div>
+
+            <!-- Process 1: Class I Early Genes -->
+            <div class="process-item" id="class-i-early">
+                <h3>1. Class I Early Genes (0-5 minutes)</h3>
+                <p>Immediate transcription of early genes using host RNA polymerase to establish the foundation for viral takeover.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Initial Infection
+    A[T7 DNA Injection] --> B[Host RNAP Recognition]
+    B --> C[Class I Promoters]
+    C --> D[Early Gene Transcription]
+    
+    %% Early Gene Products
+    D --> E[T7 RNAP Gene]
+    D --> F[Host Inhibition Proteins]
+    D --> G[DNA Replication Proteins]
+    D --> H[Recombination Proteins]
+    
+    %% Host Takeover
+    I[Immediate Takeover] --> J[Host Function Redirect]
+    J --> K[T7-specific Translation]
+    K --> L[Resource Monopolization]
+    
+    %% Timing Control
+    M[Timing Control] --> N[0-5 min Window]
+    N --> O[Class I Expression Peak]
+    O --> P[Transition Preparation]
+    
+    %% Promoter Design
+    Q[Host RNAP Specificity] --> R[Class I Promoter Design]
+    R --> S[Efficient Initiation]
+    S --> T[Rapid Protein Production]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style Q fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    
+    style D fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 2: T7 RNAP Expression -->
+            <div class="process-item" id="t7-rnap-expression">
+                <h3>2. T7 RNAP Expression (5-8 minutes)</h3>
+                <p>Production and activation of T7 RNA polymerase, the master regulator of temporal gene expression.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% T7 RNAP Production
+    A[T7 RNAP mRNA] --> B[Translation Initiation]
+    B --> C[T7 RNAP Protein]
+    C --> D[Enzyme Folding]
+    D --> E[Active T7 RNAP]
+    
+    %% Promoter Recognition
+    E --> F[T7 Promoter Recognition]
+    F --> G[High Specificity Binding]
+    G --> H[Processive Transcription]
+    
+    %% Expression Timing
+    I[Expression Timing] --> J[5-8 min Peak]
+    J --> K[Critical Threshold]
+    K --> L[Takeover Initiation]
+    
+    %% T7 RNAP Properties
+    M[T7 RNAP Properties] --> N[Single Subunit]
+    N --> O[High Processivity]
+    O --> P[Strong Promoter Affinity]
+    P --> Q[Selective Advantage]
+    
+    %% Positive Feedback
+    R[Positive Feedback] --> S[More T7 RNAP → More Transcription]
+    S --> T[Exponential Increase]
+    T --> U[Host RNAP Competition]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style R fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    
+    style L fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 3: Class II Promoter Take-over -->
+            <div class="process-item" id="class-ii-takeover">
+                <h3>3. Class II Promoter Take-over (8-12 minutes)</h3>
+                <p>T7 RNAP-driven transcription of middle genes and systematic replacement of host transcriptional machinery.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% T7 RNAP Accumulation
+    A[T7 RNAP Accumulation] --> B[Class II Promoter Binding]
+    B --> C[Middle Gene Transcription]
+    
+    %% Middle Gene Products
+    C --> D[DNA Replication Machinery]
+    C --> E[Host Takeover Proteins]
+    C --> F[Anti-restriction Proteins]
+    
+    %% Host RNAP Inhibition
+    G[Host RNAP Inhibition] --> H[Competitive Displacement]
+    H --> I[Resource Monopolization]
+    I --> J[T7-specific Program]
+    
+    %% Class II Timing
+    K[Class II Timing] --> L[8-12 min Window]
+    L --> M[Peak Expression]
+    M --> N[Replication Initiation]
+    
+    %% Promoter Strength
+    O[Promoter Strength] --> P[T7 > Host Affinity]
+    P --> Q[Selective Transcription]
+    Q --> R[Metabolic Redirection]
+    
+    %% DNA Replication Start
+    S[DNA Replication Start] --> T[Template Amplification]
+    T --> U[Increased Gene Dosage]
+    U --> V[Amplified Expression]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style O fill:#ff6b6b,color:#fff
+    style S fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    
+    style N fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 4: Primase/Replication Coupling -->
+            <div class="process-item" id="primase-replication">
+                <h3>4. Primase/Replication Coupling (10-15 minutes)</h3>
+                <p>Coordinated DNA replication initiation and primer synthesis creating the foundation for exponential DNA amplification.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Primase Activity
+    A[T7 Primase] --> B[Primer Synthesis]
+    B --> C[Replication Origins]
+    C --> D[DNA Pol Complex Assembly]
+    D --> E[Bidirectional Replication]
+    
+    %% Helicase Activity
+    F[Helicase Activity] --> G[DNA Unwinding]
+    G --> H[Replication Fork]
+    H --> I[Continuous Synthesis]
+    
+    %% Strand Synthesis
+    J[Leading Strand] --> K[Continuous Replication]
+    L[Lagging Strand] --> M[Okazaki Fragments]
+    M --> N[Fragment Joining]
+    
+    %% Coupling Mechanism
+    O[Coupling Mechanism] --> P[Primase-Helicase]
+    P --> Q[Coordinated Movement]
+    Q --> R[Efficient Replication]
+    
+    %% Template Amplification
+    S[Template Amplification] --> T[Exponential Increase]
+    T --> U[Gene Dosage Effect]
+    U --> V[Enhanced Expression]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style O fill:#ff6b6b,color:#fff
+    style S fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    
+    style V fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 5: Class III Strong Promoters -->
+            <div class="process-item" id="class-iii-promoters">
+                <h3>5. Class III Strong Promoters (15-20 minutes)</h3>
+                <p>Activation of the strongest promoters driving massive production of structural proteins and assembly machinery.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% High T7 RNAP Levels
+    A[High T7 RNAP Levels] --> B[Class III Promoters]
+    B --> C[Maximum Transcription]
+    
+    %% Structural Proteins
+    C --> D[Structural Proteins]
+    C --> E[Assembly Proteins]
+    C --> F[Packaging Proteins]
+    
+    %% Promoter Strength Hierarchy
+    G[Promoter Strength Hierarchy] --> H[Class III > II > I]
+    H --> I[Competitive Advantage]
+    I --> J[Late Gene Dominance]
+    
+    %% DNA Template Abundance
+    K[DNA Template Abundance] --> L[Multiple Copies]
+    L --> M[Saturated Transcription]
+    M --> N[Protein Overproduction]
+    
+    %% Head Proteins
+    O[Head Proteins] --> P[Major Capsid]
+    O --> Q[Scaffolding Proteins]
+    
+    %% Tail Proteins
+    R[Tail Proteins] --> S[Tail Assembly]
+    
+    %% DNA Packaging
+    T[DNA Packaging] --> U[Terminase Complex]
+    
+    %% Resource Allocation
+    V[Resource Allocation] --> W[Maximum Efficiency]
+    W --> X[Coordinated Assembly]
+    X --> Y[Virion Production]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style V fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    
+    style Y fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 6: RNAP Processivity Controls -->
+            <div class="process-item" id="rnap-processivity">
+                <h3>6. RNAP Processivity Controls (Throughout infection)</h3>
+                <p>Regulation of RNA polymerase processivity to ensure complete transcript synthesis and prevent premature termination.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% T7 RNAP Processivity
+    A[T7 RNAP] --> B[High Processivity]
+    B --> C[Long Transcript Synthesis]
+    C --> D[Complete Gene Expression]
+    
+    %% Termination Signals
+    E[Termination Signals] --> F{Termination Efficiency?}
+    F -->|Strong| G[Transcript Termination]
+    F -->|Weak| H[Read-through]
+    
+    %% Anti-termination Factors
+    I[Anti-termination Factors] --> J[Nus Modifications]
+    J --> K[Enhanced Processivity]
+    K --> L[Extended Transcription]
+    
+    %% Template Structure
+    M[Template Structure] --> N[Secondary Structures]
+    N --> O[Pause Sites]
+    O --> P[Regulated Pausing]
+    P --> Q[Temporal Control]
+    
+    %% Gene Order
+    R[Gene Order] --> S[Polycistronic Messages]
+    S --> T[Coordinated Expression]
+    T --> U[Functional Coupling]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style R fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    
+    style D fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 7: Anti-host Transcription Factors -->
+            <div class="process-item" id="anti-host-factors">
+                <h3>7. Anti-host Transcription Factors (8-25 minutes)</h3>
+                <p>Production of factors that specifically inhibit host transcription and redirect cellular resources to viral processes.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Anti-host Factor Production
+    A[Anti-host Factor Production] --> B[Host RNAP Inhibition]
+    B --> C[Host Transcription Block]
+    C --> D[Resource Redirection]
+    
+    %% Specific Inhibitors
+    E[Specific Inhibitors] --> F[Host Promoter Blocking]
+    F --> G[Host Gene Silencing]
+    G --> H[Metabolic Redirection]
+    
+    %% T7 Advantage
+    I[T7 Advantage] --> J[Exclusive Transcription]
+    J --> K[Resource Monopolization]
+    K --> L[Viral Dominance]
+    
+    %% Host Response
+    M[Host Response] --> N[Defense Mechanisms]
+    N --> O[Restriction Enzymes]
+    O --> P[Anti-viral Proteins]
+    
+    %% T7 Countermeasures
+    Q[T7 Countermeasures] --> R[Anti-restriction Proteins]
+    R --> S[Host Defense Evasion]
+    S --> T[Successful Takeover]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style Q fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    
+    style T fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 8: DNA Replication Amplification -->
+            <div class="process-item" id="dna-replication">
+                <h3>8. DNA Replication Amplification (10-25 minutes)</h3>
+                <p>Exponential amplification of viral DNA templates to support massive protein production and assembly.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Replication Initiation
+    A[Replication Initiation] --> B[Origin Recognition]
+    B --> C[Helicase Loading]
+    C --> D[Bidirectional Replication]
+    
+    %% Exponential Amplification
+    D --> E[Template Amplification]
+    E --> F[Gene Dosage Increase]
+    F --> G[Enhanced Transcription]
+    
+    %% Multiple Origins
+    H[Multiple Origins] --> I[Concurrent Replication]
+    I --> J[Rapid DNA Synthesis]
+    J --> K[Template Abundance]
+    
+    %% Transcription Coupling
+    K --> L[Transcription Coupling]
+    L --> M[Coordinated Expression]
+    M --> N[Protein Production]
+    
+    %% Assembly Support
+    N --> O[Assembly Support]
+    O --> P[Structural Protein Synthesis]
+    P --> Q[Virion Assembly]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    
+    style Q fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 9: Assembly Cascade -->
+            <div class="process-item" id="assembly-cascade">
+                <h3>9. Assembly Cascade (20-30 minutes)</h3>
+                <p>Coordinated assembly of viral components into complete virions through a precisely timed cascade.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Assembly Initiation
+    A[Assembly Initiation] --> B[Scaffolding Proteins]
+    B --> C[Prohead Formation]
+    C --> D[DNA Packaging]
+    
+    %% Head Assembly
+    D --> E[Head Assembly]
+    E --> F[Capsid Formation]
+    F --> G[DNA Encapsidation]
+    
+    %% Tail Assembly
+    H[Tail Assembly] --> I[Tail Tube Formation]
+    I --> J[Tail Fiber Attachment]
+    J --> K[Complete Tail]
+    
+    %% Virion Assembly
+    G --> L[Head-Tail Joining]
+    K --> L
+    L --> M[Complete Virion]
+    
+    %% Quality Control
+    M --> N[Quality Control]
+    N --> O[Functional Virion]
+    O --> P[Infectious Particle]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    
+    style P fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 10: Lysis Timing Control -->
+            <div class="process-item" id="lysis-timing">
+                <h3>10. Lysis Timing Control (25-30 minutes)</h3>
+                <p>Precise timing of cell lysis to ensure complete virion assembly and optimal release timing.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Lysis Timing
+    A[Lysis Timing] --> B[Lysis Protein Synthesis]
+    B --> C[Holin Accumulation]
+    C --> D[Membrane Permeabilization]
+    
+    %% Endolysin Release
+    D --> E[Endolysin Release]
+    E --> F[Cell Wall Degradation]
+    F --> G[Cell Lysis]
+    
+    %% Timing Control
+    H[Timing Control] --> I[Assembly Completion Check]
+    I --> J{Virion Assembly Complete?}
+    J -->|Yes| K[Lysis Triggered]
+    J -->|No| L[Lysis Delayed]
+    
+    %% Optimal Release
+    K --> M[Optimal Release]
+    M --> N[Maximum Virion Yield]
+    N --> O[Infection Cycle Complete]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    
+    style O fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Generated using the Programming Framework methodology</strong></p>
+                <p>This collection demonstrates the computational nature of viral temporal control systems</p>
+                <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>'''
+    
+    with open('collections/advanced_systems/phage_t7_time_cascade.html', 'w', encoding='utf-8') as f:
+        f.write(content)
+
+def main():
+    """Main function to fix all advanced systems files."""
+    print("🔧 Fixing Advanced Systems Files...")
+    
+    # Fix phage T7 time cascade
+    print("✅ Recreating phage_t7_time_cascade.html...")
+    create_phage_t7_time_cascade()
+    
+    print("🎉 All advanced systems files have been fixed!")
+    print("📁 Files are now ready for upload to Hugging Face")
+
+if __name__ == "__main__":
+    main()

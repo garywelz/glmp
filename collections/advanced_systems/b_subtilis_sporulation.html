@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B. subtilis Sporulation: Developmental Programming Logic</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+            background: linear-gradient(135deg, #27ae60 0%, #2980b9 100%); 
+            min-height: 100vh; 
+        }
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            background: white; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); 
+            border-radius: 10px; 
+            overflow: hidden; 
+        }
+        .header { 
+            background: linear-gradient(135deg, #27ae60 0%, #2980b9 100%); 
+            color: white; 
+            padding: 2rem; 
+            text-align: center; 
+        }
+        .header h1 { 
+            margin: 0; 
+            font-size: 2.5rem; 
+            font-weight: 300; 
+        }
+        .content { 
+            padding: 2rem; 
+        }
+        .intro { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+        }
+        .toc { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+        }
+        .toc ul { 
+            list-style: none; 
+            padding: 0; 
+        }
+        .toc li { 
+            margin: 0.5rem 0; 
+        }
+        .toc a { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: 500; 
+        }
+        .process-item { 
+            margin: 2rem 0; 
+            padding: 1.5rem; 
+            border: 1px solid #dee2e6; 
+            border-radius: 8px; 
+            background: #fafafa; 
+        }
+        .process-item h3 { 
+            color: #495057; 
+            margin-bottom: 1rem; 
+        }
+        .mermaid-container { 
+            background: white; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin: 1rem 0; 
+            overflow-x: auto; 
+        }
+        .footer { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            text-align: center; 
+            border-top: 1px solid #dee2e6; 
+            margin-top: 2rem; 
+        }
+        .highlight { 
+            background: #e8f5e8; 
+            padding: 1rem; 
+            border-left: 4px solid #27ae60; 
+            margin: 1rem 0; 
+        }
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .color-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,.08);
+            background: #fff;
+            font-size: 0.9rem;
+        }
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 B. subtilis Sporulation</h1>
+            <p>Developmental Programming Logic and Cell Fate Determination</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>B. subtilis Sporulation: Bacterial Developmental Programming</h2>
+                <p>Bacillus subtilis sporulation represents one of the most sophisticated examples of bacterial developmental programming, featuring <strong>asymmetric cell division</strong>, <strong>sigma factor cascades</strong>, and <strong>compartment-specific gene expression</strong>. This system demonstrates how bacterial cells implement complex developmental logic through temporal and spatial regulation of gene expression.</p>
+                
+                <div class="highlight">
+                    <strong>Bacterial Developmental Computing:</strong> B. subtilis sporulation demonstrates asymmetric division, sigma factor cascades, cell-cell signaling, and compartment-specific programming - fundamental concepts in bacterial development and cell fate determination.
+                </div>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Sporulation System - 10 Developmental Processes</h2>
+                <ul>
+                    <li><a href="#environmental-sensing">1. Environmental Sensing</a></li>
+                    <li><a href="#sigma-cascades">2. σ<sup>H</sup>/σ<sup>F</sup>/σ<sup>E</sup>/σ<sup>G</sup> Cascades</a></li>
+                    <li><a href="#cell-cell-signaling">3. Cell-Cell Signaling (SpoIIR/SpoIIGA)</a></li>
+                    <li><a href="#asymmetric-division">4. Asymmetric Division</a></li>
+                    <li><a href="#compartment-formation">5. Compartment Formation</a></li>
+                    <li><a href="#engulfment">6. Engulfment</a></li>
+                    <li><a href="#cortex-synthesis">7. Cortex Synthesis</a></li>
+                    <li><a href="#coat-assembly">8. Coat Assembly</a></li>
+                    <li><a href="#spore-maturation">9. Spore Maturation</a></li>
+                    <li><a href="#germination-readiness">10. Germination Readiness</a></li>
+                </ul>
+            </div>
+
+            <!-- Process 1: Environmental Sensing -->
+            <div class="process-item" id="environmental-sensing">
+                <h3>1. Environmental Sensing</h3>
+                <p>Detection of environmental conditions that trigger sporulation initiation.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Nutrient Limitation] --> B[Starvation Response]
+    B --> C[Population Density]
+    C --> D[Quorum Sensing]
+    
+    %% Signal Integration
+    D --> E[Spo0A Activation]
+    E --> F[Phosphorylation Cascade]
+    F --> G[Spo0A~P]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    
+    style G fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 2: Sigma Factor Cascades -->
+            <div class="process-item" id="sigma-cascades">
+                <h3>2. σ<sup>H</sup>/σ<sup>F</sup>/σ<sup>E</sup>/σ<sup>G</sup> Cascades</h3>
+                <p>Temporal cascade of sigma factors orchestrating sequential gene expression.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Sigma Cascade
+    A[Spo0A~P] --> B[σH Activation]
+    B --> C[Early Sporulation Genes]
+    C --> D[Asymmetric Division Machinery]
+    
+    %% Compartment-Specific
+    E[Asymmetric Division] --> F[Forespore Compartment]
+    E --> G[Mother Cell Compartment]
+    
+    %% Forespore Program
+    F --> H[σF Activation]
+    H --> I[Forespore Program]
+    I --> J[Spore Development]
+    
+    %% Mother Cell Program
+    G --> K[σE Activation]
+    K --> L[Mother Cell Program]
+    L --> M[Cortex Synthesis]
+    
+    %% Late Stages
+    N[σF Activity] --> O[σG Induction]
+    O --> P[Late Forespore Genes]
+    P --> Q[Spore Maturation]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    
+    style Q fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 3: Cell-Cell Signaling -->
+            <div class="process-item" id="cell-cell-signaling">
+                <h3>3. Cell-Cell Signaling (SpoIIR/SpoIIGA)</h3>
+                <p>Intercellular communication coordinating development between compartments.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Signaling Pathway
+    A[Forespore σF] --> B[SpoIIR Expression]
+    B --> C[SpoIIR Secretion]
+    C --> D[SpoIIR in Intercompartment Space]
+    D --> E[SpoIIR Binding to SpoIIGA]
+    E --> F[SpoIIGA Activation]
+    F --> G[σE Pro-protein Processing]
+    G --> H[σE Activation]
+    H --> I[Mother Cell Gene Expression]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    
+    style I fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 4: Asymmetric Division -->
+            <div class="process-item" id="asymmetric-division">
+                <h3>4. Asymmetric Division</h3>
+                <p>Polar septum formation creating two distinct cellular compartments.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Division Process
+    A[Polar Septum Formation] --> B[Asymmetric Division]
+    B --> C[Forespore Compartment]
+    B --> D[Mother Cell Compartment]
+    
+    %% Compartment Differences
+    C --> E[Smaller Size]
+    D --> F[Larger Size]
+    E --> G[Different Gene Expression]
+    F --> H[Different Gene Expression]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 5: Compartment Formation -->
+            <div class="process-item" id="compartment-formation">
+                <h3>5. Compartment Formation</h3>
+                <p>Establishment of distinct cellular compartments with specialized functions.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Compartment Formation
+    A[Septum Formation] --> B[Forespore Compartment]
+    A --> C[Mother Cell Compartment]
+    
+    %% Specialization
+    B --> D[Spore Development Program]
+    C --> E[Support Cell Program]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    
+    style D fill:#74c0fc,color:#fff
+    style E fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 6: Engulfment -->
+            <div class="process-item" id="engulfment">
+                <h3>6. Engulfment</h3>
+                <p>Membrane migration around the forespore creating a double-membrane structure.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Engulfment Process
+    A[Membrane Migration] --> B[Forespore Engulfment]
+    B --> C[Double Membrane Formation]
+    C --> D[Intercompartment Space]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    
+    style D fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 7: Cortex Synthesis -->
+            <div class="process-item" id="cortex-synthesis">
+                <h3>7. Cortex Synthesis</h3>
+                <p>Formation of the peptidoglycan cortex layer around the forespore.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Cortex Formation
+    A[Cortex Synthesis] --> B[Peptidoglycan Deposition]
+    B --> C[Cortex Layer Formation]
+    C --> D[Spore Protection]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    
+    style D fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 8: Coat Assembly -->
+            <div class="process-item" id="coat-assembly">
+                <h3>8. Coat Assembly</h3>
+                <p>Assembly of protein coat layers providing additional protection.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Coat Assembly
+    A[Coat Protein Synthesis] --> B[Coat Assembly]
+    B --> C[Inner Coat Layer]
+    C --> D[Outer Coat Layer]
+    D --> E[Spore Coat Formation]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    
+    style E fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 9: Spore Maturation -->
+            <div class="process-item" id="spore-maturation">
+                <h3>9. Spore Maturation</h3>
+                <p>Final maturation processes creating a dormant, resistant spore.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Maturation Process
+    A[Spore Maturation] --> B[Dehydration]
+    B --> C[Small Acid-Soluble Proteins]
+    C --> D[Dormancy Establishment]
+    D --> E[Mature Spore]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    
+    style E fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process 10: Germination Readiness -->
+            <div class="process-item" id="germination-readiness">
+                <h3>10. Germination Readiness</h3>
+                <p>Preparation for future germination under favorable conditions.</p>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+graph TD
+    %% Germination Preparation
+    A[Germination Receptors] --> B[Signal Detection Ready]
+    B --> C[Germination Apparatus]
+    C --> D[Germination Readiness]
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+    
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    
+    style D fill:#74c0fc,color:#fff
+                    </div>
+                    <div class="color-legend">
+                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Generated using the Programming Framework methodology</strong></p>
+                <p>This collection demonstrates the computational nature of bacterial developmental systems</p>
+                <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

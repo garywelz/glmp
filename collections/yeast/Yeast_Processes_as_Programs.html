@@ -915,9 +915,9 @@ graph TD
     </div>
     
     <script>
-        // Initialize Mermaid with enhanced compatibility for Hugging Face Spaces
+        // Initialize Mermaid with enhanced compatibility
         mermaid.initialize({ 
-            startOnLoad: false, 
+            startOnLoad: true, 
             theme: 'default', 
             flowchart: { 
                 useMaxWidth: false, 
@@ -937,36 +937,15 @@ graph TD
                 secondaryColor: '#feca57', 
                 tertiaryColor: '#4ecdc4' 
             },
-            securityLevel: 'loose',
-            logLevel: 1
+            securityLevel: 'loose'
         });
         
-        // Force re-render when DOM is loaded
+        // Force re-render if needed
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing Mermaid...');
             if (typeof mermaid !== 'undefined') {
-                try {
-                    mermaid.init(undefined, '.mermaid');
-                    console.log('Mermaid initialized successfully');
-                } catch (error) {
-                    console.error('Mermaid initialization error:', error);
-                }
-            } else {
-                console.error('Mermaid library not loaded');
+                mermaid.init();
             }
         });
-        
-        // Also try to render after a short delay
-        setTimeout(function() {
-            if (typeof mermaid !== 'undefined') {
-                try {
-                    mermaid.init(undefined, '.mermaid');
-                    console.log('Mermaid re-initialized after delay');
-                } catch (error) {
-                    console.error('Delayed Mermaid initialization error:', error);
-                }
-            }
-        }, 1000);
     </script>
 </body>
 </html> 
