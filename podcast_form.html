@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate AI Podcast - Copernicus AI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+        button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate AI Podcast</h1>
+        
+        <form id="podcastForm">
+            <div class="form-group">
+                <label for="subject">Research Topic *</label>
+                <input type="text" id="subject" name="subject" required 
+                       placeholder="e.g., Quantum Error Correction, CRISPR Gene Editing, Neural Networks">
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Subject Category *<span style="font-size: 12px; color: #666; margin-left: 8px;">(Required for canonical naming)</span></label>
+                <select id="category" name="category" required>
+                    <option value="">Select subject category...</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                </select>
+                <p style="font-size: 12px; color: #666; margin-top: 4px;">This determines the canonical filename (e.g., ever-compsci-250028, ever-phys-250032)</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">Episode Duration *</label>
+                <select id="duration" name="duration" required>
+                    <option value="">Select duration...</option>
+                    <option value="5">5 minutes (Quick overview)</option>
+                    <option value="10">10 minutes (Standard briefing)</option>
+                    <option value="15">15 minutes (Detailed discussion)</option>
+                    <option value="20">20 minutes (Comprehensive analysis)</option>
+                    <option value="30">30 minutes (Deep dive)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="speakers">Speaker Configuration *</label>
+                <select id="speakers" name="speakers" required>
+                    <option value="">Select format...</option>
+                    <option value="single">Single narrator</option>
+                    <option value="interview">Interview format (2 speakers)</option>
+                    <option value="panel">Panel discussion (3-4 speakers)</option>
+                    <option value="debate">Debate format (2 opposing views)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="difficulty">Technical Level *</label>
+                <select id="difficulty" name="difficulty" required>
+                    <option value="">Select level...</option>
+                    <option value="General">General audience (accessible explanations)</option>
+                    <option value="Undergraduate">Undergraduate level</option>
+                    <option value="Graduate">Graduate/Research level</option>
+                    <option value="Expert">Expert/Professional level</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sourceLinks">Source Links (Optional)</label>
+                <p style="font-size: 12px; color: #666; margin-bottom: 8px;">Add specific papers, articles, or resources to focus the discussion</p>
+                <div id="sourceLinksContainer">
+                    <input type="url" name="sourceLinks[]" placeholder="https://arxiv.org/abs/1234.5678 or other research source" style="margin-bottom: 8px;">
+                </div>
+                <button type="button" id="addSourceLink" style="width: auto; padding: 8px 16px; font-size: 14px; background-color: #34a853; margin-top: 8px;">+ Add another source</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="documents">Upload Documents (Optional)</label>
+                <input type="file" id="documents" name="documents" multiple accept=".pdf,.doc,.docx,.txt" style="padding: 8px;">
+                <p style="font-size: 12px; color: #666; margin-top: 4px;">Supported formats: PDF, DOC, DOCX, TXT</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="additionalNotes">Additional Instructions (Optional)</label>
+                <textarea id="additionalNotes" name="additionalNotes" rows="4" 
+                          placeholder="Special themes, perspectives, or specific aspects to emphasize..."></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn">Generate AI Podcast</button>
+        </form>
+        
+        <div id="result"></div>
+        
+        <div class="back-link">
+            <a href="https://www.copernicusai.fyi">← Back to Copernicus AI</a>
+        </div>
+    </div>
+
+    <script>
+        const CLOUD_FUNCTION_URL = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/generate-podcast';
+        
+        // Add source link functionality
+        document.getElementById('addSourceLink').addEventListener('click', function() {
+            const container = document.getElementById('sourceLinksContainer');
+            const newInput = document.createElement('input');
+            newInput.type = 'url';
+            newInput.name = 'sourceLinks[]';
+            newInput.placeholder = 'https://arxiv.org/abs/1234.5678 or other research source';
+            newInput.style.marginBottom = '8px';
+            container.appendChild(newInput);
+        });
+        
+        document.getElementById('podcastForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Generating...';
+            resultDiv.innerHTML = '<div class="loading">Creating your podcast...</div>';
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            
+            // Collect source links
+            const sourceLinks = [];
+            const sourceLinkInputs = document.querySelectorAll('input[name="sourceLinks[]"]');
+            sourceLinkInputs.forEach(input => {
+                if (input.value.trim()) {
+                    sourceLinks.push(input.value.trim());
+                }
+            });
+            
+            const requestData = {
+                subject: formData.get('subject'),
+                category: formData.get('category'),
+                duration: formData.get('duration'),
+                speakers: formData.get('speakers'),
+                difficulty: formData.get('difficulty'),
+                additional_notes: formData.get('additionalNotes') || '',
+                source_links: sourceLinks
+            };
+            
+            try {
+                console.log('Submitting to Cloud Function:', requestData);
+                
+                const response = await fetch(CLOUD_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const result = await response.json();
+                console.log('Cloud Function response:', result);
+                
+                if (response.ok && result.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h3>🎉 Podcast Generated Successfully!</h3>
+                            <p>Your episode is being processed for distribution.</p>
+                            <p><strong>Job ID:</strong> ${result.jobId}</p>
+                            <p><strong>Estimated completion:</strong> ${result.estimatedCompletionTime}</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.error || 'Unknown error occurred');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Error Generating Podcast</h3>
+                        <p>${error.message}</p>
+                        <p>Please try again or contact support if the problem persists.</p>
+                    </div>
+                `;
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Generate AI Podcast';
+            }
+        });
+    </script>
+</body>
+</html>
