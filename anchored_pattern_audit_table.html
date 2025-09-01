@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Pattern Audit Table - Genome Logic Modeling Project</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            margin: 15px 0;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .audit-table {
+            margin: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        td {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        tr:hover {
+            background: #e3f2fd;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+        
+        .pattern-name {
+            font-weight: bold;
+            color: #495057;
+            font-size: 1.3em;
+        }
+        
+        .pattern-description {
+            color: #666;
+            font-size: 1.0em;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        
+        .count-cell {
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .checkmark {
+            color: #28a745;
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .process-count {
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .instance-count {
+            color: #6f42c1;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .summary {
+            background: #f8f9fa;
+            padding: 40px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .summary h2 {
+            color: #495057;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        .summary p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .highlight h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧬 Comprehensive Pattern Audit Table</h1>
+            <p class="subtitle">Computational Pattern Analysis of 330 Biological Processes</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">330</span>
+                    <span class="stat-label">Total Processes</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Pattern Types</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">48,312</span>
+                    <span class="stat-label">Total Patterns</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="audit-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern Type</th>
+                        <th>Description & Detection Method</th>
+                        <th>Processes with Pattern</th>
+                        <th>Total Pattern Instances</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="pattern-name">OR Gates</div>
+                        </td>
+                        <td>
+                            <div class="pattern-description">Decision diamonds with multiple alternative paths. Detected by {condition?} syntax with multiple |option1| |option2| branches.</div>
+                        </td>
+                        <td class="count-cell">
+                            <span class="checkmark">✓</span>
+                            <span class="process-count">(30 processes)</span>
+                        </td>
+                        <td class="count-cell">
+                            <span class="instance-count">79 instances</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="pattern-name">AND Gates</div>
+                        </td>
+                        <td>
+                            <div class="pattern-description">Multiple inputs converging on a single node representing logical AND operations. Detected by analyzing node convergence patterns.</div>
+                        </td>
+                        <td class="count-cell">
+                            <span class="checkmark">✓</span>
+                            <span class="process-count">(142 processes)</span>
+                        </td>
+                        <td class="count-cell">
+                            <span class="instance-count">339 instances</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="pattern-name">NOT Gates</div>
+                        </td>
+                        <td>
+                            <div class="pattern-description">Inhibition patterns, negative regulation, and repression mechanisms. Detected by inhibition keywords and dotted line syntax.</div>
+                        </td>
+                        <td class="count-cell">
+                            <span class="checkmark">✓</span>
+                            <span class="process-count">(157 processes)</span>
+                        </td>
+                        <td class="count-cell">
+                            <span class="instance-count">1,196 instances</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="pattern-name">Feedback Loops</div>
+                        </td>
+                        <td>
+                            <div class="pattern-description">Cycles in the graph representing regulatory feedback and homeostatic control. Detected by graph cycle analysis and feedback keywords.</div>
+                        </td>
+                        <td class="count-cell">
+                            <span class="checkmark">✓</span>
+                            <span class="process-count">(329 processes)</span>
+                        </td>
+                        <td class="count-cell">
+                            <span class="instance-count">15,971 instances</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="pattern-name">State Machines</div>
+                        </td>
+                        <td>
+                            <div class="pattern-description">Multiple state nodes with transitions between different cellular states. Detected by counting nodes and state transition patterns.</div>
+                        </td>
+                        <td class="count-cell">
+                            <span class="checkmark">✓</span>
+                            <span class="process-count">(327 processes)</span>
+                        </td>
+                        <td class="count-cell">
+                            <span class="instance-count">28,323 instances</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="pattern-name">Decision Trees</div>
+                        </td>
+                        <td>
+                            <div class="pattern-description">Multiple decision points creating branching logic structures. Detected by counting decision diamonds and branching patterns.</div>
+                        </td>
+                        <td class="count-cell">
+                            <span class="checkmark">✓</span>
+                            <span class="process-count">(153 processes)</span>
+                        </td>
+                        <td class="count-cell">
+                            <span class="instance-count">2,404 instances</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="highlight">
+            <h3>🎯 Analysis Complete: 330 Biological Processes Analyzed</h3>
+            <p>Total Computational Patterns Detected: 2,404</p>
+        </div>
+        
+        <div class="summary">
+            <h2>📊 Comprehensive Analysis Summary</h2>
+            <p><strong>Scope:</strong> Complete analysis of all available biological processes including HTML files with embedded Mermaid flowcharts and standalone .mmd files.</p>
+            <p><strong>Methodology:</strong> Advanced pattern detection using regular expressions, graph analysis, and computational structure identification.</p>
+            <p><strong>Coverage:</strong> Yeast (30 processes), E. coli (28 processes), Bacteriophages, Plants, and Human systems.</p>
+            <p><strong>Pattern Types:</strong> OR Gates, AND Gates, NOT Gates, Feedback Loops, State Machines, and Decision Trees.</p>
+            <p><strong>Key Finding:</strong> Biological processes exhibit sophisticated computational architectures with extensive use of logic gates, state machines, and feedback control systems.</p>
+        </div>
+    </div>
+</body>
+</html>
