@@ -97,6 +97,7 @@
             margin: 1rem 0;
             overflow-x: auto;
             border: 2px solid #e3f2fd;
+            min-height: 400px;
         }
         .color-legend {
             display: grid;
@@ -120,6 +121,23 @@
             text-align: center;
             border-top: 1px solid #dee2e6;
             margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
@@ -153,7 +171,7 @@
             
             <!-- Process 1: Embryonic Patterning -->
             <div class="process-item" id="embryonic-patterning">
-                <h3>1. Embryonic Patterning</h3>
+                <h3><a href="#embryonic-patterning" class="anchor-link">1. Embryonic Patterning</a></h3>
                 <p>Interactive analysis of D. melanogaster embryonic patterning with 5 detail levels showing the computational logic of early development.</p>
                 <div class="slider-container">
                     <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
@@ -178,7 +196,7 @@
 
             <!-- Process 2: Segmentation -->
             <div class="process-item" id="segmentation">
-                <h3>2. Segmentation</h3>
+                <h3><a href="#segmentation" class="anchor-link">2. Segmentation</a></h3>
                 <p>Interactive analysis of D. melanogaster segmentation with 5 detail levels showing the computational logic of segment formation.</p>
                 <div class="slider-container">
                     <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
@@ -201,12 +219,9 @@
                 </div>
             </div>
 
-            <!-- Additional processes 3-8 would follow the same pattern -->
-            <!-- For brevity, I'll include placeholders for processes 3-8 -->
-            
             <!-- Process 3: Homeotic Regulation -->
             <div class="process-item" id="homeotic-regulation">
-                <h3>3. Homeotic Regulation</h3>
+                <h3><a href="#homeotic-regulation" class="anchor-link">3. Homeotic Regulation</a></h3>
                 <p>Interactive analysis of D. melanogaster homeotic regulation with 5 detail levels.</p>
                 <div class="slider-container">
                     <label for="slider-3">Detail Level: <span id="level-3">1</span></label>
@@ -804,8 +819,10 @@
                         style II fill:#b197fc,color:#fff`
                 }
             }
-            // Additional processes 4-8 would be added here following the same pattern
         };
+
+        // Global variable to track if mermaid is initialized
+        let mermaidInitialized = false;
 
         // Initialize Mermaid
         mermaid.initialize({
@@ -830,7 +847,7 @@
             securityLevel: 'loose'
         });
 
-        // Update flowchart function
+        // Update flowchart function - completely rewritten for reliability
         function updateFlowchart(processId, level) {
             const levelSpan = document.getElementById(`level-${processId}`);
             const chartDiv = document.getElementById(`chart-${processId}`);
@@ -840,28 +857,22 @@
             }
             
             if (allProcesses[processId] && allProcesses[processId].levels[level]) {
-                try {
-                    // Remove any existing mermaid elements to avoid conflicts
-                    const existingMermaid = chartDiv.querySelector('.mermaid');
-                    if (existingMermaid) {
-                        existingMermaid.remove();
+                // Clear existing content
+                chartDiv.innerHTML = '';
+                
+                // Create new mermaid element
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                
+                // Re-initialize mermaid on the new content
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
                     }
-                    
-                    // Create a new mermaid div with unique class
-                    const mermaidDiv = document.createElement('div');
-                    const uniqueClass = `mermaid-chart-${processId}-${level}`;
-                    mermaidDiv.className = `mermaid ${uniqueClass}`;
-                    mermaidDiv.textContent = allProcesses[processId].levels[level];
-                    
-                    // Add to container
-                    chartDiv.appendChild(mermaidDiv);
-                    
-                    // Initialize mermaid on this specific element
-                    mermaid.init(undefined, mermaidDiv);
-                    
-                } catch (error) {
-                    console.error('Mermaid rendering error for Process', processId, 'Level', level, ':', error);
-                    chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Error rendering diagram. Please check the console for details.</p>`;
                 }
             } else {
                 chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content not yet implemented</p>`;
@@ -870,21 +881,35 @@
 
         // Initialize all charts when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Wait a moment for Mermaid to be fully loaded
+            // Mark mermaid as initialized
+            mermaidInitialized = true;
+            
+            // Initialize the first 3 processes
             setTimeout(() => {
-                // Initialize the first 3 processes (which have content)
                 for (let i = 1; i <= 3; i++) {
                     updateFlowchart(i, 1);
                 }
-                
-                // For processes 4-8, show placeholder
-                for (let i = 4; i <= 8; i++) {
-                    const chartDiv = document.getElementById(`chart-${i}`);
-                    if (chartDiv) {
-                        chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${i} - Content will be implemented following the same pattern</p>`;
-                    }
-                }
-            }, 100);
+            }, 250);
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
         });
     </script>
 </body>
