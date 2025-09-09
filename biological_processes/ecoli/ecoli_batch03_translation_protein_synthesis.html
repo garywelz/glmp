@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 03: Translation & Protein Synthesis - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 E. coli Translation & Protein Synthesis</h1>
+            <p>Interactive Programming Framework Analysis - 4 Translation Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🦠 Interactive Translation & Protein Synthesis Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each translation process at 5 different detail levels. Each process demonstrates sophisticated biological programming with ribosomal machinery, translational regulation, and protein quality control.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Translation Processes - 4 Core Systems</h2>
+                <ul>
+                    <li><a href="#translation-initiation">1. Translation Initiation</a></li>
+                    <li><a href="#translation-elongation">2. Translation Elongation</a></li>
+                    <li><a href="#translation-termination">3. Translation Termination</a></li>
+                    <li><a href="#protein-folding">4. Protein Folding</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: Translation Initiation -->
+            <div class="process-item" id="translation-initiation">
+                <h3><a href="#translation-initiation" class="anchor-link">1. Translation Initiation</a></h3>
+                <p>Interactive analysis of E. coli translation initiation with 5 detail levels showing the computational logic of ribosome assembly and start codon recognition.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1">
+                        <!-- Chart will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 2: Translation Elongation -->
+            <div class="process-item" id="translation-elongation">
+                <h3><a href="#translation-elongation" class="anchor-link">2. Translation Elongation</a></h3>
+                <p>Interactive analysis of E. coli translation elongation with 5 detail levels showing the computational logic of peptide bond formation and ribosome translocation.</p>
+                <div class="slider-container">
+                    <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
+                    <input type="range" id="slider-2" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(2, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-2">
+                        <!-- Chart will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 3: Translation Termination -->
+            <div class="process-item" id="translation-termination">
+                <h3><a href="#translation-termination" class="anchor-link">3. Translation Termination</a></h3>
+                <p>Interactive analysis of E. coli translation termination with 5 detail levels showing the computational logic of stop codon recognition and ribosome recycling.</p>
+                <div class="slider-container">
+                    <label for="slider-3">Detail Level: <span id="level-3">1</span></label>
+                    <input type="range" id="slider-3" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(3, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-3"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 4: Protein Folding -->
+            <div class="process-item" id="protein-folding">
+                <h3><a href="#protein-folding" class="anchor-link">4. Protein Folding</a></h3>
+                <p>Interactive analysis of E. coli protein folding with 5 detail levels showing the computational logic of chaperone-assisted folding and quality control.</p>
+                <div class="slider-container">
+                    <label for="slider-4">Detail Level: <span id="level-4">1</span></label>
+                    <input type="range" id="slider-4" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(4, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-4"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of E. coli translation and protein synthesis systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {
+            1: { // Translation Initiation
+                levels: {
+                    1: `graph TD
+                        A[mRNA Signal] --> B[Ribosome Binding]
+                        B --> C[Start Codon Recognition]
+                        C --> D[Translation Start]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[mRNA Recognition] --> B[Shine-Dalgarno Binding]
+                        B --> C[30S Subunit Loading]
+                        C --> D[Initiation Factors]
+                        D --> E[Start Codon Recognition]
+                        E --> F[50S Subunit Joining]
+                        F --> G[Translation Initiation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[mRNA 5' UTR] --> B[Shine-Dalgarno Sequence]
+                        B --> C[16S rRNA Binding]
+                        C --> D[30S Ribosomal Subunit]
+                        D --> E[IF1 Binding]
+                        D --> F[IF2 Binding]
+                        D --> G[IF3 Binding]
+                        E --> H[A-site Blocking]
+                        F --> I[fMet-tRNA Delivery]
+                        G --> J[mRNA Positioning]
+                        H --> K[Initiation Complex]
+                        I --> K
+                        J --> K
+                        K --> L[50S Subunit Association]
+                        L --> M[IF Release]
+                        M --> N[70S Initiation Complex]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[mRNA Secondary Structure] --> B[Ribosome Binding Site Accessibility]
+                        B --> C[Shine-Dalgarno AGGAGG Motif]
+                        C --> D[16S rRNA 3' End Complementarity]
+                        D --> E[30S Small Subunit Recruitment]
+                        E --> F[IF3 Anti-Association Activity]
+                        F --> G[mRNA Start Codon Scanning]
+                        G --> H[AUG Codon Recognition]
+                        H --> I[IF2-GTP-fMet-tRNA Complex]
+                        I --> J[P-site Positioning]
+                        J --> K[IF1 A-site Protection]
+                        K --> L[50S Large Subunit Docking]
+                        L --> M[Subunit Association]
+                        M --> N[GTP Hydrolysis]
+                        N --> O[Initiation Factor Release]
+                        O --> P[fMet-tRNA P-site Accommodation]
+                        P --> Q[A-site Accessibility]
+                        Q --> R[EF-Tu-aminoacyl-tRNA Binding]
+                        R --> S[Translation Elongation Ready]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[mRNA Ribosome Binding Site Architecture] --> B[5' Untranslated Region Structure]
+                        B --> C[Shine-Dalgarno Purine-Rich Sequence]
+                        C --> D[Optimal Spacing 5-9 Nucleotides]
+                        D --> E[AUG Start Codon Context]
+                        E --> F[16S rRNA 3' Complementarity]
+                        F --> G[30S Ribosomal Subunit Recruitment]
+                        G --> H[IF3 mRNA Binding Enhancement]
+                        H --> I[Anti-Association Factor Activity]
+                        I --> J[mRNA Start Site Selection]
+                        J --> K[Codon-Anticodon Recognition]
+                        K --> L[IF2-GTP Binary Complex]
+                        L --> M[fMet-tRNA Ternary Complex]
+                        M --> N[Initiator tRNA Delivery]
+                        N --> O[P-site Pre-Positioning]
+                        O --> P[IF1 A-site Occupancy Block]
+                        P --> Q[50S Ribosomal Subunit Docking]
+                        Q --> R[Inter-Subunit Bridge Formation]
+                        R --> S[Ribosomal RNA Conformational Change]
+                        S --> T[GTP Hydrolysis Trigger]
+                        T --> U[IF2 Conformational Switch]
+                        U --> V[Initiation Factor Dissociation]
+                        V --> W[fMet-tRNA P-site Accommodation]
+                        W --> X[Peptidyl Transferase Center Formation]
+                        X --> Y[A-site Accessibility Establishment]
+                        Y --> Z[EF-Tu-GTP-aminoacyl-tRNA Recruitment]
+                        Z --> AA[Ternary Complex Delivery]
+                        AA --> BB[Codon-Anticodon Pairing]
+                        BB --> CC[Proofreading Mechanism]
+                        CC --> DD[GTPase Activation]
+                        DD --> EE[EF-Tu Conformational Change]
+                        EE --> FF[aminoacyl-tRNA Accommodation]
+                        FF --> GG[Peptide Bond Formation Readiness]
+                        GG --> HH[Translation Elongation Initiation]
+                        HH --> II[Ribosomal Translocation Competence]
+                        II --> JJ[Processive Protein Synthesis]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#ffd43b,color:#000
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#b197fc,color:#fff`
+                }
+            },
+            2: { // Translation Elongation
+                levels: {
+                    1: `graph TD
+                        A[Ribosome Complex] --> B[tRNA Delivery]
+                        B --> C[Peptide Bond Formation]
+                        C --> D[Ribosome Movement]
+                        D --> E[Protein Chain Growth]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Elongation Complex] --> B[EF-Tu-tRNA Delivery]
+                        B --> C[Codon Recognition]
+                        C --> D[Peptidyl Transfer]
+                        D --> E[EF-G Translocation]
+                        E --> F[Ribosome Movement]
+                        F --> G[Peptide Chain Extension]
+                        G --> H[Next Codon Ready]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[70S Ribosome Complex] --> B[A-site tRNA Binding]
+                        B --> C[EF-Tu-GTP-aminoacyl-tRNA]
+                        C --> D[Codon-Anticodon Recognition]
+                        D --> E[GTP Hydrolysis]
+                        E --> F[EF-Tu Release]
+                        F --> G[tRNA Accommodation]
+                        G --> H[Peptidyl Transferase]
+                        H --> I[Peptide Bond Formation]
+                        I --> J[Peptidyl-tRNA P-site]
+                        J --> K[EF-G-GTP Binding]
+                        K --> L[Ribosome Translocation]
+                        L --> M[tRNA Movement]
+                        M --> N[mRNA Advancement]
+                        N --> O[Next Codon Exposure]
+                        O --> P[Elongation Cycle Reset]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Ribosomal Elongation Machinery] --> B[A-site Aminoacyl-tRNA Selection]
+                        B --> C[EF-Tu-GTP Ternary Complex]
+                        C --> D[Initial Codon Recognition]
+                        D --> E[Proofreading Mechanism]
+                        E --> F[GTPase Activation]
+                        F --> G[EF-Tu Conformational Change]
+                        G --> H[tRNA Release from EF-Tu]
+                        H --> I[A-site tRNA Accommodation]
+                        I --> J[Peptidyl Transferase Center]
+                        J --> K[Nucleophilic Attack]
+                        K --> L[Peptide Bond Formation]
+                        L --> M[Peptidyl-tRNA Transfer]
+                        M --> N[Deacylated tRNA P-site]
+                        N --> O[EF-G-GTP Binding]
+                        O --> P[Ribosomal Conformational Change]
+                        P --> Q[Translocation Mechanism]
+                        Q --> R[tRNA-mRNA Movement]
+                        R --> S[A-site to P-site Transfer]
+                        S --> T[P-site to E-site Transfer]
+                        T --> U[E-site tRNA Release]
+                        U --> V[mRNA Codon Advancement]
+                        V --> W[New A-site Codon Exposure]
+                        W --> X[Elongation Factor Recycling]
+                        X --> Y[EF-Tu-GDP to EF-Tu-GTP]
+                        Y --> Z[Ready for Next Cycle]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Translation Initiation Complex Assembly] --> B[mRNA Secondary Structure Resolution]
+                        B --> C[Ribosome Binding Site Accessibility]
+                        C --> D[Shine-Dalgarno Sequence Recognition]
+                        D --> E[16S rRNA 3' Complementarity]
+                        E --> F[30S Ribosomal Subunit Binding]
+                        F --> G[IF3 Anti-Association Function]
+                        G --> H[mRNA Start Codon Selection]
+                        H --> I[AUG Initiation Codon Recognition]
+                        I --> J[IF2-GTP-fMet-tRNA Ternary Complex]
+                        J --> K[Initiator tRNA P-site Delivery]
+                        K --> L[IF1 A-site Blocking Function]
+                        L --> M[50S Large Subunit Recruitment]
+                        M --> N[Ribosomal Subunit Association]
+                        N --> O[Inter-Subunit Bridge Formation]
+                        O --> P[GTP Hydrolysis by IF2]
+                        P --> Q[Initiation Factor Dissociation]
+                        Q --> R[fMet-tRNA P-site Accommodation]
+                        R --> S[Peptidyl Transferase Center Assembly]
+                        S --> T[A-site Codon Exposure]
+                        T --> U[EF-Tu-GTP-aminoacyl-tRNA Recruitment]
+                        U --> V[Elongation Ternary Complex]
+                        V --> W[Codon-Anticodon Base Pairing]
+                        W --> X[Decoding Center Fidelity Check]
+                        X --> Y[GTPase Activation Signal]
+                        Y --> Z[EF-Tu GTP Hydrolysis]
+                        Z --> AA[Accommodation Proofreading]
+                        AA --> BB[aminoacyl-tRNA A-site Entry]
+                        BB --> CC[Peptide Bond Formation Initiation]
+                        CC --> DD[Translation Elongation Phase]
+                        DD --> EE[Processive Protein Synthesis]
+                        EE --> FF[Ribosomal Quality Control]
+                        FF --> GG[Protein Production Efficiency]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#ffd43b,color:#000
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#ffd43b,color:#000
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#51cf66,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#b197fc,color:#fff`
+                }
+            },
+            3: { // Translation Termination
+                levels: {
+                    1: `graph TD
+                        A[Stop Codon] --> B[Release Factors]
+                        B --> C[Peptide Release]
+                        C --> D[Ribosome Dissociation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Stop Codon Recognition] --> B[RF1/RF2 Binding]
+                        B --> C[Peptidyl-tRNA Hydrolysis]
+                        C --> D[Peptide Release]
+                        D --> E[RF3-GTP Binding]
+                        E --> F[Release Factor Recycling]
+                        F --> G[Ribosome Recycling]
+                        G --> H[Translation Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Nonsense Codon UAG/UAA/UGA] --> B[Release Factor Recognition]
+                        B --> C[RF1 UAG/UAA Specificity]
+                        B --> D[RF2 UAA/UGA Specificity]
+                        C --> E[Peptidyl Transferase Hydrolysis]
+                        D --> E
+                        E --> F[Peptide Chain Release]
+                        F --> G[RF3-GTP Recruitment]
+                        G --> H[Release Factor Dissociation]
+                        H --> I[Ribosome Recycling Factor]
+                        I --> J[70S Ribosome Splitting]
+                        J --> K[30S Subunit Recovery]
+                        J --> L[50S Subunit Recovery]
+                        K --> M[Translation Machinery Pool]
+                        L --> M
+                        M --> N[Ready for New Translation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Stop Codon Context] --> B[Release Factor Competition]
+                        B --> C[RF1 Class I UAG/UAA]
+                        B --> D[RF2 Class I UAA/UGA]
+                        C --> E[GGQ Motif Recognition]
+                        D --> E
+                        E --> F[Peptidyl-tRNA Ester Bond]
+                        F --> G[Water Molecule Activation]
+                        G --> H[Nucleophilic Hydrolysis]
+                        H --> I[Peptide Chain Liberation]
+                        I --> J[Free Peptide Product]
+                        J --> K[Deacylated tRNA P-site]
+                        K --> L[RF3-GTP Class II Factor]
+                        L --> M[Release Factor Ejection]
+                        M --> N[GTP Hydrolysis Energy]
+                        N --> O[Ribosome Recycling Factor RRF]
+                        O --> P[EF-G Cooperation]
+                        P --> Q[70S Ribosome Dissociation]
+                        Q --> R[30S-mRNA-tRNA Complex]
+                        Q --> S[50S Subunit Release]
+                        R --> T[IF3 Anti-Association]
+                        S --> U[Subunit Pool Replenishment]
+                        T --> V[mRNA-tRNA Dissociation]
+                        U --> W[Translation Machinery Recycling]
+                        V --> W
+                        W --> X[Protein Synthesis Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#ffd43b,color:#000
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Translation Termination Signal Recognition] --> B[Stop Codon Context Analysis]
+                        B --> C[RF1 UAG Amber/UAA Ochre Recognition]
+                        B --> D[RF2 UAA Ochre/UGA Opal Recognition]
+                        C --> E[Class I Release Factor Binding]
+                        D --> E
+                        E --> F[A-site Occupancy by Release Factor]
+                        F --> G[GGQ Motif Peptidyl Transferase Interaction]
+                        G --> H[Peptidyl-tRNA Ester Bond Target]
+                        H --> I[Water Molecule Nucleophile Positioning]
+                        I --> J[Hydrolytic Cleavage Mechanism]
+                        J --> K[Peptide Chain C-Terminal Release]
+                        K --> L[Nascent Protein Liberation]
+                        L --> M[Deacylated tRNA P-site Retention]
+                        M --> N[RF3-GTP Class II Factor Recruitment]
+                        N --> O[Release Factor Recycling Mechanism]
+                        O --> P[GTP Hydrolysis-Driven Ejection]
+                        P --> Q[RF1/RF2 Dissociation]
+                        Q --> R[Post-Termination Ribosome Complex]
+                        R --> S[Ribosome Recycling Factor RRF]
+                        S --> T[EF-G Translocation Factor]
+                        T --> U[Coordinated Subunit Dissociation]
+                        U --> V[50S Large Subunit Release]
+                        U --> W[30S Small Subunit Complex]
+                        V --> X[Large Subunit Pool]
+                        W --> Y[IF3 Anti-Association Factor]
+                        Y --> Z[mRNA-tRNA-30S Dissociation]
+                        Z --> AA[Small Subunit Pool]
+                        Z --> BB[mRNA Recycling]
+                        Z --> CC[tRNA Recycling]
+                        X --> DD[Ribosomal Subunit Homeostasis]
+                        AA --> DD
+                        BB --> EE[mRNA Degradation or Reuse]
+                        CC --> FF[tRNA Aminoacylation Cycle]
+                        DD --> GG[Translation Machinery Availability]
+                        EE --> HH[RNA Metabolism Control]
+                        FF --> II[Protein Synthesis Capacity]
+                        GG --> JJ[Cellular Translation Control]
+                        HH --> JJ
+                        II --> JJ
+                        L --> KK[Protein Processing Pathway]
+                        KK --> LL[Protein Folding Quality Control]
+                        LL --> MM[Functional Protein Production]
+                        JJ --> NN[Translation Efficiency Optimization]
+                        MM --> NN
+                        NN --> OO[Cellular Proteome Regulation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#ffd43b,color:#000
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#ffd43b,color:#000
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#51cf66,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#b197fc,color:#fff`
+                }
+            },
+            4: { // Protein Folding
+                levels: {
+                    1: `graph TD
+                        A[Nascent Protein] --> B[Chaperone Binding]
+                        B --> C[Protein Folding]
+                        C --> D[Functional Protein]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Unfolded Protein] --> B[DnaK Chaperone]
+                        B --> C[Co-chaperone Binding]
+                        C --> D[Folding Assistance]
+                        D --> E[GroEL System]
+                        E --> F[Protein Refolding]
+                        F --> G[Native Structure]
+                        G --> H[Functional Protein]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Ribosome-Bound Nascent Chain] --> B[Trigger Factor Binding]
+                        B --> C[Co-translational Folding]
+                        C --> D[DnaK-DnaJ-GrpE System]
+                        D --> E[Substrate Recognition]
+                        E --> F[ATP-Dependent Folding]
+                        F --> G[GroEL-GroES System]
+                        G --> H[Encapsulated Folding]
+                        H --> I[Native Protein Structure]
+                        I --> J[Quality Control Check]
+                        J --> K[Functional Protein]
+                        K --> L[Cellular Function]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Protein Folding Pathway Selection] --> B[Co-translational Folding]
+                        A --> C[Post-translational Folding]
+                        B --> D[Trigger Factor Recognition]
+                        B --> E[Signal Recognition Particle]
+                        C --> F[DnaK Chaperone System]
+                        C --> G[GroEL Chaperonin System]
+                        D --> H[Nascent Chain Protection]
+                        E --> I[Membrane Targeting]
+                        F --> J[ATP-Dependent Binding Cycles]
+                        G --> K[ATP-Dependent Folding Chamber]
+                        H --> L[Cytoplasmic Folding]
+                        I --> M[Membrane Integration]
+                        J --> N[Substrate Release Cycles]
+                        K --> O[Encapsulated Folding Environment]
+                        L --> P[Native Structure Formation]
+                        M --> Q[Membrane Protein Function]
+                        N --> R[Folding Intermediates]
+                        O --> S[Protected Folding Space]
+                        P --> T[Cytoplasmic Protein Function]
+                        Q --> U[Membrane Function]
+                        R --> V[Quality Control Assessment]
+                        S --> W[Correctly Folded Protein]
+                        T --> X[Cellular Function Integration]
+                        U --> X
+                        V --> Y[Properly Folded or Degradation]
+                        W --> Y
+                        X --> Z[Functional Proteome]
+                        Y --> Z
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Protein Folding Quality Control Network] --> B[Co-translational Pathway]
+                        A --> C[Post-translational Pathway]
+                        A --> D[Stress Response Pathway]
+                        B --> E[Trigger Factor TF Ribosome Binding]
+                        B --> F[Signal Recognition Particle SRP]
+                        C --> G[DnaK-DnaJ-GrpE Hsp70 System]
+                        C --> H[GroEL-GroES Hsp60 System]
+                        D --> I[ClpX-ClpP Degradation]
+                        D --> J[Lon Protease Quality Control]
+                        E --> K[Nascent Chain Shielding]
+                        F --> L[Membrane Protein Targeting]
+                        G --> M[Substrate Binding Domain]
+                        H --> N[Chaperonin Folding Chamber]
+                        I --> O[Misfolded Protein Recognition]
+                        J --> P[Damaged Protein Degradation]
+                        K --> Q[Cytoplasmic Folding Assistance]
+                        L --> R[SecYEG Translocon Delivery]
+                        M --> S[ATPase Conformational Cycling]
+                        N --> T[ATP-Dependent Encapsulation]
+                        O --> U[Protein Aggregate Prevention]
+                        P --> V[Cellular Proteostasis]
+                        Q --> W[Properly Folded Cytoplasmic Proteins]
+                        R --> X[Membrane-Integrated Proteins]
+                        S --> Y[Chaperone Cycle Completion]
+                        T --> Z[Isolated Folding Environment]
+                        U --> AA[Proteotoxic Stress Relief]
+                        V --> BB[Protein Homeostasis]
+                        W --> CC[Functional Cytoplasmic Proteome]
+                        X --> DD[Functional Membrane Proteome]
+                        Y --> EE[Chaperone System Efficiency]
+                        Z --> FF[High-Fidelity Protein Folding]
+                        AA --> GG[Cellular Stress Tolerance]
+                        BB --> HH[Proteome Integrity]
+                        CC --> II[Cytoplasmic Function]
+                        DD --> JJ[Membrane Function]
+                        EE --> KK[Folding Capacity Control]
+                        FF --> LL[Protein Quality Assurance]
+                        GG --> MM[Adaptive Response]
+                        HH --> NN[Cellular Fitness]
+                        II --> OO[Integrated Cellular Function]
+                        JJ --> OO
+                        KK --> PP[Protein Synthesis Regulation]
+                        LL --> PP
+                        MM --> QQ[Environmental Adaptation]
+                        NN --> RR[Cell Viability]
+                        OO --> SS[Coordinated Cellular Activity]
+                        PP --> SS
+                        QQ --> SS
+                        RR --> SS
+                        SS --> TT[Optimal Cellular Performance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#74c0fc,color:#fff
+                        style RR fill:#74c0fc,color:#fff
+                        style SS fill:#74c0fc,color:#fff
+                        style TT fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        // Update flowchart function
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                // Clear existing content
+                chartDiv.innerHTML = '';
+                
+                // Create new mermaid element
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                
+                // Re-initialize mermaid on the new content
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content not yet implemented</p>`;
+            }
+        }
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 4; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>

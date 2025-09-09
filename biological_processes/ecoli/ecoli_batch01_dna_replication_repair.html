@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 01: DNA Replication & Repair - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 E. coli DNA Replication & Repair</h1>
+            <p>Interactive Programming Framework Analysis - 8 DNA Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🦠 Interactive DNA Replication & Repair Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each DNA process at 5 different detail levels. Each process demonstrates sophisticated biological programming with error correction, quality control, and computational logic.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive DNA Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#dna-replication-initiation">1. DNA Replication Initiation</a></li>
+                    <li><a href="#dna-replication-elongation">2. DNA Replication Elongation</a></li>
+                    <li><a href="#dna-replication-termination">3. DNA Replication Termination</a></li>
+                    <li><a href="#dna-repair">4. DNA Repair</a></li>
+                    <li><a href="#base-excision-repair">5. Base Excision Repair</a></li>
+                    <li><a href="#nucleotide-excision-repair">6. Nucleotide Excision Repair</a></li>
+                    <li><a href="#mismatch-repair">7. Mismatch Repair</a></li>
+                    <li><a href="#sos-response">8. SOS Response</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: DNA Replication Initiation -->
+            <div class="process-item" id="dna-replication-initiation">
+                <h3><a href="#dna-replication-initiation" class="anchor-link">1. DNA Replication Initiation</a></h3>
+                <p>Interactive analysis of E. coli DNA replication initiation with 5 detail levels showing the computational logic of replication origin activation.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1">
+                        <!-- Chart will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 2: DNA Replication Elongation -->
+            <div class="process-item" id="dna-replication-elongation">
+                <h3><a href="#dna-replication-elongation" class="anchor-link">2. DNA Replication Elongation</a></h3>
+                <p>Interactive analysis of E. coli DNA replication elongation with 5 detail levels showing the computational logic of continuous DNA synthesis.</p>
+                <div class="slider-container">
+                    <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
+                    <input type="range" id="slider-2" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(2, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-2">
+                        <!-- Chart will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 3: DNA Replication Termination -->
+            <div class="process-item" id="dna-replication-termination">
+                <h3><a href="#dna-replication-termination" class="anchor-link">3. DNA Replication Termination</a></h3>
+                <p>Interactive analysis of E. coli DNA replication termination with 5 detail levels showing the computational logic of replication completion.</p>
+                <div class="slider-container">
+                    <label for="slider-3">Detail Level: <span id="level-3">1</span></label>
+                    <input type="range" id="slider-3" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(3, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-3"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 4: DNA Repair -->
+            <div class="process-item" id="dna-repair">
+                <h3><a href="#dna-repair" class="anchor-link">4. DNA Repair</a></h3>
+                <p>Interactive analysis of E. coli DNA repair with 5 detail levels showing the computational logic of damage detection and correction.</p>
+                <div class="slider-container">
+                    <label for="slider-4">Detail Level: <span id="level-4">1</span></label>
+                    <input type="range" id="slider-4" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(4, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-4"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 5: Base Excision Repair -->
+            <div class="process-item" id="base-excision-repair">
+                <h3><a href="#base-excision-repair" class="anchor-link">5. Base Excision Repair</a></h3>
+                <p>Interactive analysis of E. coli base excision repair with 5 detail levels showing the computational logic of single base damage correction.</p>
+                <div class="slider-container">
+                    <label for="slider-5">Detail Level: <span id="level-5">1</span></label>
+                    <input type="range" id="slider-5" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(5, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-5"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 6: Nucleotide Excision Repair -->
+            <div class="process-item" id="nucleotide-excision-repair">
+                <h3><a href="#nucleotide-excision-repair" class="anchor-link">6. Nucleotide Excision Repair</a></h3>
+                <p>Interactive analysis of E. coli nucleotide excision repair with 5 detail levels showing the computational logic of bulky lesion removal.</p>
+                <div class="slider-container">
+                    <label for="slider-6">Detail Level: <span id="level-6">1</span></label>
+                    <input type="range" id="slider-6" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(6, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-6"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 7: Mismatch Repair -->
+            <div class="process-item" id="mismatch-repair">
+                <h3><a href="#mismatch-repair" class="anchor-link">7. Mismatch Repair</a></h3>
+                <p>Interactive analysis of E. coli mismatch repair with 5 detail levels showing the computational logic of replication error correction.</p>
+                <div class="slider-container">
+                    <label for="slider-7">Detail Level: <span id="level-7">1</span></label>
+                    <input type="range" id="slider-7" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(7, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-7"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Process 8: SOS Response -->
+            <div class="process-item" id="sos-response">
+                <h3><a href="#sos-response" class="anchor-link">8. SOS Response</a></h3>
+                <p>Interactive analysis of E. coli SOS response with 5 detail levels showing the computational logic of global DNA damage response.</p>
+                <div class="slider-container">
+                    <label for="slider-8">Detail Level: <span id="level-8">1</span></label>
+                    <input type="range" id="slider-8" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(8, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-8"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of E. coli DNA replication and repair systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {
+            1: { // DNA Replication Initiation
+                levels: {
+                    1: `graph TD
+                        A[Cell Cycle Signal] --> B[DnaA Binding]
+                        B --> C[DNA Unwinding]
+                        C --> D[Replication Fork Formation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Cell Cycle Signal] --> B[DnaA-ATP Complex]
+                        B --> C[oriC Recognition]
+                        C --> D[DNA Unwinding]
+                        D --> E[DnaB Helicase Loading]
+                        E --> F[Primosome Assembly]
+                        F --> G[Replication Fork Formation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Cell Cycle Checkpoint] --> B[DnaA-ATP Accumulation]
+                        B --> C[SeqA Release]
+                        C --> D[oriC Accessibility]
+                        D --> E[DnaA Box Binding]
+                        E --> F[DNA Bending]
+                        F --> G[DUE Unwinding]
+                        G --> H[DnaB-DnaC Complex]
+                        H --> I[Helicase Loading]
+                        I --> J[DnaG Primase Recruitment]
+                        J --> K[RNA Primer Synthesis]
+                        K --> L[DNA Pol III Holoenzyme]
+                        L --> M[Bidirectional Replication]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cell Mass Checkpoint] --> B[DnaA Titration Release]
+                        B --> C[ATP-DnaA Formation]
+                        C --> D[SeqA Dissociation]
+                        D --> E[Methylation State Check]
+                        E --> F[GATC Site Accessibility]
+                        F --> G[DnaA Box R1-R5 Binding]
+                        G --> H[Cooperative DNA Bending]
+                        H --> I[DUE Region Unwinding]
+                        I --> J[Single-strand Stabilization]
+                        J --> K[DnaB-DnaC Complex Formation]
+                        K --> L[DnaC Release]
+                        L --> M[DnaB Hexamer Loading]
+                        M --> N[Bidirectional Helicase Movement]
+                        N --> O[SSB Protein Coating]
+                        O --> P[DnaG Primase Binding]
+                        P --> Q[RNA Primer Synthesis]
+                        Q --> R[Pol III Core Loading]
+                        R --> S[Sliding Clamp Assembly]
+                        S --> T[Processive DNA Synthesis]
+                        T --> U[Replication Fork Establishment]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#ffd43b,color:#000
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Cell Cycle G1/S Transition] --> B[DnaA Regulatory Network]
+                        B --> C[RIDA System Inactivation]
+                        C --> D[ATP-DnaA Regeneration]
+                        D --> E[SeqA Competitive Release]
+                        E --> F[Dam Methylation Timing]
+                        F --> G[Hemimethylated GATC Recognition]
+                        G --> H[DnaA High-Affinity Binding]
+                        H --> I[R1-R2-R4 Box Occupation]
+                        I --> J[Cooperative Protein Assembly]
+                        J --> K[IHF-Mediated DNA Bending]
+                        K --> L[DUE Destabilization]
+                        L --> M[AT-Rich Region Melting]
+                        M --> N[Single-Strand DNA Exposure]
+                        N --> O[SSB Immediate Binding]
+                        O --> P[DnaB-DnaC Hexamer Complex]
+                        P --> Q[ATP-Dependent Helicase Loading]
+                        Q --> R[DnaC ATPase Release]
+                        R --> S[DnaB 3'-5' Unwinding Activity]
+                        S --> T[Bidirectional Fork Progression]
+                        T --> U[Leading Strand Template]
+                        T --> V[Lagging Strand Template]
+                        U --> W[Continuous Synthesis Priming]
+                        V --> X[Discontinuous Synthesis Priming]
+                        W --> Y[DnaG Primase Recruitment]
+                        X --> Y
+                        Y --> Z[RNA Primer Synthesis]
+                        Z --> AA[Pol III Holoenzyme Assembly]
+                        AA --> BB[Beta Clamp Loading]
+                        BB --> CC[Clamp Loader Complex]
+                        CC --> DD[Processive Polymerization]
+                        DD --> EE[3'-5' Exonuclease Proofreading]
+                        EE --> FF[High-Fidelity DNA Synthesis]
+                        FF --> GG[Replication Fork Maturation]
+                        GG --> HH[Chromosome Duplication Initiation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#ffd43b,color:#000
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#ffd43b,color:#000
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#ffd43b,color:#000
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#b197fc,color:#fff`
+                }
+            },
+            2: { // DNA Replication Elongation
+                levels: {
+                    1: `graph TD
+                        A[Replication Fork] --> B[Leading Strand Synthesis]
+                        A --> C[Lagging Strand Synthesis]
+                        B --> D[Continuous DNA]
+                        C --> E[Okazaki Fragments]
+                        D --> F[Complete Chromosome]
+                        E --> F
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Replication Fork Movement] --> B[Leading Strand Pol III]
+                        A --> C[Lagging Strand Pol III]
+                        B --> D[Continuous Synthesis]
+                        C --> E[Okazaki Fragment Formation]
+                        E --> F[RNA Primer Removal]
+                        F --> G[DNA Pol I Fill-in]
+                        G --> H[DNA Ligase Joining]
+                        D --> I[Chromosome Completion]
+                        H --> I
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Replisome Complex] --> B[DnaB Helicase Activity]
+                        B --> C[DNA Unwinding]
+                        C --> D[SSB Coating]
+                        D --> E[Leading Strand Template]
+                        D --> F[Lagging Strand Template]
+                        E --> G[Pol III Continuous Synthesis]
+                        F --> H[Pol III Discontinuous Synthesis]
+                        H --> I[Okazaki Fragment Maturation]
+                        I --> J[RNase H Primer Removal]
+                        J --> K[Pol I 5'-3' Exonuclease]
+                        K --> L[Pol I DNA Synthesis]
+                        L --> M[DNA Ligase Nick Sealing]
+                        G --> N[Complete Leading Strand]
+                        M --> O[Complete Lagging Strand]
+                        N --> P[Chromosome Duplication]
+                        O --> P
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Replisome Coordination] --> B[DnaB Hexamer Unwinding]
+                        B --> C[ATP-Dependent Translocation]
+                        C --> D[Base Pair Disruption]
+                        D --> E[SSB Tetramer Binding]
+                        E --> F[Single-Strand Stabilization]
+                        F --> G[Leading Strand Accessibility]
+                        F --> H[Lagging Strand Accessibility]
+                        G --> I[Pol III Core Leading]
+                        H --> J[Pol III Core Lagging]
+                        I --> K[Beta Clamp Processivity]
+                        J --> L[Beta Clamp Cycling]
+                        K --> M[Continuous 5'-3' Synthesis]
+                        L --> N[Discontinuous Fragment Synthesis]
+                        N --> O[Fragment Completion Signal]
+                        O --> P[Clamp Unloading]
+                        P --> Q[RNase H Recognition]
+                        Q --> R[RNA-DNA Junction Cleavage]
+                        R --> S[Pol I Displacement Synthesis]
+                        S --> T[5'-3' Exonuclease Activity]
+                        T --> U[Nick Translation]
+                        U --> V[DNA Ligase ATP Activation]
+                        V --> W[Phosphodiester Bond Formation]
+                        M --> X[Leading Strand Completion]
+                        W --> Y[Lagging Strand Completion]
+                        X --> Z[Coordinated Chromosome Synthesis]
+                        Y --> Z
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#ffd43b,color:#000
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#ffd43b,color:#000
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Replisome Assembly Checkpoint] --> B[DnaB-DnaG Interaction]
+                        B --> C[Primase Cycling Mechanism]
+                        C --> D[ATP-Dependent Helicase Activity]
+                        D --> E[3'-5' Directional Unwinding]
+                        E --> F[Topological Stress Relief]
+                        F --> G[DNA Gyrase Coordination]
+                        G --> H[SSB Cooperative Binding]
+                        H --> I[Single-Strand Protection]
+                        I --> J[Leading Strand Template Access]
+                        I --> K[Lagging Strand Template Access]
+                        J --> L[Pol III Alpha Subunit]
+                        K --> M[Pol III Alpha Subunit]
+                        L --> N[Epsilon 3'-5' Exonuclease]
+                        M --> O[Epsilon 3'-5' Exonuclease]
+                        N --> P[Proofreading Activity]
+                        O --> Q[Proofreading Activity]
+                        P --> R[High-Fidelity Leading Synthesis]
+                        Q --> S[High-Fidelity Lagging Synthesis]
+                        S --> T[Okazaki Fragment Boundaries]
+                        T --> U[DnaG Primase Dissociation]
+                        U --> V[Fragment Maturation Signals]
+                        V --> W[RNase H Endonuclease]
+                        W --> X[Structure-Specific Cleavage]
+                        X --> Y[Pol I 5'-3' Exonuclease]
+                        Y --> Z[Flap Removal]
+                        Z --> AA[Pol I Polymerase Domain]
+                        AA --> BB[Gap-Filling Synthesis]
+                        BB --> CC[Nick Ligation Substrate]
+                        CC --> DD[DNA Ligase Adenylation]
+                        DD --> EE[AMP-Lysine Intermediate]
+                        EE --> FF[Phosphodiester Bond Sealing]
+                        FF --> GG[Mature Lagging Strand]
+                        R --> HH[Mature Leading Strand]
+                        GG --> II[Coordinated Elongation Complex]
+                        HH --> II
+                        II --> JJ[Processive Chromosome Replication]
+                        JJ --> KK[Replication Fork Progression]
+                        KK --> LL[Genomic Duplication Fidelity]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#ffd43b,color:#000
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#ffd43b,color:#000
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#ffd43b,color:#000
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#ffd43b,color:#000
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#51cf66,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#b197fc,color:#fff`
+                }
+            },
+            3: { // DNA Replication Termination
+                levels: {
+                    1: `graph TD
+                        A[Fork Convergence] --> B[Termination Signal]
+                        B --> C[Replication Stop]
+                        C --> D[Chromosome Separation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Replication Fork Convergence] --> B[Ter Site Recognition]
+                        B --> C[Tus Protein Binding]
+                        C --> D[Fork Arrest]
+                        D --> E[DNA Decatenation]
+                        E --> F[Topoisomerase IV]
+                        F --> G[Chromosome Separation]
+                        G --> H[Replication Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Opposing Fork Approach] --> B[Ter Sequence Array]
+                        B --> C[TerA-TerJ Sites]
+                        C --> D[Tus Protein Complex]
+                        D --> E[Replication Fork Trap]
+                        E --> F[DnaB Helicase Arrest]
+                        F --> G[Replisome Disassembly]
+                        G --> H[Terminal DNA Synthesis]
+                        H --> I[Catenated Chromosomes]
+                        I --> J[Topoisomerase IV Action]
+                        J --> K[Decatenation]
+                        K --> L[XerC-XerD Recombination]
+                        L --> M[Chromosome Resolution]
+                        M --> N[Separated Chromosomes]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Fork Collision Zone] --> B[Ter Site Asymmetry]
+                        B --> C[Directional Fork Blocking]
+                        C --> D[Tus-Ter Complex Formation]
+                        D --> E[DnaB Helicase Impediment]
+                        E --> F[Fork Stalling Mechanism]
+                        F --> G[Replisome Stability Loss]
+                        G --> H[Pol III Dissociation]
+                        H --> I[Terminal Fragment Completion]
+                        I --> J[RNase H Primer Processing]
+                        J --> K[Pol I Gap Filling]
+                        K --> L[DNA Ligase Sealing]
+                        L --> M[Chromosome Concatenation]
+                        M --> N[Topological Entanglement]
+                        N --> O[ParC-ParE Complex]
+                        O --> P[ATP-Dependent Decatenation]
+                        P --> Q[Transient DNA Breaks]
+                        Q --> R[Strand Passage Mechanism]
+                        R --> S[Topological Resolution]
+                        S --> T[XerC-XerD Site-Specific]
+                        T --> U[dif Site Recognition]
+                        U --> V[Recombinational Resolution]
+                        V --> W[Chromosome Monomerization]
+                        W --> X[Segregation Competence]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#ffd43b,color:#000
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Replication Termination Zone] --> B[Ter Site Organization]
+                        B --> C[TerA-TerE Clockwise Block]
+                        B --> D[TerF-TerJ Counterclockwise Block]
+                        C --> E[Tus Protein Asymmetric Binding]
+                        D --> E
+                        E --> F[Fork Direction Discrimination]
+                        F --> G[Permissive vs Restrictive]
+                        G --> H[DnaB-Tus Interaction]
+                        H --> I[Helicase Arrest Mechanism]
+                        I --> J[Fork Stalling Checkpoint]
+                        J --> K[Replisome Disassembly Cascade]
+                        K --> L[Pol III Core Release]
+                        L --> M[Beta Clamp Unloading]
+                        M --> N[DnaB Helicase Dissociation]
+                        N --> O[Terminal Synthesis Completion]
+                        O --> P[Okazaki Fragment Maturation]
+                        P --> Q[RNase HI/HII Processing]
+                        Q --> R[Pol I Displacement Synthesis]
+                        R --> S[DNA Ligase Final Sealing]
+                        S --> T[Circular Chromosome Dimers]
+                        T --> U[Catenane Formation]
+                        U --> V[Topoisomerase IV Recognition]
+                        V --> W[ParC Cleavage Domain]
+                        W --> X[ParE ATPase Activity]
+                        X --> Y[Transient Double-Strand Breaks]
+                        Y --> Z[Strand Passage Mechanism]
+                        Z --> AA[Catenane Resolution]
+                        AA --> BB[XerCD-dif Interaction]
+                        BB --> CC[Site-Specific Recombination]
+                        CC --> DD[Holliday Junction Formation]
+                        DD --> EE[Junction Resolution]
+                        EE --> FF[Chromosome Monomerization]
+                        FF --> GG[FtsK Coordination]
+                        GG --> HH[Chromosome Segregation]
+                        HH --> II[Cell Division Competence]
+                        II --> JJ[Genomic Inheritance Fidelity]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#ffd43b,color:#000
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#ffd43b,color:#000
+                        style W fill:#ffd43b,color:#000
+                        style X fill:#ffd43b,color:#000
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#ffd43b,color:#000
+                        style CC fill:#51cf66,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#ffd43b,color:#000
+                        style HH fill:#51cf66,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#b197fc,color:#fff`
+                }
+            },
+            4: { // DNA Repair
+                levels: {
+                    1: `graph TD
+                        A[DNA Damage] --> B[Damage Recognition]
+                        B --> C[Repair Machinery]
+                        C --> D[DNA Restored]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[DNA Damage Detection] --> B[UvrABC System]
+                        B --> C[Damage Recognition]
+                        C --> D[Nucleotide Excision]
+                        D --> E[DNA Polymerase I]
+                        E --> F[Gap Filling]
+                        F --> G[DNA Ligase]
+                        G --> H[Repair Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[UV Damage/Chemical Lesions] --> B[UvrA Dimer Formation]
+                        B --> C[UvrA-UvrB Complex]
+                        C --> D[DNA Damage Scanning]
+                        D --> E[Lesion Recognition]
+                        E --> F[UvrA Release]
+                        F --> G[UvrB-DNA Complex]
+                        G --> H[UvrC Recruitment]
+                        H --> I[Dual Incision]
+                        I --> J[Damage Oligomer Removal]
+                        J --> K[UvrD Helicase]
+                        K --> L[Gap Formation]
+                        L --> M[Pol I Repair Synthesis]
+                        M --> N[DNA Ligase Sealing]
+                        N --> O[Restored DNA Integrity]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[DNA Lesion Spectrum] --> B[UvrA ATPase Activity]
+                        B --> C[UvrA Homodimer Assembly]
+                        C --> D[UvrB Recruitment]
+                        D --> E[ATP-Dependent Loading]
+                        E --> F[UvrA-UvrB-DNA Complex]
+                        F --> G[Damage Verification]
+                        G --> H[UvrA Dissociation]
+                        H --> I[UvrB Conformational Change]
+                        I --> J[Pre-incision Complex]
+                        J --> K[UvrC Endonuclease]
+                        K --> L[5' Incision Activity]
+                        L --> M[3' Incision Activity]
+                        M --> N[12-13 mer Excision]
+                        N --> O[UvrD Helicase Unwinding]
+                        O --> P[Damage Oligomer Release]
+                        P --> Q[Single-Strand Gap]
+                        Q --> R[Pol I 5'-3' Exonuclease]
+                        R --> S[Pol I Polymerase Domain]
+                        S --> T[Nick Translation]
+                        T --> U[Gap Repair Synthesis]
+                        U --> V[DNA Ligase Recognition]
+                        V --> W[Phosphodiester Restoration]
+                        W --> X[Genomic Stability]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#ffd43b,color:#000
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#ffd43b,color:#000
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Genotoxic Stress Response] --> B[Global DNA Damage]
+                        B --> C[SOS Response Activation]
+                        C --> D[RecA Filament Formation]
+                        D --> E[LexA Repressor Cleavage]
+                        E --> F[UvrABC Operon Induction]
+                        F --> G[UvrA Protein Accumulation]
+                        G --> H[ATP-Binding Domain]
+                        H --> I[UvrA Dimerization]
+                        I --> J[UvrB ATPase Recruitment]
+                        J --> K[UvrA-UvrB Heterotetramer]
+                        K --> L[DNA Damage Surveillance]
+                        L --> M[Lesion Discrimination]
+                        M --> N[DNA Bending Recognition]
+                        N --> O[UvrA ADP Release]
+                        O --> P[UvrB DNA Translocation]
+                        P --> Q[ATP-Dependent Unwinding]
+                        Q --> R[UvrB-DNA Stable Complex]
+                        R --> S[Damage Verification Loop]
+                        S --> T[UvrC Endonuclease Recruitment]
+                        T --> U[UvrB-UvrC Interaction]
+                        U --> V[Coordinated Dual Incision]
+                        V --> W[5' Phosphodiester Cleavage]
+                        W --> X[3' Phosphodiester Cleavage]
+                        X --> Y[Damaged Oligonucleotide]
+                        Y --> Z[UvrD Helicase ATP Binding]
+                        Z --> AA[3'-5' Translocation]
+                        AA --> BB[Oligomer Displacement]
+                        BB --> CC[Gap Structure Formation]
+                        CC --> DD[Pol I 5'-3' Exonuclease]
+                        DD --> EE[Pol I Polymerase Domain]
+                        EE --> FF[Coordinated Nick Translation]
+                        FF --> GG[dNTP Incorporation]
+                        GG --> HH[Repair Patch Synthesis]
+                        HH --> II[DNA Ligase Adenylation]
+                        II --> JJ[AMP-Enzyme Intermediate]
+                        JJ --> KK[Nick Sealing Reaction]
+                        KK --> LL[Phosphodiester Continuity]
+                        LL --> MM[Chromatin Structure Restoration]
+                        MM --> NN[Transcriptional Recovery]
+                        NN --> OO[Cellular Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ff6b6b,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#ffd43b,color:#000
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#ffd43b,color:#000
+                        style EE fill:#ffd43b,color:#000
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#51cf66,color:#fff
+                        style HH fill:#51cf66,color:#fff
+                        style II fill:#ffd43b,color:#000
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#51cf66,color:#fff
+                        style LL fill:#51cf66,color:#fff
+                        style MM fill:#51cf66,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        // Update flowchart function
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                // Clear existing content
+                chartDiv.innerHTML = '';
+                
+                // Create new mermaid element
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                
+                // Re-initialize mermaid on the new content
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content not yet implemented</p>`;
+            }
+        }
+
+            },
+            5: { // Base Excision Repair
+                levels: {
+                    1: `graph TD
+                        A[Damaged Base] --> B[Glycosylase Recognition]
+                        B --> C[Base Removal]
+                        C --> D[AP Site Repair]
+                        D --> E[DNA Restored]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Oxidative Base Damage] --> B[DNA Glycosylase]
+                        B --> C[Base Excision]
+                        C --> D[AP Site Formation]
+                        D --> E[AP Endonuclease]
+                        E --> F[Gap Formation]
+                        F --> G[Pol I Repair]
+                        G --> H[DNA Ligase]
+                        H --> I[Repair Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Base Damage Types] --> B[Uracil DNA Glycosylase]
+                        A --> C[8-oxoG DNA Glycosylase]
+                        A --> D[Alkyl DNA Glycosylase]
+                        B --> E[Uracil Excision]
+                        C --> F[8-oxoGuanine Excision]
+                        D --> G[Alkyl Base Excision]
+                        E --> H[AP Site Formation]
+                        F --> H
+                        G --> H
+                        H --> I[APE1 Endonuclease]
+                        I --> J[5' Incision]
+                        J --> K[3' Processing]
+                        K --> L[Single Nucleotide Gap]
+                        L --> M[Pol I Gap Filling]
+                        M --> N[DNA Ligase Sealing]
+                        N --> O[BER Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[DNA Base Damage Recognition] --> B[Damage-Specific Glycosylase]
+                        B --> C[UNG Uracil-DNA Glycosylase]
+                        B --> D[Fpg 8-oxoG Glycosylase]
+                        B --> E[AlkA Alkylation Glycosylase]
+                        C --> F[Uracil Base Excision]
+                        D --> G[Oxidized Purine Excision]
+                        E --> H[Alkylated Base Excision]
+                        F --> I[Abasic Site Formation]
+                        G --> I
+                        H --> I
+                        I --> J[AP Endonuclease Recognition]
+                        J --> K[Xth Exonuclease III]
+                        J --> L[Nfo Endonuclease IV]
+                        K --> M[5' Phosphodiester Cleavage]
+                        L --> M
+                        M --> N[3' Phosphatase Activity]
+                        N --> O[Clean DNA Ends]
+                        O --> P[Pol I 5'-3' Exonuclease]
+                        P --> Q[Single Nucleotide Insertion]
+                        Q --> R[Nick Sealing Substrate]
+                        R --> S[DNA Ligase Activity]
+                        S --> T[Phosphodiester Restoration]
+                        T --> U[Genomic Integrity Restored]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Cellular Base Damage Surveillance] --> B[Glycosylase Enzyme Specificity]
+                        B --> C[UNG Family Uracil Recognition]
+                        B --> D[Fpg/Nei Family 8-oxoG Recognition]
+                        B --> E[AlkA Family Alkylation Recognition]
+                        B --> F[MutY Family A:8-oxoG Mismatch]
+                        C --> G[Uracil-DNA Base Excision]
+                        D --> H[8-oxoGuanine Base Excision]
+                        E --> I[3-methyladenine Base Excision]
+                        F --> J[Adenine Opposite 8-oxoG Excision]
+                        G --> K[Abasic Site AP Formation]
+                        H --> K
+                        I --> K
+                        J --> K
+                        K --> L[AP Site Recognition Complex]
+                        L --> M[Xth Exonuclease III Binding]
+                        L --> N[Nfo Endonuclease IV Binding]
+                        M --> O[5' AP Site Incision]
+                        N --> O
+                        O --> P[3' Phosphoglycolate Removal]
+                        P --> Q[3' Hydroxyl Generation]
+                        Q --> R[5' Phosphate Clean Ends]
+                        R --> S[Single Nucleotide Gap Structure]
+                        S --> T[Pol I 5'-3' Exonuclease Activity]
+                        T --> U[dRP Group Removal]
+                        U --> V[Pol I Polymerase Activity]
+                        V --> W[Correct Nucleotide Insertion]
+                        W --> X[Nick Ligation Substrate]
+                        X --> Y[DNA Ligase Adenylation]
+                        Y --> Z[AMP-Enzyme Intermediate]
+                        Z --> AA[Phosphodiester Bond Formation]
+                        AA --> BB[Covalent DNA Backbone Restoration]
+                        BB --> CC[Base Excision Repair Completion]
+                        CC --> DD[Genomic Stability Maintenance]
+                        DD --> EE[Mutagenesis Prevention]
+                        EE --> FF[Cellular Survival Enhancement]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#ffd43b,color:#000
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#ffd43b,color:#000
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#ffd43b,color:#000
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#b197fc,color:#fff`
+                }
+            },
+            6: { // Nucleotide Excision Repair
+                levels: {
+                    1: `graph TD
+                        A[Bulky DNA Lesion] --> B[UvrABC System]
+                        B --> C[Damage Recognition]
+                        C --> D[Dual Incision]
+                        D --> E[Gap Repair]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[UV/Chemical Damage] --> B[UvrA-UvrB Complex]
+                        B --> C[Damage Scanning]
+                        C --> D[UvrC Recruitment]
+                        D --> E[Dual Incision]
+                        E --> F[Oligomer Removal]
+                        F --> G[Pol I Gap Filling]
+                        G --> H[DNA Ligase]
+                        H --> I[NER Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Helix-Distorting Lesions] --> B[UvrA Dimer Formation]
+                        B --> C[UvrA-UvrB Heterotetramer]
+                        C --> D[ATP-Dependent DNA Scanning]
+                        D --> E[Lesion Recognition]
+                        E --> F[UvrA Release]
+                        F --> G[UvrB-DNA Stable Complex]
+                        G --> H[UvrC Endonuclease Recruitment]
+                        H --> I[UvrBC Incision Complex]
+                        I --> J[3' Incision]
+                        I --> K[5' Incision]
+                        J --> L[12-13mer Oligomer Release]
+                        K --> L
+                        L --> M[UvrD Helicase]
+                        M --> N[Gap Formation]
+                        N --> O[Pol I Repair Synthesis]
+                        O --> P[DNA Ligase Sealing]
+                        P --> Q[NER Pathway Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Global Genome Surveillance] --> B[UvrABC Nucleotide Excision]
+                        B --> C[UvrA ATP-Binding Protein]
+                        B --> D[UvrB DNA Helicase]
+                        B --> E[UvrC Dual Endonuclease]
+                        C --> F[Damage Recognition Scanning]
+                        D --> G[DNA Unwinding Activity]
+                        E --> H[Coordinated Incision Activity]
+                        F --> I[UvrA-UvrB Loading]
+                        G --> J[Lesion Verification]
+                        H --> K[Dual Incision Mechanism]
+                        I --> L[UvrA Dissociation]
+                        J --> M[UvrB-DNA Complex]
+                        K --> N[Oligonucleotide Excision]
+                        L --> O[UvrB Conformational Change]
+                        M --> P[UvrC Recruitment]
+                        N --> Q[UvrD Helicase Unwinding]
+                        O --> R[Pre-incision Complex]
+                        P --> S[UvrBC Endonuclease]
+                        Q --> T[Damage Removal]
+                        R --> U[Incision Coordination]
+                        S --> V[3' and 5' Cleavage]
+                        T --> W[Gap Structure]
+                        U --> X[Synchronized Cutting]
+                        V --> Y[12-13mer Release]
+                        W --> Z[Repair Synthesis]
+                        X --> AA[Damage Elimination]
+                        Y --> BB[Pol I Nick Translation]
+                        Z --> CC[Gap Filling]
+                        AA --> DD[DNA Integrity]
+                        BB --> EE[Ligase Sealing]
+                        CC --> FF[Restored Helix]
+                        DD --> GG[Genomic Stability]
+                        EE --> FF
+                        FF --> GG
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#ffd43b,color:#000
+                        style CC fill:#51cf66,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#ffd43b,color:#000
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Comprehensive DNA Damage Response] --> B[Multi-Pathway Lesion Recognition]
+                        B --> C[UvrA ATP-Dependent Damage Sensor]
+                        B --> D[UvrB SF2 Helicase Family]
+                        B --> E[UvrC Structure-Specific Nuclease]
+                        C --> F[Genome-Wide Damage Surveillance]
+                        D --> G[ATP-Driven DNA Translocation]
+                        E --> H[Coordinated Dual Endonuclease]
+                        F --> I[Lesion Discrimination Mechanism]
+                        G --> J[DNA Unwinding Verification]
+                        H --> K[Precise Incision Positioning]
+                        I --> L[UvrA Homodimer Assembly]
+                        J --> M[UvrB Monomeric Activity]
+                        K --> N[UvrC Heterodimer Function]
+                        L --> O[ATP Hydrolysis-Driven Scanning]
+                        M --> P[DNA Binding Domain Activity]
+                        N --> Q[Nuclease Domain Activation]
+                        O --> R[Damage Site Identification]
+                        P --> S[Helicase Domain Unwinding]
+                        Q --> T[Catalytic Site Coordination]
+                        R --> U[UvrA-UvrB-DNA Complex]
+                        S --> V[Local DNA Denaturation]
+                        T --> W[Incision Site Preparation]
+                        U --> X[Damage Verification Loop]
+                        V --> Y[UvrA ADP Release]
+                        W --> Z[UvrC Recruitment Signal]
+                        X --> AA[UvrB-DNA Stable Complex]
+                        Y --> BB[UvrB Conformational Lock]
+                        Z --> CC[UvrBC Incision Complex]
+                        AA --> DD[Pre-incision State]
+                        BB --> EE[DNA Substrate Positioning]
+                        CC --> FF[Coordinated Dual Incision]
+                        DD --> GG[Damage Confirmation]
+                        EE --> HH[Optimal Cutting Geometry]
+                        FF --> II[5' Phosphodiester Cleavage]
+                        FF --> JJ[3' Phosphodiester Cleavage]
+                        GG --> KK[Lesion Accessibility]
+                        HH --> LL[Substrate Alignment]
+                        II --> MM[Damaged Oligonucleotide]
+                        JJ --> MM
+                        KK --> NN[Repair Synthesis Access]
+                        LL --> OO[Precision Cutting]
+                        MM --> PP[UvrD ATP-Dependent Unwinding]
+                        NN --> QQ[Template Strand Exposure]
+                        OO --> RR[Clean DNA Termini]
+                        PP --> SS[Oligomer Displacement]
+                        QQ --> TT[Repair Synthesis Initiation]
+                        RR --> UU[Ligation-Competent Ends]
+                        SS --> VV[Gap Formation]
+                        TT --> WW[Pol I Repair Synthesis]
+                        UU --> XX[Nick Sealing Preparation]
+                        VV --> YY[Single-Strand Gap]
+                        WW --> ZZ[High-Fidelity Repair]
+                        XX --> AAA[DNA Ligase Recognition]
+                        YY --> BBB[Template-Directed Synthesis]
+                        ZZ --> CCC[Error-Free Repair]
+                        AAA --> DDD[Phosphodiester Restoration]
+                        BBB --> EEE[Accurate Gap Filling]
+                        CCC --> FFF[Genomic Integrity]
+                        DDD --> GGG[Covalent Continuity]
+                        EEE --> HHH[Sequence Fidelity]
+                        FFF --> III[Mutation Prevention]
+                        GGG --> JJJ[Structural Integrity]
+                        HHH --> KKK[Information Preservation]
+                        III --> LLL[Cellular Viability]
+                        JJJ --> MMM[DNA Stability]
+                        KKK --> NNN[Genetic Fidelity]
+                        LLL --> OOO[Comprehensive DNA Repair]
+                        MMM --> OOO
+                        NNN --> OOO
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#74c0fc,color:#fff
+                        style RR fill:#74c0fc,color:#fff
+                        style SS fill:#74c0fc,color:#fff
+                        style TT fill:#74c0fc,color:#fff
+                        style UU fill:#74c0fc,color:#fff
+                        style VV fill:#74c0fc,color:#fff
+                        style WW fill:#74c0fc,color:#fff
+                        style XX fill:#74c0fc,color:#fff
+                        style YY fill:#74c0fc,color:#fff
+                        style ZZ fill:#74c0fc,color:#fff
+                        style AAA fill:#74c0fc,color:#fff
+                        style BBB fill:#74c0fc,color:#fff
+                        style CCC fill:#74c0fc,color:#fff
+                        style DDD fill:#74c0fc,color:#fff
+                        style EEE fill:#74c0fc,color:#fff
+                        style FFF fill:#74c0fc,color:#fff
+                        style GGG fill:#74c0fc,color:#fff
+                        style HHH fill:#74c0fc,color:#fff
+                        style III fill:#74c0fc,color:#fff
+                        style JJJ fill:#74c0fc,color:#fff
+                        style KKK fill:#74c0fc,color:#fff
+                        style LLL fill:#74c0fc,color:#fff
+                        style MMM fill:#74c0fc,color:#fff
+                        style NNN fill:#74c0fc,color:#fff
+                        style OOO fill:#b197fc,color:#fff`
+                }
+            },
+            7: { // Mismatch Repair
+                levels: {
+                    1: `graph TD
+                        A[Replication Error] --> B[MutS Recognition]
+                        B --> C[MutL Recruitment]
+                        C --> D[Strand Excision]
+                        D --> E[Error Correction]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Base Mismatch] --> B[MutS Binding]
+                        B --> C[MutL-MutH Complex]
+                        C --> D[GATC Methylation Check]
+                        D --> E[Strand Discrimination]
+                        E --> F[Excision Repair]
+                        F --> G[Resynthesis]
+                        G --> H[Mismatch Corrected]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Post-Replication Mismatches] --> B[MutS Homodimer]
+                        B --> C[Mismatch Recognition]
+                        C --> D[ATP-Dependent Conformational Change]
+                        D --> E[MutL Recruitment]
+                        E --> F[MutS-MutL Complex]
+                        F --> G[MutH Endonuclease]
+                        G --> H[GATC Methylation State]
+                        H --> I[Hemimethylated Site]
+                        I --> J[Strand Discrimination]
+                        J --> K[UvrD Helicase]
+                        K --> L[Excision Machinery]
+                        L --> M[Pol III Resynthesis]
+                        M --> N[DNA Ligase]
+                        N --> O[Mismatch Repair Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[DNA Mismatch Detection System] --> B[MutS Homodimer Recognition]
+                        B --> C[Base-Base Mismatch Binding]
+                        B --> D[Insertion-Deletion Loop Binding]
+                        C --> E[ATP-Induced Conformational Switch]
+                        D --> E
+                        E --> F[MutS Sliding Clamp Formation]
+                        F --> G[MutL Homodimer Recruitment]
+                        G --> H[MutS-MutL-ATP Complex]
+                        H --> I[MutH Endonuclease Activation]
+                        I --> J[GATC Methylation Recognition]
+                        J --> K[Hemimethylated vs Methylated]
+                        K --> L[Nascent Strand Identification]
+                        L --> M[MutH Incision Activity]
+                        M --> N[Nick Formation]
+                        N --> O[UvrD Helicase Loading]
+                        O --> P[ATP-Dependent Unwinding]
+                        P --> Q[Strand Displacement]
+                        Q --> R[Excision Nuclease Recruitment]
+                        R --> S[ExoI 3'-5' Exonuclease]
+                        R --> T[RecJ 5'-3' Exonuclease]
+                        S --> U[3' to 5' Excision]
+                        T --> V[5' to 3' Excision]
+                        U --> W[Gap Formation]
+                        V --> W
+                        W --> X[Pol III Holoenzyme]
+                        X --> Y[High-Fidelity Resynthesis]
+                        Y --> Z[DNA Ligase Sealing]
+                        Z --> AA[Mismatch Elimination]
+                        AA --> BB[Replication Fidelity]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#ffd43b,color:#000
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#ffd43b,color:#000
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#ffd43b,color:#000
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Mismatch Repair Fidelity Enhancement System] --> B[MutS Family Recognition Complex]
+                        B --> C[MutS Homodimer DNA Binding]
+                        C --> D[Mismatch-Induced DNA Bending]
+                        D --> E[ATP Binding Domain Activation]
+                        E --> F[Conformational Signal Transmission]
+                        F --> G[MutS Sliding Clamp Mode]
+                        G --> H[MutL Homodimer Recruitment]
+                        H --> I[MutS-MutL Heterotetramer]
+                        I --> J[ATP Hydrolysis Coordination]
+                        J --> K[MutH Endonuclease Targeting]
+                        K --> L[GATC Sequence Recognition]
+                        L --> M[Dam Methylation State Analysis]
+                        M --> N[Hemimethylated GATC Identification]
+                        N --> O[Parental vs Nascent Strand]
+                        O --> P[MutH Strand-Specific Incision]
+                        P --> Q[Nick Introduction]
+                        Q --> R[UvrD SF1 Helicase Recruitment]
+                        R --> S[ATP-Dependent 3'-5' Unwinding]
+                        S --> T[Strand Displacement Activity]
+                        T --> U[Excision Nuclease Loading]
+                        U --> V[ExoI 3'-5' Exonuclease]
+                        U --> W[RecJ 5'-3' Exonuclease]
+                        U --> X[ExoVII Endonuclease]
+                        U --> Y[ExoX Exonuclease]
+                        V --> Z[3' to 5' Directional Excision]
+                        W --> AA[5' to 3' Directional Excision]
+                        X --> BB[Endonucleolytic Processing]
+                        Y --> CC[Alternative Excision Pathway]
+                        Z --> DD[Progressive Strand Removal]
+                        AA --> DD
+                        BB --> DD
+                        CC --> DD
+                        DD --> EE[Single-Strand Gap Formation]
+                        EE --> FF[Pol III Holoenzyme Recruitment]
+                        FF --> GG[High-Fidelity DNA Synthesis]
+                        GG --> HH[3'-5' Exonuclease Proofreading]
+                        HH --> II[Error-Free Resynthesis]
+                        II --> JJ[DNA Ligase Nick Sealing]
+                        JJ --> KK[Covalent DNA Restoration]
+                        KK --> LL[Mismatch Elimination]
+                        LL --> MM[Replication Fidelity Enhancement]
+                        MM --> NN[Mutation Rate Reduction]
+                        NN --> OO[Genomic Stability Maintenance]
+                        OO --> PP[Cellular Survival Advantage]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#ffd43b,color:#000
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#ffd43b,color:#000
+                        style W fill:#ffd43b,color:#000
+                        style X fill:#ffd43b,color:#000
+                        style Y fill:#ffd43b,color:#000
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#51cf66,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#ffd43b,color:#000
+                        style GG fill:#51cf66,color:#fff
+                        style HH fill:#ffd43b,color:#000
+                        style II fill:#51cf66,color:#fff
+                        style JJ fill:#ffd43b,color:#000
+                        style KK fill:#51cf66,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#b197fc,color:#fff`
+                }
+            },
+            8: { // SOS Response
+                levels: {
+                    1: `graph TD
+                        A[DNA Damage] --> B[SOS Activation]
+                        B --> C[Error-Prone Repair]
+                        C --> D[Cell Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Severe DNA Damage] --> B[RecA Activation]
+                        B --> C[LexA Repressor Cleavage]
+                        C --> D[SOS Gene Expression]
+                        D --> E[DNA Repair Systems]
+                        E --> F[Error-Prone Polymerases]
+                        F --> G[Mutagenic Repair]
+                        G --> H[Cell Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Extensive DNA Damage] --> B[RecA Filament Formation]
+                        B --> C[LexA Auto-cleavage]
+                        C --> D[SOS Regulon Derepression]
+                        D --> E[UmuC-UmuD Expression]
+                        D --> F[RecA Expression]
+                        D --> G[UvrABC Expression]
+                        E --> H[Pol V Error-Prone]
+                        F --> I[RecA Amplification]
+                        G --> J[Enhanced NER]
+                        H --> K[Translesion Synthesis]
+                        I --> L[Continued SOS]
+                        J --> M[Damage Removal]
+                        K --> N[Mutagenic Bypass]
+                        L --> O[SOS Response]
+                        M --> P[Clean Repair]
+                        N --> Q[Survival with Mutations]
+                        O --> R[Cell Fate Decision]
+                        P --> R
+                        Q --> R
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[SOS Response Activation] --> B[RecA Nucleoprotein Filament]
+                        B --> C[LexA Repressor Auto-cleavage]
+                        C --> D[SOS Gene Regulon Derepression]
+                        D --> E[UmuDC Operon Expression]
+                        D --> F[RecA Gene Amplification]
+                        D --> G[UvrABC Repair Enhancement]
+                        D --> H[RecBCD Recombination]
+                        E --> I[UmuD Cleavage to UmuD']
+                        F --> J[RecA Protein Accumulation]
+                        G --> K[Enhanced Excision Repair]
+                        H --> L[Homologous Recombination]
+                        I --> M[UmuD'-UmuC Complex]
+                        J --> N[Sustained SOS State]
+                        K --> O[High-Fidelity Repair]
+                        L --> P[Recombinational Repair]
+                        M --> Q[DNA Pol V Formation]
+                        N --> R[Continued Damage Response]
+                        O --> S[Accurate DNA Repair]
+                        P --> T[Template Switching]
+                        Q --> U[Translesion Synthesis]
+                        R --> V[SOS Response Maintenance]
+                        S --> W[Error-Free Pathway]
+                        T --> X[Recombination-Mediated Repair]
+                        U --> Y[Mutagenic Bypass]
+                        V --> Z[Damage Response Coordination]
+                        W --> AA[High-Fidelity Outcome]
+                        X --> BB[Template-Mediated Accuracy]
+                        Y --> CC[Survival with Mutagenesis]
+                        Z --> DD[Integrated DNA Damage Response]
+                        AA --> DD
+                        BB --> DD
+                        CC --> DD
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Catastrophic DNA Damage SOS System] --> B[RecA Nucleoprotein Filament Assembly]
+                        B --> C[Single-Strand DNA Binding]
+                        C --> D[ATP-Dependent Filament Extension]
+                        D --> E[LexA Repressor Targeting]
+                        E --> F[RecA-Mediated Auto-cleavage]
+                        F --> G[LexA Repressor Inactivation]
+                        G --> H[Global SOS Regulon Derepression]
+                        H --> I[UmuDC Error-Prone Polymerase]
+                        H --> J[RecA Gene Auto-amplification]
+                        H --> K[UvrABC Enhanced Expression]
+                        H --> L[RecBCD Recombination Enhancement]
+                        H --> M[SulA Cell Division Inhibitor]
+                        I --> N[UmuD Cleavage by RecA]
+                        J --> O[RecA Protein Amplification]
+                        K --> P[Nucleotide Excision Repair]
+                        L --> Q[Homologous Recombination]
+                        M --> R[Cell Division Arrest]
+                        N --> S[UmuD' Active Fragment]
+                        O --> T[Sustained SOS Response]
+                        P --> U[High-Capacity DNA Repair]
+                        Q --> V[Template-Directed Repair]
+                        R --> W[DNA Repair Time Extension]
+                        S --> X[UmuD'-UmuC Pol V Complex]
+                        T --> Y[Amplified Damage Response]
+                        U --> Z[Enhanced Repair Capacity]
+                        V --> AA[Recombinational Accuracy]
+                        W --> BB[Extended Repair Window]
+                        X --> CC[Translesion DNA Synthesis]
+                        Y --> DD[SOS Response Amplification]
+                        Z --> EE[Multi-Pathway Repair]
+                        AA --> FF[Template-Based Fidelity]
+                        BB --> GG[Repair vs Division Balance]
+                        CC --> HH[Lesion Bypass Capability]
+                        DD --> II[Coordinated Damage Response]
+                        EE --> JJ[Comprehensive Repair Network]
+                        FF --> KK[Recombination-Mediated Accuracy]
+                        GG --> LL[Survival Priority Optimization]
+                        HH --> MM[Mutagenic Survival Strategy]
+                        II --> NN[Integrated SOS Network]
+                        JJ --> OO[Multi-Modal DNA Repair]
+                        KK --> PP[High-Fidelity Recombination]
+                        LL --> QQ[Cell Cycle Coordination]
+                        MM --> RR[Adaptive Mutagenesis]
+                        NN --> SS[Global Cellular Response]
+                        OO --> TT[Repair System Integration]
+                        PP --> UU[Genomic Stability vs Adaptability]
+                        QQ --> VV[Temporal Repair Coordination]
+                        RR --> WW[Evolution-Enabling Mutations]
+                        SS --> XX[Cellular Survival Decision]
+                        TT --> XX
+                        UU --> XX
+                        VV --> XX
+                        WW --> XX
+                        XX --> YY[SOS-Mediated Cellular Fate]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#74c0fc,color:#fff
+                        style RR fill:#74c0fc,color:#fff
+                        style SS fill:#74c0fc,color:#fff
+                        style TT fill:#74c0fc,color:#fff
+                        style UU fill:#74c0fc,color:#fff
+                        style VV fill:#74c0fc,color:#fff
+                        style WW fill:#74c0fc,color:#fff
+                        style XX fill:#74c0fc,color:#fff
+                        style YY fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
