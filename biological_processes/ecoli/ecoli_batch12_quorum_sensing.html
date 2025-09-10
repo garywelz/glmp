@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 12: Quorum Sensing - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 E. coli Quorum Sensing</h1>
+            <p>Interactive Programming Framework Analysis - 8 Communication Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>📡 Interactive Quorum Sensing Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each quorum sensing process at 5 different detail levels. Each process demonstrates sophisticated biological programming with population density sensing, signal molecules, and coordinated responses.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Quorum Sensing Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#ai2-signaling">1. AI-2 Signaling</a></li>
+                    <li><a href="#luxs-synthesis">2. LuxS Synthesis</a></li>
+                    <li><a href="#signal-detection">3. Signal Detection</a></li>
+                    <li><a href="#population-sensing">4. Population Sensing</a></li>
+                    <li><a href="#gene-regulation">5. Gene Regulation</a></li>
+                    <li><a href="#biofilm-coordination">6. Biofilm Coordination</a></li>
+                    <li><a href="#virulence-control">7. Virulence Control</a></li>
+                    <li><a href="#community-behavior">8. Community Behavior</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: AI-2 Signaling -->
+            <div class="process-item" id="ai2-signaling">
+                <h3><a href="#ai2-signaling" class="anchor-link">1. AI-2 Signaling</a></h3>
+                <p>Interactive analysis of E. coli AI-2 quorum sensing signaling with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of E. coli quorum sensing systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const allProcesses = {
+            1: { // AI-2 Signaling
+                levels: {
+                    1: `graph TD
+                        A[Cell Density] --> B[AI-2 Production]
+                        B --> C[Signal Accumulation]
+                        C --> D[Population Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Population Density] --> B[LuxS Enzyme]
+                        B --> C[AI-2 Synthesis]
+                        C --> D[Signal Molecule Release]
+                        D --> E[Environmental Accumulation]
+                        E --> F[LsrB Detection]
+                        F --> G[Population Coordination]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Metabolic State Sensing] --> B[LuxS AI-2 Synthase]
+                        B --> C[S-Ribosylhomocysteine Processing]
+                        C --> D[AI-2 Autoinducer Formation]
+                        D --> E[Signal Molecule Secretion]
+                        E --> F[Extracellular Accumulation]
+                        F --> G[LsrB Binding Protein]
+                        G --> H[AI-2 Recognition]
+                        H --> I[LsrACDB Transport]
+                        I --> J[AI-2 Internalization]
+                        J --> K[LsrR Repressor Release]
+                        K --> L[Quorum Response Genes]
+                        L --> M[Population Behavior]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[AI-2 Quorum Sensing Circuit] --> B[LuxS AI-2 Synthase Activity]
+                        B --> C[Methyl Cycle Integration]
+                        C --> D[S-Ribosylhomocysteine Substrate]
+                        D --> E[AI-2 Precursor Processing]
+                        E --> F[4,5-Dihydroxy-2,3-Pentanedione]
+                        F --> G[AI-2 Autoinducer Release]
+                        G --> H[Population Density Signaling]
+                        H --> I[LsrB Periplasmic Binding]
+                        I --> J[AI-2 Recognition Specificity]
+                        J --> K[LsrACDB ABC Transporter]
+                        K --> L[Energy-Dependent AI-2 Import]
+                        L --> M[Cytoplasmic AI-2 Processing]
+                        M --> N[LsrR Transcriptional Repressor]
+                        N --> O[AI-2-LsrR Interaction]
+                        O --> P[Derepression Mechanism]
+                        P --> Q[Quorum-Regulated Gene Expression]
+                        Q --> R[Population Response Activation]
+                        R --> S[Coordinated Community Behavior]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[AI-2 Interspecies Communication System] --> B[LuxS S-Ribosylhomocysteinase]
+                        B --> C[Activated Methyl Cycle Integration]
+                        C --> D[S-Adenosylmethionine Recycling]
+                        D --> E[S-Ribosylhomocysteine Cleavage]
+                        E --> F[Homocysteine + 4,5-Dihydroxy-2,3-Pentanedione]
+                        F --> G[AI-2 Spontaneous Cyclization]
+                        G --> H[Multiple AI-2 Isomer Forms]
+                        H --> I[Species-Specific AI-2 Recognition]
+                        I --> J[LsrB Ribose-Binding Protein Homolog]
+                        J --> K[AI-2 Binding Specificity]
+                        K --> L[Conformational Signal Transduction]
+                        L --> M[LsrACDB ABC Transporter Complex]
+                        M --> N[ATP-Dependent AI-2 Internalization]
+                        N --> O[Cytoplasmic AI-2 Processing]
+                        O --> P[LsrK AI-2 Kinase Phosphorylation]
+                        P --> Q[Phospho-AI-2 Formation]
+                        Q --> R[LsrR Repressor Inactivation]
+                        R --> S[lsr Operon Derepression]
+                        S --> T[AI-2 Processing Enzyme Expression]
+                        T --> U[LsrF-LsrG AI-2 Degradation]
+                        U --> V[Signal Molecule Elimination]
+                        V --> W[Temporal Signal Control]
+                        W --> X[Quorum Response Termination]
+                        X --> Y[Population Density Reset]
+                        Y --> Z[Communication Cycle Completion]
+                        Z --> AA[Interspecies Coordination]
+                        AA --> BB[Mixed Community Behavior]
+                        BB --> CC[Ecological Interaction]
+                        CC --> DD[Microbial Community Dynamics]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#ffd43b,color:#000
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                chartDiv.innerHTML = '';
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content will be implemented shortly</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
