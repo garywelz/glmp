@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E. coli Beta-Galactosidase (Lac Operon) - Programming Framework Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js">
+
+    </script><style>
+        body { font-family: Arial, sans-serif; /* Ensure proper rendering of Greek characters */
+        h1, h2, h3, p, li, a {
+            font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, \'Arial Unicode MS\', sans-serif;
+        } line-height: 1.6; margin: 0; padding: 20px; background-color: #f5f5f5; } .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); } h1 { color: #333; text-align: center; margin-bottom: 30px; } .description { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #007bff; } .mermaid { font-family: Arial, sans-serif !important; /* Ensure proper rendering of Greek characters */
+        h1, h2, h3, p, li, a {
+            font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, \'Arial Unicode MS\', sans-serif;
+        } font-size: 14px !important; background: white; border-radius: 8px; padding: 20px; margin: 20px 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1); } .mermaid .node rect, .mermaid .node circle, .mermaid .node ellipse, .mermaid .node polygon { stroke-width: 2px !important; } .mermaid .label { font-family: Arial, sans-serif !important; /* Ensure proper rendering of Greek characters */
+        h1, h2, h3, p, li, a {
+            font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, \'Arial Unicode MS\', sans-serif;
+        } font-size: 14px !important; } .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #666; } 
+    </style></head>
+<body>
+    <div class="container">
+    <h1>
+        E. coli Beta-Galactosidase (Lac Operon)
+    </h1><div class="description">
+        <h2>
+        Programming Framework Analysis
+    </h2><p>
+        This flowchart demonstrates the computational logic of bacterial gene regulation using the programming framework methodology. The system shows how environmental inputs (lactose, glucose, energy status) are processed through regulatory logic gates to control gene expression and metabolic pathways.
+    </p><h3>
+        Color Coding:
+    </h3><ul>
+        <li>
+            <strong style="color: #ff6b6b;">Red:</strong> Triggers & Inputs (Environmental signals, nutrient availability, stress conditions)
+        </li><li>
+            <strong style="color: #ffd43b;">Yellow:</strong> Structures & Objects (Enzymes, receptor proteins, regulatory complexes)
+        </li><li>
+            <strong style="color: #51cf66;">Green:</strong> Processing & Operations (Metabolic reactions, signal transduction, gene expression)
+        </li><li>
+            <strong style="color: #74c0fc;">Blue:</strong> Intermediates & States (Metabolites, signaling molecules, regulatory states)
+        </li><li>
+            <strong style="color: #b197fc;">Violet:</strong> Products & Outputs (Biomolecules, cellular responses, system behaviors)
+        </li></ul></div><div class="mermaid">
+graph TD
+    %% Environmental Inputs
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    E[Low Energy Status] --> F[Energy Stress Signal]
+    
+    %% Transport Processes
+    B --> G[Lactose Permease LacY]
+    G --> H[Lactose Inside Cell]
+    H --> I[Lactose Availability]
+    D --> J[Glucose Transporters]
+    J --> K[Glucose Inside Cell]
+    K --> L[High Glucose Status]
+    
+    %% Regulatory Logic Gates
+    I --> M{Is Lactose Present?}
+    L --> N{Is Glucose Present?}
+    F --> O{Is Energy Low?}
+    
+    %% Repressor Logic
+    M -->|No| P[Lac Repressor Active]
+    M -->|Yes| Q[Lac Repressor Inactive]
+    P --> R[Repressor Binds Operator]
+    R --> S[Repressor Transcription Blocked]
+    Q --> T[Repressor Released]
+    T --> U[Operator Free]
+    
+    %% CAP-cAMP Logic
+    N -->|Yes| V[Low cAMP Levels]
+    N -->|No| W[High cAMP Levels]
+    O --> W
+    W --> X[cAMP-CAP Complex]
+    V --> Y[No CAP Binding State]
+    X --> Z[CAP Binds Promoter]
+    Y --> AA[CAP Binding Absent]
+    
+    %% Transcription Control
+    U --> BB{Operator Free?}
+    Z --> CC{CAP Bound?}
+    BB -->|Yes| DD[RNA Polymerase Binding]
+    BB -->|No| EE[Operator Transcription Blocked]
+    CC -->|Yes| FF[Strong Transcription]
+    CC -->|No| GG[Weak Transcription]
+    
+    %% Gene Expression
+    DD --> HH[Transcription Initiation]
+    FF --> II[lacZ mRNA Synthesis]
+    FF --> JJ[lacY mRNA Synthesis]
+    FF --> KK[lacA mRNA Synthesis]
+    
+    %% Protein Synthesis
+    II --> LL[LacZ Translation]
+    JJ --> MM[LacY Translation]
+    KK --> NN[LacA Translation]
+    
+    %% Functional Proteins
+    LL --> OO[Beta-Galactosidase Enzyme]
+    MM --> PP[Lactose Permease]
+    NN --> QQ[Galactoside Acetyltransferase]
+    
+    %% Metabolic Functions
+    OO --> RR[Lactose Hydrolysis]
+    PP --> SS[Lactose Transport]
+    QQ --> TT[Galactoside Modification]
+    
+    %% Final Products
+    RR --> UU[Glucose + Galactose]
+    SS --> VV[Lactose Uptake]
+    TT --> WW[Detoxification]
+    
+    %% Energy Production
+    UU --> XX[Glycolysis]
+    VV --> YY[Lactose Processing]
+    WW --> ZZ[Cell Protection]
+    
+    %% System Equilibrium
+    XX --> AAA[Energy Production]
+    YY --> BBB[Lactose Consumption]
+    ZZ --> CCC[Cell Survival]
+    
+    %% Feedback Control
+    AAA --> DDD[Energy Status Improved]
+    BBB --> EEE[Lactose Depletion]
+    CCC --> FFF[Reduced Energy Stress]
+    
+    %% Dynamic Equilibrium
+    DDD --> GGG[Reduced Lactose Signal]
+    EEE --> HHH[Maintained Homeostasis]
+    FFF --> III[System Equilibrium]
+    
+    %% Color Key Legend
+    LEGEND1[🔴 Triggers & Conditions]
+    LEGEND2[🟡 Catalysts & Enzymes]
+    LEGEND3[🟢 Chemical Processing]
+    LEGEND4[🔵 Intermediates & States]
+    LEGEND5[🟣 Products & Outputs]
+    
+    %% Legend Connections
+    LEGEND1 -.-> LEGEND2
+    LEGEND2 -.-> LEGEND3
+    LEGEND3 -.-> LEGEND4
+    LEGEND4 -.-> LEGEND5
+    
+    %% Styling - Programming Framework Color Scheme
+    %% Red (#ff6b6b): Triggers & Inputs
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    
+    %% Yellow (#ffd43b): Structures & Objects
+    style G fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style OO fill:#ffd43b,color:#000
+    style PP fill:#ffd43b,color:#000
+    style QQ fill:#ffd43b,color:#000
+    
+    %% Green (#51cf66): Processing & Operations
+    style B fill:#51cf66,color:#fff
+    style D fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style DD fill:#51cf66,color:#fff
+    style FF fill:#51cf66,color:#fff
+    style HH fill:#51cf66,color:#fff
+    style II fill:#51cf66,color:#fff
+    style JJ fill:#51cf66,color:#fff
+    style KK fill:#51cf66,color:#fff
+    style LL fill:#51cf66,color:#fff
+    style MM fill:#51cf66,color:#fff
+    style NN fill:#51cf66,color:#fff
+    style RR fill:#51cf66,color:#fff
+    style SS fill:#51cf66,color:#fff
+    style TT fill:#51cf66,color:#fff
+    style XX fill:#51cf66,color:#fff
+    style YY fill:#51cf66,color:#fff
+    style ZZ fill:#51cf66,color:#fff
+    style DDD fill:#51cf66,color:#fff
+    style EEE fill:#51cf66,color:#fff
+    style FFF fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    
+    %% Blue (#74c0fc): Intermediates & States
+    style I fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style UU fill:#74c0fc,color:#fff
+    style VV fill:#74c0fc,color:#fff
+    style WW fill:#74c0fc,color:#fff
+    style AAA fill:#74c0fc,color:#fff
+    style BBB fill:#74c0fc,color:#fff
+    style CCC fill:#74c0fc,color:#fff
+    style GGG fill:#74c0fc,color:#fff
+    style HHH fill:#74c0fc,color:#fff
+    style III fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    
+    %% Violet (#b197fc): Products & Outputs
+    style M fill:#b197fc,color:#fff
+    style N fill:#b197fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style CC fill:#b197fc,color:#fff
+    style EE fill:#b197fc,color:#fff
+    style GG fill:#b197fc,color:#fff
+    
+    %% Legend Styling
+    style LEGEND1 fill:#ff6b6b,color:#fff
+    style LEGEND2 fill:#ffd43b,color:#000
+    style LEGEND3 fill:#51cf66,color:#fff
+    style LEGEND4 fill:#74c0fc,color:#fff
+    style LEGEND5 fill:#b197fc,color:#fff
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
+            <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ff6b6b;"></span>Triggers & Conditions
+            </div>
+            <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#ffd43b;"></span>Catalysts & Enzymes
+            </div>
+            <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#51cf66;"></span>Chemical Processing
+            </div>
+            <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#74c0fc;"></span>Intermediates
+            </div>
+            <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; border:1px solid rgba(0,0,0,.15); background:#b197fc;"></span>Products
+            </div>
+        </div>
+        
+        <div class="footer">
+        <p>
+        Generated using the Programming Framework methodology
+    </p><p>
+        This HTML version shows the embedded Mermaid code for reference and editing
+    </p></div>
+    </div><script>
+        // Mermaid Configuration for Detail Preservation // - useMaxWidth: false (prevents auto-collapsing) // - curve: 'linear' (stable arrow rendering) // - htmlLabels: true (preserves complex labels) // - Unique node IDs prevent simplification // - Subgraphs maintain visual grouping mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'linear', nodeSpacing: 30, rankSpacing: 40, padding: 10 }, themeVariables: { fontFamily: 'Arial, sans-serif', fontSize: '14px', primaryColor: '#ff6b6b', primaryTextColor: '#ffffff', primaryBorderColor: '#ff6b6b', lineColor: '#333333', secondaryColor: '#feca57', tertiaryColor: '#4ecdc4' } }); 
+    </script></body>
+</html> 
