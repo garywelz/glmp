@@ -266,9 +266,9 @@
             1: { // Translation Initiation
                 levels: {
                     1: `graph TD
-                        A[mRNA Signal] --> B[Ribosome Binding]
-                        B --> C[Start Codon Recognition]
-                        C --> D[Translation Start]
+                        A[Signal Input] --> B[Translation Initiation Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
                         
                         style A fill:#ff6b6b,color:#fff
                         style B fill:#ffd43b,color:#000
@@ -276,363 +276,136 @@
                         style D fill:#b197fc,color:#fff`,
                         
                     2: `graph TD
-                        A[mRNA Recognition] --> B[Shine-Dalgarno Binding]
-                        B --> C[30S Subunit Loading]
-                        C --> D[Initiation Factors]
-                        D --> E[Start Codon Recognition]
-                        E --> F[50S Subunit Joining]
-                        F --> G[Translation Initiation]
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Translation Initiation Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
                         
                         style A fill:#ff6b6b,color:#fff
-                        style B fill:#51cf66,color:#fff
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#51cf66,color:#fff
-                        style G fill:#b197fc,color:#fff`,
-                        
-                    3: `graph TD
-                        A[mRNA 5' UTR] --> B[Shine-Dalgarno Sequence]
-                        B --> C[16S rRNA Binding]
-                        C --> D[30S Ribosomal Subunit]
-                        D --> E[IF1 Binding]
-                        D --> F[IF2 Binding]
-                        D --> G[IF3 Binding]
-                        E --> H[A-site Blocking]
-                        F --> I[fMet-tRNA Delivery]
-                        G --> J[mRNA Positioning]
-                        H --> K[Initiation Complex]
-                        I --> K
-                        J --> K
-                        K --> L[50S Subunit Association]
-                        L --> M[IF Release]
-                        M --> N[70S Initiation Complex]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
-                        style C fill:#51cf66,color:#fff
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#ffd43b,color:#000
-                        style F fill:#ffd43b,color:#000
-                        style G fill:#ffd43b,color:#000
-                        style H fill:#51cf66,color:#fff
-                        style I fill:#51cf66,color:#fff
-                        style J fill:#51cf66,color:#fff
-                        style K fill:#74c0fc,color:#fff
-                        style L fill:#51cf66,color:#fff
-                        style M fill:#51cf66,color:#fff
-                        style N fill:#b197fc,color:#fff`,
-                        
-                    4: `graph TD
-                        A[mRNA Secondary Structure] --> B[Ribosome Binding Site Accessibility]
-                        B --> C[Shine-Dalgarno AGGAGG Motif]
-                        C --> D[16S rRNA 3' End Complementarity]
-                        D --> E[30S Small Subunit Recruitment]
-                        E --> F[IF3 Anti-Association Activity]
-                        F --> G[mRNA Start Codon Scanning]
-                        G --> H[AUG Codon Recognition]
-                        H --> I[IF2-GTP-fMet-tRNA Complex]
-                        I --> J[P-site Positioning]
-                        J --> K[IF1 A-site Protection]
-                        K --> L[50S Large Subunit Docking]
-                        L --> M[Subunit Association]
-                        M --> N[GTP Hydrolysis]
-                        N --> O[Initiation Factor Release]
-                        O --> P[fMet-tRNA P-site Accommodation]
-                        P --> Q[A-site Accessibility]
-                        Q --> R[EF-Tu-aminoacyl-tRNA Binding]
-                        R --> S[Translation Elongation Ready]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
+                        style B fill:#ffd43b,color:#000
                         style C fill:#74c0fc,color:#fff
                         style D fill:#51cf66,color:#fff
                         style E fill:#51cf66,color:#fff
-                        style F fill:#ffd43b,color:#000
-                        style G fill:#51cf66,color:#fff
-                        style H fill:#51cf66,color:#fff
-                        style I fill:#ffd43b,color:#000
-                        style J fill:#51cf66,color:#fff
-                        style K fill:#ffd43b,color:#000
-                        style L fill:#51cf66,color:#fff
-                        style M fill:#51cf66,color:#fff
-                        style N fill:#51cf66,color:#fff
-                        style O fill:#51cf66,color:#fff
-                        style P fill:#74c0fc,color:#fff
-                        style Q fill:#74c0fc,color:#fff
-                        style R fill:#51cf66,color:#fff
-                        style S fill:#b197fc,color:#fff`,
+                        style F fill:#b197fc,color:#fff`,
                         
-                    5: `graph TD
-                        A[mRNA Ribosome Binding Site Architecture] --> B[5' Untranslated Region Structure]
-                        B --> C[Shine-Dalgarno Purine-Rich Sequence]
-                        C --> D[Optimal Spacing 5-9 Nucleotides]
-                        D --> E[AUG Start Codon Context]
-                        E --> F[16S rRNA 3' Complementarity]
-                        F --> G[30S Ribosomal Subunit Recruitment]
-                        G --> H[IF3 mRNA Binding Enhancement]
-                        H --> I[Anti-Association Factor Activity]
-                        I --> J[mRNA Start Site Selection]
-                        J --> K[Codon-Anticodon Recognition]
-                        K --> L[IF2-GTP Binary Complex]
-                        L --> M[fMet-tRNA Ternary Complex]
-                        M --> N[Initiator tRNA Delivery]
-                        N --> O[P-site Pre-Positioning]
-                        O --> P[IF1 A-site Occupancy Block]
-                        P --> Q[50S Ribosomal Subunit Docking]
-                        Q --> R[Inter-Subunit Bridge Formation]
-                        R --> S[Ribosomal RNA Conformational Change]
-                        S --> T[GTP Hydrolysis Trigger]
-                        T --> U[IF2 Conformational Switch]
-                        U --> V[Initiation Factor Dissociation]
-                        V --> W[fMet-tRNA P-site Accommodation]
-                        W --> X[Peptidyl Transferase Center Formation]
-                        X --> Y[A-site Accessibility Establishment]
-                        Y --> Z[EF-Tu-GTP-aminoacyl-tRNA Recruitment]
-                        Z --> AA[Ternary Complex Delivery]
-                        AA --> BB[Codon-Anticodon Pairing]
-                        BB --> CC[Proofreading Mechanism]
-                        CC --> DD[GTPase Activation]
-                        DD --> EE[EF-Tu Conformational Change]
-                        EE --> FF[aminoacyl-tRNA Accommodation]
-                        FF --> GG[Peptide Bond Formation Readiness]
-                        GG --> HH[Translation Elongation Initiation]
-                        HH --> II[Ribosomal Translocation Competence]
-                        II --> JJ[Processive Protein Synthesis]
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Translation Initiation Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
                         
                         style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
+                        style B fill:#ffd43b,color:#000
                         style C fill:#74c0fc,color:#fff
-                        style D fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
                         style E fill:#74c0fc,color:#fff
                         style F fill:#51cf66,color:#fff
                         style G fill:#51cf66,color:#fff
                         style H fill:#ffd43b,color:#000
                         style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Translation Initiation Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
                         style J fill:#51cf66,color:#fff
-                        style K fill:#51cf66,color:#fff
-                        style L fill:#ffd43b,color:#000
-                        style M fill:#74c0fc,color:#fff
-                        style N fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
                         style O fill:#51cf66,color:#fff
-                        style P fill:#ffd43b,color:#000
-                        style Q fill:#51cf66,color:#fff
-                        style R fill:#51cf66,color:#fff
-                        style S fill:#51cf66,color:#fff
-                        style T fill:#51cf66,color:#fff
-                        style U fill:#51cf66,color:#fff
-                        style V fill:#51cf66,color:#fff
-                        style W fill:#74c0fc,color:#fff
-                        style X fill:#74c0fc,color:#fff
-                        style Y fill:#74c0fc,color:#fff
-                        style Z fill:#51cf66,color:#fff
-                        style AA fill:#74c0fc,color:#fff
-                        style BB fill:#51cf66,color:#fff
-                        style CC fill:#ffd43b,color:#000
-                        style DD fill:#51cf66,color:#fff
-                        style EE fill:#51cf66,color:#fff
-                        style FF fill:#74c0fc,color:#fff
-                        style GG fill:#74c0fc,color:#fff
-                        style HH fill:#74c0fc,color:#fff
-                        style II fill:#74c0fc,color:#fff
-                        style JJ fill:#b197fc,color:#fff`
-                }
-            },
-            2: { // Translation Elongation
-                levels: {
-                    1: `graph TD
-                        A[Ribosome Complex] --> B[tRNA Delivery]
-                        B --> C[Peptide Bond Formation]
-                        C --> D[Ribosome Movement]
-                        D --> E[Protein Chain Growth]
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Translation Initiation Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
                         
                         style A fill:#ff6b6b,color:#fff
                         style B fill:#ffd43b,color:#000
                         style C fill:#51cf66,color:#fff
                         style D fill:#74c0fc,color:#fff
-                        style E fill:#b197fc,color:#fff`,
-                        
-                    2: `graph TD
-                        A[Elongation Complex] --> B[EF-Tu-tRNA Delivery]
-                        B --> C[Codon Recognition]
-                        C --> D[Peptidyl Transfer]
-                        D --> E[EF-G Translocation]
-                        E --> F[Ribosome Movement]
-                        F --> G[Peptide Chain Extension]
-                        G --> H[Next Codon Ready]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#ffd43b,color:#000
-                        style C fill:#51cf66,color:#fff
-                        style D fill:#51cf66,color:#fff
                         style E fill:#ffd43b,color:#000
                         style F fill:#74c0fc,color:#fff
-                        style G fill:#74c0fc,color:#fff
-                        style H fill:#b197fc,color:#fff`,
-                        
-                    3: `graph TD
-                        A[70S Ribosome Complex] --> B[A-site tRNA Binding]
-                        B --> C[EF-Tu-GTP-aminoacyl-tRNA]
-                        C --> D[Codon-Anticodon Recognition]
-                        D --> E[GTP Hydrolysis]
-                        E --> F[EF-Tu Release]
-                        F --> G[tRNA Accommodation]
-                        G --> H[Peptidyl Transferase]
-                        H --> I[Peptide Bond Formation]
-                        I --> J[Peptidyl-tRNA P-site]
-                        J --> K[EF-G-GTP Binding]
-                        K --> L[Ribosome Translocation]
-                        L --> M[tRNA Movement]
-                        M --> N[mRNA Advancement]
-                        N --> O[Next Codon Exposure]
-                        O --> P[Elongation Cycle Reset]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#51cf66,color:#fff
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#51cf66,color:#fff
                         style G fill:#51cf66,color:#fff
                         style H fill:#ffd43b,color:#000
-                        style I fill:#51cf66,color:#fff
-                        style J fill:#74c0fc,color:#fff
-                        style K fill:#ffd43b,color:#000
-                        style L fill:#51cf66,color:#fff
-                        style M fill:#74c0fc,color:#fff
-                        style N fill:#74c0fc,color:#fff
-                        style O fill:#74c0fc,color:#fff
-                        style P fill:#b197fc,color:#fff`,
-                        
-                    4: `graph TD
-                        A[Ribosomal Elongation Machinery] --> B[A-site Aminoacyl-tRNA Selection]
-                        B --> C[EF-Tu-GTP Ternary Complex]
-                        C --> D[Initial Codon Recognition]
-                        D --> E[Proofreading Mechanism]
-                        E --> F[GTPase Activation]
-                        F --> G[EF-Tu Conformational Change]
-                        G --> H[tRNA Release from EF-Tu]
-                        H --> I[A-site tRNA Accommodation]
-                        I --> J[Peptidyl Transferase Center]
-                        J --> K[Nucleophilic Attack]
-                        K --> L[Peptide Bond Formation]
-                        L --> M[Peptidyl-tRNA Transfer]
-                        M --> N[Deacylated tRNA P-site]
-                        N --> O[EF-G-GTP Binding]
-                        O --> P[Ribosomal Conformational Change]
-                        P --> Q[Translocation Mechanism]
-                        Q --> R[tRNA-mRNA Movement]
-                        R --> S[A-site to P-site Transfer]
-                        S --> T[P-site to E-site Transfer]
-                        T --> U[E-site tRNA Release]
-                        U --> V[mRNA Codon Advancement]
-                        V --> W[New A-site Codon Exposure]
-                        W --> X[Elongation Factor Recycling]
-                        X --> Y[EF-Tu-GDP to EF-Tu-GTP]
-                        Y --> Z[Ready for Next Cycle]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#51cf66,color:#fff
-                        style E fill:#ffd43b,color:#000
-                        style F fill:#51cf66,color:#fff
-                        style G fill:#51cf66,color:#fff
-                        style H fill:#51cf66,color:#fff
                         style I fill:#74c0fc,color:#fff
-                        style J fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
                         style K fill:#51cf66,color:#fff
                         style L fill:#51cf66,color:#fff
                         style M fill:#51cf66,color:#fff
-                        style N fill:#74c0fc,color:#fff
-                        style O fill:#ffd43b,color:#000
-                        style P fill:#51cf66,color:#fff
-                        style Q fill:#51cf66,color:#fff
-                        style R fill:#74c0fc,color:#fff
-                        style S fill:#74c0fc,color:#fff
-                        style T fill:#74c0fc,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
                         style U fill:#51cf66,color:#fff
-                        style V fill:#74c0fc,color:#fff
+                        style V fill:#51cf66,color:#fff
                         style W fill:#74c0fc,color:#fff
                         style X fill:#51cf66,color:#fff
                         style Y fill:#51cf66,color:#fff
-                        style Z fill:#b197fc,color:#fff`,
-                        
-                    5: `graph TD
-                        A[Translation Initiation Complex Assembly] --> B[mRNA Secondary Structure Resolution]
-                        B --> C[Ribosome Binding Site Accessibility]
-                        C --> D[Shine-Dalgarno Sequence Recognition]
-                        D --> E[16S rRNA 3' Complementarity]
-                        E --> F[30S Ribosomal Subunit Binding]
-                        F --> G[IF3 Anti-Association Function]
-                        G --> H[mRNA Start Codon Selection]
-                        H --> I[AUG Initiation Codon Recognition]
-                        I --> J[IF2-GTP-fMet-tRNA Ternary Complex]
-                        J --> K[Initiator tRNA P-site Delivery]
-                        K --> L[IF1 A-site Blocking Function]
-                        L --> M[50S Large Subunit Recruitment]
-                        M --> N[Ribosomal Subunit Association]
-                        N --> O[Inter-Subunit Bridge Formation]
-                        O --> P[GTP Hydrolysis by IF2]
-                        P --> Q[Initiation Factor Dissociation]
-                        Q --> R[fMet-tRNA P-site Accommodation]
-                        R --> S[Peptidyl Transferase Center Assembly]
-                        S --> T[A-site Codon Exposure]
-                        T --> U[EF-Tu-GTP-aminoacyl-tRNA Recruitment]
-                        U --> V[Elongation Ternary Complex]
-                        V --> W[Codon-Anticodon Base Pairing]
-                        W --> X[Decoding Center Fidelity Check]
-                        X --> Y[GTPase Activation Signal]
-                        Y --> Z[EF-Tu GTP Hydrolysis]
-                        Z --> AA[Accommodation Proofreading]
-                        AA --> BB[aminoacyl-tRNA A-site Entry]
-                        BB --> CC[Peptide Bond Formation Initiation]
-                        CC --> DD[Translation Elongation Phase]
-                        DD --> EE[Processive Protein Synthesis]
-                        EE --> FF[Ribosomal Quality Control]
-                        FF --> GG[Protein Production Efficiency]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#51cf66,color:#fff
-                        style C fill:#74c0fc,color:#fff
-                        style D fill:#74c0fc,color:#fff
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#51cf66,color:#fff
-                        style G fill:#ffd43b,color:#000
-                        style H fill:#51cf66,color:#fff
-                        style I fill:#51cf66,color:#fff
-                        style J fill:#ffd43b,color:#000
-                        style K fill:#51cf66,color:#fff
-                        style L fill:#ffd43b,color:#000
-                        style M fill:#51cf66,color:#fff
-                        style N fill:#51cf66,color:#fff
-                        style O fill:#51cf66,color:#fff
-                        style P fill:#51cf66,color:#fff
-                        style Q fill:#51cf66,color:#fff
-                        style R fill:#74c0fc,color:#fff
-                        style S fill:#74c0fc,color:#fff
-                        style T fill:#74c0fc,color:#fff
-                        style U fill:#51cf66,color:#fff
-                        style V fill:#74c0fc,color:#fff
-                        style W fill:#51cf66,color:#fff
-                        style X fill:#ffd43b,color:#000
-                        style Y fill:#51cf66,color:#fff
-                        style Z fill:#51cf66,color:#fff
-                        style AA fill:#ffd43b,color:#000
-                        style BB fill:#74c0fc,color:#fff
-                        style CC fill:#51cf66,color:#fff
-                        style DD fill:#74c0fc,color:#fff
-                        style EE fill:#74c0fc,color:#fff
-                        style FF fill:#74c0fc,color:#fff
-                        style GG fill:#b197fc,color:#fff`
+                        style Z fill:#b197fc,color:#fff`
                 }
             },
-            3: { // Translation Termination
+            2: { // Ribosome Assembly
                 levels: {
                     1: `graph TD
-                        A[Stop Codon] --> B[Release Factors]
-                        B --> C[Peptide Release]
-                        C --> D[Ribosome Dissociation]
+                        A[Signal Input] --> B[Ribosome Assembly Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
                         
                         style A fill:#ff6b6b,color:#fff
                         style B fill:#ffd43b,color:#000
@@ -640,408 +413,950 @@
                         style D fill:#b197fc,color:#fff`,
                         
                     2: `graph TD
-                        A[Stop Codon Recognition] --> B[RF1/RF2 Binding]
-                        B --> C[Peptidyl-tRNA Hydrolysis]
-                        C --> D[Peptide Release]
-                        D --> E[RF3-GTP Binding]
-                        E --> F[Release Factor Recycling]
-                        F --> G[Ribosome Recycling]
-                        G --> H[Translation Complete]
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Ribosome Assembly Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
                         
                         style A fill:#ff6b6b,color:#fff
                         style B fill:#ffd43b,color:#000
-                        style C fill:#51cf66,color:#fff
-                        style D fill:#74c0fc,color:#fff
-                        style E fill:#ffd43b,color:#000
-                        style F fill:#51cf66,color:#fff
-                        style G fill:#51cf66,color:#fff
-                        style H fill:#b197fc,color:#fff`,
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
                         
                     3: `graph TD
-                        A[Nonsense Codon UAG/UAA/UGA] --> B[Release Factor Recognition]
-                        B --> C[RF1 UAG/UAA Specificity]
-                        B --> D[RF2 UAA/UGA Specificity]
-                        C --> E[Peptidyl Transferase Hydrolysis]
-                        D --> E
-                        E --> F[Peptide Chain Release]
-                        F --> G[RF3-GTP Recruitment]
-                        G --> H[Release Factor Dissociation]
-                        H --> I[Ribosome Recycling Factor]
-                        I --> J[70S Ribosome Splitting]
-                        J --> K[30S Subunit Recovery]
-                        J --> L[50S Subunit Recovery]
-                        K --> M[Translation Machinery Pool]
-                        L --> M
-                        M --> N[Ready for New Translation]
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Ribosome Assembly Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
                         
                         style A fill:#ff6b6b,color:#fff
-                        style B fill:#51cf66,color:#fff
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#74c0fc,color:#fff
-                        style G fill:#ffd43b,color:#000
-                        style H fill:#51cf66,color:#fff
-                        style I fill:#ffd43b,color:#000
-                        style J fill:#51cf66,color:#fff
-                        style K fill:#74c0fc,color:#fff
-                        style L fill:#74c0fc,color:#fff
-                        style M fill:#74c0fc,color:#fff
-                        style N fill:#b197fc,color:#fff`,
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
                         
                     4: `graph TD
-                        A[Stop Codon Context] --> B[Release Factor Competition]
-                        B --> C[RF1 Class I UAG/UAA]
-                        B --> D[RF2 Class I UAA/UGA]
-                        C --> E[GGQ Motif Recognition]
-                        D --> E
-                        E --> F[Peptidyl-tRNA Ester Bond]
-                        F --> G[Water Molecule Activation]
-                        G --> H[Nucleophilic Hydrolysis]
-                        H --> I[Peptide Chain Liberation]
-                        I --> J[Free Peptide Product]
-                        J --> K[Deacylated tRNA P-site]
-                        K --> L[RF3-GTP Class II Factor]
-                        L --> M[Release Factor Ejection]
-                        M --> N[GTP Hydrolysis Energy]
-                        N --> O[Ribosome Recycling Factor RRF]
-                        O --> P[EF-G Cooperation]
-                        P --> Q[70S Ribosome Dissociation]
-                        Q --> R[30S-mRNA-tRNA Complex]
-                        Q --> S[50S Subunit Release]
-                        R --> T[IF3 Anti-Association]
-                        S --> U[Subunit Pool Replenishment]
-                        T --> V[mRNA-tRNA Dissociation]
-                        U --> W[Translation Machinery Recycling]
-                        V --> W
-                        W --> X[Protein Synthesis Completion]
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Ribosome Assembly Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
                         
                         style A fill:#ff6b6b,color:#fff
-                        style B fill:#51cf66,color:#fff
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#74c0fc,color:#fff
-                        style G fill:#51cf66,color:#fff
-                        style H fill:#51cf66,color:#fff
-                        style I fill:#51cf66,color:#fff
-                        style J fill:#74c0fc,color:#fff
-                        style K fill:#74c0fc,color:#fff
-                        style L fill:#ffd43b,color:#000
-                        style M fill:#51cf66,color:#fff
-                        style N fill:#51cf66,color:#fff
-                        style O fill:#ffd43b,color:#000
-                        style P fill:#51cf66,color:#fff
-                        style Q fill:#51cf66,color:#fff
-                        style R fill:#74c0fc,color:#fff
-                        style S fill:#74c0fc,color:#fff
-                        style T fill:#ffd43b,color:#000
-                        style U fill:#74c0fc,color:#fff
-                        style V fill:#51cf66,color:#fff
-                        style W fill:#74c0fc,color:#fff
-                        style X fill:#b197fc,color:#fff`,
-                        
-                    5: `graph TD
-                        A[Translation Termination Signal Recognition] --> B[Stop Codon Context Analysis]
-                        B --> C[RF1 UAG Amber/UAA Ochre Recognition]
-                        B --> D[RF2 UAA Ochre/UGA Opal Recognition]
-                        C --> E[Class I Release Factor Binding]
-                        D --> E
-                        E --> F[A-site Occupancy by Release Factor]
-                        F --> G[GGQ Motif Peptidyl Transferase Interaction]
-                        G --> H[Peptidyl-tRNA Ester Bond Target]
-                        H --> I[Water Molecule Nucleophile Positioning]
-                        I --> J[Hydrolytic Cleavage Mechanism]
-                        J --> K[Peptide Chain C-Terminal Release]
-                        K --> L[Nascent Protein Liberation]
-                        L --> M[Deacylated tRNA P-site Retention]
-                        M --> N[RF3-GTP Class II Factor Recruitment]
-                        N --> O[Release Factor Recycling Mechanism]
-                        O --> P[GTP Hydrolysis-Driven Ejection]
-                        P --> Q[RF1/RF2 Dissociation]
-                        Q --> R[Post-Termination Ribosome Complex]
-                        R --> S[Ribosome Recycling Factor RRF]
-                        S --> T[EF-G Translocation Factor]
-                        T --> U[Coordinated Subunit Dissociation]
-                        U --> V[50S Large Subunit Release]
-                        U --> W[30S Small Subunit Complex]
-                        V --> X[Large Subunit Pool]
-                        W --> Y[IF3 Anti-Association Factor]
-                        Y --> Z[mRNA-tRNA-30S Dissociation]
-                        Z --> AA[Small Subunit Pool]
-                        Z --> BB[mRNA Recycling]
-                        Z --> CC[tRNA Recycling]
-                        X --> DD[Ribosomal Subunit Homeostasis]
-                        AA --> DD
-                        BB --> EE[mRNA Degradation or Reuse]
-                        CC --> FF[tRNA Aminoacylation Cycle]
-                        DD --> GG[Translation Machinery Availability]
-                        EE --> HH[RNA Metabolism Control]
-                        FF --> II[Protein Synthesis Capacity]
-                        GG --> JJ[Cellular Translation Control]
-                        HH --> JJ
-                        II --> JJ
-                        L --> KK[Protein Processing Pathway]
-                        KK --> LL[Protein Folding Quality Control]
-                        LL --> MM[Functional Protein Production]
-                        JJ --> NN[Translation Efficiency Optimization]
-                        MM --> NN
-                        NN --> OO[Cellular Proteome Regulation]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#51cf66,color:#fff
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#74c0fc,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
                         style G fill:#51cf66,color:#fff
                         style H fill:#74c0fc,color:#fff
-                        style I fill:#74c0fc,color:#fff
-                        style J fill:#51cf66,color:#fff
-                        style K fill:#51cf66,color:#fff
-                        style L fill:#74c0fc,color:#fff
-                        style M fill:#74c0fc,color:#fff
-                        style N fill:#ffd43b,color:#000
-                        style O fill:#51cf66,color:#fff
-                        style P fill:#51cf66,color:#fff
-                        style Q fill:#51cf66,color:#fff
-                        style R fill:#74c0fc,color:#fff
-                        style S fill:#ffd43b,color:#000
-                        style T fill:#ffd43b,color:#000
-                        style U fill:#51cf66,color:#fff
-                        style V fill:#74c0fc,color:#fff
-                        style W fill:#74c0fc,color:#fff
-                        style X fill:#74c0fc,color:#fff
-                        style Y fill:#ffd43b,color:#000
-                        style Z fill:#51cf66,color:#fff
-                        style AA fill:#74c0fc,color:#fff
-                        style BB fill:#74c0fc,color:#fff
-                        style CC fill:#74c0fc,color:#fff
-                        style DD fill:#74c0fc,color:#fff
-                        style EE fill:#74c0fc,color:#fff
-                        style FF fill:#74c0fc,color:#fff
-                        style GG fill:#74c0fc,color:#fff
-                        style HH fill:#74c0fc,color:#fff
-                        style II fill:#74c0fc,color:#fff
-                        style JJ fill:#74c0fc,color:#fff
-                        style KK fill:#74c0fc,color:#fff
-                        style LL fill:#51cf66,color:#fff
-                        style MM fill:#74c0fc,color:#fff
-                        style NN fill:#74c0fc,color:#fff
-                        style OO fill:#b197fc,color:#fff`
-                }
-            },
-            4: { // Protein Folding
-                levels: {
-                    1: `graph TD
-                        A[Nascent Protein] --> B[Chaperone Binding]
-                        B --> C[Protein Folding]
-                        C --> D[Functional Protein]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#ffd43b,color:#000
-                        style C fill:#51cf66,color:#fff
-                        style D fill:#b197fc,color:#fff`,
-                        
-                    2: `graph TD
-                        A[Unfolded Protein] --> B[DnaK Chaperone]
-                        B --> C[Co-chaperone Binding]
-                        C --> D[Folding Assistance]
-                        D --> E[GroEL System]
-                        E --> F[Protein Refolding]
-                        F --> G[Native Structure]
-                        G --> H[Functional Protein]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#ffd43b,color:#000
-                        style C fill:#ffd43b,color:#000
-                        style D fill:#51cf66,color:#fff
-                        style E fill:#ffd43b,color:#000
-                        style F fill:#51cf66,color:#fff
-                        style G fill:#74c0fc,color:#fff
-                        style H fill:#b197fc,color:#fff`,
-                        
-                    3: `graph TD
-                        A[Ribosome-Bound Nascent Chain] --> B[Trigger Factor Binding]
-                        B --> C[Co-translational Folding]
-                        C --> D[DnaK-DnaJ-GrpE System]
-                        D --> E[Substrate Recognition]
-                        E --> F[ATP-Dependent Folding]
-                        F --> G[GroEL-GroES System]
-                        G --> H[Encapsulated Folding]
-                        H --> I[Native Protein Structure]
-                        I --> J[Quality Control Check]
-                        J --> K[Functional Protein]
-                        K --> L[Cellular Function]
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#ffd43b,color:#000
-                        style C fill:#51cf66,color:#fff
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#51cf66,color:#fff
-                        style F fill:#51cf66,color:#fff
-                        style G fill:#ffd43b,color:#000
-                        style H fill:#51cf66,color:#fff
-                        style I fill:#74c0fc,color:#fff
-                        style J fill:#51cf66,color:#fff
-                        style K fill:#74c0fc,color:#fff
-                        style L fill:#b197fc,color:#fff`,
-                        
-                    4: `graph TD
-                        A[Protein Folding Pathway Selection] --> B[Co-translational Folding]
-                        A --> C[Post-translational Folding]
-                        B --> D[Trigger Factor Recognition]
-                        B --> E[Signal Recognition Particle]
-                        C --> F[DnaK Chaperone System]
-                        C --> G[GroEL Chaperonin System]
-                        D --> H[Nascent Chain Protection]
-                        E --> I[Membrane Targeting]
-                        F --> J[ATP-Dependent Binding Cycles]
-                        G --> K[ATP-Dependent Folding Chamber]
-                        H --> L[Cytoplasmic Folding]
-                        I --> M[Membrane Integration]
-                        J --> N[Substrate Release Cycles]
-                        K --> O[Encapsulated Folding Environment]
-                        L --> P[Native Structure Formation]
-                        M --> Q[Membrane Protein Function]
-                        N --> R[Folding Intermediates]
-                        O --> S[Protected Folding Space]
-                        P --> T[Cytoplasmic Protein Function]
-                        Q --> U[Membrane Function]
-                        R --> V[Quality Control Assessment]
-                        S --> W[Correctly Folded Protein]
-                        T --> X[Cellular Function Integration]
-                        U --> X
-                        V --> Y[Properly Folded or Degradation]
-                        W --> Y
-                        X --> Z[Functional Proteome]
-                        Y --> Z
-                        
-                        style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
-                        style C fill:#74c0fc,color:#fff
-                        style D fill:#ffd43b,color:#000
-                        style E fill:#ffd43b,color:#000
-                        style F fill:#ffd43b,color:#000
-                        style G fill:#ffd43b,color:#000
-                        style H fill:#51cf66,color:#fff
                         style I fill:#51cf66,color:#fff
                         style J fill:#51cf66,color:#fff
-                        style K fill:#51cf66,color:#fff
-                        style L fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
                         style M fill:#51cf66,color:#fff
-                        style N fill:#74c0fc,color:#fff
-                        style O fill:#74c0fc,color:#fff
-                        style P fill:#74c0fc,color:#fff
-                        style Q fill:#74c0fc,color:#fff
-                        style R fill:#74c0fc,color:#fff
-                        style S fill:#74c0fc,color:#fff
-                        style T fill:#74c0fc,color:#fff
-                        style U fill:#74c0fc,color:#fff
-                        style V fill:#51cf66,color:#fff
-                        style W fill:#74c0fc,color:#fff
-                        style X fill:#74c0fc,color:#fff
-                        style Y fill:#74c0fc,color:#fff
-                        style Z fill:#b197fc,color:#fff`,
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
                         
                     5: `graph TD
-                        A[Protein Folding Quality Control Network] --> B[Co-translational Pathway]
-                        A --> C[Post-translational Pathway]
-                        A --> D[Stress Response Pathway]
-                        B --> E[Trigger Factor TF Ribosome Binding]
-                        B --> F[Signal Recognition Particle SRP]
-                        C --> G[DnaK-DnaJ-GrpE Hsp70 System]
-                        C --> H[GroEL-GroES Hsp60 System]
-                        D --> I[ClpX-ClpP Degradation]
-                        D --> J[Lon Protease Quality Control]
-                        E --> K[Nascent Chain Shielding]
-                        F --> L[Membrane Protein Targeting]
-                        G --> M[Substrate Binding Domain]
-                        H --> N[Chaperonin Folding Chamber]
-                        I --> O[Misfolded Protein Recognition]
-                        J --> P[Damaged Protein Degradation]
-                        K --> Q[Cytoplasmic Folding Assistance]
-                        L --> R[SecYEG Translocon Delivery]
-                        M --> S[ATPase Conformational Cycling]
-                        N --> T[ATP-Dependent Encapsulation]
-                        O --> U[Protein Aggregate Prevention]
-                        P --> V[Cellular Proteostasis]
-                        Q --> W[Properly Folded Cytoplasmic Proteins]
-                        R --> X[Membrane-Integrated Proteins]
-                        S --> Y[Chaperone Cycle Completion]
-                        T --> Z[Isolated Folding Environment]
-                        U --> AA[Proteotoxic Stress Relief]
-                        V --> BB[Protein Homeostasis]
-                        W --> CC[Functional Cytoplasmic Proteome]
-                        X --> DD[Functional Membrane Proteome]
-                        Y --> EE[Chaperone System Efficiency]
-                        Z --> FF[High-Fidelity Protein Folding]
-                        AA --> GG[Cellular Stress Tolerance]
-                        BB --> HH[Proteome Integrity]
-                        CC --> II[Cytoplasmic Function]
-                        DD --> JJ[Membrane Function]
-                        EE --> KK[Folding Capacity Control]
-                        FF --> LL[Protein Quality Assurance]
-                        GG --> MM[Adaptive Response]
-                        HH --> NN[Cellular Fitness]
-                        II --> OO[Integrated Cellular Function]
-                        JJ --> OO
-                        KK --> PP[Protein Synthesis Regulation]
-                        LL --> PP
-                        MM --> QQ[Environmental Adaptation]
-                        NN --> RR[Cell Viability]
-                        OO --> SS[Coordinated Cellular Activity]
-                        PP --> SS
-                        QQ --> SS
-                        RR --> SS
-                        SS --> TT[Optimal Cellular Performance]
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Ribosome Assembly Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
                         
                         style A fill:#ff6b6b,color:#fff
-                        style B fill:#74c0fc,color:#fff
-                        style C fill:#74c0fc,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
                         style D fill:#74c0fc,color:#fff
                         style E fill:#ffd43b,color:#000
-                        style F fill:#ffd43b,color:#000
-                        style G fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
                         style H fill:#ffd43b,color:#000
-                        style I fill:#ffd43b,color:#000
-                        style J fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
                         style K fill:#51cf66,color:#fff
                         style L fill:#51cf66,color:#fff
                         style M fill:#51cf66,color:#fff
-                        style N fill:#51cf66,color:#fff
-                        style O fill:#51cf66,color:#fff
-                        style P fill:#51cf66,color:#fff
-                        style Q fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
                         style R fill:#51cf66,color:#fff
-                        style S fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
                         style T fill:#51cf66,color:#fff
                         style U fill:#51cf66,color:#fff
                         style V fill:#51cf66,color:#fff
                         style W fill:#74c0fc,color:#fff
-                        style X fill:#74c0fc,color:#fff
-                        style Y fill:#74c0fc,color:#fff
-                        style Z fill:#74c0fc,color:#fff
-                        style AA fill:#74c0fc,color:#fff
-                        style BB fill:#74c0fc,color:#fff
-                        style CC fill:#74c0fc,color:#fff
-                        style DD fill:#74c0fc,color:#fff
-                        style EE fill:#74c0fc,color:#fff
-                        style FF fill:#74c0fc,color:#fff
-                        style GG fill:#74c0fc,color:#fff
-                        style HH fill:#74c0fc,color:#fff
-                        style II fill:#74c0fc,color:#fff
-                        style JJ fill:#74c0fc,color:#fff
-                        style KK fill:#74c0fc,color:#fff
-                        style LL fill:#74c0fc,color:#fff
-                        style MM fill:#74c0fc,color:#fff
-                        style NN fill:#74c0fc,color:#fff
-                        style OO fill:#74c0fc,color:#fff
-                        style PP fill:#74c0fc,color:#fff
-                        style QQ fill:#74c0fc,color:#fff
-                        style RR fill:#74c0fc,color:#fff
-                        style SS fill:#74c0fc,color:#fff
-                        style TT fill:#b197fc,color:#fff`
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            3: { // Elongation Complex
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Elongation Complex Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Elongation Complex Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Elongation Complex Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Elongation Complex Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Elongation Complex Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            4: { // Peptide Bond Formation
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Peptide Bond Formation Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Peptide Bond Formation Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Peptide Bond Formation Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Peptide Bond Formation Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Peptide Bond Formation Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            5: { // Translocation
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Translocation Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Translocation Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Translocation Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Translocation Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Translocation Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            6: { // Termination
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Termination Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Termination Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Termination Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Termination Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Termination Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            7: { // Protein Folding
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Protein Folding Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Protein Folding Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Protein Folding Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Protein Folding Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Protein Folding Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            8: { // Quality Control
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Quality Control Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Quality Control Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Quality Control Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Quality Control Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Quality Control Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
                 }
             }
         };
