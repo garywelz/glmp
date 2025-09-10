@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 06: Stress Response - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦠 E. coli Stress Response</h1>
+            <p>Interactive Programming Framework Analysis - 8 Stress Response Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🛡️ Interactive Stress Response Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each stress response process at 5 different detail levels. Each process demonstrates sophisticated biological programming with environmental sensing, adaptive responses, and survival mechanisms.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Stress Response Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#oxidative-stress">1. Oxidative Stress Response</a></li>
+                    <li><a href="#heat-shock">2. Heat Shock Response</a></li>
+                    <li><a href="#cold-shock">3. Cold Shock Response</a></li>
+                    <li><a href="#osmotic-stress">4. Osmotic Stress Response</a></li>
+                    <li><a href="#acid-stress">5. Acid Stress Response</a></li>
+                    <li><a href="#antibiotic-resistance">6. Antibiotic Resistance</a></li>
+                    <li><a href="#starvation-response">7. Starvation Response</a></li>
+                    <li><a href="#stress-adaptation">8. Stress Adaptation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: Oxidative Stress Response -->
+            <div class="process-item" id="oxidative-stress">
+                <h3><a href="#oxidative-stress" class="anchor-link">1. Oxidative Stress Response</a></h3>
+                <p>Interactive analysis of E. coli oxidative stress response with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <!-- Heat Shock Response -->
+            <div class="process-item" id="heat-shock">
+                <h3><a href="#heat-shock" class="anchor-link">2. Heat Shock Response</a></h3>
+                <p>Interactive analysis of E. coli heat shock response with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
+                    <input type="range" id="slider-2" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(2, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-2"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of E. coli stress response systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {
+            1: { // Oxidative Stress Response
+                levels: {
+                    1: `graph TD
+                        A[ROS Damage] --> B[OxyR Activation]
+                        B --> C[Antioxidant Response]
+                        C --> D[ROS Detoxification]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Reactive Oxygen Species] --> B[OxyR Oxidation]
+                        B --> C[OxyR Conformational Change]
+                        C --> D[Antioxidant Gene Expression]
+                        D --> E[Catalase Production]
+                        D --> F[Superoxide Dismutase]
+                        E --> G[H2O2 Detoxification]
+                        F --> H[Superoxide Removal]
+                        G --> I[Oxidative Protection]
+                        H --> I
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Oxidative Stress Detection] --> B[OxyR Redox Sensor]
+                        B --> C[Cysteine Oxidation]
+                        C --> D[Disulfide Bond Formation]
+                        D --> E[OxyR Activation]
+                        E --> F[DNA Binding Enhancement]
+                        F --> G[Antioxidant Regulon]
+                        G --> H[katG Catalase Expression]
+                        G --> I[sodA Superoxide Dismutase]
+                        G --> J[ahpCF Alkyl Hydroperoxidase]
+                        H --> K[H2O2 Scavenging]
+                        I --> L[Superoxide Scavenging]
+                        J --> M[Organic Peroxide Removal]
+                        K --> N[Oxidative Defense]
+                        L --> N
+                        M --> N
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[ROS-Mediated Cellular Damage] --> B[OxyR Redox-Sensing Transcription Factor]
+                        B --> C[Cysteine Residue Oxidation]
+                        C --> D[Intramolecular Disulfide Formation]
+                        D --> E[OxyR Conformational Activation]
+                        E --> F[Enhanced DNA Binding Affinity]
+                        F --> G[Oxidative Stress Regulon Activation]
+                        G --> H[katG Catalase-Peroxidase Expression]
+                        G --> I[sodA Mn-Superoxide Dismutase]
+                        G --> J[ahpCF Alkyl Hydroperoxidase System]
+                        G --> K[dps DNA Protection Protein]
+                        H --> L[H2O2 Catalytic Decomposition]
+                        I --> M[Superoxide Radical Dismutation]
+                        J --> N[Organic Peroxide Reduction]
+                        K --> O[DNA Protection Complex]
+                        L --> P[Water and Oxygen Formation]
+                        M --> Q[H2O2 and O2 Products]
+                        N --> R[Alcohol and Water Products]
+                        O --> S[Nucleoid Protection]
+                        P --> T[ROS Elimination]
+                        Q --> T
+                        R --> T
+                        S --> U[Genomic Integrity]
+                        T --> V[Cellular Redox Homeostasis]
+                        U --> W[Oxidative Stress Tolerance]
+                        V --> W
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Comprehensive Oxidative Stress Defense Network] --> B[OxyR Master Regulator System]
+                        B --> C[Redox-Sensitive Cysteine Switches]
+                        C --> D[Thiol-Disulfide Redox Chemistry]
+                        D --> E[OxyR Oxidized Form Activation]
+                        E --> F[Promoter Recognition Enhancement]
+                        F --> G[Multi-Gene Regulon Coordination]
+                        G --> H[katG Bifunctional Catalase-Peroxidase]
+                        G --> I[sodA Manganese Superoxide Dismutase]
+                        G --> J[ahpCF Two-Component Peroxidase]
+                        G --> K[dps DNA-Binding Protein Starvation]
+                        G --> L[gorA Glutathione Reductase]
+                        H --> M[Heme-Dependent H2O2 Reduction]
+                        I --> N[Metal-Cofactor Superoxide Dismutation]
+                        J --> O[NADH-Dependent Peroxide Reduction]
+                        K --> P[DNA Condensation Protection]
+                        L --> Q[Glutathione Redox Cycling]
+                        M --> R[Catalase Reaction: 2H2O2 → 2H2O + O2]
+                        N --> S[SOD Reaction: 2O2- + 2H+ → H2O2 + O2]
+                        O --> T[AhpF-AhpC Electron Transfer]
+                        P --> U[Nucleoid Compaction]
+                        Q --> V[Cellular Redox Buffer]
+                        R --> W[Hydrogen Peroxide Elimination]
+                        S --> X[Superoxide Radical Elimination]
+                        T --> Y[Organic Hydroperoxide Detoxification]
+                        U --> Z[DNA Damage Prevention]
+                        V --> AA[Thiol Homeostasis]
+                        W --> BB[ROS Scavenging Network]
+                        X --> BB
+                        Y --> BB
+                        Z --> CC[Genomic Stability Maintenance]
+                        AA --> DD[Cellular Redox Balance]
+                        BB --> EE[Comprehensive ROS Defense]
+                        CC --> FF[Oxidative Stress Tolerance]
+                        DD --> FF
+                        EE --> FF
+                        FF --> GG[Cellular Survival Under Oxidative Challenge]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#b197fc,color:#fff`
+                }
+            },
+            2: { // Heat Shock Response
+                levels: {
+                    1: `graph TD
+                        A[Heat Stress] --> B[Sigma32 Activation]
+                        B --> C[Chaperone Expression]
+                        C --> D[Protein Protection]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Temperature Increase] --> B[Sigma32 Stabilization]
+                        B --> C[Heat Shock Promoters]
+                        C --> D[DnaK Chaperone]
+                        C --> E[GroEL System]
+                        D --> F[Protein Refolding]
+                        E --> F
+                        F --> G[Thermal Tolerance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Heat Shock Detection] --> B[Sigma32 rpoH Expression]
+                        B --> C[Heat Shock Regulon]
+                        C --> D[DnaK-DnaJ-GrpE System]
+                        C --> E[GroEL-GroES System]
+                        C --> F[ClpP Protease System]
+                        D --> G[Protein Quality Control]
+                        E --> H[Protein Folding Assistance]
+                        F --> I[Damaged Protein Removal]
+                        G --> J[Cellular Proteostasis]
+                        H --> J
+                        I --> J
+                        J --> K[Heat Stress Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Thermal Stress Response] --> B[Sigma32 Heat Shock Factor]
+                        B --> C[rpoH Gene Expression]
+                        C --> D[Sigma32 Protein Accumulation]
+                        D --> E[Heat Shock Promoter Recognition]
+                        E --> F[Coordinated Chaperone Expression]
+                        F --> G[DnaK Hsp70 Chaperone System]
+                        F --> H[GroEL Hsp60 Chaperonin System]
+                        F --> I[ClpP ATP-Dependent Protease]
+                        G --> J[Substrate Protein Binding]
+                        H --> K[Folding Chamber Formation]
+                        I --> L[Misfolded Protein Degradation]
+                        J --> M[ATP-Dependent Refolding]
+                        K --> N[Encapsulated Folding]
+                        L --> O[Proteolytic Quality Control]
+                        M --> P[Native Structure Recovery]
+                        N --> P
+                        O --> Q[Cellular Proteome Maintenance]
+                        P --> R[Protein Function Restoration]
+                        Q --> S[Heat Shock Tolerance]
+                        R --> S
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Heat Shock Response Regulatory Network] --> B[Sigma32 rpoH Master Regulator]
+                        B --> C[Heat-Induced Sigma32 Stabilization]
+                        C --> D[FtsH Protease Inhibition]
+                        D --> E[Sigma32 Accumulation]
+                        E --> F[Heat Shock Promoter Binding]
+                        F --> G[Multi-Component Chaperone Network]
+                        G --> H[DnaK-DnaJ-GrpE Hsp70 System]
+                        G --> I[GroEL-GroES Hsp60 System]
+                        G --> J[ClpX-ClpP Protease System]
+                        G --> K[IbpA-IbpB Inclusion Body Proteins]
+                        H --> L[Co-translational Protein Folding]
+                        I --> M[Post-translational Folding Chamber]
+                        J --> N[Quality Control Proteolysis]
+                        K --> O[Protein Aggregation Prevention]
+                        L --> P[Nascent Chain Protection]
+                        M --> Q[Isolated Refolding Environment]
+                        N --> R[Misfolded Protein Elimination]
+                        O --> S[Inclusion Body Formation Control]
+                        P --> T[Folding Fidelity Enhancement]
+                        Q --> U[Chaperonin-Assisted Folding]
+                        R --> V[Proteostasis Network Maintenance]
+                        S --> W[Aggregate Toxicity Prevention]
+                        T --> X[Protein Quality Assurance]
+                        U --> X
+                        V --> Y[Cellular Protein Homeostasis]
+                        W --> Z[Cytoprotection]
+                        X --> AA[Functional Proteome Maintenance]
+                        Y --> BB[Heat Shock Survival]
+                        Z --> BB
+                        AA --> BB
+                        BB --> CC[Thermal Stress Adaptation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#b197fc,color:#fff`
+                }
+            }
+            // Processes 3-8 will show placeholder content
+        };
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        // Update flowchart function
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                // Clear existing content
+                chartDiv.innerHTML = '';
+                
+                // Create new mermaid element
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                
+                // Re-initialize mermaid on the new content
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content will be implemented shortly</p>`;
+            }
+        }
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
