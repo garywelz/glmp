@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeast Batch 10: Protein Folding & Quality Control - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍺 S. cerevisiae Protein Folding & Quality Control</h1>
+            <p>Interactive Programming Framework Analysis - 8 Quality Control Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🔧 Interactive Protein Folding & Quality Control Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each protein folding and quality control process at 5 different detail levels. Each process demonstrates sophisticated eukaryotic biological programming with chaperone networks, quality control mechanisms, and protein homeostasis.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Quality Control Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#er-quality-control">1. ER Quality Control</a></li>
+                    <li><a href="#cytoplasmic-chaperones">2. Cytoplasmic Chaperones</a></li>
+                    <li><a href="#unfolded-protein-response">3. Unfolded Protein Response</a></li>
+                    <li><a href="#proteasome-degradation">4. Proteasome Degradation</a></li>
+                    <li><a href="#autophagy-quality-control">5. Autophagy Quality Control</a></li>
+                    <li><a href="#protein-aggregation">6. Protein Aggregation Control</a></li>
+                    <li><a href="#chaperone-networks">7. Chaperone Networks</a></li>
+                    <li><a href="#proteostasis-regulation">8. Proteostasis Regulation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: ER Quality Control -->
+            <div class="process-item" id="er-quality-control">
+                <h3><a href="#er-quality-control" class="anchor-link">1. ER Quality Control</a></h3>
+                <p>Interactive analysis of S. cerevisiae ER quality control with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of S. cerevisiae protein folding and quality control systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const allProcesses = {
+            1: { // ER Quality Control
+                levels: {
+                    1: `graph TD
+                        A[Misfolded Protein] --> B[ER Quality Control]
+                        B --> C[ERAD Pathway]
+                        C --> D[Protein Degradation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[ER Protein Folding Stress] --> B[BiP Chaperone]
+                        B --> C[Protein Quality Assessment]
+                        C --> D[Correctly Folded Export]
+                        C --> E[Misfolded ERAD]
+                        D --> F[Golgi Transport]
+                        E --> G[Proteasome Degradation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#b197fc,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[ER Folding Surveillance] --> B[BiP/Kar2 ER Chaperone]
+                        B --> C[Co-chaperone Network]
+                        C --> D[Protein Folding Assessment]
+                        D --> E[Native Folding Success]
+                        D --> F[Misfolding Detection]
+                        E --> G[ER Exit Signals]
+                        F --> H[ERAD Recognition]
+                        G --> I[COPII Vesicle Export]
+                        H --> J[Hrd1 E3 Ligase]
+                        I --> K[Golgi Processing]
+                        J --> L[Ubiquitin Conjugation]
+                        K --> M[Protein Secretion]
+                        L --> N[Proteasome Targeting]
+                        M --> O[Functional Protein]
+                        N --> P[Quality Control Degradation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#b197fc,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[ER Protein Quality Control Network] --> B[BiP/Kar2 Master ER Chaperone]
+                        B --> C[Co-chaperone Regulation]
+                        C --> D[Sec63 DnaJ-like Co-chaperone]
+                        C --> E[Lhs1 NEF Nucleotide Exchange]
+                        D --> F[Substrate Protein Recognition]
+                        E --> G[ADP-ATP Exchange Cycle]
+                        F --> H[Folding State Assessment]
+                        G --> I[Chaperone Cycle Control]
+                        H --> J[Native Conformation Check]
+                        I --> K[Substrate Release Decision]
+                        J --> L[Properly Folded Proteins]
+                        J --> M[Misfolded Protein Detection]
+                        K --> N[Folding Cycle Completion]
+                        L --> O[ER Exit Competence]
+                        M --> P[ERAD Pathway Targeting]
+                        N --> Q[Quality Control Decision]
+                        O --> R[COPII Export Machinery]
+                        P --> S[Hrd1/Hrd3 ERAD Complex]
+                        Q --> T[Folding Success or Failure]
+                        R --> U[Vesicular Transport]
+                        S --> V[Ubiquitin-Proteasome System]
+                        T --> W[Protein Fate Determination]
+                        U --> X[Golgi Processing]
+                        V --> Y[Cytoplasmic Degradation]
+                        W --> Z[ER Proteostasis]
+                        X --> AA[Secretory Pathway]
+                        Y --> BB[Quality Control Elimination]
+                        Z --> CC[ER Homeostasis]
+                        AA --> DD[Functional Protein Output]
+                        BB --> EE[Cellular Protection]
+                        CC --> FF[ER Function Maintenance]
+                        DD --> GG[Secretory Success]
+                        EE --> HH[Proteotoxic Stress Prevention]
+                        FF --> II[ER Stress Tolerance]
+                        GG --> JJ[Cellular Function]
+                        HH --> JJ
+                        II --> JJ
+                        JJ --> KK[ER Quality Control Success]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#ffd43b,color:#000
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Comprehensive ER Quality Control System] --> B[BiP/Kar2 ER Chaperone Network]
+                        B --> C[Co-chaperone Regulatory Complex]
+                        C --> D[Sec63 J-Domain Co-chaperone]
+                        C --> E[Lhs1 NEF Exchange Factor]
+                        C --> F[Sil1 Additional NEF]
+                        D --> G[Substrate Recognition Domain]
+                        E --> H[ADP-ATP Nucleotide Exchange]
+                        F --> I[Chaperone Cycle Regulation]
+                        G --> J[Misfolded Protein Detection]
+                        H --> K[BiP Conformational Cycling]
+                        I --> L[Substrate Release Control]
+                        J --> M[Folding State Discrimination]
+                        K --> N[ATP-Dependent Substrate Binding]
+                        L --> O[Quality Control Decision Point]
+                        M --> P[Native vs Non-Native Assessment]
+                        N --> Q[Folding Assistance Cycles]
+                        O --> R[Folding Success Pathway]
+                        O --> S[ERAD Targeting Pathway]
+                        P --> T[Conformation Quality Check]
+                        Q --> U[Iterative Folding Attempts]
+                        R --> V[ER Exit Signal Recognition]
+                        S --> W[ERAD Substrate Recognition]
+                        T --> X[Final Folding Verification]
+                        U --> Y[Chaperone-Assisted Folding]
+                        V --> Z[COPII Coat Recruitment]
+                        W --> AA[Hrd1-Hrd3 ERAD Complex]
+                        X --> BB[Quality Control Outcome]
+                        Y --> CC[Folding Fidelity Enhancement]
+                        Z --> DD[Vesicular ER Export]
+                        AA --> EE[E3 Ligase Ubiquitination]
+                        BB --> FF[Properly Folded Protein]
+                        CC --> GG[Protein Folding Success]
+                        DD --> HH[Golgi Transport]
+                        EE --> II[Cdc48 AAA+ ATPase]
+                        FF --> JJ[Secretory Pathway Entry]
+                        GG --> KK[ER Proteostasis]
+                        HH --> LL[Post-ER Processing]
+                        II --> MM[Proteasomal Degradation]
+                        JJ --> NN[Functional Protein Product]
+                        KK --> OO[ER Homeostasis]
+                        LL --> PP[Secretory Success]
+                        MM --> QQ[Quality Control Elimination]
+                        NN --> RR[Cellular Function]
+                        OO --> SS[ER Stress Prevention]
+                        PP --> TT[Protein Secretion]
+                        QQ --> UU[Proteotoxic Stress Relief]
+                        RR --> VV[Optimal Cellular Performance]
+                        SS --> VV
+                        TT --> VV
+                        UU --> VV
+                        VV --> WW[ER Quality Control Excellence]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#ffd43b,color:#000
+                        style AA fill:#ffd43b,color:#000
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#51cf66,color:#fff
+                        style II fill:#ffd43b,color:#000
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#51cf66,color:#fff
+                        style MM fill:#51cf66,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#74c0fc,color:#fff
+                        style RR fill:#74c0fc,color:#fff
+                        style SS fill:#74c0fc,color:#fff
+                        style TT fill:#74c0fc,color:#fff
+                        style UU fill:#74c0fc,color:#fff
+                        style VV fill:#74c0fc,color:#fff
+                        style WW fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                chartDiv.innerHTML = '';
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content will be implemented shortly</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
