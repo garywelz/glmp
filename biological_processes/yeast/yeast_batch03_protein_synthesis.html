@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeast Batch 03: Protein Synthesis - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍺 S. cerevisiae Protein Synthesis</h1>
+            <p>Interactive Programming Framework Analysis - 8 Protein Synthesis Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🧬 Interactive Protein Synthesis Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each protein synthesis process at 5 different detail levels. Each process demonstrates sophisticated eukaryotic biological programming with ribosome biogenesis, translation regulation, and quality control.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Protein Synthesis Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#ribosome-biogenesis">1. Ribosome Biogenesis</a></li>
+                    <li><a href="#translation-initiation">2. Translation Initiation</a></li>
+                    <li><a href="#translation-elongation">3. Translation Elongation</a></li>
+                    <li><a href="#translation-termination">4. Translation Termination</a></li>
+                    <li><a href="#mrna-processing">5. mRNA Processing</a></li>
+                    <li><a href="#protein-targeting">6. Protein Targeting</a></li>
+                    <li><a href="#translation-regulation">7. Translation Regulation</a></li>
+                    <li><a href="#quality-control">8. Quality Control</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: Ribosome Biogenesis -->
+            <div class="process-item" id="ribosome-biogenesis">
+                <h3><a href="#ribosome-biogenesis" class="anchor-link">1. Ribosome Biogenesis</a></h3>
+                <p>Interactive analysis of S. cerevisiae ribosome biogenesis with 5 detail levels showing eukaryotic ribosome assembly.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of S. cerevisiae protein synthesis systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const allProcesses = {
+            1: { // Ribosome Biogenesis
+                levels: {
+                    1: `graph TD
+                        A[Growth Signal] --> B[Ribosome Biogenesis]
+                        B --> C[rRNA Processing]
+                        C --> D[Ribosome Assembly]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Cell Growth Demand] --> B[rRNA Transcription]
+                        B --> C[Pre-rRNA Processing]
+                        C --> D[Ribosomal Protein Import]
+                        D --> E[Ribosome Assembly]
+                        E --> F[Nuclear Export]
+                        F --> G[Mature Ribosomes]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Nucleolar rRNA Synthesis] --> B[RNA Pol I Transcription]
+                        B --> C[35S Pre-rRNA]
+                        C --> D[snoRNP-Guided Processing]
+                        D --> E[18S 5.8S 25S rRNA]
+                        E --> F[Ribosomal Protein Assembly]
+                        F --> G[60S/40S Subunit Formation]
+                        G --> H[Nuclear Export]
+                        H --> I[Cytoplasmic Ribosomes]
+                        I --> J[Translation Machinery]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Ribosome Biogenesis Regulation] --> B[TOR Pathway Control]
+                        B --> C[RNA Pol I Activity]
+                        C --> D[35S Pre-rRNA Synthesis]
+                        D --> E[Early Processing Complex]
+                        E --> F[U3 snoRNP Assembly]
+                        F --> G[18S rRNA Processing]
+                        G --> H[ITS1 Removal]
+                        H --> I[5.8S/25S Processing]
+                        I --> J[ITS2 Removal]
+                        J --> K[Mature rRNA Species]
+                        K --> L[Ribosomal Protein Integration]
+                        L --> M[Pre-60S/Pre-40S Assembly]
+                        M --> N[Nuclear Export Factors]
+                        N --> O[Cytoplasmic Maturation]
+                        O --> P[Translation-Competent Ribosomes]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[TOR-Regulated Ribosome Biogenesis Network] --> B[TORC1 Nutrient Sensing]
+                        B --> C[Sch9 AGC Kinase Activation]
+                        C --> D[Ribosome Biogenesis Gene Expression]
+                        D --> E[RNA Polymerase I Transcription]
+                        D --> F[Ribosomal Protein Gene Expression]
+                        E --> G[35S Pre-rRNA Primary Transcript]
+                        F --> H[Cytoplasmic Ribosomal Protein Synthesis]
+                        G --> I[Early Nucleolar Processing]
+                        H --> J[Nuclear Import Machinery]
+                        I --> K[U3 snoRNP Early Assembly]
+                        J --> L[Ribosomal Protein Nuclear Transport]
+                        K --> M[18S rRNA 5' ETS Processing]
+                        L --> N[Nucleolar Ribosomal Protein Pool]
+                        M --> O[ITS1 Internal Spacer Removal]
+                        N --> P[Pre-ribosomal Particle Assembly]
+                        O --> Q[5.8S rRNA Processing]
+                        P --> R[90S Pre-ribosomal Particle]
+                        Q --> S[25S rRNA Maturation]
+                        R --> T[Early Pre-60S Formation]
+                        S --> U[ITS2 Spacer Removal]
+                        T --> V[Late Pre-60S Assembly]
+                        U --> W[Mature rRNA Integration]
+                        V --> X[Nuclear Export Licensing]
+                        W --> Y[Pre-40S Particle Formation]
+                        X --> Z[Exportin-Mediated Transport]
+                        Y --> AA[40S Subunit Maturation]
+                        Z --> BB[Cytoplasmic Pre-60S Processing]
+                        AA --> CC[Translation Initiation Competence]
+                        BB --> DD[60S Subunit Maturation]
+                        CC --> EE[Functional 40S Ribosomes]
+                        DD --> FF[Functional 60S Ribosomes]
+                        EE --> GG[80S Ribosome Assembly]
+                        FF --> GG
+                        GG --> HH[Translation Machinery Readiness]
+                        HH --> II[Protein Synthesis Capacity]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#ffd43b,color:#000
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                chartDiv.innerHTML = '';
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content will be implemented shortly</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoada', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>

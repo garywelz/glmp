@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeast Batch 19: Stress Response Mechanisms - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍺 S. cerevisiae Stress Response Mechanisms</h1>
+            <p>Interactive Programming Framework Analysis - 8 Stress Response Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🛡️ Interactive Stress Response Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each stress response mechanism at 5 different detail levels. Each process demonstrates sophisticated eukaryotic biological programming with environmental sensing, adaptive responses, and survival mechanisms.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Stress Response Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#heat-shock-response">1. Heat Shock Response</a></li>
+                    <li><a href="#oxidative-stress">2. Oxidative Stress Response</a></li>
+                    <li><a href="#osmotic-stress">3. Osmotic Stress Response</a></li>
+                    <li><a href="#unfolded-protein-response">4. Unfolded Protein Response</a></li>
+                    <li><a href="#dna-damage-response">5. DNA Damage Response</a></li>
+                    <li><a href="#starvation-response">6. Starvation Response</a></li>
+                    <li><a href="#general-stress-response">7. General Stress Response</a></li>
+                    <li><a href="#stress-adaptation">8. Stress Adaptation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Process 1: Heat Shock Response -->
+            <div class="process-item" id="heat-shock-response">
+                <h3><a href="#heat-shock-response" class="anchor-link">1. Heat Shock Response</a></h3>
+                <p>Interactive analysis of S. cerevisiae heat shock response with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of S. cerevisiae stress response systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const allProcesses = {
+            1: { // Heat Shock Response
+                levels: {
+                    1: `graph TD
+                        A[Heat Stress] --> B[HSF1 Activation]
+                        B --> C[Chaperone Expression]
+                        C --> D[Protein Protection]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Temperature Increase] --> B[HSF1 Trimerization]
+                        B --> C[HSE Binding]
+                        C --> D[Heat Shock Gene Expression]
+                        D --> E[Hsp70/Hsp90 Production]
+                        E --> F[Protein Refolding]
+                        F --> G[Thermal Tolerance]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Heat Shock Detection] --> B[HSF1 Heat Shock Factor]
+                        B --> C[Trimerization Activation]
+                        C --> D[Nuclear Localization]
+                        D --> E[HSE Element Recognition]
+                        E --> F[Heat Shock Gene Transcription]
+                        F --> G[Hsp104 Disaggregase]
+                        F --> H[Hsp70 Chaperone Family]
+                        F --> I[Hsp90 Folding Assistant]
+                        G --> J[Protein Aggregate Rescue]
+                        H --> K[Co-translational Folding]
+                        I --> L[Post-translational Folding]
+                        J --> M[Protein Recovery]
+                        K --> N[Folding Quality Control]
+                        L --> O[Conformational Maturation]
+                        M --> P[Cellular Proteostasis]
+                        N --> P
+                        O --> P
+                        P --> Q[Heat Stress Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Heat Shock Response Network] --> B[HSF1 Heat Shock Transcription Factor]
+                        B --> C[Temperature-Induced Trimerization]
+                        C --> D[HSF1 Nuclear Accumulation]
+                        D --> E[Heat Shock Element HSE Recognition]
+                        E --> F[Chromatin Remodeling]
+                        F --> G[Heat Shock Gene Activation]
+                        G --> H[Hsp104 Protein Disaggregase]
+                        G --> I[Hsp70 SSA/SSB Chaperones]
+                        G --> J[Hsp90 Conformational Chaperone]
+                        G --> K[Small Heat Shock Proteins]
+                        H --> L[Protein Aggregate Solubilization]
+                        I --> M[Co-chaperone Network]
+                        J --> N[Client Protein Folding]
+                        K --> O[Aggregation Prevention]
+                        L --> P[Protein Rescue Pathway]
+                        M --> Q[Folding Assistance Network]
+                        N --> R[Conformational Maturation]
+                        O --> S[Cytoprotection]
+                        P --> T[Proteome Recovery]
+                        Q --> U[Protein Quality Control]
+                        R --> V[Functional Protein Pool]
+                        S --> W[Cellular Protection]
+                        T --> X[Stress Recovery]
+                        U --> Y[Proteostasis Maintenance]
+                        V --> Z[Cellular Function Restoration]
+                        W --> AA[Heat Tolerance]
+                        X --> BB[Adaptive Response]
+                        Y --> CC[Protein Homeostasis]
+                        Z --> DD[Cellular Viability]
+                        AA --> EE[Thermal Adaptation]
+                        BB --> EE
+                        CC --> EE
+                        DD --> EE
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Comprehensive Heat Shock Response] --> B[HSF1 Master Heat Shock Regulator]
+                        B --> C[Temperature-Sensitive Trimerization]
+                        C --> D[HSF1 DNA-Binding Domain Activation]
+                        D --> E[Heat Shock Element HSE Recognition]
+                        E --> F[Promoter-Specific Binding]
+                        F --> G[Chromatin Accessibility Enhancement]
+                        G --> H[Heat Shock Gene Transcription]
+                        H --> I[Hsp104 ClpB-Type Disaggregase]
+                        H --> J[SSA1-4 Hsp70 Chaperones]
+                        H --> K[SSB1-2 Ribosome-Associated Hsp70]
+                        H --> L[HSP82 HSC82 Hsp90 Chaperones]
+                        H --> M[HSP26 HSP42 Small Heat Shock Proteins]
+                        I --> N[AAA+ ATPase Disaggregation Activity]
+                        J --> O[DnaK-Type Substrate Binding]
+                        K --> P[Co-translational Protein Folding]
+                        L --> Q[Client Protein Conformational Cycling]
+                        M --> R[Molecular Chaperone Function]
+                        N --> S[Protein Aggregate Solubilization]
+                        O --> T[Post-translational Folding Assistance]
+                        P --> U[Translation-Coupled Quality Control]
+                        Q --> V[ATP-Dependent Conformational Maturation]
+                        R --> W[Aggregation Prevention]
+                        S --> X[Disaggregated Protein Recovery]
+                        T --> Y[Cytoplasmic Protein Folding]
+                        U --> Z[Ribosome-Nascent Chain Complex]
+                        V --> AA[Native Protein Conformation]
+                        W --> BB[Protein Aggregate Prevention]
+                        X --> CC[Refolding Pathway]
+                        Y --> DD[Protein Quality Assurance]
+                        Z --> EE[Co-translational Folding Fidelity]
+                        AA --> FF[Functional Protein Pool]
+                        BB --> GG[Cellular Protection]
+                        CC --> HH[Proteome Recovery]
+                        DD --> II[Protein Homeostasis]
+                        EE --> JJ[Translation Quality Control]
+                        FF --> KK[Cellular Function Maintenance]
+                        GG --> LL[Cytoprotective Response]
+                        HH --> MM[Stress Recovery]
+                        II --> NN[Proteostasis Network]
+                        JJ --> OO[Translation Fidelity]
+                        KK --> PP[Cellular Viability]
+                        LL --> QQ[Heat Tolerance]
+                        MM --> RR[Adaptive Capacity]
+                        NN --> SS[Protein Quality Control]
+                        OO --> TT[Synthesis Accuracy]
+                        PP --> UU[Cell Survival]
+                        QQ --> VV[Thermal Adaptation]
+                        RR --> VV
+                        SS --> VV
+                        TT --> VV
+                        UU --> VV
+                        VV --> WW[Heat Shock Response Success]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#ffd43b,color:#000
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#74c0fc,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#74c0fc,color:#fff
+                        style EE fill:#74c0fc,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#74c0fc,color:#fff
+                        style RR fill:#74c0fc,color:#fff
+                        style SS fill:#74c0fc,color:#fff
+                        style TT fill:#74c0fc,color:#fff
+                        style UU fill:#74c0fc,color:#fff
+                        style VV fill:#74c0fc,color:#fff
+                        style WW fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                chartDiv.innerHTML = '';
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content will be implemented shortly</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
