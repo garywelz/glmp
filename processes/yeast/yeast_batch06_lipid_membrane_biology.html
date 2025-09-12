@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeast Batch 06: Lipid Membrane Biology - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍺 S. cerevisiae Lipid Membrane Biology</h1>
+            <p>Interactive Programming Framework Analysis - 8 Lipid Membrane Biology Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>🧬 Interactive Lipid Membrane Biology Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> Membrane biogenesis and lipid metabolism</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Lipid Membrane Biology Processes - 8 Core Systems</h2>
+                <ul>
+                    <li><a href="#phospholipid-synthesis">1. Phospholipid Synthesis</a></li>
+                    <li><a href="#membrane-biogenesis">2. Membrane Biogenesis</a></li>
+                    <li><a href="#lipid-transport">3. Lipid Transport</a></li>
+                    <li><a href="#membrane-protein-insertion">4. Membrane Protein Insertion</a></li>
+                    <li><a href="#ergosterol-synthesis">5. Ergosterol Synthesis</a></li>
+                    <li><a href="#membrane-dynamics">6. Membrane Dynamics</a></li>
+                    <li><a href="#lipid-signaling">7. Lipid Signaling</a></li>
+                    <li><a href="#membrane-organization">8. Membrane Organization</a></li>
+                </ul>
+            </div>
+            
+
+            <!-- Process 1: Phospholipid Synthesis -->
+            <div class="process-item" id="phospholipid-synthesis">
+                <h3><a href="#phospholipid-synthesis" class="anchor-link">1. Phospholipid Synthesis</a></h3>
+                <p>Interactive analysis of S. cerevisiae phospholipid synthesis with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-1"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 2: Membrane Biogenesis -->
+            <div class="process-item" id="membrane-biogenesis">
+                <h3><a href="#membrane-biogenesis" class="anchor-link">2. Membrane Biogenesis</a></h3>
+                <p>Interactive analysis of S. cerevisiae membrane biogenesis with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
+                    <input type="range" id="slider-2" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(2, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-2"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 3: Lipid Transport -->
+            <div class="process-item" id="lipid-transport">
+                <h3><a href="#lipid-transport" class="anchor-link">3. Lipid Transport</a></h3>
+                <p>Interactive analysis of S. cerevisiae lipid transport with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-3">Detail Level: <span id="level-3">1</span></label>
+                    <input type="range" id="slider-3" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(3, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-3"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 4: Membrane Protein Insertion -->
+            <div class="process-item" id="membrane-protein-insertion">
+                <h3><a href="#membrane-protein-insertion" class="anchor-link">4. Membrane Protein Insertion</a></h3>
+                <p>Interactive analysis of S. cerevisiae membrane protein insertion with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-4">Detail Level: <span id="level-4">1</span></label>
+                    <input type="range" id="slider-4" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(4, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-4"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 5: Ergosterol Synthesis -->
+            <div class="process-item" id="ergosterol-synthesis">
+                <h3><a href="#ergosterol-synthesis" class="anchor-link">5. Ergosterol Synthesis</a></h3>
+                <p>Interactive analysis of S. cerevisiae ergosterol synthesis with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-5">Detail Level: <span id="level-5">1</span></label>
+                    <input type="range" id="slider-5" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(5, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-5"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 6: Membrane Dynamics -->
+            <div class="process-item" id="membrane-dynamics">
+                <h3><a href="#membrane-dynamics" class="anchor-link">6. Membrane Dynamics</a></h3>
+                <p>Interactive analysis of S. cerevisiae membrane dynamics with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-6">Detail Level: <span id="level-6">1</span></label>
+                    <input type="range" id="slider-6" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(6, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-6"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 7: Lipid Signaling -->
+            <div class="process-item" id="lipid-signaling">
+                <h3><a href="#lipid-signaling" class="anchor-link">7. Lipid Signaling</a></h3>
+                <p>Interactive analysis of S. cerevisiae lipid signaling with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-7">Detail Level: <span id="level-7">1</span></label>
+                    <input type="range" id="slider-7" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(7, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-7"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+            <!-- Process 8: Membrane Organization -->
+            <div class="process-item" id="membrane-organization">
+                <h3><a href="#membrane-organization" class="anchor-link">8. Membrane Organization</a></h3>
+                <p>Interactive analysis of S. cerevisiae membrane organization with 5 detail levels.</p>
+                <div class="slider-container">
+                    <label for="slider-8">Detail Level: <span id="level-8">1</span></label>
+                    <input type="range" id="slider-8" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(8, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-8"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of S. cerevisiae lipid membrane biology systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const allProcesses = {
+            1: { // Process Initiation
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Process Initiation Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Process Initiation Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Process Initiation Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Process Initiation Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Process Initiation Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            2: { // Signal Recognition
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Signal Recognition Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Signal Recognition Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Signal Recognition Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Signal Recognition Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Signal Recognition Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            3: { // Pathway Activation
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Pathway Activation Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Pathway Activation Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Pathway Activation Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Pathway Activation Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Pathway Activation Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            4: { // Molecular Assembly
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Molecular Assembly Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Molecular Assembly Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Molecular Assembly Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Molecular Assembly Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Molecular Assembly Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            5: { // Catalytic Activity
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Catalytic Activity Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Catalytic Activity Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Catalytic Activity Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Catalytic Activity Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Catalytic Activity Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            6: { // Regulation
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Regulation Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Regulation Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Regulation Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Regulation Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Regulation Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            7: { // Quality Control
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Quality Control Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Quality Control Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Quality Control Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Quality Control Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Quality Control Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            },
+            8: { // Process Completion
+                levels: {
+                    1: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Process Completion Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Signal Input] --> B[Receptor Binding]
+                        B --> C[Process Completion Activation]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[Process Completion Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        I --> J[Cellular Response]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Process Completion Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        M --> N[Quality Control]
+                        N --> O[Error Correction]
+                        O --> P[Pathway Completion]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        
+    
+    %% Initial Setup
+    %% Initial Setup
+    A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[Process Completion Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        R --> S[Quality Assurance]
+                        S --> T[Error Detection]
+                        T --> U[Repair Mechanisms]
+                        U --> V[Process Optimization]
+                        V --> W[Metabolic Integration]
+                        W --> X[Cellular Adaptation]
+                        X --> Y[Physiological Response]
+                        Y --> Z[System Balance]
+                        
+                        
+    
+    %% Styling - Biological Color Scheme
+    
+    
+    %% Styling - Biological Color Scheme
+    style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#ffd43b,color:#000
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                chartDiv.innerHTML = '';
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content will be implemented shortly</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
