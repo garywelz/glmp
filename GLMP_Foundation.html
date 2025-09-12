@@ -522,26 +522,23 @@
             <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
             <div class="mermaid">
 graph TD
+    %% Initial Setup
     %% Environmental Inputs
     A[Lactose in Environment] --> B[Lactose Transport]
     C[Glucose in Environment] --> D[Glucose Transport]
     E[Low Energy Status] --> F[Energy Stress Signal]
-    
     %% Lactose Processing Pathway
     B --> G[Lactose Permease LacY]
     G --> H[Lactose Inside Cell]
     H --> I[Lactose Availability]
-    
     %% Glucose Processing Pathway
     D --> J[Glucose Transporters]
     J --> K[Glucose Inside Cell]
     K --> L[High Glucose Status]
-    
     %% Regulatory Logic Gates
     I --> M{Is Lactose Present?}
     L --> N{Is Glucose Present?}
     F --> O{Is Energy Low?}
-    
     %% Lac Repressor Logic
     M -->|No| P[Lac Repressor Active]
     M -->|Yes| Q[Lac Repressor Inactive]
@@ -549,7 +546,6 @@ graph TD
     R --> S[Transcription Blocked]
     Q --> T[Repressor Released]
     T --> U[Operator Free]
-    
     %% CAP-cAMP Logic
     N -->|Yes| V[Low cAMP Levels]
     N -->|No| W[High cAMP Levels]
@@ -558,7 +554,6 @@ graph TD
     V --> Y[No CAP Binding]
     X --> Z[CAP Binds Promoter]
     Y --> AA[No CAP Binding]
-    
     %% Transcription Initiation Logic
     U --> BB{Operator Free?}
     Z --> CC{CAP Bound?}
@@ -566,28 +561,23 @@ graph TD
     BB -->|No| EE[Transcription Blocked]
     CC -->|Yes| FF[Strong Transcription]
     CC -->|No| GG[Weak Transcription]
-    
     %% Transcription and Translation
     DD --> HH[Transcription Initiation]
     FF --> II[lacZ mRNA Synthesis]
     FF --> JJ[lacY mRNA Synthesis]
     FF --> KK[lacA mRNA Synthesis]
-    
     %% Translation Processes
     II --> LL[LacZ Translation]
     JJ --> MM[LacY Translation]
     KK --> NN[LacA Translation]
-    
     %% Protein Processing
     LL --> OO[Beta-Galactosidase Enzyme]
     MM --> PP[Lactose Permease]
     NN --> QQ[Galactoside Acetyltransferase]
-    
     %% Functional Outputs
     OO --> RR[Lactose Hydrolysis]
     PP --> SS[Lactose Transport]
     QQ --> TT[Galactoside Modification]
-    
     %% System Outputs
     RR --> UU[Glucose + Galactose]
     SS --> VV[Enhanced Uptake]
@@ -595,12 +585,11 @@ graph TD
     UU --> XX[Energy Production]
     VV --> YY[Positive Feedback]
     WW --> ZZ[System Efficiency]
-    
     %% Styling - Programming Framework Color Coding
+    %% Styling - Biological Color Scheme
     style A fill:#ff6b6b,color:#fff
     style C fill:#ff6b6b,color:#fff
     style E fill:#ff6b6b,color:#fff
-    
     style B fill:#ffd43b,color:#000
     style D fill:#ffd43b,color:#000
     style G fill:#ffd43b,color:#000
@@ -611,13 +600,11 @@ graph TD
     style OO fill:#ffd43b,color:#000
     style PP fill:#ffd43b,color:#000
     style QQ fill:#ffd43b,color:#000
-    
     style M fill:#74c0fc,color:#fff
     style N fill:#74c0fc,color:#fff
     style O fill:#74c0fc,color:#fff
     style BB fill:#74c0fc,color:#fff
     style CC fill:#74c0fc,color:#fff
-    
     style DD fill:#51cf66,color:#fff
     style FF fill:#51cf66,color:#fff
     style GG fill:#51cf66,color:#fff
@@ -631,7 +618,6 @@ graph TD
     style RR fill:#51cf66,color:#fff
     style SS fill:#51cf66,color:#fff
     style TT fill:#51cf66,color:#fff
-    
     style UU fill:#b197fc,color:#fff
     style VV fill:#b197fc,color:#fff
     style WW fill:#b197fc,color:#fff

@@ -125,20 +125,18 @@
             
             <div class="mermaid">
 graph TD
+    %% Initial Setup
     %% Environmental Inputs (Red)
     A[Lactose in Environment] --> B[Lactose Transport]
     C[Glucose in Environment] --> D[Glucose Transport]
     E[Low Energy Status] --> F[Energy Stress Signal]
-    
     %% Structures & Objects (Yellow)
     G[Lactose Permease LacY] --> H[Lactose Inside Cell]
     I[Glucose Transporters] --> J[Glucose Inside Cell]
-    
     %% Decision Logic
     H --> K{Is Lactose Present?}
     J --> L{Is Glucose Present?}
     F --> M{Is Energy Low?}
-    
     %% Regulatory States (Blue)
     K -->|No| N[Lac Repressor Active]
     K -->|Yes| O[Lac Repressor Inactive]
@@ -146,92 +144,77 @@ graph TD
     L -->|No| Q[Low cAMP Levels]
     M -->|Yes| R[High cAMP Levels]
     M -->|No| S[Low cAMP Levels]
-    
     %% Regulatory Actions
     N --> T[Repressor Binds Operator]
     O --> U[Repressor Released]
     T --> V[Transcription Blocked]
     U --> W[Operator Free]
-    
     %% CAP Regulation
     Q --> X[cAMP-CAP Complex]
     R --> X
     X --> Y{CAP Bound?}
     W --> Z{Operator Free?}
-    
     %% Transcription Control
     Y -->|Yes| AA[CAP Binds Promoter]
     Y -->|No| BB[No CAP Binding]
     Z -->|Yes| CC[RNA Polymerase Binding]
     Z -->|No| DD[Transcription Blocked]
-    
     %% Transcription Levels
     AA --> EE[Strong Transcription]
     BB --> FF[Weak Transcription]
     CC --> EE
     DD --> GG[Transcription Blocked]
-    
     %% mRNA Synthesis
     EE --> HH[lacZ mRNA Synthesis]
     EE --> II[lacY mRNA Synthesis]
     EE --> JJ[lacA mRNA Synthesis]
-    
     %% Protein Translation
     HH --> KK[LacZ Translation]
     II --> LL[LacY Translation]
     JJ --> MM[LacA Translation]
-    
     %% Enzymes (Yellow)
     KK --> NN[Beta-Galactosidase Enzyme]
     LL --> OO[Lactose Permease]
     MM --> PP[Galactoside Acetyltransferase]
-    
     %% Chemical Processing (Green)
     NN --> QQ[Lactose Hydrolysis]
     OO --> RR[Lactose Transport]
     PP --> SS[Galactoside Modification]
-    
     %% Products (Violet)
     QQ --> TT[Glucose + Galactose]
     RR --> UU[Lactose Uptake]
     SS --> VV[Detoxification]
-    
     %% Metabolic Integration
     TT --> WW[Glycolysis]
     UU --> XX[Lactose Processing]
     VV --> YY[Cell Protection]
-    
     %% System Outputs
     WW --> ZZ[Energy Production]
     XX --> AAA[Lactose Consumption]
     YY --> BBB[Cell Survival]
-    
     %% Feedback Loops
     ZZ --> CCC[Energy Status Improved]
     AAA --> DDD[Lactose Depletion]
     BBB --> EEE[Reduced Energy Stress]
-    
     %% System Equilibrium
     CCC --> FFF[Reduced Lactose Signal]
     DDD --> FFF
     EEE --> GGG[Maintained Homeostasis]
     FFF --> GGG
     GGG --> HHH[System Equilibrium]
-    
     %% Color Coding Legend
     LEGEND1[🔴 Triggers & Conditions]
     LEGEND2[🟡 Catalysts & Enzymes]
     LEGEND3[🟢 Chemical Processing]
     LEGEND4[🔵 Intermediates & States]
     LEGEND5[🟣 Products & Outputs]
-    
     %% Legend Connections
     LEGEND1 -.-> LEGEND2
     LEGEND2 -.-> LEGEND3
     LEGEND3 -.-> LEGEND4
     LEGEND4 -.-> LEGEND5
-    
     %% Styling - Proper Color Coding
+    %% Styling - Biological Color Scheme
     style A fill:#ff6b6b,color:#fff
     style C fill:#ff6b6b,color:#fff
     style E fill:#ff6b6b,color:#fff
@@ -260,7 +243,7 @@ graph TD
     style LEGEND3 fill:#51cf66,color:#fff
     style LEGEND4 fill:#74c0fc,color:#fff
     style LEGEND5 fill:#b197fc,color:#fff
-            </div>
+                    </div>
             
             <div class="figure-caption">
                 <strong>Figure 1:</strong> β-Galactosidase enzyme system analyzed using the Programming Framework methodology, demonstrating how biological processes can be systematically represented as computational flowcharts with standardized color coding. This comprehensive visualization shows environmental inputs, regulatory complexes and enzymes, intermediate states and logic gates, functional outputs, and key regulatory proteins, revealing the sophisticated computational logic underlying lactose metabolism in E. coli including CAP-cAMP regulation, protein synthesis, and dynamic feedback control.

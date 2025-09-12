@@ -42,11 +42,11 @@
             <strong style="color: #b197fc;">Violet:</strong> Products & Outputs (Biomolecules, cellular responses, system behaviors)
         </li></ul></div><div class="mermaid">
 graph TD
+    %% Initial Setup
     %% Environmental Inputs
     A[Lactose in Environment] --> B[Lactose Transport]
     C[Glucose in Environment] --> D[Glucose Transport]
     E[Low Energy Status] --> F[Energy Stress Signal]
-    
     %% Transport Processes
     B --> G[Lactose Permease LacY]
     G --> H[Lactose Inside Cell]
@@ -54,12 +54,10 @@ graph TD
     D --> J[Glucose Transporters]
     J --> K[Glucose Inside Cell]
     K --> L[High Glucose Status]
-    
     %% Regulatory Logic Gates
     I --> M{Is Lactose Present?}
     L --> N{Is Glucose Present?}
     F --> O{Is Energy Low?}
-    
     %% Repressor Logic
     M -->|No| P[Lac Repressor Active]
     M -->|Yes| Q[Lac Repressor Inactive]
@@ -67,7 +65,6 @@ graph TD
     R --> S[Repressor Transcription Blocked]
     Q --> T[Repressor Released]
     T --> U[Operator Free]
-    
     %% CAP-cAMP Logic
     N -->|Yes| V[Low cAMP Levels]
     N -->|No| W[High cAMP Levels]
@@ -76,7 +73,6 @@ graph TD
     V --> Y[No CAP Binding State]
     X --> Z[CAP Binds Promoter]
     Y --> AA[CAP Binding Absent]
-    
     %% Transcription Control
     U --> BB{Operator Free?}
     Z --> CC{CAP Bound?}
@@ -84,72 +80,60 @@ graph TD
     BB -->|No| EE[Operator Transcription Blocked]
     CC -->|Yes| FF[Strong Transcription]
     CC -->|No| GG[Weak Transcription]
-    
     %% Gene Expression
     DD --> HH[Transcription Initiation]
     FF --> II[lacZ mRNA Synthesis]
     FF --> JJ[lacY mRNA Synthesis]
     FF --> KK[lacA mRNA Synthesis]
-    
     %% Protein Synthesis
     II --> LL[LacZ Translation]
     JJ --> MM[LacY Translation]
     KK --> NN[LacA Translation]
-    
     %% Functional Proteins
     LL --> OO[Beta-Galactosidase Enzyme]
     MM --> PP[Lactose Permease]
     NN --> QQ[Galactoside Acetyltransferase]
-    
     %% Metabolic Functions
     OO --> RR[Lactose Hydrolysis]
     PP --> SS[Lactose Transport]
     QQ --> TT[Galactoside Modification]
-    
     %% Final Products
     RR --> UU[Glucose + Galactose]
     SS --> VV[Lactose Uptake]
     TT --> WW[Detoxification]
-    
     %% Energy Production
     UU --> XX[Glycolysis]
     VV --> YY[Lactose Processing]
     WW --> ZZ[Cell Protection]
-    
     %% System Equilibrium
     XX --> AAA[Energy Production]
     YY --> BBB[Lactose Consumption]
     ZZ --> CCC[Cell Survival]
-    
     %% Feedback Control
     AAA --> DDD[Energy Status Improved]
     BBB --> EEE[Lactose Depletion]
     CCC --> FFF[Reduced Energy Stress]
-    
     %% Dynamic Equilibrium
     DDD --> GGG[Reduced Lactose Signal]
     EEE --> HHH[Maintained Homeostasis]
     FFF --> III[System Equilibrium]
-    
     %% Color Key Legend
     LEGEND1[🔴 Triggers & Conditions]
     LEGEND2[🟡 Catalysts & Enzymes]
     LEGEND3[🟢 Chemical Processing]
     LEGEND4[🔵 Intermediates & States]
     LEGEND5[🟣 Products & Outputs]
-    
     %% Legend Connections
     LEGEND1 -.-> LEGEND2
     LEGEND2 -.-> LEGEND3
     LEGEND3 -.-> LEGEND4
     LEGEND4 -.-> LEGEND5
-    
     %% Styling - Programming Framework Color Scheme
     %% Red (#ff6b6b): Triggers & Inputs
+    %% Styling - Biological Color Scheme
     style A fill:#ff6b6b,color:#fff
     style C fill:#ff6b6b,color:#fff
     style E fill:#ff6b6b,color:#fff
-    
     %% Yellow (#ffd43b): Structures & Objects
     style G fill:#ffd43b,color:#000
     style J fill:#ffd43b,color:#000
@@ -159,7 +143,6 @@ graph TD
     style OO fill:#ffd43b,color:#000
     style PP fill:#ffd43b,color:#000
     style QQ fill:#ffd43b,color:#000
-    
     %% Green (#51cf66): Processing & Operations
     style B fill:#51cf66,color:#fff
     style D fill:#51cf66,color:#fff
@@ -189,7 +172,6 @@ graph TD
     style EEE fill:#51cf66,color:#fff
     style FFF fill:#51cf66,color:#fff
     style S fill:#51cf66,color:#fff
-    
     %% Blue (#74c0fc): Intermediates & States
     style I fill:#74c0fc,color:#fff
     style L fill:#74c0fc,color:#fff
@@ -206,7 +188,6 @@ graph TD
     style III fill:#74c0fc,color:#fff
     style V fill:#74c0fc,color:#fff
     style Y fill:#74c0fc,color:#fff
-    
     %% Violet (#b197fc): Products & Outputs
     style M fill:#b197fc,color:#fff
     style N fill:#b197fc,color:#fff
@@ -215,14 +196,13 @@ graph TD
     style CC fill:#b197fc,color:#fff
     style EE fill:#b197fc,color:#fff
     style GG fill:#b197fc,color:#fff
-    
     %% Legend Styling
     style LEGEND1 fill:#ff6b6b,color:#fff
     style LEGEND2 fill:#ffd43b,color:#000
     style LEGEND3 fill:#51cf66,color:#fff
     style LEGEND4 fill:#74c0fc,color:#fff
     style LEGEND5 fill:#b197fc,color:#fff
-        </div>
+                    </div>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .5rem 1rem; margin: 1rem 0 0; font-size: 10pt; color: #333;">
             <div style="display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .5rem; border-radius: 999px; border: 1px solid rgba(0,0,0,.08); background:#fff;">
