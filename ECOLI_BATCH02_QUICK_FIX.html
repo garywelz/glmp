@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 02 - Cell Division & Segregation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .process-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .process-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .slider-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+        .detail-slider {
+            width: 80%;
+            margin: 10px;
+        }
+        .mermaid {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 300px;
+        }
+        .flowchart-caption {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦠 E. coli Batch 02 - Cell Division & Segregation</h1>
+        
+        <div class="process-card" id="process-1">
+            <div class="process-title">1. FtsZ Ring Assembly</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(1, this.value)">
+                <div>Level: <span id="level-1">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-1"></div>
+            <div class="flowchart-caption" id="caption-1">Level 1: Basic FtsZ ring formation</div>
+        </div>
+        
+        <div class="process-card" id="process-2">
+            <div class="process-title">2. Chromosome Segregation</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(2, this.value)">
+                <div>Level: <span id="level-2">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-2"></div>
+            <div class="flowchart-caption" id="caption-2">Level 1: ParAB system segregation</div>
+        </div>
+        
+        <div class="process-card" id="process-3">
+            <div class="process-title">3. Septum Formation</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(3, this.value)">
+                <div>Level: <span id="level-3">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-3"></div>
+            <div class="flowchart-caption" id="caption-3">Level 1: Septum construction</div>
+        </div>
+        
+        <div class="process-card" id="process-4">
+            <div class="process-title">4. Cell Wall Synthesis</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(4, this.value)">
+                <div>Level: <span id="level-4">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-4"></div>
+            <div class="flowchart-caption" id="caption-4">Level 1: Peptidoglycan synthesis</div>
+        </div>
+        
+        <div class="process-card" id="process-5">
+            <div class="process-title">5. MinCDE System</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(5, this.value)">
+                <div>Level: <span id="level-5">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-5"></div>
+            <div class="flowchart-caption" id="caption-5">Level 1: Division site selection</div>
+        </div>
+        
+        <div class="process-card" id="process-6">
+            <div class="process-title">6. Divisome Assembly</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(6, this.value)">
+                <div>Level: <span id="level-6">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-6"></div>
+            <div class="flowchart-caption" id="caption-6">Level 1: Division machinery assembly</div>
+        </div>
+        
+        <div class="process-card" id="process-7">
+            <div class="process-title">7. Cytokinesis</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(7, this.value)">
+                <div>Level: <span id="level-7">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-7"></div>
+            <div class="flowchart-caption" id="caption-7">Level 1: Cell separation process</div>
+        </div>
+        
+        <div class="process-card" id="process-8">
+            <div class="process-title">8. Cell Cycle Control</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(8, this.value)">
+                <div>Level: <span id="level-8">1</span></div>
+            </div>
+            <div class="mermaid" id="mermaid-8"></div>
+            <div class="flowchart-caption" id="caption-8">Level 1: Division timing control</div>
+        </div>
+    </div>
+
+    <script>
+        const allProcesses = {
+            1: { // FtsZ Ring Assembly
+                levels: {
+                    1: `graph TD
+                        A[Cell Division Signal] --> B{FtsZ Available?}
+                        B -->|Yes| C[FtsZ-GTP Binding]
+                        B -->|No| D[FtsZ Expression]
+                        D --> B
+                        C --> E[Z-ring Formation]
+                        E --> F{Ring Complete?}
+                        F -->|Yes| G[FtsA Recruitment]
+                        F -->|No| H[Continue Assembly]
+                        H --> E
+                        G --> I[Membrane Tethering]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style G fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style H fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    2: `graph TD
+                        A[MinCDE Oscillation] --> B{Cell Midpoint Located?}
+                        B -->|Yes| C[MinC Inhibition Relief]
+                        B -->|No| D[MinCDE Continue Oscillation]
+                        D --> B
+                        C --> E[FtsZ Polymerization]
+                        E --> F[GTP-Dependent Assembly]
+                        F --> G{Z-ring Stable?}
+                        G -->|Yes| H[FtsA-ZipA Recruitment]
+                        G -->|No| I[Ring Stabilization]
+                        I --> F
+                        H --> J[Membrane Anchoring]
+                        J --> K[Early Divisome Platform]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style H fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Cell Cycle Checkpoint] --> B{DNA Replication Complete?}
+                        B -->|Yes| C[Chromosome Segregation Check]
+                        B -->|No| D[Wait for Replication]
+                        D --> B
+                        C --> E{Nucleoid Clear?}
+                        E -->|Yes| F[MinCDE System Activation]
+                        E -->|No| G[SlmA Inhibition Active]
+                        G --> E
+                        F --> H[MinC-MinD Oscillation]
+                        H --> I[MinE Ring Formation]
+                        I --> J{Division Site Selected?}
+                        J -->|Yes| K[FtsZ Concentration]
+                        J -->|No| L[Continue Oscillation]
+                        L --> H
+                        K --> M[Cooperative Assembly]
+                        M --> N[Z-ring Maturation]
+                        N --> O[Divisome Recruitment]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style F fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style H fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style K fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style L fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style M fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style N fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style O fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cell Division Control Network] --> B{DnaA Replication Status?}
+                        B -->|Active| C[SeqA Timing Control]
+                        B -->|Inactive| D[DnaA Reactivation]
+                        D --> B
+                        C --> E[GATC Methylation Monitoring]
+                        E --> F{Replication Complete?}
+                        F -->|Yes| G[ParAB Segregation System]
+                        F -->|No| H[Continue Replication]
+                        H --> F
+                        G --> I[Chromosome Positioning]
+                        I --> J[Nucleoid Organization]
+                        J --> K{SlmA Inhibition Relief?}
+                        K -->|Yes| L[Min System Activation]
+                        K -->|No| M[Wait for Nucleoid Clearance]
+                        M --> K
+                        L --> N[MinC-MinD-MinE Oscillation]
+                        N --> O[Division Site Selection]
+                        O --> P{FtsZ Assembly Permitted?}
+                        P -->|Yes| Q[Z-ring Formation]
+                        P -->|No| R[Continue Site Selection]
+                        R --> O
+                        Q --> S[FtsA-ZipA Platform Assembly]
+                        S --> T[Early Divisome Formation]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style G fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style H fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style L fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style M fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style N fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style O fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style P fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style Q fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style R fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style S fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style T fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Integrated Cell Division System] --> B{DnaA-SeqA Coordination?}
+                        B -->|Coordinated| C[Dam Methylation Cycle]
+                        B -->|Uncoordinated| D[Timing Synchronization]
+                        D --> B
+                        C --> E[GATC Site Regulation]
+                        E --> F[Replication Initiation Control]
+                        F --> G{Chromosome Duplication Status?}
+                        G -->|Complete| H[ParAB Segregation Machinery]
+                        G -->|Incomplete| I[Continue Replication]
+                        I --> G
+                        H --> J[ParA ATPase Oscillation]
+                        J --> K[ParB-parS Complex Formation]
+                        K --> L[Chromosome Positioning Dynamics]
+                        L --> M{Nucleoid Organization Complete?}
+                        M -->|Yes| N[SlmA Inhibition Relief]
+                        M -->|No| O[Continue Organization]
+                        O --> M
+                        N --> P[Min System Oscillatory Network]
+                        P --> Q[MinC-MinD Membrane Dynamics]
+                        Q --> R[MinE Ring Formation]
+                        R --> S{Division Site Optimal?}
+                        S -->|Yes| T[FtsZ Polymerization Control]
+                        S -->|No| U[Continue Oscillation]
+                        U --> Q
+                        T --> V[GTP-Dependent Z-ring Assembly]
+                        V --> W{Ring Assembly Complete?}
+                        W -->|Yes| X[FtsA Membrane Anchor]
+                        W -->|No| Y[Assembly Enhancement]
+                        Y --> V
+                        X --> Z[ZipA Additional Anchor]
+                        Z --> AA[Complete Divisome Platform]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style H fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style L fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style M fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style N fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style O fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style P fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style Q fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style R fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style S fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style T fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style U fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style V fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style W fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style X fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style Y fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style Z fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style AA fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`
+                }
+            },
+            2: { // Chromosome Segregation - using your existing ParAB terms
+                levels: {
+                    1: `graph TD
+                        A[Chromosome Duplication] --> B{ParAB System Ready?}
+                        B -->|Yes| C[ParA ATPase]
+                        B -->|No| D[System Assembly]
+                        D --> B
+                        C --> E[ParB-parS Complex]
+                        E --> F[Chromosome Movement]
+                        F --> G[Segregation Complete]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    2: `graph TD
+                        A[DNA Replication Complete] --> B{ParA Walker ATPase Available?}
+                        B -->|Yes| C[ATP-Bound ParA Dimer]
+                        B -->|No| D[ParA Expression]
+                        D --> B
+                        C --> E[ParB CTP Family Protein]
+                        E --> F[parS Centromere-like Sequence]
+                        F --> G{ParB-parS Complex?}
+                        G -->|Formed| H[Nucleoprotein Complex]
+                        G -->|Failed| I[Complex Assembly]
+                        I --> G
+                        H --> J[Chromosome Positioning]
+                        J --> K[Spatial Segregation]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style H fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    3: `graph TD
+                        A[ParAB Chromosome Segregation] --> B{ParA-ATP Binding?}
+                        B -->|Active| C[ParA Dimer Formation]
+                        B -->|Inactive| D[ATP Loading]
+                        D --> B
+                        C --> E[ParB-parS Nucleoprotein Complex]
+                        E --> F{ParA-ParB Interaction?}
+                        F -->|Active| G[ParA ATPase Stimulation]
+                        F -->|Inactive| H[Interface Formation]
+                        H --> F
+                        G --> I[ATP Hydrolysis Cycle]
+                        I --> J[ParA Conformational Change]
+                        J --> K[Membrane-Associated ParA]
+                        K --> L{Oscillation Active?}
+                        L -->|Yes| M[Chromosome Pushing]
+                        L -->|No| N[Oscillation Initiation]
+                        N --> L
+                        M --> O[Polar Positioning]
+                        O --> P[Maintained Segregation]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style G fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style H fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style L fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style M fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style N fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style O fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style P fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    4: `graph TD
+                        A[ParAB Segregation System] --> B{ParA Walker-Type ATPase?}
+                        B -->|Active| C[ATP-Dependent Dimerization]
+                        B -->|Inactive| D[ATPase Activation]
+                        D --> B
+                        C --> E[ParB CTP Family DNA-Binding]
+                        E --> F[parS Centromere Recognition]
+                        F --> G{Nucleoprotein Complex Assembly?}
+                        G -->|Successful| H[ParB Protein-Protein Interactions]
+                        G -->|Failed| I[Assembly Enhancement]
+                        I --> G
+                        H --> J[ParB Oligomerization on DNA]
+                        J --> K[Chromosome Condensation]
+                        K --> L{ParA-ParB Interface?}
+                        L -->|Formed| M[ParA ATPase Stimulation]
+                        L -->|Not Formed| N[Interface Optimization]
+                        N --> L
+                        M --> O[Enhanced ATP Hydrolysis]
+                        O --> P[ParA Conformational Transition]
+                        P --> Q[Membrane-Associated Form]
+                        Q --> R{Oscillatory Behavior?}
+                        R -->|Active| S[Dynamic Membrane Localization]
+                        R -->|Inactive| T[Oscillation Enhancement]
+                        T --> R
+                        S --> U[Chromosome-ParA Interaction]
+                        U --> V[Directional Movement]
+                        V --> W[Spatial Organization]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style H fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style L fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style M fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style N fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style O fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style P fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style Q fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style R fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style S fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style T fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style U fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style V fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style W fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Complete ParAB Machinery] --> B{Walker-Type ATPase Activity?}
+                        B -->|Optimal| C[ATP-Dependent Dimerization]
+                        B -->|Suboptimal| D[ATPase Enhancement]
+                        D --> B
+                        C --> E[ParB CTP Family Protein]
+                        E --> F[parS Centromere-like Sequences]
+                        F --> G{Complex Formation Success?}
+                        G -->|High| H[Stable Nucleoprotein Complex]
+                        G -->|Low| I[Formation Enhancement]
+                        I --> G
+                        H --> J[ParB Oligomerization]
+                        J --> K[Chromosome Condensation]
+                        K --> L{ParA-ParB Interface Quality?}
+                        L -->|Optimal| M[Maximum ATPase Stimulation]
+                        L -->|Suboptimal| N[Interface Optimization]
+                        N --> L
+                        M --> O[Rapid ATP Hydrolysis]
+                        O --> P[Conformational Transition]
+                        P --> Q[Membrane Association]
+                        Q --> R{Oscillatory Dynamics?}
+                        R -->|Robust| S[Dynamic Localization]
+                        R -->|Weak| T[Dynamics Enhancement]
+                        T --> R
+                        S --> U[Chromosome Interaction]
+                        U --> V[Force Generation]
+                        V --> W{Movement Efficiency?}
+                        W -->|High| X[Polar Localization]
+                        W -->|Low| Y[Movement Enhancement]
+                        Y --> W
+                        X --> Z[Spatial Organization]
+                        Z --> AA[Inheritance Fidelity]
+                        
+                        style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+                        style B fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style C fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style D fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style E fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style F fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style G fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style H fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style I fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style J fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style K fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style L fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style M fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style N fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style O fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style P fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style Q fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style R fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style S fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style T fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style U fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style V fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style W fill:#ffd43b,stroke:#333,stroke-width:2px,color:#000
+                        style X fill:#51cf66,stroke:#333,stroke-width:2px,color:#fff
+                        style Y fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style Z fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+                        style AA fill:#b197fc,stroke:#333,stroke-width:2px,color:#fff`
+                }
+            }
+            // Add processes 3-8 with similar structure...
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+
+        function updateFlowchart(processNum, level) {
+            const levelSpan = document.getElementById(`level-${processNum}`);
+            const container = document.getElementById(`mermaid-${processNum}`);
+            const captionDiv = document.getElementById(`caption-${processNum}`);
+            
+            if (levelSpan) levelSpan.textContent = level;
+            
+            if (allProcesses[processNum] && allProcesses[processNum].levels[level]) {
+                container.innerHTML = '';
+                const mermaidDiv = document.createElement('div');
+                mermaidDiv.className = 'mermaid';
+                mermaidDiv.textContent = allProcesses[processNum].levels[level];
+                container.appendChild(mermaidDiv);
+                mermaid.init(undefined, mermaidDiv);
+            } else {
+                container.innerHTML = `<p>Process ${processNum}, Level ${level} - Content coming soon</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch 02 - Cell Division & Segregation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .description {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        .process-overview {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #27ae60;
+        }
+        .sources-section {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ffc107;
+            font-size: 0.9em;
+        }
+        .sources-section h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .sources-section .disclaimer {
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid #dc3545;
+        }
+        .process-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .process-link {
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .process-link:hover {
+            background: #3498db;
+            color: white;
+        }
+        .process-card {
+            background: #f8f9fa;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+        }
+        .process-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .process-description {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .slider-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+        .detail-slider {
+            width: 80%;
+            margin: 10px;
+        }
+        .mermaid-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            min-height: 300px;
+        }
+        .flowchart-caption {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        .nav-link {
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦠 E. coli Batch 02 - Cell Division & Segregation</h1>
+        <p class="subtitle">Interactive Programming Framework Analysis - 8 Cell Division Processes</p>
+        
+        <div class="description">
+            <p><strong>🧬 Interactive Cell Division & Segregation Systems:</strong> This enhanced version features interactive sliders allowing you to explore each cell division process at 5 different detail levels. Each process demonstrates sophisticated biological programming with septum formation, chromosome segregation, and cytokinesis mechanisms.</p>
+            <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
+        </div>
+        
+        <div class="process-overview">
+            <h3>📋 Interactive Cell Division Processes - 8 Core Systems</h3>
+            <div class="process-list">
+                <a href="#process-1" class="process-link">1. FtsZ Ring Assembly</a>
+                <a href="#process-2" class="process-link">2. Septum Formation</a>
+                <a href="#process-3" class="process-link">3. Chromosome Segregation</a>
+                <a href="#process-4" class="process-link">4. Cell Wall Synthesis</a>
+                <a href="#process-5" class="process-link">5. Membrane Division</a>
+                <a href="#process-6" class="process-link">6. Cytokinesis</a>
+                <a href="#process-7" class="process-link">7. Daughter Cell Separation</a>
+                <a href="#process-8" class="process-link">8. Cell Cycle Completion</a>
+            </div>
+        </div>
+        
+        <div class="sources-section">
+            <h4>📚 Scientific Sources & References</h4>
+            <p><strong>Primary Sources:</strong> Molecular Biology of the Cell (Alberts et al., 6th Ed.), Bacterial Cell Division (Lutkenhaus et al.), EcoCyc Database (ecocyc.org)</p>
+            <p><strong>Key Research:</strong> Lutkenhaus et al. (2012) Nature Rev. Microbiol. - FtsZ dynamics; Typas et al. (2011) Nature Rev. Microbiol. - peptidoglycan synthesis; Sherratt (2003) Nature Rev. Mol. Cell Biol. - chromosome segregation</p>
+            <p><strong>Databases:</strong> UniProt, NCBI Gene, EcoCyc, KEGG Pathway Database</p>
+            
+            <div class="disclaimer">
+                <strong>⚠️ Scientific Accuracy Disclosure:</strong> While overall pathways and mechanisms are scientifically accurate and based on established literature, the detailed molecular steps in levels 4-5 represent synthesized interpretations from general biochemical knowledge rather than direct citations from specific experiments. For publication-quality accuracy, each process should be verified against original research papers and current databases.
+            </div>
+        </div>
+        
+        <div class="process-card" id="process-1">
+            <div class="process-title">1. FtsZ Ring Assembly</div>
+            <div class="process-description">Interactive analysis of E. coli FtsZ ring assembly with 5 detail levels showing the computational logic of cytoskeletal ring formation and contractile machinery assembly.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(1, this.value)">
+                <div>Level: <span id="level-1">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-1"></div>
+            <div class="flowchart-caption" id="caption-1">Level 1: Basic FtsZ ring assembly and contractile machinery formation</div>
+        </div>
+        
+        <div class="process-card" id="process-2">
+            <div class="process-title">2. Septum Formation</div>
+            <div class="process-description">Interactive analysis of E. coli septum formation with 5 detail levels showing the computational logic of septal peptidoglycan synthesis and membrane invagination.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(2, this.value)">
+                <div>Level: <span id="level-2">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-2"></div>
+            <div class="flowchart-caption" id="caption-2">Level 1: Basic septum formation with peptidoglycan synthesis</div>
+        </div>
+        
+        <div class="process-card" id="process-3">
+            <div class="process-title">3. Chromosome Segregation</div>
+            <div class="process-description">Interactive analysis of E. coli chromosome segregation with 5 detail levels showing the computational logic of chromosome partitioning and nucleoid segregation.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(3, this.value)">
+                <div>Level: <span id="level-3">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-3"></div>
+            <div class="flowchart-caption" id="caption-3">Level 1: Basic chromosome segregation and nucleoid partitioning</div>
+        </div>
+        
+        <div class="process-card" id="process-4">
+            <div class="process-title">4. Cell Wall Synthesis</div>
+            <div class="process-description">Interactive analysis of E. coli cell wall synthesis with 5 detail levels showing the computational logic of peptidoglycan synthesis and cell wall remodeling.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(4, this.value)">
+                <div>Level: <span id="level-4">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-4"></div>
+            <div class="flowchart-caption" id="caption-4">Level 1: Basic cell wall synthesis and peptidoglycan assembly</div>
+        </div>
+        
+        <div class="process-card" id="process-5">
+            <div class="process-title">5. Membrane Division</div>
+            <div class="process-description">Interactive analysis of E. coli membrane division with 5 detail levels showing the computational logic of membrane constriction and lipid distribution.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(5, this.value)">
+                <div>Level: <span id="level-5">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-5"></div>
+            <div class="flowchart-caption" id="caption-5">Level 1: Basic membrane division and lipid redistribution</div>
+        </div>
+        
+        <div class="process-card" id="process-6">
+            <div class="process-title">6. Cytokinesis</div>
+            <div class="process-description">Interactive analysis of E. coli cytokinesis with 5 detail levels showing the computational logic of cellular division and compartmentalization.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(6, this.value)">
+                <div>Level: <span id="level-6">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-6"></div>
+            <div class="flowchart-caption" id="caption-6">Level 1: Basic cytokinesis and cellular compartmentalization</div>
+        </div>
+        
+        <div class="process-card" id="process-7">
+            <div class="process-title">7. Daughter Cell Separation</div>
+            <div class="process-description">Interactive analysis of E. coli daughter cell separation with 5 detail levels showing the computational logic of final separation and cell wall completion.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(7, this.value)">
+                <div>Level: <span id="level-7">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-7"></div>
+            <div class="flowchart-caption" id="caption-7">Level 1: Basic daughter cell separation and wall completion</div>
+        </div>
+        
+        <div class="process-card" id="process-8">
+            <div class="process-title">8. Cell Cycle Completion</div>
+            <div class="process-description">Interactive analysis of E. coli cell cycle completion with 5 detail levels showing the computational logic of cell cycle checkpoint completion and division termination.</div>
+            <div class="slider-container">
+                <label>Detail Level:</label>
+                <input type="range" min="1" max="5" value="1" class="detail-slider" onchange="updateFlowchart(8, this.value)">
+                <div>Level: <span id="level-8">1</span></div>
+            </div>
+            <div class="mermaid-container" id="mermaid-8"></div>
+            <div class="flowchart-caption" id="caption-8">Level 1: Basic cell cycle completion and division checkpoint</div>
+        </div>
+        
+        <div class="navigation">
+            <a href="ecoli_simple_index.html" class="nav-link">← Back to E. coli Index</a>
+            <a href="../index.html" class="nav-link">Main Processes</a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+            <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+            <p>This interactive version demonstrates the computational nature of E. coli cell division systems</p>
+            <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+            <p>Direct linking enabled for database integration</p>
+        </div>
+    </div>
+
+    <script>
+        const allProcesses = {
+            1: {
+                levels: {
+                    1: `graph TD
+                        P1A[Cell Cycle Signal] --> P1B[FtsZ Ring Assembly Initiation]
+                        P1B --> P1C[Ring Formation]
+                        P1C --> P1D[Contractile Assembly]
+                        
+                        style P1A fill:#ff6b6b,color:#fff
+                        style P1B fill:#ffd43b,color:#000
+                        style P1C fill:#51cf66,color:#fff
+                        style P1D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P1E[Cell Cycle Signal] --> P1F[FtsZ Polymerization]
+                        P1F --> P1G[GTP-Dependent Assembly]
+                        P1G --> P1H[Ring Structure Formation]
+                        P1H --> P1I[Contractile Ring Maturation]
+                        P1I --> P1J[Z-Ring Stabilization]
+                        
+                        style P1E fill:#ff6b6b,color:#fff
+                        style P1F fill:#ffd43b,color:#000
+                        style P1G fill:#74c0fc,color:#fff
+                        style P1H fill:#51cf66,color:#fff
+                        style P1I fill:#ffd43b,color:#000
+                        style P1J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P1K[Cell Division Checkpoint] --> P1L[FtsZ Monomer Accumulation]
+                        P1L --> P1M[GTP Binding]
+                        P1M --> P1N[Cooperative Polymerization]
+                        P1N --> P1O[Protofilament Formation]
+                        P1O --> P1P[Ring Nucleation]
+                        P1P --> P1Q[Z-Ring Assembly]
+                        P1Q --> P1R[FtsA Recruitment]
+                        P1R --> P1S[Membrane Anchoring]
+                        
+                        style P1K fill:#ff6b6b,color:#fff
+                        style P1L fill:#74c0fc,color:#fff
+                        style P1M fill:#51cf66,color:#fff
+                        style P1N fill:#74c0fc,color:#fff
+                        style P1O fill:#ffd43b,color:#000
+                        style P1P fill:#51cf66,color:#fff
+                        style P1Q fill:#51cf66,color:#fff
+                        style P1R fill:#74c0fc,color:#fff
+                        style P1S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P1T[MinCDE Oscillation] --> P1U[Cell Division Site Selection]
+                        P1U --> P1V[FtsZ Concentration Threshold]
+                        P1V --> P1W[GTP-FtsZ Nucleation]
+                        P1W --> P1X[Cooperative Assembly]
+                        P1X --> P1Y[Protofilament Bundling]
+                        P1Y --> P1Z[Z-Ring Constriction]
+                        P1Z --> P1AA[FtsA Membrane Tethering]
+                        P1AA --> P1BB[ZipA Stabilization]
+                        P1BB --> P1CC[FtsEX Regulation]
+                        P1CC --> P1DD[Ring Dynamics Control]
+                        P1DD --> P1EE[Divisome Assembly]
+                        P1EE --> P1FF[Contractile Force Generation]
+                        
+                        style P1T fill:#ff6b6b,color:#fff
+                        style P1U fill:#51cf66,color:#fff
+                        style P1V fill:#74c0fc,color:#fff
+                        style P1W fill:#51cf66,color:#fff
+                        style P1X fill:#ffd43b,color:#000
+                        style P1Y fill:#74c0fc,color:#fff
+                        style P1Z fill:#ffd43b,color:#000
+                        style P1AA fill:#51cf66,color:#fff
+                        style P1BB fill:#51cf66,color:#fff
+                        style P1CC fill:#ffd43b,color:#000
+                        style P1DD fill:#74c0fc,color:#fff
+                        style P1EE fill:#51cf66,color:#fff
+                        style P1FF fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P1GG[MinC Gradient Formation] --> P1HH[MinD ATPase Oscillation]
+                        P1HH --> P1II[Cell Division Site Determination]
+                        P1II --> P1JJ[FtsZ Monomer Availability]
+                        P1JJ --> P1KK[GTP-Dependent Conformational Change]
+                        P1KK --> P1LL[Nucleation Complex Formation]
+                        P1LL --> P1MM[Cooperative Polymerization Mechanism]
+                        P1MM --> P1NN[Protofilament Extension]
+                        P1NN --> P1OO[Lateral Bundling Interactions]
+                        P1OO --> P1PP[Z-Ring Circumferential Assembly]
+                        P1PP --> P1QQ[GTPase Activity Regulation]
+                        P1QQ --> P1RR[Dynamic Instability Control]
+                        P1RR --> P1SS[FtsA Amphipathic Helix Insertion]
+                        P1SS --> P1TT[Membrane Tethering Complex]
+                        P1TT --> P1UU[Contractile Ring Maturation]
+                        
+                        style P1GG fill:#ff6b6b,color:#fff
+                        style P1HH fill:#ffd43b,color:#000
+                        style P1II fill:#74c0fc,color:#fff
+                        style P1JJ fill:#51cf66,color:#fff
+                        style P1KK fill:#51cf66,color:#fff
+                        style P1LL fill:#74c0fc,color:#fff
+                        style P1MM fill:#51cf66,color:#fff
+                        style P1NN fill:#51cf66,color:#fff
+                        style P1OO fill:#51cf66,color:#fff
+                        style P1PP fill:#74c0fc,color:#fff
+                        style P1QQ fill:#ffd43b,color:#000
+                        style P1RR fill:#51cf66,color:#fff
+                        style P1SS fill:#51cf66,color:#fff
+                        style P1TT fill:#51cf66,color:#fff
+                        style P1UU fill:#b197fc,color:#fff`
+                }
+            },
+            2: {
+                levels: {
+                    1: `graph TD
+                        P2A[Z-Ring Signal] --> P2B[Septum Formation Initiation]
+                        P2B --> P2C[Peptidoglycan Synthesis]
+                        P2C --> P2D[Septal Wall Assembly]
+                        
+                        style P2A fill:#ff6b6b,color:#fff
+                        style P2B fill:#ffd43b,color:#000
+                        style P2C fill:#51cf66,color:#fff
+                        style P2D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P2E[Z-Ring Signal] --> P2F[FtsI Recruitment]
+                        P2F --> P2G[Septum Formation Activation]
+                        P2G --> P2H[PBP3 Transpeptidase]
+                        P2H --> P2I[Septal Peptidoglycan]
+                        P2I --> P2J[Membrane Invagination]
+                        
+                        style P2E fill:#ff6b6b,color:#fff
+                        style P2F fill:#ffd43b,color:#000
+                        style P2G fill:#74c0fc,color:#fff
+                        style P2H fill:#51cf66,color:#fff
+                        style P2I fill:#51cf66,color:#fff
+                        style P2J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P2K[Divisome Assembly] --> P2L[FtsI Penicillin-Binding Protein]
+                        P2L --> P2M[Transpeptidase Activity]
+                        P2M --> P2N[Septal Peptidoglycan Complex]
+                        P2N --> P2O[Cross-Link Formation]
+                        P2O --> P2P[Membrane Constriction]
+                        P2P --> P2Q[FtsW Lipid II Flippase]
+                        P2Q --> P2R[Peptidoglycan Precursor Transport]
+                        P2R --> P2S[Septal Wall Thickening]
+                        
+                        style P2K fill:#ff6b6b,color:#fff
+                        style P2L fill:#ffd43b,color:#000
+                        style P2M fill:#74c0fc,color:#fff
+                        style P2N fill:#51cf66,color:#fff
+                        style P2O fill:#74c0fc,color:#fff
+                        style P2P fill:#51cf66,color:#fff
+                        style P2Q fill:#51cf66,color:#fff
+                        style P2R fill:#ffd43b,color:#000
+                        style P2S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P2T[Divisome Maturation] --> P2U[FtsQLB Complex Assembly]
+                        P2U --> P2V[FtsI Transpeptidase Activation]
+                        P2V --> P2W[Substrate Recognition]
+                        P2W --> P2X[Septal Peptidoglycan Assembly]
+                        P2X --> P2Y[Cross-Linking Mechanism]
+                        P2Y --> P2Z[FtsW-FtsI Coordination]
+                        P2Z --> P2AA[Lipid II Substrate Delivery]
+                        P2AA --> P2BB[Glycan Chain Extension]
+                        P2BB --> P2CC[Peptide Cross-Bridge Formation]
+                        P2CC --> P2DD[Membrane Invagination Force]
+                        P2DD --> P2EE[Septal Constriction]
+                        
+                        style P2T fill:#ff6b6b,color:#fff
+                        style P2U fill:#ffd43b,color:#000
+                        style P2V fill:#74c0fc,color:#fff
+                        style P2W fill:#51cf66,color:#fff
+                        style P2X fill:#74c0fc,color:#fff
+                        style P2Y fill:#51cf66,color:#fff
+                        style P2Z fill:#51cf66,color:#fff
+                        style P2AA fill:#74c0fc,color:#fff
+                        style P2BB fill:#51cf66,color:#fff
+                        style P2CC fill:#51cf66,color:#fff
+                        style P2DD fill:#ffd43b,color:#000
+                        style P2EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P2FF[Z-Ring Contractile Signal] --> P2GG[FtsQLB Regulatory Complex]
+                        P2GG --> P2HH[FtsI PBP3 Activation Domain]
+                        P2HH --> P2II[Transpeptidase Active Site]
+                        P2II --> P2JJ[Acyl-Enzyme Intermediate]
+                        P2JJ --> P2KK[Peptide Substrate Recognition]
+                        P2KK --> P2LL[Cross-Link Formation Mechanism]
+                        P2LL --> P2MM[FtsW Lipid II Flippase Coordination]
+                        P2MM --> P2NN[Transmembrane Substrate Transport]
+                        P2NN --> P2OO[Periplasmic Peptidoglycan Assembly]
+                        P2OO --> P2PP[Glycan Chain Polymerization]
+                        P2PP --> P2QQ[Peptide Bridge Cross-Linking]
+                        P2QQ --> P2RR[Mechanical Force Generation]
+                        P2RR --> P2SS[Membrane Constriction Dynamics]
+                        P2SS --> P2TT[Septal Envelope Formation]
+                        
+                        style P2FF fill:#ff6b6b,color:#fff
+                        style P2GG fill:#ffd43b,color:#000
+                        style P2HH fill:#51cf66,color:#fff
+                        style P2II fill:#74c0fc,color:#fff
+                        style P2JJ fill:#ffd43b,color:#000
+                        style P2KK fill:#74c0fc,color:#fff
+                        style P2LL fill:#51cf66,color:#fff
+                        style P2MM fill:#ffd43b,color:#000
+                        style P2NN fill:#74c0fc,color:#fff
+                        style P2OO fill:#51cf66,color:#fff
+                        style P2PP fill:#51cf66,color:#fff
+                        style P2QQ fill:#51cf66,color:#fff
+                        style P2RR fill:#51cf66,color:#fff
+                        style P2SS fill:#74c0fc,color:#fff
+                        style P2TT fill:#b197fc,color:#fff`
+                }
+            },
+            3: {
+                levels: {
+                    1: `graph TD
+                        P3A[DNA Replication] --> P3B[Chromosome Segregation]
+                        P3B --> P3C[Nucleoid Partitioning]
+                        P3C --> P3D[Chromosome Distribution]
+                        
+                        style P3A fill:#ff6b6b,color:#fff
+                        style P3B fill:#ffd43b,color:#000
+                        style P3C fill:#51cf66,color:#fff
+                        style P3D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P3E[Chromosome Duplication] --> P3F[ParAB System]
+                        P3F --> P3G[Chromosome Segregation Activation]
+                        P3G --> P3H[Nucleoid Organization]
+                        P3H --> P3I[Chromosome Positioning]
+                        P3I --> P3J[Symmetric Distribution]
+                        
+                        style P3E fill:#ff6b6b,color:#fff
+                        style P3F fill:#ffd43b,color:#000
+                        style P3G fill:#74c0fc,color:#fff
+                        style P3H fill:#51cf66,color:#fff
+                        style P3I fill:#51cf66,color:#fff
+                        style P3J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P3K[Replication Completion] --> P3L[SeqA Release]
+                        P3L --> P3M[Nucleoid Compaction]
+                        P3M --> P3N[Chromosome Segregation Complex]
+                        P3N --> P3O[ParA Polymerization]
+                        P3O --> P3P[ParB-parS Binding]
+                        P3P --> P3Q[Chromosome Positioning]
+                        P3Q --> P3R[MukBEF Condensin]
+                        P3R --> P3S[Nucleoid Organization]
+                        
+                        style P3K fill:#ff6b6b,color:#fff
+                        style P3L fill:#ffd43b,color:#000
+                        style P3M fill:#74c0fc,color:#fff
+                        style P3N fill:#51cf66,color:#fff
+                        style P3O fill:#74c0fc,color:#fff
+                        style P3P fill:#51cf66,color:#fff
+                        style P3Q fill:#51cf66,color:#fff
+                        style P3R fill:#ffd43b,color:#000
+                        style P3S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P3T[Post-Replication State] --> P3U[Dam Methylation Recovery]
+                        P3U --> P3V[SeqA Dissociation]
+                        P3V --> P3W[Nucleoid Accessibility]
+                        P3W --> P3X[ParA ATP-Binding]
+                        P3X --> P3Y[ParA Dimer Formation]
+                        P3Y --> P3Z[ATP-Dependent Polymerization]
+                        P3Z --> P3AA[ParA Filament Assembly]
+                        P3AA --> P3BB[ParB Centromere Binding]
+                        P3BB --> P3CC[parS Sequence Recognition]
+                        P3CC --> P3DD[ParB Spreading]
+                        P3DD --> P3EE[Chromosome Oscillation]
+                        
+                        style P3T fill:#ff6b6b,color:#fff
+                        style P3U fill:#51cf66,color:#fff
+                        style P3V fill:#74c0fc,color:#fff
+                        style P3W fill:#51cf66,color:#fff
+                        style P3X fill:#ffd43b,color:#000
+                        style P3Y fill:#74c0fc,color:#fff
+                        style P3Z fill:#ffd43b,color:#000
+                        style P3AA fill:#51cf66,color:#fff
+                        style P3BB fill:#51cf66,color:#fff
+                        style P3CC fill:#ffd43b,color:#000
+                        style P3DD fill:#74c0fc,color:#fff
+                        style P3EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P3FF[Chromosome Replication Termination] --> P3GG[Tus-Ter Complex Resolution]
+                        P3GG --> P3HH[Replication Fork Convergence]
+                        P3HH --> P3II[Topological Stress Relief]
+                        P3II --> P3JJ[Dam Methylation Restoration]
+                        P3JJ --> P3KK[SeqA Titration Mechanism]
+                        P3KK --> P3LL[Nucleoid Structural Transition]
+                        P3LL --> P3MM[ParA ATPase Activation]
+                        P3MM --> P3NN[ATP-Induced Conformational Change]
+                        P3NN --> P3OO[ParA Homodimerization]
+                        P3OO --> P3PP[Cooperative ATP-Dependent Assembly]
+                        P3PP --> P3QQ[Dynamic Filament Polymerization]
+                        P3QQ --> P3RR[ParB Centromere Recognition]
+                        P3RR --> P3SS[Oscillatory Chromosome Movement]
+                        P3SS --> P3TT[Symmetric Partitioning]
+                        
+                        style P3FF fill:#ff6b6b,color:#fff
+                        style P3GG fill:#ffd43b,color:#000
+                        style P3HH fill:#51cf66,color:#fff
+                        style P3II fill:#74c0fc,color:#fff
+                        style P3JJ fill:#ffd43b,color:#000
+                        style P3KK fill:#74c0fc,color:#fff
+                        style P3LL fill:#51cf66,color:#fff
+                        style P3MM fill:#ffd43b,color:#000
+                        style P3NN fill:#74c0fc,color:#fff
+                        style P3OO fill:#51cf66,color:#fff
+                        style P3PP fill:#51cf66,color:#fff
+                        style P3QQ fill:#51cf66,color:#fff
+                        style P3RR fill:#51cf66,color:#fff
+                        style P3SS fill:#74c0fc,color:#fff
+                        style P3TT fill:#b197fc,color:#fff`
+                }
+            },
+            4: {
+                levels: {
+                    1: `graph TD
+                        P4A[Division Signal] --> P4B[Cell Wall Synthesis]
+                        P4B --> P4C[Peptidoglycan Assembly]
+                        P4C --> P4D[Wall Completion]
+                        
+                        style P4A fill:#ff6b6b,color:#fff
+                        style P4B fill:#ffd43b,color:#000
+                        style P4C fill:#51cf66,color:#fff
+                        style P4D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P4E[Septal Signal] --> P4F[PBP1B Recruitment]
+                        P4F --> P4G[Cell Wall Synthesis Activation]
+                        P4G --> P4H[Glycan Chain Formation]
+                        P4H --> P4I[Peptide Cross-Linking]
+                        P4I --> P4J[Wall Strengthening]
+                        
+                        style P4E fill:#ff6b6b,color:#fff
+                        style P4F fill:#ffd43b,color:#000
+                        style P4G fill:#74c0fc,color:#fff
+                        style P4H fill:#51cf66,color:#fff
+                        style P4I fill:#51cf66,color:#fff
+                        style P4J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P4K[Divisome Activation] --> P4L[PBP1B Transpeptidase]
+                        P4L --> P4M[Lipid II Substrate]
+                        P4M --> P4N[Cell Wall Synthesis Complex]
+                        P4N --> P4O[Glycan Polymerization]
+                        P4O --> P4P[Peptide Cross-Bridge]
+                        P4P --> P4Q[MurG Involvement]
+                        P4Q --> P4R[UDP-MurNAc Processing]
+                        P4R --> P4S[Peptidoglycan Maturation]
+                        
+                        style P4K fill:#ff6b6b,color:#fff
+                        style P4L fill:#ffd43b,color:#000
+                        style P4M fill:#74c0fc,color:#fff
+                        style P4N fill:#51cf66,color:#fff
+                        style P4O fill:#74c0fc,color:#fff
+                        style P4P fill:#51cf66,color:#fff
+                        style P4Q fill:#51cf66,color:#fff
+                        style P4R fill:#ffd43b,color:#000
+                        style P4S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P4T[Septal Peptidoglycan Synthesis] --> P4U[PBP1B Bifunctional Activity]
+                        P4U --> P4V[Transglycosylase Domain]
+                        P4V --> P4W[Transpeptidase Domain]
+                        P4W --> P4X[Lipid II Substrate Recognition]
+                        P4X --> P4Y[Glycan Chain Polymerization]
+                        P4Y --> P4Z[Peptide Cross-Link Formation]
+                        P4Z --> P4AA[MurG UDP-MurNAc Transfer]
+                        P4AA --> P4BB[Cytoplasmic Precursor Assembly]
+                        P4BB --> P4CC[Membrane Transport]
+                        P4CC --> P4DD[Periplasmic Assembly]
+                        P4DD --> P4EE[Septal Wall Integrity]
+                        
+                        style P4T fill:#ff6b6b,color:#fff
+                        style P4U fill:#ffd43b,color:#000
+                        style P4V fill:#74c0fc,color:#fff
+                        style P4W fill:#51cf66,color:#fff
+                        style P4X fill:#74c0fc,color:#fff
+                        style P4Y fill:#51cf66,color:#fff
+                        style P4Z fill:#51cf66,color:#fff
+                        style P4AA fill:#74c0fc,color:#fff
+                        style P4BB fill:#51cf66,color:#fff
+                        style P4CC fill:#51cf66,color:#fff
+                        style P4DD fill:#ffd43b,color:#000
+                        style P4EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P4FF[Divisome-Directed Peptidoglycan Synthesis] --> P4GG[PBP1B Holoenzyme Complex]
+                        P4GG --> P4HH[N-Terminal Transglycosylase Domain]
+                        P4HH --> P4II[C-Terminal Transpeptidase Domain]
+                        P4II --> P4JJ[Lipid II Disaccharide Recognition]
+                        P4JJ --> P4KK[Undecaprenyl Phosphate Carrier]
+                        P4KK --> P4LL[Glycan Chain Polymerization Mechanism]
+                        P4LL --> P4MM[Beta-1,4-Glycosidic Bond Formation]
+                        P4MM --> P4NN[Peptide Stem Recognition]
+                        P4NN --> P4OO[D-Ala-D-Ala Substrate Binding]
+                        P4OO --> P4PP[Acyl-Enzyme Intermediate Formation]
+                        P4PP --> P4QQ[Nucleophilic Attack Mechanism]
+                        P4QQ --> P4RR[Peptide Cross-Bridge Assembly]
+                        P4RR --> P4SS[Septal Peptidoglycan Network]
+                        P4SS --> P4TT[Mechanical Strength Enhancement]
+                        
+                        style P4FF fill:#ff6b6b,color:#fff
+                        style P4GG fill:#ffd43b,color:#000
+                        style P4HH fill:#51cf66,color:#fff
+                        style P4II fill:#74c0fc,color:#fff
+                        style P4JJ fill:#ffd43b,color:#000
+                        style P4KK fill:#74c0fc,color:#fff
+                        style P4LL fill:#51cf66,color:#fff
+                        style P4MM fill:#ffd43b,color:#000
+                        style P4NN fill:#74c0fc,color:#fff
+                        style P4OO fill:#51cf66,color:#fff
+                        style P4PP fill:#51cf66,color:#fff
+                        style P4QQ fill:#51cf66,color:#fff
+                        style P4RR fill:#51cf66,color:#fff
+                        style P4SS fill:#74c0fc,color:#fff
+                        style P4TT fill:#b197fc,color:#fff`
+                }
+            },
+            5: {
+                levels: {
+                    1: `graph TD
+                        P5A[Cell Division] --> P5B[Membrane Division]
+                        P5B --> P5C[Lipid Redistribution]
+                        P5C --> P5D[Membrane Separation]
+                        
+                        style P5A fill:#ff6b6b,color:#fff
+                        style P5B fill:#ffd43b,color:#000
+                        style P5C fill:#51cf66,color:#fff
+                        style P5D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P5E[Septal Formation] --> P5F[Membrane Constriction]
+                        P5F --> P5G[Membrane Division Activation]
+                        P5G --> P5H[Lipid Bilayer Reorganization]
+                        P5H --> P5I[Membrane Fusion Events]
+                        P5I --> P5J[Compartment Formation]
+                        
+                        style P5E fill:#ff6b6b,color:#fff
+                        style P5F fill:#ffd43b,color:#000
+                        style P5G fill:#74c0fc,color:#fff
+                        style P5H fill:#51cf66,color:#fff
+                        style P5I fill:#51cf66,color:#fff
+                        style P5J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P5K[Z-Ring Constriction] --> P5L[Membrane Invagination]
+                        P5L --> P5M[Lipid Asymmetry]
+                        P5M --> P5N[Membrane Division Complex]
+                        P5N --> P5O[Phospholipid Redistribution]
+                        P5O --> P5P[Membrane Curvature]
+                        P5P --> P5Q[Constriction Force]
+                        P5Q --> P5R[Membrane Fusion]
+                        P5R --> P5S[Compartmentalization]
+                        
+                        style P5K fill:#ff6b6b,color:#fff
+                        style P5L fill:#ffd43b,color:#000
+                        style P5M fill:#74c0fc,color:#fff
+                        style P5N fill:#51cf66,color:#fff
+                        style P5O fill:#74c0fc,color:#fff
+                        style P5P fill:#51cf66,color:#fff
+                        style P5Q fill:#51cf66,color:#fff
+                        style P5R fill:#ffd43b,color:#000
+                        style P5S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P5T[Contractile Ring Force] --> P5U[Membrane Constriction Dynamics]
+                        P5U --> P5V[Lipid Bilayer Mechanics]
+                        P5V --> P5W[Phospholipid Asymmetry]
+                        P5W --> P5X[Membrane Division Assembly]
+                        P5X --> P5Y[Curvature Generation]
+                        P5Y --> P5Z[Membrane Tension]
+                        P5Z --> P5AA[Constriction Progression]
+                        P5AA --> P5BB[Membrane Fusion Events]
+                        P5BB --> P5CC[Compartment Isolation]
+                        P5CC --> P5DD[Membrane Integrity]
+                        P5DD --> P5EE[Cellular Compartmentalization]
+                        
+                        style P5T fill:#ff6b6b,color:#fff
+                        style P5U fill:#ffd43b,color:#000
+                        style P5V fill:#74c0fc,color:#fff
+                        style P5W fill:#51cf66,color:#fff
+                        style P5X fill:#74c0fc,color:#fff
+                        style P5Y fill:#51cf66,color:#fff
+                        style P5Z fill:#51cf66,color:#fff
+                        style P5AA fill:#74c0fc,color:#fff
+                        style P5BB fill:#51cf66,color:#fff
+                        style P5CC fill:#51cf66,color:#fff
+                        style P5DD fill:#ffd43b,color:#000
+                        style P5EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P5FF[Z-Ring Contractile Dynamics] --> P5GG[Membrane Constriction Mechanism]
+                        P5GG --> P5HH[Phospholipid Bilayer Reorganization]
+                        P5HH --> P5II[Asymmetric Lipid Distribution]
+                        P5II --> P5JJ[Membrane Curvature Induction]
+                        P5JJ --> P5KK[Constriction Force Transmission]
+                        P5KK --> P5LL[Membrane Tension Dynamics]
+                        P5LL --> P5MM[Membrane Division Activation]
+                        P5MM --> P5NN[Lipid Flip-Flop Mechanism]
+                        P5NN --> P5OO[Membrane Fusion Machinery]
+                        P5OO --> P5PP[Compartment Boundary Formation]
+                        P5PP --> P5QQ[Membrane Integrity Maintenance]
+                        P5QQ --> P5RR[Cellular Compartmentalization]
+                        P5RR --> P5SS[Daughter Cell Isolation]
+                        P5SS --> P5TT[Membrane Division Completion]
+                        
+                        style P5FF fill:#ff6b6b,color:#fff
+                        style P5GG fill:#ffd43b,color:#000
+                        style P5HH fill:#51cf66,color:#fff
+                        style P5II fill:#74c0fc,color:#fff
+                        style P5JJ fill:#ffd43b,color:#000
+                        style P5KK fill:#74c0fc,color:#fff
+                        style P5LL fill:#51cf66,color:#fff
+                        style P5MM fill:#ffd43b,color:#000
+                        style P5NN fill:#74c0fc,color:#fff
+                        style P5OO fill:#51cf66,color:#fff
+                        style P5PP fill:#51cf66,color:#fff
+                        style P5QQ fill:#51cf66,color:#fff
+                        style P5RR fill:#51cf66,color:#fff
+                        style P5SS fill:#74c0fc,color:#fff
+                        style P5TT fill:#b197fc,color:#fff`
+                }
+            },
+            6: {
+                levels: {
+                    1: `graph TD
+                        P6A[Division Signal] --> P6B[Cytokinesis]
+                        P6B --> P6C[Cell Separation]
+                        P6C --> P6D[Division Completion]
+                        
+                        style P6A fill:#ff6b6b,color:#fff
+                        style P6B fill:#ffd43b,color:#000
+                        style P6C fill:#51cf66,color:#fff
+                        style P6D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P6E[Contractile Ring] --> P6F[Constriction Force]
+                        P6F --> P6G[Cytokinesis Activation]
+                        P6G --> P6H[Membrane Fusion]
+                        P6H --> P6I[Compartment Formation]
+                        P6I --> P6J[Cell Separation]
+                        
+                        style P6E fill:#ff6b6b,color:#fff
+                        style P6F fill:#ffd43b,color:#000
+                        style P6G fill:#74c0fc,color:#fff
+                        style P6H fill:#51cf66,color:#fff
+                        style P6I fill:#51cf66,color:#fff
+                        style P6J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P6K[Z-Ring Constriction] --> P6L[Contractile Force Generation]
+                        P6L --> P6M[Membrane Invagination]
+                        P6M --> P6N[Cytokinesis Complex]
+                        P6N --> P6O[Septal Closure]
+                        P6O --> P6P[Membrane Fusion Events]
+                        P6P --> P6Q[Cell Compartmentalization]
+                        P6Q --> P6R[Division Completion]
+                        P6R --> P6S[Daughter Cell Formation]
+                        
+                        style P6K fill:#ff6b6b,color:#fff
+                        style P6L fill:#ffd43b,color:#000
+                        style P6M fill:#74c0fc,color:#fff
+                        style P6N fill:#51cf66,color:#fff
+                        style P6O fill:#74c0fc,color:#fff
+                        style P6P fill:#51cf66,color:#fff
+                        style P6Q fill:#51cf66,color:#fff
+                        style P6R fill:#ffd43b,color:#000
+                        style P6S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P6T[Contractile Ring Dynamics] --> P6U[Force Generation Mechanism]
+                        P6U --> P6V[Membrane Constriction]
+                        P6V --> P6W[Septal Closure Progression]
+                        P6W --> P6X[Cytokinesis Assembly]
+                        P6X --> P6Y[Membrane Fusion Machinery]
+                        P6Y --> P6Z[Compartment Boundary]
+                        P6Z --> P6AA[Cell Separation Mechanism]
+                        P6AA --> P6BB[Division Checkpoint]
+                        P6BB --> P6CC[Daughter Cell Independence]
+                        P6CC --> P6DD[Cytokinesis Completion]
+                        P6DD --> P6EE[Cell Division Success]
+                        
+                        style P6T fill:#ff6b6b,color:#fff
+                        style P6U fill:#ffd43b,color:#000
+                        style P6V fill:#74c0fc,color:#fff
+                        style P6W fill:#51cf66,color:#fff
+                        style P6X fill:#74c0fc,color:#fff
+                        style P6Y fill:#51cf66,color:#fff
+                        style P6Z fill:#51cf66,color:#fff
+                        style P6AA fill:#74c0fc,color:#fff
+                        style P6BB fill:#51cf66,color:#fff
+                        style P6CC fill:#51cf66,color:#fff
+                        style P6DD fill:#ffd43b,color:#000
+                        style P6EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P6FF[Z-Ring Contractile Force] --> P6GG[FtsZ GTPase Activity]
+                        P6GG --> P6HH[Filament Constriction Dynamics]
+                        P6HH --> P6II[Membrane Invagination Force]
+                        P6II --> P6JJ[Septal Envelope Constriction]
+                        P6JJ --> P6KK[Membrane Fusion Complex]
+                        P6KK --> P6LL[Phospholipid Reorganization]
+                        P6LL --> P6MM[Cytokinesis Activation]
+                        P6MM --> P6NN[Compartment Boundary Formation]
+                        P6NN --> P6OO[Cell Separation Initiation]
+                        P6OO --> P6PP[Membrane Scission Events]
+                        P6PP --> P6QQ[Daughter Cell Isolation]
+                        P6QQ --> P6RR[Independent Cell Formation]
+                        P6RR --> P6SS[Division Completion Signal]
+                        P6SS --> P6TT[Cytokinesis Success]
+                        
+                        style P6FF fill:#ff6b6b,color:#fff
+                        style P6GG fill:#ffd43b,color:#000
+                        style P6HH fill:#51cf66,color:#fff
+                        style P6II fill:#74c0fc,color:#fff
+                        style P6JJ fill:#ffd43b,color:#000
+                        style P6KK fill:#74c0fc,color:#fff
+                        style P6LL fill:#51cf66,color:#fff
+                        style P6MM fill:#ffd43b,color:#000
+                        style P6NN fill:#74c0fc,color:#fff
+                        style P6OO fill:#51cf66,color:#fff
+                        style P6PP fill:#51cf66,color:#fff
+                        style P6QQ fill:#51cf66,color:#fff
+                        style P6RR fill:#51cf66,color:#fff
+                        style P6SS fill:#74c0fc,color:#fff
+                        style P6TT fill:#b197fc,color:#fff`
+                }
+            },
+            7: {
+                levels: {
+                    1: `graph TD
+                        P7A[Septal Completion] --> P7B[Daughter Cell Separation]
+                        P7B --> P7C[Cell Wall Completion]
+                        P7C --> P7D[Independent Cells]
+                        
+                        style P7A fill:#ff6b6b,color:#fff
+                        style P7B fill:#ffd43b,color:#000
+                        style P7C fill:#51cf66,color:#fff
+                        style P7D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P7E[Division Completion] --> P7F[Septal Resolution]
+                        P7F --> P7G[Daughter Cell Separation Activation]
+                        P7G --> P7H[Cell Wall Maturation]
+                        P7H --> P7I[Cell Separation]
+                        P7I --> P7J[Independent Cell Formation]
+                        
+                        style P7E fill:#ff6b6b,color:#fff
+                        style P7F fill:#ffd43b,color:#000
+                        style P7G fill:#74c0fc,color:#fff
+                        style P7H fill:#51cf66,color:#fff
+                        style P7I fill:#51cf66,color:#fff
+                        style P7J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P7K[Septal Maturation] --> P7L[Amidase Activation]
+                        P7L --> P7M[Peptidoglycan Cleavage]
+                        P7M --> P7N[Daughter Cell Separation Complex]
+                        P7N --> P7O[Cell Wall Resolution]
+                        P7O --> P7P[Septal Splitting]
+                        P7P --> P7Q[EnvC Regulation]
+                        P7Q --> P7R[Cell Separation]
+                        P7R --> P7S[Independent Cell Release]
+                        
+                        style P7K fill:#ff6b6b,color:#fff
+                        style P7L fill:#ffd43b,color:#000
+                        style P7M fill:#74c0fc,color:#fff
+                        style P7N fill:#51cf66,color:#fff
+                        style P7O fill:#74c0fc,color:#fff
+                        style P7P fill:#51cf66,color:#fff
+                        style P7Q fill:#51cf66,color:#fff
+                        style P7R fill:#ffd43b,color:#000
+                        style P7S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P7T[Septal Peptidoglycan Maturation] --> P7U[AmiABC Amidase Complex]
+                        P7U --> P7V[EnvC Activator Protein]
+                        P7V --> P7W[Peptidoglycan Cleavage Site]
+                        P7W --> P7X[Daughter Cell Separation Assembly]
+                        P7X --> P7Y[Septal Hydrolysis]
+                        P7Y --> P7Z[Cell Wall Splitting]
+                        P7Z --> P7AA[NlpD Regulation]
+                        P7AA --> P7BB[Separation Checkpoint]
+                        P7BB --> P7CC[Cell Release Mechanism]
+                        P7CC --> P7DD[Independent Cell Formation]
+                        P7DD --> P7EE[Division Success]
+                        
+                        style P7T fill:#ff6b6b,color:#fff
+                        style P7U fill:#ffd43b,color:#000
+                        style P7V fill:#74c0fc,color:#fff
+                        style P7W fill:#51cf66,color:#fff
+                        style P7X fill:#74c0fc,color:#fff
+                        style P7Y fill:#51cf66,color:#fff
+                        style P7Z fill:#51cf66,color:#fff
+                        style P7AA fill:#74c0fc,color:#fff
+                        style P7BB fill:#51cf66,color:#fff
+                        style P7CC fill:#51cf66,color:#fff
+                        style P7DD fill:#ffd43b,color:#000
+                        style P7EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P7FF[Septal Peptidoglycan Resolution] --> P7GG[AmiABC Endopeptidase Complex]
+                        P7GG --> P7HH[EnvC Lipoprotein Activator]
+                        P7HH --> P7II[Peptidoglycan Substrate Recognition]
+                        P7II --> P7JJ[Amidase Catalytic Domain]
+                        P7JJ --> P7KK[Peptide Bond Hydrolysis]
+                        P7KK --> P7LL[Septal Cleavage Mechanism]
+                        P7LL --> P7MM[Cell Wall Splitting Dynamics]
+                        P7MM --> P7NN[NlpD Regulatory Protein]
+                        P7NN --> P7OO[Separation Timing Control]
+                        P7OO --> P7PP[Daughter Cell Liberation]
+                        P7PP --> P7QQ[Independent Cell Emergence]
+                        P7QQ --> P7RR[Cell Division Checkpoint]
+                        P7RR --> P7SS[Separation Success Verification]
+                        P7SS --> P7TT[Cell Division Completion]
+                        
+                        style P7FF fill:#ff6b6b,color:#fff
+                        style P7GG fill:#ffd43b,color:#000
+                        style P7HH fill:#51cf66,color:#fff
+                        style P7II fill:#74c0fc,color:#fff
+                        style P7JJ fill:#ffd43b,color:#000
+                        style P7KK fill:#74c0fc,color:#fff
+                        style P7LL fill:#51cf66,color:#fff
+                        style P7MM fill:#ffd43b,color:#000
+                        style P7NN fill:#74c0fc,color:#fff
+                        style P7OO fill:#51cf66,color:#fff
+                        style P7PP fill:#51cf66,color:#fff
+                        style P7QQ fill:#51cf66,color:#fff
+                        style P7RR fill:#51cf66,color:#fff
+                        style P7SS fill:#74c0fc,color:#fff
+                        style P7TT fill:#b197fc,color:#fff`
+                }
+            },
+            8: {
+                levels: {
+                    1: `graph TD
+                        P8A[Division Signal] --> P8B[Cell Cycle Completion]
+                        P8B --> P8C[Checkpoint Verification]
+                        P8C --> P8D[Cycle Termination]
+                        
+                        style P8A fill:#ff6b6b,color:#fff
+                        style P8B fill:#ffd43b,color:#000
+                        style P8C fill:#51cf66,color:#fff
+                        style P8D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        P8E[Division Completion] --> P8F[Cell Cycle Checkpoint]
+                        P8F --> P8G[Division Verification]
+                        P8G --> P8H[Cycle Reset]
+                        P8H --> P8I[New Cycle Initiation]
+                        P8I --> P8J[Cell Cycle Restart]
+                        
+                        style P8E fill:#ff6b6b,color:#fff
+                        style P8F fill:#ffd43b,color:#000
+                        style P8G fill:#74c0fc,color:#fff
+                        style P8H fill:#51cf66,color:#fff
+                        style P8I fill:#51cf66,color:#fff
+                        style P8J fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        P8K[Daughter Cell Formation] --> P8L[Division Checkpoint]
+                        P8L --> P8M[Separation Verification]
+                        P8M --> P8N[Cell Cycle Completion Complex]
+                        P8N --> P8O[Cycle Reset Mechanism]
+                        P8O --> P8P[New Cell Cycle]
+                        P8P --> P8Q[DnaA Reactivation]
+                        P8Q --> P8R[Replication Preparation]
+                        P8R --> P8S[Cycle Restart]
+                        
+                        style P8K fill:#ff6b6b,color:#fff
+                        style P8L fill:#ffd43b,color:#000
+                        style P8M fill:#74c0fc,color:#fff
+                        style P8N fill:#51cf66,color:#fff
+                        style P8O fill:#74c0fc,color:#fff
+                        style P8P fill:#51cf66,color:#fff
+                        style P8Q fill:#51cf66,color:#fff
+                        style P8R fill:#ffd43b,color:#000
+                        style P8S fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        P8T[Successful Cell Division] --> P8U[Division Completion Checkpoint]
+                        P8U --> P8V[Daughter Cell Verification]
+                        P8V --> P8W[Cell Cycle Reset]
+                        P8W --> P8X[Cell Cycle Completion Assembly]
+                        P8X --> P8Y[Cycle Termination Signal]
+                        P8Y --> P8Z[New Cycle Preparation]
+                        P8Z --> P8AA[DnaA Reactivation]
+                        P8AA --> P8BB[Origin Licensing]
+                        P8BB --> P8CC[Replication Competence]
+                        P8CC --> P8DD[Cell Growth Phase]
+                        P8DD --> P8EE[Next Division Cycle]
+                        
+                        style P8T fill:#ff6b6b,color:#fff
+                        style P8U fill:#ffd43b,color:#000
+                        style P8V fill:#74c0fc,color:#fff
+                        style P8W fill:#51cf66,color:#fff
+                        style P8X fill:#74c0fc,color:#fff
+                        style P8Y fill:#51cf66,color:#fff
+                        style P8Z fill:#51cf66,color:#fff
+                        style P8AA fill:#74c0fc,color:#fff
+                        style P8BB fill:#51cf66,color:#fff
+                        style P8CC fill:#51cf66,color:#fff
+                        style P8DD fill:#ffd43b,color:#000
+                        style P8EE fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        P8FF[Complete Cell Division] --> P8GG[Division Success Verification]
+                        P8GG --> P8HH[Daughter Cell Viability Check]
+                        P8HH --> P8II[Cell Cycle Checkpoint Control]
+                        P8II --> P8JJ[Cycle Termination Signal]
+                        P8JJ --> P8KK[Cell Cycle Reset Mechanism]
+                        P8KK --> P8LL[New Cycle Preparation]
+                        P8LL --> P8MM[DnaA Protein Reactivation]
+                        P8MM --> P8NN[Origin Recognition Complex]
+                        P8NN --> P8OO[Replication Licensing]
+                        P8OO --> P8PP[DNA Replication Competence]
+                        P8PP --> P8QQ[Cell Growth Phase Entry]
+                        P8QQ --> P8RR[Metabolic Activity Resumption]
+                        P8RR --> P8SS[Next Division Preparation]
+                        P8SS --> P8TT[Cell Cycle Continuity]
+                        
+                        style P8FF fill:#ff6b6b,color:#fff
+                        style P8GG fill:#ffd43b,color:#000
+                        style P8HH fill:#51cf66,color:#fff
+                        style P8II fill:#74c0fc,color:#fff
+                        style P8JJ fill:#ffd43b,color:#000
+                        style P8KK fill:#74c0fc,color:#fff
+                        style P8LL fill:#51cf66,color:#fff
+                        style P8MM fill:#ffd43b,color:#000
+                        style P8NN fill:#74c0fc,color:#fff
+                        style P8OO fill:#51cf66,color:#fff
+                        style P8PP fill:#51cf66,color:#fff
+                        style P8QQ fill:#51cf66,color:#fff
+                        style P8RR fill:#51cf66,color:#fff
+                        style P8SS fill:#74c0fc,color:#fff
+                        style P8TT fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        // Caption text for each process and level
+        const captions = {
+            1: {
+                1: "Level 1: Basic FtsZ ring assembly and contractile machinery formation",
+                2: "Level 2: GTP-dependent FtsZ polymerization and ring stabilization",
+                3: "Level 3: Detailed ring nucleation with FtsA recruitment and membrane anchoring",
+                4: "Level 4: Comprehensive MinCDE regulation with divisome assembly",
+                5: "Level 5: Complete molecular detail of Z-ring dynamics and contractile mechanism"
+            },
+            2: {
+                1: "Level 1: Basic septum formation with peptidoglycan synthesis",
+                2: "Level 2: FtsI transpeptidase recruitment and septal peptidoglycan assembly",
+                3: "Level 3: Detailed peptidoglycan cross-linking with FtsW coordination",
+                4: "Level 4: Comprehensive septal synthesis with bifunctional PBP activity",
+                5: "Level 5: Complete molecular mechanism of divisome-directed wall synthesis"
+            },
+            3: {
+                1: "Level 1: Basic chromosome segregation and nucleoid partitioning",
+                2: "Level 2: ParAB system activation with chromosome positioning",
+                3: "Level 3: Detailed nucleoid organization with MukBEF condensin activity",
+                4: "Level 4: Comprehensive ParA dynamics with chromosome oscillation",
+                5: "Level 5: Complete molecular mechanism of chromosome partitioning"
+            },
+            4: {
+                1: "Level 1: Basic cell wall synthesis and peptidoglycan assembly",
+                2: "Level 2: PBP1B recruitment with glycan chain formation",
+                3: "Level 3: Detailed peptidoglycan cross-linking with MurG involvement",
+                4: "Level 4: Comprehensive bifunctional PBP activity with substrate coordination",
+                5: "Level 5: Complete molecular detail of septal peptidoglycan synthesis"
+            },
+            5: {
+                1: "Level 1: Basic membrane division and lipid redistribution",
+                2: "Level 2: Membrane constriction with lipid bilayer reorganization",
+                3: "Level 3: Detailed membrane curvature with fusion events",
+                4: "Level 4: Comprehensive membrane dynamics with compartmentalization",
+                5: "Level 5: Complete molecular mechanism of membrane division"
+            },
+            6: {
+                1: "Level 1: Basic cytokinesis and cellular compartmentalization",
+                2: "Level 2: Contractile force generation with membrane fusion",
+                3: "Level 3: Detailed septal closure with compartment formation",
+                4: "Level 4: Comprehensive cytokinesis with separation checkpoint",
+                5: "Level 5: Complete molecular detail of Z-ring contractile dynamics"
+            },
+            7: {
+                1: "Level 1: Basic daughter cell separation and wall completion",
+                2: "Level 2: Septal resolution with cell wall maturation",
+                3: "Level 3: Detailed amidase activation with peptidoglycan cleavage",
+                4: "Level 4: Comprehensive AmiABC complex with EnvC regulation",
+                5: "Level 5: Complete molecular mechanism of septal resolution"
+            },
+            8: {
+                1: "Level 1: Basic cell cycle completion and division checkpoint",
+                2: "Level 2: Division verification with cycle reset preparation",
+                3: "Level 3: Detailed checkpoint control with DnaA reactivation",
+                4: "Level 4: Comprehensive cycle termination with replication licensing",
+                5: "Level 5: Complete molecular detail of cell cycle continuity"
+            }
+        };
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+
+        function updateFlowchart(processNum, level) {
+            const levelSpan = document.getElementById(`level-${processNum}`);
+            const container = document.getElementById(`mermaid-${processNum}`);
+            const captionDiv = document.getElementById(`caption-${processNum}`);
+            
+            if (levelSpan) levelSpan.textContent = level;
+            if (captionDiv && captions[processNum] && captions[processNum][level]) {
+                captionDiv.textContent = captions[processNum][level];
+            }
+            
+            if (allProcesses[processNum] && allProcesses[processNum].levels[level]) {
+                container.innerHTML = '';
+                const mermaidDiv = document.createElement('div');
+                mermaidDiv.className = 'mermaid';
+                mermaidDiv.textContent = allProcesses[processNum].levels[level];
+                container.appendChild(mermaidDiv);
+                mermaid.init(undefined, mermaidDiv);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E. coli Cellular Processes - Programming Framework Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #f5f5f5; 
+        }
+        
+        h1, h2, h3, p, li, a {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+        }
+        
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        
+        h1 { 
+            color: #333; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            border-bottom: 3px solid #007bff; 
+            padding-bottom: 10px; 
+        }
+        
+        .intro { 
+            background: #e3f2fd; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 30px; 
+            border-left: 4px solid #2196f3; 
+        }
+        
+        .intro h2 { 
+            color: #1976d2; 
+            margin-top: 0; 
+        }
+        
+        .toc { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-bottom: 30px; 
+            border-left: 4px solid #28a745; 
+        }
+        
+        .toc h2 { 
+            color: #155724; 
+            margin-top: 0; 
+        }
+        
+        .toc ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        
+        .toc li { 
+            margin: 10px 0; 
+        }
+        
+        .toc a { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: bold; 
+            padding: 5px 10px; 
+            border-radius: 4px; 
+            transition: background-color 0.3s; 
+        }
+        
+        .toc a:hover { 
+            background-color: #e3f2fd; 
+        }
+        
+        .process-section { 
+            margin: 40px 0; 
+            padding: 20px 0; 
+            border-top: 2px solid #dee2e6; 
+        }
+        
+        .process-section h2 { 
+            color: #495057; 
+            margin-bottom: 15px; 
+        }
+        
+        .process-caption { 
+            background: #fff3cd; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #ffc107; 
+            font-style: italic; 
+            color: #856404; 
+        }
+        
+        .mermaid { 
+            font-family: Arial, sans-serif !important;
+            font-size: 14px !important; 
+            background: white; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin: 20px 0; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1); 
+            border: 1px solid #dee2e6; 
+        }
+        
+        .mermaid .node rect, .mermaid .node circle, .mermaid .node ellipse, .mermaid .node polygon { 
+            stroke-width: 2px !important; 
+        }
+        
+        .mermaid .label { 
+            font-family: Arial, sans-serif !important;
+            font-size: 14px !important; 
+        }
+        
+        .color-legend { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            border: 1px solid #dee2e6; 
+        }
+        
+        .color-legend h3 { 
+            margin-top: 0; 
+            color: #495057; 
+        }
+        
+        .footer { 
+            text-align: center; 
+            margin-top: 50px; 
+            padding-top: 20px; 
+            border-top: 2px solid #dee2e6; 
+            color: #666; 
+        }
+        
+        .back-to-top { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #007bff; 
+            color: white; 
+            padding: 10px 15px; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+        }
+        
+        .back-to-top:hover { 
+            background: #0056b3; 
+            color: white; 
+        } 
+    </style></head>
+<body>
+    <div class="container">
+    <h1 id="top">
+        E. coli Cellular Processes - Programming Framework Analysis
+    </h><div class="intro">
+        <h2>
+        🧬 Detailed Mermaid Flowcharts
+    </h><p>
+        <strong>Important Note:</strong> This document contains detailed E. coli cellular process flowcharts rendered using embedded Mermaid code with detail-preserving configuration to demonstrate the full complexity of bacterial cellular processes as computational programs.
+    </p><p>
+        Each flowchart uses the <strong>programming framework</strong> methodology to model biological processes as computational systems, showing how bacterial cells process information, make decisions, and execute responses through molecular networks that function like biological software.
+    </p></div><div class="toc">
+        <h2>
+        📋 Table of Contents - 10 E. coli Processes
+    </h><ul>
+        <li>
+            <a href="#beta-galactosidase">1. Beta-Galactosidase (Lac Operon)</a></li><li>
+            <a href="#chemotaxis">2. Chemotaxis</a></li><li>
+            <a href="#sos-response">3. SOS Response</a></li><li>
+            <a href="#tryptophan">4. Tryptophan Biosynthesis</a></li><li>
+            <a href="#iron-homeostasis">5. Iron Homeostasis</a></li><li>
+            <a href="#heat-shock">6. Heat Shock Response</a></li><li>
+            <a href="#nitrogen">7. Nitrogen Metabolism</a></li><li>
+            <a href="#cell-division">8. Cell Division</a></li><li>
+            <a href="#biofilm">9. Biofilm Formation</a></li><li>
+            <a href="#crispr">10. Phage Defense (CRISPR-Cas)</a></li></ul></div><div class="color-legend">
+        <h3>
+        🎨 Programming Framework Color Coding
+    </h><ul>
+        <li>
+            <strong style="color: #ff6b6b;">Red:</strong> Environmental triggers and inputs
+        </li><li>
+            <strong style="color: #feca57;">Yellow:</strong> Proteins and enzymes
+        </li><li>
+            <strong style="color: #4ecdc4;">Blue:</strong> Transport and regulatory processes
+        </li><li>
+            <strong style="color: #45b7d1;">Light Blue:</strong> Intermediates and logic gates
+        </li><li>
+            <strong style="color: #96ceb4;">Light Green:</strong> Products and outputs
+        </li></ul></div><!-- Process 1: Beta-Galactosidase --> <div class="process-section" id="beta-galactosidase">
+        <h2>
+        1. Beta-Galactosidase (Lac Operon)
+    </h><div class="process-caption">
+        <strong>Caption:</strong> The classic bacterial gene regulation system demonstrating how E. coli processes environmental lactose and glucose signals through regulatory logic gates to control enzyme production. Shows the computational nature of the lac repressor and CAP-cAMP systems working together as biological AND/OR gates. 
+    </div><div class="mermaid">
+        %% E. coli Beta-Galactosidase (Lac Operon) - Programming Framework Analysis %% This flowchart demonstrates the computational logic of bacterial gene regulation %% Color coding: Triggers, Proteins, Enzymes, Intermediates, Products (light green) graph TD
+    %% Environmental Inputs
+    A[Lactose in Environment] --> B[Lactose Transport] C[Glucose in Environment] --> D[Glucose Transport] E[Low Energy Status] --> F[Energy Stress Signal] %% Lactose Processing Pathway B --> G[Lactose Permease LacY] G --> H[Lactose Inside Cell] H --> I[Lactose Availability] %% Glucose Processing Pathway D --> J[Glucose Transporters] J --> K[Glucose Inside Cell] K --> L[High Glucose Status] %% Regulatory Logic Gates I
+    --> M{Is Lactose Present?} C
+    --> N{Is Glucose Present?} F
+    --> O{Is Energy Low?}
+    %% Lac Repressor Logic M
+    -->|No|
+    P[Lac Repressor Active] M
+    -->|Yes|
+    Q[Lac Repressor Inactive] P --> R[Repressor Binds Operator] R --> S[Transcription Blocked] Q --> T[Repressor Released] T --> U[Operator Free] %% CAP-cAMP Logic N
+    -->|Yes|
+    V[Low cAMP Levels] N
+    -->|No|
+    W[High cAMP Levels] O
+    --> B B --> X[cAMP-CAP Complex] A --> Y[No CAP Binding] X --> Z[CAP Binds Promoter] Y
+    --> A
+    A[No CAP Binding] %% Transcription Initiation Logic U
+    --> BB{Operator Free?} Z
+    --> CC{CAP Bound?} BB
+    -->|Yes| D
+    D[RNA Polymerase Binding] BB
+    -->|No| E
+    E[Transcription Blocked] CC
+    -->|Yes| DD CC
+    -->|No| F
+    F[Weak Transcription] %% Transcription and Translation DD
+    --> G
+    G[Transcription Initiation] FF
+    --> GG GG
+    --> H
+    H[lacZ mRNA Synthesis] GG
+    --> I
+    I[lacY mRNA Synthesis] GG
+    --> J
+    J[lacA mRNA Synthesis] %% Translation Processes HH
+    --> K
+    K[LacZ Translation] II
+    --> C
+    L[LacY Translation] JJ
+    --> M
+    M[LacA Translation] %% Protein Processing KK
+    --> N
+    N[Beta-Galactosidase Enzyme] LL
+    --> O
+    O[Lactose Permease] MM
+    --> P
+    P[Galactoside Acetyltransferase] %% Functional Outputs NN
+    --> Q
+    Q[Lactose Hydrolysis] OO
+    --> R
+    R[Lactose Transport] PP
+    --> S
+    S[Galactoside Modification] %% Lactose Metabolism QQ
+    --> T
+    T[Glucose + Galactose] RR
+    --> U
+    U[Lactose Uptake] SS
+    --> A
+    A[Detoxification] %% Energy Production TT
+    --> B
+    B[Glycolysis] UU
+    --> X
+    X[Lactose Processing] VV
+    --> Y
+    Y[Cell Protection] %% Feedback Loops WW
+    --> Z
+    Z[Energy Production] XX
+    --> AA
+    A[Lactose Consumption] YY
+    --> BB
+    B[Cell Survival] %% Energy Status Update ZZ
+    --> CC
+    C[Energy Status Improved] AAA
+    --> DD
+    D[Lactose Depletion] BBB
+    --> EE
+    E[Cell Health] %% Regulatory Feedback CCC
+    --> FF
+    F[Reduced Energy Stress] DDD
+    --> GG
+    G[Reduced Lactose Signal] EEE
+    --> HH
+    H[Maintained Homeostasis] %% Return to Regulatory Logic FFF
+    --> O GGG
+    --> M HHH
+    --> II
+    I[System Equilibrium] %% Key Regulatory Proteins JJ
+    J[LacI Repressor] --> P KK
+    K[CAP Protein] --> X LL
+    C[cAMP] --> X MM
+    M[RNA Polymerase] --> GG NN
+    N[LacZ Gene] --> HH OO
+    O[LacY Gene] --> II PP
+    P[LacA Gene] --> JJ %% Styling - Programming Framework Colors
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#74c0fc,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#ffd43b,color:#000
+    style E fill:#b197fc,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#b197fc,color:#fff
+    style I fill:#b197fc,color:#fff
+    style J fill:#b197fc,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#b197fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    style DD fill:#74c0fc,color:#fff
+    style EE fill:#74c0fc,color:#fff
+    style FF fill:#74c0fc,color:#fff
+    style GG fill:#74c0fc,color:#fff
+    style HH fill:#74c0fc,color:#fff
+    style II fill:#b197fc,color:#fff
+    style JJ fill:#ffd43b,color:#000
+    style KK fill:#ffd43b,color:#000
+    style LL fill:#ffd43b,color:#000
+    style MM fill:#ffd43b,color:#000
+    style NN fill:#ffd43b,color:#000
+    style OO fill:#ffd43b,color:#000
+    style PP fill:#ffd43b,color:#000
+                    </div>
+    </div><!-- Process 2: Chemotaxis --> <div class="process-section" id="chemotaxis">
+        <h2>
+        2. Chemotaxis
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Bacterial navigation system showing how E. coli processes chemical gradients to direct movement. Demonstrates sophisticated signal processing, adaptation, and motor control systems that function as a biological guidance computer. 
+    </div><div class="mermaid">
+        %% E. coli Chemotaxis - Programming Framework Analysis %% This flowchart demonstrates bacterial navigation and signal processing %% Color coding: Environmental signals, Proteins, Processing, Outputs (light green) graph TD
+    %% Environmental Inputs
+    A[Chemical Attractants] --> B[Attractant Detection] C[Chemical Repellents] --> D[Repellent Detection] E[Gradient Changes] --> F[Temporal Sensing] %% Receptor Systems B --> G[Tar Receptor] B --> H[Tsr Receptor] D --> I[Tap Receptor] D --> J[Trg Receptor] F --> K[Receptor Clusters] %% Signal Transduction G --> L[CheW Coupling] H
+    --> L I
+    --> L B
+    --> L K
+    --> L L --> M[CheA Kinase] %% Phosphorylation Cascade M
+    --> N{CheA Active?} N
+    -->|Yes|
+    O[CheA Autophosphorylation] N
+    -->|No|
+    P[No Phosphorylation] O --> Q[CheY Phosphorylation] P --> R[CheY Inactive] %% Motor Control Logic Q
+    --> S{CheY-P Level?} S
+    -->|High|
+    T[Clockwise Rotation] S
+    -->|Low|
+    U[Counterclockwise Rotation] R
+    --> U
+    %% Swimming Behavior C --> A[Tumbling] U --> W[Smooth Swimming] A --> X[Random Direction] W --> Y[Straight Movement] %% Adaptation System Q --> Z[CheZ Phosphatase] Z
+    --> A
+    A[CheY Dephosphorylation] AA
+    --> B
+    B[Signal Termination] %% Methylation Control M
+    --> C
+    C[CheB Activation] CC
+    --> D
+    D[Receptor Demethylation] DD
+    --> E
+    E[Reduced Sensitivity] %% Counter-Adaptation F
+    F[CheR Methyltransferase] --> G
+    G[Receptor Methylation] GG
+    --> H
+    H[Increased Sensitivity] EE
+    --> I
+    I[Adaptation State] HH
+    --> II %% Behavioral Outputs X
+    --> B
+    B[Exploration] Y
+    --> K
+    K[Gradient Following] JJ
+    --> LL{Better Environment?} KK
+    --> MM{Attractant Increasing?} %% Decision Logic LL
+    -->|Yes| KK LL
+    -->|No| A MM
+    -->|Yes| W MM
+    -->|No| A %% Memory and Learning II
+    --> N
+    N[Reset Baseline] NN
+    --> O BB
+    --> O
+    O[Response Reset] OO
+    --> P
+    P[Ready for New Signal] PP
+    --> B %% Flagellar Motor C
+    --> Q
+    Q[FliM Switch] U
+    --> QQ QQ
+    --> R
+    R[Motor Direction] RR
+    --> S
+    S[Flagellar Bundle] SS
+    --> C
+    C[Propulsion] %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#74c0fc,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#b197fc,color:#fff
+    style K fill:#b197fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 3: SOS Response --> <div class="process-section" id="sos-response">
+        <h2>
+        3. SOS Response
+    </h><div class="process-caption">
+        <strong>Caption:</strong> DNA damage emergency response system showing how E. coli detects and responds to genetic threats. Functions as a biological crisis management program with error detection, repair protocols, and recovery procedures. 
+    </div><div class="mermaid">
+        %% E. coli SOS Response - Programming Framework Analysis %% Emergency DNA repair and survival system %% Color coding: Damage signals, Proteins, Repair processes, Survival outcomes (light green) graph TD
+    %% DNA Damage Signals
+    A[UV Radiation] --> B[DNA Damage Detection] C[Chemical Mutagens] --> B
+    D[Replication Stress] --> B
+    E[Ionizing Radiation] --> B %% Damage Recognition B --> F[Single-strand DNA] F --> G[RecA Protein Binding] G --> H[RecA Nucleofilament] H --> I[RecA Activation] %% LexA Repressor Control I
+    --> J{RecA Active?} J
+    -->|Yes|
+    K[LexA Cleavage] J
+    -->|No|
+    L[LexA Repressor Active] L --> M[SOS Genes Repressed] K --> N[LexA Degradation] %% SOS Regulon Activation N --> O[Operator Sites Free] O --> P[RNA Polymerase Binding] P --> Q[SOS Gene Transcription] %% DNA Repair Pathways Q --> R[uvrA Expression] Q --> S[uvrB Expression] Q --> T[uvrC Expression] R --> U[UvrA Protein] S --> V[UvrB Protein] T --> W[UvrC Protein] %% Nucleotide Excision Repair U --> X[UvrAB Complex] V
+    --> X X --> Y[Damage Recognition] Y --> Z[DNA Unwinding] W
+    --> A
+    A[UvrBC Complex] Z
+    --> AA AA
+    --> B
+    B[Damage Excision] BB
+    --> C
+    C[DNA Polymerase I] CC
+    --> D
+    D[Gap Filling] DD
+    --> E
+    E[DNA Ligase] EE
+    --> F
+    F[Repair Complete] %% Cell Cycle Control Q
+    --> G
+    G[sulA Expression] GG
+    --> H
+    H[SulA Protein] HH
+    --> I
+    I[FtsZ Inhibition] II
+    --> J
+    J[Cell Division Block] JJ
+    --> K
+    K[DNA Repair Time] %% Error-Prone Repair Q
+    --> L
+    L[dinB Expression] Q
+    --> M
+    M[umuC Expression] Q
+    --> N
+    N[umuD Expression] LL
+    --> O
+    O[DinB Polymerase] MM
+    --> P
+    P[UmuC Protein] NN
+    --> Q
+    Q[UmuD Protein] %% Mutagenic Bypass OO
+    --> R
+    R[Translesion Synthesis] PP
+    --> S
+    S[UmuC/UmuD Complex] QQ
+    --> SS SS
+    --> T
+    T[Error-Prone Bypass] RR
+    --> U
+    U[Survival with Mutations] TT
+    --> UU %% Recovery Phase FF
+    --> V
+    V[Damage Cleared] VV
+    --> W
+    W[RecA Inactivation] WW
+    --> X
+    X[LexA Reformation] XX
+    --> Y
+    Y[SOS Genes Repressed] YY
+    --> Z
+    Z[Normal Growth Resume] %% Cell Fate Decisions KK
+    --> AAA{Repair Successful?} AAA
+    -->|Yes| VV AAA
+    -->|No| BB
+    B[Continued SOS] BBB
+    --> CCC{Damage Severe?} CCC
+    -->|Yes| DD
+    D[Cell Death] CCC
+    -->|No| UU %% System Outputs ZZ
+    --> EE
+    E[Cell Survival] UU
+    --> FF
+    F[Mutant Survival] DDD
+    --> GG
+    G[Population Protection] %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#b197fc,color:#fff
+    style G fill:#b197fc,color:#fff
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#74c0fc,color:#fff
+    style L fill:#b197fc,color:#fff
+    style M fill:#b197fc,color:#fff
+    style N fill:#b197fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#b197fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#74c0fc,color:#fff
+    style DD fill:#b197fc,color:#fff
+    style EE fill:#b197fc,color:#fff
+    style FF fill:#b197fc,color:#fff
+    style GG fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 4: Tryptophan Biosynthesis --> <div class="process-section" id="tryptophan">
+        <h2>
+        4. Tryptophan Biosynthesis
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Amino acid production pathway with sophisticated feedback control and transcriptional attenuation. Shows how E. coli regulates enzyme synthesis based on amino acid availability, functioning as a biological supply chain management system. 
+    </div><div class="mermaid">
+        %% E. coli Tryptophan Biosynthesis - Programming Framework Analysis %% Amino acid biosynthesis with feedback regulation %% Color coding: Environmental inputs, Enzymes, Intermediates, Products (light green) graph TD
+    %% Environmental Inputs
+    A[Tryptophan Availability] --> B[Tryptophan Transport] C[Chorismate Precursor] --> D[Pathway Initiation] E[Energy Status ATP] --> F[Metabolic Readiness] %% Transport and Sensing B --> G[TrpT Transporter] G --> H[Internal Tryptophan] E --> I[Tryptophan Pool] %% Transcriptional Control I
+    --> J{Tryptophan High?} J
+    -->|Yes|
+    K[TrpR Repressor Active] J
+    -->|No|
+    L[TrpR Repressor Inactive] K --> M[Operator Binding] M --> N[Transcription Blocked] B --> O[Promoter Free] %% Attenuation Control O --> P[trp Operon Transcription] P --> Q[Leader Sequence] Q
+    --> R{Translation Speed?} R
+    -->|Fast|
+    A[Antitermination] R
+    -->|Slow|
+    T[Transcription Termination] A --> U[Full Operon Transcription] T --> V[Premature Termination] %% Enzyme Production U --> W[trpE mRNA] U --> X[trpD mRNA] U --> Y[trpC mRNA] U --> Z[trpB mRNA] U
+    --> A
+    A[trpA mRNA] %% Translation D
+    --> B
+    B[TrpE Translation] X
+    --> C
+    C[TrpD Translation] Y
+    --> D
+    D[TrpC Translation] Z
+    --> E
+    E[TrpB Translation] AA
+    --> F
+    F[TrpA Translation] %% Enzyme Complex Formation BB
+    --> G
+    G[Anthranilate Synthase] CC
+    --> E
+    H[PRA Isomerase] DD
+    --> I
+    I[InGP Synthase] EE
+    --> J
+    J[Tryptophan Synthase β] FF
+    --> K
+    K[Tryptophan Synthase α] %% Biosynthetic Pathway D
+    --> B
+    B[Chorismate] GG
+    --> M
+    M[Chorismate Processing] LL
+    --> MM MM
+    --> C
+    C[Anthranilate] HH
+    --> O
+    O[Anthranilate Conversion] NN
+    --> OO OO
+    --> P
+    P[PRA Formation] II
+    --> Q
+    Q[PRA Processing] PP
+    --> QQ QQ
+    --> R
+    R[InGP Formation] %% Final Steps JJ
+    --> A
+    S[Tryptophan Synthase Complex] KK
+    --> SS SS
+    --> T
+    T[Indole Production] TT
+    --> U
+    U[Serine Addition] RR
+    --> V
+    V[Indole Channel] VV
+    --> TT UU
+    --> D
+    D[B-Tryptophan] %% Feedback Regulation WW
+    --> X
+    X[Product Inhibition] XX
+    --> Y
+    Y[TrpE Allosteric Site] YY
+    --> Z
+    Z[Enzyme Inhibition] ZZ
+    --> AA
+    A[Pathway Slowdown] %% Cellular Integration WW
+    --> BB
+    B[Protein Synthesis] BBB
+    --> CC
+    C[Growth and Division] WW
+    --> DD
+    D[Tryptophan Pool Update] DDD
+    --> I %% Energy Monitoring F
+    --> EEE{ATP Available?} EEE
+    -->|Yes| GG EEE
+    -->|No| FF
+    F[Biosynthesis Pause] FFF
+    --> GG
+    G[Energy Conservation] %% System Balance AAA
+    --> HH
+    E[Homeostasis] CCC
+    --> II
+    I[Cell Health] GGG
+    --> JJ
+    J[Metabolic Balance] HHH
+    --> KK
+    K[System Equilibrium] III
+    --> KKK JJJ
+    --> KKK %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style A fill:#b197fc,color:#fff
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#74c0fc,color:#fff
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    style W fill:#b197fc,color:#fff
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style CC fill:#b197fc,color:#fff
+    style DD fill:#ffd43b,color:#000
+    style EE fill:#74c0fc,color:#fff
+    style FF fill:#ffd43b,color:#000
+    style GG fill:#74c0fc,color:#fff
+    style HH fill:#b197fc,color:#fff
+    style II fill:#b197fc,color:#fff
+    style JJ fill:#b197fc,color:#fff
+    style KK fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 5: Iron Homeostasis --> <div class="process-section" id="iron-homeostasis">
+        <h2>
+        5. Iron Homeostasis
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Essential metal management system showing how E. coli balances iron acquisition, storage, and toxicity protection. Demonstrates complex regulatory networks that function as a biological resource management system with sensors, transporters, and safety mechanisms. 
+    </div><div class="mermaid">
+        %% E. coli Iron Homeostasis - Programming Framework Analysis %% Metal ion regulation and transport system %% Color coding: Environmental iron, Regulatory proteins, Transport/storage, Outputs (light green) graph TD
+    %% Environmental Iron Status
+    A[Iron Availability] --> B[Iron Sensing] C[Iron Limitation] --> D[Stress Signal] E[Iron Excess] --> F[Toxicity Risk] %% Iron Transport Systems D --> G[FepA Receptor] D --> H[FhuA Receptor] D --> I[FecA Receptor] D --> J[Siderophore Production] %% Siderophore Pathway J --> K[EntA Synthesis] K --> L[EntB Processing] L --> M[EntC Assembly] M --> A[Enterobactin] E --> O[Iron Chelation] O --> B[Fe-Enterobactin] %% Iron Uptake D --> Q[Outer Membrane Transport] G
+    --> Q H
+    --> Q I
+    --> Q Q --> R[TonB Energy Coupling] R --> S[Periplasmic Transfer] S --> T[Inner Membrane Transport] T --> U[Cytoplasmic Iron] %% Fur Regulatory System U --> V[Iron Pool Assessment] V
+    --> W{Iron Sufficient?} W
+    -->|Yes|
+    X[Fur-Fe Complex] W
+    -->|No|
+    C[Apo-Fur] X --> Z[Operator Binding] Z
+    --> E
+    A[Gene Repression] C
+    --> D
+    D[Derepression] %% Iron Acquisition Genes BB
+    --> C
+    C[fepA Expression] BB
+    --> D
+    D[fhuA Expression] BB
+    --> E
+    E[entABC Expression] CC
+    --> F
+    F[Increased FepA] DD
+    --> G
+    G[Increased FhuA] EE
+    --> H
+    H[Enhanced Siderophore] %% Iron Storage System U
+    --> II{Iron Excess?} II
+    -->|Yes| J
+    J[Ferritin Induction] II
+    -->|No| K
+    K[Normal Storage] JJ
+    --> L
+    L[FtnA Expression] LL
+    --> M
+    M[Iron Sequestration] MM
+    --> E
+    N[Ferritin Core] NN
+    --> O
+    O[Safe Storage] %% RyhB Small RNA Regulation C
+    --> D
+    P[RyhB Expression] PP
+    --> Q
+    Q[RyhB sRNA] QQ
+    --> R
+    R[mRNA Targeting] RR
+    --> S
+    S[Translation Repression] SS
+    --> T
+    T[Iron Conservation] %% Oxidative Stress Protection F
+    --> U
+    U[Fenton Reaction Risk] UU
+    --> V
+    V[ROS Production] VV
+    --> W
+    W[Cellular Damage] MM
+    --> X
+    X[Iron Sequestration] XX
+    --> C
+    Y[ROS Reduction] %% Bacterioferritin System U
+    --> Z
+    Z[Bfr Regulation] ZZ
+    --> AA
+    E[Bacterioferritin] AAA
+    --> BB
+    B[Heme-Iron Storage] BBB
+    --> CC
+    C[Long-term Reserve] %% Iron Mobilization D
+    --> DD
+    D[Iron Release Signal] DDD
+    --> EE
+    E[Ferritin Degradation] EEE
+    --> FF
+    F[Iron Liberation] FFF
+    --> U CCC
+    --> GG
+    G[Reserve Mobilization] GGG
+    --> FFF %% Cellular Integration OO
+    --> HH
+    H[Iron Homeostasis] TT
+    --> HHH YY
+    --> II
+    I[Cell Protection] HHH
+    --> JJ
+    J[Optimal Growth] III
+    --> JJJ %% System Outputs JJJ
+    --> KK
+    K[Metabolic Efficiency] KKK
+    --> LL
+    L[Cell Survival] AA
+    --> MM
+    M[Resource Conservation] MMM
+    --> NN
+    N[Population Fitness] %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#b197fc,color:#fff
+    style D fill:#b197fc,color:#fff
+    style E fill:#b197fc,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#b197fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style P fill:#b197fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#b197fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#ffd43b,color:#000
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#ffd43b,color:#000
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#74c0fc,color:#fff
+    style DD fill:#74c0fc,color:#fff
+    style EE fill:#ffd43b,color:#000
+    style FF fill:#ffd43b,color:#000
+    style GG fill:#ffd43b,color:#000
+    style HH fill:#b197fc,color:#fff
+    style II fill:#b197fc,color:#fff
+    style JJ fill:#b197fc,color:#fff
+    style KK fill:#b197fc,color:#fff
+    style LL fill:#b197fc,color:#fff
+    style MM fill:#b197fc,color:#fff
+    style NN fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 6: Heat Shock Response --> <div class="process-section" id="heat-shock">
+        <h2>
+        6. Heat Shock Response
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Temperature stress management system showing how E. coli detects and responds to thermal damage. Functions as a biological quality control and repair system with chaperones, proteases, and recovery mechanisms. 
+    </div><div class="mermaid">
+        %% E. coli Heat Shock Response - Programming Framework Analysis %% Temperature stress response and protein quality control %% Color coding: Stress signals, Chaperones, Processing, Recovery (light green) graph TD
+    %% Temperature Stress
+    A[Temperature Increase] --> B[Protein Unfolding] C[Heat Shock] --> D[Membrane Stress] E[Thermal Damage] --> F[Cellular Stress] %% Stress Detection B --> G[Misfolded Proteins] D --> H[Membrane Disruption] F --> I[Stress Signal] G --> J[Protein Aggregation] %% Sigma Factor Regulation I --> K[σ32 Activation] A --> L[RpoH Stabilization] L --> M[Heat Shock Promoters] M --> N[HSP Gene Expression] %% DnaK/DnaJ System N --> O[dnaK Expression] N --> P[dnaJ Expression] N --> Q[grpE Expression] O --> R[DnaK Chaperone] P --> S[DnaJ Co-chaperone] Q --> T[GrpE Exchange Factor] %% Protein Refolding Cycle G --> U[Substrate Recognition] B --> V[ATP-dependent Binding] S --> W[Substrate Delivery] U
+    --> V W
+    --> V V --> X[Protein-DnaK Complex] T --> Y[ADP Exchange] X
+    --> Y Y --> Z[Substrate Release] %% Refolding Assessment Z
+    --> AA{Refolding Success?} AA
+    -->|Yes| B
+    B[Native Protein] AA
+    -->|No| C
+    C[Repeat Cycle] CC
+    --> U AA
+    -->|Failed| D
+    D[Degradation Target] %% GroEL/GroES System N
+    --> E
+    E[groEL Expression] N
+    --> F
+    F[groES Expression] EE
+    --> G
+    G[GroEL Chaperonin] FF
+    --> H
+    H[GroES Co-chaperonin] %% Folding Chamber Cycle G
+    --> I
+    I[Large Protein Substrate] II
+    --> C
+    J[GroEL Binding] GG
+    --> JJ JJ
+    --> A
+    A[Encapsulation] HH
+    --> L
+    L[GroES Capping] KK
+    --> LL LL
+    --> M
+    M[Folding Chamber] MM
+    --> N
+    N[ATP-driven Folding] NN
+    --> O
+    O[Product Release] %% Quality Control OO
+    --> PP{Folding Correct?} PP
+    -->|Yes| Q
+    Q[Functional Protein] PP
+    -->|No| B
+    B[Re-encapsulation] RR
+    --> JJ PP
+    -->|Failed| S
+    S[Proteolytic Targeting] %% Protein Degradation DD
+    --> T
+    T[ClpX Recognition] SS
+    --> TT TT
+    --> U
+    U[ClpP Protease] UU
+    --> V
+    V[Protein Degradation] VV
+    --> W
+    W[Amino Acid Recycling] %% Membrane Protection H
+    --> X
+    X[Membrane Repair] XX
+    --> Y
+    Y[Lipid Remodeling] YY
+    --> Z
+    Z[Membrane Stability] %% Recovery Phase BB
+    --> AA
+    A[Protein Function Restored] QQ
+    --> AAA ZZ
+    --> BB
+    B[Membrane Integrity] WW
+    --> CC
+    C[Resource Recovery] %% Stress Adaptation AAA
+    --> DD
+    D[Cellular Function] BBB
+    --> DDD CCC
+    --> DDD DDD
+    --> EE
+    E[Temperature Tolerance] EEE
+    --> FF
+    F[Survival Advantage] %% Negative Feedback AAA
+    --> GG
+    G[σ32 Degradation] GGG
+    --> HH
+    H[HSP Reduction] HHH
+    --> II
+    I[System Reset] III
+    --> JJ
+    C[Homeostasis] %% System Outputs FFF
+    --> KK
+    K[Cell Survival] JJJ
+    --> LL
+    L[Growth Resume] KKK
+    --> MM
+    M[Population Fitness] LLL
+    --> MMM %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#74c0fc,color:#fff
+    style B fill:#b197fc,color:#fff
+    style C fill:#ffd43b,color:#000
+    style D fill:#74c0fc,color:#fff
+    style E fill:#b197fc,color:#fff
+    style F fill:#b197fc,color:#fff
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#b197fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style S fill:#74c0fc,color:#fff
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    style W fill:#b197fc,color:#fff
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#b197fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style CC fill:#b197fc,color:#fff
+    style DD fill:#b197fc,color:#fff
+    style EE fill:#b197fc,color:#fff
+    style FF fill:#b197fc,color:#fff
+    style GG fill:#ffd43b,color:#000
+    style HH fill:#ffd43b,color:#000
+    style II fill:#ffd43b,color:#000
+    style JJ fill:#b197fc,color:#fff
+    style KK fill:#b197fc,color:#fff
+    style LL fill:#b197fc,color:#fff
+    style MM fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 7: Nitrogen Metabolism --> <div class="process-section" id="nitrogen">
+        <h2>
+        7. Nitrogen Metabolism
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Nitrogen assimilation and regulation system showing how E. coli processes various nitrogen sources for amino acid and nucleotide synthesis. Functions as a biological nutrient processing and distribution network. 
+    </div><div class="mermaid">
+        %% E. coli Nitrogen Metabolism - Programming Framework Analysis %% Nitrogen assimilation and regulation %% Color coding: N-sources, Regulators, Enzymes/transport, Products (light green) graph TD
+    %% Nitrogen Sources
+    A[Ammonia NH3] --> B[Ammonia Transport] C[Nitrate NO3] --> D[Nitrate Transport] E[Amino Acids] --> F[Amino Acid Transport] G[Organic Nitrogen] --> H[Nitrogen Scavenging] %% Transport Systems B --> I[AmtB Transporter] D --> J[NarK Transporter] F --> K[General Amino Acid Permease] H --> L[Peptide Transporters] %% Nitrogen Assimilation I --> M[NH4+ Pool] J --> N[NO3- Reduction] K --> O[Amino Acid Pool] L --> P[Peptide Hydrolysis] N --> Q[NarG Nitrate Reductase] Q --> R[NO2- Formation] R --> S[NirB Nitrite Reductase] S --> T[NH4+ Production] T
+    --> M P
+    --> O %% Glutamine Synthetase System M
+    --> U{NH4+ Concentration?} U
+    -->|High|
+    V[Direct Assimilation] U
+    -->|Low|
+    W[GlnA Activation] W --> X[Glutamine Synthetase] X --> Y[ATP + NH4+ + Glutamate] Y --> Z[Glutamine Formation] %% Glutamate Dehydrogenase V
+    --> A
+    A[GdhA Activation] AA
+    --> B
+    B[Glutamate Dehydrogenase] BB
+    --> C
+    C[NH4+ + α-Ketoglutarate] CC
+    --> D
+    D[Glutamate Formation] %% GOGAT System Z
+    --> E
+    E[Glutamine Pool] DD
+    --> F
+    F[Glutamate Pool] EE
+    --> G
+    G[GltBD GOGAT] FF
+    --> GG GG
+    --> H
+    H[2 Glutamate] HH
+    --> I
+    I[Amino Acid Biosynthesis] %% Nitrogen Regulatory System M
+    --> J
+    J[Nitrogen Status Sensing] JJ
+    --> KK{Nitrogen Abundant?} KK
+    -->|Yes| L
+    L[NtrC Inactive] KK
+    -->|No| M
+    M[NtrC Active] LL
+    --> N
+    N[Default Metabolism] MM
+    --> O
+    O[NtrB Kinase] OO
+    --> P
+    P[NtrC Phosphorylation] PP
+    --> Q
+    Q[σ54 Activation] QQ
+    --> R
+    R[Nitrogen Regulon] %% Nitrogen Stress Response RR
+    --> S
+    S[glnA Expression] RR
+    --> T
+    T[gltBD Expression] RR
+    --> U
+    U[nac Expression] SS
+    --> V
+    V[Enhanced GlnA] TT
+    --> W
+    W[Enhanced GOGAT] UU
+    --> X
+    X[NAC Regulator] %% PII Regulatory Protein JJ
+    --> Y
+    Y[GlnD Sensor] YY
+    --> Z
+    Z[PII Modification] ZZ
+    --> AAA{PII State?} AAA
+    -->|Modified| BB
+    B[NtrB Phosphatase] AAA
+    -->|Unmodified| CC
+    C[NtrB Kinase] BBB
+    --> DD
+    D[NtrC Dephosphorylation] CCC
+    --> OO
+    %% Glutamine Synthetase Regulation ZZ
+    --> EE
+    E[GlnE Regulation] EEE
+    --> FFF{Nitrogen Status?} FFF
+    -->|Abundant| GG
+    G[GS Adenylylation] FFF
+    -->|Limited| HH
+    H[GS Deadenylylation] GGG
+    --> II
+    I[GS Inactive] HHH
+    --> JJ
+    J[GS Active] %% Metabolic Integration II
+    --> KK
+    K[Protein Synthesis] II
+    --> LL
+    L[Nucleotide Synthesis] II
+    --> MM
+    M[Cell Wall Synthesis] KKK
+    --> NN
+    N[Growth and Division] LLL
+    --> NNN MMM
+    --> NNN %% System Outputs NN
+    --> OO
+    O[Efficient N-use] NNN
+    --> PP
+    P[Cell Proliferation] OOO
+    --> QQ
+    Q[Resource Conservation] PPP
+    --> QQQ QQQ
+    --> RR
+    R[Population Success] %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#74c0fc,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#b197fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#b197fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#b197fc,color:#fff
+    style T fill:#b197fc,color:#fff
+    style U fill:#b197fc,color:#fff
+    style V fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#74c0fc,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#ffd43b,color:#000
+    style DD fill:#ffd43b,color:#000
+    style EE fill:#ffd43b,color:#000
+    style FF fill:#74c0fc,color:#fff
+    style GG fill:#ffd43b,color:#000
+    style HH fill:#ffd43b,color:#000
+    style II fill:#ffd43b,color:#000
+    style JJ fill:#ffd43b,color:#000
+    style KK fill:#b197fc,color:#fff
+    style LL fill:#b197fc,color:#fff
+    style MM fill:#b197fc,color:#fff
+    style NN fill:#b197fc,color:#fff
+    style OO fill:#b197fc,color:#fff
+    style PP fill:#b197fc,color:#fff
+    style QQ fill:#b197fc,color:#fff
+    style RR fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 8: Cell Division --> <div class="process-section" id="cell-division">
+        <h2>
+        8. Cell Division
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Bacterial cell division machinery showing how E. coli coordinates chromosome segregation, septum formation, and daughter cell separation. Functions as a biological manufacturing and quality control system ensuring accurate cell replication. 
+    </div><div class="mermaid">
+        %% A. coli Cell Division - Programming Framework Analysis %% Bacterial cell division and septum formation %% Color coding: Division signals, Division proteins, Processes, Completion (light green) graph TD
+    %% Division Initiation Signals
+    A[Cell Size Critical] --> B[Division Signal] C[DNA Replication Complete] --> D[Chromosome Signal] E[Nutrient Availability] --> F[Growth Signal] %% Cell Cycle Checkpoints B
+    --> G{Size Adequate?} D
+    --> H{DNA Segregated?} F
+    --> I{Resources Available?} G
+    -->|Yes|
+    J[Division Permitted] G
+    -->|No|
+    K[Division Delay] H
+    -->|Yes| J H
+    -->|No|
+    L[DNA Checkpoint Block] I
+    -->|Yes| J I
+    -->|No|
+    M[Nutrient Limitation Block] %% FtsZ Ring Assembly J --> N[FtsZ Polymerization] N --> O[Z-ring Formation] O --> P[FtsZ-ring Positioning] P --> Q[Mid-cell Localization] %% Divisome Assembly Q --> R[FtsA Recruitment] R --> S[ZipA Recruitment] S --> T[FtsK Assembly] T --> U[FtsQ Assembly] U --> V[FtsL Assembly] V --> W[FtsB Assembly] W --> X[FtsW Assembly] X --> Y[FtsI Assembly] Y --> Z[FtsN Assembly] Z
+    --> A
+    A[Divisome Complete] %% Chromosome Segregation D
+    --> B
+    B[Chromosome Duplication] BB
+    --> C
+    C[ParAB System] CC
+    --> D
+    D[ParA ATPase] DD
+    --> A
+    E[ParB DNA-binding] EE
+    --> F
+    F[oriC Separation] FF
+    --> G
+    G[Nucleoid Segregation] GG
+    --> H
+    H[DNA Clearance] %% Peptidoglycan Synthesis AA
+    --> I
+    I[Septum Initiation] II
+    --> J
+    J[FtsW Lipid II Transport] JJ
+    --> K
+    K[FtsI Transpeptidase] KK
+    --> L
+    L[Peptidoglycan Cross-linking] LL
+    --> M
+    M[Septum Formation] %% Cell Wall Constriction MM
+    --> N
+    N[Septum Maturation] NN
+    --> O
+    O[Cell Wall Invagination] OO
+    --> P
+    P[Membrane Constriction] PP
+    --> Q
+    Q[Septum Completion] %% Quality Control HH
+    --> RR{DNA Clear?} RR
+    -->|Yes| S
+    S[Division Proceed] RR
+    -->|No| T
+    T[Division Arrest] TT
+    --> U
+    U[SlmA Inhibition] UU
+    --> V
+    V[Z-ring Disruption] VV
+    --> W
+    W[Division Abort] %% Cell Separation SS
+    --> X
+    X[Septum Splitting] QQ
+    --> XX XX
+    --> Y
+    Y[Daughter Cell Formation] YY
+    --> Z
+    Z[Cell Wall Completion] ZZ
+    --> AA
+    A[Cell Separation] %% Membrane Dynamics PP
+    --> BB
+    B[Membrane Fusion] BBB
+    --> CC
+    C[Lipid Reorganization] CCC
+    --> DD
+    D[Membrane Sealing] DDD
+    --> EE
+    A[Compartmentalization] %% Divisome Disassembly AAA
+    --> FF
+    F[FtsZ Depolymerization] FFF
+    --> GG
+    G[Protein Recycling] GGG
+    --> HH
+    H[Component Recovery] %% Cell Cycle Reset AAA
+    --> II
+    I[New Cell Cycle] III
+    --> JJ
+    J[Growth Phase] JJJ
+    --> KK
+    K[Size Accumulation] KKK
+    --> A %% System Outputs AAA
+    --> LL
+    L[Two Daughter Cells] EEE
+    --> MM
+    M[Cellular Integrity] HHH
+    --> NN
+    N[Resource Efficiency] LLL
+    --> OO
+    O[Population Growth] MMM
+    --> OOO NNN
+    --> OOO %% Error Handling WW
+    --> PP
+    P[Division Retry] PPP
+    --> QQ
+    Q[Checkpoint Reset] QQQ
+    --> B %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#ffd43b,color:#000
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#74c0fc,color:#fff
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style U fill:#ffd43b,color:#000
+    style V fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#b197fc,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#ffd43b,color:#000
+    style DD fill:#ffd43b,color:#000
+    style EE fill:#b197fc,color:#fff
+    style FF fill:#ffd43b,color:#000
+    style GG fill:#ffd43b,color:#000
+    style HH fill:#b197fc,color:#fff
+    style II fill:#ffd43b,color:#000
+    style JJ fill:#ffd43b,color:#000
+    style KK fill:#ffd43b,color:#000
+    style LL fill:#b197fc,color:#fff
+    style MM fill:#b197fc,color:#fff
+    style NN fill:#b197fc,color:#fff
+    style OO fill:#b197fc,color:#fff
+    style PP fill:#ffd43b,color:#000
+    style QQ fill:#ffd43b,color:#000
+                    </div>
+    </div><!-- Process 9: Biofilm Formation --> <div class="process-section" id="biofilm">
+        <h2>
+        9. Biofilm Formation
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Multicellular community formation system showing how E. coli transitions from planktonic to sessile lifestyle. Functions as a biological social networking and construction system with quorum sensing, matrix production, and community coordination. 
+    </div><div class="mermaid">
+        %% E. coli Biofilm Formation - Programming Framework Analysis %% Multicellular community development %% Color coding: Environmental cues, Signaling, Matrix components, Community stages (light green) graph TD
+    %% Environmental Triggers
+    A[Surface Contact] --> B[Adhesion Signal] C[Nutrient Limitation] --> D[Stress Signal] E[Cell Density] --> F[Quorum Signal] G[Shear Stress] --> H[Flow Signal] %% Initial Attachment B --> I[Flagellar Contact] I --> J[Surface Recognition] J --> K[Reversible Attachment] K
+    --> L{Surface Suitable?} L
+    -->|Yes|
+    M[Attachment Commitment] L
+    -->|No|
+    A[Detachment] A --> O[Planktonic Return] %% Adhesion Mechanisms M --> P[Type I Pili Expression] P --> Q[FimA Assembly] Q --> R[Mannose-specific Binding] R --> S[Irreversible Attachment] %% Curli Fiber Production S --> T[csg Operon Activation] T --> U[CsgA Monomer] T --> V[CsgB Nucleator] U --> W[Curli Assembly] V
+    --> W W --> X[Amyloid Fibers] X --> Y[Strong Adhesion] %% Cellulose Matrix B --> Z[bcs Operon Induction] Z
+    --> A
+    A[BcsA Synthase] Z
+    --> B
+    B[BcsB Processing] AA
+    --> C
+    C[Cellulose Synthesis] BB
+    --> CC CC
+    --> B
+    D[Polysaccharide Matrix] DD
+    --> E
+    E[Structural Framework] %% Quorum Sensing F
+    --> F
+    F[AI-2 Production] FF
+    --> G
+    G[LuxS Synthase] GG
+    --> H
+    H[Autoinducer Accumulation] HH
+    --> II{Threshold Reached?} II
+    -->|Yes| J
+    J[Community Response] II
+    -->|No| K
+    K[Individual Behavior] %% Biofilm Development Y
+    --> L
+    L[Microcolony Formation] EE
+    --> LL JJ
+    --> M
+    M[Coordinated Development] LL
+    --> A
+    N[Cell-Cell Adhesion] MM
+    --> NN NN
+    --> O
+    O[Multilayer Structure] %% Matrix Maturation OO
+    --> P
+    P[EPS Production] PP
+    --> Q
+    Q[Extracellular DNA] PP
+    --> R
+    R[Protein Secretion] PP
+    --> S
+    S[Lipid Components] QQ
+    --> T
+    T[Matrix Integration] RR
+    --> TT SS
+    --> TT TT
+    --> U
+    U[Biofilm Architecture] %% Metabolic Adaptation UU
+    --> V
+    V[Oxygen Gradients] VV
+    --> W
+    W[Metabolic Zonation] WW
+    --> X
+    X[Anaerobic Regions] XX
+    --> Y
+    Y[Fermentation Pathways] YY
+    --> Z
+    Z[Metabolic Cooperation] %% Water Channels UU
+    --> AA
+    A[Channel Formation] AAA
+    --> BB
+    B[Nutrient Flow] BBB
+    --> CC
+    C[Waste Removal] CCC
+    --> DD
+    B[Homeostasis] %% Biofilm Maturation ZZ
+    --> EE
+    E[Mature Biofilm] DDD
+    --> EEE EEE
+    --> FF
+    F[Community Stability] FFF
+    --> GG
+    G[Stress Resistance] GGG
+    --> HH
+    H[Survival Advantage] %% Dispersal Mechanisms H
+    --> II
+    I[Shear Stress Response] III
+    --> JJ
+    J[Dispersal Signal] JJJ
+    --> KK
+    K[Matrix Degradation] KKK
+    --> LL
+    L[Cell Release] LLL
+    --> MM
+    M[Planktonic Phase] MMM
+    --> NN
+    N[Colonization Spread] %% Regulatory Networks B
+    --> OO
+    O[c-di-GMP Signaling] OOO
+    --> PPP{c-di-GMP Level?} PPP
+    -->|High| QQ
+    Q[Sessile Lifestyle] PPP
+    -->|Low| RR
+    R[Motile Lifestyle] QQQ
+    --> T RRR
+    --> A %% System Outputs HHH
+    --> SS
+    S[Community Success] NNN
+    --> TT
+    T[Population Spread] SSS
+    --> UU
+    U[Ecological Advantage] TTT
+    --> UUU UUU
+    --> VV
+    V[Evolutionary Fitness] %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#ffd43b,color:#000
+    style D fill:#ffd43b,color:#000
+    style E fill:#b197fc,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#ffd43b,color:#000
+    style L fill:#b197fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#b197fc,color:#fff
+    style P fill:#ffd43b,color:#000
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#ffd43b,color:#000
+    style U fill:#b197fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#ffd43b,color:#000
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#ffd43b,color:#000
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#ffd43b,color:#000
+    style DD fill:#b197fc,color:#fff
+    style EE fill:#b197fc,color:#fff
+    style FF fill:#b197fc,color:#fff
+    style GG fill:#b197fc,color:#fff
+    style HH fill:#b197fc,color:#fff
+    style II fill:#ffd43b,color:#000
+    style JJ fill:#74c0fc,color:#fff
+    style KK fill:#ffd43b,color:#000
+    style LL fill:#ffd43b,color:#000
+    style MM fill:#ffd43b,color:#000
+    style NN fill:#b197fc,color:#fff
+    style OO fill:#ffd43b,color:#000
+    style PP fill:#74c0fc,color:#fff
+    style QQ fill:#ffd43b,color:#000
+    style RR fill:#ffd43b,color:#000
+    style SS fill:#b197fc,color:#fff
+    style TT fill:#b197fc,color:#fff
+    style UU fill:#b197fc,color:#fff
+    style VV fill:#b197fc,color:#fff
+                    </div>
+    </div><!-- Process 10: CRISPR-Cas --> <div class="process-section" id="crispr">
+        <h2>
+        10. Phage Defense (CRISPR-Cas)
+    </h><div class="process-caption">
+        <strong>Caption:</strong> Adaptive immune system showing how E. coli acquires, stores, and uses genetic memory to defend against phage infections. Functions as a biological adaptive immune system with memory acquisition, storage, and targeted defense responses. 
+    </div><div class="mermaid">
+        %% E. coli CRISPR-Cas Defense - Programming Framework Analysis %% Adaptive immune system against phages %% Color coding: Phage threats, Cas proteins, Processing, Immunity (light green) graph TD
+    %% Phage Infection
+    A[Phage Attachment] --> B[DNA Injection] C[Phage Replication] --> D[Foreign DNA Signal] E[Viral Proteins] --> F[Infection Detection] %% Spacer Acquisition B --> G[Cas1-Cas2 Complex] D
+    --> G F
+    --> G G --> H[Foreign DNA Recognition] H --> I[PAM Sequence Identification] I --> J[Protospacer Selection] J --> K[DNA Cleavage] K --> L[Spacer Processing] %% CRISPR Array Integration L --> M[Leader Sequence Targeting] M --> N[Array Integration] N --> O[New Spacer Addition] O --> P[Genetic Memory Storage] P --> Q[Inherited Immunity] %% Transcription and Processing Q --> R[CRISPR Transcription] R --> S[pre-crRNA Synthesis] S --> T[Cas6 Endonuclease] T --> U[crRNA Processing] U --> V[Mature crRNA] V --> W[Guide RNA Ready] %% Surveillance Complex W --> X[Cas3 Recruitment] X --> Y[Cascade Complex] Y --> Z[crRNA Loading] Z
+    --> A
+    A[Surveillance Mode] %% Target Recognition AA
+    --> B
+    B[DNA Scanning] BB
+    --> CC{PAM Present?} CC
+    -->|Yes| D
+    D[PAM Recognition] CC
+    -->|No| E
+    E[Continue Scanning] EE
+    --> BB DD
+    --> F
+    F[R-loop Formation] FF
+    --> G
+    G[Target Validation] %% Sequence Matching GG
+    --> HH{Perfect Match?} HH
+    -->|Yes| I
+    I[Target Confirmed] HH
+    -->|No| J
+    J[Mismatch Detected] JJ
+    --> K
+    K[Tolerance Assessment] KK
+    --> LL{Within Threshold?} LL
+    -->|Yes| II LL
+    -->|No| M
+    M[Target Rejected] MM
+    --> BB %% Cas3 Activation II
+    --> N
+    N[Cas3 Recruitment] NN
+    --> O
+    O[Helicase Activity] OO
+    --> P
+    P[DNA Unwinding] PP
+    --> Q
+    Q[Nuclease Activity] QQ
+    --> R
+    R[DNA Degradation] %% Immune Response RR
+    --> S
+    S[Phage DNA Destruction] SS
+    --> T
+    T[Infection Clearance] TT
+    --> U
+    U[Cell Survival] UU
+    --> V
+    V[Immunity Acquired] %% Memory Maintenance VV
+    --> W
+    W[CRISPR Array Preservation] WW
+    --> X
+    X[Spacer Diversity] XX
+    --> Y
+    Y[Population Immunity] YY
+    --> Z
+    Z[Herd Protection] %% Adaptation Response RR
+    --> AA
+    A[Priming Signal] AAA
+    --> BB
+    B[Enhanced Acquisition] BBB
+    --> CC
+    C[Additional Spacers] CCC
+    --> DD
+    D[Immunity Strengthening] %% Evolutionary Arms Race SS
+    --> EE
+    E[Phage Selection Pressure] EEE
+    --> FF
+    F[Viral Evolution] FFF
+    --> GG
+    G[Escape Mutants] GGG
+    --> HH
+    H[New Spacer Need] HHH
+    --> G %% System Regulation TT
+    --> II
+    I[Auto-immunity Prevention] III
+    --> JJ
+    J[Self-Recognition Block] JJJ
+    --> KK
+    K[Host Protection] %% System Outputs UU
+    --> LL
+    L[Individual Survival] ZZ
+    --> MM
+    M[Population Protection] DDD
+    --> NN
+    N[Adaptive Immunity] KKK
+    --> OO
+    O[System Safety] LLL
+    --> PP
+    P[Evolutionary Success] MMM
+    --> PPP NNN
+    --> PPP OOO
+    --> PPP %% Styling
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#ff6b6b,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#b197fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#74c0fc,color:#fff
+    style  fill:#74c0fc,color:#fff
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style  fill:#ffd43b,color:#000
+    style A fill:#ffd43b,color:#000
+    style B fill:#ffd43b,color:#000
+    style C fill:#74c0fc,color:#fff
+    style D fill:#ffd43b,color:#000
+    style E fill:#ffd43b,color:#000
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#74c0fc,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#ffd43b,color:#000
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style S fill:#b197fc,color:#fff
+    style T fill:#b197fc,color:#fff
+    style U fill:#b197fc,color:#fff
+    style V fill:#b197fc,color:#fff
+    style W fill:#ffd43b,color:#000
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style CC fill:#ffd43b,color:#000
+    style DD fill:#b197fc,color:#fff
+    style EE fill:#74c0fc,color:#fff
+    style FF fill:#ffd43b,color:#000
+    style GG fill:#74c0fc,color:#fff
+    style HH fill:#74c0fc,color:#fff
+    style II fill:#ffd43b,color:#000
+    style JJ fill:#ffd43b,color:#000
+    style KK fill:#b197fc,color:#fff
+    style LL fill:#b197fc,color:#fff
+    style MM fill:#b197fc,color:#fff
+    style NN fill:#b197fc,color:#fff
+    style OO fill:#b197fc,color:#fff
+    style PP fill:#b197fc,color:#fff
+                    </div>
+    </div><div class="footer">
+        <p>
+        <strong>Generated using the Programming Framework methodology</strong>
+
+    </p><p>
+        These detailed flowcharts demonstrate the full complexity of E. coli cellular processes as computational programs
+    </p><p>
+        Each flowchart preserves the intricate detail through optimized Mermaid configuration and shows the computational nature of biological systems
+    </p></div>
+    </div><a href="#top" class="back-to-top">↑ Top</a><script>
+        // Mermaid Configuration for Detail Preservation // - useMaxWidth: false (prevents auto-collapsing) // - curve: 'linear' (stable arrow rendering) // - htmlLabels: true (preserves complex labels) // - Unique node IDs prevent simplification // - Subgraphs maintain visual grouping mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'linear', nodeSpacing: 30, rankSpacing: 40, padding: 10 }, themeVariables: { fontFamily: 'Arial, sans-serif', fontSize: '14px', primaryColor: '#ff6b6b', primaryTextColor: '#ffffff', primaryBorderColor: '#ff6b6b', lineColor: '#333333', secondaryColor: '#feca57', tertiaryColor: '#4ecdc4' } }); 
+    </script></body>
+</html> 
