@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch XX: [PROCESS_TITLE] - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1976d2;
+        }
+        .slider {
+            width: 80%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            margin: 0.5rem 0;
+        }
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #1976d2;
+            cursor: pointer;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .chart-container {
+            margin: 1rem 0;
+            min-height: 400px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+        }
+        .sources {
+            background: #fff3e0;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #ff9800;
+        }
+        .sources h3 {
+            color: #e65100;
+            margin-top: 0;
+        }
+        .sources ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .sources li {
+            margin: 0.5rem 0;
+        }
+        .disclosure {
+            background: #f3e5f5;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #9c27b0;
+        }
+        .disclosure h3 {
+            color: #4a148c;
+            margin-top: 0;
+        }
+        .color-key {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .color-item {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>E. coli Batch XX: [PROCESS_TITLE]</h1>
+            <p>Interactive Programming Framework for Biological Process Analysis</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>Overview</h2>
+                <p>This interactive framework presents [PROCESS_TITLE] processes in <em>E. coli</em> using a programming paradigm. Each process is modeled with increasing levels of molecular detail, from simple signal-response patterns to complex multi-component regulatory networks.</p>
+                
+                <div class="color-key">
+                    <h4>Universal Color Scheme:</h4>
+                    <span class="color-item" style="background: #ff6b6b; color: white;">Triggers/Inputs</span>
+                    <span class="color-item" style="background: #ffd43b; color: black;">Structures/Objects</span>
+                    <span class="color-item" style="background: #51cf66; color: white;">Processing/Operations</span>
+                    <span class="color-item" style="background: #74c0fc; color: white;">Intermediates/States</span>
+                    <span class="color-item" style="background: #b197fc; color: white;">Products/Outputs</span>
+                </div>
+            </div>
+
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#process-1">Process 1: [Process Name]</a></li>
+                    <li><a href="#process-2">Process 2: [Process Name]</a></li>
+                    <li><a href="#process-3">Process 3: [Process Name]</a></li>
+                    <li><a href="#process-4">Process 4: [Process Name]</a></li>
+                    <li><a href="#process-5">Process 5: [Process Name]</a></li>
+                    <li><a href="#process-6">Process 6: [Process Name]</a></li>
+                    <li><a href="#process-7">Process 7: [Process Name]</a></li>
+                    <li><a href="#process-8">Process 8: [Process Name]</a></li>
+                </ul>
+            </div>
+
+            <!-- Process 1 -->
+            <div class="process-item" id="process-1">
+                <h3>Process 1: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-1" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 2 -->
+            <div class="process-item" id="process-2">
+                <h3>Process 2: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
+                    <input type="range" id="slider-2" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-2" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 3 -->
+            <div class="process-item" id="process-3">
+                <h3>Process 3: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-3">Detail Level: <span id="level-3">1</span></label>
+                    <input type="range" id="slider-3" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-3" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 4 -->
+            <div class="process-item" id="process-4">
+                <h3>Process 4: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-4">Detail Level: <span id="level-4">1</span></label>
+                    <input type="range" id="slider-4" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-4" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 5 -->
+            <div class="process-item" id="process-5">
+                <h3>Process 5: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-5">Detail Level: <span id="level-5">1</span></label>
+                    <input type="range" id="slider-5" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-5" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 6 -->
+            <div class="process-item" id="process-6">
+                <h3>Process 6: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-6">Detail Level: <span id="level-6">1</span></label>
+                    <input type="range" id="slider-6" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-6" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 7 -->
+            <div class="process-item" id="process-7">
+                <h3>Process 7: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-7">Detail Level: <span id="level-7">1</span></label>
+                    <input type="range" id="slider-7" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-7" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Process 8 -->
+            <div class="process-item" id="process-8">
+                <h3>Process 8: [Process Name]</h3>
+                <div class="slider-container">
+                    <label for="slider-8">Detail Level: <span id="level-8">1</span></label>
+                    <input type="range" id="slider-8" min="1" max="5" value="1" class="slider">
+                    <div class="slider-labels">
+                        <span>Simple</span>
+                        <span>Complex</span>
+                    </div>
+                </div>
+                <div id="chart-8" class="chart-container">
+                    <!-- Mermaid chart will be inserted here -->
+                </div>
+            </div>
+
+            <div class="sources">
+                <h3>Sources and References</h3>
+                <ul>
+                    <li>Alberts, B., et al. (2014). <em>Molecular Biology of the Cell</em>. 6th Edition. Garland Science.</li>
+                    <li>Berg, J.M., Tymoczko, J.L., & Stryer, L. (2015). <em>Biochemistry</em>. 8th Edition. W.H. Freeman.</li>
+                    <li>Lodish, H., et al. (2016). <em>Molecular Cell Biology</em>. 8th Edition. W.H. Freeman.</li>
+                    <li>Nelson, D.L. & Cox, M.M. (2017). <em>Lehninger Principles of Biochemistry</em>. 7th Edition. W.H. Freeman.</li>
+                    <li>Current research literature and peer-reviewed publications in molecular biology and biochemistry.</li>
+                </ul>
+            </div>
+
+            <div class="disclosure">
+                <h3>Scientific Accuracy Disclosure</h3>
+                <p><strong>Educational Purpose:</strong> These flowcharts are designed for educational visualization of biological processes using programming concepts. While based on established scientific principles, they represent simplified models for pedagogical clarity.</p>
+                <p><strong>Accuracy Note:</strong> The molecular details and pathway representations are derived from current scientific literature but may not capture the complete complexity of actual biological systems. For research purposes, please consult primary literature and experimental data.</p>
+                <p><strong>Framework Context:</strong> This programming framework approach is intended to demonstrate computational thinking in biology and should be considered as a complementary educational tool alongside traditional biological education.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {
+            1: { // Process 1
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Process Initiation]
+                        B --> C[Molecular Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Environmental Signal] --> B[Receptor Binding]
+                        B --> C[Signal Transduction]
+                        C --> D[Molecular Complex]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Cellular Signal] --> B[Sensor Protein]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[Complex Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Binding]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Formation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[External Signal] --> B[Receptor Complex]
+                        B --> C[Signal Integration]
+                        C --> D[Pathway Activation]
+                        D --> E[Protein Recruitment]
+                        E --> F[Complex Formation]
+                        F --> G[Conformational Switch]
+                        G --> H[Active Site Assembly]
+                        H --> I[Substrate Recognition]
+                        I --> J[Catalytic Cycle]
+                        J --> K[Product Release]
+                        K --> L[Allosteric Regulation]
+                        L --> M[Feedback Control]
+                        M --> N[Process Modulation]
+                        N --> O[Quality Control]
+                        O --> P[Pathway Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Regulatory Signal] --> B[Multi-Receptor Complex]
+                        B --> C[Signal Processing Network]
+                        C --> D[Pathway Integration]
+                        D --> E[Protein Network Assembly]
+                        E --> F[Dynamic Complex Formation]
+                        F --> G[Allosteric Network]
+                        G --> H[Cooperative Binding]
+                        H --> I[Substrate Channel Formation]
+                        I --> J[Multi-Step Catalysis]
+                        J --> K[Intermediate Processing]
+                        K --> L[Product Modification]
+                        L --> M[Quality Assurance]
+                        M --> N[Regulatory Feedback]
+                        N --> O[Network Modulation]
+                        O --> P[Process Optimization]
+                        P --> Q[System Integration]
+                        Q --> R[Cellular Response]
+                        R --> S[Homeostatic Control]
+                        S --> T[Adaptive Regulation]
+                        T --> U[Process Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            2: { // Process 2
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Secondary Process]
+                        B --> C[Molecular Processing]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Input Signal] --> B[Receptor Activation]
+                        B --> C[Signal Amplification]
+                        C --> D[Protein Assembly]
+                        D --> E[Enzymatic Activity]
+                        E --> F[Product Formation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Trigger Signal] --> B[Sensor Activation]
+                        B --> C[Cascade Initiation]
+                        C --> D[Protein Network]
+                        D --> E[Complex Assembly]
+                        E --> F[Structural Change]
+                        F --> G[Binding Site Formation]
+                        G --> H[Substrate Interaction]
+                        H --> I[Reaction Mechanism]
+                        I --> J[Product Generation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Control Signal] --> B[Regulatory Complex]
+                        B --> C[Signal Network]
+                        C --> D[Pathway Control]
+                        D --> E[Protein Coordination]
+                        E --> F[Assembly Dynamics]
+                        F --> G[Conformational Network]
+                        G --> H[Active Site Network]
+                        H --> I[Substrate Processing]
+                        I --> J[Reaction Coordination]
+                        J --> K[Product Assembly]
+                        K --> L[Regulatory Control]
+                        L --> M[Feedback Integration]
+                        M --> N[Process Control]
+                        N --> O[Quality Assurance]
+                        O --> P[System Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[System Signal] --> B[Master Control Complex]
+                        B --> C[Integrated Signal Network]
+                        C --> D[Multi-Pathway Coordination]
+                        D --> E[Protein System Assembly]
+                        E --> F[Dynamic Network Formation]
+                        F --> G[Cooperative Allosteric Network]
+                        G --> H[Multi-Site Binding Coordination]
+                        H --> I[Substrate Channel Network]
+                        I --> J[Coordinated Multi-Catalysis]
+                        J --> K[Intermediate Network Processing]
+                        K --> L[Product Network Assembly]
+                        L --> M[System Quality Control]
+                        M --> N[Multi-Level Feedback]
+                        N --> O[Network Optimization]
+                        O --> P[System Integration]
+                        P --> Q[Cellular Network Response]
+                        Q --> R[Homeostatic Network Control]
+                        R --> S[Adaptive System Regulation]
+                        S --> T[Network Completion]
+                        T --> U[System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            3: { // Process 3
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Tertiary Process]
+                        B --> C[Complex Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Input Signal] --> B[Protein Binding]
+                        B --> C[Complex Formation]
+                        C --> D[Structural Assembly]
+                        D --> E[Functional Activity]
+                        E --> F[Product Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Control Signal] --> B[Regulatory Binding]
+                        B --> C[Pathway Activation]
+                        C --> D[Complex Assembly]
+                        D --> E[Protein Interaction]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Processing]
+                        H --> I[Product Formation]
+                        I --> J[System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[System Signal] --> B[Multi-Protein Complex]
+                        B --> C[Signal Integration]
+                        C --> D[Pathway Coordination]
+                        D --> E[Assembly Network]
+                        E --> F[Dynamic Formation]
+                        F --> G[Allosteric Control]
+                        G --> H[Binding Coordination]
+                        H --> I[Substrate Network]
+                        I --> J[Catalytic Network]
+                        J --> K[Product Assembly]
+                        K --> L[Feedback Control]
+                        L --> M[System Regulation]
+                        M --> N[Quality Control]
+                        N --> O[Process Completion]
+                        O --> P[System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Master Signal] --> B[Integrated Control Complex]
+                        B --> C[Multi-Signal Processing]
+                        C --> D[Coordinated Pathway Network]
+                        D --> E[System Assembly Network]
+                        E --> F[Dynamic Complex Network]
+                        F --> G[Cooperative Allosteric System]
+                        G --> H[Multi-Site Coordination]
+                        H --> I[Integrated Substrate Network]
+                        I --> J[Coordinated Catalytic System]
+                        J --> K[Network Product Processing]
+                        K --> L[Integrated Assembly]
+                        L --> M[System Quality Assurance]
+                        M --> N[Multi-Level Feedback Network]
+                        N --> O[Adaptive System Control]
+                        O --> P[Network Optimization]
+                        P --> Q[Integrated System Response]
+                        Q --> R[Homeostatic Network]
+                        R --> S[Adaptive Regulation Network]
+                        S --> T[System Integration]
+                        T --> U[Complete System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            4: { // Process 4
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Quaternary Process]
+                        B --> C[System Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Control Signal] --> B[System Activation]
+                        B --> C[Component Assembly]
+                        C --> D[Functional Complex]
+                        D --> E[System Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[System Signal] --> B[Component Binding]
+                        B --> C[Network Formation]
+                        C --> D[System Assembly]
+                        D --> E[Functional Integration]
+                        E --> F[Activity Coordination]
+                        F --> G[Product Processing]
+                        G --> H[System Response]
+                        H --> I[Output Generation]
+                        I --> J[System Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Complex Signal] --> B[Multi-Component System]
+                        B --> C[Integrated Network]
+                        C --> D[System Coordination]
+                        D --> E[Component Integration]
+                        E --> F[Dynamic Assembly]
+                        F --> G[Functional Network]
+                        G --> H[Activity Coordination]
+                        H --> I[Processing Network]
+                        I --> J[Product Coordination]
+                        J --> K[System Integration]
+                        K --> L[Feedback Network]
+                        L --> M[Control System]
+                        M --> N[Quality Integration]
+                        N --> O[System Completion]
+                        O --> P[Network Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Master Control Signal] --> B[Integrated System Complex]
+                        B --> C[Multi-Network Processing]
+                        C --> D[Coordinated System Network]
+                        D --> E[Integrated Component Assembly]
+                        E --> F[Dynamic System Formation]
+                        F --> G[Cooperative System Network]
+                        G --> H[Coordinated Activity Network]
+                        H --> I[Integrated Processing System]
+                        I --> J[System Catalytic Network]
+                        J --> K[Coordinated Product Network]
+                        K --> L[Integrated System Assembly]
+                        L --> M[System Quality Network]
+                        M --> N[Multi-System Feedback]
+                        N --> O[Adaptive System Network]
+                        O --> P[System Optimization Network]
+                        P --> Q[Integrated Response System]
+                        Q --> R[System Homeostatic Network]
+                        R --> S[Adaptive Control System]
+                        S --> T[Complete System Integration]
+                        T --> U[Master System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            5: { // Process 5
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Fifth Process]
+                        B --> C[System Processing]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Process Signal] --> B[System Binding]
+                        B --> C[Network Formation]
+                        C --> D[Component Assembly]
+                        D --> E[System Function]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[System Signal] --> B[Component Activation]
+                        B --> C[Network Assembly]
+                        C --> D[System Integration]
+                        D --> E[Functional Coordination]
+                        E --> F[Activity Network]
+                        F --> G[Processing Coordination]
+                        G --> H[System Response]
+                        H --> I[Product Assembly]
+                        I --> J[System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Integrated Signal] --> B[System Complex]
+                        B --> C[Network Integration]
+                        C --> D[Coordinated Assembly]
+                        D --> E[System Coordination]
+                        E --> F[Network Dynamics]
+                        F --> G[Functional Integration]
+                        G --> H[Activity Network]
+                        H --> I[Processing Coordination]
+                        I --> J[Product Network]
+                        J --> K[System Assembly]
+                        K --> L[Network Control]
+                        L --> M[Integrated Feedback]
+                        M --> N[System Control]
+                        N --> O[Network Completion]
+                        O --> P[System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Master System Signal] --> B[Integrated Control Network]
+                        B --> C[Multi-System Processing]
+                        C --> D[Coordinated Network Assembly]
+                        D --> E[Integrated System Coordination]
+                        E --> F[Dynamic Network Formation]
+                        F --> G[Cooperative System Integration]
+                        G --> H[Coordinated Functional Network]
+                        H --> I[Integrated Activity System]
+                        I --> J[System Processing Network]
+                        J --> K[Coordinated Product System]
+                        K --> L[Integrated Network Assembly]
+                        L --> M[System Quality Integration]
+                        M --> N[Multi-Network Feedback]
+                        N --> O[Adaptive System Integration]
+                        O --> P[Network System Optimization]
+                        P --> Q[Integrated System Response]
+                        Q --> R[System Network Control]
+                        R --> S[Adaptive Integration System]
+                        S --> T[Complete Network Integration]
+                        T --> U[Master System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            6: { // Process 6
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Sixth Process]
+                        B --> C[Network Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[System Signal] --> B[Network Activation]
+                        B --> C[Component Integration]
+                        C --> D[System Assembly]
+                        D --> E[Network Function]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Network Signal] --> B[System Coordination]
+                        B --> C[Component Network]
+                        C --> D[Assembly Integration]
+                        D --> E[System Coordination]
+                        E --> F[Network Activity]
+                        F --> G[Processing Integration]
+                        G --> H[System Response]
+                        H --> I[Product Network]
+                        I --> J[Network Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Coordination Signal] --> B[System Network]
+                        B --> C[Integrated Assembly]
+                        C --> D[Network Coordination]
+                        D --> E[System Integration]
+                        E --> F[Component Network]
+                        F --> G[Functional Coordination]
+                        G --> H[Network Activity]
+                        H --> I[System Processing]
+                        I --> J[Product Integration]
+                        J --> K[Network Assembly]
+                        K --> L[System Control]
+                        L --> M[Network Feedback]
+                        M --> N[System Regulation]
+                        N --> O[Network Completion]
+                        O --> P[System Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[System Control Signal] --> B[Master Network Complex]
+                        B --> C[Integrated System Network]
+                        C --> D[Multi-Component Coordination]
+                        D --> E[System Network Assembly]
+                        E --> F[Dynamic Integration Network]
+                        F --> G[Cooperative Network System]
+                        G --> H[Coordinated Function Network]
+                        H --> I[Integrated System Activity]
+                        I --> J[Network Processing System]
+                        J --> K[Coordinated Product Network]
+                        K --> L[System Integration Network]
+                        L --> M[Network Quality System]
+                        M --> N[Multi-System Feedback]
+                        N --> O[Adaptive Network System]
+                        O --> P[System Network Optimization]
+                        P --> Q[Integrated Network Response]
+                        Q --> R[System Control Network]
+                        R --> S[Adaptive System Network]
+                        S --> T[Network System Integration]
+                        T --> U[Complete Network Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            7: { // Process 7
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Seventh Process]
+                        B --> C[System Control]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Control Signal] --> B[System Regulation]
+                        B --> C[Network Control]
+                        C --> D[System Assembly]
+                        D --> E[Control Function]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Regulatory Signal] --> B[Control Activation]
+                        B --> C[System Network]
+                        C --> D[Control Assembly]
+                        D --> E[Regulatory Integration]
+                        E --> F[Control Activity]
+                        F --> G[System Regulation]
+                        G --> H[Control Response]
+                        H --> I[Regulatory Output]
+                        I --> J[System Control]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[System Control Signal] --> B[Regulatory Network]
+                        B --> C[Control Integration]
+                        C --> D[System Regulation]
+                        D --> E[Network Control]
+                        E --> F[Regulatory Assembly]
+                        F --> G[Control Network]
+                        G --> H[System Activity]
+                        H --> I[Regulatory Processing]
+                        I --> J[Control Product]
+                        J --> K[System Integration]
+                        K --> L[Regulatory Control]
+                        L --> M[Control Feedback]
+                        M --> N[System Regulation]
+                        N --> O[Network Control]
+                        O --> P[Control Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Master Regulatory Signal] --> B[Integrated Control System]
+                        B --> C[Multi-Regulatory Network]
+                        C --> D[Coordinated Control System]
+                        D --> E[Integrated Regulatory Assembly]
+                        E --> F[Dynamic Control Network]
+                        F --> G[Cooperative Regulatory System]
+                        G --> H[Coordinated Control Network]
+                        H --> I[Integrated Regulatory Activity]
+                        I --> J[System Control Network]
+                        J --> K[Coordinated Regulatory Product]
+                        K --> L[Integrated Control Assembly]
+                        L --> M[System Regulatory Quality]
+                        M --> N[Multi-Control Feedback]
+                        N --> O[Adaptive Regulatory System]
+                        O --> P[Control System Optimization]
+                        P --> Q[Integrated Regulatory Response]
+                        Q --> R[System Control Network]
+                        R --> S[Adaptive Control System]
+                        S --> T[Complete Regulatory Integration]
+                        T --> U[Master Control Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            },
+            8: { // Process 8
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[Eighth Process]
+                        B --> C[Final Assembly]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Final Signal] --> B[Terminal Activation]
+                        B --> C[System Completion]
+                        C --> D[Final Assembly]
+                        D --> E[Terminal Function]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Terminal Signal] --> B[Final Coordination]
+                        B --> C[System Integration]
+                        C --> D[Terminal Assembly]
+                        D --> E[Final Coordination]
+                        E --> F[System Activity]
+                        F --> G[Terminal Processing]
+                        G --> H[Final Response]
+                        H --> I[System Product]
+                        I --> J[Terminal Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Final System Signal] --> B[Terminal Network]
+                        B --> C[System Integration]
+                        C --> D[Final Coordination]
+                        D --> E[Terminal Assembly]
+                        E --> F[System Network]
+                        F --> G[Final Integration]
+                        G --> H[Terminal Activity]
+                        H --> I[System Processing]
+                        I --> J[Final Product]
+                        J --> K[Terminal Assembly]
+                        K --> L[System Control]
+                        L --> M[Final Feedback]
+                        M --> N[Terminal Regulation]
+                        N --> O[System Completion]
+                        O --> P[Final Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Master Terminal Signal] --> B[Complete System Network]
+                        B --> C[Integrated Final Network]
+                        C --> D[Terminal System Coordination]
+                        D --> E[Final Network Assembly]
+                        E --> F[Complete System Integration]
+                        F --> G[Terminal Network System]
+                        G --> H[Final Coordination Network]
+                        H --> I[Terminal System Activity]
+                        I --> J[Complete Processing Network]
+                        J --> K[Final Product System]
+                        K --> L[Terminal Network Assembly]
+                        L --> M[Complete System Quality]
+                        M --> N[Final Network Feedback]
+                        N --> O[Terminal System Adaptation]
+                        O --> P[Complete Network Optimization]
+                        P --> Q[Final System Response]
+                        Q --> R[Terminal Network Control]
+                        R --> S[Complete System Adaptation]
+                        S --> T[Final Network Integration]
+                        T --> U[Complete Terminal Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#ffd43b,color:#000
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#ffd43b,color:#000
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        // Slider functionality
+        function updateFlowchart(processId, level) {
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            const levelSpan = document.getElementById(`level-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                // Clear existing content
+                chartDiv.innerHTML = '';
+                
+                // Create new mermaid element
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                
+                // Re-initialize mermaid on the new content
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            }
+        }
+
+        // Initialize mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up slider event listeners for all 8 processes
+            for (let i = 1; i <= 8; i++) {
+                const slider = document.getElementById(`slider-${i}`);
+                if (slider) {
+                    slider.addEventListener('input', function() {
+                        updateFlowchart(i, this.value);
+                    });
+                    // Initialize with level 1
+                    updateFlowchart(i, 1);
+                }
+            }
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
+            }
+        });
+    </script>
+</body>
+</html>
