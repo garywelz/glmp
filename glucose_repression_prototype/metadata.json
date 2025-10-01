@@ -1,0 +1,505 @@
+{
+  "process_id": "yeast_sc_glucose_repression_001",
+  "process_name": "Glucose Repression (Catabolite Repression)",
+  "organism": {
+    "scientific_name": "Saccharomyces cerevisiae",
+    "common_name": "Baker's yeast",
+    "taxonomy_id": "4932",
+    "strain": "S288C"
+  },
+  "category": "Metabolic Regulation",
+  "subcategory": "Carbon Source Regulation",
+  "description": "Glucose repression is a regulatory mechanism where the presence of glucose represses genes required for the metabolism of alternative carbon sources. This is a classic example of biological programming with clear IF-THEN-ELSE logic.",
+  
+  "programming_framework": {
+    "paradigm": "Event-driven regulatory program",
+    "main_logic": "IF (glucose_high) THEN repress_alternative_pathways ELSE activate_alternative_pathways",
+    "control_structures": [
+      "IF-THEN-ELSE conditional",
+      "AND gates (multiple input requirements)",
+      "NOT gates (repression)",
+      "WHILE loops (feedback maintenance)",
+      "Signal transduction cascade"
+    ],
+    "complexity": {
+      "cyclomatic_complexity": 8,
+      "decision_points": 5,
+      "feedback_loops": 2
+    }
+  },
+  
+  "key_components": {
+    "sensors": ["Snf3", "Rgt2"],
+    "transcription_factors": ["Mig1", "Mig2", "Rgt1"],
+    "kinases": ["Snf1", "Reg1"],
+    "repressed_genes": ["GAL1", "GAL2", "GAL7", "SUC2", "MAL"],
+    "pathways": ["Glucose sensing", "Snf1 kinase cascade", "Mig1 regulation"]
+  },
+  
+  "confidence": {
+    "overall_confidence": "high",
+    "overall_score": 0.89,
+    "evidence_base": "extensive",
+    "paper_count": 45,
+    "last_major_review": "2019",
+    "consensus": true,
+    "controversy_level": "low"
+  },
+  
+  "nodes": {
+    "high_glucose": {
+      "id": "n1",
+      "type": "trigger",
+      "label": "High Glucose\n(>0.2% w/v)",
+      "color": "#ff6b6b",
+      "confidence": {
+        "level": "high",
+        "score": 0.98,
+        "border": "solid 4px",
+        "display": "Conf: 98%"
+      },
+      "quantitative": {
+        "threshold": "0.2% (w/v)",
+        "range": "0.05-2%",
+        "units": "glucose concentration"
+      },
+      "citations": [1, 2, 3],
+      "description": "Environmental signal - glucose concentration above threshold"
+    },
+    
+    "glucose_sensor": {
+      "id": "n2",
+      "type": "sensor",
+      "label": "Glucose Sensors\nSnf3/Rgt2",
+      "color": "#e8f5e9",
+      "confidence": {
+        "level": "high",
+        "score": 0.95,
+        "border": "solid 3px",
+        "display": "Conf: 95%"
+      },
+      "quantitative": {
+        "km_snf3": "High affinity (low glucose)",
+        "km_rgt2": "Low affinity (high glucose)"
+      },
+      "citations": [4, 5],
+      "proteins": ["Snf3", "Rgt2"],
+      "description": "G-protein coupled receptor-like sensors for glucose"
+    },
+    
+    "and_gate_1": {
+      "id": "n3",
+      "type": "logic_gate",
+      "gate_type": "AND",
+      "label": "AND Gate\n[Glucose + Signal]",
+      "shape": "diamond",
+      "color": "#fff3e0",
+      "confidence": {
+        "level": "high",
+        "score": 0.92,
+        "border": "solid 3px",
+        "display": "Conf: 92%"
+      },
+      "logic": {
+        "operator": "AND",
+        "inputs": ["high_glucose", "glucose_sensor"],
+        "boolean": "(glucose > threshold) AND (sensor_activated)",
+        "programming": "Both conditions must be TRUE"
+      },
+      "citations": [2, 4],
+      "description": "Logical AND gate - both glucose presence and sensor activation required"
+    },
+    
+    "snf1_inactive": {
+      "id": "n4",
+      "type": "enzyme_state",
+      "label": "Snf1 Kinase\n[INACTIVE]",
+      "color": "#ffd43b",
+      "confidence": {
+        "level": "high",
+        "score": 0.93,
+        "border": "solid 3px",
+        "display": "Conf: 93%"
+      },
+      "quantitative": {
+        "state": "dephosphorylated",
+        "activity": "< 5% of maximum"
+      },
+      "citations": [6, 7, 8],
+      "proteins": ["Snf1", "Reg1 (phosphatase)"],
+      "mechanism": "High glucose causes Reg1 phosphatase to dephosphorylate and inactivate Snf1",
+      "description": "Snf1 kinase in inactive state when glucose is high"
+    },
+    
+    "not_gate_1": {
+      "id": "n5",
+      "type": "logic_gate",
+      "gate_type": "NOT",
+      "label": "NOT Gate\n[Snf1 inhibited]",
+      "shape": "inverted_triangle",
+      "color": "#fff3e0",
+      "confidence": {
+        "level": "high",
+        "score": 0.91,
+        "border": "solid 3px",
+        "display": "Conf: 91%"
+      },
+      "logic": {
+        "operator": "NOT",
+        "input": "snf1_active",
+        "boolean": "NOT (snf1_phosphorylated)",
+        "programming": "Negation - active becomes inactive"
+      },
+      "citations": [6, 7],
+      "description": "Logical NOT gate - high glucose inverts Snf1 state to inactive"
+    },
+    
+    "mig1_dephosphorylated": {
+      "id": "n6",
+      "type": "protein_state",
+      "label": "Mig1\n[Dephosphorylated]",
+      "color": "#51cf66",
+      "confidence": {
+        "level": "high",
+        "score": 0.94,
+        "border": "solid 3px",
+        "display": "Conf: 94%"
+      },
+      "quantitative": {
+        "phosphorylation_sites": "4 sites (S311, S381, etc.)",
+        "state": "unphosphorylated",
+        "localization": "ready for nuclear import"
+      },
+      "citations": [9, 10, 11],
+      "proteins": ["Mig1"],
+      "mechanism": "Without Snf1 activity, Mig1 remains dephosphorylated",
+      "description": "Mig1 transcription factor in dephosphorylated state"
+    },
+    
+    "mig1_nuclear": {
+      "id": "n7",
+      "type": "processing",
+      "label": "Mig1 Nuclear\nLocalization",
+      "color": "#51cf66",
+      "confidence": {
+        "level": "high",
+        "score": 0.96,
+        "border": "solid 4px",
+        "display": "Conf: 96%"
+      },
+      "quantitative": {
+        "transport": "Active import",
+        "time_scale": "Minutes",
+        "efficiency": "> 90%"
+      },
+      "citations": [10, 12, 13],
+      "mechanism": "Dephosphorylated Mig1 recognized by importins and transported to nucleus",
+      "description": "Nuclear import of dephosphorylated Mig1"
+    },
+    
+    "dna_binding": {
+      "id": "n8",
+      "type": "processing",
+      "label": "Mig1 DNA Binding\n[GC-rich boxes]",
+      "color": "#51cf66",
+      "confidence": {
+        "level": "high",
+        "score": 0.97,
+        "border": "solid 4px",
+        "display": "Conf: 97%"
+      },
+      "quantitative": {
+        "consensus": "SYGGRG (S=C/G, Y=C/T, R=A/G)",
+        "kd": "~10 nM",
+        "specificity": "High for glucose-repressed promoters"
+      },
+      "citations": [14, 15, 16],
+      "mechanism": "Mig1 zinc finger domains bind GC-rich motifs in target promoters",
+      "description": "Mig1 binds to specific DNA sequences in gene promoters"
+    },
+    
+    "ssn6_tup1_recruitment": {
+      "id": "n9",
+      "type": "processing",
+      "label": "Ssn6-Tup1\nCorepressor\nRecruitment",
+      "color": "#51cf66",
+      "confidence": {
+        "level": "high",
+        "score": 0.95,
+        "border": "solid 3px",
+        "display": "Conf: 95%"
+      },
+      "quantitative": {
+        "complex": "Ssn6-Tup1 tetramer",
+        "stoichiometry": "1:4 ratio"
+      },
+      "citations": [17, 18, 19],
+      "proteins": ["Ssn6", "Tup1"],
+      "mechanism": "Mig1 recruits Ssn6-Tup1 corepressor complex to chromatin",
+      "description": "Recruitment of general corepressor complex"
+    },
+    
+    "chromatin_modification": {
+      "id": "n10",
+      "type": "processing",
+      "label": "Chromatin\nDeacetylation &\nRemodeling",
+      "color": "#51cf66",
+      "confidence": {
+        "level": "good",
+        "score": 0.88,
+        "border": "solid 3px",
+        "display": "Conf: 88%"
+      },
+      "quantitative": {
+        "hdac_activity": "Histone deacetylase recruited",
+        "h3_deacetylation": "80% reduction"
+      },
+      "citations": [20, 21],
+      "mechanism": "Tup1 recruits histone deacetylases, creating repressive chromatin",
+      "description": "Chromatin modifications create repressive environment"
+    },
+    
+    "transcription_blocked": {
+      "id": "n11",
+      "type": "intermediate",
+      "label": "Transcription\nRepression",
+      "color": "#74c0fc",
+      "confidence": {
+        "level": "high",
+        "score": 0.96,
+        "border": "solid 4px",
+        "display": "Conf: 96%"
+      },
+      "quantitative": {
+        "repression_fold": "100-1000x",
+        "genes_affected": "> 200",
+        "gal1_repression": "> 1000x"
+      },
+      "citations": [1, 2, 22],
+      "mechanism": "Blocked RNA polymerase II recruitment and/or promoter clearance",
+      "description": "Active transcriptional repression of target genes"
+    },
+    
+    "gal_genes_off": {
+      "id": "n12",
+      "type": "product",
+      "label": "GAL Genes OFF\nSUC2 OFF\nMAL OFF",
+      "color": "#b197fc",
+      "confidence": {
+        "level": "high",
+        "score": 0.98,
+        "border": "solid 4px",
+        "display": "Conf: 98%"
+      },
+      "quantitative": {
+        "gal1_expression": "< 0.1% of induced",
+        "suc2_expression": "< 1% of derepressed",
+        "mal_expression": "< 5% of induced"
+      },
+      "citations": [1, 23, 24],
+      "genes": ["GAL1", "GAL2", "GAL7", "GAL10", "SUC2", "MAL11", "MAL12"],
+      "description": "Alternative carbon source genes are repressed"
+    },
+    
+    "glucose_metabolism_on": {
+      "id": "n13",
+      "type": "product",
+      "label": "Glucose\nMetabolism\nACTIVE",
+      "color": "#b197fc",
+      "confidence": {
+        "level": "high",
+        "score": 0.99,
+        "border": "solid 4px",
+        "display": "Conf: 99%"
+      },
+      "quantitative": {
+        "glycolysis_flux": "100% maximum",
+        "ethanol_production": "High (fermentation)"
+      },
+      "citations": [1, 2],
+      "pathways": ["Glycolysis", "Fermentation"],
+      "description": "Cell commits to glucose metabolism pathway"
+    },
+    
+    "feedback_while": {
+      "id": "n14",
+      "type": "logic_gate",
+      "gate_type": "WHILE",
+      "label": "WHILE Loop\n[Maintain while\nglucose present]",
+      "shape": "circular_arrow",
+      "color": "#fff3e0",
+      "confidence": {
+        "level": "high",
+        "score": 0.90,
+        "border": "solid 3px",
+        "display": "Conf: 90%"
+      },
+      "logic": {
+        "operator": "WHILE",
+        "condition": "glucose > threshold",
+        "boolean": "WHILE (glucose_high) MAINTAIN repression",
+        "programming": "Continuous feedback loop"
+      },
+      "citations": [2, 25],
+      "description": "Feedback loop maintains repression as long as glucose is present"
+    },
+    
+    "if_then_else": {
+      "id": "n15",
+      "type": "logic_gate",
+      "gate_type": "IF-THEN-ELSE",
+      "label": "IF-THEN-ELSE\n[Glucose decision]",
+      "shape": "branching_diamond",
+      "color": "#fff3e0",
+      "confidence": {
+        "level": "high",
+        "score": 0.94,
+        "border": "solid 3px",
+        "display": "Conf: 94%"
+      },
+      "logic": {
+        "operator": "IF-THEN-ELSE",
+        "condition": "glucose > threshold",
+        "then_branch": "repress_alternative_genes",
+        "else_branch": "activate_alternative_genes",
+        "boolean": "IF (glucose_high) THEN repress ELSE activate",
+        "programming": "Primary decision point for pathway selection"
+      },
+      "citations": [1, 2, 3],
+      "description": "Master conditional branching - glucose level determines cell fate"
+    }
+  },
+  
+  "edges": {
+    "e1": {
+      "from": "high_glucose",
+      "to": "glucose_sensor",
+      "type": "activation",
+      "confidence": 0.98,
+      "label": "Sensing"
+    },
+    "e2": {
+      "from": "glucose_sensor",
+      "to": "and_gate_1",
+      "type": "signal",
+      "confidence": 0.95,
+      "label": ""
+    },
+    "e3": {
+      "from": "and_gate_1",
+      "to": "snf1_inactive",
+      "type": "regulation",
+      "confidence": 0.92,
+      "label": "Reg1 activates"
+    },
+    "e4": {
+      "from": "snf1_inactive",
+      "to": "not_gate_1",
+      "type": "logic",
+      "confidence": 0.91,
+      "label": ""
+    },
+    "e5": {
+      "from": "not_gate_1",
+      "to": "mig1_dephosphorylated",
+      "type": "state_change",
+      "confidence": 0.93,
+      "label": "No phosphorylation"
+    },
+    "e6": {
+      "from": "mig1_dephosphorylated",
+      "to": "mig1_nuclear",
+      "type": "transport",
+      "confidence": 0.96,
+      "label": "Nuclear import"
+    },
+    "e7": {
+      "from": "mig1_nuclear",
+      "to": "dna_binding",
+      "type": "binding",
+      "confidence": 0.97,
+      "label": "Promoter binding"
+    },
+    "e8": {
+      "from": "dna_binding",
+      "to": "ssn6_tup1_recruitment",
+      "type": "recruitment",
+      "confidence": 0.95,
+      "label": "Corepressor"
+    },
+    "e9": {
+      "from": "ssn6_tup1_recruitment",
+      "to": "chromatin_modification",
+      "type": "modification",
+      "confidence": 0.88,
+      "label": "HDAC activity"
+    },
+    "e10": {
+      "from": "chromatin_modification",
+      "to": "transcription_blocked",
+      "type": "repression",
+      "confidence": 0.96,
+      "label": "Block Pol II"
+    },
+    "e11": {
+      "from": "transcription_blocked",
+      "to": "gal_genes_off",
+      "type": "output",
+      "confidence": 0.98,
+      "label": "Gene repression"
+    },
+    "e12": {
+      "from": "transcription_blocked",
+      "to": "glucose_metabolism_on",
+      "type": "output",
+      "confidence": 0.99,
+      "label": "Pathway active"
+    },
+    "e13": {
+      "from": "gal_genes_off",
+      "to": "feedback_while",
+      "type": "feedback",
+      "confidence": 0.90,
+      "label": "Monitor state",
+      "style": "dashed"
+    },
+    "e14": {
+      "from": "feedback_while",
+      "to": "and_gate_1",
+      "type": "feedback",
+      "confidence": 0.90,
+      "label": "While glucose high",
+      "style": "dashed"
+    }
+  },
+  
+  "zoom_levels": {
+    "level_0": {
+      "name": "Pseudocode",
+      "description": "Programming language view of the process",
+      "nodes": []
+    },
+    "level_1": {
+      "name": "Pathway Overview",
+      "description": "High-level pathway architecture (15-20 nodes)",
+      "nodes": ["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8", "n11", "n12", "n13", "n14", "n15"]
+    },
+    "level_2": {
+      "name": "Molecular Detail",
+      "description": "Detailed molecular interactions (all nodes)",
+      "nodes": ["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8", "n9", "n10", "n11", "n12", "n13", "n14", "n15"]
+    },
+    "level_3": {
+      "name": "Mechanistic Detail",
+      "description": "Complete mechanistic view with additional details",
+      "note": "Would include protein domains, binding sites, energetics - not fully implemented in this prototype"
+    }
+  },
+  
+  "version": "1.0.0",
+  "created": "2025-09-30",
+  "last_updated": "2025-09-30",
+  "contributors": ["garywelz"],
+  "status": "prototype",
+  "review_status": "needs_expert_review"
+}
