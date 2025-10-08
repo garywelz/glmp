@@ -189,6 +189,12 @@ function renderProcess() {
     document.getElementById('process-category').textContent = currentProcess.category || 'Uncategorized';
     document.getElementById('process-desc').textContent = currentProcess.description || '';
     
+    // Render scientific accuracy statement
+    renderScientificAccuracy();
+    
+    // Render color legend
+    renderColorLegend();
+    
     // Render diagram
     renderDiagram();
     
@@ -203,6 +209,54 @@ function renderProcess() {
         document.getElementById('detail-selector').style.display = 'block';
     } else {
         document.getElementById('detail-selector').style.display = 'none';
+    }
+}
+
+/**
+ * Render scientific accuracy statement
+ */
+function renderScientificAccuracy() {
+    const accuracySection = document.getElementById('scientific-accuracy');
+    const accuracyStatement = document.getElementById('accuracy-statement');
+    
+    if (currentProcess.scientificAccuracy) {
+        accuracyStatement.textContent = currentProcess.scientificAccuracy;
+        accuracySection.style.display = 'block';
+    } else {
+        accuracySection.style.display = 'none';
+    }
+}
+
+/**
+ * Render color legend
+ */
+function renderColorLegend() {
+    const legendSection = document.getElementById('color-legend');
+    const colorGrid = document.getElementById('color-key-grid');
+    
+    if (currentProcess.colorScheme) {
+        let html = '';
+        const colors = ['red', 'yellow', 'green', 'blue', 'violet'];
+        
+        colors.forEach(color => {
+            if (currentProcess.colorScheme[color]) {
+                const scheme = currentProcess.colorScheme[color];
+                html += `
+                    <div class="color-key-item">
+                        <span class="color-badge" style="background-color: ${scheme.hex}"></span>
+                        <div class="color-info">
+                            <strong>${scheme.category}</strong>
+                            <small>${scheme.description}</small>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        colorGrid.innerHTML = html;
+        legendSection.style.display = 'block';
+    } else {
+        legendSection.style.display = 'none';
     }
 }
 
