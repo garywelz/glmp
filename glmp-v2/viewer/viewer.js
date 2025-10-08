@@ -236,7 +236,7 @@ function renderColorLegend() {
     
     if (currentProcess.colorScheme) {
         let html = '';
-        const colors = ['red', 'yellow', 'green', 'blue', 'violet'];
+        const colors = ['red', 'yellow', 'green', 'blue', 'orange', 'lavender', 'violet'];
         
         colors.forEach(color => {
             if (currentProcess.colorScheme[color]) {
