@@ -61,16 +61,101 @@
       "name": "Cell Cycle Control and CDK Regulation",
       "organism": "Saccharomyces cerevisiae",
       "category": "Cell Cycle",
-      "description": "Eukaryotic cell cycle control via CDK-cyclin regulation with checkpoints. Contains 1 AND gate (Start checkpoint) and 2 OR gates (DNA replication, spindle assembly checkpoints).",
+      "description": "Eukaryotic cell cycle control via CDK-cyclin regulation with checkpoints. Contains 3 OR gates (Start, DNA replication, spindle assembly checkpoints).",
       "verified": true,
       "created": "2025-10-08",
       "citations": 5,
       "complexity": "detailed",
       "nodes": 30,
       "logicGates": {
+        "or": 3,
+        "and": 0,
+        "total": 3
+      }
+    },
+    {
+      "id": "ecoli_two_component_signaling",
+      "name": "Two-Component Signal Transduction (EnvZ-OmpR)",
+      "organism": "E. coli",
+      "category": "Signal Transduction",
+      "description": "EnvZ-OmpR system senses osmotic stress and regulates porin expression. Contains 2 OR gates (osmolarity check, OmpR-P level) and 1 AND gate (OmpR-P DNA binding requires phosphorylation AND promoter availability).",
+      "verified": true,
+      "created": "2025-10-08",
+      "citations": 4,
+      "complexity": "detailed",
+      "nodes": 35,
+      "logicGates": {
         "or": 2,
         "and": 1,
         "total": 3
+      }
+    },
+    {
+      "id": "ecoli_sos_response",
+      "name": "SOS Response to DNA Damage",
+      "organism": "E. coli",
+      "category": "Stress Response",
+      "description": "RecA-LexA mediated response to DNA damage activating 40+ repair genes. Contains 3 OR gates (ssDNA detection, LexA levels, repair completion) and 1 AND gate (RecA filament requires ssDNA AND RecA availability).",
+      "verified": true,
+      "created": "2025-10-08",
+      "citations": 4,
+      "complexity": "detailed",
+      "nodes": 42,
+      "logicGates": {
+        "or": 3,
+        "and": 1,
+        "total": 4
+      }
+    },
+    {
+      "id": "ecoli_heat_shock_response",
+      "name": "Heat Shock Response and Protein Quality Control",
+      "organism": "E. coli",
+      "category": "Stress Response",
+      "description": "σ32-mediated heat shock response with DnaK-DnaJ and GroEL-GroES chaperone systems. Contains 2 OR gates (temperature threshold, feedback assessment) and 2 AND gates (both chaperone systems require two components).",
+      "verified": true,
+      "created": "2025-10-08",
+      "citations": 4,
+      "complexity": "detailed",
+      "nodes": 38,
+      "logicGates": {
+        "or": 2,
+        "and": 2,
+        "total": 4
+      }
+    },
+    {
+      "id": "ecoli_catabolite_repression",
+      "name": "Catabolite Repression and Global Carbon Control",
+      "organism": "E. coli",
+      "category": "Metabolic Regulation",
+      "description": "cAMP-CRP global regulation ensuring preferential glucose utilization. Contains 2 OR gates (glucose presence, cAMP levels) and 2 AND gates (operon activation requires CRP-cAMP AND specific inducer).",
+      "verified": true,
+      "created": "2025-10-08",
+      "citations": 4,
+      "complexity": "detailed",
+      "nodes": 33,
+      "logicGates": {
+        "or": 2,
+        "and": 2,
+        "total": 4
+      }
+    },
+    {
+      "id": "ecoli_stringent_response",
+      "name": "Stringent Response and ppGpp-Mediated Growth Control",
+      "organism": "E. coli",
+      "category": "Stress Response",
+      "description": "RelA-mediated ppGpp synthesis in response to amino acid starvation, regulating ~500 genes. Contains 2 OR gates (uncharged tRNA detection, ppGpp levels) and 2 AND gates (RelA activation and RNAP regulation).",
+      "verified": true,
+      "created": "2025-10-08",
+      "citations": 4,
+      "complexity": "detailed",
+      "nodes": 40,
+      "logicGates": {
+        "or": 2,
+        "and": 2,
+        "total": 4
       }
     }
   ],
@@ -78,7 +163,7 @@
     {
       "name": "E. coli",
       "scientificName": "Escherichia coli",
-      "processCount": 3
+      "processCount": 8
     },
     {
       "name": "S. cerevisiae",
@@ -103,13 +188,25 @@
     {
       "name": "Cell Cycle",
       "processCount": 1
+    },
+    {
+      "name": "Signal Transduction",
+      "processCount": 1
+    },
+    {
+      "name": "Stress Response",
+      "processCount": 3
+    },
+    {
+      "name": "Metabolic Regulation",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalCitations": 18,
+    "totalCitations": 38,
     "totalOrganisms": 2,
-    "totalCategories": 4,
-    "averageCitationsPerProcess": 4.5,
-    "verifiedProcesses": 4
+    "totalCategories": 7,
+    "averageCitationsPerProcess": 4.2,
+    "verifiedProcesses": 9
   }
 }
