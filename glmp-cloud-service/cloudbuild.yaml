@@ -1,0 +1,32 @@
+# Cloud Build configuration for CI/CD
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/glmp-service:$SHORT_SHA', '.']
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/glmp-service:$SHORT_SHA']
+  
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'glmp-service'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/glmp-service:$SHORT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'PROJECT_ID=$PROJECT_ID,BUCKET_NAME=regal-scholar-453620-r7-podcast-storage'
+
+images:
+  - 'gcr.io/$PROJECT_ID/glmp-service:$SHORT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
