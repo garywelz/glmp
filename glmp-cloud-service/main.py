@@ -144,6 +144,47 @@ def health():
     }), status_code
 
 
+@app.route('/api/secrets/list')
+def list_secrets():
+    """
+    List all available secrets in Secret Manager
+    (Does not return secret values, just names for security)
+    """
+    try:
+        if not secret_client:
+            return jsonify({
+                'success': False,
+                'error': 'Secret Manager client not initialized'
+            }), 503
+        
+        parent = f"projects/{PROJECT_ID}"
+        secrets_list = []
+        
+        for secret in secret_client.list_secrets(request={"parent": parent}):
+            secret_id = secret.name.split('/')[-1]
+            secrets_list.append({
+                'id': secret_id,
+                'name': secret.name,
+                'created': secret.create_time.isoformat() if hasattr(secret, 'create_time') else None
+            })
+        
+        logger.info(f"Listed {len(secrets_list)} secrets")
+        
+        return jsonify({
+            'success': True,
+            'project_id': PROJECT_ID,
+            'count': len(secrets_list),
+            'secrets': sorted(secrets_list, key=lambda x: x['id'])
+        })
+        
+    except Exception as e:
+        logger.error(f"Failed to list secrets: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @app.route('/api/processes')
 def list_processes():
     """List all available processes"""
