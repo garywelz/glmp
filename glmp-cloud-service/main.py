@@ -10,6 +10,10 @@ import json
 import logging
 from datetime import datetime
 
+# Import our new modules
+from vertex_ai_integration import get_generator, get_enricher
+from literature_integration import get_arxiv, get_pubmed, get_literature_enricher
+
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -240,31 +244,304 @@ def validate_process():
 @app.route('/api/generate', methods=['POST'])
 def generate_process():
     """
-    Generate a new process (Phase 2 - Vertex AI integration)
+    Generate a new process using Vertex AI
     POST body: {
         "name": "GAL Gene Regulation",
         "organism": "S. cerevisiae",
-        "category": "Gene Regulation"
+        "category": "Gene Regulation",
+        "description": "Detailed description of the process...",
+        "save_to_gcs": true (optional)
     }
     """
-    return jsonify({
-        'success': False,
-        'message': 'Process generation with Vertex AI coming in Phase 2',
-        'status': 'not_implemented'
-    }), 501
+    try:
+        data = request.json
+        
+        # Validate required fields
+        required = ['name', 'organism', 'category', 'description']
+        missing = [f for f in required if f not in data]
+        if missing:
+            return jsonify({
+                'success': False,
+                'error': f'Missing required fields: {missing}'
+            }), 400
+        
+        # Generate process using Vertex AI
+        logger.info(f"Generating process: {data['name']}")
+        generator = get_generator()
+        
+        process_data = generator.generate_process_from_description(
+            name=data['name'],
+            organism=data['organism'],
+            category=data['category'],
+            description=data['description'],
+            sources=data.get('sources')
+        )
+        
+        if not process_data:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to generate process'
+            }), 500
+        
+        # Optionally save to GCS
+        if data.get('save_to_gcs', False):
+            organism_dir = 'ecoli' if 'coli' in data['organism'].lower() else 'yeast'
+            saved = save_process_to_gcs(process_data['id'], process_data, organism_dir)
+            
+            if saved:
+                return jsonify({
+                    'success': True,
+                    'process': process_data,
+                    'saved_to_gcs': True,
+                    'url': f'https://storage.googleapis.com/{BUCKET_NAME}/{GCS_PREFIX}/viewer/index.html?process={process_data["id"]}'
+                })
+        
+        return jsonify({
+            'success': True,
+            'process': process_data,
+            'saved_to_gcs': False,
+            'message': 'Set save_to_gcs=true to save to GCS'
+        })
+        
+    except Exception as e:
+        logger.error(f"Generate process failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 
 @app.route('/api/enrich', methods=['POST'])
 def enrich_process():
     """
-    Enrich process with recent literature (Phase 2 - ArXiv integration)
+    Enrich process with recent literature from ArXiv and PubMed
+    POST body: {
+        "process_id": "ecoli_lac_operon",
+        "include_arxiv": true,
+        "include_pubmed": true
+    }
+    """
+    try:
+        data = request.json
+        process_id = data.get('process_id')
+        
+        if not process_id:
+            return jsonify({
+                'success': False,
+                'error': 'process_id is required'
+            }), 400
+        
+        # Load process
+        process = load_process_from_gcs(process_id)
+        if not process:
+            return jsonify({
+                'success': False,
+                'error': f'Process {process_id} not found'
+            }), 404
+        
+        # Enrich with literature
+        logger.info(f"Enriching process: {process_id}")
+        enricher = get_literature_enricher()
+        
+        enrichment = enricher.enrich_process(
+            process,
+            include_arxiv=data.get('include_arxiv', True),
+            include_pubmed=data.get('include_pubmed', True)
+        )
+        
+        return jsonify({
+            'success': True,
+            'enrichment': enrichment
+        })
+        
+    except Exception as e:
+        logger.error(f"Enrich process failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/validate-citations', methods=['POST'])
+def validate_citations():
+    """
+    Validate all citations in a process against PubMed
     POST body: {"process_id": "ecoli_lac_operon"}
     """
-    return jsonify({
-        'success': False,
-        'message': 'Process enrichment with ArXiv coming in Phase 2',
-        'status': 'not_implemented'
-    }), 501
+    try:
+        data = request.json
+        process_id = data.get('process_id')
+        
+        if not process_id:
+            return jsonify({
+                'success': False,
+                'error': 'process_id is required'
+            }), 400
+        
+        # Load process
+        process = load_process_from_gcs(process_id)
+        if not process:
+            return jsonify({
+                'success': False,
+                'error': f'Process {process_id} not found'
+            }), 404
+        
+        # Validate citations
+        logger.info(f"Validating citations for: {process_id}")
+        pubmed = get_pubmed()
+        validation = pubmed.validate_all_citations(process)
+        
+        return jsonify({
+            'success': True,
+            'process_id': process_id,
+            'validation': validation
+        })
+        
+    except Exception as e:
+        logger.error(f"Citation validation failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/search-arxiv', methods=['POST'])
+def search_arxiv():
+    """
+    Search ArXiv for papers on a topic
+    POST body: {
+        "query": "lac operon regulation",
+        "max_results": 10,
+        "category": "q-bio" (optional)
+    }
+    """
+    try:
+        data = request.json
+        query = data.get('query')
+        
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': 'query is required'
+            }), 400
+        
+        # Search ArXiv
+        logger.info(f"Searching ArXiv for: {query}")
+        arxiv_search = get_arxiv()
+        
+        papers = arxiv_search.search_papers(
+            query=query,
+            max_results=data.get('max_results', 10),
+            category=data.get('category')
+        )
+        
+        return jsonify({
+            'success': True,
+            'query': query,
+            'count': len(papers),
+            'papers': papers
+        })
+        
+    except Exception as e:
+        logger.error(f"ArXiv search failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/search-pubmed', methods=['POST'])
+def search_pubmed():
+    """
+    Search PubMed for papers
+    POST body: {
+        "query": "lac operon E. coli",
+        "max_results": 10
+    }
+    """
+    try:
+        data = request.json
+        query = data.get('query')
+        
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': 'query is required'
+            }), 400
+        
+        # Search PubMed
+        logger.info(f"Searching PubMed for: {query}")
+        pubmed = get_pubmed()
+        
+        pmids = pubmed.search_pubmed(
+            query=query,
+            max_results=data.get('max_results', 10)
+        )
+        
+        # Fetch details for first few
+        papers = []
+        for pmid in pmids[:5]:
+            details = pubmed.fetch_paper_details(pmid)
+            if details:
+                papers.append(details)
+        
+        return jsonify({
+            'success': True,
+            'query': query,
+            'pmid_count': len(pmids),
+            'pmids': pmids,
+            'papers_with_details': papers
+        })
+        
+    except Exception as e:
+        logger.error(f"PubMed search failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/ai-validate', methods=['POST'])
+def ai_validate():
+    """
+    Validate biological accuracy using Vertex AI
+    POST body: {"process_id": "ecoli_lac_operon"}
+    """
+    try:
+        data = request.json
+        process_id = data.get('process_id')
+        
+        if not process_id:
+            return jsonify({
+                'success': False,
+                'error': 'process_id is required'
+            }), 400
+        
+        # Load process
+        process = load_process_from_gcs(process_id)
+        if not process:
+            return jsonify({
+                'success': False,
+                'error': f'Process {process_id} not found'
+            }), 404
+        
+        # Validate with AI
+        logger.info(f"AI validation for: {process_id}")
+        generator = get_generator()
+        validation = generator.validate_biological_accuracy(process)
+        
+        return jsonify({
+            'success': True,
+            'process_id': process_id,
+            'ai_validation': validation
+        })
+        
+    except Exception as e:
+        logger.error(f"AI validation failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 
 # ============================================================================
