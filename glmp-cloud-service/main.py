@@ -13,6 +13,7 @@ from datetime import datetime
 # Import our new modules
 from vertex_ai_integration import get_generator, get_enricher
 from literature_integration import get_arxiv, get_pubmed, get_literature_enricher
+from external_apis import get_zenodo, get_nasa_ads, get_openrouter, get_news_api, get_google_search
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -579,6 +580,226 @@ def ai_validate():
         
     except Exception as e:
         logger.error(f"AI validation failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/openrouter-validate', methods=['POST'])
+def openrouter_validate():
+    """
+    Validate using OpenRouter (Claude, GPT-4, etc.)
+    POST body: {
+        "process_id": "ecoli_lac_operon",
+        "model": "anthropic/claude-3-opus" (optional)
+    }
+    """
+    try:
+        data = request.json
+        process_id = data.get('process_id')
+        model = data.get('model', 'anthropic/claude-3-sonnet')
+        
+        if not process_id:
+            return jsonify({
+                'success': False,
+                'error': 'process_id is required'
+            }), 400
+        
+        # Load process
+        process = load_process_from_gcs(process_id)
+        if not process:
+            return jsonify({
+                'success': False,
+                'error': f'Process {process_id} not found'
+            }), 404
+        
+        # Validate with OpenRouter
+        logger.info(f"OpenRouter validation for: {process_id} using {model}")
+        openrouter = get_openrouter()
+        result = openrouter.validate_process_biology(process, model=model)
+        
+        # Try to parse as JSON
+        try:
+            validation = json.loads(result)
+        except:
+            validation = {'raw_response': result}
+        
+        return jsonify({
+            'success': True,
+            'process_id': process_id,
+            'model': model,
+            'validation': validation
+        })
+        
+    except Exception as e:
+        logger.error(f"OpenRouter validation failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/search-zenodo', methods=['POST'])
+def search_zenodo():
+    """
+    Search Zenodo for datasets and publications
+    POST body: {
+        "query": "lac operon E. coli",
+        "type": "dataset" (or "publication"),
+        "max_results": 10
+    }
+    """
+    try:
+        data = request.json
+        query = data.get('query')
+        
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': 'query is required'
+            }), 400
+        
+        zenodo = get_zenodo()
+        records = zenodo.search_records(
+            query=query,
+            record_type=data.get('type', 'publication'),
+            max_results=data.get('max_results', 10)
+        )
+        
+        return jsonify({
+            'success': True,
+            'query': query,
+            'count': len(records),
+            'records': records
+        })
+        
+    except Exception as e:
+        logger.error(f"Zenodo search failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/search-news', methods=['POST'])
+def search_news():
+    """
+    Search recent science news
+    POST body: {
+        "query": "CRISPR gene editing",
+        "max_results": 10
+    }
+    """
+    try:
+        data = request.json
+        query = data.get('query')
+        
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': 'query is required'
+            }), 400
+        
+        news_api = get_news_api()
+        articles = news_api.search_science_news(
+            query=query,
+            max_results=data.get('max_results', 10)
+        )
+        
+        return jsonify({
+            'success': True,
+            'query': query,
+            'count': len(articles),
+            'articles': articles
+        })
+        
+    except Exception as e:
+        logger.error(f"News search failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/comprehensive-search', methods=['POST'])
+def comprehensive_search():
+    """
+    Search across all databases simultaneously
+    POST body: {
+        "query": "lac operon regulation",
+        "include_pubmed": true,
+        "include_arxiv": true,
+        "include_zenodo": true,
+        "include_news": true
+    }
+    """
+    try:
+        data = request.json
+        query = data.get('query')
+        
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': 'query is required'
+            }), 400
+        
+        results = {
+            'query': query,
+            'timestamp': datetime.utcnow().isoformat()
+        }
+        
+        # PubMed
+        if data.get('include_pubmed', True):
+            pubmed = get_pubmed()
+            pmids = pubmed.search_pubmed(query, max_results=5)
+            results['pubmed'] = {
+                'count': len(pmids),
+                'pmids': pmids
+            }
+        
+        # ArXiv
+        if data.get('include_arxiv', True):
+            arxiv_search = get_arxiv()
+            papers = arxiv_search.search_papers(query, max_results=5)
+            results['arxiv'] = {
+                'count': len(papers),
+                'papers': papers
+            }
+        
+        # Zenodo
+        if data.get('include_zenodo', True):
+            zenodo = get_zenodo()
+            records = zenodo.search_records(query, max_results=5)
+            results['zenodo'] = {
+                'count': len(records),
+                'records': records
+            }
+        
+        # News
+        if data.get('include_news', True):
+            news_api = get_news_api()
+            articles = news_api.search_science_news(query, max_results=5)
+            results['news'] = {
+                'count': len(articles),
+                'articles': articles
+            }
+        
+        # Total results
+        results['total_results'] = sum([
+            results.get('pubmed', {}).get('count', 0),
+            results.get('arxiv', {}).get('count', 0),
+            results.get('zenodo', {}).get('count', 0),
+            results.get('news', {}).get('count', 0)
+        ])
+        
+        return jsonify({
+            'success': True,
+            'results': results
+        })
+        
+    except Exception as e:
+        logger.error(f"Comprehensive search failed: {e}")
         return jsonify({
             'success': False,
             'error': str(e)
