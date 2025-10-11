@@ -13,7 +13,7 @@ from datetime import datetime
 # Import our new modules
 from vertex_ai_integration import get_generator, get_enricher
 from literature_integration import get_arxiv, get_pubmed, get_literature_enricher
-from external_apis import get_zenodo, get_nasa_ads, get_openrouter, get_news_api, get_google_search
+from external_apis import get_zenodo, get_nasa_ads, get_openrouter, get_news_api, get_google_search, get_core, get_openai_direct
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -722,15 +722,111 @@ def search_news():
         }), 500
 
 
+@app.route('/api/search-core', methods=['POST'])
+def search_core():
+    """
+    Search CORE API (270M+ papers)
+    POST body: {
+        "query": "lac operon regulation",
+        "max_results": 10
+    }
+    """
+    try:
+        data = request.json
+        query = data.get('query')
+        
+        if not query:
+            return jsonify({
+                'success': False,
+                'error': 'query is required'
+            }), 400
+        
+        core = get_core()
+        papers = core.search_papers(
+            query=query,
+            max_results=data.get('max_results', 10)
+        )
+        
+        return jsonify({
+            'success': True,
+            'query': query,
+            'count': len(papers),
+            'papers': papers,
+            'source': 'CORE (270M+ open access papers)'
+        })
+        
+    except Exception as e:
+        logger.error(f"CORE search failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/openai-validate', methods=['POST'])
+def openai_validate():
+    """
+    Validate using OpenAI Direct (GPT-4)
+    POST body: {
+        "process_id": "ecoli_lac_operon",
+        "model": "gpt-4-turbo-preview" (optional)
+    }
+    """
+    try:
+        data = request.json
+        process_id = data.get('process_id')
+        model = data.get('model', 'gpt-4-turbo-preview')
+        
+        if not process_id:
+            return jsonify({
+                'success': False,
+                'error': 'process_id is required'
+            }), 400
+        
+        # Load process
+        process = load_process_from_gcs(process_id)
+        if not process:
+            return jsonify({
+                'success': False,
+                'error': f'Process {process_id} not found'
+            }), 404
+        
+        # Validate with OpenAI
+        logger.info(f"OpenAI validation for: {process_id} using {model}")
+        openai = get_openai_direct()
+        result = openai.validate_process(process)
+        
+        # Try to parse as JSON
+        try:
+            validation = json.loads(result)
+        except:
+            validation = {'raw_response': result}
+        
+        return jsonify({
+            'success': True,
+            'process_id': process_id,
+            'model': model,
+            'validation': validation
+        })
+        
+    except Exception as e:
+        logger.error(f"OpenAI validation failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @app.route('/api/comprehensive-search', methods=['POST'])
 def comprehensive_search():
     """
-    Search across all databases simultaneously
+    Search across ALL databases simultaneously
     POST body: {
         "query": "lac operon regulation",
         "include_pubmed": true,
         "include_arxiv": true,
         "include_zenodo": true,
+        "include_core": true,
         "include_news": true
     }
     """
@@ -755,7 +851,8 @@ def comprehensive_search():
             pmids = pubmed.search_pubmed(query, max_results=5)
             results['pubmed'] = {
                 'count': len(pmids),
-                'pmids': pmids
+                'pmids': pmids,
+                'source': 'PubMed (30M biomedical papers)'
             }
         
         # ArXiv
@@ -764,7 +861,18 @@ def comprehensive_search():
             papers = arxiv_search.search_papers(query, max_results=5)
             results['arxiv'] = {
                 'count': len(papers),
-                'papers': papers
+                'papers': papers,
+                'source': 'ArXiv (2M preprints)'
+            }
+        
+        # CORE (NEW!)
+        if data.get('include_core', True):
+            core = get_core()
+            core_papers = core.search_papers(query, max_results=10)
+            results['core'] = {
+                'count': len(core_papers),
+                'papers': core_papers,
+                'source': 'CORE (270M open access papers)'
             }
         
         # Zenodo
@@ -773,7 +881,8 @@ def comprehensive_search():
             records = zenodo.search_records(query, max_results=5)
             results['zenodo'] = {
                 'count': len(records),
-                'records': records
+                'records': records,
+                'source': 'Zenodo (10M datasets & publications)'
             }
         
         # News
@@ -782,16 +891,20 @@ def comprehensive_search():
             articles = news_api.search_science_news(query, max_results=5)
             results['news'] = {
                 'count': len(articles),
-                'articles': articles
+                'articles': articles,
+                'source': 'Science News (real-time)'
             }
         
         # Total results
         results['total_results'] = sum([
             results.get('pubmed', {}).get('count', 0),
             results.get('arxiv', {}).get('count', 0),
+            results.get('core', {}).get('count', 0),
             results.get('zenodo', {}).get('count', 0),
             results.get('news', {}).get('count', 0)
         ])
+        
+        results['summary'] = f"Found {results['total_results']} results across {sum([1 for k in ['pubmed', 'arxiv', 'core', 'zenodo', 'news'] if k in results])} databases"
         
         return jsonify({
             'success': True,

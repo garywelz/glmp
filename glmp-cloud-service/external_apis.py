@@ -376,12 +376,170 @@ class GoogleCustomSearchAPI:
             return []
 
 
+class COREAPI:
+    """
+    CORE - World's largest aggregator of open access research papers
+    270+ million papers from repositories worldwide
+    """
+    
+    def __init__(self):
+        self.api_key = get_secret('core_api_key')
+        self.base_url = "https://api.core.ac.uk/v3"
+        logger.info("✓ Initialized CORE API (270M+ papers)")
+    
+    def search_papers(self, query, max_results=10):
+        """
+        Search CORE for research papers
+        
+        Args:
+            query: Search query
+            max_results: Max results to return
+        
+        Returns:
+            List of papers with full metadata
+        """
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.api_key}'
+            }
+            
+            params = {
+                'q': query,
+                'limit': max_results
+            }
+            
+            response = requests.get(
+                f"{self.base_url}/search/works",
+                headers=headers,
+                params=params
+            )
+            response.raise_for_status()
+            
+            data = response.json()
+            papers = []
+            
+            for result in data.get('results', []):
+                papers.append({
+                    'id': result.get('id'),
+                    'title': result.get('title'),
+                    'abstract': result.get('abstract'),
+                    'authors': result.get('authors', []),
+                    'year': result.get('yearPublished'),
+                    'doi': result.get('doi'),
+                    'download_url': result.get('downloadUrl'),
+                    'full_text_url': result.get('fullTextIdentifier'),
+                    'citations': result.get('citationCount'),
+                    'publisher': result.get('publisher'),
+                    'journal': result.get('journals', [{}])[0].get('title') if result.get('journals') else None
+                })
+            
+            logger.info(f"✓ Found {len(papers)} papers on CORE for: {query}")
+            return papers
+            
+        except Exception as e:
+            logger.error(f"CORE API search failed: {e}")
+            return []
+    
+    def get_paper_by_doi(self, doi):
+        """Get specific paper by DOI"""
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.api_key}'
+            }
+            
+            response = requests.get(
+                f"{self.base_url}/works/{doi}",
+                headers=headers
+            )
+            response.raise_for_status()
+            
+            return response.json()
+            
+        except Exception as e:
+            logger.error(f"CORE DOI lookup failed: {e}")
+            return None
+    
+    def search_biological_papers(self, process_name, organism):
+        """Search CORE specifically for biological papers"""
+        query = f"{process_name} {organism} molecular biology gene regulation"
+        return self.search_papers(query, max_results=10)
+
+
+class OpenAIDirectAPI:
+    """
+    OpenAI Direct API - GPT-4 and other OpenAI models
+    (Alternative to OpenRouter for direct access)
+    """
+    
+    def __init__(self):
+        self.api_key = get_secret('openai_api_key')
+        self.base_url = "https://api.openai.com/v1"
+        logger.info("✓ Initialized OpenAI Direct API")
+    
+    def chat_completion(self, prompt, model="gpt-4-turbo-preview", max_tokens=4096):
+        """
+        Generate completion using OpenAI models
+        
+        Args:
+            prompt: The prompt
+            model: Model (gpt-4-turbo-preview, gpt-3.5-turbo, etc.)
+            max_tokens: Max response tokens
+        
+        Returns:
+            Model response text
+        """
+        try:
+            headers = {
+                'Authorization': f'Bearer {self.api_key}',
+                'Content-Type': 'application/json'
+            }
+            
+            payload = {
+                'model': model,
+                'messages': [
+                    {'role': 'user', 'content': prompt}
+                ],
+                'max_tokens': max_tokens
+            }
+            
+            response = requests.post(
+                f"{self.base_url}/chat/completions",
+                headers=headers,
+                json=payload
+            )
+            response.raise_for_status()
+            
+            data = response.json()
+            result = data['choices'][0]['message']['content']
+            
+            logger.info(f"✓ OpenAI completion with {model}")
+            return result
+            
+        except Exception as e:
+            logger.error(f"OpenAI request failed: {e}")
+            return None
+    
+    def validate_process(self, process_data):
+        """Use GPT-4 to validate biological process"""
+        prompt = f"""You are a molecular biology expert. Validate this biological process.
+
+Process: {process_data.get('name')}
+Organism: {process_data.get('organism')}
+Description: {process_data.get('description')}
+
+Provide accuracy score (0-10), errors, and suggestions in JSON format."""
+
+        return self.chat_completion(prompt, model="gpt-4-turbo-preview")
+
+
 # Global instances
 zenodo_api = None
 nasa_ads_api = None
 openrouter_api = None
 news_api = None
 google_search_api = None
+core_api = None
+openai_direct_api = None
 
 
 def get_zenodo():
@@ -422,3 +580,19 @@ def get_google_search():
     if google_search_api is None:
         google_search_api = GoogleCustomSearchAPI()
     return google_search_api
+
+
+def get_core():
+    """Get or create CORE API instance"""
+    global core_api
+    if core_api is None:
+        core_api = COREAPI()
+    return core_api
+
+
+def get_openai_direct():
+    """Get or create OpenAI Direct API instance"""
+    global openai_direct_api
+    if openai_direct_api is None:
+        openai_direct_api = OpenAIDirectAPI()
+    return openai_direct_api
