@@ -4,8 +4,8 @@ Provides process generation and validation using Google's Gemini models
 """
 
 from google.cloud import aiplatform
-from vertexai.preview.generative_models import GenerativeModel, ChatSession
 import vertexai
+from vertexai.generative_models import GenerativeModel
 import json
 import logging
 
@@ -16,7 +16,11 @@ PROJECT_ID = "regal-scholar-453620-r7"
 REGION = "us-central1"
 
 # Initialize Vertex AI
-vertexai.init(project=PROJECT_ID, location=REGION)
+try:
+    vertexai.init(project=PROJECT_ID, location=REGION)
+    logger.info(f"✓ Initialized Vertex AI in {REGION}")
+except Exception as e:
+    logger.warning(f"Vertex AI init delayed: {e}")
 
 
 class ProcessGenerator:
