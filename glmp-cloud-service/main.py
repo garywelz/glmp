@@ -10,10 +10,11 @@ import json
 import logging
 from datetime import datetime
 
-# Import our new modules
-from vertex_ai_integration import get_generator, get_enricher
-from literature_integration import get_arxiv, get_pubmed, get_literature_enricher
-from external_apis import get_zenodo, get_nasa_ads, get_openrouter, get_news_api, get_google_search, get_core, get_openai_direct
+# Import our new modules - use lazy loading to avoid startup failures
+# These will be imported only when needed
+vertex_ai_integration = None
+literature_integration = None
+external_apis = None
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -283,6 +284,31 @@ def validate_process():
         }), 500
 
 
+def get_vertex_module():
+    """Lazy load vertex AI module"""
+    global vertex_ai_integration
+    if vertex_ai_integration is None:
+        import vertex_ai_integration as vai
+        vertex_ai_integration = vai
+    return vertex_ai_integration
+
+def get_literature_module():
+    """Lazy load literature module"""
+    global literature_integration
+    if literature_integration is None:
+        import literature_integration as li
+        literature_integration = li
+    return literature_integration
+
+def get_external_module():
+    """Lazy load external APIs module"""
+    global external_apis
+    if external_apis is None:
+        import external_apis as ea
+        external_apis = ea
+    return external_apis
+
+
 @app.route('/api/generate', methods=['POST'])
 def generate_process():
     """
@@ -309,7 +335,8 @@ def generate_process():
         
         # Generate process using Vertex AI
         logger.info(f"Generating process: {data['name']}")
-        generator = get_generator()
+        vai = get_vertex_module()
+        generator = vai.get_generator()
         
         process_data = generator.generate_process_from_description(
             name=data['name'],
@@ -430,7 +457,8 @@ def validate_citations():
         
         # Validate citations
         logger.info(f"Validating citations for: {process_id}")
-        pubmed = get_pubmed()
+        li = get_literature_module()
+        pubmed = li.get_pubmed()
         validation = pubmed.validate_all_citations(process)
         
         return jsonify({
@@ -701,7 +729,8 @@ def search_news():
                 'error': 'query is required'
             }), 400
         
-        news_api = get_news_api()
+        ea = get_external_module()
+        news_api = ea.get_news_api()
         articles = news_api.search_science_news(
             query=query,
             max_results=data.get('max_results', 10)
@@ -741,7 +770,8 @@ def search_core():
                 'error': 'query is required'
             }), 400
         
-        core = get_core()
+        ea = get_external_module()
+        core = ea.get_core()
         papers = core.search_papers(
             query=query,
             max_results=data.get('max_results', 10)
@@ -793,7 +823,8 @@ def openai_validate():
         
         # Validate with OpenAI
         logger.info(f"OpenAI validation for: {process_id} using {model}")
-        openai = get_openai_direct()
+        ea = get_external_module()
+        openai = ea.get_openai_direct()
         result = openai.validate_process(process)
         
         # Try to parse as JSON
@@ -847,7 +878,8 @@ def comprehensive_search():
         
         # PubMed
         if data.get('include_pubmed', True):
-            pubmed = get_pubmed()
+            li = get_literature_module()
+            pubmed = li.get_pubmed()
             pmids = pubmed.search_pubmed(query, max_results=5)
             results['pubmed'] = {
                 'count': len(pmids),
@@ -867,7 +899,8 @@ def comprehensive_search():
         
         # CORE (NEW!)
         if data.get('include_core', True):
-            core = get_core()
+            ea = get_external_module()
+            core = ea.get_core()
             core_papers = core.search_papers(query, max_results=10)
             results['core'] = {
                 'count': len(core_papers),
@@ -887,7 +920,8 @@ def comprehensive_search():
         
         # News
         if data.get('include_news', True):
-            news_api = get_news_api()
+            ea = get_external_module()
+            news_api = ea.get_news_api()
             articles = news_api.search_science_news(query, max_results=5)
             results['news'] = {
                 'count': len(articles),
