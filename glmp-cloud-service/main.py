@@ -689,7 +689,8 @@ def search_zenodo():
                 'error': 'query is required'
             }), 400
         
-        zenodo = get_zenodo()
+        ea = get_external_module()
+        zenodo = ea.get_zenodo()
         records = zenodo.search_records(
             query=query,
             record_type=data.get('type', 'publication'),
