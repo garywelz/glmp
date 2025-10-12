@@ -6,9 +6,44 @@ Connects to multiple scientific databases and services
 import requests
 import json
 import logging
-from main import get_secret
+import os
+from google.cloud import secretmanager
 
 logger = logging.getLogger(__name__)
+
+# Initialize Secret Manager client
+PROJECT_ID = os.environ.get('PROJECT_ID', 'regal-scholar-453620-r7')
+secret_client = None
+
+try:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    logger.info("✓ Initialized Secret Manager client")
+except Exception as e:
+    logger.warning(f"Secret Manager initialization delayed: {e}")
+
+
+def get_secret(secret_id, version_id="latest"):
+    """
+    Get secret value from Secret Manager
+    
+    Args:
+        secret_id: Secret name (e.g., 'pubmed_api_key')
+        version_id: Version (default: 'latest')
+    
+    Returns:
+        Secret value as string
+    """
+    try:
+        if not secret_client:
+            logger.error("Secret Manager client not initialized")
+            return None
+            
+        name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/{version_id}"
+        response = secret_client.access_secret_version(request={"name": name})
+        return response.payload.data.decode('UTF-8')
+    except Exception as e:
+        logger.error(f"Failed to get secret {secret_id}: {e}")
+        return None
 
 
 class ZenodoAPI:
