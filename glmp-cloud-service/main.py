@@ -497,7 +497,8 @@ def search_arxiv():
         
         # Search ArXiv
         logger.info(f"Searching ArXiv for: {query}")
-        arxiv_search = get_arxiv()
+        li = get_literature_module()
+        arxiv_search = li.get_arxiv()
         
         papers = arxiv_search.search_papers(
             query=query,
@@ -889,7 +890,8 @@ def comprehensive_search():
         
         # ArXiv
         if data.get('include_arxiv', True):
-            arxiv_search = get_arxiv()
+            li = get_literature_module()
+            arxiv_search = li.get_arxiv()
             papers = arxiv_search.search_papers(query, max_results=5)
             results['arxiv'] = {
                 'count': len(papers),
