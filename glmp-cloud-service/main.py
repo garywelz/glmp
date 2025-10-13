@@ -308,6 +308,14 @@ def get_external_module():
         external_apis = ea
     return external_apis
 
+def get_analyzer_module():
+    """Lazy load process analyzer module"""
+    global process_analyzer
+    if process_analyzer is None:
+        import process_analyzer as pa
+        process_analyzer = pa
+    return process_analyzer
+
 
 @app.route('/api/generate', methods=['POST'])
 def generate_process():
