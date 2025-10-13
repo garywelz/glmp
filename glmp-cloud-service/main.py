@@ -913,7 +913,8 @@ def comprehensive_search():
         
         # Zenodo
         if data.get('include_zenodo', True):
-            zenodo = get_zenodo()
+            ea = get_external_module()
+            zenodo = ea.get_zenodo()
             records = zenodo.search_records(query, max_results=5)
             results['zenodo'] = {
                 'count': len(records),
