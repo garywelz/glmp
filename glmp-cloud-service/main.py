@@ -850,6 +850,90 @@ def openai_validate():
         }), 500
 
 
+@app.route('/api/analyze-process', methods=['POST'])
+def analyze_process():
+    """
+    Analyze a process for logic gates and patterns
+    POST body: {"process_id": "ecoli_lac_operon"}
+    """
+    try:
+        data = request.json
+        process_id = data.get('process_id')
+        
+        if not process_id:
+            return jsonify({
+                'success': False,
+                'error': 'process_id is required'
+            }), 400
+        
+        # Load process
+        process = load_process_from_gcs(process_id)
+        if not process:
+            return jsonify({
+                'success': False,
+                'error': f'Process {process_id} not found'
+            }), 404
+        
+        # Analyze
+        logger.info(f"Analyzing process: {process_id}")
+        pa = get_analyzer_module()
+        analyzer = pa.get_analyzer()
+        analysis = analyzer.analyze_process(process)
+        
+        return jsonify({
+            'success': True,
+            'analysis': analysis
+        })
+        
+    except Exception as e:
+        logger.error(f"Process analysis failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/analyze-all', methods=['GET'])
+def analyze_all_processes():
+    """
+    Analyze ALL processes and generate database statistics
+    Returns complete dataset ready for research
+    """
+    try:
+        # Load all processes
+        process_paths = list_all_processes()
+        processes = []
+        
+        for path in process_paths:
+            process_id = path.split('/')[-1].replace('.json', '')
+            process = load_process_from_gcs(process_id)
+            if process:
+                processes.append(process)
+        
+        # Analyze all
+        logger.info(f"Analyzing {len(processes)} processes...")
+        pa = get_analyzer_module()
+        db_builder = pa.ProcessDatabaseBuilder()
+        
+        records = db_builder.analyze_all_processes(processes)
+        stats = db_builder.generate_statistics(records)
+        
+        return jsonify({
+            'success': True,
+            'total_processes': len(processes),
+            'records': records,
+            'statistics': stats,
+            'timestamp': datetime.utcnow().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Batch analysis failed: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @app.route('/api/comprehensive-search', methods=['POST'])
 def comprehensive_search():
     """
