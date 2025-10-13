@@ -15,6 +15,7 @@ from datetime import datetime
 vertex_ai_integration = None
 literature_integration = None
 external_apis = None
+process_analyzer = None
 
 # Initialize Flask app
 app = Flask(__name__)
