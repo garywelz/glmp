@@ -1,0 +1,57 @@
+{
+  "id": "yeast_nucleotide_excision_repair",
+  "name": "Nucleotide Excision Repair (NER) Pathway",
+  "organism": "S. cerevisiae",
+  "category": "DNA Repair",
+  "description": "Nucleotide excision repair (NER) is the primary pathway for removing bulky DNA lesions such as UV-induced pyrimidine dimers, chemical adducts, and other helix-distorting damage. In yeast, NER operates through two sub-pathways: global genome NER (GG-NER) for genome-wide surveillance and transcription-coupled NER (TC-NER) for rapid repair of transcribed genes. The pathway involves damage recognition, DNA unwinding, dual incision to excise the damaged strand, gap filling by DNA polymerase, and ligation. This process demonstrates sophisticated damage sensing, pathway choice logic, and coordination with transcription and cell cycle checkpoints.",
+  "scientificAccuracy": "This flowchart is based on extensive genetic and biochemical studies of yeast NER, including the identification of RAD genes, structural analysis of repair complexes, and mechanistic studies of damage recognition and excision. The pathway represents the current understanding of how Rad4-Rad23 (XPC-RAD23B in humans) recognizes damage in GG-NER, how Rad26 (CSB) couples repair to transcription in TC-NER, and how the Rad1-Rad10 and Rad2 nucleases perform dual incision. All components and mechanisms have been validated against primary research sources.",
+  "complexity": {
+    "nodes": 55,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 4,
+      "andGates": 3,
+      "total": 7
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "DNA damage, UV exposure, transcription blocking, stress signals"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Rad proteins, helicases, nucleases, polymerases, ligases"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Damage recognition, DNA unwinding, excision, synthesis, ligation"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Repair intermediates, gapped DNA, repair complexes"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates",
+      "description": "Pathway choice (GG-NER vs TC-NER), damage type detection"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements for repair progression"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Repaired DNA, restored transcription, cell survival"
+    }
+  },
+  "mermaid": "graph TD\n    %% DNA Damage Input\n    A[UV Radiation or Chemical Damage] --> B[Bulky DNA Lesion Formation]\n    B --> C[Helix Distortion]\n    \n    %% Pathway Choice\n    C --> D{{Damage Location<br/>and Context?}}\n    \n    %% Global Genome NER Pathway\n    D -->|Non-Transcribed| E[Global Genome Surveillance]\n    E --> F[Rad4-Rad23 Complex Scanning]\n    F --> G{{Damage<br/>Detected?}}\n    G -->|Yes| H[Rad4-Rad23 Binds Lesion]\n    H --> I[Damage Recognition]\n    \n    %% Transcription-Coupled NER Pathway\n    D -->|Transcribed Gene| J[RNA Pol II Stalling]\n    J --> K[Rad26 CSB Recruitment]\n    K --> L[Rad26 Recognizes Stalled Pol II]\n    L --> M[Transcription Complex Remodeling]\n    M --> N[Damage Site Exposure]\n    \n    %% Convergence to Core NER\n    I --> O[Rad14 XPA Recruitment]\n    N --> O\n    O --> P[TFIIH Complex Recruitment]\n    \n    P --> Q[Rad3 Helicase 5' to 3']\n    P --> R[Rad25 SSL2 Helicase 3' to 5']\n    \n    Q --> S[DNA Unwinding]\n    R --> S\n    S --> T[Open Bubble Formation]\n    T --> U[20-30 Nucleotide Bubble]\n    \n    %% Verification and Incision\n    U --> V{{Damage Confirmed<br/>in Bubble?}}\n    V -->|Yes| W[RPA Coating ssDNA]\n    W --> X[Rad1-Rad10 Recruitment]\n    X --> Y[Rad2 XPG Recruitment]\n    \n    Y --> ANDGATE1{{Both Nucleases<br/>Positioned?}}\n    ANDGATE1 -->|Yes| Z[Dual Incision]\n    \n    %% 5' and 3' Incisions\n    Z --> AA[Rad1-Rad10 5' Incision]\n    Z --> AB[Rad2 3' Incision]\n    \n    AA --> AC[Damaged Oligonucleotide Release]\n    AB --> AC\n    AC --> AD[24-32 nt Gap in DNA]\n    \n    %% Gap Filling\n    AD --> AE{{Repair Synthesis<br/>Factors Ready?}}\n    AE --> ANDGATE2{{Gap Present AND<br/>Pol δ/ε Available?}}\n    \n    ANDGATE2 -->|Yes| AF[PCNA Loading]\n    AF --> AG[DNA Polymerase δ or ε]\n    AG --> AH[Gap Filling Synthesis]\n    AH --> AI[New DNA Strand]\n    \n    %% Ligation\n    AI --> AJ{{Nick Sealed?}}\n    AJ --> ANDGATE3{{Synthesis Complete AND<br/>Ligase Available?}}\n    \n    ANDGATE3 -->|Yes| AK[DNA Ligase I]\n    AK --> AL[Nick Sealing]\n    AL --> AM[Restored DNA Duplex]\n    \n    %% Outcomes\n    AM --> AN[Repaired DNA]\n    AN --> AO{{In Transcribed<br/>Gene?}}\n    \n    AO -->|Yes| AP[Transcription Resumption]\n    AO -->|No| AQ[Genome Integrity Restored]\n    \n    AP --> AR[mRNA Synthesis Continues]\n    AQ --> AS[Cell Cycle Progression]\n    \n    %% Failed Repair\n    V -->|No| AT[Repair Aborted]\n    AT --> AU[Checkpoint Activation]\n    AU --> AV[Cell Cycle Arrest or Apoptosis]\n    \n    %% Styling - GLMP Color Scheme\n    %% Red: Triggers & Inputs\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style J fill:#ff6b6b,color:#fff\n    \n    %% Yellow: Structures & Objects\n    style F fill:#ffd43b,color:#000\n    style H fill:#ffd43b,color:#000\n    style K fill:#ffd43b,color:#000\n    style L fill:#ffd43b,color:#000\n    style O fill:#ffd43b,color:#000\n    style P fill:#ffd43b,color:#000\n    style Q fill:#ffd43b,color:#000\n    style R fill:#ffd43b,color:#000\n    style W fill:#ffd43b,color:#000\n    style X fill:#ffd43b,color:#000\n    style Y fill:#ffd43b,color:#000\n    style AF fill:#ffd43b,color:#000\n    style AG fill:#ffd43b,color:#000\n    style AK fill:#ffd43b,color:#000\n    \n    %% Green: Processing & Operations\n    style E fill:#51cf66,color:#fff\n    style I fill:#51cf66,color:#fff\n    style M fill:#51cf66,color:#fff\n    style N fill:#51cf66,color:#fff\n    style S fill:#51cf66,color:#fff\n    style T fill:#51cf66,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#51cf66,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AL fill:#51cf66,color:#fff\n    \n    %% Blue: Intermediates & States\n    style U fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    \n    %% Orange: OR Logic Gates\n    style D fill:#ff9f43,color:#fff\n    style G fill:#ff9f43,color:#fff\n    style V fill:#ff9f43,color:#fff\n    style AE fill:#ff9f43,color:#fff\n    style AJ fill:#ff9f43,color:#fff\n    style AO fill:#ff9f43,color:#fff\n    \n    %% Lavender: AND Logic Gates\n    style ANDGATE1 fill:#b4b4dc,color:#fff\n    style ANDGATE2 fill:#b4b4dc,color:#fff\n    style ANDGATE3 fill:#b4b4dc,color:#fff\n    \n    %% Violet: Products & Outputs\n    style AM fill:#b197fc,color:#fff\n    style AN fill:#b197fc,color:#fff\n    style AP fill:#b197fc,color:#fff\n    style AQ fill:#b197fc,color:#fff\n    style AR fill:#b197fc,color:#fff\n    style AS fill:#b197fc,color:#fff\n    style AV fill:#b197fc,color:#fff"
+}
