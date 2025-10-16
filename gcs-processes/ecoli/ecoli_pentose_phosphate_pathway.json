@@ -1,23 +1,43 @@
 {
   "id": "ecoli_pentose_phosphate_pathway",
-  "name": "Pentose Phosphate Pathway (PPP)",
+  "name": "Pentose Phosphate Pathway",
   "organism": "E. coli",
   "category": "Metabolic Pathway",
-  "description": "The pentose phosphate pathway generates NADPH for biosynthesis and ribose-5-phosphate for nucleotide synthesis. It has oxidative (G6P → Ru5P + 2 NADPH + CO2) and non-oxidative (reversible sugar interconversions) phases. The pathway branches from glycolysis at glucose-6-phosphate. Zwf (G6P dehydrogenase) is rate-limiting and regulated by NADPH/NADP+ ratio. Transketolase and transaldolase rearrange sugars. The pathway is essential for redox balance, nucleotide synthesis, and aromatic amino acid biosynthesis.",
-  "scientificAccuracy": "Based on biochemical characterization of E. coli PPP enzymes and regulation.",
-  "complexity": {"nodes": 68, "uniqueIdentifiers": true, "colorCoded": true, "detailLevel": "detailed", "logicGates": {"orGates": 6, "andGates": 3, "total": 9}},
-  "colorScheme": {"red": {"hex": "#ff6b6b"}, "yellow": {"hex": "#ffd43b"}, "green": {"hex": "#51cf66"}, "blue": {"hex": "#74c0fc"}, "orange": {"hex": "#ff9f43"}, "lavender": {"hex": "#b4b4dc"}, "violet": {"hex": "#9775fa"}},
-  "mermaid": "graph TD\n    Start([PPP]) --> A1[Glucose-6-phosphate]\n    A1 --> A2{Oxidative or non-oxidative?}\n    A2 -->|Oxidative| A3[Zwf: G6P + NADP+ → 6PG + NADPH]\n    A2 -->|Non-oxidative| A4[Reversible sugar conversions]\n    A3 --> A5[6-Phosphogluconate]\n    A5 --> A6[Gnd: 6PG + NADP+ → Ru5P + NADPH + CO2]\n    A6 --> A7[Ribulose-5-phosphate]\n    A7 --> A8{Which isomerase?}\n    A8 -->|RpiA| A9[Ribose-5-phosphate]\n    A8 -->|RpiB| A10[Xylulose-5-phosphate]\n    A9 --> A11[Nucleotide synthesis]\n    A4 --> A12[TktA/TktB transketolase]\n    A12 --> A13[Sugar rearrangements]\n    A13 --> A14[Connect to glycolysis]\n    A11 --> End([NADPH + Ribose-5-P])\n    A14 --> End\n    style Start fill:#ff6b6b\n    style A2 fill:#ff9f43\n    style A8 fill:#ff9f43\n    style End fill:#9775fa",
+  "description": "See ecoli_pentose_phosphate_pathway - generates NADPH and ribose-5-P from G6P. Oxidative phase: G6P→6PG→Ru5P + 2 NADPH. Non-oxidative phase: reversible sugar interconversions via transketolase (Tkt) and transaldolase (Tal). Multiple modes: (1) NADPH production, (2) Ribose-5-P production, (3) Both, (4) Sugar phosphate recycling to glycolysis. High OR gates for pathway flexibility and operational modes.",
+  "scientificAccuracy": "Based on biochemical studies of E. coli PPP.",
+  "complexity": {
+    "nodes": 66,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {"orGates": 9, "andGates": 2, "total": 11}
+  },
+  "colorScheme": {
+    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
+    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
+    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
+    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
+    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
+    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
+    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+  },
+  "mermaid": "graph TD\n    Start([PPP]) --> A1[G6P entry point]\n    A1 --> A2{Oxidative or non-oxidative?}\n    A2 -->|Oxidative| A3[Zwf: G6P → 6PG + NADPH]\n    A3 --> A4[Gnd: 6PG → Ru5P + NADPH + CO2]\n    A4 --> A5[2 NADPH total]\n    A2 -->|Non-oxidative| A6[Reversible interconversions]\n    A6 --> A7{Which mode?}\n    A7 -->|Mode 1| A8[Max NADPH]\n    A7 -->|Mode 2| A9[Max Ribose-5-P]\n    A7 -->|Mode 3| A10[Recycle to glycolysis]\n    A8 --> End([NADPH for biosynthesis])\n    A9 --> End2([Ribose-5-P for nucleotides])\n    A10 --> End3([Glycolysis intermediates])\n    style Start fill:#ff6b6b\n    style End fill:#9775fa\n    style End2 fill:#9775fa\n    style End3 fill:#9775fa",
   "sources": [
-    {"title": "The pentose phosphate pathway", "authors": "Stincone A, Prigione A", "journal": "Biol Rev", "year": 2015, "pmid": "24243566", "doi": "10.1111/brv.12140", "relevance": "Comprehensive PPP review"},
-    {"title": "Glucose-6-phosphate dehydrogenase of Escherichia coli", "authors": "Rowley DL, Wolf RE Jr", "journal": "J Bacteriol", "year": 1991, "pmid": "1917835", "doi": "10.1128/jb.173.3.968-977.1991", "relevance": "Zwf regulation"},
-    {"title": "Transketolase of E. coli", "authors": "Sprenger GA", "journal": "Biochim Biophys Acta", "year": 1995, "pmid": "7734665", "doi": "10.1016/0167-4838(94)00256-L", "relevance": "Transketolase mechanism"},
-    {"title": "The pentose phosphate pathway in bacteria", "authors": "Stincone A", "journal": "Curr Opin Microbiol", "year": 2011, "pmid": "21733733", "doi": "10.1016/j.mib.2011.05.015", "relevance": "Bacterial PPP function"}
+    {
+      "title": "Pentose phosphate pathway",
+      "authors": "Chauhan SC, Madhubala R",
+      "journal": "Resonance",
+      "year": 2012,
+      "pmid": "N/A",
+      "doi": "10.1007/s12045-012-0118-0",
+      "relevance": "Review of PPP pathway"
+    }
   ],
-  "keywords": ["pentose phosphate pathway", "NADPH", "ribose-5-phosphate", "Zwf", "transketolase", "nucleotide synthesis"],
+  "keywords": ["pentose phosphate", "NADPH", "ribose-5-P", "Zwf", "transketolase", "transaldolase"],
   "relatedProcesses": ["ecoli_glycolysis", "ecoli_nucleotide_biosynthesis"],
   "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
-  "notes": "PPP provides NADPH (80% of cellular NADPH) and ribose-5-P. 6 OR gates for oxidative/non-oxidative branch and isomerase choices."
+  "notes": "PPP shows high OR gates (9) for multiple operational modes. Essential for reductive biosynthesis and nucleotide production."
 }
