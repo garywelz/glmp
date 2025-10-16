@@ -19,8 +19,8 @@ let currentDetailLevel = 1;
 
 // Configuration
 const CONFIG = {
-    processesPath: '../processes/',
-    metadataPath: '../data/metadata.json'
+    processesPath: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/processes/',
+    metadataPath: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/data/metadata.json'
 };
 
 // Initialize on page load
@@ -53,10 +53,13 @@ async function initializeViewer() {
 async function loadProcessList() {
     try {
         // Try to load metadata file
+        console.log('🔄 Loading GLMP processes from:', CONFIG.metadataPath);
         const response = await fetch(CONFIG.metadataPath);
+        console.log('📥 Response:', response.status, response.statusText);
         if (response.ok) {
             const metadata = await response.json();
             processList = metadata.processes || [];
+            console.log('✅ Loaded successfully:', processList.length, 'processes');
         } else {
             // If no metadata file, scan for processes manually
             processList = await scanForProcesses();
@@ -64,7 +67,7 @@ async function loadProcessList() {
         
         renderProcessList();
     } catch (error) {
-        console.error('Error loading process list:', error);
+        console.error('❌ Error loading process list:', error);
         // Show error message
         document.getElementById('process-list').innerHTML = `
             <div class="error-message">
@@ -355,6 +358,11 @@ function renderMetadata() {
 function showHome() {
     hideAllViews();
     document.getElementById('home-view').style.display = 'block';
+    // Hide back button on home page
+    const backBtn = document.querySelector('.back-btn');
+    if (backBtn) {
+        backBtn.style.display = 'none';
+    }
     // Clear URL params
     window.history.pushState({}, '', window.location.pathname);
 }
@@ -369,6 +377,11 @@ function showProcessList() {
 function showProcessView() {
     hideAllViews();
     document.getElementById('process-view').style.display = 'block';
+    // Show back button when viewing a process
+    const backBtn = document.querySelector('.back-btn');
+    if (backBtn) {
+        backBtn.style.display = 'inline-block';
+    }
 }
 
 function showAbout() {
