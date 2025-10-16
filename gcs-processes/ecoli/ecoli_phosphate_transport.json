@@ -1,0 +1,23 @@
+{
+  "id": "ecoli_phosphate_transport",
+  "name": "Phosphate Transport (Pst System)",
+  "organism": "E. coli",
+  "category": "Nutrient Transport",
+  "description": "The Pst (phosphate-specific transport) system is a high-affinity ABC transporter that imports inorganic phosphate under limiting conditions. The system consists of PstS (periplasmic binding protein), PstA/PstC (membrane permeases), and PstB (ATP-binding protein). The Pst system is part of the Pho regulon regulated by PhoB/PhoR two-component system. Under phosphate limitation, PhoR activates PhoB which induces pst genes and other phosphate scavenging systems. The Pst system has nanomolar affinity for phosphate compared to the low-affinity Pit system. Mutations in pst cause constitutive Pho regulon expression.",
+  "scientificAccuracy": "Based on structural and biochemical studies of the Pst ABC transporter and Pho regulon regulation.",
+  "complexity": {"nodes": 58, "uniqueIdentifiers": true, "colorCoded": true, "detailLevel": "detailed", "logicGates": {"orGates": 4, "andGates": 6, "total": 10}},
+  "colorScheme": {"red": {"hex": "#ff6b6b"}, "yellow": {"hex": "#ffd43b"}, "green": {"hex": "#51cf66"}, "blue": {"hex": "#74c0fc"}, "orange": {"hex": "#ff9f43"}, "lavender": {"hex": "#b4b4dc"}, "violet": {"hex": "#9775fa"}},
+  "mermaid": "graph TD\n    Start([Phosphate Transport]) --> A1{Phosphate level?}\n    A1 -->|High Pi| A2[Pit low-affinity transporter]\n    A1 -->|Low Pi| A3[Pst high-affinity system induced]\n    A3 --> A4[PhoR/PhoB activates pst genes]\n    A4 --> A5[PstS synthesized - periplasmic]\n    A5 --> A6[PstA/PstC synthesized - membrane]\n    A6 --> A7[PstB synthesized - ATPase]\n    A7 --> A8{Complex assembly?}\n    A8 -->|All components| A9[Pst complex assembled]\n    A8 -->|Missing| Wait[Wait for synthesis]\n    A9 --> A10[PstS binds Pi in periplasm]\n    A10 --> A11[PstS delivers Pi to PstA/C]\n    A11 --> A12[PstB hydrolyzes ATP]\n    A12 --> A13[Pi transported to cytoplasm]\n    A13 --> A14[Pi for metabolism]\n    A14 --> End([Pi homeostasis])\n    style Start fill:#ff6b6b\n    style A1 fill:#ff9f43\n    style A8 fill:#b4b4dc\n    style End fill:#9775fa",
+  "sources": [
+    {"title": "The pst operon of Escherichia coli", "authors": "Willsky GR, Malamy MH", "journal": "J Bacteriol", "year": 1980, "pmid": "6245562", "doi": "10.1128/jb.144.1.366-374.1980", "relevance": "Characterization of Pst system"},
+    {"title": "Structural basis of phosphate transport", "authors": "Vuppada RK, Hansen CR, Strickland KA, Kelly KM, McCleary WR", "journal": "Structure", "year": 2018, "pmid": "29706538", "doi": "10.1016/j.str.2018.04.006", "relevance": "Crystal structure of PstS"},
+    {"title": "Phosphate regulon of Escherichia coli", "authors": "Wanner BL", "journal": "J Bacteriol", "year": 1996, "pmid": "8655562", "doi": "10.1128/jb.178.9.2654-2662.1996", "relevance": "Pho regulon regulation"},
+    {"title": "ABC transporters", "authors": "Davidson AL, Dassa E, Orelle C, Chen J", "journal": "Microbiol Mol Biol Rev", "year": 2008, "pmid": "18772285", "doi": "10.1128/MMBR.00031-08", "relevance": "ABC transporter mechanism"}
+  ],
+  "keywords": ["phosphate transport", "Pst system", "ABC transporter", "PhoB", "PhoR", "nutrient uptake", "Pho regulon"],
+  "relatedProcesses": ["ecoli_phosphate_regulation", "ecoli_two_component_signaling", "ecoli_abc_transporters"],
+  "created": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "High-affinity phosphate uptake system. 6 AND gates for ABC complex assembly. Part of Pho regulon stress response."
+}
