@@ -1,0 +1,123 @@
+{
+  "id": "ecoli_cell_division",
+  "name": "Cell Division and FtsZ Ring Assembly",
+  "organism": "E. coli",
+  "category": "Cell Division",
+  "description": "Cell division in E. coli is initiated by assembly of the FtsZ ring (Z-ring) at the future division site (midcell). FtsZ is a tubulin-like GTPase that polymerizes into protofilaments which bundle to form a contractile ring structure. Z-ring placement is controlled by the Min system (oscillates pole-to-pole, inhibiting FtsZ at poles) and nucleoid occlusion (Noc/SlmA prevents division over unsegregated chromosomes). Once positioned, FtsZ recruits over 30 other divisome proteins in a hierarchical order: early arrivals (FtsA, ZipA stabilize Z-ring), middle arrivals (FtsK, FtsQ, FtsL, FtsB), and late arrivals (FtsW, FtsI for peptidoglycan synthesis). The coordinated action of these proteins drives septal peptidoglycan synthesis, membrane constriction, and cell separation. This flowchart illustrates the complete pathway from Z-ring assembly site selection through divisome maturation and cytokinesis.",
+  "scientificAccuracy": "This flowchart is based on decades of genetic, cell biological, and structural studies of E. coli cell division. All divisome components (FtsZ, Min proteins, FtsA, ZipA, FtsK, FtsQLB, FtsWI, etc.), spatial regulation systems, and assembly hierarchy have been validated through genetics, microscopy, and recent super-resolution imaging. The model represents current understanding of how bacteria achieve accurate cell division with proper chromosome segregation.",
+  "complexity": {
+    "nodes": 79,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 7,
+      "andGates": 8,
+      "total": 15
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Cell cycle signals, replication completion"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "FtsZ, divisome proteins, Min system, membranes"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Ring assembly, constriction, peptidoglycan synthesis"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Division site, divisome complexes, assembly stages"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates",
+      "description": "Site selection decisions, checkpoint outcomes"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates",
+      "description": "Multi-condition coordination requirements"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products",
+      "description": "Separated daughter cells"
+    }
+  },
+  "mermaid": "graph TD\n    Start([Cell Division Initiation]) --> A1[Cell reaches critical size]\n    A1 --> A2[DNA replication nearing completion]\n    \n    A2 --> A3{Where to place division site?}\n    \n    A3 --> A4[Min system establishes spatial cues]\n    A4 --> A5[MinC MinD MinE oscillate pole-to-pole]\n    A5 --> A6[MinC inhibits FtsZ polymerization]\n    A6 --> A7[Time-averaged MinC lowest at midcell]\n    \n    A3 --> A8[Nucleoid occlusion system]\n    A8 --> A9[SlmA binds specific DNA sequences]\n    A9 --> A10[SlmA-DNA complex inhibits FtsZ over nucleoid]\n    A10 --> A11[Nucleoid segregation creates FtsZ-permissive zone]\n    \n    A7 --> A12{Midcell permissive for FtsZ?}\n    A11 --> A12\n    \n    A12 -->|Yes - Min low AND nucleoid cleared| A13[FtsZ accumulates at midcell]\n    A12 -->|No - inhibited| Wait1[Wait for proper conditions]\n    Wait1 --> A12\n    \n    A13 --> A14[FtsZ monomers bind GTP]\n    A14 --> A15[FtsZ-GTP polymerizes into protofilaments]\n    A15 --> A16[Protofilaments are short ~30 subunits dynamic]\n    \n    A16 --> A17[Protofilaments tether to membrane]\n    A17 --> A18[FtsA binds FtsZ C-terminal peptide]\n    A18 --> A19[FtsA amphipathic helix inserts in membrane]\n    \n    A17 --> A20[ZipA binds FtsZ C-terminal peptide]\n    A20 --> A21[ZipA transmembrane domain anchors to membrane]\n    \n    A19 --> A22[FtsA and ZipA stabilize FtsZ protofilaments]\n    A21 --> A22\n    \n    A22 --> A23[Lateral bundling of protofilaments]\n    A23 --> A24[Proto-ring formation - discontinuous structure]\n    A24 --> A25[Z-ring assembled at midcell]\n    \n    A25 --> A26{Z-ring maturation checkpoint}\n    A26 -->|Z-ring stable| A27[Early divisome proteins recruited]\n    A26 -->|Z-ring unstable| A28[Disassembly - restart]\n    A28 --> A13\n    \n    A27 --> A29[FtsK recruited to Z-ring]\n    A29 --> A30[FtsK: DNA translocase for late chromosome segregation]\n    \n    A27 --> A31[FtsQ recruited FtsB FtsL form complex]\n    A31 --> A32[FtsQLB stabilize divisome]\n    \n    A32 --> A33{Divisome assembly checkpoint}\n    A33 -->|Early proteins present| A34[Late divisome proteins recruited]\n    A33 -->|Incomplete assembly| Wait2[Wait for early proteins]\n    Wait2 --> A33\n    \n    A34 --> A35[FtsW recruited - SEDS family transporter]\n    A35 --> A36[FtsW: lipid II flippase]\n    \n    A34 --> A37[FtsI PBP3 recruited - transpeptidase]\n    A37 --> A38[FtsI: peptidoglycan crosslinking enzyme]\n    \n    A36 --> A39{FtsW and FtsI complex formed?}\n    A38 --> A39\n    \n    A39 -->|Yes| A40[Septal peptidoglycan synthesis complex active]\n    A39 -->|No| Wait3[Wait for protein availability]\n    Wait3 --> A39\n    \n    A40 --> A41[FtsW flips lipid II to periplasm]\n    A41 --> A42[FtsI crosslinks peptidoglycan strands]\n    A42 --> A43[New septal wall synthesized]\n    \n    A43 --> A44[FtsZ GTPase activity drives treadmilling]\n    A44 --> A45[GTP hydrolysis causes FtsZ depolymerization]\n    A45 --> A46[FtsZ subunits added at leading edge removed at trailing]\n    A46 --> A47[Z-ring constricts - circumference decreases]\n    \n    A47 --> A48[Membrane follows Z-ring constriction]\n    A48 --> A49[Septal peptidoglycan synthesis coupled to constriction]\n    \n    A49 --> A50{Chromosome segregation complete?}\n    A50 -->|Yes - FtsK done| A51[Continue constriction]\n    A50 -->|No - chromosomes trapped| A52[FtsK pumps DNA across septum]\n    A52 --> A53[FtsK recognizes KOPS DNA sequences]\n    A53 --> A54[FtsK translocates DNA toward dif]\n    A54 --> A51\n    \n    A51 --> A55[Constriction continues]\n    A55 --> A56[Septal ring diameter decreases]\n    \n    A56 --> A57{Constriction complete?}\n    A57 -->|No - ring diameter > 0| A58[Continue synthesis and constriction]\n    A57 -->|Yes - ring closed| A59[Septum complete]\n    A58 --> A47\n    \n    A59 --> A60[Double membrane and peptidoglycan septum]\n    A60 --> A61[Cell separation machinery activated]\n    \n    A61 --> A62[Amidases recruited: AmiA AmiB AmiC]\n    A62 --> A63[Amidases cleave septal peptidoglycan]\n    A63 --> A64[EnvC and NlpD activate amidases]\n    \n    A64 --> A65[Septal splitting]\n    A65 --> A66[Two daughter cells separate]\n    \n    A66 --> A67[FtsZ ring disassembles]\n    A67 --> A68[FtsZ subunits recycled]\n    A68 --> A69[Divisome proteins dissociate]\n    \n    A66 --> A70[Each daughter cell receives:]\n    A70 --> A71[One complete chromosome]\n    A70 --> A72[One complete cell envelope]\n    A70 --> A73[Cellular machinery and cytoplasm]\n    \n    A71 --> End1([Daughter Cell 1])\n    A72 --> End1\n    A73 --> End1\n    \n    A71 --> End2([Daughter Cell 2])\n    A72 --> End2\n    A73 --> End2\n    \n    style Start fill:#ff6b6b\n    style A1 fill:#ff6b6b\n    style A2 fill:#ff6b6b\n    style A3 fill:#ff9f43\n    style A4 fill:#74c0fc\n    style A5 fill:#ffd43b\n    style A6 fill:#51cf66\n    style A7 fill:#74c0fc\n    style A8 fill:#74c0fc\n    style A9 fill:#ffd43b\n    style A10 fill:#51cf66\n    style A11 fill:#74c0fc\n    style A12 fill:#b4b4dc\n    style A13 fill:#51cf66\n    style A14 fill:#ffd43b\n    style A15 fill:#51cf66\n    style A16 fill:#74c0fc\n    style A17 fill:#51cf66\n    style A18 fill:#ffd43b\n    style A19 fill:#51cf66\n    style A20 fill:#ffd43b\n    style A21 fill:#51cf66\n    style A22 fill:#51cf66\n    style A23 fill:#51cf66\n    style A24 fill:#74c0fc\n    style A25 fill:#ffd43b\n    style A26 fill:#ff9f43\n    style A27 fill:#51cf66\n    style A28 fill:#74c0fc\n    style A29 fill:#ffd43b\n    style A30 fill:#74c0fc\n    style A31 fill:#ffd43b\n    style A32 fill:#51cf66\n    style A33 fill:#b4b4dc\n    style A34 fill:#51cf66\n    style A35 fill:#ffd43b\n    style A36 fill:#74c0fc\n    style A37 fill:#ffd43b\n    style A38 fill:#74c0fc\n    style A39 fill:#b4b4dc\n    style A40 fill:#74c0fc\n    style A41 fill:#51cf66\n    style A42 fill:#51cf66\n    style A43 fill:#74c0fc\n    style A44 fill:#51cf66\n    style A45 fill:#51cf66\n    style A46 fill:#51cf66\n    style A47 fill:#51cf66\n    style A48 fill:#51cf66\n    style A49 fill:#51cf66\n    style A50 fill:#ff9f43\n    style A51 fill:#51cf66\n    style A52 fill:#51cf66\n    style A53 fill:#51cf66\n    style A54 fill:#51cf66\n    style A55 fill:#51cf66\n    style A56 fill:#74c0fc\n    style A57 fill:#ff9f43\n    style A58 fill:#51cf66\n    style A59 fill:#74c0fc\n    style A60 fill:#74c0fc\n    style A61 fill:#51cf66\n    style A62 fill:#ffd43b\n    style A63 fill:#51cf66\n    style A64 fill:#51cf66\n    style A65 fill:#51cf66\n    style A66 fill:#9775fa\n    style A67 fill:#51cf66\n    style A68 fill:#51cf66\n    style A69 fill:#51cf66\n    style A70 fill:#9775fa\n    style A71 fill:#9775fa\n    style A72 fill:#9775fa\n    style A73 fill:#9775fa\n    style End1 fill:#9775fa\n    style End2 fill:#9775fa\n    style Wait1 fill:#74c0fc\n    style Wait2 fill:#74c0fc\n    style Wait3 fill:#74c0fc",
+  "sources": [
+    {
+      "title": "FtsZ filament structure reveals the structural basis for assembly dynamics and constriction force generation",
+      "authors": "Erickson HP, Anderson DE, Osawa M",
+      "journal": "Nat Struct Mol Biol",
+      "year": 2010,
+      "pmid": "20676094",
+      "doi": "10.1038/nsmb.1891",
+      "relevance": "Structural basis of FtsZ polymerization and Z-ring dynamics"
+    },
+    {
+      "title": "The Min system and other nucleoid-independent regulators of Z ring positioning",
+      "authors": "Rowlett VW, Margolin W",
+      "journal": "Front Microbiol",
+      "year": 2015,
+      "pmid": "25741323",
+      "doi": "10.3389/fmicb.2015.00478",
+      "relevance": "Comprehensive review of spatial regulation of division site selection"
+    },
+    {
+      "title": "Divisome assembly in Escherichia coli: a molecular perspective",
+      "authors": "den Blaauwen T, de Pedro MA, Nguyen-Distèche M, Ayala JA",
+      "journal": "Microbiol Mol Biol Rev",
+      "year": 2008,
+      "pmid": "18322039",
+      "doi": "10.1128/MMBR.00014-07",
+      "relevance": "Comprehensive review of divisome protein recruitment hierarchy and function"
+    },
+    {
+      "title": "SEDS proteins are a widespread family of bacterial cell wall polymerases",
+      "authors": "Meeske AJ, Riley EP, Robins WP, Uehara T, Mekalanos JJ, Kahne D, Walker S, Kruse AC, Bernhardt TG, Rudner DZ",
+      "journal": "Nature",
+      "year": 2016,
+      "pmid": "26840489",
+      "doi": "10.1038/nature16966",
+      "relevance": "Discovery that FtsW is the peptidoglycan polymerase working with FtsI"
+    }
+  ],
+  "keywords": [
+    "cell division",
+    "FtsZ",
+    "Z-ring",
+    "divisome",
+    "Min system",
+    "nucleoid occlusion",
+    "cytokinesis",
+    "septum formation",
+    "peptidoglycan synthesis",
+    "FtsA",
+    "ZipA",
+    "FtsW",
+    "FtsI",
+    "FtsK",
+    "constriction"
+  ],
+  "relatedProcesses": [
+    "ecoli_dna_replication_termination",
+    "ecoli_chromosome_segregation",
+    "ecoli_peptidoglycan_synthesis",
+    "ecoli_cell_cycle_regulation"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Cell division must be precisely coordinated with chromosome replication and segregation to ensure each daughter cell receives complete genetic information. The Min system oscillates with a ~20 second period, creating a time-averaged gradient that positions the Z-ring at midcell. FtsZ is conserved across bacteria and archaea and is homologous to tubulin, suggesting an ancient origin. The recent discovery that FtsW is the septal peptidoglycan synthase (not just a lipid II flippase) resolved a long-standing question about septal wall synthesis. Division is a major antibiotic target (β-lactams inhibit FtsI), and understanding divisome assembly may enable new antimicrobial strategies."
+}

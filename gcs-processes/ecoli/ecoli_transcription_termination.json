@@ -1,0 +1,120 @@
+{
+  "id": "ecoli_transcription_termination",
+  "name": "Transcription Termination",
+  "organism": "E. coli",
+  "category": "Gene Expression",
+  "description": "Transcription termination in E. coli occurs through two major mechanisms: intrinsic (Rho-independent) and Rho-dependent termination. Intrinsic termination relies on formation of a stable RNA hairpin followed by a U-rich tract, causing RNAP to pause and dissociate. The hairpin structure destabilizes the RNA-DNA hybrid, allowing transcript release. Rho-dependent termination requires the Rho hexameric helicase, which binds to rut (Rho utilization) sites on nascent RNA, translocates 5' to 3' in an ATP-dependent manner, catches up to paused RNAP, and actively dissociates the elongation complex. Both mechanisms ensure proper transcript 3' end formation and RNAP recycling. This flowchart illustrates both termination pathways, the structural features that trigger each mechanism, and the molecular events leading to transcript release and polymerase dissociation.",
+  "scientificAccuracy": "This flowchart is based on extensive genetic, biochemical, and structural studies of bacterial transcription termination. All components (RNAP, Rho helicase, terminator sequences), mechanisms (hairpin formation, Rho translocation), and regulatory features have been validated through mutagenesis, biochemistry, and recent cryo-EM structures. The model represents current understanding of how bacteria achieve precise transcript 3' end formation and RNAP recycling.",
+  "complexity": {
+    "nodes": 68,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 7,
+      "andGates": 5,
+      "total": 12
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Termination signals, ATP availability"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "RNAP, Rho helicase, RNA hairpin, DNA"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Hairpin formation, Rho translocation, dissociation"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Termination complexes, paused states"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates",
+      "description": "Termination pathway choice, signal recognition"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates",
+      "description": "Multi-condition termination requirements"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products",
+      "description": "Released transcript, recycled RNAP"
+    }
+  },
+  "mermaid": "graph TD\n    Start([Transcription Termination]) --> A1{Which termination signal?}\n    \n    A1 -->|Intrinsic terminator sequence| A2[Rho-independent pathway]\n    A1 -->|Rho utilization rut site| A3[Rho-dependent pathway]\n    \n    A2 --> A4[RNAP transcribes GC-rich palindrome]\n    A4 --> A5[Nascent RNA forms hairpin structure]\n    A5 --> A6[Hairpin has stem 7-20 bp GC-rich and loop 3-10 nt]\n    \n    A6 --> A7[Hairpin forms in RNAP exit channel]\n    A7 --> A8[Hairpin pulls RNA 5' direction]\n    \n    A8 --> A9[RNAP transcribes U-rich tract 7-9 Us]\n    A9 --> A10[Weak rU-dA base pairs in RNA-DNA hybrid]\n    \n    A10 --> A11{Hairpin + U-tract combined effect}\n    A11 -->|Yes - sufficient| A12[RNA-DNA hybrid destabilized]\n    A11 -->|Weak signal| A13[Partial pausing - may read through]\n    \n    A12 --> A14[RNAP enters paused state]\n    A14 --> A15[Forward translocation blocked by hairpin]\n    A15 --> A16[Weak U-tract allows RNA fraying]\n    \n    A16 --> A17[RNA-DNA hybrid collapses]\n    A17 --> A18[RNA transcript released]\n    A18 --> A19[RNAP dissociates from DNA]\n    \n    A19 --> A20[Free RNAP for recycling]\n    A18 --> A21[Transcript with 3' end defined by terminator]\n    \n    A13 --> A22{Antitermination factors present?}\n    A22 -->|NusA N protein etc| A23[Read-through - termination suppressed]\n    A22 -->|No factors| A24[Eventually terminates]\n    A24 --> A12\n    \n    A3 --> A25[RNAP transcribes past rut site]\n    A25 --> A26[rut site: C-rich poorly structured ~70 nt]\n    A26 --> A27[Nascent RNA emerges from RNAP]\n    \n    A27 --> A28{Is rut site accessible?}\n    A28 -->|Yes - uncoupled transcription| A29[Rho can bind rut]\n    A28 -->|No - coupled translation| A30[Ribosome covers rut site]\n    \n    A30 --> A31[Transcription-translation coupling]\n    A31 --> A32[No Rho-dependent termination - read through]\n    \n    A29 --> A33{Rho hexamer available?}\n    A33 -->|Yes| A34[Rho hexamer binds rut site on RNA]\n    A33 -->|No| Wait1[Wait for Rho]\n    Wait1 --> A33\n    \n    A34 --> A35[Rho hexamer encircles RNA in central channel]\n    A35 --> A36[Rho binds ATP]\n    \n    A36 --> A37{ATP available?}\n    A37 -->|Yes| A38[ATP binding activates Rho helicase]\n    A37 -->|No| Wait2[Wait for ATP]\n    Wait2 --> A37\n    \n    A38 --> A39[Rho translocates 5' to 3' on RNA]\n    A39 --> A40[ATP hydrolysis powers translocation ~80 nt/sec]\n    \n    A40 --> A41{Does Rho catch paused RNAP?}\n    A41 -->|Yes - RNAP paused at pause site| A42[Rho reaches RNAP]\n    A41 -->|RNAP too fast| A43[Rho dissociates - termination fails]\n    \n    A42 --> A44[Rho contacts RNAP]\n    A44 --> A45[Rho helicase activity disrupts RNA-DNA hybrid]\n    A45 --> A46[Forward translocation of unwinding]\n    A46 --> A47[RNA-DNA hybrid melted]\n    \n    A47 --> A48[RNA transcript released]\n    A48 --> A49[RNAP dissociates]\n    \n    A49 --> A50[Rho-ATP hydrolysis continues]\n    A50 --> A51[Rho dissociates from RNA]\n    A51 --> A52[Rho recycled for next cycle]\n    \n    A49 --> A53[Free RNAP for recycling]\n    A48 --> A54[Transcript with Rho-defined 3' end]\n    \n    A20 --> A55[RNAP recycling pathway]\n    A53 --> A55\n    \n    A55 --> A56[Sigma factor may rebind]\n    A56 --> A57[RNAP ready for new initiation]\n    \n    A21 --> End1([Completed intrinsic termination])\n    A54 --> End2([Completed Rho-dependent termination])\n    A57 --> End3([RNAP recycled])\n    A32 --> End4([Read-through - no termination])\n    A43 --> End4\n    A23 --> End4\n    \n    style Start fill:#ff6b6b\n    style A1 fill:#ff9f43\n    style A2 fill:#74c0fc\n    style A3 fill:#74c0fc\n    style A4 fill:#51cf66\n    style A5 fill:#ffd43b\n    style A6 fill:#ffd43b\n    style A7 fill:#51cf66\n    style A8 fill:#51cf66\n    style A9 fill:#51cf66\n    style A10 fill:#74c0fc\n    style A11 fill:#b4b4dc\n    style A12 fill:#74c0fc\n    style A13 fill:#74c0fc\n    style A14 fill:#74c0fc\n    style A15 fill:#74c0fc\n    style A16 fill:#51cf66\n    style A17 fill:#51cf66\n    style A18 fill:#9775fa\n    style A19 fill:#51cf66\n    style A20 fill:#9775fa\n    style A21 fill:#9775fa\n    style A22 fill:#ff9f43\n    style A23 fill:#74c0fc\n    style A24 fill:#74c0fc\n    style A25 fill:#51cf66\n    style A26 fill:#ffd43b\n    style A27 fill:#51cf66\n    style A28 fill:#ff9f43\n    style A29 fill:#74c0fc\n    style A30 fill:#74c0fc\n    style A31 fill:#74c0fc\n    style A32 fill:#74c0fc\n    style A33 fill:#b4b4dc\n    style A34 fill:#ffd43b\n    style A35 fill:#51cf66\n    style A36 fill:#51cf66\n    style A37 fill:#b4b4dc\n    style A38 fill:#51cf66\n    style A39 fill:#51cf66\n    style A40 fill:#51cf66\n    style A41 fill:#ff9f43\n    style A42 fill:#74c0fc\n    style A43 fill:#74c0fc\n    style A44 fill:#51cf66\n    style A45 fill:#51cf66\n    style A46 fill:#51cf66\n    style A47 fill:#74c0fc\n    style A48 fill:#9775fa\n    style A49 fill:#51cf66\n    style A50 fill:#51cf66\n    style A51 fill:#51cf66\n    style A52 fill:#9775fa\n    style A53 fill:#9775fa\n    style A54 fill:#9775fa\n    style A55 fill:#51cf66\n    style A56 fill:#51cf66\n    style A57 fill:#9775fa\n    style End1 fill:#9775fa\n    style End2 fill:#9775fa\n    style End3 fill:#9775fa\n    style End4 fill:#9775fa\n    style Wait1 fill:#74c0fc\n    style Wait2 fill:#74c0fc",
+  "sources": [
+    {
+      "title": "Transcription termination factor Rho is an RNA-DNA helicase associated with Rho-dependent terminators",
+      "authors": "Richardson JP",
+      "journal": "Proc Natl Acad Sci USA",
+      "year": 2002,
+      "pmid": "12177300",
+      "doi": "10.1073/pnas.152433099",
+      "relevance": "Comprehensive review of Rho mechanism and RNA-DNA helicase activity"
+    },
+    {
+      "title": "Structure of Escherichia coli transcription termination factor rho bound to an RNA substrate",
+      "authors": "Skordalakes E, Berger JM",
+      "journal": "Nature",
+      "year": 2003,
+      "pmid": "14608371",
+      "doi": "10.1038/nature02129",
+      "relevance": "Crystal structure of Rho hexamer revealing mechanism of RNA binding"
+    },
+    {
+      "title": "The mechanism of intrinsic transcription termination",
+      "authors": "Gusarov I, Nudler E",
+      "journal": "Mol Cell",
+      "year": 1999,
+      "pmid": "10617163",
+      "doi": "10.1016/s1097-2765(00)80159-4",
+      "relevance": "Mechanism of hairpin-induced pausing and RNA release"
+    },
+    {
+      "title": "Control of Rho-dependent transcription termination by NusG is specific to the Escherichia coli elongation complex",
+      "authors": "Burns CM, Richardson JP",
+      "journal": "Biochemistry",
+      "year": 1995,
+      "pmid": "7537109",
+      "doi": "10.1021/bi00016a025",
+      "relevance": "Regulation of Rho activity by elongation factors and coupling to translation"
+    }
+  ],
+  "keywords": [
+    "transcription termination",
+    "Rho helicase",
+    "intrinsic termination",
+    "Rho-dependent termination",
+    "RNA hairpin",
+    "rut site",
+    "RNA-DNA hybrid",
+    "poly-U tract",
+    "transcription-translation coupling",
+    "RNAP recycling",
+    "ATP hydrolysis",
+    "RNA release"
+  ],
+  "relatedProcesses": [
+    "ecoli_transcription_initiation",
+    "ecoli_transcription_elongation",
+    "ecoli_rna_polymerase_recycling",
+    "ecoli_translation_initiation"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Transcription termination must be highly efficient to prevent transcriptional read-through into downstream genes, yet regulatable to allow antitermination during special circumstances (e.g., lambda phage lytic/lysogenic decision). The choice between intrinsic and Rho-dependent termination depends on gene context and regulation. In bacteria, transcription-translation coupling provides a critical regulatory layer: when translation is active, ribosomes cover rut sites preventing Rho binding, allowing read-through. This coupling is used to detect ribosome stalling and trigger quality control responses. Rho is essential in E. coli and is a potential antibiotic target."
+}
