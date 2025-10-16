@@ -52,9 +52,10 @@ async function initializeViewer() {
  */
 async function loadProcessList() {
     try {
-        // Try to load metadata file
-        console.log('🔄 Loading GLMP processes from:', CONFIG.metadataPath);
-        const response = await fetch(CONFIG.metadataPath);
+        // Try to load metadata file with cache busting
+        const metadataUrl = CONFIG.metadataPath + '?v=' + Date.now();
+        console.log('🔄 Loading GLMP processes from:', metadataUrl);
+        const response = await fetch(metadataUrl, { cache: 'no-store' });
         console.log('📥 Response:', response.status, response.statusText);
         if (response.ok) {
             const metadata = await response.json();
