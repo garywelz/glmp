@@ -31,12 +31,21 @@ with open('v2-development/data/metadata_fixed.json', 'r') as f:
     print(f"  Total gates: {data['statistics']['totalLogicGates']}")
     print(f"  OR gates: {data['statistics']['orGates']}")
     print(f"  AND gates: {data['statistics']['andGates']}")
-    print(f"\n  Sample process gate structure:")
+    print(f"\n  Sample process structure:")
     sample = data['processes'][0]
     print(f"  {sample['id']}:")
+    print(f"    Complexity: {sample['complexity']}")
+    print(f"    Nodes: {sample['nodes']}")
     print(f"    OR: {sample['logicGates']['or']}")
     print(f"    AND: {sample['logicGates']['and']}")
     print(f"    Total: {sample['logicGates']['total']}")
+    
+    # Show complexity distribution
+    from collections import Counter
+    complexities = Counter(p['complexity'] for p in data['processes'])
+    print(f"\n  Complexity distribution:")
+    for level in ['high', 'medium', 'low']:
+        print(f"    {level}: {complexities.get(level, 0)} processes")
 PYTHON
 
 echo ""
