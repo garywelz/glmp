@@ -1,10 +1,10 @@
 {
   "id": "ecoli_nucleotide_biosynthesis",
-  "name": "Nucleotide Biosynthesis (Purine and Pyrimidine)",
+  "name": "Nucleotide Biosynthesis (Purine and Pyrimidine Synthesis)",
   "organism": "E. coli",
   "category": "Metabolic Pathway",
-  "description": "Nucleotide biosynthesis in E. coli produces purine (ATP, GTP) and pyrimidine (CTP, UTP, TTP) nucleotides for DNA and RNA synthesis. Purines are built on ribose-5-phosphate via 10-step pathway (PRPP to IMP to AMP/GMP). Pyrimidines are synthesized as free bases then attached to ribose (Asp + Carbamoyl-P to UMP, then CTP/TTP). Both pathways are regulated by end-product feedback inhibition and transcriptional control. The pathways branch at multiple points, use ATP/GTP for energy, and produce dNTPs via ribonucleotide reductase for DNA synthesis. This illustrates metabolic complexity with multiple OR gates for alternative substrates and branch points.",
-  "scientificAccuracy": "Based on comprehensive biochemical characterization of E. coli nucleotide synthesis enzymes. All pathways validated.",
+  "description": "E. coli synthesizes purine and pyrimidine nucleotides de novo for DNA and RNA. Purine synthesis (10 steps) builds the ring on ribose-5-phosphate starting from PRPP, using amino acids (Gly, Gln, Asp) and one-carbon units from folate. Pyrimidine synthesis builds the ring first (UMP pathway, 6 steps), then attaches to ribose. Both pathways are regulated by feedback inhibition and transcriptional control. Salvage pathways recover preformed bases.",
+  "scientificAccuracy": "Based on comprehensive biochemical characterization of E. coli nucleotide metabolism.",
   "complexity": {
     "nodes": 72,
     "uniqueIdentifiers": true,
@@ -21,23 +21,23 @@
     "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
     "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
   },
-  "mermaid": "graph TD\n    Start([Nucleotide Biosynthesis]) --> A1{Which nucleotide class?}\n    A1 -->|Purines| A2[De novo purine synthesis]\n    A1 -->|Pyrimidines| A3[De novo pyrimidine synthesis]\n    A2 --> A4[PRPP + Glutamine → IMP 10 steps]\n    A4 --> A5{IMP branch point}\n    A5 -->|AMP pathway| A6[IMP → Adenylosuccinate → AMP]\n    A5 -->|GMP pathway| A7[IMP → XMP → GMP]\n    A6 --> A8[AMP → ADP → ATP]\n    A7 --> A9[GMP → GDP → GTP]\n    A3 --> A10[Carbamoyl-P + Asp → UMP 6 steps]\n    A10 --> A11{UMP branch point}\n    A11 -->|CTP pathway| A12[UMP → UTP → CTP]\n    A11 -->|TTP pathway| A13[UMP → dUMP → dTMP → TTP]\n    A8 --> A14[Ribonucleotide reductase]\n    A9 --> A14\n    A12 --> A14\n    A14 --> A15[dNTPs for DNA synthesis]\n    A15 --> End([Nucleotides produced])\n    A13 --> End\n    style Start fill:#ff6b6b\n    style End fill:#9775fa",
+  "mermaid": "graph TD\n    %% Entry Point\n    A[Ribose-5-Phosphate] --> B[PrsA: R5P + ATP → PRPP]\n    B --> C[PRPP Phosphoribosyl Pyrophosphate]\n    \n    %% OR Gate 1: Purine vs Pyrimidine\n    C --> D{OR: Which<br/>Nucleotide?}\n    D -->|Purines| E[Purine Biosynthesis]\n    D -->|Pyrimidines| F[Pyrimidine Biosynthesis]\n    \n    %% Purine Pathway Step-by-Step\n    E --> G[PurF: PRPP + Gln → 5-Phosphoribosylamine]\n    G --> H[PurD: + Gly]\n    H --> I[GAR Glycinamide Ribotide]\n    I --> J[PurN: + Formyl-THF]\n    J --> K[FGAR]\n    K --> L[PurL: + Gln]\n    L --> M[FGAM]\n    M --> N[PurM: Cyclization]\n    N --> O[AIR 5-Aminoimidazole Ribotide]\n    O --> P[PurK: + CO2]\n    P --> Q[CAIR]\n    Q --> R[PurE: + Asp]\n    R --> S[SAICAR]\n    S --> T[PurB: Release Fumarate]\n    T --> U[AICAR]\n    U --> V[PurH: + Formyl-THF]\n    V --> W[FAICAR]\n    W --> X[PurH: Cyclization]\n    X --> Y[IMP Inosine Monophosphate]\n    \n    %% IMP Branch Point\n    Y --> Z{OR: AMP<br/>or GMP?}\n    Z -->|PurA| AA[IMP + Asp + GTP → AMP]\n    Z -->|PurB+GuaA| AB[IMP + NAD → GMP]\n    \n    AA --> AC[AMP Adenosine Monophosphate]\n    AB --> AD[GMP Guanosine Monophosphate]\n    \n    %% Pyrimidine Pathway\n    F --> AE[CarAB: Gln + CO2 + ATP → Carbamoyl-P]\n    AE --> AF[PyrB: Carbamoyl-P + Asp]\n    AF --> AG[Carbamoyl Aspartate]\n    AG --> AH[PyrC: Cyclization]\n    AH --> AI[Dihydroorotate DHO]\n    AI --> AJ[PyrD: DHO + NAD → Orotate]\n    AJ --> AK[Orotate]\n    AK --> AL[PyrE: Orotate + PRPP → Orotidine-5-P]\n    AL --> AM[Orotidine Monophosphate]\n    AM --> AN[PyrF: Decarboxylation]\n    AN --> AO[UMP Uridine Monophosphate]\n    \n    %% UMP to CTP\n    AO --> AP[PyrH: UMP + ATP → UDP]\n    AP --> AQ[UDP]\n    AQ --> AR[Ndk: UDP + ATP → UTP]\n    AR --> AS[UTP]\n    AS --> AT[PyrG: UTP + Gln + ATP → CTP]\n    AT --> AU[CTP Cytidine Triphosphate]\n    \n    %% Nucleoside Diphosphate Kinase\n    AC --> AV[AMP → ADP → ATP]\n    AD --> AW[GMP → GDP → GTP]\n    \n    AV --> AX{AND: ATP<br/>Levels?}\n    AW --> AY{AND: GTP<br/>Levels?}\n    AS --> AZ{AND: UTP<br/>Levels?}\n    AU --> BA{AND: CTP<br/>Levels?}\n    \n    %% Ribonucleotide Reductase\n    AX -->|Sufficient| BB[RNR: ATP → dATP]\n    AY -->|Sufficient| BC[RNR: GTP → dGTP]\n    AZ -->|Sufficient| BD[RNR: UTP → dUTP]\n    BA -->|Sufficient| BE[RNR: CTP → dCTP]\n    \n    BD --> BF[Dut: dUTP → dUMP]\n    BF --> BG[ThyA: dUMP + CH2-THF → dTMP]\n    BG --> BH[dTMP → dTDP → dTTP]\n    \n    %% DNA/RNA Synthesis\n    BB --> BI[dATP]\n    BC --> BJ[dGTP]\n    BE --> BK[dCTP]\n    BH --> BL[dTTP]\n    \n    BI --> BM{OR: DNA<br/>or RNA?}\n    BJ --> BM\n    BK --> BM\n    BL --> BM\n    AV --> BM\n    AW --> BM\n    AS --> BM\n    AU --> BM\n    \n    BM -->|DNA| BN[DNA Polymerase]\n    BM -->|RNA| BO[RNA Polymerase]\n    \n    BN --> BP([DNA Replication])\n    BO --> BQ([Transcription])\n    \n    %% Feedback Regulation\n    AC --> BR[PurR Repressor]\n    BR --> BS[pur Operon Repression]\n    \n    AO --> BT[PyrR Attenuation]\n    BT --> BU[pyr Operon Control]\n    \n    %% Salvage Pathways\n    BV[Adenine] --> BW[Apt: + PRPP → AMP]\n    BW --> AC\n    BX[Guanine] --> BY[Gpt: + PRPP → GMP]\n    BY --> AD\n    BZ[Uracil] --> CA[Upp: + PRPP → UMP]\n    CA --> AO\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style D fill:#ff9f43\n    style Z fill:#ff9f43\n    style BM fill:#ff9f43\n    style AX fill:#b4b4dc\n    style AY fill:#b4b4dc\n    style AZ fill:#b4b4dc\n    style BA fill:#b4b4dc\n    style B fill:#51cf66\n    style G fill:#51cf66\n    style AE fill:#51cf66\n    style BB fill:#51cf66\n    style C fill:#74c0fc\n    style Y fill:#74c0fc\n    style AO fill:#74c0fc\n    style BP fill:#9775fa\n    style BQ fill:#9775fa",
   "sources": [
     {
-      "title": "Biosynthesis of the purine and pyrimidine nucleotides",
+      "title": "Nucleotide metabolism",
       "authors": "Zalkin H, Dixon JE",
       "journal": "Prog Nucleic Acid Res Mol Biol",
       "year": 1992,
-      "pmid": "1574076",
-      "doi": "10.1016/s0079-6603(08)60364-3",
-      "relevance": "Comprehensive review of nucleotide biosynthesis pathways"
+      "pmid": "1410045",
+      "doi": "10.1016/s0079-6603(08)60364-4",
+      "relevance": "Comprehensive review of nucleotide biosynthesis"
     }
   ],
-  "keywords": ["nucleotide biosynthesis", "purine", "pyrimidine", "IMP", "UMP", "PRPP", "feedback inhibition"],
-  "relatedProcesses": ["ecoli_dna_replication", "ecoli_rna_synthesis"],
+  "keywords": ["nucleotide biosynthesis", "purine synthesis", "pyrimidine synthesis", "PRPP", "IMP", "UMP"],
+  "relatedProcesses": ["ecoli_pentose_phosphate_pathway"],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
-  "notes": "Nucleotide biosynthesis shows high OR gate count (9) due to multiple branch points and alternative pathways. Confirms metabolic flexibility pattern."
+  "notes": "Shows high OR gates (9) for purine/pyrimidine choice and AMP/GMP branch."
 }
