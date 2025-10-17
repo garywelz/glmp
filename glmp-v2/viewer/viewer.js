@@ -112,31 +112,22 @@ function renderProcessList() {
         grouped[org].push(proc);
     });
     
-    // Render grouped list
-    let html = '';
+    // Render as compact table
+    let html = '<table class="process-table"><thead><tr><th>Process Name</th><th>Organism</th><th>Category</th></tr></thead><tbody>';
+    
     Object.keys(grouped).sort().forEach(organism => {
-        html += `
-            <div class="organism-group">
-                <h3>${organism}</h3>
-                <div class="process-cards">
-        `;
-        
         grouped[organism].forEach(proc => {
             html += `
-                <div class="process-card" onclick="loadProcessFromCard('${proc.id}')">
-                    <h4>${proc.name}</h4>
-                    <p class="card-category">${proc.category || 'Uncategorized'}</p>
-                    <p class="card-desc">${proc.description?.substring(0, 100) || ''}...</p>
-                </div>
+                <tr onclick="loadProcessFromCard('${proc.id}')" style="cursor: pointer;">
+                    <td><a href="#${proc.id}" onclick="event.preventDefault(); loadProcessFromCard('${proc.id}');">${proc.name}</a></td>
+                    <td>${organism}</td>
+                    <td><span class="category-badge">${proc.category || 'Uncategorized'}</span></td>
+                </tr>
             `;
         });
-        
-        html += `
-                </div>
-            </div>
-        `;
     });
     
+    html += '</tbody></table>';
     listContainer.innerHTML = html;
 }
 
