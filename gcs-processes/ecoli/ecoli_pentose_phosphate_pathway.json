@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 9, "andGates": 2, "total": 11}
+    "logicGates": {
+      "orGates": 9,
+      "andGates": 2,
+      "total": 11
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% Entry Points\n    A[Glucose-6-Phosphate] --> B{OR: Which<br/>Pathway?}\n    B -->|Oxidative PPP| C[Enter Oxidative Phase]\n    B -->|Glycolysis| D[Phosphoglucose Isomerase]\n    B -->|Both| E[Flux Split]\n    \n    %% Oxidative Phase Step 1\n    C --> F[Zwf: G6P Dehydrogenase]\n    F --> G{AND: NADP+<br/>Available?}\n    G -->|No| H[Enzyme Inhibited]\n    G -->|Yes| I[6-Phosphogluconolactone]\n    I --> J[NADPH #1 Produced]\n    \n    %% Oxidative Phase Step 2\n    I --> K[Pgl: 6-Phosphogluconolactonase]\n    K --> L[6-Phosphogluconate]\n    \n    %% Oxidative Phase Step 3\n    L --> M[Gnd: 6PG Dehydrogenase]\n    M --> N{AND: NADP+<br/>Available?}\n    N -->|No| O[Enzyme Inhibited]\n    N -->|Yes| P[Ribulose-5-Phosphate]\n    P --> Q[NADPH #2 Produced]\n    P --> R[CO2 Released]\n    \n    %% Branch Point\n    P --> S{OR: Cellular<br/>Need?}\n    S -->|NADPH for Biosynthesis| T[End Oxidative - NADPH Output]\n    S -->|Ribose-5-P for Nucleotides| U[Enter Isomerization]\n    S -->|Recycle to Glycolysis| V[Enter Non-oxidative Phase]\n    \n    %% Isomerization\n    U --> W[Rpe: Ru5P Epimerase]\n    W --> X[Xylulose-5-Phosphate]\n    U --> Y[Rpi: Ru5P Isomerase]\n    Y --> Z[Ribose-5-Phosphate]\n    \n    %% OR Gate: Nucleotide Synthesis\n    Z --> AA{OR: Which<br/>Nucleotide?}\n    AA -->|Purine| AB[PRPP Synthetase]\n    AA -->|Pyrimidine| AC[UMP Synthesis]\n    AA -->|Histidine| AD[Histidine Biosynthesis]\n    AB --> AE([Nucleotide Biosynthesis])\n    AC --> AE\n    AD --> AE\n    \n    %% Non-oxidative Phase\n    V --> AF[Mix of Sugar Phosphates]\n    X --> AF\n    Z --> AF\n    \n    %% Transketolase Reaction 1\n    AF --> AG[TktA: Transketolase]\n    AG --> AH[X5P + R5P → S7P + G3P]\n    AH --> AI[Sedoheptulose-7-P]\n    AH --> AJ[Glyceraldehyde-3-P]\n    \n    %% Transaldolase Reaction\n    AI --> AK[TalB: Transaldolase]\n    AJ --> AK\n    AK --> AL[S7P + G3P → F6P + E4P]\n    AL --> AM[Fructose-6-Phosphate]\n    AL --> AN[Erythrose-4-Phosphate]\n    \n    %% Transketolase Reaction 2\n    AN --> AO[TktB: Transketolase]\n    X --> AO\n    AO --> AP[E4P + X5P → F6P + G3P]\n    AP --> AQ[Fructose-6-Phosphate #2]\n    AP --> AR[Glyceraldehyde-3-P #2]\n    \n    %% Return to Glycolysis\n    AM --> AS{OR: Which<br/>Fate?}\n    AQ --> AS\n    AS -->|Lower Glycolysis| AT[Fructose-1,6-Bisphosphate]\n    AS -->|Gluconeogenesis| AU[Glucose-6-Phosphate]\n    \n    AJ --> AV{OR: Glycolysis<br/>Fate?}\n    AR --> AV\n    AV -->|Pyruvate| AW[Lower Glycolysis]\n    AV -->|Recycle| AU\n    \n    %% Operational Modes\n    AT --> AX[Mode 1: Max NADPH]\n    AU --> AY[Mode 2: Max Ribose-5-P]\n    AU --> AZ[Mode 3: Recycle to Glycolysis]\n    \n    %% Outputs\n    T --> BA([NADPH for Fatty Acid Synthesis])\n    J --> BA\n    Q --> BA\n    AW --> BB([Pyruvate to TCA])\n    AX --> BB\n    AY --> BC([Pentose Sugars])\n    AZ --> BD([Glycolytic Intermediates])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style B fill:#ff9f43\n    style S fill:#ff9f43\n    style AA fill:#ff9f43\n    style AS fill:#ff9f43\n    style AV fill:#ff9f43\n    style G fill:#b4b4dc\n    style N fill:#b4b4dc\n    style F fill:#51cf66\n    style M fill:#51cf66\n    style AG fill:#51cf66\n    style I fill:#74c0fc\n    style P fill:#74c0fc\n    style X fill:#74c0fc\n    style BA fill:#9775fa\n    style BB fill:#9775fa\n    style BC fill:#9775fa\n    style BD fill:#9775fa\n    style AE fill:#9775fa",
+  "mermaid": "graph TD\n    %% Entry Points\n    A[Glucose-6-Phosphate] --> B{OR: Which<br/>Pathway?}\n    B -->|Oxidative PPP| C[Enter Oxidative Phase]\n    B -->|Glycolysis| D[Phosphoglucose Isomerase]\n    B -->|Both| E[Flux Split]\n    \n    %% Oxidative Phase Step 1\n    C --> F[Zwf: G6P Dehydrogenase]\n    F --> G{AND: NADP+<br/>Available?}\n    G -->|No| H[Enzyme Inhibited]\n    G -->|Yes| I[6-Phosphogluconolactone]\n    I --> J[NADPH #1 Produced]\n    \n    %% Oxidative Phase Step 2\n    I --> K[Pgl: 6-Phosphogluconolactonase]\n    K --> L[6-Phosphogluconate]\n    \n    %% Oxidative Phase Step 3\n    L --> M[Gnd: 6PG Dehydrogenase]\n    M --> N{AND: NADP+<br/>Available?}\n    N -->|No| O[Enzyme Inhibited]\n    N -->|Yes| P[Ribulose-5-Phosphate]\n    P --> Q[NADPH #2 Produced]\n    P --> R[CO2 Released]\n    \n    %% Branch Point\n    P --> S{OR: Cellular<br/>Need?}\n    S -->|NADPH for Biosynthesis| T[End Oxidative - NADPH Output]\n    S -->|Ribose-5-P for Nucleotides| U[Enter Isomerization]\n    S -->|Recycle to Glycolysis| V[Enter Non-oxidative Phase]\n    \n    %% Isomerization\n    U --> W[Rpe: Ru5P Epimerase]\n    W --> X[Xylulose-5-Phosphate]\n    U --> Y[Rpi: Ru5P Isomerase]\n    Y --> Z[Ribose-5-Phosphate]\n    \n    %% OR Gate: Nucleotide Synthesis\n    Z --> AA{OR: Which<br/>Nucleotide?}\n    AA -->|Purine| AB[PRPP Synthetase]\n    AA -->|Pyrimidine| AC[UMP Synthesis]\n    AA -->|Histidine| AD[Histidine Biosynthesis]\n    AB --> AE([Nucleotide Biosynthesis])\n    AC --> AE\n    AD --> AE\n    \n    %% Non-oxidative Phase\n    V --> AF[Mix of Sugar Phosphates]\n    X --> AF\n    Z --> AF\n    \n    %% Transketolase Reaction 1\n    AF --> AG[TktA: Transketolase]\n    AG --> AH[X5P + R5P → S7P + G3P]\n    AH --> AI[Sedoheptulose-7-P]\n    AH --> AJ[Glyceraldehyde-3-P]\n    \n    %% Transaldolase Reaction\n    AI --> AK[TalB: Transaldolase]\n    AJ --> AK\n    AK --> AL[S7P + G3P → F6P + E4P]\n    AL --> AM[Fructose-6-Phosphate]\n    AL --> AN[Erythrose-4-Phosphate]\n    \n    %% Transketolase Reaction 2\n    AN --> AO[TktB: Transketolase]\n    X --> AO\n    AO --> AP[E4P + X5P → F6P + G3P]\n    AP --> AQ[Fructose-6-Phosphate #2]\n    AP --> AR[Glyceraldehyde-3-P #2]\n    \n    %% Return to Glycolysis\n    AM --> AS{OR: Which<br/>Fate?}\n    AQ --> AS\n    AS -->|Lower Glycolysis| AT[Fructose-1,6-Bisphosphate]\n    AS -->|Gluconeogenesis| AU[Glucose-6-Phosphate]\n    \n    AJ --> AV{OR: Glycolysis<br/>Fate?}\n    AR --> AV\n    AV -->|Pyruvate| AW[Lower Glycolysis]\n    AV -->|Recycle| AU\n    \n    %% Operational Modes\n    AT --> AX[Mode 1: Max NADPH]\n    AU --> AY[Mode 2: Max Ribose-5-P]\n    AU --> AZ[Mode 3: Recycle to Glycolysis]\n    \n    %% Outputs\n    T --> BA([NADPH for Fatty Acid Synthesis])\n    J --> BA\n    Q --> BA\n    AW --> BB([Pyruvate to TCA])\n    AX --> BB\n    AY --> BC([Pentose Sugars])\n    AZ --> BD([Glycolytic Intermediates])\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff9f43,color:#fff\n    style S fill:#ff9f43,color:#fff\n    style AA fill:#ff9f43,color:#fff\n    style AS fill:#ff9f43,color:#fff\n    style AV fill:#ff9f43,color:#fff\n    style G fill:#b4b4dc,color:#fff\n    style N fill:#b4b4dc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style M fill:#51cf66,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style BA fill:#9775fa,color:#fff\n    style BB fill:#9775fa,color:#fff\n    style BC fill:#9775fa,color:#fff\n    style BD fill:#9775fa,color:#fff\n    style AE fill:#9775fa,color:#fff",
   "sources": [
     {
       "title": "The pentose phosphate pathway",
@@ -33,8 +58,17 @@
       "relevance": "Comprehensive review of PPP function"
     }
   ],
-  "keywords": ["pentose phosphate pathway", "NADPH", "ribose-5-phosphate", "Zwf", "transketolase"],
-  "relatedProcesses": ["ecoli_glycolysis", "ecoli_nucleotide_biosynthesis"],
+  "keywords": [
+    "pentose phosphate pathway",
+    "NADPH",
+    "ribose-5-phosphate",
+    "Zwf",
+    "transketolase"
+  ],
+  "relatedProcesses": [
+    "ecoli_glycolysis",
+    "ecoli_nucleotide_biosynthesis"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,

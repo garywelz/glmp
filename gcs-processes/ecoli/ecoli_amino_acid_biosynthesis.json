@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 11, "andGates": 2, "total": 13}
+    "logicGates": {
+      "orGates": 11,
+      "andGates": 2,
+      "total": 13
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% Central Metabolism Sources\n    A[Glycolysis] --> B[3-Phosphoglycerate]\n    A --> C[Phosphoenolpyruvate PEP]\n    A --> D[Pyruvate]\n    E[TCA Cycle] --> F[α-Ketoglutarate]\n    E --> G[Oxaloacetate]\n    H[Pentose Phosphate] --> I[Ribose-5-Phosphate]\n    I --> J[PRPP]\n    H --> K[Erythrose-4-Phosphate E4P]\n    \n    %% OR Gate 1: Which Amino Acid Family?\n    L[Amino Acid Biosynthesis] --> M{OR: Which<br/>Precursor?}\n    M -->|α-KG| N[Glutamate Family]\n    M -->|OAA| O[Aspartate Family]\n    M -->|3-PG| P[Serine Family]\n    M -->|PEP+E4P| Q[Aromatic Family]\n    M -->|Pyruvate| R[Pyruvate Family]\n    M -->|PRPP| S[Histidine]\n    \n    %% Glutamate Family\n    F --> N\n    N --> T[GltA: α-KG + NH3 → Glutamate]\n    T --> U[Glutamate Central Hub]\n    \n    U --> V{OR: Glu<br/>Branch?}\n    V -->|GlnA| W[Glu + NH3 → Glutamine]\n    V -->|ProABC| X[Glu → Proline 5 steps]\n    V -->|ArgABCDEFGH| Y[Glu → Arginine 8 steps]\n    \n    W --> Z[Glutamine]\n    X --> AA[Proline]\n    Y --> AB[Arginine]\n    \n    %% Aspartate Family\n    G --> O\n    O --> AC[AspC: OAA + Glu → Aspartate]\n    AC --> AD[Aspartate Hub]\n    \n    AD --> AE{OR: Asp<br/>Branch?}\n    AE -->|AsnAB| AF[Asp + Gln → Asparagine]\n    AE -->|MetLABCE| AG[Asp → Methionine via Homoserine]\n    AE -->|ThrABC| AH[Asp → Threonine]\n    AE -->|LysC-DapF| AI[Asp → Lysine via DAP]\n    \n    AF --> AJ[Asparagine]\n    AG --> AK[Methionine]\n    AH --> AL[Threonine]\n    AL --> AM[IlvA: Thr → Isoleucine]\n    AM --> AN[Isoleucine]\n    AI --> AO[Lysine]\n    \n    %% Serine Family\n    B --> P\n    P --> AP[SerA: 3-PG → 3-Phosphohydroxypyruvate]\n    AP --> AQ[SerC: Transamination]\n    AQ --> AR[SerB: Dephosphorylation]\n    AR --> AS[Serine]\n    \n    AS --> AT{OR: Ser<br/>Branch?}\n    AT -->|GlyA| AU[Ser → Glycine + C1 unit]\n    AT -->|CysE+CysK| AV[Ser → Cysteine]\n    \n    AU --> AW[Glycine]\n    AV --> AX[Cysteine]\n    \n    %% Aromatic Family\n    C --> Q\n    K --> Q\n    Q --> AY[AroABCDEF: Shikimate Pathway]\n    AY --> AZ[Chorismate Common Intermediate]\n    \n    AZ --> BA{OR: Aromatic<br/>Branch?}\n    BA -->|PheA+TyrA| BB[Phe/Tyr Pathway]\n    BA -->|TrpABCDE| BC[Trp Pathway 5 steps]\n    \n    BB --> BD{OR: Prephenate<br/>Branch?}\n    BD -->|PheA| BE[Prephenate → Phenylalanine]\n    BD -->|TyrA| BF[Prephenate → Tyrosine]\n    \n    BE --> BG[Phenylalanine]\n    BF --> BH[Tyrosine]\n    BC --> BI[Tryptophan]\n    \n    %% Pyruvate Family\n    D --> R\n    R --> BJ[Pyruvate Hub]\n    \n    BJ --> BK{OR: Pyr<br/>Branch?}\n    BK -->|AlaA| BL[Pyr + Glu → Alanine]\n    BK -->|IlvBCDE| BM[Pyr → Valine 4 steps]\n    \n    BL --> BN[Alanine]\n    BM --> BO[Valine]\n    BO --> BP[LeuABCD: Val → Leucine]\n    BP --> BQ[Leucine]\n    \n    %% Histidine Pathway\n    J --> S\n    S --> BR[HisABCDEFGH: 10 steps]\n    BR --> BS[Histidine]\n    \n    %% Feedback Regulation\n    Z --> BT{AND: High Gln<br/>AND GlnA?}\n    BT -->|Yes| BU[GlnA Feedback Inhibition]\n    BU --> BV[Gln Synthesis Reduced]\n    \n    AB --> BW[ArgR Repressor]\n    BW --> BX[arg Operon Repression]\n    \n    BI --> BY[TrpR Repressor]\n    BY --> BZ[trp Operon Repression]\n    \n    %% Outputs\n    BN --> CA([20 Amino Acids])\n    Z --> CA\n    AA --> CA\n    AB --> CA\n    AJ --> CA\n    AK --> CA\n    AL --> CA\n    AN --> CA\n    AO --> CA\n    AW --> CA\n    AX --> CA\n    BG --> CA\n    BH --> CA\n    BI --> CA\n    BO --> CA\n    BQ --> CA\n    BS --> CA\n    \n    CA --> CB[Protein Synthesis]\n    CB --> CC([Cell Growth])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style E fill:#ff6b6b\n    style H fill:#ff6b6b\n    style M fill:#ff9f43\n    style V fill:#ff9f43\n    style AE fill:#ff9f43\n    style AT fill:#ff9f43\n    style BA fill:#ff9f43\n    style BD fill:#ff9f43\n    style BK fill:#ff9f43\n    style BT fill:#b4b4dc\n    style T fill:#51cf66\n    style AC fill:#51cf66\n    style AP fill:#51cf66\n    style AY fill:#51cf66\n    style U fill:#74c0fc\n    style AD fill:#74c0fc\n    style AS fill:#74c0fc\n    style AZ fill:#74c0fc\n    style BJ fill:#74c0fc\n    style CA fill:#9775fa\n    style CC fill:#9775fa",
+  "mermaid": "graph TD\n    %% Central Metabolism Sources\n    A[Glycolysis] --> B[3-Phosphoglycerate]\n    A --> C[Phosphoenolpyruvate PEP]\n    A --> D[Pyruvate]\n    E[TCA Cycle] --> F[α-Ketoglutarate]\n    E --> G[Oxaloacetate]\n    H[Pentose Phosphate] --> I[Ribose-5-Phosphate]\n    I --> J[PRPP]\n    H --> K[Erythrose-4-Phosphate E4P]\n    \n    %% OR Gate 1: Which Amino Acid Family?\n    L[Amino Acid Biosynthesis] --> M{OR: Which<br/>Precursor?}\n    M -->|α-KG| N[Glutamate Family]\n    M -->|OAA| O[Aspartate Family]\n    M -->|3-PG| P[Serine Family]\n    M -->|PEP+E4P| Q[Aromatic Family]\n    M -->|Pyruvate| R[Pyruvate Family]\n    M -->|PRPP| S[Histidine]\n    \n    %% Glutamate Family\n    F --> N\n    N --> T[GltA: α-KG + NH3 → Glutamate]\n    T --> U[Glutamate Central Hub]\n    \n    U --> V{OR: Glu<br/>Branch?}\n    V -->|GlnA| W[Glu + NH3 → Glutamine]\n    V -->|ProABC| X[Glu → Proline 5 steps]\n    V -->|ArgABCDEFGH| Y[Glu → Arginine 8 steps]\n    \n    W --> Z[Glutamine]\n    X --> AA[Proline]\n    Y --> AB[Arginine]\n    \n    %% Aspartate Family\n    G --> O\n    O --> AC[AspC: OAA + Glu → Aspartate]\n    AC --> AD[Aspartate Hub]\n    \n    AD --> AE{OR: Asp<br/>Branch?}\n    AE -->|AsnAB| AF[Asp + Gln → Asparagine]\n    AE -->|MetLABCE| AG[Asp → Methionine via Homoserine]\n    AE -->|ThrABC| AH[Asp → Threonine]\n    AE -->|LysC-DapF| AI[Asp → Lysine via DAP]\n    \n    AF --> AJ[Asparagine]\n    AG --> AK[Methionine]\n    AH --> AL[Threonine]\n    AL --> AM[IlvA: Thr → Isoleucine]\n    AM --> AN[Isoleucine]\n    AI --> AO[Lysine]\n    \n    %% Serine Family\n    B --> P\n    P --> AP[SerA: 3-PG → 3-Phosphohydroxypyruvate]\n    AP --> AQ[SerC: Transamination]\n    AQ --> AR[SerB: Dephosphorylation]\n    AR --> AS[Serine]\n    \n    AS --> AT{OR: Ser<br/>Branch?}\n    AT -->|GlyA| AU[Ser → Glycine + C1 unit]\n    AT -->|CysE+CysK| AV[Ser → Cysteine]\n    \n    AU --> AW[Glycine]\n    AV --> AX[Cysteine]\n    \n    %% Aromatic Family\n    C --> Q\n    K --> Q\n    Q --> AY[AroABCDEF: Shikimate Pathway]\n    AY --> AZ[Chorismate Common Intermediate]\n    \n    AZ --> BA{OR: Aromatic<br/>Branch?}\n    BA -->|PheA+TyrA| BB[Phe/Tyr Pathway]\n    BA -->|TrpABCDE| BC[Trp Pathway 5 steps]\n    \n    BB --> BD{OR: Prephenate<br/>Branch?}\n    BD -->|PheA| BE[Prephenate → Phenylalanine]\n    BD -->|TyrA| BF[Prephenate → Tyrosine]\n    \n    BE --> BG[Phenylalanine]\n    BF --> BH[Tyrosine]\n    BC --> BI[Tryptophan]\n    \n    %% Pyruvate Family\n    D --> R\n    R --> BJ[Pyruvate Hub]\n    \n    BJ --> BK{OR: Pyr<br/>Branch?}\n    BK -->|AlaA| BL[Pyr + Glu → Alanine]\n    BK -->|IlvBCDE| BM[Pyr → Valine 4 steps]\n    \n    BL --> BN[Alanine]\n    BM --> BO[Valine]\n    BO --> BP[LeuABCD: Val → Leucine]\n    BP --> BQ[Leucine]\n    \n    %% Histidine Pathway\n    J --> S\n    S --> BR[HisABCDEFGH: 10 steps]\n    BR --> BS[Histidine]\n    \n    %% Feedback Regulation\n    Z --> BT{AND: High Gln<br/>AND GlnA?}\n    BT -->|Yes| BU[GlnA Feedback Inhibition]\n    BU --> BV[Gln Synthesis Reduced]\n    \n    AB --> BW[ArgR Repressor]\n    BW --> BX[arg Operon Repression]\n    \n    BI --> BY[TrpR Repressor]\n    BY --> BZ[trp Operon Repression]\n    \n    %% Outputs\n    BN --> CA([20 Amino Acids])\n    Z --> CA\n    AA --> CA\n    AB --> CA\n    AJ --> CA\n    AK --> CA\n    AL --> CA\n    AN --> CA\n    AO --> CA\n    AW --> CA\n    AX --> CA\n    BG --> CA\n    BH --> CA\n    BI --> CA\n    BO --> CA\n    BQ --> CA\n    BS --> CA\n    \n    CA --> CB[Protein Synthesis]\n    CB --> CC([Cell Growth])\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style H fill:#ff6b6b,color:#fff\n    style M fill:#ff9f43,color:#fff\n    style V fill:#ff9f43,color:#fff\n    style AE fill:#ff9f43,color:#fff\n    style AT fill:#ff9f43,color:#fff\n    style BA fill:#ff9f43,color:#fff\n    style BD fill:#ff9f43,color:#fff\n    style BK fill:#ff9f43,color:#fff\n    style BT fill:#b4b4dc,color:#fff\n    style T fill:#51cf66,color:#fff\n    style AC fill:#51cf66,color:#fff\n    style AP fill:#51cf66,color:#fff\n    style AY fill:#51cf66,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style CA fill:#9775fa,color:#fff\n    style CC fill:#9775fa,color:#fff",
   "sources": [
     {
       "title": "Biosynthesis of amino acids",
@@ -33,8 +58,16 @@
       "relevance": "Comprehensive review of amino acid biosynthesis"
     }
   ],
-  "keywords": ["amino acid biosynthesis", "glutamate family", "aspartate family", "aromatic amino acids", "shikimate pathway"],
-  "relatedProcesses": ["ecoli_tryptophan_biosynthesis"],
+  "keywords": [
+    "amino acid biosynthesis",
+    "glutamate family",
+    "aspartate family",
+    "aromatic amino acids",
+    "shikimate pathway"
+  ],
+  "relatedProcesses": [
+    "ecoli_tryptophan_biosynthesis"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,

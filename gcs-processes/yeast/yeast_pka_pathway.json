@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 6, "andGates": 8, "total": 14}
+    "logicGates": {
+      "orGates": 6,
+      "andGates": 8,
+      "total": 14
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% Glucose Sensing\n    A[Extracellular Glucose] --> B{OR: Which<br/>Sensor?}\n    B -->|Gpr1/Gpa2| C[GPCR Pathway]\n    B -->|Ras1/2| D[Ras Pathway]\n    \n    %% GPCR Branch\n    C --> E[Gpr1 Glucose Receptor]\n    E --> F[Glucose Binding]\n    F --> G[Gpa2 G-protein Activation]\n    G --> H[Gpa2-GTP Formation]\n    H --> I[Gpa2-GTP Activates Cyr1]\n    \n    %% Ras Branch\n    D --> J[Glucose Metabolism]\n    J --> K[ATP Production]\n    K --> L[High Energy State]\n    L --> M{OR: Ras1<br/>or Ras2?}\n    M -->|Ras1| N[Cdc25 GEF Activates Ras1]\n    M -->|Ras2| O[Cdc25 GEF Activates Ras2]\n    \n    N --> P[Ras1-GTP]\n    O --> Q[Ras2-GTP]\n    P --> R[Ras-GTP Activates Cyr1]\n    Q --> R\n    \n    %% Adenylyl Cyclase Activation\n    I --> S{AND: Gpa2-GTP<br/>AND Ras-GTP?}\n    R --> S\n    S -->|No| T[Low cAMP]\n    S -->|Yes| U[Cyr1 Adenylyl Cyclase Active]\n    \n    U --> V[ATP → cAMP + PPi]\n    V --> W[cAMP Accumulation]\n    \n    %% PKA Activation\n    W --> X[cAMP Binds Bcy1]\n    X --> Y[Bcy1 Regulatory Subunit]\n    Y --> Z{AND: 4 cAMP<br/>Molecules?}\n    Z -->|No| AA[PKA Inactive]\n    Z -->|Yes| AB[Bcy1 Conformational Change]\n    \n    AB --> AC[Tpk1/2/3 Release]\n    AC --> AD{OR: Which<br/>Catalytic Subunit?}\n    AD -->|Tpk1| AE[Tpk1 Active]\n    AD -->|Tpk2| AF[Tpk2 Active]\n    AD -->|Tpk3| AG[Tpk3 Active]\n    \n    %% PKA Substrates - Stress Response\n    AE --> AH{OR: Which<br/>Target?}\n    AF --> AH\n    AG --> AH\n    \n    AH -->|Msn2/4| AI[Msn2/4 Stress TFs]\n    AH -->|Trehalase| AJ[Nth1 Trehalase]\n    AH -->|Ribosomal| AK[Ribosomal Proteins]\n    AH -->|Transcription| AL[RNA Pol II CTD]\n    \n    %% Msn2/4 Regulation\n    AI --> AM[PKA Phosphorylates Msn2/4]\n    AM --> AN[14-3-3 Binding]\n    AN --> AO[Nuclear Export]\n    AO --> AP[Cytoplasmic Retention]\n    AP --> AQ[Stress Genes Repressed]\n    \n    T --> AR[Low PKA Activity]\n    AR --> AS[Msn2/4 Nuclear]\n    AS --> AT[STRE Element Binding]\n    AT --> AU[Stress Gene Expression]\n    AU --> AV([Stress Resistance])\n    \n    %% Glycogen Mobilization\n    AJ --> AW[PKA Activates Nth1]\n    AW --> AX[Trehalose-6-P → Glucose]\n    AX --> AY[Glycogen Breakdown]\n    AY --> AZ[Glucose-6-P]\n    AZ --> BA[Glycolysis]\n    BA --> BB([Energy Production])\n    \n    %% Translation Activation\n    AK --> BC[Ribosomal Protein Phosphorylation]\n    BC --> BD[Enhanced Translation]\n    BD --> BE[Protein Synthesis]\n    \n    AL --> BF[Pol II CTD Phosphorylation]\n    BF --> BG[Enhanced Transcription]\n    BG --> BH[Growth Gene Expression]\n    \n    BE --> BI[Cell Growth]\n    BH --> BI\n    BI --> BJ([Rapid Proliferation])\n    \n    %% Feedback - cAMP Degradation\n    W --> BK{OR: Phosphodiesterase?}\n    BK -->|Pde1| BL[Pde1 High Affinity]\n    BK -->|Pde2| BM[Pde2 Low Affinity]\n    \n    BL --> BN[cAMP → 5'-AMP]\n    BM --> BN\n    BN --> BO[cAMP Degraded]\n    BO --> BP[Reduced PKA Activity]\n    \n    %% PKA Phosphorylates Pde1\n    AH -->|Pde1| BQ[PKA Phosphorylates Pde1]\n    BQ --> BR[Pde1 Activated]\n    BR --> BN\n    \n    %% Glucose Depletion\n    BS[Glucose Depleted] --> BT[Ras-GDP Inactive]\n    BT --> BU[Gpa2-GDP Inactive]\n    BU --> BV[Cyr1 Inactive]\n    BV --> BW[cAMP Drops]\n    BW --> BX[PKA Inactive]\n    BX --> BY[Growth Arrest]\n    BY --> BZ([Stationary Phase])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style BS fill:#ff6b6b\n    style B fill:#ff9f43\n    style M fill:#ff9f43\n    style AD fill:#ff9f43\n    style AH fill:#ff9f43\n    style BK fill:#ff9f43\n    style S fill:#b4b4dc\n    style Z fill:#b4b4dc\n    style V fill:#51cf66\n    style AB fill:#51cf66\n    style AM fill:#51cf66\n    style AW fill:#51cf66\n    style W fill:#74c0fc\n    style AC fill:#74c0fc\n    style BJ fill:#9775fa\n    style BB fill:#9775fa\n    style AV fill:#9775fa\n    style BZ fill:#9775fa",
+  "mermaid": "graph TD\n    %% Glucose Sensing\n    A[Extracellular Glucose] --> B{OR: Which<br/>Sensor?}\n    B -->|Gpr1/Gpa2| C[GPCR Pathway]\n    B -->|Ras1/2| D[Ras Pathway]\n    \n    %% GPCR Branch\n    C --> E[Gpr1 Glucose Receptor]\n    E --> F[Glucose Binding]\n    F --> G[Gpa2 G-protein Activation]\n    G --> H[Gpa2-GTP Formation]\n    H --> I[Gpa2-GTP Activates Cyr1]\n    \n    %% Ras Branch\n    D --> J[Glucose Metabolism]\n    J --> K[ATP Production]\n    K --> L[High Energy State]\n    L --> M{OR: Ras1<br/>or Ras2?}\n    M -->|Ras1| N[Cdc25 GEF Activates Ras1]\n    M -->|Ras2| O[Cdc25 GEF Activates Ras2]\n    \n    N --> P[Ras1-GTP]\n    O --> Q[Ras2-GTP]\n    P --> R[Ras-GTP Activates Cyr1]\n    Q --> R\n    \n    %% Adenylyl Cyclase Activation\n    I --> S{AND: Gpa2-GTP<br/>AND Ras-GTP?}\n    R --> S\n    S -->|No| T[Low cAMP]\n    S -->|Yes| U[Cyr1 Adenylyl Cyclase Active]\n    \n    U --> V[ATP → cAMP + PPi]\n    V --> W[cAMP Accumulation]\n    \n    %% PKA Activation\n    W --> X[cAMP Binds Bcy1]\n    X --> Y[Bcy1 Regulatory Subunit]\n    Y --> Z{AND: 4 cAMP<br/>Molecules?}\n    Z -->|No| AA[PKA Inactive]\n    Z -->|Yes| AB[Bcy1 Conformational Change]\n    \n    AB --> AC[Tpk1/2/3 Release]\n    AC --> AD{OR: Which<br/>Catalytic Subunit?}\n    AD -->|Tpk1| AE[Tpk1 Active]\n    AD -->|Tpk2| AF[Tpk2 Active]\n    AD -->|Tpk3| AG[Tpk3 Active]\n    \n    %% PKA Substrates - Stress Response\n    AE --> AH{OR: Which<br/>Target?}\n    AF --> AH\n    AG --> AH\n    \n    AH -->|Msn2/4| AI[Msn2/4 Stress TFs]\n    AH -->|Trehalase| AJ[Nth1 Trehalase]\n    AH -->|Ribosomal| AK[Ribosomal Proteins]\n    AH -->|Transcription| AL[RNA Pol II CTD]\n    \n    %% Msn2/4 Regulation\n    AI --> AM[PKA Phosphorylates Msn2/4]\n    AM --> AN[14-3-3 Binding]\n    AN --> AO[Nuclear Export]\n    AO --> AP[Cytoplasmic Retention]\n    AP --> AQ[Stress Genes Repressed]\n    \n    T --> AR[Low PKA Activity]\n    AR --> AS[Msn2/4 Nuclear]\n    AS --> AT[STRE Element Binding]\n    AT --> AU[Stress Gene Expression]\n    AU --> AV([Stress Resistance])\n    \n    %% Glycogen Mobilization\n    AJ --> AW[PKA Activates Nth1]\n    AW --> AX[Trehalose-6-P → Glucose]\n    AX --> AY[Glycogen Breakdown]\n    AY --> AZ[Glucose-6-P]\n    AZ --> BA[Glycolysis]\n    BA --> BB([Energy Production])\n    \n    %% Translation Activation\n    AK --> BC[Ribosomal Protein Phosphorylation]\n    BC --> BD[Enhanced Translation]\n    BD --> BE[Protein Synthesis]\n    \n    AL --> BF[Pol II CTD Phosphorylation]\n    BF --> BG[Enhanced Transcription]\n    BG --> BH[Growth Gene Expression]\n    \n    BE --> BI[Cell Growth]\n    BH --> BI\n    BI --> BJ([Rapid Proliferation])\n    \n    %% Feedback - cAMP Degradation\n    W --> BK{OR: Phosphodiesterase?}\n    BK -->|Pde1| BL[Pde1 High Affinity]\n    BK -->|Pde2| BM[Pde2 Low Affinity]\n    \n    BL --> BN[cAMP → 5'-AMP]\n    BM --> BN\n    BN --> BO[cAMP Degraded]\n    BO --> BP[Reduced PKA Activity]\n    \n    %% PKA Phosphorylates Pde1\n    AH -->|Pde1| BQ[PKA Phosphorylates Pde1]\n    BQ --> BR[Pde1 Activated]\n    BR --> BN\n    \n    %% Glucose Depletion\n    BS[Glucose Depleted] --> BT[Ras-GDP Inactive]\n    BT --> BU[Gpa2-GDP Inactive]\n    BU --> BV[Cyr1 Inactive]\n    BV --> BW[cAMP Drops]\n    BW --> BX[PKA Inactive]\n    BX --> BY[Growth Arrest]\n    BY --> BZ([Stationary Phase])\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style BS fill:#ff6b6b,color:#fff\n    style B fill:#ff9f43,color:#fff\n    style M fill:#ff9f43,color:#fff\n    style AD fill:#ff9f43,color:#fff\n    style AH fill:#ff9f43,color:#fff\n    style BK fill:#ff9f43,color:#fff\n    style S fill:#b4b4dc,color:#fff\n    style Z fill:#b4b4dc,color:#fff\n    style V fill:#51cf66,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style BJ fill:#9775fa,color:#fff\n    style BB fill:#9775fa,color:#fff\n    style AV fill:#9775fa,color:#fff\n    style BZ fill:#9775fa,color:#fff",
   "sources": [
     {
       "title": "The cAMP-PKA pathway in yeast",
@@ -33,8 +58,18 @@
       "relevance": "Comprehensive review of PKA signaling"
     }
   ],
-  "keywords": ["cAMP", "PKA", "glucose sensing", "Gpr1", "Ras", "Msn2/4"],
-  "relatedProcesses": ["yeast_tor_signaling", "yeast_snf1_pathway"],
+  "keywords": [
+    "cAMP",
+    "PKA",
+    "glucose sensing",
+    "Gpr1",
+    "Ras",
+    "Msn2/4"
+  ],
+  "relatedProcesses": [
+    "yeast_tor_signaling",
+    "yeast_snf1_pathway"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,

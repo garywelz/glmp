@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 8, "andGates": 6, "total": 14}
+    "logicGates": {
+      "orGates": 8,
+      "andGates": 6,
+      "total": 14
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% Cell Wall Stress\n    A[Cell Wall Stress] --> B{OR: Stress<br/>Type?}\n    B -->|Osmotic| C[Hypoosmotic Shock]\n    B -->|Heat| D[Temperature Stress]\n    B -->|Chemical| E[Cell Wall Damaging Agents]\n    B -->|Growth| F[Bud Formation]\n    \n    C --> G[Cell Wall Stretching]\n    D --> G\n    E --> G\n    F --> G\n    \n    %% Surface Sensors\n    G --> H{OR: Which<br/>Sensor?}\n    H -->|Wsc Family| I[Wsc1/2/3 Sensors]\n    H -->|Mid2| J[Mid2 Sensor]\n    H -->|Mtl1| K[Mtl1 Sensor]\n    \n    I --> L[Wsc Cysteine-Rich Domain]\n    L --> M[Conformational Change]\n    J --> M\n    K --> M\n    \n    %% Rho1 Activation\n    M --> N[Rom1/2 GEF Recruitment]\n    N --> O[Rho1-GDP at Membrane]\n    O --> P[Rom1/2 Catalyzes GTP Exchange]\n    P --> Q[Rho1-GTP Formation]\n    \n    %% Rho1 Dual Function\n    Q --> R{OR: Rho1-GTP<br/>Target?}\n    R -->|Pkc1 MAPK| S[Pkc1 Kinase Activation]\n    R -->|Glucan Synthase| T[Fks1/2 β-1,3-Glucan Synthase]\n    \n    %% Direct Glucan Synthesis\n    T --> U[Rho1 Binds Fks1]\n    U --> V{AND: Fks1 + Fks2<br/>Catalytic Subunits?}\n    V -->|No| W[Reduced Synthesis]\n    V -->|Yes| X[β-1,3-Glucan Polymerization]\n    X --> Y[Cell Wall Thickening]\n    Y --> Z[Immediate Repair]\n    \n    %% Pkc1 Activation\n    S --> AA[Pkc1 Protein Kinase C]\n    AA --> AB{AND: Phosphatidylserine<br/>AND DAG?}\n    AB -->|No| AC[Pkc1 Inactive]\n    AB -->|Yes| AD[Pkc1 Membrane Recruitment]\n    \n    AD --> AE[Pkc1 Autophosphorylation]\n    AE --> AF[Pkc1 Active]\n    \n    %% MAPK Cascade - MAPKKK\n    AF --> AG[Bck1 MAPKKK]\n    AG --> AH[Pkc1 Phosphorylates Bck1]\n    AH --> AI[Bck1 Activated]\n    \n    %% MAPK Cascade - MAPKK\n    AI --> AJ{OR: Mkk1<br/>or Mkk2?}\n    AJ -->|Mkk1| AK[Mkk1 MAPKK]\n    AJ -->|Mkk2| AL[Mkk2 MAPKK]\n    \n    AK --> AM[Bck1 Phosphorylates Mkk1]\n    AL --> AN[Bck1 Phosphorylates Mkk2]\n    AM --> AO[Mkk1/2 Active]\n    AN --> AO\n    \n    %% MAPK Cascade - MAPK\n    AO --> AP[Slt2/Mpk1 MAPK]\n    AP --> AQ[Mkk1/2 Dual Phosphorylation]\n    AQ --> AR[Slt2-PP Active]\n    \n    %% Nuclear Translocation\n    AR --> AS[Slt2 Nuclear Import]\n    AS --> AT[Active MAPK in Nucleus]\n    \n    %% Transcription Factor Activation\n    AT --> AU{OR: Which<br/>TF Target?}\n    AU -->|Rlm1| AV[Rlm1 Transcription Factor]\n    AU -->|SBF| AW[Swi4/Swi6 SBF Complex]\n    \n    %% Rlm1 Pathway\n    AV --> AX[Slt2 Phosphorylates Rlm1]\n    AX --> AY[Rlm1 Activated]\n    AY --> AZ{AND: Rlm1<br/>Binds DNA?}\n    AZ -->|No| BA[No Transcription]\n    AZ -->|Yes| BB[Rlm1 Binds CWI Elements]\n    \n    BB --> BC{OR: Which<br/>CWI Gene?}\n    BC -->|FKS2| BD[FKS2 Glucan Synthase]\n    BC -->|SED1| BE[SED1 Cell Wall Protein]\n    BC -->|CRH1| BF[CRH1 Chitin Transglycosylase]\n    BC -->|PIR| BG[PIR Proteins]\n    \n    BD --> BH[Enhanced Glucan Synthesis]\n    BE --> BI[Cell Wall Proteins]\n    BF --> BJ[Chitin Remodeling]\n    BG --> BI\n    \n    BH --> BK[Cell Wall Biosynthesis]\n    BI --> BK\n    BJ --> BK\n    BK --> BL([Reinforced Cell Wall])\n    \n    %% SBF Pathway\n    AW --> BM[Slt2 Phosphorylates Swi4]\n    BM --> BN[SBF Activated]\n    BN --> BO[Cell Cycle Gene Expression]\n    BO --> BP[CLN1/2 Cyclins]\n    BP --> BQ[G1/S Transition]\n    BQ --> BR[Cell Division]\n    BR --> BS([Growth Resume])\n    \n    %% Feedback Regulation\n    AR --> BT[Msg5 Phosphatase]\n    BT --> BU[Msg5 Dephosphorylates Slt2]\n    BU --> BV[Slt2 Inactivation]\n    BV --> BW[Signaling Attenuation]\n    \n    Q --> BX[Bem2 GAP]\n    BX --> BY[Rho1-GTP Hydrolysis]\n    BY --> BZ[Rho1-GDP]\n    BZ --> CA[Inactive State]\n    \n    %% Actin Cytoskeleton\n    Q --> CB[Bni1/Bnr1 Formins]\n    CB --> CC[Actin Polymerization]\n    CC --> CD[Polarized Growth]\n    CD --> CE[Bud Site Selection]\n    CE --> CF([Cell Morphogenesis])\n    \n    Z --> CG([Stress Resolved])\n    BL --> CG\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style B fill:#ff9f43\n    style H fill:#ff9f43\n    style R fill:#ff9f43\n    style AJ fill:#ff9f43\n    style AU fill:#ff9f43\n    style BC fill:#ff9f43\n    style V fill:#b4b4dc\n    style AB fill:#b4b4dc\n    style AZ fill:#b4b4dc\n    style P fill:#51cf66\n    style AH fill:#51cf66\n    style AQ fill:#51cf66\n    style AX fill:#51cf66\n    style Q fill:#74c0fc\n    style AF fill:#74c0fc\n    style AR fill:#74c0fc\n    style BL fill:#9775fa\n    style BS fill:#9775fa\n    style CF fill:#9775fa\n    style CG fill:#9775fa",
+  "mermaid": "graph TD\n    %% Cell Wall Stress\n    A[Cell Wall Stress] --> B{OR: Stress<br/>Type?}\n    B -->|Osmotic| C[Hypoosmotic Shock]\n    B -->|Heat| D[Temperature Stress]\n    B -->|Chemical| E[Cell Wall Damaging Agents]\n    B -->|Growth| F[Bud Formation]\n    \n    C --> G[Cell Wall Stretching]\n    D --> G\n    E --> G\n    F --> G\n    \n    %% Surface Sensors\n    G --> H{OR: Which<br/>Sensor?}\n    H -->|Wsc Family| I[Wsc1/2/3 Sensors]\n    H -->|Mid2| J[Mid2 Sensor]\n    H -->|Mtl1| K[Mtl1 Sensor]\n    \n    I --> L[Wsc Cysteine-Rich Domain]\n    L --> M[Conformational Change]\n    J --> M\n    K --> M\n    \n    %% Rho1 Activation\n    M --> N[Rom1/2 GEF Recruitment]\n    N --> O[Rho1-GDP at Membrane]\n    O --> P[Rom1/2 Catalyzes GTP Exchange]\n    P --> Q[Rho1-GTP Formation]\n    \n    %% Rho1 Dual Function\n    Q --> R{OR: Rho1-GTP<br/>Target?}\n    R -->|Pkc1 MAPK| S[Pkc1 Kinase Activation]\n    R -->|Glucan Synthase| T[Fks1/2 β-1,3-Glucan Synthase]\n    \n    %% Direct Glucan Synthesis\n    T --> U[Rho1 Binds Fks1]\n    U --> V{AND: Fks1 + Fks2<br/>Catalytic Subunits?}\n    V -->|No| W[Reduced Synthesis]\n    V -->|Yes| X[β-1,3-Glucan Polymerization]\n    X --> Y[Cell Wall Thickening]\n    Y --> Z[Immediate Repair]\n    \n    %% Pkc1 Activation\n    S --> AA[Pkc1 Protein Kinase C]\n    AA --> AB{AND: Phosphatidylserine<br/>AND DAG?}\n    AB -->|No| AC[Pkc1 Inactive]\n    AB -->|Yes| AD[Pkc1 Membrane Recruitment]\n    \n    AD --> AE[Pkc1 Autophosphorylation]\n    AE --> AF[Pkc1 Active]\n    \n    %% MAPK Cascade - MAPKKK\n    AF --> AG[Bck1 MAPKKK]\n    AG --> AH[Pkc1 Phosphorylates Bck1]\n    AH --> AI[Bck1 Activated]\n    \n    %% MAPK Cascade - MAPKK\n    AI --> AJ{OR: Mkk1<br/>or Mkk2?}\n    AJ -->|Mkk1| AK[Mkk1 MAPKK]\n    AJ -->|Mkk2| AL[Mkk2 MAPKK]\n    \n    AK --> AM[Bck1 Phosphorylates Mkk1]\n    AL --> AN[Bck1 Phosphorylates Mkk2]\n    AM --> AO[Mkk1/2 Active]\n    AN --> AO\n    \n    %% MAPK Cascade - MAPK\n    AO --> AP[Slt2/Mpk1 MAPK]\n    AP --> AQ[Mkk1/2 Dual Phosphorylation]\n    AQ --> AR[Slt2-PP Active]\n    \n    %% Nuclear Translocation\n    AR --> AS[Slt2 Nuclear Import]\n    AS --> AT[Active MAPK in Nucleus]\n    \n    %% Transcription Factor Activation\n    AT --> AU{OR: Which<br/>TF Target?}\n    AU -->|Rlm1| AV[Rlm1 Transcription Factor]\n    AU -->|SBF| AW[Swi4/Swi6 SBF Complex]\n    \n    %% Rlm1 Pathway\n    AV --> AX[Slt2 Phosphorylates Rlm1]\n    AX --> AY[Rlm1 Activated]\n    AY --> AZ{AND: Rlm1<br/>Binds DNA?}\n    AZ -->|No| BA[No Transcription]\n    AZ -->|Yes| BB[Rlm1 Binds CWI Elements]\n    \n    BB --> BC{OR: Which<br/>CWI Gene?}\n    BC -->|FKS2| BD[FKS2 Glucan Synthase]\n    BC -->|SED1| BE[SED1 Cell Wall Protein]\n    BC -->|CRH1| BF[CRH1 Chitin Transglycosylase]\n    BC -->|PIR| BG[PIR Proteins]\n    \n    BD --> BH[Enhanced Glucan Synthesis]\n    BE --> BI[Cell Wall Proteins]\n    BF --> BJ[Chitin Remodeling]\n    BG --> BI\n    \n    BH --> BK[Cell Wall Biosynthesis]\n    BI --> BK\n    BJ --> BK\n    BK --> BL([Reinforced Cell Wall])\n    \n    %% SBF Pathway\n    AW --> BM[Slt2 Phosphorylates Swi4]\n    BM --> BN[SBF Activated]\n    BN --> BO[Cell Cycle Gene Expression]\n    BO --> BP[CLN1/2 Cyclins]\n    BP --> BQ[G1/S Transition]\n    BQ --> BR[Cell Division]\n    BR --> BS([Growth Resume])\n    \n    %% Feedback Regulation\n    AR --> BT[Msg5 Phosphatase]\n    BT --> BU[Msg5 Dephosphorylates Slt2]\n    BU --> BV[Slt2 Inactivation]\n    BV --> BW[Signaling Attenuation]\n    \n    Q --> BX[Bem2 GAP]\n    BX --> BY[Rho1-GTP Hydrolysis]\n    BY --> BZ[Rho1-GDP]\n    BZ --> CA[Inactive State]\n    \n    %% Actin Cytoskeleton\n    Q --> CB[Bni1/Bnr1 Formins]\n    CB --> CC[Actin Polymerization]\n    CC --> CD[Polarized Growth]\n    CD --> CE[Bud Site Selection]\n    CE --> CF([Cell Morphogenesis])\n    \n    Z --> CG([Stress Resolved])\n    BL --> CG\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff9f43,color:#fff\n    style H fill:#ff9f43,color:#fff\n    style R fill:#ff9f43,color:#fff\n    style AJ fill:#ff9f43,color:#fff\n    style AU fill:#ff9f43,color:#fff\n    style BC fill:#ff9f43,color:#fff\n    style V fill:#b4b4dc,color:#fff\n    style AB fill:#b4b4dc,color:#fff\n    style AZ fill:#b4b4dc,color:#fff\n    style P fill:#51cf66,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AQ fill:#51cf66,color:#fff\n    style AX fill:#51cf66,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style BL fill:#9775fa,color:#fff\n    style BS fill:#9775fa,color:#fff\n    style CF fill:#9775fa,color:#fff\n    style CG fill:#9775fa,color:#fff",
   "sources": [
     {
       "title": "The cell wall integrity pathway in yeast",
@@ -33,8 +58,17 @@
       "relevance": "Comprehensive review of CWI pathway"
     }
   ],
-  "keywords": ["cell wall integrity", "Pkc1", "Rho1", "Slt2", "Rlm1", "MAPK cascade"],
-  "relatedProcesses": ["yeast_osmotic_stress_response"],
+  "keywords": [
+    "cell wall integrity",
+    "Pkc1",
+    "Rho1",
+    "Slt2",
+    "Rlm1",
+    "MAPK cascade"
+  ],
+  "relatedProcesses": [
+    "yeast_osmotic_stress_response"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,

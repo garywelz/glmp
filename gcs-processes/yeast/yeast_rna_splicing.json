@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 3, "andGates": 12, "total": 15}
+    "logicGates": {
+      "orGates": 3,
+      "andGates": 12,
+      "total": 15
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% Pre-mRNA Structure\n    A[Pre-mRNA Transcript] --> B[5' Exon]\n    A --> C[Intron with Splice Sites]\n    A --> D[3' Exon]\n    \n    C --> E[5' Splice Site GU]\n    C --> F[Branch Point Adenosine]\n    C --> G[3' Splice Site AG]\n    \n    %% E Complex Assembly\n    E --> H[U1 snRNP Recognition]\n    H --> I[U1 snRNA Base Pairing]\n    I --> J{AND: U1-70K<br/>AND Snu71?}\n    J -->|No| K[E Complex Fails]\n    J -->|Yes| L[E Complex Formed]\n    \n    %% A Complex Assembly\n    F --> M[BBP Protein Binding]\n    M --> N[Branch Point Recognition]\n    N --> O[U2 snRNP Recruitment]\n    \n    O --> P{AND: SF3a<br/>AND SF3b?}\n    P -->|No| K\n    P -->|Yes| Q[U2 snRNA-Branch Point Pairing]\n    \n    Q --> R{AND: Prp5<br/>ATPase?}\n    R -->|No| K\n    R -->|Yes| S[A Complex Formed]\n    \n    %% U4/U6.U5 Tri-snRNP Recruitment\n    S --> T[U4/U6.U5 Tri-snRNP]\n    T --> U{AND: U4 + U6<br/>Base-Paired?}\n    U -->|No| V[Tri-snRNP Unstable]\n    U -->|Yes| W[Stable Tri-snRNP]\n    \n    W --> X{AND: Prp8<br/>Scaffold Present?}\n    X -->|No| V\n    X -->|Yes| Y[Tri-snRNP Recruitment]\n    \n    Y --> Z[B Complex Assembly]\n    \n    %% Catalytic Activation\n    Z --> AA[Prp28 Helicase]\n    AA --> AB[U1 snRNP Displaced]\n    AB --> AC[U6 snRNA Replaces U1]\n    \n    AC --> AD[Brr2 Helicase]\n    AD --> AE[U4/U6 Unwinding]\n    AE --> AF[U4 snRNP Released]\n    AF --> AG[U6 snRNA Freed]\n    \n    AG --> AH{AND: U6 + U2<br/>Catalytic Core?}\n    AH -->|No| AI[No Catalysis]\n    AH -->|Yes| AJ[Bact Complex Formed]\n    \n    %% Metal Ion Coordination\n    AJ --> AK{AND: Mg2+ Ions<br/>Coordinated?}\n    AK -->|No| AI\n    AK -->|Yes| AL[Active Site Configuration]\n    \n    %% Step 1: Branch Point Attack\n    AL --> AM[Branch Point 2'OH]\n    AM --> AN[Nucleophilic Attack on 5' SS]\n    AN --> AO[Phosphodiester Bond Cleavage]\n    AO --> AP[5' Exon Released]\n    AP --> AQ[Intron-3' Exon Lariat]\n    \n    AQ --> AR{AND: Branch-5'SS<br/>2'-5' Linkage?}\n    AR -->|No| AS[Splicing Error]\n    AR -->|Yes| AT[Lariat Intermediate]\n    \n    %% Spliceosome Rearrangement\n    AT --> AU[Prp16 Helicase]\n    AU --> AV[Prp16 ATP Hydrolysis]\n    AV --> AW[B→C Complex Transition]\n    AW --> AX[C Complex Active]\n    \n    %% Step 2: Exon Ligation\n    AX --> AY[5' Exon 3'OH]\n    AY --> AZ[Nucleophilic Attack on 3' SS]\n    AZ --> BA[3' Splice Site Cleavage]\n    BA --> BB[Exon Ligation]\n    \n    BB --> BC{AND: Exons<br/>Joined?}\n    BC -->|No| AS\n    BC -->|Yes| BD[Ligated mRNA]\n    BD --> BE[Lariat Intron Released]\n    \n    %% Spliceosome Disassembly\n    BE --> BF[Prp22 Helicase]\n    BF --> BG[mRNA Released]\n    BG --> BH[Prp43 Helicase]\n    BH --> BI[snRNP Disassembly]\n    \n    %% snRNP Recycling\n    BI --> BJ{OR: Which<br/>snRNP?}\n    BJ -->|U2| BK[U2 Recycled]\n    BJ -->|U5| BL[U5 Recycled]\n    BJ -->|U6| BM[U6 Recycled]\n    \n    BK --> BN[snRNP Regeneration]\n    BL --> BN\n    BM --> BN\n    BN --> BO[Ready for Next Round]\n    \n    %% Lariat Debranching\n    BE --> BP[Dbr1 Debranching Enzyme]\n    BP --> BQ[Lariat → Linear Intron]\n    BQ --> BR[Exonucleolytic Degradation]\n    BR --> BS[Nucleotides Recycled]\n    \n    %% mRNA Export\n    BG --> BT[Exon Junction Complex]\n    BT --> BU{AND: CBC<br/>AND TREX?}\n    BU -->|No| BV[Export Defect]\n    BU -->|Yes| BW[mRNA Export]\n    BW --> BX[Nuclear Export]\n    BX --> BY[Translation]\n    BY --> BZ([Protein Production])\n    \n    %% Quality Control\n    AS --> CA[NMD Pathway]\n    CA --> CB([Degraded])\n    AI --> CB\n    K --> CB\n    V --> CB\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style BJ fill:#ff9f43\n    style J fill:#b4b4dc\n    style P fill:#b4b4dc\n    style R fill:#b4b4dc\n    style U fill:#b4b4dc\n    style X fill:#b4b4dc\n    style AH fill:#b4b4dc\n    style AK fill:#b4b4dc\n    style AR fill:#b4b4dc\n    style BC fill:#b4b4dc\n    style BU fill:#b4b4dc\n    style AN fill:#51cf66\n    style AZ fill:#51cf66\n    style BB fill:#51cf66\n    style L fill:#74c0fc\n    style S fill:#74c0fc\n    style Z fill:#74c0fc\n    style AJ fill:#74c0fc\n    style AT fill:#74c0fc\n    style BD fill:#74c0fc\n    style BZ fill:#9775fa\n    style CB fill:#9775fa\n    style BS fill:#9775fa",
+  "mermaid": "graph TD\n    %% Pre-mRNA Structure\n    A[Pre-mRNA Transcript] --> B[5' Exon]\n    A --> C[Intron with Splice Sites]\n    A --> D[3' Exon]\n    \n    C --> E[5' Splice Site GU]\n    C --> F[Branch Point Adenosine]\n    C --> G[3' Splice Site AG]\n    \n    %% E Complex Assembly\n    E --> H[U1 snRNP Recognition]\n    H --> I[U1 snRNA Base Pairing]\n    I --> J{AND: U1-70K<br/>AND Snu71?}\n    J -->|No| K[E Complex Fails]\n    J -->|Yes| L[E Complex Formed]\n    \n    %% A Complex Assembly\n    F --> M[BBP Protein Binding]\n    M --> N[Branch Point Recognition]\n    N --> O[U2 snRNP Recruitment]\n    \n    O --> P{AND: SF3a<br/>AND SF3b?}\n    P -->|No| K\n    P -->|Yes| Q[U2 snRNA-Branch Point Pairing]\n    \n    Q --> R{AND: Prp5<br/>ATPase?}\n    R -->|No| K\n    R -->|Yes| S[A Complex Formed]\n    \n    %% U4/U6.U5 Tri-snRNP Recruitment\n    S --> T[U4/U6.U5 Tri-snRNP]\n    T --> U{AND: U4 + U6<br/>Base-Paired?}\n    U -->|No| V[Tri-snRNP Unstable]\n    U -->|Yes| W[Stable Tri-snRNP]\n    \n    W --> X{AND: Prp8<br/>Scaffold Present?}\n    X -->|No| V\n    X -->|Yes| Y[Tri-snRNP Recruitment]\n    \n    Y --> Z[B Complex Assembly]\n    \n    %% Catalytic Activation\n    Z --> AA[Prp28 Helicase]\n    AA --> AB[U1 snRNP Displaced]\n    AB --> AC[U6 snRNA Replaces U1]\n    \n    AC --> AD[Brr2 Helicase]\n    AD --> AE[U4/U6 Unwinding]\n    AE --> AF[U4 snRNP Released]\n    AF --> AG[U6 snRNA Freed]\n    \n    AG --> AH{AND: U6 + U2<br/>Catalytic Core?}\n    AH -->|No| AI[No Catalysis]\n    AH -->|Yes| AJ[Bact Complex Formed]\n    \n    %% Metal Ion Coordination\n    AJ --> AK{AND: Mg2+ Ions<br/>Coordinated?}\n    AK -->|No| AI\n    AK -->|Yes| AL[Active Site Configuration]\n    \n    %% Step 1: Branch Point Attack\n    AL --> AM[Branch Point 2'OH]\n    AM --> AN[Nucleophilic Attack on 5' SS]\n    AN --> AO[Phosphodiester Bond Cleavage]\n    AO --> AP[5' Exon Released]\n    AP --> AQ[Intron-3' Exon Lariat]\n    \n    AQ --> AR{AND: Branch-5'SS<br/>2'-5' Linkage?}\n    AR -->|No| AS[Splicing Error]\n    AR -->|Yes| AT[Lariat Intermediate]\n    \n    %% Spliceosome Rearrangement\n    AT --> AU[Prp16 Helicase]\n    AU --> AV[Prp16 ATP Hydrolysis]\n    AV --> AW[B→C Complex Transition]\n    AW --> AX[C Complex Active]\n    \n    %% Step 2: Exon Ligation\n    AX --> AY[5' Exon 3'OH]\n    AY --> AZ[Nucleophilic Attack on 3' SS]\n    AZ --> BA[3' Splice Site Cleavage]\n    BA --> BB[Exon Ligation]\n    \n    BB --> BC{AND: Exons<br/>Joined?}\n    BC -->|No| AS\n    BC -->|Yes| BD[Ligated mRNA]\n    BD --> BE[Lariat Intron Released]\n    \n    %% Spliceosome Disassembly\n    BE --> BF[Prp22 Helicase]\n    BF --> BG[mRNA Released]\n    BG --> BH[Prp43 Helicase]\n    BH --> BI[snRNP Disassembly]\n    \n    %% snRNP Recycling\n    BI --> BJ{OR: Which<br/>snRNP?}\n    BJ -->|U2| BK[U2 Recycled]\n    BJ -->|U5| BL[U5 Recycled]\n    BJ -->|U6| BM[U6 Recycled]\n    \n    BK --> BN[snRNP Regeneration]\n    BL --> BN\n    BM --> BN\n    BN --> BO[Ready for Next Round]\n    \n    %% Lariat Debranching\n    BE --> BP[Dbr1 Debranching Enzyme]\n    BP --> BQ[Lariat → Linear Intron]\n    BQ --> BR[Exonucleolytic Degradation]\n    BR --> BS[Nucleotides Recycled]\n    \n    %% mRNA Export\n    BG --> BT[Exon Junction Complex]\n    BT --> BU{AND: CBC<br/>AND TREX?}\n    BU -->|No| BV[Export Defect]\n    BU -->|Yes| BW[mRNA Export]\n    BW --> BX[Nuclear Export]\n    BX --> BY[Translation]\n    BY --> BZ([Protein Production])\n    \n    %% Quality Control\n    AS --> CA[NMD Pathway]\n    CA --> CB([Degraded])\n    AI --> CB\n    K --> CB\n    V --> CB\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style BJ fill:#ff9f43,color:#fff\n    style J fill:#b4b4dc,color:#fff\n    style P fill:#b4b4dc,color:#fff\n    style R fill:#b4b4dc,color:#fff\n    style U fill:#b4b4dc,color:#fff\n    style X fill:#b4b4dc,color:#fff\n    style AH fill:#b4b4dc,color:#fff\n    style AK fill:#b4b4dc,color:#fff\n    style AR fill:#b4b4dc,color:#fff\n    style BC fill:#b4b4dc,color:#fff\n    style BU fill:#b4b4dc,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BB fill:#51cf66,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BZ fill:#9775fa,color:#fff\n    style CB fill:#9775fa,color:#fff\n    style BS fill:#9775fa,color:#fff",
   "sources": [
     {
       "title": "Pre-mRNA splicing in yeast",
@@ -33,8 +58,20 @@
       "relevance": "Comprehensive review of yeast splicing"
     }
   ],
-  "keywords": ["splicing", "spliceosome", "snRNP", "intron", "U1", "U2", "U4/U6", "U5", "lariat"],
-  "relatedProcesses": ["yeast_transcription"],
+  "keywords": [
+    "splicing",
+    "spliceosome",
+    "snRNP",
+    "intron",
+    "U1",
+    "U2",
+    "U4/U6",
+    "U5",
+    "lariat"
+  ],
+  "relatedProcesses": [
+    "yeast_transcription"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,

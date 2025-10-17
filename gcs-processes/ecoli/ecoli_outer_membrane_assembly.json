@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 5, "andGates": 9, "total": 14}
+    "logicGates": {
+      "orGates": 5,
+      "andGates": 9,
+      "total": 14
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% OMP Synthesis\n    A[OMP Gene Transcription] --> B[Ribosome Translation]\n    B --> C[N-terminal Signal Sequence]\n    C --> D[Unfolded OMP Polypeptide]\n    \n    %% Sec Translocation\n    D --> E[SecB Chaperone Binding]\n    E --> F[SecB-OMP Complex]\n    F --> G[Delivery to SecYEG]\n    G --> H{AND: SecA ATPase<br/>AND ATP?}\n    H -->|No| I[Translocation Blocked]\n    H -->|Yes| J[SecYEG Translocon]\n    \n    J --> K[Polypeptide Threading]\n    K --> L[Signal Peptidase Cleavage]\n    L --> M[OMP in Periplasm]\n    \n    %% Periplasmic Chaperone Handoff\n    M --> N{OR: Which<br/>Chaperone?}\n    N -->|Major - SurA| O[SurA Binding]\n    N -->|Alternative - Skp| P[Skp Binding]\n    N -->|Quality Control - DegP| Q[DegP Protease]\n    \n    %% SurA Pathway\n    O --> R[SurA PPIase Activity]\n    R --> S[Proline Isomerization]\n    S --> T[OMP Partially Folded]\n    T --> U[SurA-OMP Complex]\n    \n    %% Skp Pathway\n    P --> V[Skp Trimer]\n    V --> W[Hydrophobic Cavity]\n    W --> X[OMP Protected from Aggregation]\n    X --> Y[Skp-OMP Complex]\n    \n    %% DegP Quality Control\n    Q --> Z{AND: OMP Misfolded<br/>AND High Temp?}\n    Z -->|No| AA[Chaperone Activity]\n    Z -->|Yes| AB[Protease Activity]\n    AB --> AC[Degradation]\n    AC --> AD([Failed OMPs Removed])\n    \n    %% BAM Complex Recognition\n    U --> AE[Delivery to BAM]\n    Y --> AE\n    AA --> AE\n    AE --> AF[BAM Complex at OM]\n    \n    %% BAM Complex Assembly\n    AF --> AG{AND: BamA + BamB<br/>+ BamCDE?}\n    AG -->|No - Missing Subunits| AH[Assembly Fails]\n    AG -->|Yes - Complete| AI[Functional BAM Complex]\n    \n    AI --> AJ[BamA β-Barrel Core]\n    AJ --> AK[BamB Substrate Recognition]\n    AK --> AL[BamC/D/E Lipoproteins]\n    \n    %% β-Barrel Recognition\n    AL --> AM{AND: β-Barrel Signature<br/>Motif Present?}\n    AM -->|No - Not OMP| AN[Rejected]\n    AM -->|Yes - OMP Motif| AO[Substrate Captured]\n    \n    AO --> AP[C-terminal β-Signal]\n    AP --> AQ[Aromatic Residues]\n    AQ --> AR[BamA Recognition]\n    \n    %% Insertion Mechanism\n    AR --> AS{AND: BamA Lateral<br/>Gate Open?}\n    AS -->|No| AT[Gate Closed]\n    AS -->|Yes| AU[Lateral Gate Opening]\n    \n    AU --> AV[OMP Enters BamA Barrel]\n    AV --> AW[β-Strand Insertion]\n    AW --> AX[Strand-by-Strand Threading]\n    AX --> AY[β-Barrel Nucleation]\n    \n    %% Lipid Interaction\n    AY --> AZ{AND: Lipid Bilayer<br/>Access?}\n    AZ -->|No| BA[Insertion Stalled]\n    AZ -->|Yes| BB[β-Barrel Interacts with Lipids]\n    \n    BB --> BC[Amphipathic β-Strands]\n    BC --> BD[Hydrophobic Face to Lipids]\n    BD --> BE[Hydrophilic Face to Interior]\n    \n    %% β-Barrel Closure\n    BE --> BF{AND: First + Last<br/>Strands Meet?}\n    BF -->|No| BG[Partial Barrel]\n    BF -->|Yes| BH[β-Barrel Closes]\n    \n    BH --> BI[Hydrogen Bonding]\n    BI --> BJ[Stable β-Barrel]\n    BJ --> BK[Release from BamA]\n    \n    %% Final OMP Structure\n    BK --> BL[OMP in Outer Membrane]\n    BL --> BM{OR: OMP<br/>Function?}\n    BM -->|Porin| BN[Small Molecule Transport]\n    BM -->|Adhesin| BO[Surface Attachment]\n    BM -->|Enzyme| BP[Catalytic Activity]\n    BM -->|Receptor| BQ[Signal Transduction]\n    \n    BN --> BR([Functional OMP])\n    BO --> BR\n    BP --> BR\n    BQ --> BR\n    \n    %% Failed Assembly\n    I --> BS([Cytoplasmic Degradation])\n    AH --> BS\n    AN --> BT[Periplasmic Degradation]\n    BA --> BT\n    BG --> BT\n    BT --> BU([Quality Control])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style N fill:#ff9f43\n    style BM fill:#ff9f43\n    style H fill:#b4b4dc\n    style Z fill:#b4b4dc\n    style AG fill:#b4b4dc\n    style AM fill:#b4b4dc\n    style AS fill:#b4b4dc\n    style AZ fill:#b4b4dc\n    style BF fill:#b4b4dc\n    style J fill:#51cf66\n    style AV fill:#51cf66\n    style AW fill:#51cf66\n    style BH fill:#51cf66\n    style F fill:#74c0fc\n    style U fill:#74c0fc\n    style AI fill:#74c0fc\n    style AO fill:#74c0fc\n    style BJ fill:#74c0fc\n    style BR fill:#9775fa\n    style BS fill:#9775fa\n    style AD fill:#9775fa\n    style BU fill:#9775fa",
+  "mermaid": "graph TD\n    %% OMP Synthesis\n    A[OMP Gene Transcription] --> B[Ribosome Translation]\n    B --> C[N-terminal Signal Sequence]\n    C --> D[Unfolded OMP Polypeptide]\n    \n    %% Sec Translocation\n    D --> E[SecB Chaperone Binding]\n    E --> F[SecB-OMP Complex]\n    F --> G[Delivery to SecYEG]\n    G --> H{AND: SecA ATPase<br/>AND ATP?}\n    H -->|No| I[Translocation Blocked]\n    H -->|Yes| J[SecYEG Translocon]\n    \n    J --> K[Polypeptide Threading]\n    K --> L[Signal Peptidase Cleavage]\n    L --> M[OMP in Periplasm]\n    \n    %% Periplasmic Chaperone Handoff\n    M --> N{OR: Which<br/>Chaperone?}\n    N -->|Major - SurA| O[SurA Binding]\n    N -->|Alternative - Skp| P[Skp Binding]\n    N -->|Quality Control - DegP| Q[DegP Protease]\n    \n    %% SurA Pathway\n    O --> R[SurA PPIase Activity]\n    R --> S[Proline Isomerization]\n    S --> T[OMP Partially Folded]\n    T --> U[SurA-OMP Complex]\n    \n    %% Skp Pathway\n    P --> V[Skp Trimer]\n    V --> W[Hydrophobic Cavity]\n    W --> X[OMP Protected from Aggregation]\n    X --> Y[Skp-OMP Complex]\n    \n    %% DegP Quality Control\n    Q --> Z{AND: OMP Misfolded<br/>AND High Temp?}\n    Z -->|No| AA[Chaperone Activity]\n    Z -->|Yes| AB[Protease Activity]\n    AB --> AC[Degradation]\n    AC --> AD([Failed OMPs Removed])\n    \n    %% BAM Complex Recognition\n    U --> AE[Delivery to BAM]\n    Y --> AE\n    AA --> AE\n    AE --> AF[BAM Complex at OM]\n    \n    %% BAM Complex Assembly\n    AF --> AG{AND: BamA + BamB<br/>+ BamCDE?}\n    AG -->|No - Missing Subunits| AH[Assembly Fails]\n    AG -->|Yes - Complete| AI[Functional BAM Complex]\n    \n    AI --> AJ[BamA β-Barrel Core]\n    AJ --> AK[BamB Substrate Recognition]\n    AK --> AL[BamC/D/E Lipoproteins]\n    \n    %% β-Barrel Recognition\n    AL --> AM{AND: β-Barrel Signature<br/>Motif Present?}\n    AM -->|No - Not OMP| AN[Rejected]\n    AM -->|Yes - OMP Motif| AO[Substrate Captured]\n    \n    AO --> AP[C-terminal β-Signal]\n    AP --> AQ[Aromatic Residues]\n    AQ --> AR[BamA Recognition]\n    \n    %% Insertion Mechanism\n    AR --> AS{AND: BamA Lateral<br/>Gate Open?}\n    AS -->|No| AT[Gate Closed]\n    AS -->|Yes| AU[Lateral Gate Opening]\n    \n    AU --> AV[OMP Enters BamA Barrel]\n    AV --> AW[β-Strand Insertion]\n    AW --> AX[Strand-by-Strand Threading]\n    AX --> AY[β-Barrel Nucleation]\n    \n    %% Lipid Interaction\n    AY --> AZ{AND: Lipid Bilayer<br/>Access?}\n    AZ -->|No| BA[Insertion Stalled]\n    AZ -->|Yes| BB[β-Barrel Interacts with Lipids]\n    \n    BB --> BC[Amphipathic β-Strands]\n    BC --> BD[Hydrophobic Face to Lipids]\n    BD --> BE[Hydrophilic Face to Interior]\n    \n    %% β-Barrel Closure\n    BE --> BF{AND: First + Last<br/>Strands Meet?}\n    BF -->|No| BG[Partial Barrel]\n    BF -->|Yes| BH[β-Barrel Closes]\n    \n    BH --> BI[Hydrogen Bonding]\n    BI --> BJ[Stable β-Barrel]\n    BJ --> BK[Release from BamA]\n    \n    %% Final OMP Structure\n    BK --> BL[OMP in Outer Membrane]\n    BL --> BM{OR: OMP<br/>Function?}\n    BM -->|Porin| BN[Small Molecule Transport]\n    BM -->|Adhesin| BO[Surface Attachment]\n    BM -->|Enzyme| BP[Catalytic Activity]\n    BM -->|Receptor| BQ[Signal Transduction]\n    \n    BN --> BR([Functional OMP])\n    BO --> BR\n    BP --> BR\n    BQ --> BR\n    \n    %% Failed Assembly\n    I --> BS([Cytoplasmic Degradation])\n    AH --> BS\n    AN --> BT[Periplasmic Degradation]\n    BA --> BT\n    BG --> BT\n    BT --> BU([Quality Control])\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style N fill:#ff9f43,color:#fff\n    style BM fill:#ff9f43,color:#fff\n    style H fill:#b4b4dc,color:#fff\n    style Z fill:#b4b4dc,color:#fff\n    style AG fill:#b4b4dc,color:#fff\n    style AM fill:#b4b4dc,color:#fff\n    style AS fill:#b4b4dc,color:#fff\n    style AZ fill:#b4b4dc,color:#fff\n    style BF fill:#b4b4dc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style AV fill:#51cf66,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style BH fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BR fill:#9775fa,color:#fff\n    style BS fill:#9775fa,color:#fff\n    style AD fill:#9775fa,color:#fff\n    style BU fill:#9775fa,color:#fff",
   "sources": [
     {
       "title": "The BAM complex in outer membrane protein biogenesis",
@@ -33,8 +58,18 @@
       "relevance": "Review of BAM complex structure and function"
     }
   ],
-  "keywords": ["outer membrane", "BAM complex", "BamA", "β-barrel", "OMP", "SurA", "Skp"],
-  "relatedProcesses": ["ecoli_periplasmic_stress"],
+  "keywords": [
+    "outer membrane",
+    "BAM complex",
+    "BamA",
+    "β-barrel",
+    "OMP",
+    "SurA",
+    "Skp"
+  ],
+  "relatedProcesses": [
+    "ecoli_periplasmic_stress"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,
