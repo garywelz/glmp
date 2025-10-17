@@ -39,16 +39,28 @@ def scan_processes():
                 
                 # Extract process info with full logic gate breakdown
                 logic_gates = data["complexity"]["logicGates"]
+                nodes = data["complexity"]["nodes"]
+                
+                # Determine complexity level based on nodes and gates
+                total_gates = logic_gates.get("total", 0)
+                if nodes >= 75 or total_gates >= 12:
+                    complexity = "high"
+                elif nodes >= 50 or total_gates >= 7:
+                    complexity = "medium"
+                else:
+                    complexity = "low"
+                
                 process_entry = {
                     "id": data["id"],
                     "name": data["name"],
                     "organism": data["organism"],
                     "category": data["category"],
-                    "nodes": data["complexity"]["nodes"],
+                    "complexity": complexity,
+                    "nodes": nodes,
                     "logicGates": {
                         "or": logic_gates.get("orGates", 0),
                         "and": logic_gates.get("andGates", 0),
-                        "total": logic_gates.get("total", 0)
+                        "total": total_gates
                     },
                     "verified": data.get("verified", False),
                     "created": data.get("created", "2025-10-15")
