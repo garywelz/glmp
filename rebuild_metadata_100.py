@@ -37,14 +37,19 @@ def scan_processes():
                 with open(json_file, 'r') as f:
                     data = json.load(f)
                 
-                # Extract process info
+                # Extract process info with full logic gate breakdown
+                logic_gates = data["complexity"]["logicGates"]
                 process_entry = {
                     "id": data["id"],
                     "name": data["name"],
                     "organism": data["organism"],
                     "category": data["category"],
                     "nodes": data["complexity"]["nodes"],
-                    "logicGates": data["complexity"]["logicGates"]["total"],
+                    "logicGates": {
+                        "or": logic_gates.get("orGates", 0),
+                        "and": logic_gates.get("andGates", 0),
+                        "total": logic_gates.get("total", 0)
+                    },
                     "verified": data.get("verified", False),
                     "created": data.get("created", "2025-10-15")
                 }
