@@ -112,19 +112,34 @@ function renderProcessList() {
         grouped[org].push(proc);
     });
     
-    // Render as compact table
-    let html = '<table class="process-table"><thead><tr><th>Process Name</th><th>Organism</th><th>Category</th></tr></thead><tbody>';
-    
-    Object.keys(grouped).sort().forEach(organism => {
-        grouped[organism].forEach(proc => {
-            html += `
-                <tr onclick="loadProcessFromCard('${proc.id}')" style="cursor: pointer;">
-                    <td><a href="#${proc.id}" onclick="event.preventDefault(); loadProcessFromCard('${proc.id}');">${proc.name}</a></td>
-                    <td>${organism}</td>
-                    <td><span class="category-badge">${proc.category || 'Uncategorized'}</span></td>
+    // Render as simple table list (like database table)
+    let html = `
+        <table class="process-table">
+            <thead>
+                <tr>
+                    <th>Process Name</th>
+                    <th>Organism</th>
+                    <th>Category</th>
                 </tr>
-            `;
-        });
+            </thead>
+            <tbody>
+    `;
+    
+    // Sort all processes alphabetically by name
+    const sortedProcs = processList.sort((a, b) => a.name.localeCompare(b.name));
+    
+    sortedProcs.forEach(proc => {
+        html += `
+            <tr onclick="loadProcessFromCard('${proc.id}')" style="cursor: pointer;">
+                <td class="process-name">
+                    <a href="#${proc.id}" onclick="event.preventDefault(); loadProcessFromCard('${proc.id}');">
+                        ${proc.name}
+                    </a>
+                </td>
+                <td class="organism">${proc.organism || 'Unknown'}</td>
+                <td><span class="category-badge">${proc.category || 'Uncategorized'}</span></td>
+            </tr>
+        `;
     });
     
     html += '</tbody></table>';
