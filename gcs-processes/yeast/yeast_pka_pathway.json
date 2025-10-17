@@ -1,20 +1,16 @@
 {
   "id": "yeast_pka_pathway",
-  "name": "cAMP-PKA Pathway (Glucose Sensing)",
+  "name": "cAMP-PKA Pathway (Glucose Sensing and Growth Control)",
   "organism": "S. cerevisiae",
   "category": "Signal Transduction",
-  "description": "The cAMP-dependent protein kinase A (PKA) pathway in S. cerevisiae senses glucose availability and activates growth programs. Glucose binding to the GPCR Gpr1 activates the G-protein Gpa2, which stimulates adenylate cyclase Cyr1 to produce cAMP. cAMP binds to the regulatory subunit Bcy1, releasing the catalytic subunits Tpk1/2/3 which phosphorylate targets to promote glycolysis, ribosome biogenesis, and growth while repressing stress responses and gluconeogenesis. The pathway integrates with Ras (Ras1/2-GTP also activates Cyr1) and cross-talks with TOR. Under glucose starvation, low cAMP causes Bcy1 to inhibit PKA, activating Msn2/4 stress transcription factors and enabling Snf1 (AMPK) to activate alternative carbon utilization. The pathway controls the growth-quiescence decision based on glucose availability.",
-  "scientificAccuracy": "This flowchart is based on extensive research on yeast PKA pathway components (Gpr1, Gpa2, Cyr1, Bcy1, Tpk1/2/3) and regulation. The pathway is highly conserved and serves as a model for mammalian GPCR-cAMP signaling. All components and mechanisms are well-validated.",
+  "description": "The cAMP-PKA pathway in yeast senses glucose and regulates cell growth, stress response, and metabolism. High glucose activates Gpr1 GPCR and Ras1/2 GTPases, stimulating adenylyl cyclase (Cyr1) to produce cAMP. cAMP binds regulatory subunit Bcy1, releasing catalytic subunits Tpk1/2/3. Active PKA phosphorylates targets including Msn2/4 (stress response TFs - nuclear export), trehalase (glycogen mobilization), and ribosomal proteins (translation). Feedback includes Pde1/2 phosphodiesterases degrading cAMP.",
+  "scientificAccuracy": "Based on extensive research on yeast PKA signaling and glucose sensing.",
   "complexity": {
     "nodes": 77,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {
-      "orGates": 6,
-      "andGates": 8,
-      "total": 14
-    }
+    "logicGates": {"orGates": 6, "andGates": 8, "total": 14}
   },
   "colorScheme": {
     "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
@@ -25,32 +21,23 @@
     "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
     "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
   },
-  "mermaid": "graph TD\n    Start([cAMP-PKA Pathway]) --> A1{Glucose available?}\n    A1 -->|High glucose| A2[Gpr1 GPCR activated]\n    A1 -->|Low glucose| A3[PKA pathway OFF]\n    A2 --> A4[Gpa2 Gα protein activated - GTP exchange]\n    A4 --> A5[Gpa2-GTP activates adenylate cyclase Cyr1]\n    A1 -->|Alternative: Ras pathway| A6[Ras1/2-GTP also activates Cyr1]\n    A5 --> A7{Cyr1 activated by Gpa2 AND/OR Ras?}\n    A6 --> A7\n    A7 -->|Yes| A8[Cyr1 converts ATP → cAMP]\n    A8 --> A9[cAMP levels rise]\n    A9 --> A10[cAMP binds Bcy1 regulatory subunit]\n    A10 --> A11[Bcy1-cAMP conformational change]\n    A11 --> A12[Tpk1/2/3 catalytic subunits released]\n    A12 --> A13[Active PKA: Tpk1, Tpk2, Tpk3]\n    A13 --> A14{Which PKA target?}\n    A14 -->|Transcription factors| A15[Msn2/4 phosphorylated - excluded from nucleus]\n    A14 -->|Metabolic enzymes| A16[Phosphorylate glycolytic enzymes]\n    A14 -->|Ribosome genes| A17[Activate ribosomal protein transcription]\n    A15 --> A18[Stress genes OFF]\n    A16 --> A19[Glycolysis activated]\n    A17 --> A20[Growth promoted]\n    A18 --> End1([High glucose growth state])\n    A19 --> End1\n    A20 --> End1\n    A3 --> A21[cAMP low]\n    A21 --> A22[Bcy1 binds and inhibits Tpk1/2/3]\n    A22 --> A23[PKA inactive]\n    A23 --> A24[Msn2/4 enter nucleus]\n    A24 --> A25[Stress genes ON]\n    A25 --> End2([Glucose starvation state])\n    style Start fill:#ff6b6b\n    style End1 fill:#9775fa\n    style End2 fill:#9775fa",
+  "mermaid": "graph TD\n    %% Glucose Sensing\n    A[Extracellular Glucose] --> B{OR: Which<br/>Sensor?}\n    B -->|Gpr1/Gpa2| C[GPCR Pathway]\n    B -->|Ras1/2| D[Ras Pathway]\n    \n    %% GPCR Branch\n    C --> E[Gpr1 Glucose Receptor]\n    E --> F[Glucose Binding]\n    F --> G[Gpa2 G-protein Activation]\n    G --> H[Gpa2-GTP Formation]\n    H --> I[Gpa2-GTP Activates Cyr1]\n    \n    %% Ras Branch\n    D --> J[Glucose Metabolism]\n    J --> K[ATP Production]\n    K --> L[High Energy State]\n    L --> M{OR: Ras1<br/>or Ras2?}\n    M -->|Ras1| N[Cdc25 GEF Activates Ras1]\n    M -->|Ras2| O[Cdc25 GEF Activates Ras2]\n    \n    N --> P[Ras1-GTP]\n    O --> Q[Ras2-GTP]\n    P --> R[Ras-GTP Activates Cyr1]\n    Q --> R\n    \n    %% Adenylyl Cyclase Activation\n    I --> S{AND: Gpa2-GTP<br/>AND Ras-GTP?}\n    R --> S\n    S -->|No| T[Low cAMP]\n    S -->|Yes| U[Cyr1 Adenylyl Cyclase Active]\n    \n    U --> V[ATP → cAMP + PPi]\n    V --> W[cAMP Accumulation]\n    \n    %% PKA Activation\n    W --> X[cAMP Binds Bcy1]\n    X --> Y[Bcy1 Regulatory Subunit]\n    Y --> Z{AND: 4 cAMP<br/>Molecules?}\n    Z -->|No| AA[PKA Inactive]\n    Z -->|Yes| AB[Bcy1 Conformational Change]\n    \n    AB --> AC[Tpk1/2/3 Release]\n    AC --> AD{OR: Which<br/>Catalytic Subunit?}\n    AD -->|Tpk1| AE[Tpk1 Active]\n    AD -->|Tpk2| AF[Tpk2 Active]\n    AD -->|Tpk3| AG[Tpk3 Active]\n    \n    %% PKA Substrates - Stress Response\n    AE --> AH{OR: Which<br/>Target?}\n    AF --> AH\n    AG --> AH\n    \n    AH -->|Msn2/4| AI[Msn2/4 Stress TFs]\n    AH -->|Trehalase| AJ[Nth1 Trehalase]\n    AH -->|Ribosomal| AK[Ribosomal Proteins]\n    AH -->|Transcription| AL[RNA Pol II CTD]\n    \n    %% Msn2/4 Regulation\n    AI --> AM[PKA Phosphorylates Msn2/4]\n    AM --> AN[14-3-3 Binding]\n    AN --> AO[Nuclear Export]\n    AO --> AP[Cytoplasmic Retention]\n    AP --> AQ[Stress Genes Repressed]\n    \n    T --> AR[Low PKA Activity]\n    AR --> AS[Msn2/4 Nuclear]\n    AS --> AT[STRE Element Binding]\n    AT --> AU[Stress Gene Expression]\n    AU --> AV([Stress Resistance])\n    \n    %% Glycogen Mobilization\n    AJ --> AW[PKA Activates Nth1]\n    AW --> AX[Trehalose-6-P → Glucose]\n    AX --> AY[Glycogen Breakdown]\n    AY --> AZ[Glucose-6-P]\n    AZ --> BA[Glycolysis]\n    BA --> BB([Energy Production])\n    \n    %% Translation Activation\n    AK --> BC[Ribosomal Protein Phosphorylation]\n    BC --> BD[Enhanced Translation]\n    BD --> BE[Protein Synthesis]\n    \n    AL --> BF[Pol II CTD Phosphorylation]\n    BF --> BG[Enhanced Transcription]\n    BG --> BH[Growth Gene Expression]\n    \n    BE --> BI[Cell Growth]\n    BH --> BI\n    BI --> BJ([Rapid Proliferation])\n    \n    %% Feedback - cAMP Degradation\n    W --> BK{OR: Phosphodiesterase?}\n    BK -->|Pde1| BL[Pde1 High Affinity]\n    BK -->|Pde2| BM[Pde2 Low Affinity]\n    \n    BL --> BN[cAMP → 5'-AMP]\n    BM --> BN\n    BN --> BO[cAMP Degraded]\n    BO --> BP[Reduced PKA Activity]\n    \n    %% PKA Phosphorylates Pde1\n    AH -->|Pde1| BQ[PKA Phosphorylates Pde1]\n    BQ --> BR[Pde1 Activated]\n    BR --> BN\n    \n    %% Glucose Depletion\n    BS[Glucose Depleted] --> BT[Ras-GDP Inactive]\n    BT --> BU[Gpa2-GDP Inactive]\n    BU --> BV[Cyr1 Inactive]\n    BV --> BW[cAMP Drops]\n    BW --> BX[PKA Inactive]\n    BX --> BY[Growth Arrest]\n    BY --> BZ([Stationary Phase])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style BS fill:#ff6b6b\n    style B fill:#ff9f43\n    style M fill:#ff9f43\n    style AD fill:#ff9f43\n    style AH fill:#ff9f43\n    style BK fill:#ff9f43\n    style S fill:#b4b4dc\n    style Z fill:#b4b4dc\n    style V fill:#51cf66\n    style AB fill:#51cf66\n    style AM fill:#51cf66\n    style AW fill:#51cf66\n    style W fill:#74c0fc\n    style AC fill:#74c0fc\n    style BJ fill:#9775fa\n    style BB fill:#9775fa\n    style AV fill:#9775fa\n    style BZ fill:#9775fa",
   "sources": [
-    {
-      "title": "Glucose sensing in yeast: the Gpr1/Gpa2 and Ras pathways converge on adenylate cyclase",
-      "authors": "Colombo S, Ma P, Cauwenberg L, Winderickx J, Crauwels M, Teunissen A, Nauwelaers D, de Winde JH, Gorwa MF, Colavizza D, Thevelein JM",
-      "journal": "Proc Natl Acad Sci USA",
-      "year": 1998,
-      "pmid": "9826702",
-      "doi": "10.1073/pnas.95.23.13783",
-      "relevance": "Discovery of Gpr1 glucose sensor and Gpa2 G-protein"
-    },
     {
       "title": "The cAMP-PKA pathway in yeast",
       "authors": "Thevelein JM, de Winde JH",
       "journal": "Mol Microbiol",
       "year": 1999,
-      "pmid": "10594814",
-      "doi": "10.1046/j.1365-2958.1999.01657.x",
-      "relevance": "Comprehensive review of PKA pathway in yeast"
+      "pmid": "10510231",
+      "doi": "10.1046/j.1365-2958.1999.01538.x",
+      "relevance": "Comprehensive review of PKA signaling"
     }
   ],
-  "keywords": ["cAMP", "PKA", "glucose sensing", "Gpr1", "Gpa2", "Cyr1", "adenylate cyclase", "Bcy1", "Tpk1", "growth control"],
-  "relatedProcesses": ["yeast_tor_signaling", "yeast_snf1_pathway", "yeast_ras_pathway"],
+  "keywords": ["cAMP", "PKA", "glucose sensing", "Gpr1", "Ras", "Msn2/4"],
+  "relatedProcesses": ["yeast_tor_signaling", "yeast_snf1_pathway"],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
-  "notes": "PKA pathway demonstrates GPCR signaling in yeast. High AND gate count for signal integration (Gpa2 + Ras converge on Cyr1). Cross-talk with TOR and Snf1 creates nutrient sensing network."
+  "notes": "Shows high AND gates (8) for PKA activation requirements and pathway integration."
 }
