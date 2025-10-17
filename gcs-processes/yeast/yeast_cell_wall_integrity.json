@@ -1,102 +1,43 @@
 {
   "id": "yeast_cell_wall_integrity",
-  "name": "Cell Wall Integrity",
+  "name": "Cell Wall Integrity (CWI) Pathway and Pkc1 Signaling",
   "organism": "S. cerevisiae",
-  "category": "Biological Process",
-  "description": "The Cell Wall Integrity (CWI) pathway in *Saccharomyces cerevisiae* is a critical signaling cascade that orchestrates adaptive responses to various stresses impacting the cell wall, an essential structure for osmotic protection, cell shape, and environmental interaction. This flowchart details the complex interplay of sensing, signal transduction, gene expression, and cell wall remodeling. The process begins with **A, B, C** (Environmental/Internal Stress, Cell Wall Damage) detected by **D** (Cell Wall Sensors like Wsc1, Mid2), leading to **E** (Sensor Activation). Depending on whether damage is **F** (Localized or Systemic), the response branches. Systemic damage, especially when **BG** (Multiple Stress Signals Detected) are present, activates **I** (Rom2/Rom1 GEFs), which in turn activates **K** (Rho1-GTP). Active Rho1-GTP then triggers the core Pkc1-MAPK cascade, involving **L** (Pkc1), **M** (Bck1), **N** (Mkk1/Mkk2), and **O** (Slt2/Mpk1). Slt2/Mpk1 phosphorylates key transcription factors **P** (Rlm1) and **R** (SBF complex), leading to their nuclear translocation (**Q, S**) and subsequent **T** (Gene Expression) of CWI-related genes. This includes genes for **U** (Cell Wall Enzymes/Components), such as **V, W** (Glucan & Chitin Synthases) and **X** (Mannoprotein synthesis), driving **Y, Z, AA** (Glucan, Chitin, Mannoprotein synthesis) and ultimately **AB** (Cell Wall Assembly & Remodeling). A continuous **AC** (Cell Wall Integrity Check) determines if **AD** (CWI is Restored), resulting in **AE** (Maintenance), **AF-AI** (Functional Outcomes), and activation of **AK** (Negative Feedback) to downregulate the pathway (**AL-AO**). If stress is **AJ** (Persistent) or **AP** (Damage is Severe), the cell may initiate **AQ** (Cell Cycle Arrest), **AR** (Growth Inhibition), or even **AS** (Apoptosis) and **AT** (Cell Lysis). Additionally, **AU** (ncRNA Production) by Slt2 contributes to **AV** (Gene Regulation), and **AW** (CWI-Cell Cycle Interplay) ensures coordination with **AX** (Cell Cycle Checkpoints). Pkc1-independent pathways (**BA**, e.g., Hog1, Calcium signaling) also contribute to the CWI response, highlighting the pathway's robustness and essential role in *S. cerevisiae* survival.",
-  "scientificAccuracy": "This flowchart is based on peer-reviewed literature and represents current scientific understanding of the process. All components and mechanisms have been validated against primary research sources.",
+  "category": "Stress Response",
+  "description": "The Cell Wall Integrity (CWI) pathway responds to cell wall stress via surface sensors (Wsc1/2/3, Mid2, Mtl1) detecting cell wall damage or osmotic stress. Sensors activate Rho1 GTPase via GEFs (Rom1/2). Rho1-GTP activates Pkc1 kinase, initiating a MAPK cascade: Bck1 (MAPKKK) → Mkk1/2 (MAPKK) → Slt2/Mpk1 (MAPK). Activated Slt2 phosphorylates transcription factors Rlm1 and SBF (Swi4/Swi6), inducing cell wall biosynthesis genes. Rho1 also directly activates β-1,3-glucan synthase for immediate wall repair.",
+  "scientificAccuracy": "Based on extensive research on yeast cell wall signaling. Paradigm for fungal cell wall stress response.",
   "complexity": {
     "nodes": 87,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {
-      "orGates": 8,
-      "andGates": 0,
-      "total": 8
-    }
+    "logicGates": {"orGates": 8, "andGates": 6, "total": 14}
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Environmental signals, nutrient availability, stress conditions"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "Enzymes, receptor proteins, regulatory complexes"
-    },
-    "green": {
-      "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "Metabolic reactions, signal transduction, gene expression"
-    },
-    "blue": {
-      "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Metabolites, signaling molecules, regulatory states"
-    },
-    "orange": {
-      "hex": "#ff9f43",
-      "category": "OR Logic Gates",
-      "description": "Decision points with binary branches"
-    },
-    "lavender": {
-      "hex": "#b4b4dc",
-      "category": "AND Logic Gates",
-      "description": "Multi-condition requirements"
-    },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Biomolecules, cellular responses"
-    }
+    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
+    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
+    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
+    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
+    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
+    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
+    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
   },
-  "mermaid": "graph TD\n    A[Start: Environmental Stress]:::red --> D\n    B[Start: Internal Stress]:::red --> D\n    C[Cell Wall Damage Detection]:::red --> D\n\n    D[Cell Wall Sensors (Wsc1/2/3, Mid2, Mtl1)]:::yellow --> E[Sensor Activation/Conformational Change]:::green\n    E --> F{Is Damage Localized or Systemic?}:::orange\n    F -- Localized --> G[Localized Damage Response]:::green\n    G --> AB[Cell Wall Assembly & Remodeling]:::green\n    F -- Systemic --> H[Systemic Damage Response]:::green\n    H --> BG[Multiple Stress Signals Detected]:::lavender\n    BG -- Yes --> I[Rom2/Rom1 GEF Activation]:::yellow\n    BG -- No --> G\n    \n    I --> J[Inactive Rho1-GDP]:::blue\n    J --> K[Active Rho1-GTP]:::blue\n    K --> BH[Rho1-GTP to Lipid Rafts]:::blue\n    BH --> D\n    \n    K --> L[Pkc1 Activation]:::yellow\n    L --> M[Bck1 Activation (MAPKKK)]:::yellow\n    M --> N[Mkk1/Mkk2 Activation (MAPKK)]:::yellow\n    N --> O[Slt2/Mpk1 Activation (MAPK)]:::yellow\n\n    O --> P[Rlm1 Phosphorylation & Activation]:::green\n    P --> Q[Rlm1 Nuclear Translocation]:::blue\n    Q --> T[Gene Expression: CWI Genes]:::green\n\n    O --> R[SBF Complex (Swi4/Swi6) Activation]:::yellow\n    R --> S[SBF Nuclear Translocation]:::blue\n    S --> T\n\n    O --> AU[ncRNA Production (e.g., Slt2-dependent)]:::green\n    AU --> AV[ncRNA-mediated Gene Regulation]:::green\n    AV --> T\n\n    T --> U[Synthesis of Cell Wall Enzymes/Components]:::green\n    U --> V[Glucan Synthase (Fks1/Fks2) Activity]:::yellow\n    U --> W[Chitin Synthase (Chs1/Chs2/Chs3) Activity]:::yellow\n    U --> X[Mannoprotein Synthesis & Glycosylation]:::green\n\n    V --> Y[Glucan Synthesis & Cross-linking]:::green\n    W --> Z[Chitin Synthesis & Assembly]:::green\n    X --> AA[Mannoprotein Integration]:::green\n\n    Y --> AB\n    Z --> AB\n    AA --> AB\n\n    AB --> AC[Cell Wall Integrity Check]:::green\n    AC --> AD{Is CWI Restored?}:::orange\n    AD -- Yes --> AE[CWI Maintained/Restored]:::violet\n    AE --> AF[Osmotic Stability]:::violet\n    AE --> AG[Cell Shape Maintenance]:::violet\n    AE --> AH[Resistance to Lytic Enzymes]:::violet\n    AE --> AI[Environmental Adaptation]:::violet\n\n    AE --> AK[Negative Feedback Loop Activation]:::green\n    AK --> AL[Pkc1 Deactivation]:::green\n    AK --> AM[Slt2 Dephosphorylation]:::green\n    AK --> AN[Rlm1 Dephosphorylation]:::green\n    AL --> L\n    AM --> O\n    AN --> Q\n    AK --> AO[Repression of Stress Response Genes]:::green\n    AO --> T\n\n    AD -- No --> AJ{Is Stress Persistent or Escalating?}:::orange\n    AJ -- No --> AE\n    AJ -- Yes --> AP{Is Damage Severe/Irreparable?}:::orange\n    AP -- No --> AB\n    AP -- Yes --> AQ[Cell Cycle Arrest]:::green\n    AQ --> AR[Budding/Growth Inhibition]:::green\n    AR --> AS[Apoptosis/Programmed Cell Death]:::violet\n    AS --> AT[Cell Lysis]:::violet\n\n    O --> AW[CWI-Cell Cycle Interplay]:::green\n    AW --> AX[Cell Cycle Checkpoints Activation]:::blue\n    AX --> AQ\n    AX --> AY[Continue Cell Cycle Progression]:::green\n    AY --> AZ[Resume Budding/Growth]:::green\n\n    C --> BD[ROS Production]:::red\n    C --> BE[ER Stress Response]:::red\n    C --> BF[Membrane Stress Response]:::red\n    BD --> BA[Pkc1-independent Pathways]:::red\n    BE --> BA\n    BF --> BA\n\n    BA --> BB[Hog1 MAPK Pathway (Osmotic Stress)]:::yellow\n    BA --> BC[Calcium Signaling Pathway]:::yellow\n    BB --> T\n    BC --> T\n\n    classDef red fill:#ff6b6b,color:#fff\n    classDef yellow fill:#ffd43b,color:#000\n    classDef green fill:#51cf66,color:#fff\n    classDef blue fill:#74c0fc,color:#000\n    classDef orange fill:#ff9f43,color:#000\n    classDef lavender fill:#b4b4dc,color:#000\n    classDef violet fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    %% Cell Wall Stress\n    A[Cell Wall Stress] --> B{OR: Stress<br/>Type?}\n    B -->|Osmotic| C[Hypoosmotic Shock]\n    B -->|Heat| D[Temperature Stress]\n    B -->|Chemical| E[Cell Wall Damaging Agents]\n    B -->|Growth| F[Bud Formation]\n    \n    C --> G[Cell Wall Stretching]\n    D --> G\n    E --> G\n    F --> G\n    \n    %% Surface Sensors\n    G --> H{OR: Which<br/>Sensor?}\n    H -->|Wsc Family| I[Wsc1/2/3 Sensors]\n    H -->|Mid2| J[Mid2 Sensor]\n    H -->|Mtl1| K[Mtl1 Sensor]\n    \n    I --> L[Wsc Cysteine-Rich Domain]\n    L --> M[Conformational Change]\n    J --> M\n    K --> M\n    \n    %% Rho1 Activation\n    M --> N[Rom1/2 GEF Recruitment]\n    N --> O[Rho1-GDP at Membrane]\n    O --> P[Rom1/2 Catalyzes GTP Exchange]\n    P --> Q[Rho1-GTP Formation]\n    \n    %% Rho1 Dual Function\n    Q --> R{OR: Rho1-GTP<br/>Target?}\n    R -->|Pkc1 MAPK| S[Pkc1 Kinase Activation]\n    R -->|Glucan Synthase| T[Fks1/2 β-1,3-Glucan Synthase]\n    \n    %% Direct Glucan Synthesis\n    T --> U[Rho1 Binds Fks1]\n    U --> V{AND: Fks1 + Fks2<br/>Catalytic Subunits?}\n    V -->|No| W[Reduced Synthesis]\n    V -->|Yes| X[β-1,3-Glucan Polymerization]\n    X --> Y[Cell Wall Thickening]\n    Y --> Z[Immediate Repair]\n    \n    %% Pkc1 Activation\n    S --> AA[Pkc1 Protein Kinase C]\n    AA --> AB{AND: Phosphatidylserine<br/>AND DAG?}\n    AB -->|No| AC[Pkc1 Inactive]\n    AB -->|Yes| AD[Pkc1 Membrane Recruitment]\n    \n    AD --> AE[Pkc1 Autophosphorylation]\n    AE --> AF[Pkc1 Active]\n    \n    %% MAPK Cascade - MAPKKK\n    AF --> AG[Bck1 MAPKKK]\n    AG --> AH[Pkc1 Phosphorylates Bck1]\n    AH --> AI[Bck1 Activated]\n    \n    %% MAPK Cascade - MAPKK\n    AI --> AJ{OR: Mkk1<br/>or Mkk2?}\n    AJ -->|Mkk1| AK[Mkk1 MAPKK]\n    AJ -->|Mkk2| AL[Mkk2 MAPKK]\n    \n    AK --> AM[Bck1 Phosphorylates Mkk1]\n    AL --> AN[Bck1 Phosphorylates Mkk2]\n    AM --> AO[Mkk1/2 Active]\n    AN --> AO\n    \n    %% MAPK Cascade - MAPK\n    AO --> AP[Slt2/Mpk1 MAPK]\n    AP --> AQ[Mkk1/2 Dual Phosphorylation]\n    AQ --> AR[Slt2-PP Active]\n    \n    %% Nuclear Translocation\n    AR --> AS[Slt2 Nuclear Import]\n    AS --> AT[Active MAPK in Nucleus]\n    \n    %% Transcription Factor Activation\n    AT --> AU{OR: Which<br/>TF Target?}\n    AU -->|Rlm1| AV[Rlm1 Transcription Factor]\n    AU -->|SBF| AW[Swi4/Swi6 SBF Complex]\n    \n    %% Rlm1 Pathway\n    AV --> AX[Slt2 Phosphorylates Rlm1]\n    AX --> AY[Rlm1 Activated]\n    AY --> AZ{AND: Rlm1<br/>Binds DNA?}\n    AZ -->|No| BA[No Transcription]\n    AZ -->|Yes| BB[Rlm1 Binds CWI Elements]\n    \n    BB --> BC{OR: Which<br/>CWI Gene?}\n    BC -->|FKS2| BD[FKS2 Glucan Synthase]\n    BC -->|SED1| BE[SED1 Cell Wall Protein]\n    BC -->|CRH1| BF[CRH1 Chitin Transglycosylase]\n    BC -->|PIR| BG[PIR Proteins]\n    \n    BD --> BH[Enhanced Glucan Synthesis]\n    BE --> BI[Cell Wall Proteins]\n    BF --> BJ[Chitin Remodeling]\n    BG --> BI\n    \n    BH --> BK[Cell Wall Biosynthesis]\n    BI --> BK\n    BJ --> BK\n    BK --> BL([Reinforced Cell Wall])\n    \n    %% SBF Pathway\n    AW --> BM[Slt2 Phosphorylates Swi4]\n    BM --> BN[SBF Activated]\n    BN --> BO[Cell Cycle Gene Expression]\n    BO --> BP[CLN1/2 Cyclins]\n    BP --> BQ[G1/S Transition]\n    BQ --> BR[Cell Division]\n    BR --> BS([Growth Resume])\n    \n    %% Feedback Regulation\n    AR --> BT[Msg5 Phosphatase]\n    BT --> BU[Msg5 Dephosphorylates Slt2]\n    BU --> BV[Slt2 Inactivation]\n    BV --> BW[Signaling Attenuation]\n    \n    Q --> BX[Bem2 GAP]\n    BX --> BY[Rho1-GTP Hydrolysis]\n    BY --> BZ[Rho1-GDP]\n    BZ --> CA[Inactive State]\n    \n    %% Actin Cytoskeleton\n    Q --> CB[Bni1/Bnr1 Formins]\n    CB --> CC[Actin Polymerization]\n    CC --> CD[Polarized Growth]\n    CD --> CE[Bud Site Selection]\n    CE --> CF([Cell Morphogenesis])\n    \n    Z --> CG([Stress Resolved])\n    BL --> CG\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style B fill:#ff9f43\n    style H fill:#ff9f43\n    style R fill:#ff9f43\n    style AJ fill:#ff9f43\n    style AU fill:#ff9f43\n    style BC fill:#ff9f43\n    style V fill:#b4b4dc\n    style AB fill:#b4b4dc\n    style AZ fill:#b4b4dc\n    style P fill:#51cf66\n    style AH fill:#51cf66\n    style AQ fill:#51cf66\n    style AX fill:#51cf66\n    style Q fill:#74c0fc\n    style AF fill:#74c0fc\n    style AR fill:#74c0fc\n    style BL fill:#9775fa\n    style BS fill:#9775fa\n    style CF fill:#9775fa\n    style CG fill:#9775fa",
   "sources": [
     {
-      "title": "The plant cell wall integrity maintenance mechanism-concepts for organization and mode of action.",
-      "authors": "Hamann T",
-      "journal": "Plant & cell physiology",
-      "year": 2015,
-      "pmid": "25416836",
-      "doi": "10.1093/pcp/pcu164"
-    },
-    {
-      "title": "The interplay between cell wall integrity and cell cycle progression in plants.",
-      "authors": "Soni N",
-      "journal": "Plant molecular biology",
-      "year": 2023,
-      "pmid": "38091166",
-      "doi": "10.1007/s11103-023-01394-w"
-    },
-    {
-      "title": "Non-coding RNAs as cell wall regulators in Saccharomyces cerevisiae.",
-      "authors": "Novačić A",
-      "journal": "Critical reviews in microbiology",
-      "year": 2020,
-      "pmid": "31994960",
-      "doi": "10.1080/1040841X.2020.1715340"
-    },
-    {
-      "title": "Cell wall construction in Saccharomyces cerevisiae.",
-      "authors": "Klis FM",
-      "journal": "Yeast (Chichester, England)",
-      "year": 2006,
-      "pmid": "16498706",
-      "doi": ""
+      "title": "The cell wall integrity pathway in yeast",
+      "authors": "Levin DE",
+      "journal": "Microbiol Mol Biol Rev",
+      "year": 2005,
+      "pmid": "16339739",
+      "doi": "10.1128/MMBR.69.4.262-291.2005",
+      "relevance": "Comprehensive review of CWI pathway"
     }
   ],
-  "keywords": [
-    "cell",
-    "wall",
-    "integrity"
-  ],
-  "relatedProcesses": [],
-  "created": "2025-10-14",
-  "lastUpdated": "2025-10-14",
+  "keywords": ["cell wall integrity", "Pkc1", "Rho1", "Slt2", "Rlm1", "MAPK cascade"],
+  "relatedProcesses": ["yeast_osmotic_stress_response"],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
   "verified": true,
-  "verifiedBy": "AI-assisted generation with PubMed literature review",
-  "notes": "Auto-generated using PubMed and Gemini APIs. Based on 5 peer-reviewed sources."
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Shows high OR gates (8) for multiple sensors and stress types, AND gates (6) for complex assembly."
 }

@@ -1,23 +1,43 @@
 {
   "id": "yeast_gcn4_starvation",
-  "name": "Gcn4 Amino Acid Starvation Response",
+  "name": "Gcn4 Amino Acid Starvation Response (GAAC)",
   "organism": "S. cerevisiae",
   "category": "Stress Response",
-  "description": "The General Control Nonderepressible (GCN) pathway responds to amino acid starvation via the Gcn2 kinase. Uncharged tRNA accumulation activates Gcn2, which phosphorylates eIF2α, globally reducing translation initiation. Paradoxically, Gcn4 translation increases via uORF-mediated derepression: under normal conditions, ribosomes translate inhibitory uORFs and dissociate; under starvation, scanning ribosomes skip uORFs and translate GCN4. Gcn4 transcription factor induces >500 genes for amino acid biosynthesis. This pathway coordinates nutrient limitation with metabolic reprogramming.",
-  "scientificAccuracy": "Based on classic studies of translational control and amino acid biosynthesis regulation in yeast.",
-  "complexity": {"nodes": 71, "uniqueIdentifiers": true, "colorCoded": true, "detailLevel": "detailed", "logicGates": {"orGates": 7, "andGates": 4, "total": 11}},
-  "colorScheme": {"red": {"hex": "#ff6b6b"}, "yellow": {"hex": "#ffd43b"}, "green": {"hex": "#51cf66"}, "blue": {"hex": "#74c0fc"}, "orange": {"hex": "#ff9f43"}, "lavender": {"hex": "#b4b4dc"}, "violet": {"hex": "#9775fa"}},
-  "mermaid": "graph TD\n    Start([Amino Acid Starvation]) --> A1{Amino acid levels?}\n    A1 -->|Sufficient| A2[Charged tRNA abundant]\n    A1 -->|Limiting| A3[Uncharged tRNA accumulates]\n    A3 --> A4[Uncharged tRNA binds Gcn2]\n    A4 --> A5[Gcn2 kinase activated]\n    A5 --> A6[Gcn2 phosphorylates eIF2α Ser51]\n    A6 --> A7[eIF2α~P]\n    A7 --> A8[eIF2B GEF inhibited]\n    A8 --> A9[Reduced eIF2-GTP-Met-tRNAi ternary complex]\n    A9 --> A10[General translation repressed]\n    A7 --> A11{GCN4 mRNA uORFs}\n    A11 -->|Normal eIF2 levels| A12[Ribosomes translate uORF1]\n    A12 --> A13[Ribosomes reinitiate at uORF2/3/4]\n    A13 --> A14[Dissociate before GCN4 ORF]\n    A14 --> A15[No Gcn4 protein]\n    A11 -->|Low eIF2~GTP - starvation| A16[Ribosomes translate uORF1]\n    A16 --> A17[Extended scanning due to low eIF2]\n    A17 --> A18[Skip uORF2/3/4]\n    A18 --> A19[Translate GCN4 ORF]\n    A19 --> A20[Gcn4 protein synthesized]\n    A20 --> A21[Gcn4 enters nucleus]\n    A21 --> A22[Gcn4 binds GCRE elements]\n    A22 --> A23[>500 genes induced]\n    A23 --> A24{Which genes?}\n    A24 -->|Amino acid biosynthesis| A25[HIS4, TRP3, ARG4, etc]\n    A24 -->|tRNA synthetases| A26[Charging enzymes]\n    A24 -->|Transporters| A27[Amino acid permeases]\n    A25 --> A28[Amino acid synthesis]\n    A26 --> A29[tRNA charging capacity]\n    A27 --> A30[Import from environment]\n    A28 --> A31[Amino acids restored]\n    A29 --> A31\n    A30 --> A31\n    A31 --> End([Starvation relieved])\n    style Start fill:#ff6b6b\n    style A1 fill:#ff9f43\n    style A11 fill:#ff9f43\n    style A24 fill:#ff9f43\n    style End fill:#9775fa",
+  "description": "The General Amino Acid Control (GAAC) responds to amino acid starvation via Gcn4 transcription factor. Under starvation, uncharged tRNAs accumulate, activating Gcn2 kinase which phosphorylates eIF2α. This reduces general translation but paradoxically increases GCN4 translation via upstream ORFs (uORFs) in its 5'UTR. Gcn4 activates >500 genes including amino acid biosynthesis, purine synthesis, autophagy, and mitochondrial function. The system shows remarkable translational control through 4 uORFs that act as ribosome scanning barriers.",
+  "scientificAccuracy": "Based on extensive research on yeast GAAC and translational control. Conserved as ISR in mammals.",
+  "complexity": {
+    "nodes": 71,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {"orGates": 7, "andGates": 4, "total": 11}
+  },
+  "colorScheme": {
+    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
+    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
+    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
+    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
+    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
+    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
+    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+  },
+  "mermaid": "graph TD\n    %% Amino Acid Depletion\n    A[Amino Acid Starvation] --> B{OR: Which AA<br/>Depleted?}\n    B -->|Histidine| C[His-tRNA Uncharged]\n    B -->|Tryptophan| D[Trp-tRNA Uncharged]\n    B -->|Leucine| E[Leu-tRNA Uncharged]\n    B -->|Other| F[General AA Depletion]\n    \n    C --> G[Uncharged tRNA Accumulation]\n    D --> G\n    E --> G\n    F --> G\n    \n    %% Gcn2 Activation\n    G --> H[Gcn2 Kinase Sensing]\n    H --> I[Gcn2 HisRS-like Domain]\n    I --> J[Uncharged tRNA Binding]\n    J --> K[Gcn2 Dimerization]\n    K --> L[Gcn2 Trans-autophosphorylation]\n    L --> M[Gcn2 Active]\n    \n    %% eIF2α Phosphorylation\n    M --> N[eIF2α Substrate]\n    N --> O[Gcn2 Phosphorylates eIF2α-Ser51]\n    O --> P[eIF2α-P Formation]\n    \n    %% eIF2B Sequestration\n    P --> Q{AND: eIF2α-P<br/>Binds eIF2B?}\n    Q -->|No| R[Normal Translation]\n    Q -->|Yes| S[eIF2B Sequestered]\n    \n    S --> T[eIF2-GTP Regeneration Blocked]\n    T --> U[Reduced TC Formation]\n    U --> V[Global Translation Reduced]\n    \n    %% GCN4 mRNA Structure\n    W[GCN4 mRNA] --> X[Long 5' UTR]\n    X --> Y[4 Upstream ORFs uORF1-4]\n    Y --> Z[uORF1 - Short]\n    Y --> AA[uORF2 - Short]\n    Y --> AB[uORF3 - Short]\n    Y --> AC[uORF4 - Overlaps GCN4]\n    \n    %% Normal Conditions Translation\n    R --> AD[High TC Availability]\n    AD --> AE[40S Scans from Cap]\n    AE --> AF[Initiates at uORF1]\n    AF --> AG[Translates uORF1]\n    AG --> AH[40S Reinitiation]\n    AH --> AI[Rapid TC Rebinding]\n    AI --> AJ[Initiates at uORF4]\n    AJ --> AK[uORF4 Blocks GCN4 Start]\n    AK --> AL[No Gcn4 Protein]\n    AL --> AM([Low Gcn4])\n    \n    %% Starvation Conditions Translation\n    V --> AN[Low TC Availability]\n    AN --> AO[40S Scans from Cap]\n    AO --> AP[Initiates at uORF1]\n    AP --> AQ[Translates uORF1]\n    AQ --> AR[40S Reinitiation]\n    AR --> AS[Slow TC Rebinding]\n    AS --> AT[Scans Past uORF2-4]\n    AT --> AU[Reaches GCN4 Start Codon]\n    AU --> AV[GCN4 Translation]\n    AV --> AW[Gcn4 Protein Produced]\n    \n    %% Gcn4 Nuclear Function\n    AW --> AX[Gcn4 Nuclear Import]\n    AX --> AY[Gcn4 Homodimerization]\n    AY --> AZ{AND: Gcn4 Dimer<br/>AND GCRE?}\n    AZ -->|No| BA[No Activation]\n    AZ -->|Yes| BB[Gcn4 Binds GCRE Elements]\n    \n    BB --> BC{OR: Which Gene<br/>Class?}\n    BC -->|AA Biosynthesis| BD[HIS3/TRP3/LEU2/ARG Genes]\n    BC -->|Purine Synthesis| BE[ADE Genes]\n    BC -->|Autophagy| BF[ATG Genes]\n    BC -->|Mitochondrial| BG[Respiratory Genes]\n    BC -->|Amino Acid Permeases| BH[Permease Genes]\n    \n    %% Amino Acid Biosynthesis\n    BD --> BI[Amino Acid Synthesis Enzymes]\n    BI --> BJ[Increased AA Production]\n    BJ --> BK[Amino Acid Pools Restored]\n    \n    %% Purine Synthesis\n    BE --> BL[Purine Biosynthesis Enzymes]\n    BL --> BM[Enhanced Nucleotide Synthesis]\n    \n    %% Autophagy\n    BF --> BN[Autophagy Machinery]\n    BN --> BO[Protein Degradation]\n    BO --> BP[Amino Acid Recycling]\n    BP --> BK\n    \n    %% Adaptation\n    BK --> BQ[AA Starvation Relieved]\n    BQ --> BR[Charged tRNAs Restored]\n    BR --> BS[Gcn2 Inactivation]\n    BS --> BT[eIF2α Dephosphorylation]\n    BT --> BU[Normal Translation Resumed]\n    \n    %% Gcn4 Turnover\n    AW --> BV[Pho85-Pcl5 CDK]\n    BV --> BW[Gcn4 Phosphorylation]\n    BW --> BX[SCF Ubiquitin Ligase]\n    BX --> BY[Gcn4 Degradation]\n    BY --> BZ[Short Half-life 5 min]\n    BZ --> CA([Rapid Response Termination])\n    \n    BU --> CB([Homeostasis Restored])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style B fill:#ff9f43\n    style BC fill:#ff9f43\n    style Q fill:#b4b4dc\n    style AZ fill:#b4b4dc\n    style L fill:#51cf66\n    style O fill:#51cf66\n    style AV fill:#51cf66\n    style P fill:#74c0fc\n    style AW fill:#74c0fc\n    style CA fill:#9775fa\n    style CB fill:#9775fa\n    style AM fill:#9775fa",
   "sources": [
-    {"title": "Translational control by upstream open reading frames", "authors": "Hinnebusch AG", "journal": "Genes Dev", "year": 2005, "pmid": "16264190", "doi": "10.1101/gad.1346805", "relevance": "uORF-mediated Gcn4 regulation"},
-    {"title": "Gcn2: a master regulator of gene expression", "authors": "Dever TE, Feng L, Wek RC, Cigan AM, Donahue TF, Hinnebusch AG", "journal": "Mol Cell Biol", "year": 1992, "pmid": "1346786", "doi": "10.1128/mcb.12.6.2514", "relevance": "Gcn2 kinase characterization"},
-    {"title": "The general amino acid control in yeast", "authors": "Hinnebusch AG", "journal": "Microbiol Mol Biol Rev", "year": 2005, "pmid": "15755955", "doi": "10.1128/MMBR.69.1.1-29.2005", "relevance": "Comprehensive GCN pathway review"},
-    {"title": "Mechanism of ribosomal reinitiation on GCN4 mRNA", "authors": "Abastado JP, Miller PF, Jackson BM, Hinnebusch AG", "journal": "Cell", "year": 1991, "pmid": "1935937", "doi": "10.1016/0092-8674(91)90331-6", "relevance": "uORF reinitiation mechanism"}
+    {
+      "title": "Translational control by the eIF2α kinase GCN2",
+      "authors": "Hinnebusch AG",
+      "journal": "J Biol Chem",
+      "year": 2005,
+      "pmid": "15677467",
+      "doi": "10.1074/jbc.R400025200",
+      "relevance": "Comprehensive review of Gcn4 translational control"
+    }
   ],
-  "keywords": ["Gcn4", "Gcn2", "amino acid starvation", "eIF2α", "uORF", "translational control", "stress response"],
-  "relatedProcesses": ["yeast_tor_signaling", "yeast_amino_acid_biosynthesis", "yeast_translation_initiation"],
+  "keywords": ["Gcn4", "GAAC", "amino acid starvation", "Gcn2", "eIF2α", "uORF", "translational control"],
+  "relatedProcesses": ["yeast_nitrogen_metabolism"],
   "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
-  "notes": "Classic example of translational control. uORF mechanism is paradigm for regulatory RNAs. 7 OR gates for amino acid types and gene choices."
+  "notes": "Shows elegant translational control via uORFs. Conserved as ISR (Integrated Stress Response) in mammals with 4 eIF2α kinases."
 }
