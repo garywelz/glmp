@@ -10,18 +10,43 @@
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
-    "logicGates": {"orGates": 6, "andGates": 5, "total": 11}
+    "logicGates": {
+      "orGates": 6,
+      "andGates": 5,
+      "total": 11
+    }
   },
   "colorScheme": {
-    "red": {"hex": "#ff6b6b", "category": "Triggers & Inputs"},
-    "yellow": {"hex": "#ffd43b", "category": "Structures & Objects"},
-    "green": {"hex": "#51cf66", "category": "Processing & Operations"},
-    "blue": {"hex": "#74c0fc", "category": "Intermediates & States"},
-    "orange": {"hex": "#ff9f43", "category": "OR Logic Gates"},
-    "lavender": {"hex": "#b4b4dc", "category": "AND Logic Gates"},
-    "violet": {"hex": "#9775fa", "category": "Outputs & Products"}
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States"
+    },
+    "orange": {
+      "hex": "#ff9f43",
+      "category": "OR Logic Gates"
+    },
+    "lavender": {
+      "hex": "#b4b4dc",
+      "category": "AND Logic Gates"
+    },
+    "violet": {
+      "hex": "#9775fa",
+      "category": "Outputs & Products"
+    }
   },
-  "mermaid": "graph TD\n    %% Heat Stress\n    A[Temperature Increase] --> B{OR: Stress<br/>Level?}\n    B -->|Normal 37°C| C[Homeostasis]\n    B -->|Heat Shock >42°C| D[Protein Stress]\n    \n    %% Normal Conditions\n    C --> E[σ32 RpoH Basal Level]\n    E --> F[DnaK/DnaJ Chaperones Available]\n    F --> G[DnaK Binds σ32]\n    G --> H[DnaJ Stimulates ATPase]\n    H --> I[DnaK-ADP-σ32 Complex]\n    I --> J[GrpE Nucleotide Exchange]\n    J --> K[DnaK Releases σ32]\n    K --> L[FtsH Protease Access]\n    L --> M[σ32 Degradation]\n    M --> N[Low σ32 t1/2 ~1 min]\n    N --> O([Basal Heat Shock Genes])\n    \n    %% Heat Shock - Protein Misfolding\n    D --> P[Proteins Unfold]\n    P --> Q[Hydrophobic Residues Exposed]\n    Q --> R[Misfolded Protein Accumulation]\n    \n    %% Chaperone Titration\n    R --> S[DnaK/DnaJ Bind Misfolded Proteins]\n    S --> T[Chaperones Sequestered]\n    T --> U[σ32 Not Bound by DnaK]\n    U --> V[σ32 Stabilized]\n    V --> W[σ32 Accumulates]\n    \n    %% σ32-RNAP Complex\n    W --> X[σ32 Binds Core RNAP]\n    X --> Y{AND: σ32 + Core<br/>RNAP?}\n    Y -->|No| Z[No Transcription]\n    Y -->|Yes| AA[Eσ32 Holoenzyme]\n    \n    %% Heat Shock Promoter Recognition\n    AA --> AB[Eσ32 Recognizes Heat Shock Promoters]\n    AB --> AC[-35 CTTGAAA]\n    AC --> AD[-10 CCCCATNT]\n    AD --> AE[Heat Shock Gene Transcription]\n    \n    %% OR Gate: Which Heat Shock Gene?\n    AE --> AF{OR: Which<br/>Gene Class?}\n    AF -->|dnaK/dnaJ/grpE| AG[DnaK Chaperone System]\n    AF -->|groEL/groES| AH[GroEL Chaperonin System]\n    AF -->|clpB| AI[ClpB Disaggregase]\n    AF -->|lon/ftsH| AJ[ATP-Dependent Proteases]\n    AF -->|htpG| AK[HtpG Hsp90 Homolog]\n    AF -->|ibpAB| AL[Small Heat Shock Proteins]\n    \n    %% DnaK System Upregulation\n    AG --> AM[DnaK/DnaJ/GrpE Production]\n    AM --> AN[Enhanced Chaperone Capacity]\n    AN --> AO[Protein Refolding]\n    \n    %% GroEL System\n    AH --> AP[GroEL/ES Production]\n    AP --> AQ[GroEL Barrel Complex]\n    AQ --> AR[Anfinsen Cage]\n    AR --> AS[Substrate Encapsulation]\n    AS --> AT[ATP-Dependent Folding]\n    AT --> AO\n    \n    %% ClpB Disaggregase\n    AI --> AU[ClpB AAA+ ATPase]\n    AU --> AV[Aggregate Recognition]\n    AV --> AW{AND: ClpB + DnaK<br/>Cooperation?}\n    AW -->|No| AX[Aggregates Persist]\n    AW -->|Yes| AY[Aggregate Disassembly]\n    AY --> AZ[Proteins Extracted]\n    AZ --> AO\n    \n    %% Proteolytic Quality Control\n    AJ --> BA[Lon/FtsH Proteases]\n    BA --> BB[Recognize Misfolded Proteins]\n    BB --> BC[Irreversibly Damaged]\n    BC --> BD[Protease Degradation]\n    BD --> BE[Amino Acids Recycled]\n    \n    %% Negative Feedback\n    AM --> BF[Newly Synthesized DnaK]\n    BF --> BG[Excess Chaperone Capacity]\n    BG --> BH[DnaK Rebinds σ32]\n    BH --> BI[σ32 Destabilization]\n    BI --> BJ[FtsH Degrades σ32]\n    BJ --> BK[σ32 Levels Drop]\n    BK --> BL[Heat Shock Response OFF]\n    \n    %% Resolution\n    AO --> BM[Proteins Refolded]\n    BE --> BM\n    BM --> BN[Proteome Restored]\n    BN --> BO[Temperature Normalized]\n    BO --> BP([Recovery])\n    \n    AX --> BQ[Inclusion Bodies]\n    BQ --> BR[Permanent Aggregates]\n    BR --> BS([Cell Death])\n    \n    Z --> BT([No Response])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style B fill:#ff9f43\n    style AF fill:#ff9f43\n    style Y fill:#b4b4dc\n    style AW fill:#b4b4dc\n    style G fill:#51cf66\n    style X fill:#51cf66\n    style AB fill:#51cf66\n    style BD fill:#51cf66\n    style W fill:#74c0fc\n    style AA fill:#74c0fc\n    style BP fill:#9775fa\n    style BS fill:#9775fa\n    style BT fill:#9775fa\n    style O fill:#9775fa",
+  "mermaid": "graph TD\n    %% Heat Stress\n    A[Temperature Increase] --> B{OR: Stress<br/>Level?}\n    B -->|Normal 37°C| C[Homeostasis]\n    B -->|Heat Shock >42°C| D[Protein Stress]\n    \n    %% Normal Conditions\n    C --> E[σ32 RpoH Basal Level]\n    E --> F[DnaK/DnaJ Chaperones Available]\n    F --> G[DnaK Binds σ32]\n    G --> H[DnaJ Stimulates ATPase]\n    H --> I[DnaK-ADP-σ32 Complex]\n    I --> J[GrpE Nucleotide Exchange]\n    J --> K[DnaK Releases σ32]\n    K --> L[FtsH Protease Access]\n    L --> M[σ32 Degradation]\n    M --> N[Low σ32 t1/2 ~1 min]\n    N --> O([Basal Heat Shock Genes])\n    \n    %% Heat Shock - Protein Misfolding\n    D --> P[Proteins Unfold]\n    P --> Q[Hydrophobic Residues Exposed]\n    Q --> R[Misfolded Protein Accumulation]\n    \n    %% Chaperone Titration\n    R --> S[DnaK/DnaJ Bind Misfolded Proteins]\n    S --> T[Chaperones Sequestered]\n    T --> U[σ32 Not Bound by DnaK]\n    U --> V[σ32 Stabilized]\n    V --> W[σ32 Accumulates]\n    \n    %% σ32-RNAP Complex\n    W --> X[σ32 Binds Core RNAP]\n    X --> Y{{{AND: σ32 + Core<br/>RNAP?}}}\n    Y -->|No| Z[No Transcription]\n    Y -->|Yes| AA[Eσ32 Holoenzyme]\n    \n    %% Heat Shock Promoter Recognition\n    AA --> AB[Eσ32 Recognizes Heat Shock Promoters]\n    AB --> AC[-35 CTTGAAA]\n    AC --> AD[-10 CCCCATNT]\n    AD --> AE[Heat Shock Gene Transcription]\n    \n    %% OR Gate: Which Heat Shock Gene?\n    AE --> AF{OR: Which<br/>Gene Class?}\n    AF -->|dnaK/dnaJ/grpE| AG[DnaK Chaperone System]\n    AF -->|groEL/groES| AH[GroEL Chaperonin System]\n    AF -->|clpB| AI[ClpB Disaggregase]\n    AF -->|lon/ftsH| AJ[ATP-Dependent Proteases]\n    AF -->|htpG| AK[HtpG Hsp90 Homolog]\n    AF -->|ibpAB| AL[Small Heat Shock Proteins]\n    \n    %% DnaK System Upregulation\n    AG --> AM[DnaK/DnaJ/GrpE Production]\n    AM --> AN[Enhanced Chaperone Capacity]\n    AN --> AO[Protein Refolding]\n    \n    %% GroEL System\n    AH --> AP[GroEL/ES Production]\n    AP --> AQ[GroEL Barrel Complex]\n    AQ --> AR[Anfinsen Cage]\n    AR --> AS[Substrate Encapsulation]\n    AS --> AT[ATP-Dependent Folding]\n    AT --> AO\n    \n    %% ClpB Disaggregase\n    AI --> AU[ClpB AAA+ ATPase]\n    AU --> AV[Aggregate Recognition]\n    AV --> AW{{{AND: ClpB + DnaK<br/>Cooperation?}}}\n    AW -->|No| AX[Aggregates Persist]\n    AW -->|Yes| AY[Aggregate Disassembly]\n    AY --> AZ[Proteins Extracted]\n    AZ --> AO\n    \n    %% Proteolytic Quality Control\n    AJ --> BA[Lon/FtsH Proteases]\n    BA --> BB[Recognize Misfolded Proteins]\n    BB --> BC[Irreversibly Damaged]\n    BC --> BD[Protease Degradation]\n    BD --> BE[Amino Acids Recycled]\n    \n    %% Negative Feedback\n    AM --> BF[Newly Synthesized DnaK]\n    BF --> BG[Excess Chaperone Capacity]\n    BG --> BH[DnaK Rebinds σ32]\n    BH --> BI[σ32 Destabilization]\n    BI --> BJ[FtsH Degrades σ32]\n    BJ --> BK[σ32 Levels Drop]\n    BK --> BL[Heat Shock Response OFF]\n    \n    %% Resolution\n    AO --> BM[Proteins Refolded]\n    BE --> BM\n    BM --> BN[Proteome Restored]\n    BN --> BO[Temperature Normalized]\n    BO --> BP([Recovery])\n    \n    AX --> BQ[Inclusion Bodies]\n    BQ --> BR[Permanent Aggregates]\n    BR --> BS([Cell Death])\n    \n    Z --> BT([No Response])\n    \n    %% Styling\n    style A fill:#ff6b6b\n    style B fill:#ff9f43\n    style AF fill:#ff9f43\n    style Y fill:#7950f2\n    style AW fill:#7950f2\n    style G fill:#51cf66\n    style X fill:#51cf66\n    style AB fill:#51cf66\n    style BD fill:#51cf66\n    style W fill:#74c0fc\n    style AA fill:#74c0fc\n    style BP fill:#000000\n    style BS fill:#000000\n    style BT fill:#000000\n    style O fill:#000000",
   "sources": [
     {
       "title": "Heat shock response in E. coli",
@@ -33,8 +58,18 @@
       "relevance": "Comprehensive review of heat shock regulation"
     }
   ],
-  "keywords": ["heat shock", "σ32", "RpoH", "DnaK", "GroEL", "chaperones", "protein folding"],
-  "relatedProcesses": ["ecoli_protein_folding_chaperones"],
+  "keywords": [
+    "heat shock",
+    "σ32",
+    "RpoH",
+    "DnaK",
+    "GroEL",
+    "chaperones",
+    "protein folding"
+  ],
+  "relatedProcesses": [
+    "ecoli_protein_folding_chaperones"
+  ],
   "created": "2025-10-15",
   "lastUpdated": "2025-10-15",
   "verified": true,
