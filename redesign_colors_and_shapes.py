@@ -88,16 +88,15 @@ def identify_node_type(node_text: str, is_diamond: bool, style_color: str) -> st
     
     node_lower = node_text.lower()
     
-    # Check for NOT gates by keywords
-    if any(keyword in node_lower for keyword in NOT_GATE_KEYWORDS):
-        return 'not_gate'
-    
     # Check for logic gates by shape and color
     if is_diamond:
         if style_color in ['#ff9f43']:  # Orange
             return 'or_gate'
         elif style_color in ['#b4b4dc', '#9775fa', '#7950f2']:  # Purple variants
             return 'and_gate'
+        # Check for NOT gates - only if diamond AND has NOT keywords
+        elif any(keyword in node_lower for keyword in NOT_GATE_KEYWORDS):
+            return 'not_gate'
     
     # Check for other node types by current color
     if style_color in ['#ff6b6b']:
@@ -223,13 +222,19 @@ def convert_not_gates_to_trapezoids(mermaid: str, node_definitions: Dict, style_
             not_gates_found.append(node_id)
             
             # Convert shape: A[Text] or A{Text} to A[\Text/]
-            # Try both rectangle and diamond patterns
-            rect_pattern = rf'{node_id}\[([^\]]+)\]'
-            diamond_pattern = rf'{node_id}\{{([^}}]+)\}}'
-            trapezoid = rf'{node_id}[\\{node_text.strip()}/]'
+            # Use string replacement instead of regex to avoid backslash issues
+            cleaned_text = node_text.strip()
             
-            mermaid = re.sub(rect_pattern, trapezoid, mermaid)
-            mermaid = re.sub(diamond_pattern, trapezoid, mermaid)
+            # Try rectangle pattern first
+            old_rect = f'{node_id}[{node_text}]'
+            new_trap = f'{node_id}[\\{cleaned_text}/]'
+            if old_rect in mermaid:
+                mermaid = mermaid.replace(old_rect, new_trap)
+            
+            # Try diamond pattern
+            old_diamond = f'{node_id}{{{node_text}}}'
+            if old_diamond in mermaid:
+                mermaid = mermaid.replace(old_diamond, new_trap)
             
             # Add or update style for NOT gate
             if f'style {node_id}' in mermaid:
