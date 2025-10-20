@@ -20,7 +20,7 @@ let currentDetailLevel = 1;
 // Configuration
 const CONFIG = {
     processesPath: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/processes/',
-    metadataPath: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/data/metadata.json'
+    metadataPath: 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/metadata.json'
 };
 
 // Initialize on page load
