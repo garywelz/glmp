@@ -246,7 +246,8 @@ function renderColorLegend() {
     
     if (currentProcess.colorScheme) {
         let html = '';
-        const colors = ['red', 'yellow', 'green', 'blue', 'orange', 'lavender', 'violet'];
+        // Updated to match Phase 2 final color scheme keys
+        const colors = ['green', 'amber', 'darkSkyBlue', 'lightCyan', 'yellow', 'purple', 'red', 'black'];
         
         colors.forEach(color => {
             if (currentProcess.colorScheme[color]) {
