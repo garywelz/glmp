@@ -32,18 +32,40 @@ document.addEventListener('DOMContentLoaded', () => {
  * Initialize the viewer
  */
 async function initializeViewer() {
-    // Check URL parameters for direct process loading
-    const params = new URLSearchParams(window.location.search);
-    const processId = params.get('process');
+    console.log('🚀 Initializing GLMP Viewer...');
     
-    if (processId) {
-        // Load specific process from URL
-        await loadProcess(processId);
-    } else {
-        // Show home view
-        showHome();
-        // Load process list in background
-        await loadProcessList();
+    try {
+        // Check URL parameters for direct process loading
+        const params = new URLSearchParams(window.location.search);
+        const processId = params.get('process');
+        
+        if (processId) {
+            console.log('📄 Loading specific process:', processId);
+            // Load specific process from URL
+            await loadProcess(processId);
+        } else {
+            console.log('🏠 Showing home view with process list');
+            // Show home view
+            showHome();
+            // Load process list (shows spinner, then populates)
+            await loadProcessList();
+        }
+        
+        console.log('✅ Viewer initialized successfully');
+        
+    } catch (error) {
+        console.error('❌ Failed to initialize viewer:', error);
+        // Show error in main container
+        const homeView = document.getElementById('home-view');
+        if (homeView) {
+            homeView.innerHTML = `
+                <div class="error-message">
+                    <h3>⚠️ Viewer Initialization Failed</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <button onclick="location.reload()" class="retry-btn">🔄 Reload Page</button>
+                </div>
+            `;
+        }
     }
 }
 
@@ -51,29 +73,48 @@ async function initializeViewer() {
  * Load the list of available processes
  */
 async function loadProcessList() {
+    // Show loading spinner immediately
+    showLoadingSpinner();
+    
     try {
         // Try to load metadata file with cache busting
         const metadataUrl = CONFIG.metadataPath + '?v=' + Date.now();
         console.log('🔄 Loading GLMP processes from:', metadataUrl);
-        const response = await fetch(metadataUrl, { cache: 'no-store' });
+        
+        const response = await fetch(metadataUrl, { 
+            cache: 'no-store',
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache'
+            }
+        });
+        
         console.log('📥 Response:', response.status, response.statusText);
-        if (response.ok) {
-            const metadata = await response.json();
-            processList = metadata.processes || [];
-            console.log('✅ Loaded successfully:', processList.length, 'processes');
-        } else {
-            // If no metadata file, scan for processes manually
-            processList = await scanForProcesses();
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch metadata: ${response.status} ${response.statusText}`);
         }
         
+        const metadata = await response.json();
+        processList = metadata.processes || [];
+        console.log('✅ Loaded successfully:', processList.length, 'processes');
+        
+        // Small delay to ensure DOM is ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Render the list
         renderProcessList();
+        
     } catch (error) {
         console.error('❌ Error loading process list:', error);
-        // Show error message
-        document.getElementById('process-list').innerHTML = `
+        // Show detailed error message
+        const listContainer = document.getElementById('process-list');
+        listContainer.innerHTML = `
             <div class="error-message">
-                <p>⚠️ Could not load process list.</p>
-                <p>Please ensure processes are available in the correct directory.</p>
+                <h3>⚠️ Failed to Load Processes</h3>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p>Please try refreshing the page. If the problem persists, check your internet connection.</p>
+                <button onclick="location.reload()" class="retry-btn">🔄 Retry</button>
             </div>
         `;
     }
@@ -86,6 +127,19 @@ async function scanForProcesses() {
     // This is a simple implementation - you can enhance it
     // For now, return empty array and rely on metadata.json
     return [];
+}
+
+/**
+ * Show loading spinner
+ */
+function showLoadingSpinner() {
+    const listContainer = document.getElementById('process-list');
+    listContainer.innerHTML = `
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>🔄 Loading GLMP processes...</p>
+        </div>
+    `;
 }
 
 /**
@@ -408,4 +462,14 @@ function hideAllViews() {
 // Handle browser back/forward buttons
 window.addEventListener('popstate', () => {
     initializeViewer();
+});
+
+// Database Table navigation
+document.addEventListener('DOMContentLoaded', () => {
+    const dbTableBtn = document.getElementById('database-table-btn');
+    if (dbTableBtn) {
+        dbTableBtn.addEventListener('click', () => {
+            window.open('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html', '_blank');
+        });
+    }
 });
