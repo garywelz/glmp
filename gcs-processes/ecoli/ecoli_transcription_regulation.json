@@ -4,7 +4,7 @@
   "organism": "E. coli",
   "category": "Gene Expression",
   "description": "Transcription in E. coli is initiated by RNA polymerase holoenzyme (core enzyme + sigma factor) binding to promoter regions. The process is regulated by transcription factors, sigma factor availability, and environmental signals. This fundamental process controls gene expression in response to cellular needs and environmental conditions.",
-  "mermaid": "graph TD\n    Start([Gene Expression Signal]) --> SigmaCheck{Sigma Factor<br/>Available?}\n    SigmaCheck -->|No| SigmaWait[Wait for Sigma<br/>Factor Release]\n    SigmaCheck -->|Yes| Holoenzyme[RNA Polymerase<br/>Holoenzyme Formation]\n    \n    Holoenzyme --> Search[Promoter Search<br/>Nonspecific DNA Binding]\n    Search --> Recognition[Promoter Recognition<br/>-35 and -10 Elements]\n    \n    Recognition --> ClosedComplex[Closed Complex<br/>Formation]\n    ClosedComplex --> Melting[DNA Melting at<br/>-10 Region]\n    Melting --> OpenComplex[Open Complex<br/>RPo Formation]\n    \n    OpenComplex --> Regulation{Regulatory<br/>Factors?}\n    Regulation -->|Activators| Enhanced[Enhanced<br/>Transcription]\n    Regulation -->|Repressors| Blocked[Transcription<br/>Blocked]\n    Regulation -->|None| Basal[Basal Level<br/>Transcription]\n    \n    Enhanced --> Initiation\n    Basal --> Initiation[Transcription<br/>Initiation]\n    Blocked --> NoTranscription[No Transcription]\n    \n    Initiation --> Elongation[Abortive Initiation<br/>Then Productive]\n    Elongation --> SigmaRelease[Sigma Factor<br/>Release]\n    SigmaRelease --> CorePol[Core Polymerase<br/>Elongation]\n    \n    CorePol --> mRNA[mRNA Synthesis]\n    mRNA --> Termination[Termination<br/>Rho-dependent or Independent]\n    \n    style Start fill:#ff6b6b,color:#fff\n    style SigmaCheck fill:#ff9f43,color:#fff\n    style SigmaWait fill:#74c0fc,color:#fff\n    style Holoenzyme fill:#ffd43b,color:#000\n    style Search fill:#51cf66,color:#fff\n    style Recognition fill:#51cf66,color:#fff\n    style ClosedComplex fill:#74c0fc,color:#fff\n    style Melting fill:#51cf66,color:#fff\n    style OpenComplex fill:#74c0fc,color:#fff\n    style Regulation fill:#ff9f43,color:#fff\n    style Enhanced fill:#51cf66,color:#fff\n    style Blocked fill:#7950f2,color:#fff\n    style Basal fill:#51cf66,color:#fff\n    style Initiation fill:#51cf66,color:#fff\n    style NoTranscription fill:#7950f2,color:#fff\n    style Elongation fill:#51cf66,color:#fff\n    style SigmaRelease fill:#51cf66,color:#fff\n    style CorePol fill:#ffd43b,color:#000\n    style mRNA fill:#7950f2,color:#fff\n    style Termination fill:#51cf66,color:#fff\n    style D fill:#e74c3c,color:#fff\n    style I fill:#e74c3c,color:#fff\n    style J fill:#e74c3c,color:#fff\n    style L fill:#e74c3c,color:#fff",
+  "mermaid": "graph TD\n    Start([Gene Expression Signal]) --> SigmaCheck{Sigma Factor<br/>Available?}\n    SigmaCheck -->|No| SigmaWait[Wait for Sigma<br/>Factor Release]\n    SigmaCheck -->|Yes| Holoenzyme[RNA Polymerase<br/>Holoenzyme Formation]\n    \n    Holoenzyme --> Search[Promoter Search<br/>Nonspecific DNA Binding]\n    Search --> Recognition[Promoter Recognition<br/>-35 and -10 Elements]\n    \n    Recognition --> ClosedComplex[Closed Complex<br/>Formation]\n    ClosedComplex --> Melting[DNA Melting at<br/>-10 Region]\n    Melting --> OpenComplex[Open Complex<br/>RPo Formation]\n    \n    OpenComplex --> Regulation{Regulatory<br/>Factors?}\n    Regulation -->|Activators| Enhanced[Enhanced<br/>Transcription]\n    Regulation -->|Repressors| Blocked[Transcription<br/>Blocked]\n    Regulation -->|None| Basal[Basal Level<br/>Transcription]\n    \n    Enhanced --> Initiation\n    Basal --> Initiation[Transcription<br/>Initiation]\n    Blocked --> NoTranscription[No Transcription]\n    \n    Initiation --> Elongation[Abortive Initiation<br/>Then Productive]\n    Elongation --> SigmaRelease[Sigma Factor<br/>Release]\n    SigmaRelease --> CorePol[Core Polymerase<br/>Elongation]\n    \n    CorePol --> mRNA[mRNA Synthesis]\n    mRNA --> Termination[Termination<br/>Rho-dependent or Independent]\n    \n    style Start fill:#ff6b6b,color:#fff\n    style SigmaCheck fill:#ff9f43,color:#fff\n    style SigmaWait fill:#74c0fc,color:#fff\n    style Holoenzyme fill:#ffd43b,color:#000\n    style Search fill:#51cf66,color:#fff\n    style Recognition fill:#51cf66,color:#fff\n    style ClosedComplex fill:#74c0fc,color:#fff\n    style Melting fill:#51cf66,color:#fff\n    style OpenComplex fill:#74c0fc,color:#fff\n    style Regulation fill:#ff9f43,color:#fff\n    style Enhanced fill:#51cf66,color:#fff\n    style Blocked fill:#7950f2,color:#fff\n    style Basal fill:#51cf66,color:#fff\n    style Initiation fill:#51cf66,color:#fff\n    style NoTranscription fill:#7950f2,color:#fff\n    style Elongation fill:#51cf66,color:#fff\n    style SigmaRelease fill:#51cf66,color:#fff\n    style CorePol fill:#ffd43b,color:#000\n    style mRNA fill:#7950f2,color:#fff\n    style Termination fill:#51cf66,color:#fff\n    style D fill:#e74c3c,color:#fff\n    style I fill:#e74c3c,color:#fff\n    style J fill:#e74c3c,color:#fff\n    style L fill:#e74c3c,color:#fff\n    style RNA fill:#74c0fc,color:#fff",
   "sources": [
     {
       "title": "Bacterial transcription regulation and sigma factor competition",
@@ -77,40 +77,45 @@
   "notes": "This model shows the core transcription initiation process. Contains 2 OR logic gates: sigma factor availability and regulatory factor type. E. coli has 7 sigma factors (σ70 is housekeeping). All 25 nodes are uniquely identified and colored according to the 7-color Programming Framework.",
   "scientificAccuracy": "This flowchart is based on verified biochemical and structural data from peer-reviewed literature. All molecular mechanisms including open complex formation, sigma factor cycling, and regulatory factor interactions have been validated against primary research sources. The model represents the current scientific consensus on bacterial transcription initiation.",
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Gene expression signals, environmental cues"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "RNA polymerase, sigma factors, regulatory proteins"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "DNA binding, complex formation, RNA synthesis"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Polymerase complexes, intermediate assemblies"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Single-condition decision points"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "Multi-condition decision points"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "mRNA products, transcriptional outcomes"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
   "complexity": {

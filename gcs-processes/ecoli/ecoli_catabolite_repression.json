@@ -17,43 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Glucose availability, carbon source signals"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "CRP/CAP, adenylyl cyclase, PTS transporters"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "Transcription, cAMP synthesis, sugar transport"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "cAMP, CRP-cAMP complex, mRNA"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Glucose presence check, cAMP level assessment"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "CRP activation requires cAMP binding AND DNA site availability"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Alternative sugar utilization, metabolic adaptation"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    %% Carbon Source Input\n    A[Glucose in Medium] --> B[PTS Transport System]\n    C[Lactose in Medium] --> D[Lactose Signal]\n    E[Arabinose in Medium] --> F[Arabinose Signal]\n    \n    %% Decision: Glucose Present?\n    B --> G{Glucose Present?}\n    \n    %% High Glucose Path - Catabolite Repression\n    G -->|Yes| H[PEP-Dependent Glucose Transport]\n    H --> I[EIIAGlc Dephosphorylation]\n    I --> J[EIIAGlc-P Depletion]\n    J --> K[Adenylyl Cyclase Inhibition]\n    K --> L[Low cAMP Synthesis]\n    L --> M[Low cAMP Levels]\n    \n    %% Decision: cAMP Levels\n    M --> N{High cAMP?}\n    \n    %% Low cAMP - Repression Active\n    N -->|No| O[\\CRP Inactive Apo-form/]\n    O --> P[No CRP-DNA Binding]\n    P --> Q[\\lac Operon Repressed/]\n    P --> R[\\ara Operon Repressed/]\n    P --> S[\\mal Operons Repressed/]\n    Q --> T[No Lactose Utilization]\n    R --> U[No Arabinose Utilization]\n    S --> V[No Maltose Utilization]\n    T --> W[Glucose-Only Metabolism]\n    U --> W\n    V --> W\n    W --> X[Rapid Growth on Glucose]\n    \n    %% Low Glucose Path - Derepression\n    G -->|No| Y[No PTS Activity]\n    Y --> Z[EIIAGlc Phosphorylation]\n    Z --> AA[EIIAGlc-P Accumulation]\n    AA --> AB[Adenylyl Cyclase Activation]\n    AB --> AC[cAMP Synthesis]\n    AC --> AD[High cAMP Levels]\n    \n    %% cAMP-CRP Complex Formation\n    AD --> N\n    N -->|Yes| AE[cAMP Binds CRP]\n    AE --> AF[CRP Conformational Change]\n    AF --> AG[CRP-cAMP Active Complex]\n    \n    %% AND Gate 1: lac Operon Activation\n    AG --> ANDGATE1{{{CRP-cAMP AND<br/>lac Promoter Available?}}}\n    D --> AH[Lactose Inducer Signal]\n    AH --> ANDGATE1\n    ANDGATE1 -->|Yes| AI[CRP-cAMP Binds lac Promoter]\n    AI --> AJ[lac Operon Transcription]\n    AJ --> AK[lac Genes Expressed]\n    AK --> AL[Lactose Utilization]\n    \n    %% AND Gate 2: ara Operon Activation\n    AG --> ANDGATE2{{{CRP-cAMP AND<br/>ara Promoter Available?}}}\n    F --> AM[Arabinose Inducer Signal]\n    AM --> ANDGATE2\n    ANDGATE2 -->|Yes| AN[CRP-cAMP Binds ara Promoter]\n    AN --> AO[ara Operon Transcription]\n    AO --> AP[ara Genes Expressed]\n    AP --> AQ[Arabinose Utilization]\n    \n    %% mal Operons\n    AG --> AR[CRP-cAMP Binds mal Promoters]\n    AR --> AS[mal Operons Transcription]\n    AS --> AT[mal Genes Expressed]\n    AT --> AU[Maltose Utilization]\n    \n    %% Alternative Sugar Metabolism\n    AL --> AV[Alternative Carbon Source Use]\n    AQ --> AV\n    AU --> AV\n    AV --> AW[Slower Growth]\n    AW --> AX[Metabolic Adaptation]\n    \n    %% System Outputs\n    X --> AY[Optimal Glucose Growth]\n    AX --> AZ[Survival on Other Sugars]\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style D fill:#74c0fc,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#ff9f43,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#ff9f43,color:#fff\n    style O fill:#e74c3c,color:#fff\n    style P fill:#51cf66,color:#fff\n    style Q fill:#e74c3c,color:#fff\n    style R fill:#e74c3c,color:#fff\n    style S fill:#e74c3c,color:#fff\n    style T fill:#51cf66,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#7950f2,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#51cf66,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#51cf66,color:#fff\n    style AG fill:#ffd43b,color:#000\n    style AH fill:#74c0fc,color:#fff\n    style ANDGATE1 fill:#7950f2,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#7950f2,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style ANDGATE2 fill:#7950f2,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#7950f2,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#7950f2,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#000000,color:#fff\n    style AX fill:#7950f2,color:#fff\n    style AY fill:#7950f2,color:#fff\n    style AZ fill:#7950f2,color:#fff",
+  "mermaid": "graph TD\n    %% Carbon Source Input\n    A[Glucose in Medium] --> B[PTS Transport System]\n    C[Lactose in Medium] --> D[Lactose Signal]\n    E[Arabinose in Medium] --> F[Arabinose Signal]\n    \n    %% Decision: Glucose Present?\n    B --> G{Glucose Present?}\n    \n    %% High Glucose Path - Catabolite Repression\n    G -->|Yes| H[PEP-Dependent Glucose Transport]\n    H --> I[EIIAGlc Dephosphorylation]\n    I --> J[EIIAGlc-P Depletion]\n    J --> K[Adenylyl Cyclase Inhibition]\n    K --> L[Low cAMP Synthesis]\n    L --> M[Low cAMP Levels]\n    \n    %% Decision: cAMP Levels\n    M --> N{High cAMP?}\n    \n    %% Low cAMP - Repression Active\n    N -->|No| O[\\CRP Inactive Apo-form/]\n    O --> P[No CRP-DNA Binding]\n    P --> Q[\\lac Operon Repressed/]\n    P --> R[\\ara Operon Repressed/]\n    P --> S[\\mal Operons Repressed/]\n    Q --> T[No Lactose Utilization]\n    R --> U[No Arabinose Utilization]\n    S --> V[No Maltose Utilization]\n    T --> W[Glucose-Only Metabolism]\n    U --> W\n    V --> W\n    W --> X[Rapid Growth on Glucose]\n    \n    %% Low Glucose Path - Derepression\n    G -->|No| Y[No PTS Activity]\n    Y --> Z[EIIAGlc Phosphorylation]\n    Z --> AA[EIIAGlc-P Accumulation]\n    AA --> AB[Adenylyl Cyclase Activation]\n    AB --> AC[cAMP Synthesis]\n    AC --> AD[High cAMP Levels]\n    \n    %% cAMP-CRP Complex Formation\n    AD --> N\n    N -->|Yes| AE[cAMP Binds CRP]\n    AE --> AF[CRP Conformational Change]\n    AF --> AG[CRP-cAMP Active Complex]\n    \n    %% AND Gate 1: lac Operon Activation\n    AG --> ANDGATE1{{{CRP-cAMP AND<br/>lac Promoter Available?}}}\n    D --> AH[Lactose Inducer Signal]\n    AH --> ANDGATE1\n    ANDGATE1 -->|Yes| AI[CRP-cAMP Binds lac Promoter]\n    AI --> AJ[lac Operon Transcription]\n    AJ --> AK[lac Genes Expressed]\n    AK --> AL[Lactose Utilization]\n    \n    %% AND Gate 2: ara Operon Activation\n    AG --> ANDGATE2{{{CRP-cAMP AND<br/>ara Promoter Available?}}}\n    F --> AM[Arabinose Inducer Signal]\n    AM --> ANDGATE2\n    ANDGATE2 -->|Yes| AN[CRP-cAMP Binds ara Promoter]\n    AN --> AO[ara Operon Transcription]\n    AO --> AP[ara Genes Expressed]\n    AP --> AQ[Arabinose Utilization]\n    \n    %% mal Operons\n    AG --> AR[CRP-cAMP Binds mal Promoters]\n    AR --> AS[mal Operons Transcription]\n    AS --> AT[mal Genes Expressed]\n    AT --> AU[Maltose Utilization]\n    \n    %% Alternative Sugar Metabolism\n    AL --> AV[Alternative Carbon Source Use]\n    AQ --> AV\n    AU --> AV\n    AV --> AW[Slower Growth]\n    AW --> AX[Metabolic Adaptation]\n    \n    %% System Outputs\n    X --> AY[Optimal Glucose Growth]\n    AX --> AZ[Survival on Other Sugars]\n    \n    %% Styling\n    style A fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#ff9f43,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#ffa07a,color:#000\n    style L fill:#74c0fc,color:#fff\n    style M fill:#ffa07a,color:#000\n    style N fill:#ff9f43,color:#fff\n    style O fill:#e74c3c,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#e74c3c,color:#fff\n    style R fill:#e74c3c,color:#fff\n    style S fill:#e74c3c,color:#fff\n    style T fill:#ffa07a,color:#000\n    style U fill:#ffa07a,color:#000\n    style V fill:#ffa07a,color:#000\n    style W fill:#ffa07a,color:#000\n    style X fill:#000000,color:#fff\n    style Y fill:#ffa07a,color:#000\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#ffa07a,color:#000\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#ffa07a,color:#000\n    style AE fill:#ffa07a,color:#000\n    style AF fill:#ffa07a,color:#000\n    style AG fill:#ffa07a,color:#000\n    style AH fill:#51cf66,color:#fff\n    style ANDGATE1 fill:#7950f2,color:#fff\n    style AI fill:#ffa07a,color:#000\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#ffa07a,color:#000\n    style AL fill:#ffa07a,color:#000\n    style AM fill:#51cf66,color:#fff\n    style ANDGATE2 fill:#7950f2,color:#fff\n    style AN fill:#ffa07a,color:#000\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#ffa07a,color:#000\n    style AQ fill:#ffa07a,color:#000\n    style AR fill:#ffa07a,color:#000\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#ffa07a,color:#000\n    style AU fill:#ffa07a,color:#000\n    style AV fill:#ffa07a,color:#000\n    style AW fill:#000000,color:#fff\n    style AX fill:#000000,color:#fff\n    style AY fill:#000000,color:#fff\n    style AZ fill:#000000,color:#fff",
   "sources": [
     {
       "title": "Catabolite repression and the lac operon",

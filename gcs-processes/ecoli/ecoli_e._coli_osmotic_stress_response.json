@@ -17,43 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Environmental signals, nutrient availability, stress conditions"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "Enzymes, receptor proteins, regulatory complexes"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "Metabolic reactions, signal transduction, gene expression"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Metabolites, signaling molecules, regulatory states"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Decision points with binary branches"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "Multi-condition requirements"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Biomolecules, cellular responses"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    A[High External Osmolarity] --> B[Water Efflux from Cell]\n    B --> C[Decreased Turgor Pressure]\n\n    C --> F[Mechanosensitive Channels Activation]\n    C --> G[KdpFABC Sensor Activation]\n    C --> AY{{Is Turgor Loss Significant?}}\n\n    D[Low Intracellular K+ concentration] --> H[TrkA K+ Transporter Activation]\n    F --> AI[K+ Influx via Channels/Transporters]\n    G --> AI\n    H --> AI\n    AI --> R[Intracellular K+ Accumulation]\n    R --> AU{{Is K+ Accumulation Sufficient?}}\n\n    AY --> |Yes| L[RpoS Activation/Stabilization]\n    AY --> |Yes| K[CosR Activation/Expression]\n    L --> AW{{{{Is RpoS Activated AND CosR Activated?}}}}\n    K --> AW\n\n    E[Environmental signals for PhoP/Q] --> I[PhoQ Sensor Kinase Activation]\n    I --> J[PhoP Response Regulator Phosphorylation]\n    J --> AX{{{{Is PhoP Phosphorylated AND Osmotic Stress Present?}}}}\n\n    AW --> AJ[Transcription of Osmoprotective Genes]\n    AX --> AJ\n    AJ --> AK[Translation of Osmoprotective Proteins]\n\n    G --> S[KdpFABC Expression]\n    S --> AK\n\n    AU --> |No, need more| AV{{Are External Compatible Solutes Available?}}\n    AU --> |Yes, but also| AO[Compatible Solute Accumulation]\n\n    AV --> |Yes| M[BetT/ProU/ProP Transporter Sensing]\n    M --> Y[Choline Uptake]\n    M --> Z[Betaine Uptake]\n    M --> AA[Proline Uptake]\n\n    Y --> AC[Choline]\n    AC --> P[BetA/BetB Enzyme Activity]\n    P --> AL[Choline Oxidation to Betaine]\n    AL --> AF[Betaine]\n    Z --> AF\n    AA --> AE[Proline]\n\n    AV --> |No, synthesize internally| AB[Glutamate Pool]\n    AB --> O[ProB/ProA/ProC Enzyme Activity]\n    O --> AM[Glutamate Conversion to Proline]\n    AM --> AE\n\n    AV --> |No, synthesize internally| N[OtsA/OtsB Enzyme Activity]\n    N --> AN[Glucose-6P & Glucose-1P to Trehalose]\n    AN --> AD[Trehalose]\n\n    AF --> AO\n    AE --> AO\n    AD --> AO\n    AO --> BB[Restored Turgor Pressure]\n    AO --> BC[Maintained Cell Volume]\n    AO --> BD[Enhanced Macromolecular Stability]\n    AO --> AQ[Protein Protection]\n    AO --> AR[DNA Protection]\n\n    AJ --> T[Bet Operon Expression]\n    T --> P\n    AJ --> U[ProP/ProU/PutP Expression]\n    U --> M\n    AJ --> V[OtsA/OtsB Gene Expression]\n    V --> N\n    AJ --> W[ProB/ProA/ProC Gene Expression]\n    W --> O\n    AJ --> X[BetA/BetB Gene Expression]\n    X --> P\n\n    AY --> AZ{{Is Ubiquinone Synthesis Pathway Activated?}}\n    AW --> AZ\n\n    AZ --> |Yes| Q[Ubiquinone Biosynthesis Pathway Activation]\n    Q --> AG[Ubiquinone Precursors]\n    AG --> AT[Ubiquinone Synthesis]\n    AT --> AH[Ubiquinone Pool]\n    AH --> AP[Membrane Stabilization]\n    AP --> BA[Increased Osmotic Stress Tolerance]\n    AP --> BD\n\n    BB --> BE[Cell Survival & Growth]\n    BC --> BE\n    BD --> BE\n    BA --> BE\n    AQ --> BD\n    AR --> BD\n    AK --> AS[Metabolic Flux Rerouting]\n    AS --> BE\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#ffd43b,color:#000\n    style G fill:#ffd43b,color:#000\n    style H fill:#ffd43b,color:#000\n    style I fill:#ffd43b,color:#000\n    style J fill:#ffd43b,color:#000\n    style K fill:#ffd43b,color:#000\n    style L fill:#ffd43b,color:#000\n    style M fill:#ffd43b,color:#000\n    style N fill:#ffd43b,color:#000\n    style O fill:#ffd43b,color:#000\n    style P fill:#ffd43b,color:#000\n    style Q fill:#ffd43b,color:#000\n    style R fill:#74c0fc,color:#000\n    style S fill:#74c0fc,color:#000\n    style T fill:#74c0fc,color:#000\n    style U fill:#74c0fc,color:#000\n    style V fill:#74c0fc,color:#000\n    style W fill:#74c0fc,color:#000\n    style X fill:#74c0fc,color:#000\n    style Y fill:#74c0fc,color:#000\n    style Z fill:#74c0fc,color:#000\n    style AA fill:#74c0fc,color:#000\n    style AB fill:#74c0fc,color:#000\n    style AC fill:#74c0fc,color:#000\n    style AD fill:#74c0fc,color:#000\n    style AE fill:#74c0fc,color:#000\n    style AF fill:#74c0fc,color:#000\n    style AG fill:#74c0fc,color:#000\n    style AH fill:#74c0fc,color:#000\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AP fill:#51cf66,color:#fff\n    style AQ fill:#51cf66,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#51cf66,color:#fff\n    style AU fill:#ff9f43,color:#000\n    style AV fill:#ff9f43,color:#000\n    style AW fill:#7950f2,color:#000\n    style AX fill:#7950f2,color:#000\n    style AY fill:#ff9f43,color:#000\n    style AZ fill:#ff9f43,color:#000\n    style BA fill:#7950f2,color:#000\n    style BB fill:#7950f2,color:#000\n    style BC fill:#7950f2,color:#000\n    style BD fill:#7950f2,color:#000\n    style BE fill:#7950f2,color:#000",
+  "mermaid": "graph TD\n    A[High External Osmolarity] --> B[Water Efflux from Cell]\n    B --> C[Decreased Turgor Pressure]\n\n    C --> F[Mechanosensitive Channels Activation]\n    C --> G[KdpFABC Sensor Activation]\n    C --> AY{{Is Turgor Loss Significant?}}\n\n    D[Low Intracellular K+ concentration] --> H[TrkA K+ Transporter Activation]\n    F --> AI[K+ Influx via Channels/Transporters]\n    G --> AI\n    H --> AI\n    AI --> R[Intracellular K+ Accumulation]\n    R --> AU{{Is K+ Accumulation Sufficient?}}\n\n    AY --> |Yes| L[RpoS Activation/Stabilization]\n    AY --> |Yes| K[CosR Activation/Expression]\n    L --> AW{{{{Is RpoS Activated AND CosR Activated?}}}}\n    K --> AW\n\n    E[Environmental signals for PhoP/Q] --> I[PhoQ Sensor Kinase Activation]\n    I --> J[PhoP Response Regulator Phosphorylation]\n    J --> AX{{{{Is PhoP Phosphorylated AND Osmotic Stress Present?}}}}\n\n    AW --> AJ[Transcription of Osmoprotective Genes]\n    AX --> AJ\n    AJ --> AK[Translation of Osmoprotective Proteins]\n\n    G --> S[KdpFABC Expression]\n    S --> AK\n\n    AU --> |No, need more| AV{{Are External Compatible Solutes Available?}}\n    AU --> |Yes, but also| AO[Compatible Solute Accumulation]\n\n    AV --> |Yes| M[BetT/ProU/ProP Transporter Sensing]\n    M --> Y[Choline Uptake]\n    M --> Z[Betaine Uptake]\n    M --> AA[Proline Uptake]\n\n    Y --> AC[Choline]\n    AC --> P[BetA/BetB Enzyme Activity]\n    P --> AL[Choline Oxidation to Betaine]\n    AL --> AF[Betaine]\n    Z --> AF\n    AA --> AE[Proline]\n\n    AV --> |No, synthesize internally| AB[Glutamate Pool]\n    AB --> O[ProB/ProA/ProC Enzyme Activity]\n    O --> AM[Glutamate Conversion to Proline]\n    AM --> AE\n\n    AV --> |No, synthesize internally| N[OtsA/OtsB Enzyme Activity]\n    N --> AN[Glucose-6P & Glucose-1P to Trehalose]\n    AN --> AD[Trehalose]\n\n    AF --> AO\n    AE --> AO\n    AD --> AO\n    AO --> BB[Restored Turgor Pressure]\n    AO --> BC[Maintained Cell Volume]\n    AO --> BD[Enhanced Macromolecular Stability]\n    AO --> AQ[Protein Protection]\n    AO --> AR[DNA Protection]\n\n    AJ --> T[Bet Operon Expression]\n    T --> P\n    AJ --> U[ProP/ProU/PutP Expression]\n    U --> M\n    AJ --> V[OtsA/OtsB Gene Expression]\n    V --> N\n    AJ --> W[ProB/ProA/ProC Gene Expression]\n    W --> O\n    AJ --> X[BetA/BetB Gene Expression]\n    X --> P\n\n    AY --> AZ{{Is Ubiquinone Synthesis Pathway Activated?}}\n    AW --> AZ\n\n    AZ --> |Yes| Q[Ubiquinone Biosynthesis Pathway Activation]\n    Q --> AG[Ubiquinone Precursors]\n    AG --> AT[Ubiquinone Synthesis]\n    AT --> AH[Ubiquinone Pool]\n    AH --> AP[Membrane Stabilization]\n    AP --> BA[Increased Osmotic Stress Tolerance]\n    AP --> BD\n\n    BB --> BE[Cell Survival & Growth]\n    BC --> BE\n    BD --> BE\n    BA --> BE\n    AQ --> BD\n    AR --> BD\n    AK --> AS[Metabolic Flux Rerouting]\n    AS --> BE\n\n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#fab005,color:#000\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#fab005,color:#000\n    style O fill:#fab005,color:#000\n    style P fill:#fab005,color:#000\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#000000,color:#fff\n    style S fill:#ffa07a,color:#000\n    style T fill:#ffa07a,color:#000\n    style U fill:#ffa07a,color:#000\n    style V fill:#ffa07a,color:#000\n    style W fill:#ffa07a,color:#000\n    style X fill:#ffa07a,color:#000\n    style Y fill:#ffa07a,color:#000\n    style Z fill:#ffa07a,color:#000\n    style AA fill:#ffa07a,color:#000\n    style AB fill:#ffa07a,color:#000\n    style AC fill:#ffa07a,color:#000\n    style AD fill:#ffa07a,color:#000\n    style AE fill:#ffa07a,color:#000\n    style AF fill:#ffa07a,color:#000\n    style AG fill:#ffa07a,color:#000\n    style AH fill:#ffa07a,color:#000\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#fab005,color:#000\n    style AL fill:#ffa07a,color:#000\n    style AM fill:#ffa07a,color:#000\n    style AN fill:#ffa07a,color:#000\n    style AO fill:#ffa07a,color:#000\n    style AP fill:#ffa07a,color:#000\n    style AQ fill:#fab005,color:#000\n    style AR fill:#ffa07a,color:#000\n    style AS fill:#ffa07a,color:#000\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#7950f2,color:#fff\n    style AV fill:#7950f2,color:#fff\n    style AW fill:#7950f2,color:#000\n    style AX fill:#7950f2,color:#000\n    style AY fill:#7950f2,color:#fff\n    style AZ fill:#7950f2,color:#fff\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#ffa07a,color:#000\n    style BC fill:#000000,color:#fff\n    style BD fill:#ffa07a,color:#000\n    style BE fill:#000000,color:#fff",
   "sources": [
     {
       "title": "Osmotic Stress.",

@@ -17,43 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Environmental signals, nutrient availability, stress conditions"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "Enzymes, receptor proteins, regulatory complexes"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "Metabolic reactions, signal transduction, gene expression"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Metabolites, signaling molecules, regulatory states"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Decision points with binary branches"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "Multi-condition requirements"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Biomolecules, cellular responses"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    A[Cell Growth & Metabolism] -->|Produces| B[S-Adenosylmethionine SAM]\n    B --> C[LuxS Synthase]\n    C -->|Synthesizes| D[DPD Precursor]\n    D -->|Spontaneous| E[AI-2 Autoinducer]\n    \n    E -->|Exported| F[Extracellular AI-2]\n    F -->|Accumulates| G{{Population Density?}}\n    G -->|Low| H[Insufficient Signal]\n    G -->|High| I[AI-2 Threshold Reached]\n    \n    I --> J[AI-2 Import via Lsr Transport]\n    J --> K[LsrK Kinase]\n    K -->|Phosphorylates| L[AI-2-P]\n    \n    L --> M{{Regulatory Branch Point?}}\n    M -->|Path 1| N[LsrR Repressor Binding]\n    M -->|Path 2| O[LsrACDB Operon]\n    \n    N -->|AI-2-P Binds| P[LsrR Inactivation]\n    P --> Q[Derepression of lsr Operon]\n    Q --> R[Positive Feedback Loop]\n    R --> O\n    \n    O --> S[AI-2 Processing & Degradation]\n    \n    I --> T[QseBC Two-Component System]\n    T --> U[QseB Response Regulator]\n    U -->|Phosphorylated| V{{Target Gene Activation?}}\n    \n    V -->|Target 1| W[Motility Genes]\n    V -->|Target 2| X[Virulence Factors]\n    V -->|Target 3| Y[Biofilm Formation]\n    \n    W --> Z[Flagellar Expression]\n    X --> AA[LEE Pathogenicity Island]\n    Y --> AB[Curli & Fimbriae Production]\n    \n    I --> AC[SdiA Receptor]\n    AC -->|Detects AHLs| AD{{AHL Signal Present?}}\n    AD -->|Yes| AE[SdiA Activation]\n    AD -->|No| AF[Basal State]\n    \n    AE --> AG[ftsQAZ Operon Regulation]\n    AG --> AH[Cell Division Modulation]\n    \n    I --> AI{{Integration with Other Systems?}}\n    AI -->|cAMP-CRP| AJ[Catabolite Repression]\n    AI -->|RpoS| AK[Stationary Phase Response]\n    AI -->|H-NS| AL[Nucleoid Structuring]\n    \n    AJ --> AM[Metabolic Adaptation]\n    AK --> AN[Stress Resistance]\n    AL --> AO[Gene Silencing]\n    \n    AB --> AP{{Biofilm Maturity?}}\n    AP -->|Immature| AQ[Matrix Production]\n    AP -->|Mature| AR[Biofilm Architecture]\n    \n    AQ --> AS[Polysaccharide Synthesis]\n    AS --> AT[Cellulose & Colanic Acid]\n    AT --> AR\n    \n    AR --> AU[Protected Community]\n    AU --> AV[Enhanced Survival]\n    \n    S --> AW[Signal Turnover]\n    AW --> AX{{Continue QS?}}\n    AX -->|Yes| E\n    AX -->|No| AY[Return to Basal State]\n    \n    style A fill:#000000,color:#fff\n    style B fill:#74c0fc,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#74c0fc,color:#000\n    style E fill:#74c0fc,color:#000\n    style F fill:#74c0fc,color:#000\n    style G fill:#ff9f43,color:#000\n    style H fill:#74c0fc,color:#000\n    style I fill:#74c0fc,color:#000\n    style J fill:#51cf66,color:#fff\n    style K fill:#ffd43b,color:#000\n    style L fill:#74c0fc,color:#000\n    style M fill:#ff9f43,color:#000\n    style N fill:#ffd43b,color:#000\n    style O fill:#51cf66,color:#fff\n    style P fill:#51cf66,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#51cf66,color:#fff\n    style T fill:#ffd43b,color:#000\n    style U fill:#ffd43b,color:#000\n    style V fill:#ff9f43,color:#000\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#7950f2,color:#fff\n    style AA fill:#7950f2,color:#fff\n    style AB fill:#7950f2,color:#fff\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#ff9f43,color:#000\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#74c0fc,color:#000\n    style AG fill:#51cf66,color:#fff\n    style AH fill:#7950f2,color:#fff\n    style AI fill:#7950f2,color:#000\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#7950f2,color:#fff\n    style AN fill:#7950f2,color:#fff\n    style AO fill:#7950f2,color:#fff\n    style AP fill:#ff9f43,color:#000\n    style AQ fill:#51cf66,color:#fff\n    style AR fill:#7950f2,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#74c0fc,color:#000\n    style AU fill:#7950f2,color:#fff\n    style AV fill:#7950f2,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#ff9f43,color:#000\n    style AY fill:#74c0fc,color:#000",
+  "mermaid": "graph TD\n    A[Cell Growth & Metabolism] -->|Produces| B[S-Adenosylmethionine SAM]\n    B --> C[LuxS Synthase]\n    C -->|Synthesizes| D[DPD Precursor]\n    D -->|Spontaneous| E[AI-2 Autoinducer]\n    \n    E -->|Exported| F[Extracellular AI-2]\n    F -->|Accumulates| G{{Population Density?}}\n    G -->|Low| H[Insufficient Signal]\n    G -->|High| I[AI-2 Threshold Reached]\n    \n    I --> J[AI-2 Import via Lsr Transport]\n    J --> K[LsrK Kinase]\n    K -->|Phosphorylates| L[AI-2-P]\n    \n    L --> M{{Regulatory Branch Point?}}\n    M -->|Path 1| N[LsrR Repressor Binding]\n    M -->|Path 2| O[LsrACDB Operon]\n    \n    N -->|AI-2-P Binds| P[LsrR Inactivation]\n    P --> Q[Derepression of lsr Operon]\n    Q --> R[Positive Feedback Loop]\n    R --> O\n    \n    O --> S[AI-2 Processing & Degradation]\n    \n    I --> T[QseBC Two-Component System]\n    T --> U[QseB Response Regulator]\n    U -->|Phosphorylated| V{{Target Gene Activation?}}\n    \n    V -->|Target 1| W[Motility Genes]\n    V -->|Target 2| X[Virulence Factors]\n    V -->|Target 3| Y[Biofilm Formation]\n    \n    W --> Z[Flagellar Expression]\n    X --> AA[LEE Pathogenicity Island]\n    Y --> AB[Curli & Fimbriae Production]\n    \n    I --> AC[SdiA Receptor]\n    AC -->|Detects AHLs| AD{{AHL Signal Present?}}\n    AD -->|Yes| AE[SdiA Activation]\n    AD -->|No| AF[Basal State]\n    \n    AE --> AG[ftsQAZ Operon Regulation]\n    AG --> AH[Cell Division Modulation]\n    \n    I --> AI{{Integration with Other Systems?}}\n    AI -->|cAMP-CRP| AJ[Catabolite Repression]\n    AI -->|RpoS| AK[Stationary Phase Response]\n    AI -->|H-NS| AL[Nucleoid Structuring]\n    \n    AJ --> AM[Metabolic Adaptation]\n    AK --> AN[Stress Resistance]\n    AL --> AO[Gene Silencing]\n    \n    AB --> AP{{Biofilm Maturity?}}\n    AP -->|Immature| AQ[Matrix Production]\n    AP -->|Mature| AR[Biofilm Architecture]\n    \n    AQ --> AS[Polysaccharide Synthesis]\n    AS --> AT[Cellulose & Colanic Acid]\n    AT --> AR\n    \n    AR --> AU[Protected Community]\n    AU --> AV[Enhanced Survival]\n    \n    S --> AW[Signal Turnover]\n    AW --> AX{{Continue QS?}}\n    AX -->|Yes| E\n    AX -->|No| AY[Return to Basal State]\n    \n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#000000,color:#fff\n    style G fill:#7950f2,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#ffa07a,color:#000\n    style J fill:#74c0fc,color:#fff\n    style K fill:#fab005,color:#000\n    style L fill:#ffa07a,color:#000\n    style M fill:#7950f2,color:#fff\n    style N fill:#fab005,color:#000\n    style O fill:#ffa07a,color:#000\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#ffa07a,color:#000\n    style R fill:#ffa07a,color:#000\n    style S fill:#74c0fc,color:#fff\n    style T fill:#ffa07a,color:#000\n    style U fill:#000000,color:#fff\n    style V fill:#7950f2,color:#fff\n    style W fill:#ffa07a,color:#000\n    style X fill:#fab005,color:#000\n    style Y fill:#ffa07a,color:#000\n    style Z fill:#ffa07a,color:#000\n    style AA fill:#ffa07a,color:#000\n    style AB fill:#000000,color:#fff\n    style AC fill:#ffa07a,color:#000\n    style AD fill:#7950f2,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#ffa07a,color:#000\n    style AG fill:#ffa07a,color:#000\n    style AH fill:#000000,color:#fff\n    style AI fill:#7950f2,color:#000\n    style AJ fill:#ffa07a,color:#000\n    style AK fill:#000000,color:#fff\n    style AL fill:#ffa07a,color:#000\n    style AM fill:#000000,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#ffa07a,color:#000\n    style AP fill:#7950f2,color:#fff\n    style AQ fill:#000000,color:#fff\n    style AR fill:#ffa07a,color:#000\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#000000,color:#fff\n    style AU fill:#ffa07a,color:#000\n    style AV fill:#000000,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#7950f2,color:#fff\n    style AY fill:#ffa07a,color:#000",
   "sources": [
     {
       "title": "Quorum sensing architecture network in Escherichia coli virulence and pathogenesis",

@@ -17,43 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Amino acid starvation, nutrient limitation"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "RelA, SpoT, RNA polymerase, ribosomes, tRNA"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "(p)ppGpp synthesis, transcription regulation, metabolism shifts"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Uncharged tRNA, ppGpp, pppGpp, mRNA"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Amino acid availability check, ppGpp level assessment"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "RelA activation requires both uncharged tRNA AND ribosome stalling"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Metabolic reprogramming, survival mode, stress resistance"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    %% Amino Acid Starvation Input\n    A[Amino Acid Limitation] --> B[Reduced Charged tRNA Pool]\n    C[Translation Stress] --> B\n    \n    %% tRNA Charging Imbalance\n    B --> D[Increased Uncharged tRNA]\n    D --> E[tRNA Charging Failure]\n    E --> F[Ribosome Stalling]\n    \n    %% Decision: Uncharged tRNA Present?\n    F --> G{Uncharged tRNA<br/>at A-site?}\n    \n    %% AND Gate: RelA Activation\n    G -->|Yes| ANDGATE1{{{Uncharged tRNA AND<br/>Ribosome Stalled?}}}\n    H[Ribosomal A-site] --> ANDGATE1\n    \n    %% RelA Activation\n    ANDGATE1 -->|Yes| I[RelA Binds Ribosome]\n    I --> J[RelA Conformational Change]\n    J --> K[RelA Synthetase Activation]\n    \n    %% (p)ppGpp Synthesis\n    K --> L[ATP Substrate Binding]\n    L --> M[GTP/GDP Substrate Binding]\n    M --> N[Phosphotransfer Reaction]\n    N --> O[pppGpp Synthesis]\n    N --> P[ppGpp Synthesis]\n    O --> Q[ppGpp/pppGpp Accumulation]\n    P --> Q\n    \n    %% Decision: ppGpp Levels\n    Q --> R{High ppGpp?}\n    \n    %% AND Gate: RNAP Regulation\n    R -->|Yes| ANDGATE2{{{ppGpp AND<br/>DksA Present?}}}\n    S[DksA Cofactor] --> ANDGATE2\n    \n    %% RNAP-ppGpp Complex\n    ANDGATE2 -->|Yes| T[ppGpp Binds RNAP]\n    T --> U[DksA Binds RNAP]\n    U --> V[RNAP Conformational Change]\n    \n    %% Stable RNA Repression\n    V --> W[rRNA Promoter Destabilization]\n    V --> X[tRNA Promoter Destabilization]\n    W --> Y[Reduced rRNA Transcription]\n    X --> Z[Reduced tRNA Transcription]\n    Y --> AA[Decreased Ribosome Synthesis]\n    Z --> AB[Decreased Translation Capacity]\n    AA --> AC[Growth Slowdown]\n    AB --> AC\n    \n    %% Amino Acid Biosynthesis Activation\n    V --> AD[Amino Acid Operon Activation]\n    AD --> AE[trp Operon Induction]\n    AD --> AF[his Operon Induction]\n    AD --> AG[ile Operon Induction]\n    AE --> AH[Tryptophan Biosynthesis]\n    AF --> AI[Histidine Biosynthesis]\n    AG --> AJ[Isoleucine Biosynthesis]\n    \n    %% Stress Gene Activation\n    V --> AK[Stress Response Gene Activation]\n    AK --> AL[rpoS Induction]\n    AK --> AM[Stationary Phase Genes]\n    AL --> AN[σS Alternative Sigma Factor]\n    AN --> AO[General Stress Response]\n    AM --> AP[Metabolic Adaptation]\n    \n    %% Amino Acid Pool Restoration\n    AH --> AQ[Amino Acid Pool Increase]\n    AI --> AQ\n    AJ --> AQ\n    AQ --> AR[tRNA Charging Restored]\n    AR --> AS[Translation Resumes]\n    \n    %% ppGpp Degradation\n    AS --> AT[RelA Dissociates from Ribosome]\n    AT --> AU[SpoT Hydrolase Activity]\n    AU --> AV[ppGpp Degradation]\n    AV --> AW[Basal ppGpp Levels]\n    AW --> AX[rRNA Transcription Restored]\n    AX --> AY[Growth Resumption]\n    \n    %% Normal Growth Path\n    G -->|No| AZ[Normal tRNA Charging]\n    AZ --> BA[Low ppGpp Levels]\n    BA --> BB[High rRNA/tRNA Transcription]\n    BB --> BC[Rapid Ribosome Synthesis]\n    BC --> BD[Fast Growth]\n    \n    %% System Outputs\n    AC --> BE[Survival Mode]\n    AO --> BF[Stress Resistance]\n    AP --> BG[Metabolic Remodeling]\n    AY --> BH[Growth Recovery]\n    BD --> BI[Optimal Growth]\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#ff9f43,color:#fff\n    style H fill:#ffd43b,color:#000\n    style ANDGATE1 fill:#7950f2,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#51cf66,color:#fff\n    style N fill:#51cf66,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#ff9f43,color:#fff\n    style S fill:#ffd43b,color:#000\n    style ANDGATE2 fill:#7950f2,color:#fff\n    style T fill:#51cf66,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#7950f2,color:#fff\n    style AD fill:#51cf66,color:#fff\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#51cf66,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#ffd43b,color:#000\n    style AO fill:#7950f2,color:#fff\n    style AP fill:#7950f2,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#51cf66,color:#fff\n    style AU fill:#51cf66,color:#fff\n    style AV fill:#51cf66,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AX fill:#51cf66,color:#fff\n    style AY fill:#7950f2,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#51cf66,color:#fff\n    style BC fill:#51cf66,color:#fff\n    style BD fill:#7950f2,color:#fff\n    style BE fill:#7950f2,color:#fff\n    style BF fill:#7950f2,color:#fff\n    style BG fill:#7950f2,color:#fff\n    style BH fill:#7950f2,color:#fff\n    style BI fill:#7950f2,color:#fff",
+  "mermaid": "graph TD\n    %% Amino Acid Starvation Input\n    A[Amino Acid Limitation] --> B[Reduced Charged tRNA Pool]\n    C[Translation Stress] --> B\n    \n    %% tRNA Charging Imbalance\n    B --> D[Increased Uncharged tRNA]\n    D --> E[tRNA Charging Failure]\n    E --> F[Ribosome Stalling]\n    \n    %% Decision: Uncharged tRNA Present?\n    F --> G{Uncharged tRNA<br/>at A-site?}\n    \n    %% AND Gate: RelA Activation\n    G -->|Yes| ANDGATE1{{{Uncharged tRNA AND<br/>Ribosome Stalled?}}}\n    H[Ribosomal A-site] --> ANDGATE1\n    \n    %% RelA Activation\n    ANDGATE1 -->|Yes| I[RelA Binds Ribosome]\n    I --> J[RelA Conformational Change]\n    J --> K[RelA Synthetase Activation]\n    \n    %% (p)ppGpp Synthesis\n    K --> L[ATP Substrate Binding]\n    L --> M[GTP/GDP Substrate Binding]\n    M --> N[Phosphotransfer Reaction]\n    N --> O[pppGpp Synthesis]\n    N --> P[ppGpp Synthesis]\n    O --> Q[ppGpp/pppGpp Accumulation]\n    P --> Q\n    \n    %% Decision: ppGpp Levels\n    Q --> R{High ppGpp?}\n    \n    %% AND Gate: RNAP Regulation\n    R -->|Yes| ANDGATE2{{{ppGpp AND<br/>DksA Present?}}}\n    S[DksA Cofactor] --> ANDGATE2\n    \n    %% RNAP-ppGpp Complex\n    ANDGATE2 -->|Yes| T[ppGpp Binds RNAP]\n    T --> U[DksA Binds RNAP]\n    U --> V[RNAP Conformational Change]\n    \n    %% Stable RNA Repression\n    V --> W[rRNA Promoter Destabilization]\n    V --> X[tRNA Promoter Destabilization]\n    W --> Y[Reduced rRNA Transcription]\n    X --> Z[Reduced tRNA Transcription]\n    Y --> AA[Decreased Ribosome Synthesis]\n    Z --> AB[Decreased Translation Capacity]\n    AA --> AC[Growth Slowdown]\n    AB --> AC\n    \n    %% Amino Acid Biosynthesis Activation\n    V --> AD[Amino Acid Operon Activation]\n    AD --> AE[trp Operon Induction]\n    AD --> AF[his Operon Induction]\n    AD --> AG[ile Operon Induction]\n    AE --> AH[Tryptophan Biosynthesis]\n    AF --> AI[Histidine Biosynthesis]\n    AG --> AJ[Isoleucine Biosynthesis]\n    \n    %% Stress Gene Activation\n    V --> AK[Stress Response Gene Activation]\n    AK --> AL[rpoS Induction]\n    AK --> AM[Stationary Phase Genes]\n    AL --> AN[σS Alternative Sigma Factor]\n    AN --> AO[General Stress Response]\n    AM --> AP[Metabolic Adaptation]\n    \n    %% Amino Acid Pool Restoration\n    AH --> AQ[Amino Acid Pool Increase]\n    AI --> AQ\n    AJ --> AQ\n    AQ --> AR[tRNA Charging Restored]\n    AR --> AS[Translation Resumes]\n    \n    %% ppGpp Degradation\n    AS --> AT[RelA Dissociates from Ribosome]\n    AT --> AU[SpoT Hydrolase Activity]\n    AU --> AV[ppGpp Degradation]\n    AV --> AW[Basal ppGpp Levels]\n    AW --> AX[rRNA Transcription Restored]\n    AX --> AY[Growth Resumption]\n    \n    %% Normal Growth Path\n    G -->|No| AZ[Normal tRNA Charging]\n    AZ --> BA[Low ppGpp Levels]\n    BA --> BB[High rRNA/tRNA Transcription]\n    BB --> BC[Rapid Ribosome Synthesis]\n    BC --> BD[Fast Growth]\n    \n    %% System Outputs\n    AC --> BE[Survival Mode]\n    AO --> BF[Stress Resistance]\n    AP --> BG[Metabolic Remodeling]\n    AY --> BH[Growth Recovery]\n    BD --> BI[Optimal Growth]\n    \n    %% Styling\n    style A fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#ffa07a,color:#000\n    style G fill:#ff9f43,color:#fff\n    style H fill:#ffa07a,color:#000\n    style ANDGATE1 fill:#7950f2,color:#fff\n    style I fill:#ffa07a,color:#000\n    style J fill:#ffa07a,color:#000\n    style K fill:#fab005,color:#000\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#ffa07a,color:#000\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#ffa07a,color:#000\n    style R fill:#ff9f43,color:#fff\n    style S fill:#fab005,color:#000\n    style ANDGATE2 fill:#7950f2,color:#fff\n    style T fill:#ffa07a,color:#000\n    style U fill:#ffa07a,color:#000\n    style V fill:#ffa07a,color:#000\n    style W fill:#ffa07a,color:#000\n    style X fill:#ffa07a,color:#000\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#000000,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#ffa07a,color:#000\n    style AF fill:#ffa07a,color:#000\n    style AG fill:#ffa07a,color:#000\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#ffa07a,color:#000\n    style AM fill:#ffa07a,color:#000\n    style AN fill:#fab005,color:#000\n    style AO fill:#51cf66,color:#fff\n    style AP fill:#000000,color:#fff\n    style AQ fill:#ffa07a,color:#000\n    style AR fill:#ffa07a,color:#000\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#ffa07a,color:#000\n    style AU fill:#fab005,color:#000\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#ffa07a,color:#000\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#000000,color:#fff\n    style AZ fill:#ffa07a,color:#000\n    style BA fill:#ffa07a,color:#000\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#000000,color:#fff\n    style BE fill:#000000,color:#fff\n    style BF fill:#51cf66,color:#fff\n    style BG fill:#ffa07a,color:#000\n    style BH fill:#000000,color:#fff\n    style BI fill:#000000,color:#fff",
   "sources": [
     {
       "title": "ppGpp: still magical?",

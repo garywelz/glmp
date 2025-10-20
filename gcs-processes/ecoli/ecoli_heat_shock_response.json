@@ -17,43 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Heat stress, protein-damaging conditions"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "σ32, chaperones (DnaK, DnaJ, GroEL), proteases"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "Transcription, translation, protein folding, degradation"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Misfolded proteins, mRNA, chaperone complexes"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Temperature check, protein folding state assessment"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "Chaperone titration requires both misfolded proteins AND DnaK availability"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Proteostasis restoration, cellular survival"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    %% Heat Stress Input\n    A[Heat Stress] --> B[Temperature Increase]\n    C[Chemical Stress] --> B\n    \n    %% Decision: Temperature Check\n    B --> D{Temperature >37°C?}\n    \n    %% Protein Denaturation\n    D -->|Yes| E[Protein Denaturation]\n    E --> F[Misfolded Proteins]\n    F --> G[Hydrophobic Exposure]\n    G --> H[Protein Aggregation Risk]\n    \n    %% σ32 Stabilization\n    H --> I[DnaK-DnaJ System Titration]\n    I --> J[σ32 Release from DnaK]\n    J --> K[σ32 Stabilization]\n    K --> L[σ32 Accumulation]\n    \n    %% Translation Enhancement\n    L --> M[rpoH mRNA Secondary Structure]\n    H --> N[mRNA Unfolding at High Temp]\n    N --> O[Increased Translation]\n    O --> P[More σ32 Protein]\n    P --> L\n    \n    %% RNA Polymerase Recruitment\n    L --> Q[σ32 Binds Core RNAP]\n    Q --> R[RNAP-σ32 Holoenzyme]\n    \n    %% Heat Shock Gene Transcription\n    R --> S[Recognition of Heat Shock Promoters]\n    S --> T[dnaK Gene Transcription]\n    S --> U[dnaJ Gene Transcription]\n    S --> V[grpE Gene Transcription]\n    S --> W[groEL Gene Transcription]\n    S --> X[groES Gene Transcription]\n    S --> Y[lon Gene Transcription]\n    \n    %% Chaperone Protein Production\n    T --> Z[dnaK mRNA]\n    U --> AA[dnaJ mRNA]\n    V --> AB[grpE mRNA]\n    W --> AC[groEL mRNA]\n    X --> AD[groES mRNA]\n    Y --> AE[lon mRNA]\n    \n    Z --> AF[DnaK Translation]\n    AA --> AG[DnaJ Translation]\n    AB --> AH[GrpE Translation]\n    AC --> AI[GroEL Translation]\n    AD --> AJ[GroES Translation]\n    AE --> AK[Lon Protease Translation]\n    \n    AF --> AL[DnaK Chaperone]\n    AG --> AM[DnaJ Co-chaperone]\n    AH --> AN[GrpE Nucleotide Exchange]\n    AI --> AO[GroEL Chaperonin]\n    AJ --> AP[GroES Co-chaperonin]\n    AK --> AQ[Lon Protease]\n    \n    %% AND Gate 1: DnaK-DnaJ System Requires Both Components\n    AL --> ANDGATE1{{{DnaK AND DnaJ<br/>Both Present?}}}\n    AM --> ANDGATE1\n    ANDGATE1 -->|Yes| AR[DnaK-DnaJ Complex]\n    AN --> AR\n    AR --> AS[Substrate Recognition]\n    AS --> AT[ATP-Dependent Folding]\n    AT --> AU[Protein Refolding]\n    \n    %% AND Gate 2: GroEL-GroES System\n    AO --> ANDGATE2{{{GroEL AND GroES<br/>Both Present?}}}\n    AP --> ANDGATE2\n    ANDGATE2 -->|Yes| AV[GroEL-GroES Complex]\n    AV --> AW[Substrate Encapsulation]\n    AW --> AX[Protected Folding]\n    AX --> AY[Protein Refolding]\n    \n    %% Protein Degradation\n    AQ --> AZ[Irreversibly Damaged Proteins]\n    AZ --> BA[Proteolytic Degradation]\n    \n    %% Feedback Regulation\n    AU --> BB[Native Proteins Restored]\n    AY --> BB\n    BA --> BB\n    BB --> BC[DnaK No Longer Titrated]\n    BC --> BD[DnaK Binds σ32]\n    BD --> BE[σ32 Degradation by FtsH]\n    BE --> BF[Heat Shock Response Off]\n    \n    %% Normal Temperature Path\n    D -->|No| BG[Normal Protein Folding]\n    BG --> BH[σ32 Bound to DnaK]\n    BH --> BI[Low Heat Shock Gene Expression]\n    BI --> BJ[Basal Chaperone Levels]\n    \n    %% System Output\n    BF --> BK[Proteostasis Restored]\n    BJ --> BL[Normal Cell Function]\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#ff9f43,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#51cf66,color:#fff\n    style O fill:#51cf66,color:#fff\n    style P fill:#ffd43b,color:#000\n    style Q fill:#51cf66,color:#fff\n    style R fill:#ffd43b,color:#000\n    style S fill:#51cf66,color:#fff\n    style T fill:#51cf66,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#51cf66,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#ffd43b,color:#000\n    style AM fill:#ffd43b,color:#000\n    style AN fill:#ffd43b,color:#000\n    style AO fill:#ffd43b,color:#000\n    style AP fill:#ffd43b,color:#000\n    style AQ fill:#ffd43b,color:#000\n    style ANDGATE1 fill:#7950f2,color:#fff\n    style AR fill:#ffd43b,color:#000\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#51cf66,color:#fff\n    style AU fill:#7950f2,color:#fff\n    style ANDGATE2 fill:#7950f2,color:#fff\n    style AV fill:#ffd43b,color:#000\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#51cf66,color:#fff\n    style AY fill:#7950f2,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#51cf66,color:#fff\n    style BD fill:#51cf66,color:#fff\n    style BE fill:#51cf66,color:#fff\n    style BF fill:#7950f2,color:#fff\n    style BG fill:#51cf66,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#51cf66,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#7950f2,color:#fff\n    style BL fill:#7950f2,color:#fff",
+  "mermaid": "graph TD\n    %% Heat Stress Input\n    A[Heat Stress] --> B[Temperature Increase]\n    C[Chemical Stress] --> B\n    \n    %% Decision: Temperature Check\n    B --> D{Temperature >37°C?}\n    \n    %% Protein Denaturation\n    D -->|Yes| E[Protein Denaturation]\n    E --> F[Misfolded Proteins]\n    F --> G[Hydrophobic Exposure]\n    G --> H[Protein Aggregation Risk]\n    \n    %% σ32 Stabilization\n    H --> I[DnaK-DnaJ System Titration]\n    I --> J[σ32 Release from DnaK]\n    J --> K[σ32 Stabilization]\n    K --> L[σ32 Accumulation]\n    \n    %% Translation Enhancement\n    L --> M[rpoH mRNA Secondary Structure]\n    H --> N[mRNA Unfolding at High Temp]\n    N --> O[Increased Translation]\n    O --> P[More σ32 Protein]\n    P --> L\n    \n    %% RNA Polymerase Recruitment\n    L --> Q[σ32 Binds Core RNAP]\n    Q --> R[RNAP-σ32 Holoenzyme]\n    \n    %% Heat Shock Gene Transcription\n    R --> S[Recognition of Heat Shock Promoters]\n    S --> T[dnaK Gene Transcription]\n    S --> U[dnaJ Gene Transcription]\n    S --> V[grpE Gene Transcription]\n    S --> W[groEL Gene Transcription]\n    S --> X[groES Gene Transcription]\n    S --> Y[lon Gene Transcription]\n    \n    %% Chaperone Protein Production\n    T --> Z[dnaK mRNA]\n    U --> AA[dnaJ mRNA]\n    V --> AB[grpE mRNA]\n    W --> AC[groEL mRNA]\n    X --> AD[groES mRNA]\n    Y --> AE[lon mRNA]\n    \n    Z --> AF[DnaK Translation]\n    AA --> AG[DnaJ Translation]\n    AB --> AH[GrpE Translation]\n    AC --> AI[GroEL Translation]\n    AD --> AJ[GroES Translation]\n    AE --> AK[Lon Protease Translation]\n    \n    AF --> AL[DnaK Chaperone]\n    AG --> AM[DnaJ Co-chaperone]\n    AH --> AN[GrpE Nucleotide Exchange]\n    AI --> AO[GroEL Chaperonin]\n    AJ --> AP[GroES Co-chaperonin]\n    AK --> AQ[Lon Protease]\n    \n    %% AND Gate 1: DnaK-DnaJ System Requires Both Components\n    AL --> ANDGATE1{{{DnaK AND DnaJ<br/>Both Present?}}}\n    AM --> ANDGATE1\n    ANDGATE1 -->|Yes| AR[DnaK-DnaJ Complex]\n    AN --> AR\n    AR --> AS[Substrate Recognition]\n    AS --> AT[ATP-Dependent Folding]\n    AT --> AU[Protein Refolding]\n    \n    %% AND Gate 2: GroEL-GroES System\n    AO --> ANDGATE2{{{GroEL AND GroES<br/>Both Present?}}}\n    AP --> ANDGATE2\n    ANDGATE2 -->|Yes| AV[GroEL-GroES Complex]\n    AV --> AW[Substrate Encapsulation]\n    AW --> AX[Protected Folding]\n    AX --> AY[Protein Refolding]\n    \n    %% Protein Degradation\n    AQ --> AZ[Irreversibly Damaged Proteins]\n    AZ --> BA[Proteolytic Degradation]\n    \n    %% Feedback Regulation\n    AU --> BB[Native Proteins Restored]\n    AY --> BB\n    BA --> BB\n    BB --> BC[DnaK No Longer Titrated]\n    BC --> BD[DnaK Binds σ32]\n    BD --> BE[σ32 Degradation by FtsH]\n    BE --> BF[Heat Shock Response Off]\n    \n    %% Normal Temperature Path\n    D -->|No| BG[Normal Protein Folding]\n    BG --> BH[σ32 Bound to DnaK]\n    BH --> BI[Low Heat Shock Gene Expression]\n    BI --> BJ[Basal Chaperone Levels]\n    \n    %% System Output\n    BF --> BK[Proteostasis Restored]\n    BJ --> BL[Normal Cell Function]\n    \n    %% Styling\n    style A fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#ff9f43,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#fab005,color:#000\n    style G fill:#ffa07a,color:#000\n    style H fill:#fab005,color:#000\n    style I fill:#ffa07a,color:#000\n    style J fill:#ffa07a,color:#000\n    style K fill:#ffa07a,color:#000\n    style L fill:#ffa07a,color:#000\n    style M fill:#ffa07a,color:#000\n    style N fill:#ffa07a,color:#000\n    style O fill:#74c0fc,color:#fff\n    style P fill:#fab005,color:#000\n    style Q fill:#ffa07a,color:#000\n    style R fill:#fab005,color:#000\n    style S fill:#51cf66,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#ffa07a,color:#000\n    style AA fill:#ffa07a,color:#000\n    style AB fill:#ffa07a,color:#000\n    style AC fill:#ffa07a,color:#000\n    style AD fill:#ffa07a,color:#000\n    style AE fill:#ffa07a,color:#000\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#fab005,color:#000\n    style AL fill:#ffa07a,color:#000\n    style AM fill:#ffa07a,color:#000\n    style AN fill:#ffa07a,color:#000\n    style AO fill:#ffa07a,color:#000\n    style AP fill:#ffa07a,color:#000\n    style AQ fill:#fab005,color:#000\n    style ANDGATE1 fill:#7950f2,color:#fff\n    style AR fill:#ffa07a,color:#000\n    style AS fill:#ffa07a,color:#000\n    style AT fill:#ffa07a,color:#000\n    style AU fill:#fab005,color:#000\n    style ANDGATE2 fill:#7950f2,color:#fff\n    style AV fill:#ffa07a,color:#000\n    style AW fill:#ffa07a,color:#000\n    style AX fill:#ffa07a,color:#000\n    style AY fill:#fab005,color:#000\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#fab005,color:#000\n    style BC fill:#ffa07a,color:#000\n    style BD fill:#ffa07a,color:#000\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#51cf66,color:#fff\n    style BG fill:#fab005,color:#000\n    style BH fill:#ffa07a,color:#000\n    style BI fill:#51cf66,color:#fff\n    style BJ fill:#ffa07a,color:#000\n    style BK fill:#ffa07a,color:#000\n    style BL fill:#000000,color:#fff",
   "sources": [
     {
       "title": "Regulation of the heat shock response",

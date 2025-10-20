@@ -17,43 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs",
-      "description": "Fork convergence signals, completion triggers"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects",
-      "description": "Tus protein, topoisomerases, XerCD recombinase"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations",
-      "description": "Fork arrest, decatenation, resolution"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States",
-      "description": "Termination intermediates, catenanes"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
       "category": "OR Logic Gates",
-      "description": "Decision points in termination pathway"
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
+    "purple": {
+      "hex": "#7950f2",
       "category": "AND Logic Gates",
-      "description": "Multi-condition requirements for completion"
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#b197fc",
-      "category": "Products & Outputs",
-      "description": "Separated chromosomes, completed replication"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    A[Opposing Replication Forks] --> B[Convergence in Terminus Region]\n    B --> C{{Ter Site Encounter?}}\n    \n    C -->|TerA-J Sites Present| D[Tus Protein Binding]\n    C -->|No Ter Sites| E[Continue Until Collision]\n    \n    D --> F[Tus-Ter Complex Formation]\n    F --> G{{Fork Orientation?}}\n    \n    G -->|Permissive| H[Fork Passes Through]\n    G -->|Non-permissive| I[Fork Arrest]\n    \n    I --> J[Replication Fork Pausing]\n    H --> B\n    E --> K[Direct Fork Collision]\n    \n    J --> L{{Opposing Fork Arrives?}}\n    K --> L\n    L -->|Yes| M[Fork Convergence Complete]\n    L -->|No| N[Wait State]\n    \n    M --> O{{Replication Completion Check?}}\n    O -->|Leading Strands Meet| P[Final Synthesis]\n    O -->|Gap Remaining| Q[Gap Filling]\n    \n    Q --> R[DNA Pol I]\n    R --> S[Nick Translation]\n    S --> T[DNA Ligase]\n    T --> P\n    \n    P --> U{{Replisome Disassembly?}}\n    U -->|Signal| V[Pol III Dissociation]\n    V --> W[Helicase Release]\n    W --> X[Primase Dissociation]\n    X --> Y[Clamp Loader Release]\n    \n    Y --> Z{{Sister Chromosomes Status?}}\n    Z -->|Catenated| AA[Topological Linkage]\n    Z -->|Free| AB[Skip Decatenation]\n    \n    AA --> AC[Topoisomerase IV Recognition]\n    AC --> AD{{ParC-ParE Activity?}}\n    AD -->|Active| AE[Decatenation Reaction]\n    AD -->|Inhibited| AF[\\Delayed Resolution/]\n    \n    AE --> AG[ATP Hydrolysis]\n    AG --> AH[DNA Strand Passage]\n    AH --> AI[Catenane Resolution]\n    AI --> AJ{{Complete Separation?}}\n    AJ -->|No| AE\n    AJ -->|Yes| AK[Free Sister Chromosomes]\n    \n    %% Chromosome Dimer Resolution\n    AK --> AL{{Chromosome Dimer?}}\n    AL -->|Yes Dimer| AM[XerC-XerD Recognition]\n    AL -->|No Dimer| AN[Monomeric Chromosomes]\n    \n    AM --> AO[dif Site Binding]\n    AO --> AP[FtsK Translocation]\n    AP --> AQ{{FtsK at dif?}}\n    AQ -->|Yes| AR[XerCD Activation]\n    AQ -->|No| AS[Continue Transport]\n    \n    AR --> AT{{Recombination Conditions?}}\n    AT -->|Both XerCD AND FtsK| AU[Strand Exchange]\n    AU --> AV[Holliday Junction Formation]\n    AV --> AW[Resolution]\n    AW --> AN\n    \n    %% Final Checks and Segregation\n    AN --> AX{{Replication Complete?}}\n    AB --> AX\n    \n    AX -->|All Checks Pass| AY[Segregation Competent]\n    AX -->|Issues Detected| AZ[Checkpoint Arrest]\n    \n    AY --> BA[FtsZ Ring Assembly]\n    BA --> BB[Divisome Formation]\n    BB --> BC[Chromosome Partitioning]\n    \n    BC --> BD{{Par System Active?}}\n    BD -->|ParABS| BE[Active Segregation]\n    BD -->|Passive| BF[Diffusion-Based]\n    \n    BE --> BG[Chromosome Migration]\n    BF --> BG\n    \n    BG --> BH{{Nucleoid Occlusion?}}\n    BH -->|Clear| BI[Division Proceeds]\n    BH -->|Blocked| BJ[\\Wait for Clearance/]\n    \n    BI --> BK[Sister Chromosome Separation]\n    BK --> BL[Cell Division]\n    BL --> BM[Two Daughter Cells]\n    \n    %% Error Handling\n    AZ --> BN{{Error Type?}}\n    BN -->|Incomplete Replication| BO[DNA Damage Response]\n    BN -->|Unresolved Catenanes| BP[Topoisomerase Recruitment]\n    BN -->|Persistent Dimer| BQ[Enhanced XerCD Activity]\n    \n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ff9f43,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#ff9f43,color:#000\n    style H fill:#51cf66,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#ff9f43,color:#000\n    style M fill:#7950f2,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#ff9f43,color:#000\n    style P fill:#51cf66,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style R fill:#ffd43b,color:#000\n    style S fill:#51cf66,color:#fff\n    style T fill:#ffd43b,color:#000\n    style U fill:#7950f2,color:#000\n    style V fill:#51cf66,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#ff9f43,color:#000\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#ff9f43,color:#000\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#e74c3c,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#7950f2,color:#000\n    style AK fill:#7950f2,color:#fff\n    style AL fill:#ff9f43,color:#000\n    style AM fill:#ffd43b,color:#000\n    style AN fill:#7950f2,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AP fill:#51cf66,color:#fff\n    style AQ fill:#ff9f43,color:#000\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#7950f2,color:#000\n    style AU fill:#51cf66,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#ff9f43,color:#000\n    style AY fill:#7950f2,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#ffd43b,color:#000\n    style BB fill:#ffd43b,color:#000\n    style BC fill:#51cf66,color:#fff\n    style BD fill:#ff9f43,color:#000\n    style BE fill:#51cf66,color:#fff\n    style BF fill:#51cf66,color:#fff\n    style BG fill:#51cf66,color:#fff\n    style BH fill:#ff9f43,color:#000\n    style BI fill:#51cf66,color:#fff\n    style BJ fill:#e74c3c,color:#fff\n    style BK fill:#7950f2,color:#fff\n    style BL fill:#000000,color:#fff\n    style BM fill:#7950f2,color:#fff\n    style BN fill:#ff9f43,color:#000\n    style BO fill:#ffd43b,color:#000\n    style BP fill:#ffd43b,color:#000\n    style BQ fill:#ffd43b,color:#000",
+  "mermaid": "graph TD\n    A[Opposing Replication Forks] --> B[Convergence in Terminus Region]\n    B --> C{{Ter Site Encounter?}}\n    \n    C -->|TerA-J Sites Present| D[Tus Protein Binding]\n    C -->|No Ter Sites| E[Continue Until Collision]\n    \n    D --> F[Tus-Ter Complex Formation]\n    F --> G{{Fork Orientation?}}\n    \n    G -->|Permissive| H[Fork Passes Through]\n    G -->|Non-permissive| I[Fork Arrest]\n    \n    I --> J[Replication Fork Pausing]\n    H --> B\n    E --> K[Direct Fork Collision]\n    \n    J --> L{{Opposing Fork Arrives?}}\n    K --> L\n    L -->|Yes| M[Fork Convergence Complete]\n    L -->|No| N[Wait State]\n    \n    M --> O{{Replication Completion Check?}}\n    O -->|Leading Strands Meet| P[Final Synthesis]\n    O -->|Gap Remaining| Q[Gap Filling]\n    \n    Q --> R[DNA Pol I]\n    R --> S[Nick Translation]\n    S --> T[DNA Ligase]\n    T --> P\n    \n    P --> U{{Replisome Disassembly?}}\n    U -->|Signal| V[Pol III Dissociation]\n    V --> W[Helicase Release]\n    W --> X[Primase Dissociation]\n    X --> Y[Clamp Loader Release]\n    \n    Y --> Z{{Sister Chromosomes Status?}}\n    Z -->|Catenated| AA[Topological Linkage]\n    Z -->|Free| AB[Skip Decatenation]\n    \n    AA --> AC[Topoisomerase IV Recognition]\n    AC --> AD{{ParC-ParE Activity?}}\n    AD -->|Active| AE[Decatenation Reaction]\n    AD -->|Inhibited| AF[\\Delayed Resolution/]\n    \n    AE --> AG[ATP Hydrolysis]\n    AG --> AH[DNA Strand Passage]\n    AH --> AI[Catenane Resolution]\n    AI --> AJ{{Complete Separation?}}\n    AJ -->|No| AE\n    AJ -->|Yes| AK[Free Sister Chromosomes]\n    \n    %% Chromosome Dimer Resolution\n    AK --> AL{{Chromosome Dimer?}}\n    AL -->|Yes Dimer| AM[XerC-XerD Recognition]\n    AL -->|No Dimer| AN[Monomeric Chromosomes]\n    \n    AM --> AO[dif Site Binding]\n    AO --> AP[FtsK Translocation]\n    AP --> AQ{{FtsK at dif?}}\n    AQ -->|Yes| AR[XerCD Activation]\n    AQ -->|No| AS[Continue Transport]\n    \n    AR --> AT{{Recombination Conditions?}}\n    AT -->|Both XerCD AND FtsK| AU[Strand Exchange]\n    AU --> AV[Holliday Junction Formation]\n    AV --> AW[Resolution]\n    AW --> AN\n    \n    %% Final Checks and Segregation\n    AN --> AX{{Replication Complete?}}\n    AB --> AX\n    \n    AX -->|All Checks Pass| AY[Segregation Competent]\n    AX -->|Issues Detected| AZ[Checkpoint Arrest]\n    \n    AY --> BA[FtsZ Ring Assembly]\n    BA --> BB[Divisome Formation]\n    BB --> BC[Chromosome Partitioning]\n    \n    BC --> BD{{Par System Active?}}\n    BD -->|ParABS| BE[Active Segregation]\n    BD -->|Passive| BF[Diffusion-Based]\n    \n    BE --> BG[Chromosome Migration]\n    BF --> BG\n    \n    BG --> BH{{Nucleoid Occlusion?}}\n    BH -->|Clear| BI[Division Proceeds]\n    BH -->|Blocked| BJ[\\Wait for Clearance/]\n    \n    BI --> BK[Sister Chromosome Separation]\n    BK --> BL[Cell Division]\n    BL --> BM[Two Daughter Cells]\n    \n    %% Error Handling\n    AZ --> BN{{Error Type?}}\n    BN -->|Incomplete Replication| BO[DNA Damage Response]\n    BN -->|Unresolved Catenanes| BP[Topoisomerase Recruitment]\n    BN -->|Persistent Dimer| BQ[Enhanced XerCD Activity]\n    \n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#7950f2,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#ffa07a,color:#000\n    style G fill:#7950f2,color:#fff\n    style H fill:#ffa07a,color:#000\n    style I fill:#ffa07a,color:#000\n    style J fill:#74c0fc,color:#fff\n    style K fill:#ffa07a,color:#000\n    style L fill:#7950f2,color:#fff\n    style M fill:#000000,color:#fff\n    style N fill:#ffa07a,color:#000\n    style O fill:#7950f2,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#ffa07a,color:#000\n    style R fill:#ffa07a,color:#000\n    style S fill:#74c0fc,color:#fff\n    style T fill:#fab005,color:#000\n    style U fill:#7950f2,color:#000\n    style V fill:#ffa07a,color:#000\n    style W fill:#fab005,color:#000\n    style X fill:#ffa07a,color:#000\n    style Y fill:#ffa07a,color:#000\n    style Z fill:#7950f2,color:#fff\n    style AA fill:#ffa07a,color:#000\n    style AB fill:#ffa07a,color:#000\n    style AC fill:#fab005,color:#000\n    style AD fill:#7950f2,color:#fff\n    style AE fill:#ffa07a,color:#000\n    style AF fill:#e74c3c,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#ffa07a,color:#000\n    style AI fill:#ffa07a,color:#000\n    style AJ fill:#7950f2,color:#000\n    style AK fill:#ffa07a,color:#000\n    style AL fill:#7950f2,color:#fff\n    style AM fill:#ffa07a,color:#000\n    style AN fill:#ffa07a,color:#000\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#ffa07a,color:#000\n    style AQ fill:#7950f2,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#7950f2,color:#000\n    style AU fill:#ffa07a,color:#000\n    style AV fill:#ffa07a,color:#000\n    style AW fill:#ffa07a,color:#000\n    style AX fill:#7950f2,color:#fff\n    style AY fill:#ffa07a,color:#000\n    style AZ fill:#ffa07a,color:#000\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#ffa07a,color:#000\n    style BC fill:#ffa07a,color:#000\n    style BD fill:#7950f2,color:#fff\n    style BE fill:#ffa07a,color:#000\n    style BF fill:#ffa07a,color:#000\n    style BG fill:#ffa07a,color:#000\n    style BH fill:#7950f2,color:#fff\n    style BI fill:#ffa07a,color:#000\n    style BJ fill:#e74c3c,color:#fff\n    style BK fill:#ffa07a,color:#000\n    style BL fill:#000000,color:#fff\n    style BM fill:#000000,color:#fff\n    style BN fill:#7950f2,color:#fff\n    style BO fill:#51cf66,color:#fff\n    style BP fill:#fab005,color:#000\n    style BQ fill:#ffa07a,color:#000",
   "sources": [
     {
       "title": "Termination of DNA replication in Escherichia coli",

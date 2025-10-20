@@ -17,36 +17,48 @@
     }
   },
   "colorScheme": {
-    "red": {
-      "hex": "#ff6b6b",
-      "category": "Triggers & Inputs"
-    },
-    "yellow": {
-      "hex": "#ffd43b",
-      "category": "Structures & Objects"
-    },
     "green": {
       "hex": "#51cf66",
-      "category": "Processing & Operations"
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability"
     },
-    "blue": {
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
       "hex": "#74c0fc",
-      "category": "Intermediates & States"
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
     },
     "orange": {
       "hex": "#ff9f43",
-      "category": "OR Logic Gates"
+      "category": "OR Logic Gates",
+      "description": "Decision points with multiple alternative branches"
     },
-    "lavender": {
-      "hex": "#b4b4dc",
-      "category": "AND Logic Gates"
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-signal integration requiring all conditions"
     },
-    "violet": {
-      "hex": "#9775fa",
-      "category": "Outputs & Products"
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
     }
   },
-  "mermaid": "graph TD\n    %% ER Stress Triggers\n    A[Protein Synthesis Increase] --> B[ER Protein Load]\n    C[Mutations in Proteins] --> D[Misfolded Proteins]\n    E[Calcium Depletion] --> F[Chaperone Dysfunction]\n    G[Reducing Agents DTT] --> H[Disulfide Bond Disruption]\n    I[Tunicamycin Treatment] --> J[Glycosylation Block]\n    \n    %% OR Gate 1: ER Stress Detection\n    B --> K{OR: Unfolded<br/>Proteins in ER?}\n    D --> K\n    F --> K\n    H --> K\n    J --> K\n    K -->|No| L[Normal ER Homeostasis]\n    K -->|Yes| M[ER Stress Condition]\n    \n    %% Ire1 Sensing\n    M --> N[Ire1 Binds Unfolded Proteins]\n    N --> O[Ire1 Oligomerization]\n    \n    %% AND Gate 1: Ire1 Trans-autophosphorylation\n    O --> P{{{AND: Ire1 Dimers<br/>Formed?}}}\n    P -->|No - Monomers| L\n    P -->|Yes - Oligomers| Q[Ire1 Trans-autophosphorylation]\n    \n    Q --> R[Ire1 Kinase Domain Active]\n    R --> S[Ire1 RNase Domain Activated]\n    \n    %% HAC1 mRNA Splicing\n    S --> T[Constitutive HAC1u mRNA]\n    T --> U[Ire1 Recognizes Stem-Loops]\n    \n    %% AND Gate 2: Both Splice Sites\n    U --> V{{{AND: 5' Site<br/>AND 3' Site?}}}\n    V -->|No| W[No Splicing]\n    V -->|Yes| X[Ire1 Cleaves Both Sites]\n    \n    X --> Y[Intron Released]\n    Y --> Z[Exon Ligation]\n    \n    %% AND Gate 3: tRNA Ligase Required\n    Z --> AA{{{AND: Rlg1/Trl1<br/>Ligase Present?}}}\n    AA -->|No| AB[Splicing Incomplete]\n    AA -->|Yes| AC[HAC1i mRNA Formed]\n    \n    %% Translation Difference\n    W --> AD[HAC1u has Intron]\n    AD --> AE[Translation Stalled]\n    AE --> AF[No Hac1 Protein]\n    \n    AC --> AG[HAC1i mRNA Translated]\n    AG --> AH[Hac1 Protein Produced]\n    AH --> AI[Hac1 Homodimerization]\n    \n    %% Nuclear Localization\n    AI --> AJ{{{AND: NLS<br/>Functional?}}}\n    AJ -->|No| AK[Cytoplasmic Retention]\n    AJ -->|Yes| AL[Hac1 Nuclear Import]\n    \n    AL --> AM[Hac1 DNA Binding]\n    AM --> AN[UPRE Element Recognition]\n    AN --> AO[UPR Target Gene Transcription]\n    \n    %% OR Gate 2: Which UPR Target?\n    AO --> AP{OR: Which Gene<br/>Class?}\n    AP -->|Chaperones| AQ[KAR2 PDI1 Expression]\n    AP -->|ERAD| AR[DER1 HRD1 Expression]\n    AP -->|Lipid Synthesis| AS[INO1 OPI3 Expression]\n    AP -->|Quality Control| AT[EUG1 SCJ1 Expression]\n    \n    %% Chaperone Upregulation\n    AQ --> AU[Kar2/BiP Production]\n    AU --> AV[Pdi1 Disulfide Isomerase]\n    AV --> AW[Enhanced Folding Capacity]\n    \n    %% ERAD Enhancement\n    AR --> AX[Der1 Rhomboid Pseudoprotease]\n    AX --> AY[Hrd1 E3 Ubiquitin Ligase]\n    AY --> AZ[ERAD Complex Assembly]\n    AZ --> BA[Misfolded Protein Degradation]\n    \n    %% ER Expansion\n    AS --> BB[Phospholipid Synthesis]\n    BB --> BC[ER Membrane Expansion]\n    BC --> BD[Increased ER Volume]\n    \n    %% AND Gate 4: Resolution Check\n    AW --> BE{{{AND: Folding Improved<br/>AND ERAD Active?}}}\n    BA --> BE\n    BE -->|No| BF[Sustained UPR]\n    BE -->|Yes| BG[ER Stress Resolution]\n    \n    %% Feedback Inhibition\n    BG --> BH[Unfolded Proteins Cleared]\n    BH --> BI[Ire1 Deactivation]\n    BI --> BJ[No HAC1 Splicing]\n    BJ --> BK[Hac1 Protein Decay]\n    BK --> BL([UPR Termination])\n    \n    L --> BM([No UPR Needed])\n    AF --> BM\n    BF --> BN[Chronic ER Stress]\n    BN --> BO{OR: Apoptosis<br/>Pathway?}\n    BO -->|Yes| BP([Cell Death])\n    BO -->|No| BF\n    \n    %% Normal Resolution\n    BD --> BG\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style G fill:#ff6b6b,color:#fff\n    style I fill:#ff6b6b,color:#fff\n    style K fill:#ff9f43,color:#fff\n    style AP fill:#ff9f43,color:#fff\n    style BO fill:#ff9f43,color:#fff\n    style P fill:#7950f2,color:#fff\n    style V fill:#7950f2,color:#fff\n    style AA fill:#7950f2,color:#fff\n    style AJ fill:#7950f2,color:#fff\n    style BE fill:#7950f2,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style BL fill:#000000,color:#fff\n    style BM fill:#000000,color:#fff\n    style BP fill:#000000,color:#fff",
+  "mermaid": "graph TD\n    %% ER Stress Triggers\n    A[Protein Synthesis Increase] --> B[ER Protein Load]\n    C[Mutations in Proteins] --> D[Misfolded Proteins]\n    E[Calcium Depletion] --> F[Chaperone Dysfunction]\n    G[Reducing Agents DTT] --> H[Disulfide Bond Disruption]\n    I[Tunicamycin Treatment] --> J[Glycosylation Block]\n    \n    %% OR Gate 1: ER Stress Detection\n    B --> K{OR: Unfolded<br/>Proteins in ER?}\n    D --> K\n    F --> K\n    H --> K\n    J --> K\n    K -->|No| L[Normal ER Homeostasis]\n    K -->|Yes| M[ER Stress Condition]\n    \n    %% Ire1 Sensing\n    M --> N[Ire1 Binds Unfolded Proteins]\n    N --> O[Ire1 Oligomerization]\n    \n    %% AND Gate 1: Ire1 Trans-autophosphorylation\n    O --> P{{{AND: Ire1 Dimers<br/>Formed?}}}\n    P -->|No - Monomers| L\n    P -->|Yes - Oligomers| Q[Ire1 Trans-autophosphorylation]\n    \n    Q --> R[Ire1 Kinase Domain Active]\n    R --> S[Ire1 RNase Domain Activated]\n    \n    %% HAC1 mRNA Splicing\n    S --> T[Constitutive HAC1u mRNA]\n    T --> U[Ire1 Recognizes Stem-Loops]\n    \n    %% AND Gate 2: Both Splice Sites\n    U --> V{{{AND: 5' Site<br/>AND 3' Site?}}}\n    V -->|No| W[No Splicing]\n    V -->|Yes| X[Ire1 Cleaves Both Sites]\n    \n    X --> Y[Intron Released]\n    Y --> Z[Exon Ligation]\n    \n    %% AND Gate 3: tRNA Ligase Required\n    Z --> AA{{{AND: Rlg1/Trl1<br/>Ligase Present?}}}\n    AA -->|No| AB[Splicing Incomplete]\n    AA -->|Yes| AC[HAC1i mRNA Formed]\n    \n    %% Translation Difference\n    W --> AD[HAC1u has Intron]\n    AD --> AE[Translation Stalled]\n    AE --> AF[No Hac1 Protein]\n    \n    AC --> AG[HAC1i mRNA Translated]\n    AG --> AH[Hac1 Protein Produced]\n    AH --> AI[Hac1 Homodimerization]\n    \n    %% Nuclear Localization\n    AI --> AJ{{{AND: NLS<br/>Functional?}}}\n    AJ -->|No| AK[Cytoplasmic Retention]\n    AJ -->|Yes| AL[Hac1 Nuclear Import]\n    \n    AL --> AM[Hac1 DNA Binding]\n    AM --> AN[UPRE Element Recognition]\n    AN --> AO[UPR Target Gene Transcription]\n    \n    %% OR Gate 2: Which UPR Target?\n    AO --> AP{OR: Which Gene<br/>Class?}\n    AP -->|Chaperones| AQ[KAR2 PDI1 Expression]\n    AP -->|ERAD| AR[DER1 HRD1 Expression]\n    AP -->|Lipid Synthesis| AS[INO1 OPI3 Expression]\n    AP -->|Quality Control| AT[EUG1 SCJ1 Expression]\n    \n    %% Chaperone Upregulation\n    AQ --> AU[Kar2/BiP Production]\n    AU --> AV[Pdi1 Disulfide Isomerase]\n    AV --> AW[Enhanced Folding Capacity]\n    \n    %% ERAD Enhancement\n    AR --> AX[Der1 Rhomboid Pseudoprotease]\n    AX --> AY[Hrd1 E3 Ubiquitin Ligase]\n    AY --> AZ[ERAD Complex Assembly]\n    AZ --> BA[Misfolded Protein Degradation]\n    \n    %% ER Expansion\n    AS --> BB[Phospholipid Synthesis]\n    BB --> BC[ER Membrane Expansion]\n    BC --> BD[Increased ER Volume]\n    \n    %% AND Gate 4: Resolution Check\n    AW --> BE{{{AND: Folding Improved<br/>AND ERAD Active?}}}\n    BA --> BE\n    BE -->|No| BF[Sustained UPR]\n    BE -->|Yes| BG[ER Stress Resolution]\n    \n    %% Feedback Inhibition\n    BG --> BH[Unfolded Proteins Cleared]\n    BH --> BI[Ire1 Deactivation]\n    BI --> BJ[No HAC1 Splicing]\n    BJ --> BK[Hac1 Protein Decay]\n    BK --> BL([UPR Termination])\n    \n    L --> BM([No UPR Needed])\n    AF --> BM\n    BF --> BN[Chronic ER Stress]\n    BN --> BO{OR: Apoptosis<br/>Pathway?}\n    BO -->|Yes| BP([Cell Death])\n    BO -->|No| BF\n    \n    %% Normal Resolution\n    BD --> BG\n    \n    %% Styling\n    style A fill:#fab005,color:#000\n    style C fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style G fill:#ffa07a,color:#000\n    style I fill:#ffa07a,color:#000\n    style K fill:#ff9f43,color:#fff\n    style AP fill:#ff9f43,color:#fff\n    style BO fill:#ff9f43,color:#fff\n    style P fill:#7950f2,color:#fff\n    style V fill:#7950f2,color:#fff\n    style AA fill:#7950f2,color:#fff\n    style AJ fill:#7950f2,color:#fff\n    style BE fill:#7950f2,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style X fill:#ffa07a,color:#000\n    style AG fill:#ffa07a,color:#000\n    style N fill:#fab005,color:#000\n    style AC fill:#ffa07a,color:#000\n    style AI fill:#ffa07a,color:#000\n    style BL fill:#ffa07a,color:#000\n    style BM fill:#ffa07a,color:#000\n    style BP fill:#000000,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style F fill:#ffa07a,color:#000\n    style H fill:#ffa07a,color:#000\n    style J fill:#ffa07a,color:#000\n    style L fill:#000000,color:#fff\n    style M fill:#51cf66,color:#fff\n    style O fill:#ffa07a,color:#000\n    style R fill:#fab005,color:#000\n    style S fill:#ffa07a,color:#000\n    style T fill:#ffa07a,color:#000\n    style U fill:#ffa07a,color:#000\n    style W fill:#ffa07a,color:#000\n    style Y fill:#ffa07a,color:#000\n    style Z fill:#ffa07a,color:#000\n    style AB fill:#000000,color:#fff\n    style AD fill:#ffa07a,color:#000\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#fab005,color:#000\n    style AH fill:#fab005,color:#000\n    style AK fill:#ffa07a,color:#000\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#ffa07a,color:#000\n    style AO fill:#74c0fc,color:#fff\n    style AQ fill:#ffa07a,color:#000\n    style AR fill:#ffa07a,color:#000\n    style AS fill:#ffa07a,color:#000\n    style AT fill:#ffa07a,color:#000\n    style AU fill:#000000,color:#fff\n    style AV fill:#fab005,color:#000\n    style AW fill:#ffa07a,color:#000\n    style AX fill:#fab005,color:#000\n    style AY fill:#fab005,color:#000\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#fab005,color:#000\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#ffa07a,color:#000\n    style BD fill:#ffa07a,color:#000\n    style BF fill:#ffa07a,color:#000\n    style BG fill:#51cf66,color:#fff\n    style BH fill:#fab005,color:#000\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#ffa07a,color:#000\n    style BK fill:#fab005,color:#000\n    style BN fill:#51cf66,color:#fff",
   "sources": [
     {
       "title": "The unfolded protein response in yeast",
