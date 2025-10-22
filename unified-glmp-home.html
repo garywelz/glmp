@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLMP - The 100:12:7:2 Pattern in Biology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        /* Hero Header with 100:12:7:2 Pattern */
+        .hero-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-title {
+            font-size: 1.2em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .main-title {
+            font-size: 3.5em;
+            font-weight: 300;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pattern-number {
+            font-size: 5em;
+            font-weight: bold;
+            letter-spacing: 8px;
+            margin: 20px 0;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .pattern-subtitle {
+            font-size: 1.8em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .pattern-description {
+            font-size: 1.1em;
+            opacity: 0.7;
+            max-width: 900px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+
+        /* Statistics Dashboard */
+        .stats-dashboard {
+            background: #f8f9fa;
+            padding: 40px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-card.highlight {
+            border-left-color: #e74c3c;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .stat-card.highlight .stat-number {
+            color: #e74c3c;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .stat-sublabel {
+            color: #95a5a6;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        /* Pattern Explanation */
+        .pattern-explanation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .pattern-explanation h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .pattern-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .pattern-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .pattern-item-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .pattern-item-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Search and Filter Section */
+        .search-section {
+            background: white;
+            padding: 30px 40px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1em;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            font-size: 0.95em;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Database Table Section */
+        .table-section {
+            padding: 40px;
+        }
+
+        .table-header {
+            margin-bottom: 25px;
+        }
+
+        .table-header h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .table-header p {
+            color: #7f8c8d;
+            font-size: 1.05em;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.9em;
+        }
+
+        thead {
+            background: #34495e;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        th:hover {
+            background: #2c3e50;
+        }
+
+        th.sortable::after {
+            content: ' ⇅';
+            opacity: 0.4;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ecf0f1;
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        td {
+            padding: 14px 12px;
+        }
+
+        td.process-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        td.process-name a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        td.process-name a:hover {
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        td.number {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            color: #34495e;
+        }
+
+        .organism-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            background: #ecf0f1;
+            color: #34495e;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            background: #e8f4f8;
+            color: #2980b9;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error {
+            background: #ffe0e0;
+            border-left: 4px solid #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px;
+        }
+
+        .error h3 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .footer p {
+            opacity: 0.7;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .footer-link {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #667eea;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2em;
+            }
+
+            .pattern-number {
+                font-size: 3em;
+            }
+
+            .pattern-subtitle {
+                font-size: 1.3em;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Header with 100:12:7:2 Pattern -->
+        <div class="hero-header">
+            <div class="hero-content">
+                <div class="project-title">🧬 GLMP - Genome Logic Modeling Project</div>
+                <h1 class="main-title">The 100:12:7:2 Pattern</h1>
+                <div class="pattern-number">100:12:7:2</div>
+                <div class="pattern-subtitle">Evidence for Conserved Computational Architecture in Biology</div>
+                <div class="pattern-description">
+                    Systematic analysis of ~7,000 computational nodes across 108 well-characterized cellular processes 
+                    reveals evolution's optimization for efficiency, robustness, integration, and control
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div class="stats-dashboard">
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalProcesses">-</span>
+                    <div class="stat-label">Total Processes</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="totalNodes">-</span>
+                    <div class="stat-label">Total Nodes</div>
+                </div>
+                <div class="stat-card highlight">
+                    <span class="stat-number" id="totalOR">-</span>
+                    <div class="stat-label">OR Gates</div>
+                    <div class="stat-sublabel">Decision Points</div>
+                </div>
+                <div class="stat-card highlight">
+                    <span class="stat-number" id="totalAND">-</span>
+                    <div class="stat-label">AND Gates</div>
+                    <div class="stat-sublabel">Integration Points</div>
+                </div>
+                <div class="stat-card highlight">
+                    <span class="stat-number" id="totalNOT">-</span>
+                    <div class="stat-label">NOT Gates</div>
+                    <div class="stat-sublabel">Repression Points</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="totalConditionals">-</span>
+                    <div class="stat-label">Conditionals</div>
+                    <div class="stat-sublabel">IF-THEN Steps</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern Explanation -->
+        <div class="pattern-explanation">
+            <h3>What Does 100:12:7:2 Mean?</h3>
+            <p style="max-width: 800px; margin: 0 auto; opacity: 0.9;">
+                For every 100 sequential IF-THEN steps, biological systems employ 12 OR gates (alternative pathways), 
+                7 AND gates (signal integration), and 2 NOT gates (repression mechanisms)
+            </p>
+            <div class="pattern-breakdown">
+                <div class="pattern-item">
+                    <span class="pattern-item-number">~84%</span>
+                    <div class="pattern-item-label">Linear Efficiency</div>
+                </div>
+                <div class="pattern-item">
+                    <span class="pattern-item-number">~10%</span>
+                    <div class="pattern-item-label">OR Robustness</div>
+                </div>
+                <div class="pattern-item">
+                    <span class="pattern-item-number">~6%</span>
+                    <div class="pattern-item-label">AND Integration</div>
+                </div>
+                <div class="pattern-item">
+                    <span class="pattern-item-number">~2%</span>
+                    <div class="pattern-item-label">NOT Control</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search processes by name, organism, or category..." oninput="filterTable()">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select" id="organismFilter" onchange="filterTable()">
+                        <option value="">All Organisms</option>
+                        <option value="E. coli">E. coli</option>
+                        <option value="S. cerevisiae">S. cerevisiae</option>
+                        <option value="Bacillus subtilis">Bacillus subtilis</option>
+                    </select>
+                    <select class="filter-select" id="categoryFilter" onchange="filterTable()">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Table Section -->
+        <div class="table-section">
+            <div class="table-header">
+                <h2>📊 Complete Process Database</h2>
+                <p>Click any process name to view its interactive flowchart</p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Loading GLMP database...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error" style="display: none;">
+                <h3>❌ Error Loading Data</h3>
+                <p>Could not fetch GLMP metadata. Please check your connection and try again.</p>
+            </div>
+
+            <!-- Table Container -->
+            <div id="tableContainer" class="table-container" style="display: none;">
+                <table id="processTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" onclick="sortTable(0)">Process Name</th>
+                            <th class="sortable" onclick="sortTable(1)">Organism</th>
+                            <th class="sortable" onclick="sortTable(2)">Category</th>
+                            <th class="sortable" onclick="sortTable(3)">Nodes</th>
+                            <th class="sortable" onclick="sortTable(4)">OR Gates</th>
+                            <th class="sortable" onclick="sortTable(5)">AND Gates</th>
+                            <th class="sortable" onclick="sortTable(6)">NOT Gates</th>
+                            <th class="sortable" onclick="sortTable(7)">Conditionals</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-content">
+                <h3>📄 Research Paper</h3>
+                <p>
+                    "The 100:12:7:2 Pattern: Evidence for a Conserved Computational Architecture in Prokaryotic and Eukaryotic Core Processes"
+                    <br>
+                    <em>Systematic Analysis of ~7,000 Computational Nodes Across 108 Well-Characterized Cellular Processes</em>
+                </p>
+                <div class="footer-links">
+                    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html" target="_blank" class="footer-link">
+                        🔬 Interactive Viewer
+                    </a>
+                    <a href="https://github.com/garywelz/glmp" target="_blank" class="footer-link">
+                        💻 GitHub Repository
+                    </a>
+                    <a href="https://huggingface.co/garywelz" target="_blank" class="footer-link">
+                        🤗 Hugging Face Datasets
+                    </a>
+                </div>
+                <p style="margin-top: 30px; font-size: 0.9em;">
+                    © 2025 Gary Welz | Licensed under CC BY 4.0 | All 108 processes with citations available
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let allProcesses = [];
+        let allCategories = new Set();
+
+        // Configuration
+        const GLMP_METADATA_URL = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/metadata.json';
+        
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', loadData);
+
+        async function loadData() {
+            try {
+                const metadataUrl = GLMP_METADATA_URL + '?v=' + Date.now();
+                console.log('🔄 Starting data load from:', metadataUrl);
+                
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
+                document.getElementById('tableContainer').style.display = 'none';
+                
+                const response = await fetch(metadataUrl, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ Data loaded successfully:', data.processes?.length, 'processes');
+                
+                populateData(data);
+                
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function populateData(data) {
+            allProcesses = data.processes || [];
+            
+            // Calculate totals
+            const totals = allProcesses.reduce((acc, process) => {
+                acc.totalNodes += process.nodes || 0;
+                acc.totalOR += process.logicGates?.or || 0;
+                acc.totalAND += process.logicGates?.and || 0;
+                acc.totalNOT += process.logicGates?.not || 0;
+                
+                const totalGates = (process.logicGates?.or || 0) + (process.logicGates?.and || 0) + (process.logicGates?.not || 0);
+                acc.totalConditionals += (process.nodes || 0) - totalGates;
+                
+                // Collect categories
+                if (process.category) {
+                    allCategories.add(process.category);
+                }
+                
+                return acc;
+            }, { totalNodes: 0, totalConditionals: 0, totalOR: 0, totalAND: 0, totalNOT: 0 });
+            
+            // Populate statistics cards
+            document.getElementById('totalProcesses').textContent = allProcesses.length;
+            document.getElementById('totalNodes').textContent = totals.totalNodes.toLocaleString();
+            document.getElementById('totalOR').textContent = totals.totalOR;
+            document.getElementById('totalAND').textContent = totals.totalAND;
+            document.getElementById('totalNOT').textContent = totals.totalNOT;
+            document.getElementById('totalConditionals').textContent = totals.totalConditionals.toLocaleString();
+            
+            // Populate category filter
+            const categoryFilter = document.getElementById('categoryFilter');
+            Array.from(allCategories).sort().forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+            
+            // Populate table
+            populateTable(allProcesses);
+            
+            // Show table
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('tableContainer').style.display = 'block';
+        }
+
+        function populateTable(processes) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            processes.forEach(process => {
+                const row = tbody.insertRow();
+                
+                const orGates = process.logicGates?.or || 0;
+                const andGates = process.logicGates?.and || 0;
+                const notGates = process.logicGates?.not || 0;
+                const totalGates = orGates + andGates + notGates;
+                const conditionals = (process.nodes || 0) - totalGates;
+                
+                const processUrl = `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=${process.id}`;
+                
+                row.innerHTML = `
+                    <td class="process-name"><a href="${processUrl}" target="_blank">${process.name || 'Unknown'}</a></td>
+                    <td><span class="organism-badge">${process.organism || 'Unknown'}</span></td>
+                    <td><span class="category-badge">${process.category || 'Uncategorized'}</span></td>
+                    <td class="number">${process.nodes || 0}</td>
+                    <td class="number">${orGates}</td>
+                    <td class="number">${andGates}</td>
+                    <td class="number">${notGates}</td>
+                    <td class="number">${conditionals}</td>
+                `;
+            });
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const organismFilter = document.getElementById('organismFilter').value;
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            
+            const filtered = allProcesses.filter(process => {
+                const matchesSearch = !searchTerm || 
+                    (process.name || '').toLowerCase().includes(searchTerm) ||
+                    (process.organism || '').toLowerCase().includes(searchTerm) ||
+                    (process.category || '').toLowerCase().includes(searchTerm);
+                
+                const matchesOrganism = !organismFilter || process.organism === organismFilter;
+                const matchesCategory = !categoryFilter || process.category === categoryFilter;
+                
+                return matchesSearch && matchesOrganism && matchesCategory;
+            });
+            
+            populateTable(filtered);
+        }
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById('processTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Determine sort direction
+            const currentDir = table.dataset.sortDir || 'asc';
+            const newDir = currentDir === 'asc' ? 'desc' : 'asc';
+            table.dataset.sortDir = newDir;
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[columnIndex].textContent.trim();
+                let bVal = b.cells[columnIndex].textContent.trim();
+                
+                // Try to parse as number
+                const aNum = parseFloat(aVal.replace(/,/g, ''));
+                const bNum = parseFloat(bVal.replace(/,/g, ''));
+                
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return newDir === 'asc' ? aNum - bNum : bNum - aNum;
+                }
+                
+                // String comparison
+                return newDir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+            });
+            
+            // Re-append rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+</body>
+</html>
