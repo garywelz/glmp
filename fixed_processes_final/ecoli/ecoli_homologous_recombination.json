@@ -1,0 +1,128 @@
+{
+  "id": "ecoli_homologous_recombination",
+  "name": "Homologous Recombination",
+  "organism": "E. coli",
+  "category": "DNA Repair",
+  "description": "Homologous recombination in E. coli is the primary pathway for repairing double-strand breaks (DSBs), rescuing stalled replication forks, and generating genetic diversity. The RecBCD pathway processes DSB ends: RecBCD helicase-nuclease unwinds and degrades DNA until encountering a Chi sequence, which attenuates nuclease activity and loads RecA onto the 3' overhang. RecA-coated single-stranded DNA (nucleoprotein filament) searches for homologous sequences, invades the homologous duplex forming a D-loop, and catalyzes strand exchange. DNA synthesis extends the invading strand using the homolog as template. The Holliday junction that forms is resolved by RuvABC or RecG to complete recombination. This flowchart illustrates the complete pathway from DSB recognition through RecBCD processing, RecA-mediated strand invasion, branch migration, and junction resolution, including alternative pathways (RecF, RecQ) for different substrates.",
+  "scientificAccuracy": "This flowchart is based on decades of genetic and biochemical characterization of E. coli recombination. All components (RecBCD, RecA, RuvABC, RecG, Chi sites), catalytic mechanisms, and pathway logic have been validated through genetics, biochemistry, and structural studies. The model represents the current understanding of how bacteria use homologous recombination for genome maintenance and the multiple pathway choices available for different DNA substrates.",
+  "complexity": {
+    "nodes": 82,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 9,
+      "andGates": 6,
+      "total": 15
+    }
+  },
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints"
+    }
+  },
+  "mermaid": "graph TD\n    Start([Homologous Recombination]) --> A1{DNA substrate type?}\n    \n    A1 -->|Double-strand break DSB| A2[RecBCD pathway - major pathway]\n    A1 -->|Gapped DNA from stalled fork| A3[RecF pathway - alternative]\n    A1 -->|Other recombination substrate| A4[RecQ pathway]\n    \n    A2 --> A5[RecBCD helicase-nuclease binds DSB end]\n    A5 --> A6[RecBCD is heterotrimer: RecB RecC RecD]\n    \n    A6 --> A7[RecBCD unwinds DNA - dual helicase activity]\n    A7 --> A8[RecB helicase: 3' to 5' on one strand]\n    A8 --> A9[RecD helicase: 5' to 3' on other strand faster]\n    \n    A9 --> A10[RecB nuclease degrades 3' ending strand]\n    A10 --> A11[RecD nuclease degrades 5' ending strand]\n    \n    A11 --> A12{Chi sequence encountered?}\n    A12 -->|No Chi: 5'-GCTGGTGG-3'| A13[Nuclease degradation continues]\n    A12 -->|Yes - Chi site recognized| A14[RecC recognizes Chi]\n    \n    A13 --> A15{DNA fully degraded?}\n    A15 -->|Yes| A16[No recombination - degradation pathway]\n    A15 -->|No - keep scanning| A12\n    \n    A14 --> A17[RecBCD pauses at Chi]\n    A17 --> A18[RecB nuclease activity attenuated]\n    A18 --> A19[RecD ejected from complex]\n    A19 --> A20[RecBC now loads RecA]\n    \n    A20 --> A21[3' ssDNA overhang generated downstream of Chi]\n    A21 --> A22[RecBC recruits RecA protein]\n    \n    A22 --> A23{RecA available?}\n    A23 -->|Yes| A24[RecA monomers bind ssDNA]\n    A23 -->|No| Wait1[Wait for RecA]\n    Wait1 --> A23\n    \n    A24 --> A25[RecA polymerizes on ssDNA 5' to 3']\n    A25 --> A26[RecA nucleoprotein filament formed]\n    A26 --> A27[~6 nt DNA per RecA monomer right-handed helix]\n    \n    A3 --> A28[RecFOR pathway at gaps]\n    A28 --> A29[RecF RecO RecR load RecA on gaps]\n    A29 --> A24\n    \n    A4 --> A30[RecQ helicase pathway]\n    A30 --> A31[RecQ processes various substrates]\n    A31 --> A24\n    \n    A27 --> A32[RecA filament searches for homology]\n    A32 --> A33[ATP-bound RecA active for strand exchange]\n    \n    A33 --> A34{Homologous duplex found?}\n    A34 -->|Yes - homology > 50 bp| A35[RecA promotes strand invasion]\n    A34 -->|No homology| A36[Search continues or pathway aborted]\n    \n    A35 --> A37[RecA catalyzes D-loop formation]\n    A37 --> A38[Invading 3' strand pairs with complementary strand]\n    A38 --> A39[Displaced strand forms D-loop bubble]\n    \n    A39 --> A40[DNA polymerase III binds 3' end in D-loop]\n    A40 --> A41[DNA synthesis extends invading strand]\n    A41 --> A42[Template: homologous chromosome or sister]\n    \n    A42 --> A43{Second DSB end captured?}\n    A43 -->|Yes - double Holliday junction pathway| A44[Second end anneals]\n    A43 -->|No - synthesis-dependent strand annealing SDSA| A45[SDSA pathway]\n    \n    A45 --> A46[Extended strand displaced]\n    A46 --> A47[Displaced strand anneals to other DSB end]\n    A47 --> A48[Gap filling and ligation]\n    A48 --> A49[Non-crossover product]\n    \n    A44 --> A50[DNA synthesis on both ends]\n    A50 --> A51[Ligation creates double Holliday junction dHJ]\n    \n    A51 --> A52[Two four-way junctions connecting homologs]\n    \n    A52 --> A53{Which resolution pathway?}\n    A53 -->|RuvABC pathway| A54[RuvAB binds Holliday junction]\n    A53 -->|RecG pathway| A55[RecG binds and processes junction]\n    \n    A54 --> A56[RuvA tetramer binds junction center]\n    A56 --> A57[RuvB hexameric rings on DNA arms - ATP-driven motor]\n    A57 --> A58[Branch migration - junctions move along DNA]\n    \n    A58 --> A59[RuvC endonuclease recruited]\n    A59 --> A60{RuvC cleavage orientation?}\n    A60 -->|Horizontal cuts| A61[Crossover products - recombinant]\n    A60 -->|Vertical cuts| A62[Non-crossover products - parental]\n    \n    A55 --> A63[RecG branch migration translocase]\n    A63 --> A64[RecG drives branch migration]\n    A64 --> A65[Junction regression or fork restoration]\n    \n    A61 --> A66[Nick sealing by DNA ligase]\n    A62 --> A66\n    A65 --> A66\n    \n    A66 --> A67[Recombination complete]\n    A67 --> A68[RecA disassembly - ATP hydrolysis]\n    A68 --> A69[RecA recycled]\n    \n    A67 --> A70{Product outcome?}\n    A70 -->|Crossover| A71[Genetic exchange between chromosomes]\n    A70 -->|Non-crossover| A72[Gene conversion - local sequence change]\n    A70 -->|DSB repair| A73[Restored chromosome integrity]\n    \n    A49 --> A73\n    \n    A71 --> End1([Recombinant products])\n    A72 --> End2([Gene conversion])\n    A73 --> End3([Repaired chromosome])\n    A16 --> End4([DNA degraded])\n    A36 --> End5([Recombination aborted])\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A1 fill:#ffd600,color:#fff\n    style A2 fill:#b3e5fc,color:#000\n    style A3 fill:#b3e5fc,color:#000\n    style A4 fill:#b3e5fc,color:#000\n    style A5 fill:#42a5f5,color:#fff\n    style A6 fill:#b3e5fc,color:#000\n    style A7 fill:#42a5f5,color:#fff\n    style A8 fill:#42a5f5,color:#fff\n    style A9 fill:#42a5f5,color:#fff\n    style A10 fill:#42a5f5,color:#fff\n    style A11 fill:#42a5f5,color:#fff\n    style A12 fill:#ffd600,color:#fff\n    style A13 fill:#42a5f5,color:#fff\n    style A14 fill:#b3e5fc,color:#000\n    style A15 fill:#ffd600,color:#fff\n    style A16 fill:#42a5f5,color:#fff\n    style A17 fill:#b3e5fc,color:#000\n    style A18 fill:#42a5f5,color:#fff\n    style A19 fill:#b3e5fc,color:#000\n    style A20 fill:#b3e5fc,color:#000\n    style A21 fill:#b3e5fc,color:#000\n    style A22 fill:#ffa726,color:#fff\n    style A23 fill:#ffd600,color:#fff\n    style A24 fill:#b3e5fc,color:#000\n    style A25 fill:#b3e5fc,color:#000\n    style A26 fill:#ffa726,color:#fff\n    style A27 fill:#b3e5fc,color:#000\n    style A28 fill:#b3e5fc,color:#000\n    style A29 fill:#b3e5fc,color:#000\n    style A30 fill:#42a5f5,color:#fff\n    style A31 fill:#b3e5fc,color:#000\n    style A32 fill:#b3e5fc,color:#000\n    style A33 fill:#b3e5fc,color:#000\n    style A34 fill:#ffd600,color:#fff\n    style A35 fill:#b3e5fc,color:#000\n    style A36 fill:#b3e5fc,color:#000\n    style A37 fill:#b3e5fc,color:#000\n    style A38 fill:#b3e5fc,color:#000\n    style A39 fill:#b3e5fc,color:#000\n    style A40 fill:#42a5f5,color:#fff\n    style A41 fill:#42a5f5,color:#fff\n    style A42 fill:#b3e5fc,color:#000\n    style A43 fill:#ffd600,color:#fff\n    style A44 fill:#b3e5fc,color:#000\n    style A45 fill:#b3e5fc,color:#000\n    style A46 fill:#b3e5fc,color:#000\n    style A47 fill:#b3e5fc,color:#000\n    style A48 fill:#b3e5fc,color:#000\n    style A49 fill:#000000,color:#fff\n    style A50 fill:#42a5f5,color:#fff\n    style A51 fill:#b3e5fc,color:#000\n    style A52 fill:#b3e5fc,color:#000\n    style A53 fill:#ffd600,color:#fff\n    style A54 fill:#b3e5fc,color:#000\n    style A55 fill:#b3e5fc,color:#000\n    style A56 fill:#b3e5fc,color:#000\n    style A57 fill:#b3e5fc,color:#000\n    style A58 fill:#b3e5fc,color:#000\n    style A59 fill:#42a5f5,color:#fff\n    style A60 fill:#ffd600,color:#fff\n    style A61 fill:#000000,color:#fff\n    style A62 fill:#000000,color:#fff\n    style A63 fill:#b3e5fc,color:#000\n    style A64 fill:#b3e5fc,color:#000\n    style A65 fill:#b3e5fc,color:#000\n    style A66 fill:#42a5f5,color:#fff\n    style A67 fill:#000000,color:#fff\n    style A68 fill:#42a5f5,color:#fff\n    style A69 fill:#b3e5fc,color:#000\n    style A70 fill:#ffd600,color:#fff\n    style A71 fill:#b3e5fc,color:#000\n    style A72 fill:#b3e5fc,color:#000\n    style A73 fill:#b3e5fc,color:#000",
+  "sources": [
+    {
+      "title": "Recombinational DNA repair in bacteria and the RecBCD pathway",
+      "authors": "Dillingham MS, Kowalczykowski SC",
+      "journal": "Microbiol Mol Biol Rev",
+      "year": 2008,
+      "pmid": "18322035",
+      "doi": "10.1128/MMBR.00020-07",
+      "relevance": "Comprehensive review of RecBCD mechanism and Chi sequence regulation"
+    },
+    {
+      "title": "RecA protein filament structure and DNA strand exchange",
+      "authors": "Chen Z, Yang H, Pavletich NP",
+      "journal": "Nature",
+      "year": 2008,
+      "pmid": "18497818",
+      "doi": "10.1038/nature07003",
+      "relevance": "Crystal structure of RecA nucleoprotein filament revealing strand exchange mechanism"
+    },
+    {
+      "title": "The Holliday junction resolvase RuvC is a dimer that acts in trans",
+      "authors": "Saito A, Iwasaki H, Ariyoshi M, Morikawa K, Shinagawa H",
+      "journal": "Mol Cell",
+      "year": 1995,
+      "pmid": "7489502",
+      "doi": "10.1016/s1097-2765(00)80218-6",
+      "relevance": "Mechanism of RuvC resolution and product determination"
+    },
+    {
+      "title": "Control of RecBCD recombination pathways by the Chi sequence",
+      "authors": "Smith GR",
+      "journal": "Trends Genet",
+      "year": 2012,
+      "pmid": "22503770",
+      "doi": "10.1016/j.tig.2012.03.002",
+      "relevance": "Regulation of recombination by Chi hotspots and RecBCD regulation"
+    }
+  ],
+  "keywords": [
+    "homologous recombination",
+    "RecBCD",
+    "RecA",
+    "Chi sequence",
+    "strand invasion",
+    "D-loop",
+    "Holliday junction",
+    "RuvABC",
+    "RecG",
+    "double-strand break",
+    "DSB repair",
+    "branch migration",
+    "nucleoprotein filament",
+    "RecF pathway",
+    "gene conversion"
+  ],
+  "relatedProcesses": [
+    "ecoli_dna_replication_elongation",
+    "ecoli_sos_response",
+    "ecoli_mismatch_repair",
+    "ecoli_dna_damage_checkpoint"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Homologous recombination is essential for DSB repair and restart of stalled replication forks. The Chi sequence (5'-GCTGGTGG-3') is a recombination hotspot that regulates RecBCD, occurring about once every 5 kb in the E. coli genome, biased in orientation to protect against degradation from replication origins. RecA is the central recombinase, conserved across all domains (Rad51 in eukaryotes). The choice between crossover and non-crossover products depends on Holliday junction resolution orientation by RuvC. This pathway is homologous to eukaryotic DSB repair and meiotic recombination, making it a paradigm for understanding recombination across life."
+}

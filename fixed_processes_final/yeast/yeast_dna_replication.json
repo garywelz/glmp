@@ -1,0 +1,76 @@
+{
+  "id": "yeast_dna_replication",
+  "name": "DNA Replication and Origin Licensing",
+  "organism": "S. cerevisiae",
+  "category": "DNA Replication",
+  "description": "DNA replication in Saccharomyces cerevisiae is a highly regulated process ensuring accurate genome duplication once per cell cycle. It involves origin licensing by MCM2-7 loading in G1 phase, origin firing activation by DDK and S-CDK kinases in S phase, bidirectional replication fork progression with coordinated leading and lagging strand synthesis, and completion with fork convergence and termination.",
+  "mermaid": "graph TD\n    %% Cell Cycle Signals\n    A[G1 Phase Entry] --> B[Low CDK Activity]\n    C[Origin Recognition] --> D[ORC Binding to ARS]\n    \n    B --> E{{AND: Low CDK +<br/>ORC at Origins?}}\n    D --> E\n    \n    E -->|Yes| F[Origin Licensing]\n    E -->|No| G[Wait for Conditions]\n    \n    %% MCM Loading (Licensing)\n    F --> H[ORC1-6 Complex at ARS]\n    H --> I[Cdc6 Recruitment]\n    I --> J[Cdt1 Recruitment]\n    J --> K{{AND: Cdc6 + Cdt1 +<br/>ORC Present?}}\n    \n    K -->|Yes| L[MCM2-7 Helicase Loading]\n    L --> M[First MCM2-7 Complex Loaded]\n    M --> N[Second MCM2-7 Complex Loaded]\n    N --> O[Pre-Replicative Complex Pre-RC]\n    \n    %% S Phase Entry\n    O --> P[S Phase Begins]\n    P --> Q[Rising CDK Activity]\n    Q --> R[S-CDK Clb5/Clb6-Cdk1]\n    \n    R --> S[DDK Dbf4-Cdc7 Kinase]\n    S --> T{{AND: S-CDK + DDK<br/>Active?}}\n    R --> T\n    \n    T -->|Yes| U[Origin Firing]\n    T -->|No| V[Origins Remain Licensed]\n    \n    %% Origin Activation\n    U --> W[MCM2-7 Phosphorylation by DDK]\n    W --> X[Cdc45 Recruitment]\n    U --> Y[Sld2/Sld3 Phosphorylation by S-CDK]\n    Y --> Z[Dpb11 Recruitment]\n    \n    X --> AA{{AND: Cdc45 + GINS +<br/>MCM2-7?}}\n    Z --> AB[GINS Complex Recruitment]\n    AB --> AA\n    \n    AA -->|Yes| AC[CMG Helicase Assembly]\n    AC --> AD[Active Replicative Helicase]\n    AD --> AE[DNA Unwinding Begins]\n    \n    %% Replication Fork Assembly\n    AE --> AF[ssDNA Exposure]\n    AF --> AG[RPA Coating ssDNA]\n    AG --> AH[DNA Polymerase \u03b1-Primase Recruitment]\n    AH --> AI[Primer Synthesis]\n    \n    AI --> AJ{{OR: Leading or<br/>Lagging Strand?}}\n    \n    %% Leading Strand Synthesis\n    AJ -->|Leading| AK[DNA Polymerase \u03b5 Pol2]\n    AK --> AL[Continuous Synthesis 5'\u21923']\n    AL --> AM[PCNA Clamp RFC Loading]\n    AM --> AN[Processive Leading Strand]\n    \n    %% Lagging Strand Synthesis\n    AJ -->|Lagging| AO[DNA Polymerase \u03b4 Pol3]\n    AO --> AP[Okazaki Fragment Synthesis]\n    AP --> AQ[~150 bp Fragments]\n    \n    AQ --> AR[RNA Primer + DNA]\n    AR --> AS[RNase H1 Removes Primers]\n    AS --> AT[DNA Polymerase \u03b4 Fill-In]\n    AT --> AU[DNA Ligase I Cdc9]\n    AU --> AV[Okazaki Fragment Ligation]\n    \n    %% Fork Progression\n    AN --> AW[Replication Fork Movement]\n    AV --> AW\n    AW --> AX[MCM Helicase Unwinds DNA]\n    AX --> AY{Obstacles in Path?}\n    \n    AY -->|Nucleosomes| AZ[Histone Chaperones ASF1/CAF-1]\n    AZ --> BA[Nucleosome Disassembly/Assembly]\n    BA --> AW\n    \n    AY -->|DNA Damage| BB[Fork Stalling]\n    BB --> BC[Checkpoint Activation Mec1]\n    BC --> BD[Fork Stabilization]\n    BD --> BE[Wait for Repair]\n    BE --> AW\n    \n    AY -->|Clear| AW\n    \n    %% Bidirectional Replication\n    U --> BF{OR: Early or<br/>Late Origin?}\n    BF -->|Early| BG[Fire in Early S]\n    BF -->|Late| BH[Fire in Late S]\n    BG --> AC\n    BH --> BI[Wait for Timing Program]\n    BI --> AC\n    \n    %% Preventing Re-Replication\n    Q --> BJ[Cdc6 Degradation]\n    BJ --> BK[Block Re-Licensing]\n    Q --> BL[Cdt1 Degradation]\n    BL --> BK\n    Q --> BM[MCM Export from Nucleus]\n    BM --> BK\n    \n    BK --> BN[Ensure Once-Per-Cell-Cycle]\n    \n    %% Fork Convergence\n    AW --> BO{Converging<br/>Forks?}\n    BO -->|Yes| BP[Fork Termination]\n    BO -->|No| AW\n    \n    BP --> BQ[CMG Helicase Removal]\n    BQ --> BR[Final Gap Filling]\n    BR --> BS[Nick Ligation]\n    BS --> BT[Replication Complete]\n    \n    %% Checkpoint Regulation\n    AF --> BU{Unreplicated<br/>DNA?}\n    BU -->|Yes| BV[Intra-S Checkpoint]\n    BV --> BW[Rad53 Activation]\n    BW --> BX[Slow Fork Progression]\n    BX --> BY[Prevent Mitosis]\n    \n    BU -->|No| BZ[S Phase Completion]\n    BZ --> CA[Enter G2 Phase]\n    \n    %% dNTP Supply\n    P --> CB[Ribonucleotide Reductase RNR]\n    CB --> CC[dNTP Synthesis]\n    CC --> CD[dNTP Pool Available]\n    CD --> AK\n    CD --> AO\n    \n    %% Quality Control\n    AL --> CE{Mismatch<br/>Detected?}\n    AP --> CE\n    \n    CE -->|Yes| CF[DNA Polymerase Exonuclease]\n    CF --> CG[Proofreading 3'\u21925']\n    CG --> CH[Error Correction]\n    CH --> AW\n    \n    CE -->|No| AW\n    \n    %% Final Outputs\n    BT --> CI[Two Identical DNA Molecules]\n    CA --> CJ[Ready for Mitosis]\n    BY --> CK[Cell Cycle Arrest if Problems]\n    \n    %% Styles\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#7950f2,color:#fff\n    style F fill:#b3e5fc,color:#000\n    style G fill:#b3e5fc,color:#000\n    style H fill:#b3e5fc,color:#000\n    style I fill:#b3e5fc,color:#000\n    style J fill:#b3e5fc,color:#000\n    style K fill:#7950f2,color:#fff\n    style L fill:#42a5f5,color:#fff\n    style M fill:#b3e5fc,color:#000\n    style N fill:#b3e5fc,color:#000\n    style O fill:#b3e5fc,color:#000\n    style P fill:#b3e5fc,color:#000\n    style Q fill:#b3e5fc,color:#000\n    style R fill:#b3e5fc,color:#000\n    style S fill:#42a5f5,color:#fff\n    style T fill:#7950f2,color:#fff\n    style U fill:#b3e5fc,color:#000\n    style V fill:#b3e5fc,color:#000\n    style W fill:#42a5f5,color:#fff\n    style X fill:#b3e5fc,color:#000\n    style Y fill:#42a5f5,color:#fff\n    style Z fill:#b3e5fc,color:#000\n    style AA fill:#7950f2,color:#fff\n    style AB fill:#b3e5fc,color:#000\n    style AC fill:#42a5f5,color:#fff\n    style AD fill:#42a5f5,color:#fff\n    style AE fill:#b3e5fc,color:#000\n    style AF fill:#b3e5fc,color:#000\n    style AG fill:#b3e5fc,color:#000\n    style AH fill:#42a5f5,color:#fff\n    style AI fill:#42a5f5,color:#fff\n    style AJ fill:#7950f2,color:#fff\n    style AK fill:#42a5f5,color:#fff\n    style AL fill:#42a5f5,color:#fff\n    style AM fill:#b3e5fc,color:#000\n    style AN fill:#b3e5fc,color:#000\n    style AO fill:#42a5f5,color:#fff\n    style AP fill:#42a5f5,color:#fff\n    style AQ fill:#b3e5fc,color:#000\n    style AR fill:#b3e5fc,color:#000\n    style AS fill:#b3e5fc,color:#000\n    style AT fill:#42a5f5,color:#fff\n    style AU fill:#42a5f5,color:#fff\n    style AV fill:#b3e5fc,color:#000\n    style AW fill:#42a5f5,color:#fff\n    style AX fill:#42a5f5,color:#fff\n    style AY fill:#ffd600,color:#fff\n    style AZ fill:#b3e5fc,color:#000\n    style BA fill:#42a5f5,color:#fff\n    style BB fill:#b3e5fc,color:#000\n    style BC fill:#42a5f5,color:#fff\n    style BD fill:#b3e5fc,color:#000\n    style BE fill:#42a5f5,color:#fff\n    style BF fill:#ffd600,color:#fff\n    style BG fill:#b3e5fc,color:#000\n    style BH fill:#b3e5fc,color:#000\n    style BI fill:#b3e5fc,color:#000\n    style BJ fill:#42a5f5,color:#fff\n    style BK fill:#b3e5fc,color:#000\n    style BL fill:#42a5f5,color:#fff\n    style BM fill:#42a5f5,color:#fff\n    style BN fill:#000000,color:#fff\n    style BO fill:#ffd600,color:#fff\n    style BP fill:#b3e5fc,color:#000\n    style BQ fill:#42a5f5,color:#fff\n    style BR fill:#000000,color:#fff\n    style BS fill:#b3e5fc,color:#000\n    style BT fill:#000000,color:#fff\n    style BU fill:#ffd600,color:#fff\n    style BV fill:#b3e5fc,color:#000\n    style BW fill:#42a5f5,color:#fff\n    style BX fill:#b3e5fc,color:#000\n    style BY fill:#b3e5fc,color:#000\n    style BZ fill:#b3e5fc,color:#000\n    style CA fill:#b3e5fc,color:#000\n    style CB fill:#42a5f5,color:#fff\n    style CC fill:#42a5f5,color:#fff\n    style CD fill:#b3e5fc,color:#000\n    style CE fill:#ffd600,color:#fff\n    style CF fill:#42a5f5,color:#fff\n    style CG fill:#b3e5fc,color:#000\n    style CH fill:#b3e5fc,color:#000\n    style CI fill:#b3e5fc,color:#000\n    style CJ fill:#b3e5fc,color:#000\n    style CK fill:#000000,color:#fff",
+  "complexity": {
+    "nodes": 82,
+    "logicGates": {
+      "orGates": 6,
+      "andGates": 4,
+      "total": 10
+    }
+  },
+  "citations": [
+    {
+      "title": "DNA replication in eukaryotic cells",
+      "authors": "Bell SP, Dutta A",
+      "journal": "Annual Review of Biochemistry",
+      "year": 2002,
+      "pmid": "12045092",
+      "doi": "10.1146/annurev.biochem.71.110601.135425"
+    },
+    {
+      "title": "The eukaryotic replisome: a guide to protein structure and function",
+      "authors": "Yeeles JT, Deegan TD, Janska A, Early A, Diffley JF",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2015,
+      "pmid": "25693131",
+      "doi": "10.1038/nrm3951"
+    }
+  ],
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints"
+    }
+  }
+}
