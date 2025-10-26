@@ -1,0 +1,83 @@
+{
+  "id": "yeast_alcoholic_fermentation",
+  "name": "Alcoholic Fermentation (Ethanol Production)",
+  "organism": "S. cerevisiae",
+  "category": "Metabolic Pathway",
+  "description": "Alcoholic fermentation in Saccharomyces cerevisiae is the metabolic pathway that converts glucose to ethanol and CO2 under anaerobic conditions. This process involves glycolysis followed by ethanolic fermentation, and is regulated by oxygen availability (Crabtree effect), glucose concentration, and energy status. Yeast preferentially ferments even in the presence of oxygen when glucose is abundant, making this pathway central to brewing, baking, and biofuel production.",
+  "mermaid": "graph TD\n    %% Inputs and Environmental Signals\n    A[High Glucose Concentration] --> B[Glucose Import Signal]\n    C[Low Oxygen Availability] --> D[Anaerobic Condition Signal]\n    E[High Glucose Even with O2] --> F[Crabtree Effect Signal]\n    \n    B --> G{OR: Fermentation<br/>Trigger?}\n    D --> G\n    F --> G\n    \n    G -->|Yes| H[Activate Fermentation Pathway]\n    G -->|No| I[Favor Respiration]\n    \n    %% Glucose Transport\n    H --> J[Glucose Transporters HXT1-7]\n    J --> K[Glucose Entry into Cytoplasm]\n    K --> L[Intracellular Glucose]\n    \n    %% Glycolysis Phase 1: Energy Investment\n    L --> M[Hexokinase HXK1/HXK2]\n    M --> N[Glucose-6-Phosphate]\n    N --> O[Phosphoglucose Isomerase PGI1]\n    O --> P[Fructose-6-Phosphate]\n    P --> Q[Phosphofructokinase PFK1/PFK2]\n    Q --> R[Fructose-1,6-Bisphosphate]\n    \n    %% Glycolysis Phase 2: Cleavage\n    R --> S[Aldolase FBA1]\n    S --> T[Dihydroxyacetone Phosphate DHAP]\n    S --> U[Glyceraldehyde-3-Phosphate G3P]\n    T --> V[Triose Phosphate Isomerase TPI1]\n    V --> U\n    \n    %% Glycolysis Phase 3: Energy Payoff\n    U --> W[Glyceraldehyde-3-P Dehydrogenase TDH1-3]\n    W --> X[1,3-Bisphosphoglycerate]\n    X --> Y[Phosphoglycerate Kinase PGK1]\n    Y --> Z[3-Phosphoglycerate + ATP]\n    \n    Z --> AA[Phosphoglycerate Mutase GPM1-3]\n    AA --> AB[2-Phosphoglycerate]\n    AB --> AC[Enolase ENO1/ENO2]\n    AC --> AD[Phosphoenolpyruvate PEP]\n    AD --> AE[Pyruvate Kinase CDC19/PYK2]\n    AE --> AF[Pyruvate + ATP]\n    \n    %% Regulatory Decision Point\n    AF --> AG{OR: Oxygen Available<br/>for Respiration?}\n    D --> AG\n    \n    AG -->|No O2| AH[Commit to Fermentation]\n    AG -->|O2 Present but<br/>High Glucose| AH\n    AG -->|O2 + Low Glucose| AI[Pyruvate to Mitochondria]\n    \n    %% Fermentation Branch\n    AH --> AJ[Pyruvate Decarboxylase PDC1/PDC5/PDC6]\n    AJ --> AK[Acetaldehyde + CO2]\n    \n    %% NAD+ Regeneration Critical Step\n    AK --> AL{{AND: Acetaldehyde +<br/>NADH Available?}}\n    W --> AM[NADH Production from Glycolysis]\n    AM --> AL\n    \n    AL -->|Yes| AN[Alcohol Dehydrogenase ADH1/ADH2]\n    AN --> AO[Ethanol]\n    AN --> AP[NAD+ Regenerated]\n    \n    %% NAD+ Recycling Loop\n    AP --> AQ[NAD+ Returns to Glycolysis]\n    AQ --> W\n    \n    %% ATP Balance and Energy\n    Z --> AR[Net ATP Production]\n    AE --> AR\n    M --> AS[ATP Consumed in Early Glycolysis]\n    Q --> AS\n    \n    AR --> AT{Is ATP Sufficient<br/>for Growth?}\n    AT -->|Yes| AU[Maintain Fermentation Rate]\n    AT -->|No| AV[Increase Glucose Uptake]\n    AV --> J\n    \n    %% Byproducts and Alternatives\n    AF --> AW{OR: Alternative<br/>Pyruvate Fate?}\n    AW -->|Minor| AX[Pyruvate Dehydrogenase Bypass]\n    AW -->|Minor| AY[Amino Acid Biosynthesis]\n    AW -->|Major| AJ\n    \n    %% Regulation by Glucose Sensing\n    B --> AZ[/SNF1/Snf1 Kinase Inhibition/]\n    AZ --> BA[/Glucose Repression Active/]\n    BA --> BB[/Repress Respiratory Genes/]\n    BA --> BC[Activate Fermentation Genes]\n    BC --> J\n    BC --> M\n    BC --> AJ\n    BC --> AN\n    \n    %% Output and Products\n    AO --> BD[Ethanol Accumulation]\n    AK --> BE[CO2 Release]\n    BD --> BF{Ethanol Concentration<br/>Toxic?}\n    BF -->|High| BG[Ethanol Stress Response]\n    BF -->|Normal| BH[Continue Fermentation]\n    \n    BG --> BI[Hsp12, Hsp26 Induction]\n    BG --> BJ[Reduced Fermentation Rate]\n    \n    %% Glycerol Production (Redox Balance Alternative)\n    T --> BK{OR: Excess NADH?}\n    BK -->|Yes| BL[Glycerol-3-P Dehydrogenase GPD1/GPD2]\n    BL --> BM[Glycerol Production]\n    BM --> BN[NAD+ Regenerated]\n    BN --> AQ\n    \n    %% Final Products\n    BD --> BO[Ethanol Export]\n    BE --> BP[CO2 Released as Gas]\n    BM --> BQ[Glycerol as Byproduct]\n    AR --> BR[ATP for Cellular Processes]\n    \n    %% Oxygen Shift Response\n    C --> BS{Oxygen Returns?}\n    BS -->|Yes| BT[Diauxic Shift]\n    BT --> BU[Activate Respiratory Genes]\n    BT --> BV[Ethanol Consumption]\n    BV --> BW[Acetyl-CoA via Acetaldehyde]\n    BW --> AI\n    \n    %% Styles - ALL nodes with text colors\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#51cf66,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#ffd600,color:#fff\n    style H fill:#b3e5fc,color:#000\n    style I fill:#b3e5fc,color:#000\n    style J fill:#42a5f5,color:#fff\n    style K fill:#b3e5fc,color:#000\n    style L fill:#000000,color:#fff\n    style M fill:#42a5f5,color:#fff\n    style N fill:#b3e5fc,color:#000\n    style O fill:#42a5f5,color:#fff\n    style P fill:#b3e5fc,color:#000\n    style Q fill:#42a5f5,color:#fff\n    style R fill:#b3e5fc,color:#000\n    style S fill:#b3e5fc,color:#000\n    style T fill:#b3e5fc,color:#000\n    style U fill:#b3e5fc,color:#000\n    style V fill:#42a5f5,color:#fff\n    style W fill:#b3e5fc,color:#000\n    style X fill:#b3e5fc,color:#000\n    style Y fill:#42a5f5,color:#fff\n    style Z fill:#b3e5fc,color:#000\n    style AA fill:#b3e5fc,color:#000\n    style AB fill:#b3e5fc,color:#000\n    style AC fill:#b3e5fc,color:#000\n    style AD fill:#b3e5fc,color:#000\n    style AE fill:#42a5f5,color:#fff\n    style AF fill:#b3e5fc,color:#000\n    style AG fill:#ffd600,color:#fff\n    style AH fill:#b3e5fc,color:#000\n    style AI fill:#b3e5fc,color:#000\n    style AJ fill:#b3e5fc,color:#000\n    style AK fill:#b3e5fc,color:#000\n    style AL fill:#7950f2,color:#fff\n    style AM fill:#000000,color:#fff\n    style AN fill:#b3e5fc,color:#000\n    style AO fill:#b3e5fc,color:#000\n    style AP fill:#b3e5fc,color:#000\n    style AQ fill:#b3e5fc,color:#000\n    style AR fill:#000000,color:#fff\n    style AS fill:#b3e5fc,color:#000\n    style AT fill:#ffd600,color:#fff\n    style AU fill:#b3e5fc,color:#000\n    style AV fill:#b3e5fc,color:#000\n    style AW fill:#ffd600,color:#fff\n    style AX fill:#b3e5fc,color:#000\n    style AY fill:#42a5f5,color:#fff\n    style AZ fill:#e74c3c,color:#fff\n    style BA fill:#e74c3c,color:#000\n    style BB fill:#e74c3c,color:#000\n    style BC fill:#b3e5fc,color:#000\n    style BD fill:#b3e5fc,color:#000\n    style BE fill:#b3e5fc,color:#000\n    style BF fill:#ffd600,color:#fff\n    style BG fill:#51cf66,color:#fff\n    style BH fill:#b3e5fc,color:#000\n    style BI fill:#b3e5fc,color:#000\n    style BJ fill:#b3e5fc,color:#000\n    style BK fill:#ffd600,color:#fff\n    style BL fill:#b3e5fc,color:#000\n    style BM fill:#000000,color:#fff\n    style BN fill:#b3e5fc,color:#000\n    style BO fill:#42a5f5,color:#fff\n    style BP fill:#b3e5fc,color:#000\n    style BQ fill:#000000,color:#fff\n    style BR fill:#000000,color:#fff\n    style BS fill:#ffd600,color:#fff\n    style BT fill:#b3e5fc,color:#000\n    style BU fill:#b3e5fc,color:#000\n    style BV fill:#b3e5fc,color:#000\n    style BW fill:#b3e5fc,color:#000",
+  "complexity": {
+    "nodes": 72,
+    "logicGates": {
+      "orGates": 7,
+      "andGates": 1,
+      "total": 8
+    }
+  },
+  "citations": [
+    {
+      "title": "Alcoholic fermentation: the regulation of Saccharomyces cerevisiae glycolytic genes",
+      "authors": "Pronk JT, Yde Steensma H, Van Dijken JP",
+      "journal": "Enzyme and Microbial Technology",
+      "year": 1996,
+      "pmid": "8987605",
+      "doi": "10.1016/0141-0229(95)00155-7"
+    },
+    {
+      "title": "The Crabtree effect: a regulatory system in yeast",
+      "authors": "De Deken RH",
+      "journal": "Journal of General Microbiology",
+      "year": 1966,
+      "pmid": "5969497"
+    },
+    {
+      "title": "Metabolic engineering of Saccharomyces cerevisiae for production of carboxylic acids",
+      "authors": "Abbott DA, Zelle RM, Pronk JT, van Maris AJ",
+      "journal": "FEMS Yeast Research",
+      "year": 2009,
+      "pmid": "19459981",
+      "doi": "10.1111/j.1567-1364.2009.00537.x"
+    }
+  ],
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints"
+    }
+  }
+}
