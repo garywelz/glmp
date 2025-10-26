@@ -34,10 +34,11 @@ echo ""
 
 # Upload updated metadata
 echo "📤 Step 2: Uploading updated metadata..."
+echo "   Uploading metadata_with_not_gates.json as metadata.json"
 gsutil cp metadata_with_not_gates.json \
     gs://regal-scholar-453620-r7-podcast-storage/glmp-v2/metadata.json
 
-echo "✅ Metadata uploaded"
+echo "✅ Metadata uploaded (347:435:470)"
 echo ""
 
 # Set cache headers
@@ -62,8 +63,9 @@ echo "  NOT gates: 470 (+343 from before!)"
 echo "  Pattern: 347:435:470"
 echo ""
 echo "All 470 NOT gates are now:"
-echo "  ✅ Red (#e74c3c)"
-echo "  ✅ Trapezoids [/Label/]"
+echo "  ✅ Red background (#e74c3c)"
+echo "  ✅ White text (#fff) for readability"
+echo "  ✅ Trapezoid shapes [/Label/]"
 echo ""
 echo "Verify at: https://huggingface.co/spaces/garywelz/glmp"
 echo ""
