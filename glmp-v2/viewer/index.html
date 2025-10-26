@@ -58,6 +58,7 @@
 
             <!-- Process Detail View -->
             <div id="process-view" class="view" style="display: none;">
+                <!-- Compact Header -->
                 <div class="process-header">
                     <button class="back-btn" onclick="showProcessList()">← Back to List</button>
                     <h2 id="process-title">Loading...</h2>
@@ -67,22 +68,24 @@
                     </div>
                 </div>
 
-                <div class="process-description">
+                <!-- Short Description (2-3 lines max) -->
+                <div class="process-description-short">
                     <p id="process-desc"></p>
                 </div>
 
-                <!-- Scientific Accuracy Statement -->
-                <div id="scientific-accuracy" class="scientific-accuracy" style="display: none;">
-                    <h4>📊 Scientific Accuracy</h4>
-                    <p id="accuracy-statement"></p>
+                <!-- 🎯 DIAGRAM FIRST! (What users want to see) -->
+                <div class="diagram-container">
+                    <div id="mermaid-diagram" class="mermaid"></div>
                 </div>
 
-                <!-- Color Legend -->
-                <div id="color-legend" class="color-legend" style="display: none;">
-                    <h4>🎨 Color Coding System</h4>
-                    <div id="color-key-grid" class="color-key-grid">
-                        <!-- Populated by JavaScript -->
-                    </div>
+                <!-- Color Legend (compact, AFTER diagram) -->
+                <div id="color-legend" class="color-legend-compact" style="display: none;">
+                    <details open>
+                        <summary>🎨 Color Coding System</summary>
+                        <div id="color-key-grid" class="color-key-grid">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Detail Level Selector (if applicable) -->
@@ -92,26 +95,27 @@
                     <span id="detail-label">Basic (1)</span>
                 </div>
 
-                <!-- Diagram Container -->
-                <div class="diagram-container">
-                    <div id="mermaid-diagram" class="mermaid"></div>
-                </div>
+                <!-- Expandable Sections (collapsed by default for cleaner UX) -->
+                <details class="expandable-section">
+                    <summary>📊 Scientific Accuracy</summary>
+                    <div id="scientific-accuracy" class="scientific-accuracy-content">
+                        <p id="accuracy-statement"></p>
+                    </div>
+                </details>
 
-                <!-- Citations -->
-                <div class="citations-section">
-                    <h3>📚 Sources & Citations</h3>
-                    <div id="citations-list">
+                <details class="expandable-section">
+                    <summary>📚 Sources & Citations</summary>
+                    <div id="citations-list" class="citations-section">
                         <!-- Populated by JavaScript -->
                     </div>
-                </div>
+                </details>
 
-                <!-- Metadata -->
-                <div class="metadata-section">
-                    <h3>📋 Metadata</h3>
-                    <div id="metadata-info">
+                <details class="expandable-section">
+                    <summary>📋 Metadata</summary>
+                    <div id="metadata-info" class="metadata-section">
                         <!-- Populated by JavaScript -->
                     </div>
-                </div>
+                </details>
             </div>
 
             <!-- About View -->

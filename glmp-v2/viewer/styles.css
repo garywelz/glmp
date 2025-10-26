@@ -802,3 +802,141 @@ body {
     color: var(--secondary-color);
     padding-left: 1rem;
 }
+
+/* Expandable Sections (Optimized for Clean UX) */
+.expandable-section {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 0;
+    box-shadow: var(--shadow);
+}
+
+.expandable-section summary {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    user-select: none;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+}
+
+.expandable-section summary:hover {
+    background: var(--bg-color);
+}
+
+.expandable-section[open] summary {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.expandable-section .scientific-accuracy-content,
+.expandable-section .citations-section,
+.expandable-section .metadata-section {
+    padding: 0 1.5rem 1rem;
+}
+
+/* Compact Description */
+.process-description-short {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--bg-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.process-description-short p {
+    margin: 0;
+}
+
+/* Compact Color Legend */
+.color-legend-compact {
+    margin: 1.5rem 0;
+}
+
+.color-legend-compact details {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: var(--shadow);
+}
+
+.color-legend-compact summary {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--primary-color);
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.color-legend-compact summary:hover {
+    background: var(--bg-color);
+}
+
+.color-legend-compact[open] summary {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.color-legend-compact .color-key-grid {
+    padding: 1rem 1.5rem;
+}
+
+/* Diagram Container - Make it prominent! */
+.diagram-container {
+    margin: 1.5rem 0;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    min-height: 400px;
+}
+
+/* Process Header - Make it compact */
+.process-header {
+    margin-bottom: 0.5rem;
+}
+
+.process-header h2 {
+    margin: 0.5rem 0;
+}
+
+.process-meta {
+    margin: 0.5rem 0 1rem;
+}
+
+/* Loading Spinner for Process View */
+.diagram-container .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.diagram-container .loading-spinner .spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--bg-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.diagram-container .loading-spinner p {
+    margin-top: 1rem;
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

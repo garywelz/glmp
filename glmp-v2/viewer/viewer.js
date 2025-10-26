@@ -41,7 +41,18 @@ async function initializeViewer() {
         
         if (processId) {
             console.log('📄 Loading specific process:', processId);
-            // Load specific process from URL
+            
+            // Show process view with loading state IMMEDIATELY (no double loading!)
+            showProcessView();
+            document.getElementById('process-title').textContent = 'Loading process...';
+            document.getElementById('mermaid-diagram').innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>🔄 Loading process diagram...</p>
+                </div>
+            `;
+            
+            // Then load the actual process
             await loadProcess(processId);
         } else {
             console.log('🏠 Showing home view with process list');
@@ -280,14 +291,14 @@ function renderProcess() {
  * Render scientific accuracy statement
  */
 function renderScientificAccuracy() {
-    const accuracySection = document.getElementById('scientific-accuracy');
     const accuracyStatement = document.getElementById('accuracy-statement');
+    const accuracyDetails = accuracyStatement.closest('details');
     
     if (currentProcess.scientificAccuracy) {
         accuracyStatement.textContent = currentProcess.scientificAccuracy;
-        accuracySection.style.display = 'block';
+        if (accuracyDetails) accuracyDetails.style.display = 'block';
     } else {
-        accuracySection.style.display = 'none';
+        if (accuracyDetails) accuracyDetails.style.display = 'none';
     }
 }
 
