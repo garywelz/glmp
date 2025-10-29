@@ -14,7 +14,7 @@ echo ""
 
 # Configuration
 GCS_BUCKET="gs://regal-scholar-453620-r7-podcast-storage"
-PROCESS_DIR="/workspace/processes_with_not_gates"
+PROCESS_DIR="./processes_with_not_gates"
 
 echo "📦 COMPLETE DEPLOYMENT MANIFEST"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
