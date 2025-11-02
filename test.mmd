@@ -1,0 +1,226 @@
+graph TD
+    Start([Anaerobic Transition]) --> A1[Cell experiences decreasing oxygen]
+    
+    A1 --> A2{Oxygen level?}
+    A2 -->|High O2 - aerobic| A3[Aerobic metabolism active]
+    A2 -->|Low/no O2 - anaerobic| A4[Anaerobic metabolism induction]
+    
+    A4 --> A5[FNR pathway activation]
+    A4 --> A6[ArcAB pathway activation]
+    
+    A5 --> A7[FNR protein present constitutively]
+    A7 --> A8["Under aerobic conditions FNR has (4Fe-4S)2+ cluster"]
+    
+    A8 --> A9{Oxygen present?}
+    A9 -->|Yes - O2 available| A10["O2 oxidizes (4Fe-4S)2+ cluster"]
+    A9 -->|No - anaerobic| A11[Cluster remains intact]
+    
+    A10 --> A12[/Cluster degraded to (2Fe-2S) and apo-FNR/]
+    A12 --> A13[/FNR inactive - cannot bind DNA/]
+    
+    A11 --> A14["FNR with intact (4Fe-4S)2+ cluster"]
+    A14 --> A15[FNR dimerizes]
+    A15 --> A16[Active FNR dimer binds DNA at FNR boxes]
+    
+    A16 --> A17[FNR activates anaerobic genes]
+    A17 --> A18{Which anaerobic pathways?}
+    
+    A18 -->|narGHJI| A19[Nitrate reductase - NO3- to NO2-]
+    A18 -->|dmsABC| A20[DMSO reductase - DMSO to DMS]
+    A18 -->|frdABCD| A21[Fumarate reductase - fumarate to succinate]
+    A18 -->|nirB| A22[Nitrite reductase - NO2- to NH4+]
+    A18 -->|adhE| A23[Alcohol dehydrogenase - fermentation]
+    A18 -->|focA-pflB| A24[Formate metabolism - pyruvate to acetyl-CoA]
+    
+    A19 --> A25[Anaerobic respiration with nitrate]
+    A20 --> A26[Anaerobic respiration with DMSO]
+    A21 --> A27[Anaerobic respiration with fumarate]
+    A22 --> A25
+    A23 --> A28[Fermentation - mixed acid]
+    A24 --> A28
+    
+    A16 --> A29[/FNR represses aerobic genes/]
+    A29 --> A30[/Which aerobic genes repressed?/]
+    A30 -->|cydAB| A31[Cytochrome bd oxidase - low affinity]
+    A30 -->|nuoA-N| A32[NADH dehydrogenase I - proton pump]
+    A30 -->|sdhCDAB| A33[Succinate dehydrogenase - TCA cycle]
+    
+    A31 --> A34[Reduced aerobic respiration]
+    A32 --> A34
+    A33 --> A34
+    
+    A6 --> A35[ArcB sensor kinase in membrane]
+    A35 --> A36[ArcB has two transmembrane domains]
+    
+    A36 --> A37{Quinone pool state?}
+    A37 -->|Oxidized quinones - aerobic| A38[High O2: quinones oxidized by cytochrome oxidases]
+    A37 -->|Reduced quinones - anaerobic| A39[Low O2: quinones accumulate in reduced form]
+    
+    A38 --> A40[ArcB remains unphosphorylated]
+    A40 --> A41[No signal transduction]
+    
+    A39 --> A42[Reduced quinones interact with ArcB]
+    A42 --> A43[ArcB autophosphorylation activated]
+    A43 --> A44[His292 on ArcB phosphorylated]
+    
+    A44 --> A45[Phosphotransfer to Asp576 on ArcB]
+    A45 --> A46[ArcB-P ready for transfer]
+    
+    A46 --> A47{ArcA available?}
+    A47 -->|Yes| A48[Phosphotransfer to Asp54 on ArcA]
+    A47 -->|No| Wait1[Wait for ArcA]
+    Wait1 --> A47
+    
+    A48 --> A49[ArcA-P activated response regulator]
+    A49 --> A50[ArcA-P dimerizes]
+    A50 --> A51[ArcA-P binds Arc boxes in DNA]
+    
+    A51 --> A52[/ArcA-P represses aerobic genes/]
+    A52 --> A53{Which aerobic genes?}
+    A53 -->|cyoABCDE| A54[Cytochrome bo oxidase - high affinity]
+    A53 -->|icdA| A55[Isocitrate dehydrogenase - TCA cycle]
+    A53 -->|acnA| A56[Aconitase A - TCA cycle]
+    A53 -->|gltA| A57[Citrate synthase - TCA cycle]
+    A53 -->|sdhCDAB| A58[Succinate dehydrogenase overlap with FNR]
+    
+    A54 --> A59[/TCA cycle repressed/]
+    A55 --> A59
+    A56 --> A59
+    A57 --> A59
+    A58 --> A59
+    
+    A51 --> A60[ArcA-P activates anaerobic genes]
+    A60 --> A61{Which anaerobic genes?}
+    A61 -->|cydAB| A62[Cytochrome bd - microaerobic]
+    A61 -->|focA| A63[Formate transport]
+    A61 -->|pepT| A64[Peptidase for peptide utilization]
+    
+    A62 --> A65[Microaerobic respiration]
+    A63 --> A66[Fermentation support]
+    A64 --> A67[Alternative nitrogen sources]
+    
+    A25 --> A68{Electron acceptor hierarchy}
+    A26 --> A68
+    A27 --> A68
+    
+    A68 -->|Preference order| A69[1. Nitrate highest energy]
+    A69 --> A70[2. DMSO intermediate]
+    A70 --> A71[3. Fumarate lower energy]
+    A71 --> A72[4. Fermentation lowest - no external acceptor]
+    
+    A28 --> A72
+    
+    A59 --> A73[Aerobic metabolism shut down]
+    A34 --> A73
+    
+    A73 --> A74{FNR and ArcA coordination}
+    A74 -->|Overlapping targets| A75[/Synergistic repression - e.g. sdh/]
+    A74 -->|Distinct targets| A76[Complementary regulation]
+    
+    A75 --> A77[Complete aerobic-to-anaerobic transition]
+    A76 --> A77
+    
+    A65 --> A77
+    A66 --> A77
+    A67 --> A77
+    A25 --> A77
+    A26 --> A77
+    A27 --> A77
+    A72 --> A77
+    
+    A77 --> End1([Anaerobic metabolism established])
+    
+    A3 --> A78[Aerobic respiration via cytochrome oxidases]
+    A78 --> A79[TCA cycle produces NADH]
+    A79 --> A80[Oxidative phosphorylation - high ATP yield]
+    
+    A80 --> End2([Aerobic metabolism])
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A1 fill:#000000,color:#fff
+    style A2 fill:#ffd600,color:#fff
+    style A3 fill:#b3e5fc,color:#000
+    style A4 fill:#b3e5fc,color:#000
+    style A5 fill:#42a5f5,color:#fff
+    style A6 fill:#42a5f5,color:#fff
+    style A7 fill:#51cf66,color:#fff
+    style A8 fill:#b3e5fc,color:#000
+    style A9 fill:#ffd600,color:#fff
+    style A10 fill:#b3e5fc,color:#000
+    style A11 fill:#b3e5fc,color:#000
+    style A12 fill:#e74c3c,color:#fff
+    style A13 fill:#e74c3c,color:#fff
+    style A14 fill:#b3e5fc,color:#000
+    style A15 fill:#b3e5fc,color:#000
+    style A16 fill:#b3e5fc,color:#000
+    style A17 fill:#b3e5fc,color:#000
+    style A18 fill:#ffd600,color:#fff
+    style A19 fill:#42a5f5,color:#fff
+    style A20 fill:#42a5f5,color:#fff
+    style A21 fill:#42a5f5,color:#fff
+    style A22 fill:#42a5f5,color:#fff
+    style A23 fill:#b3e5fc,color:#000
+    style A24 fill:#b3e5fc,color:#000
+    style A25 fill:#b3e5fc,color:#000
+    style A26 fill:#b3e5fc,color:#000
+    style A27 fill:#b3e5fc,color:#000
+    style A28 fill:#b3e5fc,color:#000
+    style A29 fill:#e74c3c,color:#fff
+    style A30 fill:#e74c3c,color:#fff
+    style A31 fill:#42a5f5,color:#fff
+    style A32 fill:#b3e5fc,color:#000
+    style A33 fill:#b3e5fc,color:#000
+    style A34 fill:#b3e5fc,color:#000
+    style A35 fill:#42a5f5,color:#fff
+    style A36 fill:#b3e5fc,color:#000
+    style A37 fill:#ffd600,color:#fff
+    style A38 fill:#42a5f5,color:#fff
+    style A39 fill:#b3e5fc,color:#000
+    style A40 fill:#b3e5fc,color:#000
+    style A41 fill:#51cf66,color:#fff
+    style A42 fill:#b3e5fc,color:#000
+    style A43 fill:#42a5f5,color:#fff
+    style A44 fill:#b3e5fc,color:#000
+    style A45 fill:#b3e5fc,color:#000
+    style A46 fill:#b3e5fc,color:#000
+    style A47 fill:#ffd600,color:#fff
+    style A48 fill:#b3e5fc,color:#000
+    style A49 fill:#000000,color:#fff
+    style A50 fill:#b3e5fc,color:#000
+    style A51 fill:#b3e5fc,color:#000
+    style A52 fill:#e74c3c,color:#fff
+    style A53 fill:#ffd600,color:#fff
+    style A54 fill:#42a5f5,color:#fff
+    style A55 fill:#b3e5fc,color:#000
+    style A56 fill:#b3e5fc,color:#000
+    style A57 fill:#42a5f5,color:#fff
+    style A58 fill:#b3e5fc,color:#000
+    style A59 fill:#e74c3c,color:#fff
+    style A60 fill:#b3e5fc,color:#000
+    style A61 fill:#ffd600,color:#fff
+    style A62 fill:#b3e5fc,color:#000
+    style A63 fill:#42a5f5,color:#fff
+    style A64 fill:#b3e5fc,color:#000
+    style A65 fill:#b3e5fc,color:#000
+    style A66 fill:#b3e5fc,color:#000
+    style A67 fill:#b3e5fc,color:#000
+    style A68 fill:#ffd600,color:#fff
+    style A69 fill:#000000,color:#fff
+    style A70 fill:#b3e5fc,color:#000
+    style A71 fill:#000000,color:#fff
+    style A72 fill:#51cf66,color:#fff
+    style A73 fill:#b3e5fc,color:#000
+    style A74 fill:#7950f2,color:#fff
+    style A75 fill:#e74c3c,color:#fff
+    style A76 fill:#b3e5fc,color:#000
+    style A77 fill:#000000,color:#fff
+    style A78 fill:#42a5f5,color:#fff
+    style A79 fill:#b3e5fc,color:#000
+    style A80 fill:#42a5f5,color:#fff
