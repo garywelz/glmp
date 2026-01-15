@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        
+        // After Mermaid renders, apply white text to dark nodes
+        setTimeout(() => {
+            // Force white text on purple AND gates
+            document.querySelectorAll('#flowchart-V-39 text, #flowchart-X-45 text').forEach(el => {
+                el.style.fill = 'white';
+                el.style.color = 'white';
+            });
+            
+            // Force white text on red NOT gates  
+            document.querySelectorAll('#flowchart-J-13 text, #flowchart-N-21 text').forEach(el => {
+                el.style.fill = 'white';
+                el.style.color = 'white';
+            });
+            
+            // Force white text on black output node
+            document.querySelectorAll('#flowchart-AG-67 text').forEach(el => {
+                el.style.fill = 'white';
+                el.style.color = 'white';
+            });
+            
+            // Force white text on gray termination nodes
+            document.querySelectorAll('[id*="STOP"] text').forEach(el => {
+                el.style.fill = 'white';
+                el.style.color = 'white';
+            });
+            
+            console.log("✅ Applied white text styling to dark nodes");
+        }, 2000);
+    </script>
+</head>
+<body style="padding: 40px; background: white;">
+    <script>
+        function downloadSVG() {
+            // Wait a bit for Mermaid to fully render
+            setTimeout(() => {
+                const svg = document.querySelector('svg');
+                if (!svg) {
+                    alert('SVG not found! Wait a moment and try again.');
+                    return;
+                }
+                
+                // Get the SVG outerHTML
+                const svgData = svg.outerHTML;
+                
+                // Create a blob and download it
+                const blob = new Blob([svgData], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'lac_operon_figure_complete.svg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('SVG downloaded! Check your Downloads folder for lac_operon_figure_complete.svg');
+            }, 100);
+        }
+    </script>
+    
+    <div style="margin: 20px 0; text-align: center;">
+        <button onclick="downloadSVG()" style="padding: 15px 30px; font-size: 18px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            📥 Download SVG
+        </button>
+    </div>
+
+    <div class="mermaid">
+flowchart TD
+    %% Top: Lactose sensing
+    A[Lactose in<br/>Environment] --> B{Lactose<br/>Available?}
+    B -->|Yes| C[Lactose Uptake]
+    
+    C --> D[Intracellular<br/>Lactose]
+    
+    %% Left branch: Energy sensing
+    E[ATP/AMP Ratio] --> F{Energy<br/>Low?}
+    F -->|Yes| G[Adenylyl Cyclase<br/>Active]
+    F -->|No| F_STOP[Process<br/>Terminates]
+    
+    %% Middle branch: Glucose sensing
+    H[Glucose Level] --> I{Glucose<br/>High?}
+    I -->|Yes| J[\CAP Inactive/]
+    I -->|No| K[Low Glucose<br/>Signal]
+    
+    %% Right branch: Lactose processing
+    D --> L[β-Gal Basal<br/>Activity]
+    L --> M[Allolactose<br/>Formation]
+    
+    M --> N[\LacI<br/>Inactivation/]
+    N -.Releases.-> O[Operator O1]
+    P[Default: LacI<br/>Active] -.Binds.-> O
+    
+    O --> Q{Operator<br/>Free?}
+    Q -->|Yes| R[Promoter<br/>Accessible]
+    Q -->|No| Q_STOP[Process<br/>Terminates]
+    
+    %% cAMP production (OR gate)
+    G --> S[cAMP Production]
+    K --> S
+    
+    S --> T[cAMP<br/>Accumulation]
+    T --> U{{CAP-cAMP<br/>Complex}}
+    
+    %% AND gate 1: Transcription assembly
+    R --> V{{Transcription<br/>Complex<br/>Assembly}}
+    U --> V
+    V -->|Both Present| W[RNA Polymerase<br/>Recruitment]
+    
+    %% AND gate 2: Initiation
+    W --> X{{Transcription<br/>Initiation}}
+    Y[Sigma-70<br/>Factor] --> X
+    
+    X --> Z[Polycistronic<br/>mRNA]
+    
+    %% Gene expression
+    Z --> AA[lacZ<br/>Translation]
+    Z --> AB[lacY<br/>Translation]
+    Z --> AC[lacA<br/>Translation]
+    
+    AA --> AD[β-Galactosidase]
+    AB --> AE[Permease]
+    AC --> AF[Transacetylase]
+    
+    %% Feedback
+    AD -.Enhanced<br/>uptake.-> C
+    AE -.Enhanced<br/>uptake.-> C
+    
+    %% Final output
+    AD --> AG[Glucose +<br/>Galactose]
+    AE --> AG
+    AF --> AG
+    
+    %% Styling with WHITE text on dark nodes
+    style A fill:#51cf66,stroke:#2f9e44,stroke-width:2px,color:#000
+    style E fill:#51cf66,stroke:#2f9e44,stroke-width:2px,color:#000
+    style H fill:#51cf66,stroke:#2f9e44,stroke-width:2px,color:#000
+    style B fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style F fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style I fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style Q fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style J fill:#e74c3c,stroke:#c0392b,stroke-width:3px,color:#ffffff
+    style N fill:#e74c3c,stroke:#c0392b,stroke-width:3px,color:#ffffff
+    style V fill:#7950f2,stroke:#5f3dc4,stroke-width:3px,color:#ffffff
+    style X fill:#7950f2,stroke:#5f3dc4,stroke-width:3px,color:#ffffff
+    style C fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style D fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style G fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style K fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style L fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style M fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style O fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style P fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style R fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style S fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style T fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style U fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style W fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style Y fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style Z fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AA fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AB fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AC fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AD fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style AE fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style AF fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style AG fill:#000000,stroke:#000,stroke-width:4px,color:#ffffff,font-size:11pt
+    style F_STOP fill:#9e9e9e,stroke:#757575,stroke-width:2px,color:#ffffff
+    style Q_STOP fill:#9e9e9e,stroke:#757575,stroke-width:2px,color:#ffffff
+    </div>
+    
+    <div style="margin-top: 20px; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Open this file in Chrome/Edge</li>
+            <li>Right-click on the diagram → "Inspect"</li>
+            <li>Find the &lt;svg&gt; element in DevTools</li>
+            <li>Right-click the &lt;svg&gt; → Copy → Copy outerHTML</li>
+            <li>Save to a .svg file</li>
+        </ol>
+        <p><strong>Or simply take a screenshot if the rendering looks good!</strong></p>
+    </div>
+</body>
+</html>

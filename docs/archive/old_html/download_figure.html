@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body { background: white; margin: 20px; font-family: Arial, sans-serif; }
+        .controls { 
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            background: #2196f3; 
+            padding: 15px; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn {
+            background: white;
+            color: #2196f3;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14pt;
+            display: block;
+            margin: 8px 0;
+        }
+        .btn:hover { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="btn" onclick="downloadSVG()">📥 Download SVG</button>
+        <button class="btn" onclick="downloadPNG()">📥 Download PNG</button>
+    </div>
+
+    <div id="diagram" class="mermaid">
+flowchart TD
+    %% Top: Lactose sensing
+    A[Lactose in<br/>Environment] --> B{Lactose<br/>Available?}
+    B -->|Yes| C[Lactose Uptake]
+    
+    C --> D[Intracellular<br/>Lactose]
+    
+    %% Left branch: Energy sensing
+    E[ATP/AMP Ratio] --> F{Energy<br/>Low?}
+    F -->|Yes| G[Adenylyl Cyclase<br/>Active]
+    
+    %% Middle branch: Glucose sensing
+    H[Glucose Level] --> I{Glucose<br/>High?}
+    I -->|Yes| J[\CAP Inactive/]
+    I -->|No| K[Low Glucose<br/>Signal]
+    
+    %% Right branch: Lactose processing
+    D --> L[β-Gal Basal<br/>Activity]
+    L --> M[Allolactose<br/>Formation]
+    
+    M --> N[\LacI<br/>Inactivation/]
+    N -.Releases.-> O[Operator O1]
+    P[Default: LacI<br/>Active] -.Binds.-> O
+    
+    O --> Q{Operator<br/>Free?}
+    Q -->|Yes| R[Promoter<br/>Accessible]
+    
+    %% cAMP production (OR gate)
+    G --> S[cAMP Production]
+    K --> S
+    
+    S --> T[cAMP<br/>Accumulation]
+    T --> U{{CAP-cAMP<br/>Complex}}
+    
+    %% AND gate 1: Transcription assembly
+    R --> V{{Transcription<br/>Complex<br/>Assembly}}
+    U --> V
+    V -->|Both Present| W[RNA Polymerase<br/>Recruitment]
+    
+    %% AND gate 2: Initiation
+    W --> X{{Transcription<br/>Initiation}}
+    Y[Sigma-70<br/>Factor] --> X
+    
+    X --> Z[Polycistronic<br/>mRNA]
+    
+    %% Gene expression
+    Z --> AA[lacZ<br/>Translation]
+    Z --> AB[lacY<br/>Translation]
+    Z --> AC[lacA<br/>Translation]
+    
+    AA --> AD[β-Galactosidase]
+    AB --> AE[Permease]
+    AC --> AF[Transacetylase]
+    
+    %% Feedback
+    AD -.Enhanced<br/>uptake.-> C
+    AE -.Enhanced<br/>uptake.-> C
+    
+    %% Final output
+    AD --> AG((Lactose →<br/>Glucose +<br/>Galactose))
+    AE --> AG
+    AF --> AG
+    
+    %% Styling
+    style A fill:#51cf66,stroke:#2f9e44,stroke-width:2px,color:#000
+    style E fill:#51cf66,stroke:#2f9e44,stroke-width:2px,color:#000
+    style H fill:#51cf66,stroke:#2f9e44,stroke-width:2px,color:#000
+    style B fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style F fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style I fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style Q fill:#ffd600,stroke:#f59f00,stroke-width:3px,color:#000
+    style J fill:#e74c3c,stroke:#c0392b,stroke-width:3px,color:#ffffff
+    style N fill:#e74c3c,stroke:#c0392b,stroke-width:3px,color:#ffffff
+    style V fill:#7950f2,stroke:#5f3dc4,stroke-width:3px,color:#ffffff
+    style X fill:#7950f2,stroke:#5f3dc4,stroke-width:3px,color:#ffffff
+    style C fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style D fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style G fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style K fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style L fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style M fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style O fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style P fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style R fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style S fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style T fill:#b3e5fc,stroke:#81d4fa,stroke-width:2px,color:#000
+    style U fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style W fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style Y fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style Z fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AA fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AB fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AC fill:#42a5f5,stroke:#1e88e5,stroke-width:2px,color:#000
+    style AD fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style AE fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style AF fill:#ffa726,stroke:#fb8c00,stroke-width:2px,color:#000
+    style AG fill:#000000,stroke:#000,stroke-width:4px,color:#ffffff,font-size:11pt
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        // Fix text colors on dark nodes after render
+        setTimeout(() => {
+            const darkNodeIds = ['J', 'N', 'V', 'X', 'AG'];
+            
+            darkNodeIds.forEach(nodeId => {
+                const nodeElements = document.querySelectorAll(`[id*="flowchart-${nodeId}-"]`);
+                nodeElements.forEach(element => {
+                    const textElements = element.querySelectorAll('text, span, foreignObject div');
+                    textElements.forEach(text => {
+                        text.style.fill = 'white';
+                        text.style.color = 'white';
+                        text.setAttribute('fill', 'white');
+                    });
+                });
+            });
+            
+            console.log('✅ Ready to download!');
+        }, 1500);
+        
+        function downloadSVG() {
+            const svg = document.querySelector('#diagram svg');
+            if (!svg) {
+                alert('SVG not ready yet, wait a moment and try again');
+                return;
+            }
+            
+            const svgData = svg.outerHTML;
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lac_operon_figure_1.svg';
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('✅ SVG downloaded as lac_operon_figure_1.svg');
+        }
+        
+        function downloadPNG() {
+            const svg = document.querySelector('#diagram svg');
+            if (!svg) {
+                alert('SVG not ready yet, wait a moment and try again');
+                return;
+            }
+            
+            const canvas = document.createElement('canvas');
+            const bbox = svg.getBBox();
+            const scale = 3; // 3x resolution for print quality
+            canvas.width = bbox.width * scale;
+            canvas.height = bbox.height * scale;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.scale(scale, scale);
+            
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const img = new Image();
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            
+            img.onload = () => {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+                
+                canvas.toBlob((pngBlob) => {
+                    const pngUrl = URL.createObjectURL(pngBlob);
+                    const a = document.createElement('a');
+                    a.href = pngUrl;
+                    a.download = 'lac_operon_figure_1_highres.png';
+                    a.click();
+                    URL.revokeObjectURL(pngUrl);
+                    URL.revokeObjectURL(url);
+                    alert('✅ High-res PNG downloaded!');
+                });
+            };
+            
+            img.src = url;
+        }
+    </script>
+</body>
+</html>
