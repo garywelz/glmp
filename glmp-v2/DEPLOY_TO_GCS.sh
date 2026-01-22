@@ -102,6 +102,15 @@ echo -e "${YELLOW}[3/4] Deploying data files...${NC}"
 gsutil -m cp -r data/* "gs://${GCS_BUCKET}/${GCS_PATH}/data/"
 echo -e "${GREEN}✓${NC} Data files deployed"
 
+# Copy metadata.json to the v2 root for backwards-compatible URLs
+# (The public database table and viewer have historically fetched glmp-v2/metadata.json)
+if [ -f "data/metadata.json" ]; then
+    echo ""
+    echo -e "${YELLOW}Publishing metadata.json at root (compat)...${NC}"
+    gsutil cp "data/metadata.json" "gs://${GCS_BUCKET}/${GCS_PATH}/metadata.json"
+    echo -e "${GREEN}✓${NC} metadata.json published at: gs://${GCS_BUCKET}/${GCS_PATH}/metadata.json"
+fi
+
 # Deploy README
 echo ""
 echo -e "${YELLOW}Deploying README...${NC}"
@@ -115,6 +124,7 @@ gsutil -m acl ch -r -u AllUsers:R "gs://${GCS_BUCKET}/${GCS_PATH}/viewer/"
 gsutil -m acl ch -r -u AllUsers:R "gs://${GCS_BUCKET}/${GCS_PATH}/processes/"
 gsutil -m acl ch -r -u AllUsers:R "gs://${GCS_BUCKET}/${GCS_PATH}/data/"
 gsutil acl ch -u AllUsers:R "gs://${GCS_BUCKET}/${GCS_PATH}/README.md"
+gsutil acl ch -u AllUsers:R "gs://${GCS_BUCKET}/${GCS_PATH}/metadata.json" 2>/dev/null || true
 echo -e "${GREEN}✓${NC} Public access configured"
 
 # Set cache control headers
@@ -123,8 +133,10 @@ echo -e "${YELLOW}Setting cache control headers...${NC}"
 gsutil -m setmeta -h "Cache-Control:public, max-age=3600" "gs://${GCS_BUCKET}/${GCS_PATH}/viewer/*.html"
 gsutil -m setmeta -h "Cache-Control:public, max-age=3600" "gs://${GCS_BUCKET}/${GCS_PATH}/viewer/*.js"
 gsutil -m setmeta -h "Cache-Control:public, max-age=3600" "gs://${GCS_BUCKET}/${GCS_PATH}/viewer/*.css"
+gsutil -m setmeta -h "Cache-Control:public, max-age=3600" "gs://${GCS_BUCKET}/${GCS_PATH}/viewer/modules/*.js"
 gsutil -m setmeta -h "Cache-Control:public, max-age=86400" "gs://${GCS_BUCKET}/${GCS_PATH}/processes/**/*.json"
 gsutil -m setmeta -h "Cache-Control:public, max-age=86400" "gs://${GCS_BUCKET}/${GCS_PATH}/data/*.json"
+gsutil setmeta -h "Cache-Control:public, max-age=3600" "gs://${GCS_BUCKET}/${GCS_PATH}/metadata.json" 2>/dev/null || true
 echo -e "${GREEN}✓${NC} Cache headers configured"
 
 # Deployment complete

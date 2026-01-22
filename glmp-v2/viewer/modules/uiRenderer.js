@@ -129,7 +129,8 @@ export function renderColorLegend(process) {
     }
     
     let html = '';
-    const colors = ['green', 'amber', 'darkSkyBlue', 'lightCyan', 'yellow', 'purple', 'red', 'black'];
+    // Standardized 5-color legend (shared across Programming Framework collections)
+    const colors = ['red', 'yellow', 'green', 'blue', 'violet'];
     
     colors.forEach(color => {
         if (process.colorScheme[color]) {

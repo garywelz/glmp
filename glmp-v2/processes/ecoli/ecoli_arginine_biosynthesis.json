@@ -13,47 +13,38 @@
     "logicGates": {
       "orGates": 2,
       "andGates": 1,
-      "total": 3
+      "total": 3,
+      "notGates": 0
     }
   },
   "colorScheme": {
     "red": {
       "hex": "#ff6b6b",
       "category": "Triggers & Inputs",
-      "description": "Environmental signals, nutrient availability"
+      "description": "Environmental signals, nutrient availability, stress conditions"
     },
     "yellow": {
       "hex": "#ffd43b",
       "category": "Structures & Objects",
-      "description": "Enzymes, regulatory proteins"
+      "description": "Enzymes, receptor proteins, regulatory complexes"
     },
     "green": {
       "hex": "#51cf66",
       "category": "Processing & Operations",
-      "description": "Enzymatic reactions, transcription, translation"
+      "description": "Metabolic reactions, signal transduction, gene expression"
     },
     "blue": {
       "hex": "#74c0fc",
       "category": "Intermediates & States",
-      "description": "Pathway intermediates, regulatory states"
-    },
-    "orange": {
-      "hex": "#ff9f43",
-      "category": "OR Logic Gates",
-      "description": "Binary decision points"
-    },
-    "lavender": {
-      "hex": "#b4b4dc",
-      "category": "AND Logic Gates",
-      "description": "Multi-signal integration points"
+      "description": "Metabolites, signaling molecules, regulatory states"
     },
     "violet": {
       "hex": "#b197fc",
       "category": "Products & Outputs",
-      "description": "Final products, cellular responses"
+      "description": "Biomolecules, cellular responses, system behaviors"
     }
   },
-  "mermaid": "graph TD\n    %% Input and Regulation Check\n    A[Arginine Depletion Signal] --> B[Low Cellular Arginine]\n    C[External Arginine Source] --> D[Arginine Transport]\n    D --> E[High Cellular Arginine]\n    \n    %% Arginine Availability Decision\n    B --> F{Arginine Available?}\n    E --> F\n    \n    %% High Arginine Path - Repression\n    F -->|Yes| G[Arginine Binds ArgR]\n    G --> H[ArgR Hexamer Formation]\n    H --> I[ArgR-Arg6 Active Repressor]\n    I --> J[ArgR Complex Binds ARG Boxes]\n    J --> K[arg Operon Repression]\n    K --> L[No arg mRNA Synthesis]\n    L --> M[No Biosynthetic Enzymes]\n    M --> N[Arginine Biosynthesis OFF]\n    \n    %% Low Arginine Path - Derepression\n    F -->|No| O[ArgR Apo-form]\n    O --> P[Inactive Repressor]\n    P --> Q[ARG Boxes Free]\n    Q --> R[RNA Polymerase Access]\n    R --> S[arg Operon Transcription]\n    \n    %% Gene Expression\n    S --> T[argA mRNA]\n    S --> U[argB mRNA]\n    S --> V[argC mRNA]\n    S --> W[argD mRNA]\n    S --> X[argE mRNA]\n    S --> Y[argF mRNA]\n    S --> Z[argG mRNA]\n    S --> AA[argH mRNA]\n    \n    %% Translation\n    T --> AB[ArgA Enzyme]\n    U --> AC[ArgB Enzyme]\n    V --> AD[ArgC Enzyme]\n    W --> AE[ArgD Enzyme]\n    X --> AF[ArgE Enzyme]\n    Y --> AG[ArgF Enzyme]\n    Z --> AH[ArgG Enzyme]\n    AA --> AI[ArgH Enzyme]\n    \n    %% Biosynthetic Pathway Steps\n    AJ[Glutamate] --> AB\n    AB --> AK[N-Acetylglutamate Synthase]\n    AK --> AL[N-Acetylglutamate]\n    AL --> AC\n    AC --> AM[N-Acetylglutamate Kinase]\n    AM --> AN[N-Acetylglutamyl-P]\n    AN --> AD\n    AD --> AO[N-Acetylglutamyl-P Reductase]\n    AO --> AP[N-Acetylglutamate Semialdehyde]\n    AP --> AE\n    AE --> AQ[N-Acetylornithine Aminotransferase]\n    AQ --> AR[N-Acetylornithine]\n    AR --> AF\n    AF --> AS[Acetylornithine Deacetylase]\n    AS --> AT[Ornithine]\n    AT --> AG\n    AG --> AU[Ornithine Carbamoyltransferase]\n    AU --> AV[Citrulline]\n    AV --> AH\n    AH --> AW[Argininosuccinate Synthase]\n    AW --> AX[Argininosuccinate]\n    AX --> AI\n    AI --> AY[Argininosuccinate Lyase]\n    AY --> AZ[L-Arginine Product]\n    \n    %% Feedback and System State\n    AZ --> BA[Cellular Arginine Pool]\n    BA --> BB[Protein Synthesis]\n    BA --> BC[Feedback to ArgR]\n    BC --> G\n    BB --> BD[Cell Growth]\n    N --> BE[Arginine Conservation Mode]\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style AJ fill:#ff6b6b,color:#fff\n    \n    style D fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#51cf66,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#51cf66,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#51cf66,color:#fff\n    style T fill:#51cf66,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AQ fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AU fill:#51cf66,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AY fill:#51cf66,color:#fff\n    style BB fill:#51cf66,color:#fff\n    style BC fill:#51cf66,color:#fff\n    \n    style B fill:#74c0fc,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    \n    style AB fill:#ffd43b,color:#000\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#ffd43b,color:#000\n    style AE fill:#ffd43b,color:#000\n    style AF fill:#ffd43b,color:#000\n    style AG fill:#ffd43b,color:#000\n    style AH fill:#ffd43b,color:#000\n    style AI fill:#ffd43b,color:#000\n    \n    style F fill:#ff9f43,color:#fff\n    \n    style AZ fill:#b197fc,color:#fff\n    style BD fill:#b197fc,color:#fff\n    style N fill:#b197fc,color:#fff\n    style BE fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    %% Input and Regulation Check\n    A[Arginine Depletion Signal] --> B[Low Cellular Arginine]\n    C[External Arginine Source] --> D[Arginine Transport]\n    D --> E[High Cellular Arginine]\n    \n    %% Arginine Availability Decision\n    B --> F{Arginine Available?}\n    E --> F\n    \n    %% High Arginine Path - Repression\n    F -->|Yes| G[Arginine Binds ArgR]\n    G --> H[ArgR Hexamer Formation]\n    H --> I[/ArgR-Arg6 Active Repressor/]\n    I --> J[ArgR Complex Binds ARG Boxes]\n    J --> K[/arg Operon Repression/]\n    K --> L[No arg mRNA Synthesis]\n    L --> M[No Biosynthetic Enzymes]\n    M --> N[Arginine Biosynthesis OFF]\n    \n    %% Low Arginine Path - Derepression\n    F -->|No| O[ArgR Apo-form]\n    O --> P[/Inactive Repressor - Apo-form/]\n    P --> Q[ARG Boxes Free]\n    Q --> R[RNA Polymerase Access]\n    R --> S[arg Operon Transcription]\n    \n    %% Gene Expression\n    S --> T[argA mRNA]\n    S --> U[argB mRNA]\n    S --> V[argC mRNA]\n    S --> W[argD mRNA]\n    S --> X[argE mRNA]\n    S --> Y[argF mRNA]\n    S --> Z[argG mRNA]\n    S --> AA[argH mRNA]\n    \n    %% Translation\n    T --> AB[ArgA Enzyme]\n    U --> AC[ArgB Enzyme]\n    V --> AD[ArgC Enzyme]\n    W --> AE[ArgD Enzyme]\n    X --> AF[ArgE Enzyme]\n    Y --> AG[ArgF Enzyme]\n    Z --> AH[ArgG Enzyme]\n    AA --> AI[ArgH Enzyme]\n    \n    %% Biosynthetic Pathway Steps\n    AJ(\\1) --> AB\n    AB --> AK[N-Acetylglutamate Synthase]\n    AK --> AL[N-Acetylglutamate]\n    AL --> AC\n    AC --> AM[N-Acetylglutamate Kinase]\n    AM --> AN[N-Acetylglutamyl-P]\n    AN --> AD\n    AD --> AO[N-Acetylglutamyl-P Reductase]\n    AO --> AP[N-Acetylglutamate Semialdehyde]\n    AP --> AE\n    AE --> AQ[/N-Acetylornithine Aminotransferase/]\n    AQ --> AR[N-Acetylornithine]\n    AR --> AF\n    AF --> AS[Acetylornithine Deacetylase]\n    AS --> AT(\\1)\n    AT --> AG\n    AG --> AU[Ornithine Carbamoyltransferase]\n    AU --> AV(\\1)\n    AV --> AH\n    AH --> AW[Argininosuccinate Synthase]\n    AW --> AX[Argininosuccinate]\n    AX --> AI\n    AI --> AY[Argininosuccinate Lyase]\n    AY --> AZ[L-Arginine Product]\n    \n    %% Feedback and System State\n    AZ --> BA[Cellular Arginine Pool]\n    BA --> BB[Protein Synthesis]\n    BA --> BC[Feedback to ArgR]\n    BC --> G\n    BB --> BD[Cell Growth]\n    N --> BE[Arginine Conservation Mode]\n    \n    %% Styling\n    \n    \n    \n    \n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#ffd43b,color:#000\n    style N fill:#51cf66,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#51cf66,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#ffd43b,color:#000\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#ffd43b,color:#000\n    style AE fill:#ffd43b,color:#000\n    style AF fill:#ffd43b,color:#000\n    style AG fill:#ffd43b,color:#000\n    style AH fill:#ffd43b,color:#000\n    style AI fill:#ffd43b,color:#000\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#51cf66,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#b197fc,color:#fff\n    style BA fill:#b197fc,color:#fff\n    style BB fill:#ffd43b,color:#000\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#b197fc,color:#fff\n    style BE fill:#74c0fc,color:#fff",
   "sources": [
     {
       "authors": "Cunin R, Glansdorff N, Piérard A, Stalon V",
@@ -122,5 +113,13 @@
   "lastUpdated": "2025-10-13",
   "verified": true,
   "verifiedBy": "Literature review and AI validation",
-  "notes": "This flowchart represents arginine biosynthesis with 52 unique nodes (A-BE). Contains 2 OR logic gates (arginine availability decision) and represents the classic negative feedback loop where arginine acts as corepressor. The pathway shows all 8 enzymatic steps from glutamate to arginine with proper intermediate naming. ArgR repressor requires arginine binding to form active hexameric complex."
+  "notes": "This flowchart represents arginine biosynthesis with 52 unique nodes (A-BE). Contains 2 OR logic gates (arginine availability decision) and represents the classic negative feedback loop where arginine acts as corepressor. The pathway shows all 8 enzymatic steps from glutamate to arginine with proper intermediate naming. ArgR repressor requires arginine binding to form active hexameric complex.",
+  "logicGates": {
+    "or": 1,
+    "and": 0,
+    "not": 4
+  },
+  "notGates": 4,
+  "conditionals": 51,
+  "totalNodes": 57
 }
