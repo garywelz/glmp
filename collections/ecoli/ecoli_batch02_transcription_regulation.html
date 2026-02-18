@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E. coli Batch 02: Transcription Regulation - Programming Framework Analysis</title>
+    <title>E. coli Batch 02: Transcription Regulation - Interactive Programming Framework</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         body {
@@ -71,19 +71,33 @@
             color: #495057;
             margin-bottom: 1rem;
         }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
         .mermaid-container {
             background: white;
             padding: 1rem;
             border-radius: 8px;
             margin: 1rem 0;
             overflow-x: auto;
-        }
-        .footer {
-            background: #f8f9fa;
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid #dee2e6;
-            margin-top: 2rem;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
         }
         .color-legend {
             display: grid;
@@ -101,23 +115,38 @@
             margin-right: 4px;
             border: 1px solid rgba(0,0,0,.15);
         }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🦠 E. coli Batch 02: Transcription Regulation</h1>
-            <p>Programming Framework Analysis - 4 Transcription Processes</p>
+            <h1>🦠 E. coli Transcription Regulation</h1>
+            <p>Interactive Programming Framework Analysis - 4 Transcription Processes</p>
         </div>
+        
         <div class="content">
             <div class="intro">
-                <h2>🦠 Transcription Regulation Systems</h2>
-                <p><strong>Batch Overview:</strong> This batch contains 4 fundamental E. coli processes responsible for transcription regulation and gene expression control. These processes represent the core computational systems that ensure proper gene expression timing and regulation.</p>
-                <p>Each process demonstrates sophisticated biological programming with promoter recognition and regulatory mechanisms.</p>
+                <h2>🦠 Interactive Transcription Regulation Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> This enhanced version features interactive sliders allowing you to explore each transcription regulation process at 5 different detail levels. Each process demonstrates sophisticated biological programming with promoter recognition, regulatory mechanisms, and gene expression control.</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive molecular detail).</p>
             </div>
             
             <div class="toc">
-                <h2>📋 Table of Contents - 4 Transcription Processes</h2>
+                <h2>📋 Interactive Transcription Processes - 4 Core Systems</h2>
                 <ul>
                     <li><a href="#transcription-initiation">1. Transcription Initiation</a></li>
                     <li><a href="#sigma-factor-regulation">2. Sigma Factor Regulation</a></li>
@@ -128,156 +157,953 @@
             
             <!-- Process 1: Transcription Initiation -->
             <div class="process-item" id="transcription-initiation">
-                <h3>1. Transcription Initiation</h3>
-                <p>Detailed analysis of E. coli Transcription Initiation using the Programming Framework, revealing computational logic and regulatory patterns.</p>
+                <h3><a href="#transcription-initiation" class="anchor-link">1. Transcription Initiation</a></h3>
+                <p>Interactive analysis of E. coli transcription initiation with 5 detail levels showing the computational logic of RNA polymerase promoter recognition and transcription start.</p>
+                <div class="slider-container">
+                    <label for="slider-1">Detail Level: <span id="level-1">1</span></label>
+                    <input type="range" id="slider-1" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(1, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
                 <div class="mermaid-container">
-                    <div class="mermaid">
-graph TD
-    %% Initial Setup
-    A[Promoter Recognition] --> B[Sigma Factor Binding]
-    B --> C[RNA Polymerase Assembly]
-    C --> D[DNA Unwinding]
-    D --> E[Transcription Bubble Formation]
-    E --> F[First Nucleotide Addition]
-    F --> G[Promoter Clearance]
-    G --> H[Elongation Phase]
-    %% Styling - Biological Color Scheme
-    style A fill:#ff6b6b,color:#fff
-    style B fill:#ffd43b,color:#000
-    style C fill:#51cf66,color:#fff
-    style D fill:#74c0fc,color:#fff
-    style E fill:#51cf66,color:#fff
-    style F fill:#ffd43b,color:#000
-    style G fill:#51cf66,color:#fff
-    style H fill:#b197fc,color:#fff
+                    <div class="mermaid" id="chart-1">
+                        <!-- Chart will be populated by JavaScript -->
                     </div>
-                    <div class="color-legend">
-                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
-                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
-                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
-                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
-                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
-                    </div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
                 </div>
             </div>
 
             <!-- Process 2: Sigma Factor Regulation -->
             <div class="process-item" id="sigma-factor-regulation">
-                <h3>2. Sigma Factor Regulation</h3>
-                <p>Detailed analysis of E. coli Sigma Factor Regulation using the Programming Framework, revealing computational logic and regulatory patterns.</p>
+                <h3><a href="#sigma-factor-regulation" class="anchor-link">2. Sigma Factor Regulation</a></h3>
+                <p>Interactive analysis of E. coli sigma factor regulation with 5 detail levels showing the computational logic of promoter specificity and stress response control.</p>
+                <div class="slider-container">
+                    <label for="slider-2">Detail Level: <span id="level-2">1</span></label>
+                    <input type="range" id="slider-2" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(2, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
                 <div class="mermaid-container">
-                    <div class="mermaid">
-graph TD
-    %% Initial Setup
-    A[Environmental Stress] --> B[Sigma Factor Expression]
-    B --> C[Sigma Factor Activation]
-    C --> D[Promoter Specificity]
-    D --> E[Gene Expression Switch]
-    E --> F[Stress Response Genes]
-    F --> G[Adaptation Response]
-    G --> H[Cell Survival]
-    %% Styling - Biological Color Scheme
-    style A fill:#ff6b6b,color:#fff
-    style B fill:#51cf66,color:#fff
-    style C fill:#ffd43b,color:#000
-    style D fill:#74c0fc,color:#fff
-    style E fill:#51cf66,color:#fff
-    style F fill:#74c0fc,color:#fff
-    style G fill:#51cf66,color:#fff
-    style H fill:#b197fc,color:#fff
+                    <div class="mermaid" id="chart-2">
+                        <!-- Chart will be populated by JavaScript -->
                     </div>
-                    <div class="color-legend">
-                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
-                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
-                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
-                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
-                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
-                    </div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
                 </div>
             </div>
 
             <!-- Process 3: Operon Regulation -->
             <div class="process-item" id="operon-regulation">
-                <h3>3. Operon Regulation</h3>
-                <p>Detailed analysis of E. coli Operon Regulation using the Programming Framework, revealing computational logic and regulatory patterns.</p>
+                <h3><a href="#operon-regulation" class="anchor-link">3. Operon Regulation</a></h3>
+                <p>Interactive analysis of E. coli operon regulation with 5 detail levels showing the computational logic of coordinated gene expression and metabolic control.</p>
+                <div class="slider-container">
+                    <label for="slider-3">Detail Level: <span id="level-3">1</span></label>
+                    <input type="range" id="slider-3" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(3, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
+                    </div>
+                </div>
                 <div class="mermaid-container">
-                    <div class="mermaid">
-graph TD
-    %% Initial Setup
-    A[Lactose Availability] --> B[Lac Repressor Release]
-    B --> C[CAP-cAMP Binding]
-    C --> D[Promoter Activation]
-    D --> E[Polycistronic Transcription]
-    E --> F[Multiple Gene Expression]
-    F --> G[Metabolic Pathway Activation]
-    G --> H[Lactose Utilization]
-    %% Styling - Biological Color Scheme
-    style A fill:#ff6b6b,color:#fff
-    style B fill:#51cf66,color:#fff
-    style C fill:#ffd43b,color:#000
-    style D fill:#51cf66,color:#fff
-    style E fill:#74c0fc,color:#fff
-    style F fill:#51cf66,color:#fff
-    style G fill:#74c0fc,color:#fff
-    style H fill:#b197fc,color:#fff
-                    </div>
-                    <div class="color-legend">
-                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
-                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
-                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
-                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
-                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
-                    </div>
+                    <div class="mermaid" id="chart-3"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
                 </div>
             </div>
 
             <!-- Process 4: Transcription Termination -->
             <div class="process-item" id="transcription-termination">
-                <h3>4. Transcription Termination</h3>
-                <p>Detailed analysis of E. coli Transcription Termination using the Programming Framework, revealing computational logic and regulatory patterns.</p>
-                <div class="mermaid-container">
-                    <div class="mermaid">
-graph TD
-    %% Initial Setup
-    A[Termination Signal] --> B[Rho Factor Binding]
-    B --> C[RNA-DNA Hybrid Unwinding]
-    C --> D[RNA Polymerase Release]
-    D --> E[Transcription Complex Dissociation]
-    E --> F[RNA Release]
-    F --> G[DNA Reannealing]
-    G --> H[Transcription Complete]
-    %% Styling - Biological Color Scheme
-    style A fill:#ff6b6b,color:#fff
-    style B fill:#ffd43b,color:#000
-    style C fill:#51cf66,color:#fff
-    style D fill:#74c0fc,color:#fff
-    style E fill:#51cf66,color:#fff
-    style F fill:#74c0fc,color:#fff
-    style G fill:#51cf66,color:#fff
-    style H fill:#b197fc,color:#fff
-                    </div>
-                    <div class="color-legend">
-                        <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
-                        <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
-                        <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
-                        <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
-                        <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                <h3><a href="#transcription-termination" class="anchor-link">4. Transcription Termination</a></h3>
+                <p>Interactive analysis of E. coli transcription termination with 5 detail levels showing the computational logic of RNA release and polymerase recycling.</p>
+                <div class="slider-container">
+                    <label for="slider-4">Detail Level: <span id="level-4">1</span></label>
+                    <input type="range" id="slider-4" class="slider" min="1" max="5" value="1" oninput="updateFlowchart(4, this.value)">
+                    <div class="slider-labels">
+                        <span>Basic</span><span>Detailed</span><span>Complex</span><span>Advanced</span><span>Complete</span>
                     </div>
                 </div>
+                <div class="mermaid-container">
+                    <div class="mermaid" id="chart-4"></div>
+                </div>
+                <div class="color-legend">
+                    <span><span class="color-box" style="background:#ff6b6b;"></span>Triggers & Conditions</span>
+                    <span><span class="color-box" style="background:#ffd43b;"></span>Catalysts & Enzymes</span>
+                    <span><span class="color-box" style="background:#51cf66;"></span>Chemical Processing</span>
+                    <span><span class="color-box" style="background:#74c0fc;"></span>Intermediates</span>
+                    <span><span class="color-box" style="background:#b197fc;"></span>Products</span>
+                </div>
             </div>
-        
+
             <div class="footer">
-                <p><strong>Generated using the Programming Framework methodology</strong></p>
-                <p>This batch demonstrates the computational nature of E. coli transcription regulation systems</p>
-                <p>Each flowchart preserves maximum detail through optimized Mermaid configuration</p>
-                <p><em>Batch 02 of 10: Transcription Regulation</em></p>
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of E. coli transcription regulation systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
             </div>
         </div>
     </div>
-    
+
     <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {
+            1: { // Transcription Initiation
+                levels: {
+                    1: `graph TD
+                        A[Promoter Signal] --> B[RNA Polymerase]
+                        B --> C[Transcription Start]
+                        C --> D[RNA Synthesis]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Promoter Recognition] --> B[Sigma Factor Binding]
+                        B --> C[RNA Polymerase Holoenzyme]
+                        C --> D[Promoter Binding]
+                        D --> E[DNA Unwinding]
+                        E --> F[Transcription Initiation]
+                        F --> G[RNA Synthesis]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Promoter Elements] --> B[-35 Box Recognition]
+                        A --> C[-10 Box Recognition]
+                        B --> D[Sigma70 Domain 4]
+                        C --> E[Sigma70 Domain 2]
+                        D --> F[RNA Polymerase Recruitment]
+                        E --> F
+                        F --> G[Closed Complex Formation]
+                        G --> H[DNA Melting]
+                        H --> I[Open Complex Formation]
+                        I --> J[Template Strand Access]
+                        J --> K[First Nucleotide Addition]
+                        K --> L[Promoter Clearance]
+                        L --> M[Elongation Complex]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Promoter Architecture] --> B[UP Element Recognition]
+                        A --> C[-35 Hexamer TTGACA]
+                        A --> D[-10 Hexamer TATAAT]
+                        B --> E[Alpha-CTD Interaction]
+                        C --> F[Sigma70 Region 4.2]
+                        D --> G[Sigma70 Region 2.4]
+                        E --> H[RNA Polymerase Positioning]
+                        F --> H
+                        G --> H
+                        H --> I[Closed Complex Assembly]
+                        I --> J[DNA Bending]
+                        J --> K[Promoter Melting]
+                        K --> L[DNA Bubble Formation]
+                        L --> M[Template Strand Loading]
+                        M --> N[NTP Substrate Binding]
+                        N --> O[Phosphodiester Bond Formation]
+                        O --> P[RNA Chain Initiation]
+                        P --> Q[Abortive Initiation Cycles]
+                        Q --> R[Promoter Escape]
+                        R --> S[Sigma Factor Release]
+                        S --> T[Core Polymerase Elongation]
+                        T --> U[Processive RNA Synthesis]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#ffd43b,color:#000
+                        style G fill:#ffd43b,color:#000
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Promoter Recognition Complex] --> B[UP Element AT-Rich Sequences]
+                        A --> C[-35 Consensus TTGACA Motif]
+                        A --> D[Spacer Region 17±1 bp]
+                        A --> E[-10 Pribnow Box TATAAT]
+                        A --> F[Discriminator Element]
+                        B --> G[Alpha-CTD UP Element Binding]
+                        C --> H[Sigma70 Region 4.2 Recognition]
+                        D --> I[DNA Flexibility Requirement]
+                        E --> J[Sigma70 Region 2.4 Binding]
+                        F --> K[Core Promoter Definition]
+                        G --> L[RNA Polymerase Recruitment]
+                        H --> L
+                        I --> M[DNA Bending Facilitation]
+                        J --> L
+                        K --> L
+                        L --> N[Holoenzyme Assembly]
+                        M --> O[Closed Complex Formation]
+                        N --> O
+                        O --> P[Promoter Scanning]
+                        P --> Q[DNA Minor Groove Contacts]
+                        Q --> R[Promoter Melting Initiation]
+                        R --> S[DNA Bubble Nucleation]
+                        S --> T[Strand Separation 12-20 bp]
+                        T --> U[Open Complex Stabilization]
+                        U --> V[Template Strand Threading]
+                        V --> W[Active Site Positioning]
+                        W --> X[Initiating NTP Binding]
+                        X --> Y[Catalytic Metal Coordination]
+                        Y --> Z[Phosphodiester Bond Formation]
+                        Z --> AA[Dinucleotide Primer Formation]
+                        AA --> BB[RNA Chain Extension]
+                        BB --> CC[Abortive Initiation Events]
+                        CC --> DD[Promoter Clearance Transition]
+                        DD --> EE[Sigma Factor Dissociation]
+                        EE --> FF[Core RNAP Elongation Mode]
+                        FF --> GG[Transcript Elongation Complex]
+                        GG --> HH[Processive RNA Synthesis]
+                        HH --> II[Gene Expression Initiation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#ffd43b,color:#000
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#74c0fc,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#51cf66,color:#fff
+                        style II fill:#b197fc,color:#fff`
+                }
+            },
+            2: { // Sigma Factor Regulation
+                levels: {
+                    1: `graph TD
+                        A[Environmental Stress] --> B[Sigma Factor Switch]
+                        B --> C[Gene Expression Change]
+                        C --> D[Stress Response]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Stress Signal] --> B[Sigma Factor Expression]
+                        B --> C[Sigma Competition]
+                        C --> D[Promoter Selectivity]
+                        D --> E[Stress Gene Activation]
+                        E --> F[Adaptive Response]
+                        F --> G[Cell Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Heat Shock] --> B[Sigma32 Induction]
+                        A --> C[Sigma70 Competition]
+                        B --> D[Heat Shock Promoters]
+                        C --> E[Housekeeping Promoters]
+                        D --> F[Chaperone Gene Expression]
+                        E --> G[Normal Gene Expression]
+                        F --> H[Protein Refolding]
+                        G --> I[Cell Maintenance]
+                        H --> J[Stress Tolerance]
+                        I --> K[Normal Growth]
+                        J --> L[Heat Survival]
+                        K --> M[Balanced Cell State]
+                        L --> M
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Environmental Stress Detection] --> B[Sigma Factor Network]
+                        B --> C[Sigma32 Heat Response]
+                        B --> D[Sigma38 Stationary Phase]
+                        B --> E[Sigma54 Nitrogen Metabolism]
+                        C --> F[Heat Shock Regulon]
+                        D --> G[General Stress Regulon]
+                        E --> H[Nitrogen Assimilation Regulon]
+                        F --> I[DnaK Chaperone System]
+                        F --> J[GroEL Folding System]
+                        G --> K[Catalase Expression]
+                        G --> L[DNA Repair Genes]
+                        H --> M[Glutamine Synthetase]
+                        H --> N[Nitrogen Transport]
+                        I --> O[Protein Quality Control]
+                        J --> O
+                        K --> P[Oxidative Stress Protection]
+                        L --> Q[DNA Integrity Maintenance]
+                        M --> R[Nitrogen Homeostasis]
+                        N --> R
+                        O --> S[Cellular Proteostasis]
+                        P --> T[ROS Detoxification]
+                        Q --> U[Genomic Stability]
+                        R --> V[Metabolic Adaptation]
+                        S --> W[Integrated Stress Response]
+                        T --> W
+                        U --> W
+                        V --> W
+                        W --> X[Cell Survival]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#74c0fc,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#74c0fc,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Multi-Stress Environmental Sensing] --> B[Sigma Factor Regulatory Network]
+                        B --> C[Sigma32 rpoH Heat Shock]
+                        B --> D[Sigma38 rpoS Stationary Phase]
+                        B --> E[Sigma54 rpoN Nitrogen Control]
+                        B --> F[Sigma24 rpoE Envelope Stress]
+                        B --> G[Sigma28 rpoF Flagellar Synthesis]
+                        C --> H[Heat Shock Response Regulon]
+                        D --> I[General Stress Response Regulon]
+                        E --> J[Nitrogen Assimilation Regulon]
+                        F --> K[Envelope Stress Response]
+                        G --> L[Motility and Chemotaxis]
+                        H --> M[DnaK-DnaJ-GrpE System]
+                        H --> N[GroEL-GroES System]
+                        H --> O[ClpP Protease System]
+                        I --> P[Catalase katE Expression]
+                        I --> Q[DNA Repair uvrA Expression]
+                        I --> R[Osmotic Protection treA]
+                        J --> S[Glutamine Synthetase glnA]
+                        J --> T[PII Regulatory Protein glnB]
+                        J --> U[Nitrogen Transporter ntrA]
+                        K --> V[Outer Membrane Proteins]
+                        K --> W[Periplasmic Chaperones]
+                        L --> X[Flagellar Gene Cascade]
+                        L --> Y[Chemotaxis Protein Network]
+                        M --> Z[Protein Folding Quality Control]
+                        N --> Z
+                        O --> AA[Protein Degradation Control]
+                        P --> BB[Oxidative Stress Defense]
+                        Q --> CC[DNA Damage Repair]
+                        R --> DD[Osmotic Stress Tolerance]
+                        S --> EE[Nitrogen Metabolism Control]
+                        T --> FF[Nitrogen Signal Transduction]
+                        U --> GG[Nitrogen Transport Regulation]
+                        V --> HH[Envelope Integrity Maintenance]
+                        W --> HH
+                        X --> II[Motility Apparatus Assembly]
+                        Y --> JJ[Environmental Navigation]
+                        Z --> KK[Proteostasis Network]
+                        AA --> KK
+                        BB --> LL[Cellular Defense Systems]
+                        CC --> LL
+                        DD --> LL
+                        EE --> MM[Metabolic Network Integration]
+                        FF --> MM
+                        GG --> MM
+                        HH --> NN[Structural Integrity]
+                        II --> OO[Behavioral Adaptation]
+                        JJ --> OO
+                        KK --> PP[Integrated Stress Response]
+                        LL --> PP
+                        MM --> PP
+                        NN --> PP
+                        OO --> PP
+                        PP --> QQ[Cellular Survival and Adaptation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#51cf66,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#51cf66,color:#fff
+                        style HH fill:#51cf66,color:#fff
+                        style II fill:#51cf66,color:#fff
+                        style JJ fill:#51cf66,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#b197fc,color:#fff`
+                }
+            },
+            3: { // Operon Regulation
+                levels: {
+                    1: `graph TD
+                        A[Substrate Available] --> B[Operon Activation]
+                        B --> C[Gene Expression]
+                        C --> D[Enzyme Production]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Lactose Present] --> B[Lac Repressor Release]
+                        B --> C[CAP-cAMP Binding]
+                        C --> D[Promoter Activation]
+                        D --> E[Operon Transcription]
+                        E --> F[Enzyme Synthesis]
+                        F --> G[Lactose Metabolism]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Lactose Availability] --> B[Allolactose Formation]
+                        B --> C[LacI Repressor Binding]
+                        C --> D[Operator Derepression]
+                        D --> E[RNA Polymerase Access]
+                        A --> F[Glucose Absence]
+                        F --> G[cAMP Accumulation]
+                        G --> H[CAP-cAMP Complex]
+                        H --> I[Promoter Enhancement]
+                        E --> J[lac Operon Transcription]
+                        I --> J
+                        J --> K[lacZ Beta-galactosidase]
+                        J --> L[lacY Permease]
+                        J --> M[lacA Transacetylase]
+                        K --> N[Lactose Hydrolysis]
+                        L --> O[Lactose Transport]
+                        M --> P[Metabolite Processing]
+                        N --> Q[Lactose Utilization]
+                        O --> Q
+                        P --> Q
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#ff6b6b,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#74c0fc,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Environmental Lactose] --> B[Lactose Transport System]
+                        B --> C[Intracellular Lactose]
+                        C --> D[Beta-galactosidase Activity]
+                        D --> E[Allolactose Inducer Formation]
+                        E --> F[LacI Repressor Allolactose Binding]
+                        F --> G[Conformational Change]
+                        G --> H[Operator Release]
+                        H --> I[lac Promoter Accessibility]
+                        A --> J[Glucose Catabolite Repression]
+                        J --> K[cAMP-CRP Regulation]
+                        K --> L[Adenylyl Cyclase Activity]
+                        L --> M[cAMP Synthesis]
+                        M --> N[CRP-cAMP Complex Formation]
+                        N --> O[lac Promoter Binding]
+                        O --> P[Transcriptional Enhancement]
+                        I --> Q[RNA Polymerase Recruitment]
+                        P --> Q
+                        Q --> R[Polycistronic mRNA Synthesis]
+                        R --> S[lacZ mRNA Translation]
+                        R --> T[lacY mRNA Translation]
+                        R --> U[lacA mRNA Translation]
+                        S --> V[Beta-galactosidase Enzyme]
+                        T --> W[Permease Transporter]
+                        U --> X[Transacetylase Enzyme]
+                        V --> Y[Lactose to Glucose/Galactose]
+                        W --> Z[Enhanced Lactose Uptake]
+                        X --> AA[Metabolic Detoxification]
+                        Y --> BB[Central Metabolism Integration]
+                        Z --> BB
+                        AA --> BB
+                        BB --> CC[Efficient Lactose Utilization]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#ff6b6b,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#ffd43b,color:#000
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#51cf66,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#74c0fc,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Lactose Environmental Availability] --> B[Lactose Transport Systems]
+                        B --> C[LacY Permease Activity]
+                        B --> D[MelB Melibiose Permease]
+                        C --> E[Lactose:H+ Symport]
+                        D --> F[Alternative Lactose Uptake]
+                        E --> G[Intracellular Lactose Accumulation]
+                        F --> G
+                        G --> H[Beta-galactosidase Basal Expression]
+                        H --> I[Lactose Hydrolysis to Allolactose]
+                        I --> J[Allolactose Inducer Molecule]
+                        J --> K[LacI Repressor Allolactose Binding]
+                        K --> L[LacI Conformational Transition]
+                        L --> M[Operator DNA Release]
+                        M --> N[lac Promoter Derepression]
+                        A --> O[Glucose Catabolite Repression System]
+                        O --> P[PTS Phosphorylation Cascade]
+                        P --> Q[EIIAGlc Phosphorylation State]
+                        Q --> R[Adenylyl Cyclase Regulation]
+                        R --> S[cAMP Synthesis Control]
+                        S --> T[cAMP Concentration]
+                        T --> U[CRP-cAMP Complex Formation]
+                        U --> V[CRP-cAMP DNA Binding]
+                        V --> W[lac Promoter Enhancement]
+                        W --> X[RNA Polymerase Recruitment]
+                        N --> X
+                        X --> Y[Transcription Initiation Complex]
+                        Y --> Z[Polycistronic mRNA Synthesis]
+                        Z --> AA[lacZ mRNA 5' Region]
+                        Z --> BB[lacY mRNA Internal]
+                        Z --> CC[lacA mRNA 3' Region]
+                        AA --> DD[Ribosome Binding Site Recognition]
+                        BB --> EE[Internal Ribosome Entry]
+                        CC --> FF[Downstream Translation]
+                        DD --> GG[Beta-galactosidase Translation]
+                        EE --> HH[Permease Translation]
+                        FF --> II[Transacetylase Translation]
+                        GG --> JJ[Beta-galactosidase Enzyme Activity]
+                        HH --> KK[Lactose Permease Function]
+                        II --> LL[Transacetylase Detoxification]
+                        JJ --> MM[Lactose → Glucose + Galactose]
+                        JJ --> NN[Lactose → Allolactose Inducer]
+                        KK --> OO[Enhanced Lactose Transport]
+                        LL --> PP[Toxic Metabolite Removal]
+                        MM --> QQ[Central Carbon Metabolism]
+                        NN --> RR[Positive Feedback Loop]
+                        OO --> SS[Substrate Availability Increase]
+                        PP --> TT[Metabolic Homeostasis]
+                        QQ --> UU[Energy Production]
+                        RR --> VV[Amplified Induction]
+                        SS --> VV
+                        TT --> WW[Cellular Fitness]
+                        UU --> WW
+                        VV --> XX[Optimal Lactose Utilization]
+                        WW --> XX
+                        XX --> YY[Metabolic Adaptation Success]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#51cf66,color:#fff
+                        style C fill:#ffd43b,color:#000
+                        style D fill:#ffd43b,color:#000
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#74c0fc,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#74c0fc,color:#fff
+                        style O fill:#ff6b6b,color:#fff
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#74c0fc,color:#fff
+                        style U fill:#ffd43b,color:#000
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#74c0fc,color:#fff
+                        style Z fill:#51cf66,color:#fff
+                        style AA fill:#74c0fc,color:#fff
+                        style BB fill:#74c0fc,color:#fff
+                        style CC fill:#74c0fc,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#51cf66,color:#fff
+                        style HH fill:#51cf66,color:#fff
+                        style II fill:#51cf66,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#51cf66,color:#fff
+                        style NN fill:#51cf66,color:#fff
+                        style OO fill:#51cf66,color:#fff
+                        style PP fill:#51cf66,color:#fff
+                        style QQ fill:#74c0fc,color:#fff
+                        style RR fill:#74c0fc,color:#fff
+                        style SS fill:#74c0fc,color:#fff
+                        style TT fill:#74c0fc,color:#fff
+                        style UU fill:#74c0fc,color:#fff
+                        style VV fill:#74c0fc,color:#fff
+                        style WW fill:#74c0fc,color:#fff
+                        style XX fill:#74c0fc,color:#fff
+                        style YY fill:#b197fc,color:#fff`
+                }
+            },
+            4: { // Transcription Termination
+                levels: {
+                    1: `graph TD
+                        A[Termination Signal] --> B[RNA Release]
+                        B --> C[Polymerase Recycling]
+                        C --> D[Transcription Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Termination Sequence] --> B[Rho Factor Binding]
+                        B --> C[RNA-DNA Unwinding]
+                        C --> D[Polymerase Release]
+                        D --> E[RNA Product Release]
+                        E --> F[DNA Reannealing]
+                        F --> G[Transcription Complete]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Intrinsic Termination] --> B[Hairpin Loop Formation]
+                        A --> C[Rho-Dependent Termination]
+                        B --> D[RNA Polymerase Pausing]
+                        C --> E[Rho Helicase Activity]
+                        D --> F[Transcript Release]
+                        E --> G[RNA-DNA Dissociation]
+                        F --> H[Polymerase Dissociation]
+                        G --> H
+                        H --> I[DNA Template Restoration]
+                        I --> J[Transcription Machinery Reset]
+                        J --> K[Ready for New Round]
+                        K --> L[Gene Expression Control]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#ff6b6b,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#74c0fc,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Transcription Termination Signals] --> B[Intrinsic Termination Pathway]
+                        A --> C[Rho-Dependent Termination Pathway]
+                        B --> D[GC-Rich Palindrome Recognition]
+                        B --> E[Poly-U Tract Formation]
+                        C --> F[Rho Loading Site Recognition]
+                        C --> G[Rho Translocation]
+                        D --> H[RNA Stem-Loop Structure]
+                        E --> I[Weak rU-dA Base Pairs]
+                        F --> J[Rho Hexamer Assembly]
+                        G --> K[ATP-Dependent Movement]
+                        H --> L[RNA Polymerase Destabilization]
+                        I --> M[Transcript-Template Dissociation]
+                        J --> N[RNA Binding]
+                        K --> O[Helicase Activity]
+                        L --> P[Elongation Complex Disruption]
+                        M --> P
+                        N --> Q[RNA-DNA Hybrid Unwinding]
+                        O --> Q
+                        P --> R[RNA Transcript Release]
+                        Q --> R
+                        R --> S[RNA Polymerase Core Release]
+                        S --> T[DNA Template Reannealing]
+                        T --> U[Transcription Complex Dissociation]
+                        U --> V[RNA Polymerase Recycling]
+                        V --> W[Available for New Initiation]
+                        W --> X[Transcriptional Control]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#ffd43b,color:#000
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#51cf66,color:#fff
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#51cf66,color:#fff
+                        style Q fill:#51cf66,color:#fff
+                        style R fill:#51cf66,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#74c0fc,color:#fff
+                        style W fill:#74c0fc,color:#fff
+                        style X fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Transcription Termination Control System] --> B[Intrinsic Factor-Independent Termination]
+                        A --> C[Rho-Dependent Factor-Mediated Termination]
+                        A --> D[Antitermination Regulation]
+                        B --> E[GC-Rich Inverted Repeat Sequences]
+                        B --> F[Poly-U Termination Signal]
+                        C --> G[Rho Utilization Site rut]
+                        C --> H[Rho Protein Recruitment]
+                        D --> I[N Protein Antitermination]
+                        D --> J[Q Protein Antitermination]
+                        E --> K[RNA Secondary Structure Formation]
+                        F --> L[Weak rU-dA Hydrogen Bonding]
+                        G --> M[Rho Loading Onto Nascent RNA]
+                        H --> N[Rho Hexamer Ring Assembly]
+                        I --> O[N-NusA Complex Formation]
+                        J --> P[Q-NusA Interaction]
+                        K --> Q[Stem-Loop Hairpin Stabilization]
+                        L --> R[RNA-DNA Hybrid Destabilization]
+                        M --> S[5' to 3' RNA Translocation]
+                        N --> T[ATP Hydrolysis-Driven Movement]
+                        O --> U[Termination Suppression]
+                        P --> V[Readthrough Enhancement]
+                        Q --> W[RNA Polymerase Pausing]
+                        R --> X[Transcript-Template Separation]
+                        S --> Y[Rho Catching RNA Polymerase]
+                        T --> Z[RNA-DNA Unwinding Activity]
+                        U --> AA[Extended Transcription]
+                        V --> AA
+                        W --> BB[Elongation Complex Destabilization]
+                        X --> BB
+                        Y --> CC[Forced Transcription Termination]
+                        Z --> CC
+                        BB --> DD[RNA Transcript Release]
+                        CC --> DD
+                        DD --> EE[RNA Polymerase Core Dissociation]
+                        EE --> FF[DNA Double Helix Reformation]
+                        FF --> GG[Transcription Machinery Recycling]
+                        GG --> HH[RNA Processing Pathway]
+                        GG --> II[Polymerase Reloading]
+                        AA --> JJ[mRNA Stability and Translation]
+                        HH --> KK[RNA Degradation or Processing]
+                        II --> LL[New Transcription Initiation]
+                        JJ --> MM[Protein Expression Control]
+                        KK --> NN[RNA Metabolism]
+                        LL --> OO[Gene Expression Regulation]
+                        MM --> PP[Cellular Function Control]
+                        NN --> PP
+                        OO --> PP
+                        PP --> QQ[Coordinated Gene Expression Program]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#74c0fc,color:#fff
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#51cf66,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#74c0fc,color:#fff
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#ffd43b,color:#000
+                        style P fill:#ffd43b,color:#000
+                        style Q fill:#74c0fc,color:#fff
+                        style R fill:#74c0fc,color:#fff
+                        style S fill:#51cf66,color:#fff
+                        style T fill:#51cf66,color:#fff
+                        style U fill:#51cf66,color:#fff
+                        style V fill:#51cf66,color:#fff
+                        style W fill:#51cf66,color:#fff
+                        style X fill:#51cf66,color:#fff
+                        style Y fill:#51cf66,color:#fff
+                        style Z fill:#ffd43b,color:#000
+                        style AA fill:#51cf66,color:#fff
+                        style BB fill:#51cf66,color:#fff
+                        style CC fill:#51cf66,color:#fff
+                        style DD fill:#51cf66,color:#fff
+                        style EE fill:#51cf66,color:#fff
+                        style FF fill:#51cf66,color:#fff
+                        style GG fill:#74c0fc,color:#fff
+                        style HH fill:#74c0fc,color:#fff
+                        style II fill:#74c0fc,color:#fff
+                        style JJ fill:#74c0fc,color:#fff
+                        style KK fill:#74c0fc,color:#fff
+                        style LL fill:#74c0fc,color:#fff
+                        style MM fill:#74c0fc,color:#fff
+                        style NN fill:#74c0fc,color:#fff
+                        style OO fill:#74c0fc,color:#fff
+                        style PP fill:#74c0fc,color:#fff
+                        style QQ fill:#b197fc,color:#fff`
+                }
+            }
+        };
+
+        // Initialize Mermaid
         mermaid.initialize({
-            startOnLoad: true,
+            startOnLoad: false,
             theme: 'default',
             flowchart: {
                 useMaxWidth: false,
@@ -292,8 +1118,70 @@ graph TD
                 fontSize: '14px',
                 primaryColor: '#ff6b6b',
                 lineColor: '#333333',
-                secondaryColor: '#feca57',
-                tertiaryColor: '#4ecdc4'
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        // Update flowchart function
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                // Clear existing content
+                chartDiv.innerHTML = '';
+                
+                // Create new mermaid element
+                const mermaidCode = allProcesses[processId].levels[level];
+                chartDiv.innerHTML = `<div class="mermaid">${mermaidCode}</div>`;
+                
+                // Re-initialize mermaid on the new content
+                const newMermaidElement = chartDiv.querySelector('.mermaid');
+                if (newMermaidElement) {
+                    try {
+                        mermaid.init(undefined, newMermaidElement);
+                    } catch (error) {
+                        console.error('Mermaid error:', error);
+                        chartDiv.innerHTML = `<p style="text-align: center; color: #f44336; padding: 2rem;">Chart rendering error. Please refresh the page.</p>`;
+                    }
+                }
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content not yet implemented</p>`;
+            }
+        }
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 4; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 250);
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 1000);
             }
         });
     </script>

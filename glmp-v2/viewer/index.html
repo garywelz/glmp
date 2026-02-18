@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLMP Viewer - Genome Logic Modeling Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>🧬 GLMP Viewer</h1>
+            <p class="tagline">Genome Logic Modeling Project - Interactive Biological Process Visualization</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <button class="nav-btn" onclick="showHome()">🏠 Home</button>
+            <button class="nav-btn" onclick="showProcessList()">📋 Process List</button>
+            <button class="nav-btn" onclick="showAbout()">ℹ️ About</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Home View - Simple Table of Contents -->
+            <div id="home-view" class="view">
+                <h2>Biological Processes</h2>
+                <p class="subtitle">Interactive flowcharts with verified scientific citations</p>
+                <div id="process-list" class="process-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Process List View (same as home) -->
+            <div id="list-view" class="view" style="display: none;">
+                <h2>Biological Processes</h2>
+                <div id="process-list-alt" class="process-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Process Detail View -->
+            <div id="process-view" class="view" style="display: none;">
+                <div class="process-header">
+                    <button class="back-btn" onclick="showProcessList()">← Back to List</button>
+                    <h2 id="process-title">Loading...</h2>
+                    <div class="process-meta">
+                        <span id="process-organism" class="meta-tag"></span>
+                        <span id="process-category" class="meta-tag"></span>
+                    </div>
+                </div>
+
+                <div class="process-description">
+                    <p id="process-desc"></p>
+                </div>
+
+                <!-- Scientific Accuracy Statement -->
+                <div id="scientific-accuracy" class="scientific-accuracy" style="display: none;">
+                    <h4>📊 Scientific Accuracy</h4>
+                    <p id="accuracy-statement"></p>
+                </div>
+
+                <!-- Color Legend -->
+                <div id="color-legend" class="color-legend" style="display: none;">
+                    <h4>🎨 Color Coding System</h4>
+                    <div id="color-key-grid" class="color-key-grid">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Detail Level Selector (if applicable) -->
+                <div id="detail-selector" class="detail-selector" style="display: none;">
+                    <label for="detail-level">Detail Level:</label>
+                    <input type="range" id="detail-level" min="1" max="5" value="1" oninput="updateDetailLevel(this.value)">
+                    <span id="detail-label">Basic (1)</span>
+                </div>
+
+                <!-- Diagram Container -->
+                <div class="diagram-container">
+                    <div id="mermaid-diagram" class="mermaid"></div>
+                </div>
+
+                <!-- Citations -->
+                <div class="citations-section">
+                    <h3>📚 Sources & Citations</h3>
+                    <div id="citations-list">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Metadata -->
+                <div class="metadata-section">
+                    <h3>📋 Metadata</h3>
+                    <div id="metadata-info">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- About View -->
+            <div id="about-view" class="view" style="display: none;">
+                <h2>About GLMP</h2>
+                <div class="about-content">
+                    <h3>The Genome Logic Modeling Project</h3>
+                    <p>
+                        GLMP applies programming concepts to biological processes, representing them as 
+                        computational flowcharts with decision points, loops, and conditional logic.
+                    </p>
+                    
+                    <h3>Methodology</h3>
+                    <p>
+                        Each process is:
+                    </p>
+                    <ul>
+                        <li>Researched from primary literature</li>
+                        <li>Modeled as a Mermaid flowchart</li>
+                        <li>Verified for accuracy</li>
+                        <li>Cited with proper sources (PubMed, DOI)</li>
+                        <li>Reviewed for clarity and completeness</li>
+                    </ul>
+
+                    <h3>Technology</h3>
+                    <p>
+                        This viewer uses:
+                    </p>
+                    <ul>
+                        <li><strong>Mermaid.js</strong> for interactive diagrams</li>
+                        <li><strong>Vanilla JavaScript</strong> for simplicity and performance</li>
+                        <li><strong>JSON</strong> for portable, structured data</li>
+                        <li><strong>Static hosting</strong> on Google Cloud Storage</li>
+                    </ul>
+
+                    <h3>Citation</h3>
+                    <p>
+                        If you use GLMP in your research, please cite appropriately and link to the source.
+                    </p>
+
+                    <h3>Contact</h3>
+                    <p>
+                        For questions, suggestions, or contributions, please visit the GitHub repository.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 GLMP - Genome Logic Modeling Project</p>
+            <p>Built with scientific rigor and proper citations</p>
+        </div>
+    </footer>
+
+    <!-- Load the viewer JavaScript -->
+    <script src="viewer.js"></script>
+</body>
+</html>

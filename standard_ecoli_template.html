@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. coli Batch [BATCH_NUMBER] - [BATCH_TITLE]</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .process-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .process-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .slider-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .slider-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .detail-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .detail-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e74c3c;
+            cursor: pointer;
+        }
+        
+        .detail-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e74c3c;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .level-display {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .mermaid-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        .nav-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            background: linear-gradient(45deg, #2980b9, #1f5f8b);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧬 E. coli Batch [BATCH_NUMBER]</h1>
+        <p class="subtitle">[BATCH_TITLE] - Interactive Biological Processes</p>
+        
+        <div class="process-grid">
+            <!-- Process 1 -->
+            <div class="process-card" id="process-1">
+                <div class="process-title">Process 1: [PROCESS_1_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(1, this.value)">
+                    <div class="level-display">Level: <span id="level-1">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-1"></div>
+            </div>
+            
+            <!-- Process 2 -->
+            <div class="process-card" id="process-2">
+                <div class="process-title">Process 2: [PROCESS_2_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(2, this.value)">
+                    <div class="level-display">Level: <span id="level-2">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-2"></div>
+            </div>
+            
+            <!-- Process 3 -->
+            <div class="process-card" id="process-3">
+                <div class="process-title">Process 3: [PROCESS_3_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(3, this.value)">
+                    <div class="level-display">Level: <span id="level-3">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-3"></div>
+            </div>
+            
+            <!-- Process 4 -->
+            <div class="process-card" id="process-4">
+                <div class="process-title">Process 4: [PROCESS_4_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(4, this.value)">
+                    <div class="level-display">Level: <span id="level-4">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-4"></div>
+            </div>
+            
+            <!-- Process 5 -->
+            <div class="process-card" id="process-5">
+                <div class="process-title">Process 5: [PROCESS_5_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(5, this.value)">
+                    <div class="level-display">Level: <span id="level-5">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-5"></div>
+            </div>
+            
+            <!-- Process 6 -->
+            <div class="process-card" id="process-6">
+                <div class="process-title">Process 6: [PROCESS_6_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(6, this.value)">
+                    <div class="level-display">Level: <span id="level-6">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-6"></div>
+            </div>
+            
+            <!-- Process 7 -->
+            <div class="process-card" id="process-7">
+                <div class="process-title">Process 7: [PROCESS_7_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(7, this.value)">
+                    <div class="level-display">Level: <span id="level-7">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-7"></div>
+            </div>
+            
+            <!-- Process 8 -->
+            <div class="process-card" id="process-8">
+                <div class="process-title">Process 8: [PROCESS_8_NAME]</div>
+                <div class="slider-container">
+                    <label class="slider-label">Detail Level:</label>
+                    <input type="range" min="1" max="5" value="1" class="detail-slider" 
+                           onchange="updateFlowchart(8, this.value)">
+                    <div class="level-display">Level: <span id="level-8">1</span></div>
+                </div>
+                <div class="mermaid-container" id="mermaid-8"></div>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <a href="ecoli_simple_index.html" class="nav-link">← Back to E. coli Index</a>
+            <a href="../index.html" class="nav-link">Main Processes</a>
+        </div>
+    </div>
+
+    <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {
+            1: { // [PROCESS_1_NAME]
+                levels: {
+                    1: `graph TD
+                        A[Signal Input] --> B[[PROCESS_1_NAME] Initiation]
+                        B --> C[Basic Response]
+                        C --> D[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#b197fc,color:#fff`,
+                        
+                    2: `graph TD
+                        A[Signal Input] --> B[Receptor Recognition]
+                        B --> C[[PROCESS_1_NAME] Activation]
+                        C --> D[Molecular Assembly]
+                        D --> E[Catalytic Activity]
+                        E --> F[Process Output]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#51cf66,color:#fff
+                        style F fill:#b197fc,color:#fff`,
+                        
+                    3: `graph TD
+                        A[Environmental Signal] --> B[Sensor Protein]
+                        B --> C[Signal Transduction]
+                        C --> D[[PROCESS_1_NAME] Complex]
+                        D --> E[Substrate Binding]
+                        E --> F[Enzymatic Activity]
+                        F --> G[Product Formation]
+                        G --> H[Regulatory Feedback]
+                        H --> I[Process Completion]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#b197fc,color:#fff`,
+                        
+                    4: `graph TD
+                        A[Cellular Signal] --> B[Receptor Complex]
+                        B --> C[Signal Cascade]
+                        C --> D[Protein Recruitment]
+                        D --> E[[PROCESS_1_NAME] Assembly]
+                        E --> F[Conformational Change]
+                        F --> G[Active Site Formation]
+                        G --> H[Substrate Recognition]
+                        H --> I[Catalytic Mechanism]
+                        I --> J[Product Release]
+                        J --> K[Allosteric Regulation]
+                        K --> L[Feedback Control]
+                        L --> M[Process Modulation]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#74c0fc,color:#fff
+                        style D fill:#51cf66,color:#fff
+                        style E fill:#74c0fc,color:#fff
+                        style F fill:#51cf66,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#74c0fc,color:#fff
+                        style I fill:#51cf66,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#ffd43b,color:#000
+                        style L fill:#74c0fc,color:#fff
+                        style M fill:#b197fc,color:#fff`,
+                        
+                    5: `graph TD
+                        A[Extracellular Signal] --> B[Membrane Receptor]
+                        B --> C[Conformational Activation]
+                        C --> D[Intracellular Domain]
+                        D --> E[Second Messenger System]
+                        E --> F[Kinase Cascade]
+                        F --> G[Protein Phosphorylation]
+                        G --> H[[PROCESS_1_NAME] Activation]
+                        H --> I[Substrate Specificity]
+                        I --> J[Enzyme-Substrate Complex]
+                        J --> K[Transition State]
+                        K --> L[Catalytic Conversion]
+                        L --> M[Product Formation]
+                        M --> N[Allosteric Modulation]
+                        N --> O[Cooperative Binding]
+                        O --> P[Regulatory Network]
+                        P --> Q[Feedback Inhibition]
+                        Q --> R[Homeostatic Control]
+                        
+                        style A fill:#ff6b6b,color:#fff
+                        style B fill:#ffd43b,color:#000
+                        style C fill:#51cf66,color:#fff
+                        style D fill:#74c0fc,color:#fff
+                        style E fill:#ffd43b,color:#000
+                        style F fill:#74c0fc,color:#fff
+                        style G fill:#51cf66,color:#fff
+                        style H fill:#ffd43b,color:#000
+                        style I fill:#74c0fc,color:#fff
+                        style J fill:#51cf66,color:#fff
+                        style K fill:#51cf66,color:#fff
+                        style L fill:#51cf66,color:#fff
+                        style M fill:#51cf66,color:#fff
+                        style N fill:#ffd43b,color:#000
+                        style O fill:#74c0fc,color:#fff
+                        style P fill:#74c0fc,color:#fff
+                        style Q fill:#b197fc,color:#fff
+                        style R fill:#b197fc,color:#fff`
+                }
+            }
+            // Additional processes 2-8 would follow the same pattern
+        };
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+
+        // Function to update flowchart based on slider value
+        function updateFlowchart(processNum, level) {
+            const levelSpan = document.getElementById(`level-${processNum}`);
+            const container = document.getElementById(`mermaid-${processNum}`);
+            
+            if (levelSpan) levelSpan.textContent = level;
+            
+            if (allProcesses[processNum] && allProcesses[processNum].levels[level]) {
+                // Clear the container
+                container.innerHTML = '';
+                
+                // Create a new div for the mermaid content
+                const mermaidDiv = document.createElement('div');
+                mermaidDiv.className = 'mermaid';
+                mermaidDiv.textContent = allProcesses[processNum].levels[level];
+                container.appendChild(mermaidDiv);
+                
+                // Re-initialize mermaid for this specific element
+                mermaid.init(undefined, mermaidDiv);
+            }
+        }
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                for (let i = 1; i <= 8; i++) {
+                    updateFlowchart(i, 1);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

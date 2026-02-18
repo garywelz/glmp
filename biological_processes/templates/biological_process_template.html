@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ORGANISM_NAME}} {{BATCH_NAME}}: {{CATEGORY}} - Interactive Programming Framework</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Arial Unicode MS', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .intro {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .toc li {
+            margin: 0.5rem 0;
+        }
+        .toc a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .process-item {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .process-item h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .slider-container {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .slider {
+            width: 80%;
+            margin: 0.5rem 0;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 2px solid #e3f2fd;
+            min-height: 400px;
+        }
+        .color-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.5rem 1rem;
+            margin: 1rem 0 0;
+            font-size: 10pt;
+            color: #333;
+        }
+        .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+        .anchor-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .anchor-link:hover {
+            color: #007bff;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ORGANISM_ICON}} {{ORGANISM_NAME}} {{BATCH_NAME}}: {{CATEGORY}}</h1>
+            <p>Interactive Programming Framework Analysis - {{PROCESS_COUNT}} {{PROCESS_TYPE}} Processes</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>{{ORGANISM_ICON}} Interactive {{CATEGORY}} Systems</h2>
+                <p><strong>Enhanced Interactive Version:</strong> {{BATCH_DESCRIPTION}}</p>
+                <p><strong>How to Use:</strong> Use the sliders below each process to adjust the detail level from 1 (basic overview) to 5 (comprehensive detail). Each level reveals increasing biological complexity and computational logic.</p>
+            </div>
+            
+            <div class="toc">
+                <h2>📋 Interactive Processes - {{PROCESS_COUNT}} {{PROCESS_TYPE}} Systems</h2>
+                <ul>
+                    {{TOC_ITEMS}}
+                </ul>
+            </div>
+            
+            {{PROCESS_SECTIONS}}
+
+            <div class="footer">
+                <p><strong>Enhanced Interactive Version - Programming Framework methodology</strong></p>
+                <p>This interactive version demonstrates the computational nature of {{ORGANISM_NAME}} {{CATEGORY}} systems</p>
+                <p>Use sliders to explore different detail levels for comprehensive understanding</p>
+                <p><em>Direct linking enabled for database integration</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Process definitions with 5 detail levels each
+        const allProcesses = {{PROCESS_DATA}};
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'linear',
+                nodeSpacing: 30,
+                rankSpacing: 40,
+                padding: 10
+            },
+            themeVariables: {
+                fontFamily: 'Arial, sans-serif',
+                fontSize: '14px',
+                primaryColor: '#ff6b6b',
+                lineColor: '#333333',
+                secondaryColor: '#ffd43b',
+                tertiaryColor: '#51cf66'
+            },
+            securityLevel: 'loose'
+        });
+
+        // Update flowchart function
+        function updateFlowchart(processId, level) {
+            const levelSpan = document.getElementById(`level-${processId}`);
+            const chartDiv = document.getElementById(`chart-${processId}`);
+            
+            if (levelSpan) {
+                levelSpan.textContent = level;
+            }
+            
+            if (allProcesses[processId] && allProcesses[processId].levels[level]) {
+                chartDiv.innerHTML = allProcesses[processId].levels[level];
+                mermaid.init(undefined, chartDiv);
+            } else {
+                chartDiv.innerHTML = `<p style="text-align: center; color: #666; padding: 2rem;">Process ${processId}, Level ${level} - Content not yet implemented</p>`;
+            }
+        }
+
+        // Initialize all charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all processes
+            Object.keys(allProcesses).forEach(processId => {
+                updateFlowchart(processId, 1);
+            });
+        });
+
+        // Handle direct anchor links from database
+        function scrollToProcess(processId) {
+            const element = document.getElementById(processId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Optionally highlight the process
+                element.style.border = '3px solid #007bff';
+                setTimeout(() => {
+                    element.style.border = '1px solid #dee2e6';
+                }, 3000);
+            }
+        }
+
+        // Check for anchor on page load
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                const processId = window.location.hash.substring(1);
+                setTimeout(() => scrollToProcess(processId), 500);
+            }
+        });
+    </script>
+</body>
+</html>
