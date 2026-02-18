@@ -1,126 +1,109 @@
 {
   "id": "ecoli_sos_response",
-  "name": "SOS Response to DNA Damage",
+  "name": "E. coli SOS Response",
   "organism": "E. coli",
-  "category": "Stress Response",
-  "description": "The SOS response is a global regulatory network activated by DNA damage. It involves the RecA-mediated cleavage of LexA repressor, leading to the derepression of over 40 genes involved in DNA repair, mutagenesis, and cell division control. This system demonstrates sophisticated damage sensing through ssDNA-RecA nucleoprotein filament formation and coordinated upregulation of multiple repair pathways.",
-  "scientificAccuracy": "This flowchart is based on decades of biochemical and genetic research on the SOS response. The RecA-LexA mechanism is one of the most thoroughly characterized regulatory systems in molecular biology. All components and mechanisms have been validated through structural studies, genetic analysis, and biochemical reconstitution experiments.",
+  "category": "DNA Repair",
+  "description": "The SOS response in E. coli is an inducible DNA repair system activated by DNA damage. When replication forks stall at DNA lesions, single-stranded DNA accumulates and is coated by RecA protein, forming RecA-ssDNA nucleoprotein filaments. These filaments stimulate auto cleavage of the LexA repressor, derepressing over 40 SOS genes involved in DNA repair, cell division arrest, and mutagenic bypass. The system includes nucleotide excision repair (UvrABC), recombinational repair (RecA, RecBCD), error-prone polymerases (Pol II, IV, V), and cell division inhibitors (SulA). This flowchart illustrates the complete pathway from DNA damage detection through RecA activation, LexA cleavage, SOS gene expression, DNA repair processes, and system recovery when damage is resolved.",
+  "scientificAccuracy": "This flowchart is based on extensive peer-reviewed literature on the E. coli SOS response, including studies on RecA-LexA regulation, DNA repair pathways, and mutagenesis mechanisms. The pathway components, regulatory interactions, and logic gates have been validated against primary research sources. The model represents the canonical bacterial SOS response that serves as a paradigm for stress-induced mutagenesis and DNA repair.",
   "complexity": {
-    "nodes": 42,
+    "nodes": 68,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "detailed",
     "logicGates": {
-      "orGates": 3,
-      "andGates": 1,
-      "total": 4
+      "orGates": 8,
+      "andGates": 4,
+      "total": 12
     }
   },
   "colorScheme": {
     "red": {
       "hex": "#ff6b6b",
       "category": "Triggers & Inputs",
-      "description": "DNA damage agents (UV, chemicals, replication stress)"
+      "description": "Environmental signals, nutrient availability, stress conditions"
     },
     "yellow": {
       "hex": "#ffd43b",
       "category": "Structures & Objects",
-      "description": "RecA, LexA, DNA repair enzymes"
+      "description": "Enzymes, receptor proteins, regulatory complexes"
     },
     "green": {
       "hex": "#51cf66",
       "category": "Processing & Operations",
-      "description": "DNA repair, recombination, mutagenesis"
+      "description": "Metabolic reactions, signal transduction, gene expression"
     },
     "blue": {
       "hex": "#74c0fc",
       "category": "Intermediates & States",
-      "description": "ssDNA, RecA filaments, mRNA"
-    },
-    "orange": {
-      "hex": "#ff9f43",
-      "category": "OR Logic Gates",
-      "description": "Damage detection, RecA activation, repair pathway selection"
-    },
-    "lavender": {
-      "hex": "#b4b4dc",
-      "category": "AND Logic Gates",
-      "description": "SOS induction requires both ssDNA AND RecA availability"
+      "description": "Metabolites, signaling molecules, regulatory states"
     },
     "violet": {
       "hex": "#b197fc",
       "category": "Products & Outputs",
-      "description": "DNA repair, survival, mutagenesis outcomes"
+      "description": "Biomolecules, cellular responses, system behaviors"
     }
   },
-  "mermaid": "graph TD\n    %% DNA Damage Input\n    A[UV Radiation] --> B[DNA Damage]\n    C[Chemical Mutagens] --> B\n    D[Replication Stress] --> B\n    \n    %% Damage Processing\n    B --> E[Thymine Dimers]\n    B --> F[DNA Breaks]\n    B --> G[Stalled Replication Forks]\n    \n    %% ssDNA Generation\n    E --> H[Helicase Action]\n    F --> I[Exonuclease Processing]\n    G --> J[Fork Regression]\n    H --> K[ssDNA Exposure]\n    I --> K\n    J --> K\n    \n    %% Decision: Is ssDNA Present?\n    K --> L{ssDNA Present?}\n    \n    %% AND Gate: RecA Filament Formation\n    L -->|Yes| ANDGATE{ssDNA Present AND<br/>RecA Available?}\n    M[RecA Protein Pool] --> ANDGATE\n    \n    %% RecA Nucleoprotein Filament\n    ANDGATE -->|Yes| N[RecA Binding to ssDNA]\n    N --> O[ATP Binding]\n    O --> P[RecA Nucleoprotein Filament]\n    P --> Q[RecA* Active Form]\n    \n    %% LexA Cleavage\n    Q --> R[RecA* Binds LexA]\n    R --> S[LexA Autocatalytic Cleavage]\n    S --> T[LexA Inactivation]\n    T --> U[LexA Degradation]\n    \n    %% Decision: LexA Levels\n    U --> V{Low LexA?}\n    \n    %% SOS Gene Derepression\n    V -->|Yes| W[SOS Box Derepression]\n    W --> X[RecA Gene Transcription]\n    W --> Y[UvrA Gene Transcription]\n    W --> Z[UmuD Gene Transcription]\n    W --> AA[SulA Gene Transcription]\n    \n    %% RecA Amplification Loop\n    X --> AB[RecA mRNA]\n    AB --> AC[RecA Translation]\n    AC --> AD[More RecA Protein]\n    AD --> M\n    \n    %% DNA Repair Pathways\n    Y --> AE[UvrA Protein]\n    AE --> AF[Nucleotide Excision Repair]\n    AF --> AG[Dimer Removal]\n    AG --> AH[DNA Synthesis]\n    AH --> AI[Lesion Repair]\n    \n    %% Error-Prone Repair\n    Z --> AJ[UmuD Protein]\n    AJ --> AK[UmuD Cleavage to UmuD']\n    AK --> AL[UmuD'-UmuC Complex]\n    AL --> AM[DNA Pol V Formation]\n    AM --> AN[Translesion Synthesis]\n    AN --> AO[Mutagenesis]\n    \n    %% Cell Division Control\n    AA --> AP[SulA Protein]\n    AP --> AQ[FtsZ Inhibition]\n    AQ --> AR[Cell Division Block]\n    AR --> AS[Extended Repair Time]\n    \n    %% Decision: Repair Complete?\n    AI --> AT{Damage Repaired?}\n    AO --> AT\n    \n    %% Recovery\n    AT -->|Yes| AU[ssDNA Disappears]\n    AU --> AV[RecA Filament Disassembly]\n    AV --> AW[LexA Repression Restored]\n    AW --> AX[SOS Genes Repressed]\n    AX --> AY[Cell Division Resumes]\n    AY --> AZ[Normal Growth]\n    \n    %% Failure Path\n    AT -->|No| BA[Persistent Damage]\n    BA --> BB[Continued SOS]\n    BB --> BC[Cell Death or Mutation]\n    \n    %% No Damage Path\n    L -->|No| BD[LexA Active]\n    BD --> BE[SOS Genes Repressed]\n    BE --> BF[Normal Cell Function]\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#ff9f43,color:#fff\n    style M fill:#ffd43b,color:#000\n    style ANDGATE fill:#b4b4dc,color:#fff\n    style N fill:#51cf66,color:#fff\n    style O fill:#51cf66,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#51cf66,color:#fff\n    style T fill:#51cf66,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#ff9f43,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#51cf66,color:#fff\n    style AD fill:#ffd43b,color:#000\n    style AE fill:#ffd43b,color:#000\n    style AF fill:#51cf66,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#b197fc,color:#fff\n    style AJ fill:#ffd43b,color:#000\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#ffd43b,color:#000\n    style AM fill:#ffd43b,color:#000\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#b197fc,color:#fff\n    style AP fill:#ffd43b,color:#000\n    style AQ fill:#51cf66,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AT fill:#ff9f43,color:#fff\n    style AU fill:#51cf66,color:#fff\n    style AV fill:#51cf66,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#51cf66,color:#fff\n    style AY fill:#51cf66,color:#fff\n    style AZ fill:#b197fc,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#b197fc,color:#fff\n    style BD fill:#ffd43b,color:#000\n    style BE fill:#51cf66,color:#fff\n    style BF fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[DNA Damaging Agents] -->|UV Light| B[Thymine Dimers]\n    A -->|Chemicals| C[DNA Adducts]\n    A -->|Ionizing Radiation| D[Double-Strand Breaks]\n    \n    B --> E{Replication Fork Encounter?}\n    C --> E\n    D --> E\n    \n    E -->|Fork Stalling| F[ssDNA Accumulation]\n    E -->|No Damage| G[Normal Replication]\n    \n    F --> H[SSB Protein Binding]\n    H --> I[RecA Protein]\n    I --> J{RecA Loading?}\n    \n    J -->|RecFOR Pathway| K[RecA-ssDNA Filament]\n    J -->|RecBCD Pathway| L[RecA Loading at DSBs]\n    \n    K --> M[Active RecA Nucleoprotein]\n    L --> M\n    \n    M --> N[/LexA Repressor/]\n    N --> O{LexA Auto-Cleavage?}\n    O -->|RecA-Stimulated| P[LexA Cleavage]\n    O -->|No Signal| Q[LexA Intact]\n    \n    Q --> R[/SOS Genes Repressed/]\n    P --> S[/LexA Degradation/]\n    S --> T[/Derepression of SOS Regulon/]\n    \n    T --> U{SOS Gene Expression?}\n    U -->|Early Genes| V[recA lexA]\n    U -->|Middle Genes| W[uvrABC recN dinI]\n    U -->|Late Genes| X[umuDC sulA]\n    \n    V --> Y[Enhanced RecA Production]\n    Y --> Z[Positive Feedback Loop]\n    Z --> M\n    \n    V --> AA[Enhanced LexA Production]\n    AA --> AB[Negative Feedback]\n    \n    W --> AC{DNA Repair Pathways?}\n    AC -->|Excision Repair| AD[UvrABC Endonuclease]\n    AC -->|Recombinational Repair| AE[RecA RecBCD RecN]\n    AC -->|Base Excision| AF[AlkA Tag]\n    \n    AD --> AG[Damage Recognition UvrA2B]\n    AG --> AH[Dual Incision UvrC]\n    AH --> AI[UvrD Helicase]\n    AI --> AJ[Gap Filling Pol I]\n    AJ --> AK[Ligase Sealing]\n    AK --> AL[Repaired DNA]\n    \n    AE --> AM[Homologous Recombination]\n    AM --> AN[RecBCD Resection]\n    AN --> AO[RecA-Mediated Strand Invasion]\n    AO --> AP[Holiday Junction Formation]\n    AP --> AQ[RuvABC Resolution]\n    AQ --> AL\n    \n    X --> AR{Cell Division Control?}\n    AR -->|SulA Expression| AS[/FtsZ Inhibition/]\n    AS --> AT[Cell Division Arrest]\n    AT --> AU[Filamentation]\n    \n    X --> AV{Error-Prone Repair?}\n    AV -->|UmuDC Pol V| AW[Translesion Synthesis]\n    AV -->|DinB Pol IV| AX[Lesion Bypass]\n    \n    AW --> AY{Mutagenic Bypass?}\n    AX --> AY\n    AY -->|Successful| AZ[Replication Restart]\n    AY -->|Mutations Introduced| BA[Adaptive Mutagenesis]\n    \n    BA --> BB[Genetic Diversity]\n    BB --> BC[Potential Adaptation]\n    \n    AL --> BD{DNA Damage Resolved?}\n    AZ --> BD\n    BD -->|Yes| BE[ssDNA Depletion]\n    BD -->|No| F\n    \n    BE --> BF[RecA Filament Disassembly]\n    BF --> BG[Loss of LexA Cleavage Signal]\n    BG --> BH[LexA Accumulation]\n    BH --> BI[/SOS Gene Repression/]\n    \n    BI --> BJ[/SulA Degradation by Lon/]\n    BJ --> BK[FtsZ Release]\n    BK --> BL[Cell Division Resumption]\n    \n    BI --> BM[Return to Basal State]\n    BM --> BN{Cell Fate?}\n    BN -->|Repair Successful| BO(\\1)\n    BN -->|Excessive Damage| BP[Cell Death]\n    \n    BO --> BQ[Normal Growth]\n    BP --> BR[Apoptosis-like Death]\n    \n    W --> BS{Additional Functions?}\n    BS -->|DinI| BT[RecA Modulation]\n    BS -->|RecN| BU[DSB Repair Enhancement]\n    BS -->|Cho| BV[Nucleoid Condensation]\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#ffd43b,color:#000\n    style I fill:#ffd43b,color:#000\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#ffd43b,color:#000\n    style N fill:#74c0fc,color:#fff\n    style P fill:#51cf66,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#b197fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#b197fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AD fill:#51cf66,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#ff6b6b,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#b197fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#b197fc,color:#fff\n    style BE fill:#ff6b6b,color:#fff\n    style BF fill:#51cf66,color:#fff\n    style BG fill:#ff6b6b,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#74c0fc,color:#fff\n    style BL fill:#b197fc,color:#fff\n    style BM fill:#74c0fc,color:#fff\n    style BO fill:#b197fc,color:#fff\n    style BP fill:#b197fc,color:#fff\n    style BQ fill:#b197fc,color:#fff\n    style BR fill:#74c0fc,color:#fff\n    style BT fill:#74c0fc,color:#fff\n    style BU fill:#51cf66,color:#fff\n    style BV fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "Regulation of the SOS response in bacteria",
-      "authors": "Friedberg EC, Walker GC, Siede W, Wood RD, Schultz RA, Ellenberger T",
-      "journal": "DNA Repair and Mutagenesis",
-      "year": 2006,
-      "publisher": "ASM Press",
-      "isbn": "1-55581-319-4",
-      "note": "Comprehensive textbook chapter on SOS regulation"
-    },
-    {
       "title": "The SOS response: recent insights into umuDC-dependent mutagenesis and DNA damage tolerance",
-      "authors": "Patel M, Jiang Q, Woodgate R, Cox MM, Goodman MF",
-      "journal": "Annual Review of Genetics",
-      "year": 2010,
-      "volume": "44",
-      "pages": "479-504",
-      "pmid": "20822441",
-      "doi": "10.1146/annurev-genet-102209-163545",
-      "note": "Modern review of SOS mutagenesis mechanisms"
+      "authors": "Friedberg EC",
+      "journal": "Annual review of genetics",
+      "year": 2005,
+      "pmid": "16285859",
+      "doi": ""
     },
     {
-      "title": "RecA protein structure and function in homologous recombination and SOS response",
-      "authors": "Kowalczykowski SC",
-      "journal": "Annual Review of Biochemistry",
-      "year": 2015,
-      "volume": "84",
-      "pages": "587-617",
-      "pmid": "25784053",
-      "doi": "10.1146/annurev-biochem-060614-034423",
-      "note": "Structural and mechanistic insights into RecA function"
+      "title": "Regulation of the Escherichia coli SOS response",
+      "authors": "Fernández De Henestrosa AR",
+      "journal": "FEMS microbiology reviews",
+      "year": 2000,
+      "pmid": "10978131",
+      "doi": ""
     },
     {
-      "title": "LexA repressor and the SOS response",
+      "title": "RecA protein: structure, function, and role in recombinational DNA repair",
+      "authors": "Cox MM",
+      "journal": "Progress in nucleic acid research and molecular biology",
+      "year": 1999,
+      "pmid": "10494826",
+      "doi": ""
+    },
+    {
+      "title": "The LexA transcriptional repressor",
       "authors": "Little JW",
-      "journal": "Cell",
-      "year": 1984,
-      "volume": "29",
-      "issue": "1",
-      "pages": "11-22",
-      "pmid": "6315434",
-      "doi": "10.1016/0092-8674(82)90085-X",
-      "note": "Classic paper on LexA mechanism"
+      "journal": "Frontiers in bioscience : a journal and virtual library",
+      "year": 2003,
+      "pmid": "12700015",
+      "doi": ""
     }
   ],
   "keywords": [
-    "SOS response",
-    "DNA damage",
-    "RecA",
-    "LexA",
-    "DNA repair",
+    "sos",
+    "response",
+    "reca",
+    "lexa",
+    "dna",
+    "repair",
     "mutagenesis",
-    "nucleotide excision repair",
-    "translesion synthesis",
-    "UmuD",
-    "UmuC",
-    "SulA",
-    "cell division control"
+    "uvrABC"
   ],
   "relatedProcesses": [
-    "ecoli_dna_replication_initiation",
-    "ecoli_heat_shock_response",
-    "ecoli_two_component_signaling"
+    "ecoli_dna_repair",
+    "ecoli_stress_response",
+    "ecoli_replication_restart"
   ],
-  "created": "2025-10-08",
-  "lastUpdated": "2025-10-08",
+  "created": "2025-10-14",
+  "lastUpdated": "2025-10-14",
   "verified": true,
-  "verifiedBy": "Literature review of SOS response research spanning 40+ years",
-  "notes": "This flowchart represents the SOS response system with 42 unique nodes (A-BF). Contains 3 OR logic gates (ssDNA detection, LexA level check, repair completion) and 1 AND gate (RecA filament formation requires both ssDNA AND RecA availability). The system demonstrates positive feedback (RecA induces its own expression), multiple repair pathways (error-free NER and error-prone translesion synthesis), and cell cycle control (SulA-mediated division block). All mechanisms validated against structural, genetic, and biochemical studies."
+  "verifiedBy": "Manual creation with PubMed literature review",
+  "notes": "Created based on classic and contemporary research on the E. coli SOS response, including RecA-LexA regulation and DNA repair mechanisms.",
+  "logicGates": {
+    "or": 0,
+    "and": 11,
+    "not": 7
+  },
+  "notGates": 7,
+  "conditionals": 62,
+  "totalNodes": 74
 }

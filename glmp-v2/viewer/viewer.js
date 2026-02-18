@@ -1,26 +1,49 @@
 // GLMP Viewer - Main JavaScript
 // Handles process loading, navigation, and Mermaid rendering
 
+// Import modules
+import { CONFIG, FEEDBACK_ENDPOINT, MERMAID_CONFIG } from './modules/config.js';
+import { showHome, showProcessList, showProcessView, showAbout, hideAllViews } from './modules/navigation.js';
+import { loadProcessList, loadProcess, getCurrentProcess, getProcessList, setCurrentProcess } from './modules/processLoader.js';
+import { renderDiagram, updateDetailLevel, getDetailLevel } from './modules/mermaidRenderer.js';
+import { initializeFeedbackPanel } from './modules/feedbackHandler.js';
+import { loadComments } from './modules/commentsManager.js';
+import { renderProcessList, renderProcess, renderColorLegend, renderCitations, renderMetadata, showLoadingSpinner } from './modules/uiRenderer.js';
+
 // Initialize Mermaid
-mermaid.initialize({ 
-    startOnLoad: false,
-    theme: 'default',
-    flowchart: { 
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: 'basis'
+mermaid.initialize(MERMAID_CONFIG);
+
+// Create debug function immediately (before page loads)
+window.debugFeedbackPanel = () => {
+    const el = document.getElementById('feedback-process-id');
+    if (!el) {
+        console.error('❌ feedback-process-id element not found!');
+        return;
     }
-});
-
-// Global state
-let currentProcess = null;
-let processList = [];
-let currentDetailLevel = 1;
-
-// Configuration
-const CONFIG = {
-    processesPath: '../processes/',
-    metadataPath: '../data/metadata.json'
+    const rect = el.getBoundingClientRect();
+    const computed = window.getComputedStyle(el);
+    console.log('🔍 Process ID Element Debug:', {
+        textContent: el.textContent,
+        innerHTML: el.innerHTML,
+        innerText: el.innerText,
+        width: rect.width,
+        height: rect.height,
+        top: rect.top,
+        left: rect.left,
+        display: computed.display,
+        visibility: computed.visibility,
+        opacity: computed.opacity,
+        color: computed.color,
+        backgroundColor: computed.backgroundColor,
+        fontSize: computed.fontSize,
+        fontWeight: computed.fontWeight,
+        zIndex: computed.zIndex,
+        parent: el.parentElement?.tagName,
+        parentDisplay: el.parentElement ? window.getComputedStyle(el.parentElement).display : 'N/A',
+        isVisible: rect.width > 0 && rect.height > 0 && computed.display !== 'none' && computed.visibility !== 'hidden'
+    });
+    console.log('🔍 Element in DOM:', el);
+    return el;
 };
 
 // Initialize on page load
@@ -32,144 +55,178 @@ document.addEventListener('DOMContentLoaded', () => {
  * Initialize the viewer
  */
 async function initializeViewer() {
-    // Check URL parameters for direct process loading
-    const params = new URLSearchParams(window.location.search);
-    const processId = params.get('process');
+    console.log('🚀 Initializing GLMP Viewer...');
     
-    if (processId) {
-        // Load specific process from URL
-        await loadProcess(processId);
-    } else {
-        // Show home view
-        showHome();
-        // Load process list in background
-        await loadProcessList();
-    }
-}
-
-/**
- * Load the list of available processes
- */
-async function loadProcessList() {
     try {
-        // Try to load metadata file
-        const response = await fetch(CONFIG.metadataPath);
-        if (response.ok) {
-            const metadata = await response.json();
-            processList = metadata.processes || [];
-        } else {
-            // If no metadata file, scan for processes manually
-            processList = await scanForProcesses();
-        }
+        // Check URL parameters for direct process loading
+        const params = new URLSearchParams(window.location.search);
+        const processId = params.get('process');
         
-        renderProcessList();
-    } catch (error) {
-        console.error('Error loading process list:', error);
-        // Show error message
-        document.getElementById('process-list').innerHTML = `
-            <div class="error-message">
-                <p>⚠️ Could not load process list.</p>
-                <p>Please ensure processes are available in the correct directory.</p>
-            </div>
-        `;
-    }
-}
-
-/**
- * Scan for available processes (fallback if no metadata)
- */
-async function scanForProcesses() {
-    // This is a simple implementation - you can enhance it
-    // For now, return empty array and rely on metadata.json
-    return [];
-}
-
-/**
- * Render the process list
- */
-function renderProcessList() {
-    const listContainer = document.getElementById('process-list');
-    
-    if (processList.length === 0) {
-        listContainer.innerHTML = `
-            <div class="empty-state">
-                <p>📋 No processes available yet.</p>
-                <p>Processes will appear here as they are added to the collection.</p>
-            </div>
-        `;
-        return;
-    }
-    
-    // Group by organism
-    const grouped = {};
-    processList.forEach(proc => {
-        const org = proc.organism || 'Other';
-        if (!grouped[org]) grouped[org] = [];
-        grouped[org].push(proc);
-    });
-    
-    // Render grouped list
-    let html = '';
-    Object.keys(grouped).sort().forEach(organism => {
-        html += `
-            <div class="organism-group">
-                <h3>${organism}</h3>
-                <div class="process-cards">
-        `;
-        
-        grouped[organism].forEach(proc => {
-            html += `
-                <div class="process-card" onclick="loadProcessFromCard('${proc.id}')">
-                    <h4>${proc.name}</h4>
-                    <p class="card-category">${proc.category || 'Uncategorized'}</p>
-                    <p class="card-desc">${proc.description?.substring(0, 100) || ''}...</p>
+        if (processId) {
+            console.log('📄 Loading specific process:', processId);
+            
+            // Show process view with loading state IMMEDIATELY (no double loading!)
+            showProcessView();
+            
+            // Add back button immediately
+            addBackToTableButton();
+            
+            document.getElementById('process-title').textContent = 'Loading process...';
+            document.getElementById('mermaid-diagram').innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>🔄 Loading process diagram...</p>
                 </div>
             `;
+            
+            // Then load the actual process
+            await loadProcessFromCard(processId);
+        } else {
+            // No process parameter - this shouldn't happen when accessed from database table
+            // But if it does, just show empty state
+            console.log('⚠️ No process parameter - showing empty state');
+            hideAllViews();
+            const homeView = document.getElementById('home-view');
+            if (homeView) {
+                homeView.style.display = 'block';
+                homeView.innerHTML = '<p>No process specified. Please access this page from the database table.</p>';
+            }
+        }
+        
+        console.log('✅ Viewer initialized successfully');
+        
+    } catch (error) {
+        console.error('❌ Failed to initialize viewer:', error);
+        // Show error in main container
+        const homeView = document.getElementById('home-view');
+        if (homeView) {
+            homeView.innerHTML = `
+                <div class="error-message">
+                    <h3>⚠️ Viewer Initialization Failed</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <button onclick="location.reload()" class="retry-btn">🔄 Reload Page</button>
+                </div>
+            `;
+        }
+    }
+}
+
+/**
+ * Load and render the process list
+ */
+async function loadAndRenderProcessList() {
+    // Show loading spinner immediately
+    showLoadingSpinner();
+    
+    try {
+        const processList = await loadProcessList();
+        
+        // Small delay to ensure DOM is ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Render the list
+        renderProcessList(processList);
+        
+    } catch (error) {
+        console.error('❌ Error loading process list:', error);
+        console.error('Error details:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
         });
         
-        html += `
-                </div>
-            </div>
-        `;
-    });
-    
-    listContainer.innerHTML = html;
+        // Check if we have cached process list
+        const cachedList = getProcessList();
+        if (cachedList && cachedList.length > 0) {
+            console.log('⚠️ Using cached process list due to fetch error');
+            renderProcessList(cachedList);
+            // Show a warning but don't block the UI
+            const listContainer = document.getElementById('process-list');
+            if (listContainer) {
+                const warning = document.createElement('div');
+                warning.className = 'warning-message';
+                warning.style.cssText = 'padding: 10px; margin: 10px 0; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px;';
+                warning.innerHTML = `
+                    <p><strong>⚠️ Warning:</strong> Could not refresh process list. Showing cached data.</p>
+                    <p><small>Error: ${error.message}</small></p>
+                `;
+                listContainer.insertBefore(warning, listContainer.firstChild);
+            }
+        } else {
+            // No cached data, show detailed error
+            const listContainer = document.getElementById('process-list');
+            if (listContainer) {
+                const errorDetails = error.name === 'TypeError' && error.message.includes('fetch') 
+                    ? 'This is likely a CORS (Cross-Origin) issue. The viewer needs to be served from the same origin as the data, or the server needs CORS headers configured.'
+                    : error.message;
+                
+                listContainer.innerHTML = `
+                    <div class="error-message">
+                        <h3>⚠️ Failed to Load Processes</h3>
+                        <p><strong>Error Type:</strong> ${error.name}</p>
+                        <p><strong>Error Message:</strong> ${errorDetails}</p>
+                        <details style="margin-top: 10px;">
+                            <summary style="cursor: pointer;">Show technical details</summary>
+                            <pre style="background: #f5f5f5; padding: 10px; margin-top: 5px; overflow-x: auto; font-size: 12px;">${error.stack || 'No stack trace available'}</pre>
+                        </details>
+                        <p style="margin-top: 15px;"><strong>Possible solutions:</strong></p>
+                        <ul style="text-align: left; display: inline-block;">
+                            <li>Check your internet connection</li>
+                            <li>Try refreshing the page</li>
+                            <li>Check browser console (F12) for more details</li>
+                            <li>If testing locally, deploy to GCS for full functionality</li>
+                        </ul>
+                        <button onclick="location.reload()" class="retry-btn" style="margin-top: 15px;">🔄 Retry</button>
+                    </div>
+                `;
+            }
+        }
+    }
 }
 
 /**
  * Load a process from a card click
  */
 async function loadProcessFromCard(processId) {
-    await loadProcess(processId);
-    // Update URL without reload
-    const url = new URL(window.location);
-    url.searchParams.set('process', processId);
-    window.history.pushState({}, '', url);
-}
-
-/**
- * Load and display a specific process
- */
-async function loadProcess(processId) {
     try {
-        // Determine file path
-        const organism = processId.split('_')[0]; // e.g., 'ecoli' from 'ecoli_lac_operon'
-        const filePath = `${CONFIG.processesPath}${organism}/${processId}.json`;
+        // Load the process
+        const processData = await loadProcess(processId);
         
-        // Fetch the process file
-        const response = await fetch(filePath);
-        if (!response.ok) {
-            throw new Error(`Process not found: ${processId}`);
-        }
+        // Store in module state
+        setCurrentProcess(processData);
         
-        currentProcess = await response.json();
-        currentDetailLevel = 1; // Reset detail level
+        // Show process view FIRST so elements exist in DOM
+        showProcessView();
+        
+        // Add back button immediately after showing view
+        addBackToTableButton();
         
         // Render the process
-        renderProcess();
+        renderProcessView(processData);
         
-        // Show process view
-        showProcessView();
+        // Initialize feedback panel with process context (after view is shown)
+        // Try multiple times to ensure DOM is ready
+        const initFeedback = () => {
+            const nameEl = document.getElementById('feedback-process-name');
+            const idEl = document.getElementById('feedback-process-id');
+            if (nameEl && idEl) {
+                console.log('✅ Feedback panel elements found, initializing...');
+                initializeFeedbackPanel({
+                    id: processData.id || processId,
+                    name: processData.name,
+                    process_id: processId
+                });
+            } else {
+                console.warn('⚠️ Feedback panel elements not yet available, retrying...', { nameEl: !!nameEl, idEl: !!idEl });
+                setTimeout(initFeedback, 50);
+            }
+        };
+        setTimeout(initFeedback, 50);
+        
+        // Update URL without reload
+        const url = new URL(window.location);
+        url.searchParams.set('process', processId);
+        window.history.pushState({}, '', url);
         
     } catch (error) {
         console.error('Error loading process:', error);
@@ -178,213 +235,128 @@ async function loadProcess(processId) {
 }
 
 /**
- * Render the current process
+ * Add back button to process view
  */
-function renderProcess() {
-    if (!currentProcess) return;
+function addBackToTableButton() {
+    const processView = document.getElementById('process-view');
+    if (!processView) return;
+    
+    // Check if button already exists
+    let backBtn = document.getElementById('back-to-table-btn');
+    if (!backBtn) {
+        backBtn = document.createElement('button');
+        backBtn.id = 'back-to-table-btn';
+        backBtn.className = 'back-to-table-btn';
+        backBtn.innerHTML = '← Back to GLMP Database Table';
+        backBtn.onclick = () => {
+            window.location.href = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html';
+        };
+        
+        // Insert at the very top of process view
+        processView.insertBefore(backBtn, processView.firstChild);
+    }
+}
+
+/**
+ * Render the process view
+ */
+function renderProcessView(process) {
+    if (!process) return;
+    
+    console.log('🎨 renderProcessView called, process:', { 
+        id: process.id, 
+        name: process.name 
+    });
+    
+    // Add back button at the top (always show it)
+    addBackToTableButton();
     
     // Update title and metadata
-    document.getElementById('process-title').textContent = currentProcess.name;
-    document.getElementById('process-organism').textContent = currentProcess.organism || 'Unknown';
-    document.getElementById('process-category').textContent = currentProcess.category || 'Uncategorized';
-    document.getElementById('process-desc').textContent = currentProcess.description || '';
+    const titleEl = document.getElementById('process-title');
+    const organismEl = document.getElementById('process-organism');
+    const categoryEl = document.getElementById('process-category');
+    const descEl = document.getElementById('process-desc');
     
-    // Render scientific accuracy statement
-    renderScientificAccuracy();
+    if (titleEl) titleEl.textContent = process.name;
+    if (organismEl) organismEl.textContent = process.organism || 'Unknown';
+    if (categoryEl) categoryEl.textContent = process.category || 'Uncategorized';
+    if (descEl) descEl.textContent = process.description || '';
     
-    // Render color legend
-    renderColorLegend();
+    // Also try to set feedback panel values here as a fallback
+    const nameEl = document.getElementById('feedback-process-name');
+    const idEl = document.getElementById('feedback-process-id');
+    if (nameEl && idEl) {
+        console.log('🔄 Fallback: Setting feedback values in renderProcessView');
+        nameEl.textContent = process.name || 'Unknown process';
+        idEl.textContent = process.id || 'unknown_id';
+        // Force visibility
+        nameEl.style.display = '';
+        idEl.style.display = '';
+        nameEl.style.visibility = 'visible';
+        idEl.style.visibility = 'visible';
+    }
     
-    // Render diagram
-    renderDiagram();
+    // Use the module's renderProcess function which handles all rendering
+    renderProcess(process);
     
-    // Render citations
-    renderCitations();
+    // Render diagram separately (needs detail level)
+    renderDiagram(process, getDetailLevel());
     
-    // Render metadata
-    renderMetadata();
+    // Load comments for this process
+    if (process.id) {
+        loadComments(process.id);
+    }
     
     // Show/hide detail selector if process has multiple detail levels
-    if (currentProcess.detailLevels && currentProcess.detailLevels.length > 1) {
-        document.getElementById('detail-selector').style.display = 'block';
-    } else {
-        document.getElementById('detail-selector').style.display = 'none';
-    }
-}
-
-/**
- * Render scientific accuracy statement
- */
-function renderScientificAccuracy() {
-    const accuracySection = document.getElementById('scientific-accuracy');
-    const accuracyStatement = document.getElementById('accuracy-statement');
-    
-    if (currentProcess.scientificAccuracy) {
-        accuracyStatement.textContent = currentProcess.scientificAccuracy;
-        accuracySection.style.display = 'block';
-    } else {
-        accuracySection.style.display = 'none';
-    }
-}
-
-/**
- * Render color legend
- */
-function renderColorLegend() {
-    const legendSection = document.getElementById('color-legend');
-    const colorGrid = document.getElementById('color-key-grid');
-    
-    if (currentProcess.colorScheme) {
-        let html = '';
-        const colors = ['red', 'yellow', 'green', 'blue', 'orange', 'lavender', 'violet'];
-        
-        colors.forEach(color => {
-            if (currentProcess.colorScheme[color]) {
-                const scheme = currentProcess.colorScheme[color];
-                html += `
-                    <div class="color-key-item">
-                        <span class="color-badge" style="background-color: ${scheme.hex}"></span>
-                        <div class="color-info">
-                            <strong>${scheme.category}</strong>
-                            <small>${scheme.description}</small>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-        
-        colorGrid.innerHTML = html;
-        legendSection.style.display = 'block';
-    } else {
-        legendSection.style.display = 'none';
-    }
-}
-
-/**
- * Render the Mermaid diagram
- */
-function renderDiagram() {
-    const diagramContainer = document.getElementById('mermaid-diagram');
-    
-    // Get Mermaid code (either single or based on detail level)
-    let mermaidCode = currentProcess.mermaid;
-    
-    // If process has detail levels, use the current one
-    if (currentProcess.detailLevels) {
-        const detailLevel = currentProcess.detailLevels[currentDetailLevel - 1];
-        if (detailLevel && detailLevel.mermaid) {
-            mermaidCode = detailLevel.mermaid;
+    const detailSelector = document.getElementById('detail-selector');
+    if (detailSelector) {
+        if (process.detailLevels && process.detailLevels.length > 1) {
+            detailSelector.style.display = 'block';
+        } else {
+            detailSelector.style.display = 'none';
         }
     }
-    
-    // Clear previous diagram
-    diagramContainer.innerHTML = mermaidCode;
-    
-    // Render with Mermaid
-    mermaid.run({
-        querySelector: '.mermaid'
-    });
 }
 
-/**
- * Update detail level
- */
-function updateDetailLevel(level) {
-    currentDetailLevel = parseInt(level);
-    const labels = ['Basic', 'Detailed', 'Complex', 'Advanced', 'Complete'];
-    document.getElementById('detail-label').textContent = `${labels[level - 1]} (${level})`;
-    
-    // Re-render diagram
-    renderDiagram();
-}
 
 /**
- * Render citations
+ * Handle detail level change
  */
-function renderCitations() {
-    const citationsContainer = document.getElementById('citations-list');
+function handleDetailLevelChange(level) {
+    const updatedLevel = updateDetailLevel(level);
     
-    if (!currentProcess.sources || currentProcess.sources.length === 0) {
-        citationsContainer.innerHTML = '<p>No citations available.</p>';
-        return;
+    // Re-render diagram with new detail level
+    const currentProcess = getCurrentProcess();
+    if (currentProcess) {
+        renderDiagram(currentProcess, updatedLevel);
     }
-    
-    let html = '<ol class="citations">';
-    currentProcess.sources.forEach(source => {
-        html += '<li class="citation">';
-        html += `<strong>${source.authors || 'Unknown'}.</strong> `;
-        html += `${source.title || 'Untitled'}. `;
-        html += `<em>${source.journal || ''}</em>. `;
-        html += `${source.year || ''}. `;
-        
-        if (source.pmid) {
-            html += `<a href="https://pubmed.ncbi.nlm.nih.gov/${source.pmid}/" target="_blank" class="citation-link">PubMed: ${source.pmid}</a> `;
-        }
-        if (source.doi) {
-            html += `<a href="https://doi.org/${source.doi}" target="_blank" class="citation-link">DOI: ${source.doi}</a>`;
-        }
-        
-        html += '</li>';
-    });
-    html += '</ol>';
-    
-    citationsContainer.innerHTML = html;
 }
 
-/**
- * Render metadata
- */
-function renderMetadata() {
-    const metadataContainer = document.getElementById('metadata-info');
-    
-    let html = '<dl class="metadata-list">';
-    html += `<dt>Process ID:</dt><dd>${currentProcess.id || 'Unknown'}</dd>`;
-    html += `<dt>Created:</dt><dd>${currentProcess.created || 'Unknown'}</dd>`;
-    html += `<dt>Verified:</dt><dd>${currentProcess.verified ? '✅ Yes' : '⚠️ Pending'}</dd>`;
-    if (currentProcess.lastUpdated) {
-        html += `<dt>Last Updated:</dt><dd>${currentProcess.lastUpdated}</dd>`;
-    }
-    html += '</dl>';
-    
-    metadataContainer.innerHTML = html;
-}
-
-/**
- * Navigation functions
- */
-function showHome() {
-    hideAllViews();
-    document.getElementById('home-view').style.display = 'block';
-    // Clear URL params
-    window.history.pushState({}, '', window.location.pathname);
-}
-
-function showProcessList() {
-    hideAllViews();
-    document.getElementById('list-view').style.display = 'block';
-    // Clear URL params
-    window.history.pushState({}, '', window.location.pathname);
-}
-
-function showProcessView() {
-    hideAllViews();
-    document.getElementById('process-view').style.display = 'block';
-}
-
-function showAbout() {
-    hideAllViews();
-    document.getElementById('about-view').style.display = 'block';
-    // Clear URL params
-    window.history.pushState({}, '', window.location.pathname);
-}
-
-function hideAllViews() {
-    document.querySelectorAll('.view').forEach(view => {
-        view.style.display = 'none';
-    });
-}
+// Make loadProcessFromCard available globally for onclick handlers
+window.loadProcessFromCard = loadProcessFromCard;
 
 // Handle browser back/forward buttons
 window.addEventListener('popstate', () => {
     initializeViewer();
+});
+
+// Database Table navigation
+document.addEventListener('DOMContentLoaded', () => {
+    const dbTableBtn = document.getElementById('database-table-btn');
+    if (dbTableBtn) {
+        dbTableBtn.addEventListener('click', () => {
+            window.open('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html', '_blank');
+        });
+    }
+    
+    // Handle detail level selector
+    const detailSelector = document.getElementById('detail-selector');
+    if (detailSelector) {
+        const detailInput = detailSelector.querySelector('input[type="range"]');
+        if (detailInput) {
+            detailInput.addEventListener('input', (e) => {
+                handleDetailLevelChange(parseInt(e.target.value));
+            });
+        }
+    }
 });

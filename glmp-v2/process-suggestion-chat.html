@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggest a Process - GLMP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.2s;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .chat-container {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .chat-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 400px;
+            max-height: calc(100vh - 300px);
+        }
+        
+        .chat-message {
+            padding: 1rem;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        
+        .chat-message.user {
+            background: #667eea;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        
+        .chat-message.bot {
+            background: #f8f9fa;
+            color: #2c3e50;
+            align-self: flex-start;
+            border-left: 4px solid #667eea;
+        }
+        
+        .chat-message.system {
+            background: #fff3cd;
+            color: #856404;
+            align-self: center;
+            text-align: center;
+            font-style: italic;
+            max-width: 90%;
+        }
+        
+        .chat-message.loading {
+            background: #f8f9fa;
+            color: #95a5a6;
+            align-self: flex-start;
+            font-style: italic;
+        }
+        
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 2px solid #e0e0e0;
+            display: flex;
+            gap: 0.75rem;
+            background: #f8f9fa;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .chat-send-btn {
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .chat-send-btn:hover:not(:disabled) {
+            background: #5568d3;
+        }
+        
+        .chat-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .approval-buttons {
+            padding: 1rem 1.5rem;
+            border-top: 2px solid #e0e0e0;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        
+        .approval-buttons button {
+            flex: 1;
+            max-width: 200px;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .button-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .button-primary:hover:not(:disabled) {
+            background: #5568d3;
+        }
+        
+        .button-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .button-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .button-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>💡 Suggest a Process to be Analyzed</h1>
+        <a href="https://garywelz-glmp.static.hf.space/about.html" class="back-link">← Back to About</a>
+    </header>
+    
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Chat with GLMP Assistant</h2>
+            <p style="margin-top: 0.5rem; opacity: 0.9; font-size: 0.9rem;">I can help you suggest a biological process to be analyzed and added to the GLMP collection.</p>
+        </div>
+        
+        <div id="chat-messages" class="chat-messages">
+            <!-- Chat messages will be added here -->
+        </div>
+        
+        <div id="chat-input-area" class="chat-input-area">
+            <input 
+                type="text" 
+                id="chat-input" 
+                class="chat-input" 
+                placeholder="Type your process suggestion..."
+                autocomplete="off"
+            />
+            <button id="chat-send-btn" class="chat-send-btn">Send</button>
+        </div>
+        
+        <div id="approval-buttons" class="approval-buttons" style="display: none;">
+            <button id="approve-process-btn" class="button-primary">✅ Approve & Generate</button>
+            <button id="decline-process-btn" class="button-secondary">❌ Decline & Start Over</button>
+        </div>
+    </div>
+    
+    <script>
+        // Process Suggestion Chat System
+        const PROCESS_SUGGESTION_ENDPOINT = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/glmp_process_suggestion';
+        
+        let chatSessionId = null;
+        let currentProcessSuggestion = null;
+        
+        // Initialize chat
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('chat-send-btn');
+            const approveBtn = document.getElementById('approve-process-btn');
+            const declineBtn = document.getElementById('decline-process-btn');
+            
+            // Initialize session
+            chatSessionId = `session_${Date.now()}`;
+            
+            // Show welcome message
+            addChatMessage('bot', 'Hello! I can help you suggest a biological process to be analyzed and added to the GLMP collection. What process would you like to see?');
+            
+            // Focus input
+            setTimeout(() => {
+                chatInput.focus();
+            }, 100);
+            
+            // Send message on Enter
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                }
+            });
+            
+            // Send message on button click
+            sendBtn.addEventListener('click', () => {
+                sendChatMessage();
+            });
+            
+            // Approve process
+            approveBtn.addEventListener('click', () => {
+                approveProcessGeneration();
+            });
+            
+            // Decline and start over
+            declineBtn.addEventListener('click', () => {
+                declineProcessGeneration();
+            });
+        });
+        
+        function addChatMessage(role, message, isSystem = false) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isSystem ? 'system' : role}${role === 'bot' && message.includes('...') ? ' loading' : ''}`;
+            // Handle newlines - convert \n to <br> for proper formatting
+            const formattedMessage = message.replace(/\n/g, '<br>');
+            messageDiv.innerHTML = formattedMessage;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        async function sendChatMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('chat-send-btn');
+            const message = chatInput.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addChatMessage('user', message);
+            chatInput.value = '';
+            sendBtn.disabled = true;
+            
+            // Show loading
+            addChatMessage('bot', 'Thinking...', false);
+            
+            try {
+                const response = await fetch(PROCESS_SUGGESTION_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionId: chatSessionId,
+                        message: message,
+                        currentSuggestion: currentProcessSuggestion
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Remove loading message
+                const messages = document.getElementById('chat-messages');
+                const loadingMsg = messages.querySelector('.loading');
+                if (loadingMsg) loadingMsg.remove();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to get response');
+                }
+                
+                // Handle response
+                if (data.type === 'clarification') {
+                    addChatMessage('bot', data.message);
+                } else if (data.type === 'process_ready') {
+                    currentProcessSuggestion = data.process;
+                    addChatMessage('bot', data.message);
+                    addChatMessage('system', `\n📋 Process Summary:\nName: ${data.process.name}\nOrganism: ${data.process.organism}\nCategory: ${data.process.category}\n\n${data.process.description.substring(0, 200)}...`);
+                    showApprovalButtons();
+                } else {
+                    addChatMessage('bot', data.message);
+                }
+                
+            } catch (error) {
+                console.error('Chat error:', error);
+                const messages = document.getElementById('chat-messages');
+                const loadingMsg = messages.querySelector('.loading');
+                if (loadingMsg) loadingMsg.remove();
+                addChatMessage('system', `Error: ${error.message}. Please try again.`);
+            } finally {
+                sendBtn.disabled = false;
+                chatInput.focus();
+            }
+        }
+        
+        function showApprovalButtons() {
+            const approvalButtons = document.getElementById('approval-buttons');
+            const chatInputArea = document.getElementById('chat-input-area');
+            approvalButtons.style.display = 'flex';
+            chatInputArea.style.display = 'none';
+        }
+        
+        function hideApprovalButtons() {
+            const approvalButtons = document.getElementById('approval-buttons');
+            const chatInputArea = document.getElementById('chat-input-area');
+            approvalButtons.style.display = 'none';
+            chatInputArea.style.display = 'flex';
+        }
+        
+        async function approveProcessGeneration() {
+            if (!currentProcessSuggestion) return;
+            
+            const approveBtn = document.getElementById('approve-process-btn');
+            approveBtn.disabled = true;
+            approveBtn.textContent = 'Generating...';
+            
+            addChatMessage('system', '✅ Approved! Generating process flowchart... This may take 30-60 seconds.');
+            
+            try {
+                const response = await fetch(PROCESS_SUGGESTION_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sessionId: chatSessionId,
+                        action: 'approve',
+                        process: currentProcessSuggestion
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to generate process');
+                }
+                
+                addChatMessage('system', '✅ Process generated successfully!');
+                addChatMessage('bot', `Great! The process "${data.processId}" has been created and saved to the GLMP collection.\n\n📍 WHERE TO FIND IT:\n• It will appear in the database table\n• Look under the "${currentProcessSuggestion.organism}" section\n• Process name: "${currentProcessSuggestion.name}"\n\n⏰ TO SEE IT:\n• Visit the database table page\n• The process will appear after a refresh\n\n🔍 TO VIEW IT:\n• Click on the process name in the table\n• This opens the interactive flowchart\n\nThank you for contributing to the GLMP collection!`);
+                
+            } catch (error) {
+                console.error('Generation error:', error);
+                addChatMessage('system', `Error: ${error.message}. Please try again later.`);
+                approveBtn.disabled = false;
+                approveBtn.textContent = '✅ Approve & Generate';
+            }
+        }
+        
+        function declineProcessGeneration() {
+            currentProcessSuggestion = null;
+            hideApprovalButtons();
+            addChatMessage('system', 'Starting over. What process would you like to suggest?');
+        }
+    </script>
+</body>
+</html>

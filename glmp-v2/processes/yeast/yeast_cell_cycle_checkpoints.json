@@ -1,0 +1,77 @@
+{
+  "id": "yeast_cell_cycle_checkpoints",
+  "name": "Cell Cycle Checkpoints and Surveillance",
+  "organism": "S. cerevisiae",
+  "category": "Cell Cycle",
+  "description": "Cell cycle checkpoints in Saccharomyces cerevisiae ensure accurate chromosome replication and segregation by monitoring DNA integrity, replication completion, and spindle assembly. The major checkpoints include G1/S (Start), intra-S phase, G2/M, and spindle assembly checkpoint (SAC). These surveillance mechanisms prevent progression with damaged or unreplicated DNA and ensure proper chromosome attachment to the mitotic spindle.",
+  "mermaid": "graph TD\n    %% Checkpoint Triggers\n    A[DNA Damage Detected] --> B[DNA Damage Signal]\n    C[Unreplicated DNA] --> D[Replication Stress Signal]\n    E[Unattached Kinetochores] --> F[Spindle Assembly Signal]\n    G[Cell Size Too Small] --> H[G1 Checkpoint Signal]\n    \n    %% G1/S Checkpoint (Start)\n    H --> I{OR: Ready for<br/>S Phase?}\n    B --> I\n    \n    I -->|Not Ready| J[Arrest at G1/S]\n    I -->|Ready| K[Proceed to S Phase]\n    \n    J --> L[/Whi5 Repressor Active/]\n    L --> M[/Inhibit SBF/MBF/]\n    M --> N[/Block G1/S Genes/]\n    \n    K --> O[CLN1/CLN2 Accumulation]\n    O --> P[G1-CDK Activity]\n    P --> Q[Whi5 Phosphorylation]\n    Q --> R[Whi5 Nuclear Export]\n    R --> S[SBF/MBF Active]\n    S --> T[Express G1/S Genes]\n    T --> U[S Phase Entry]\n    \n    %% DNA Damage Checkpoint Activation\n    B --> V[DNA Lesion Recognition]\n    V --> W{OR: Which Damage<br/>Sensor?}\n    W -->|DSB| X[MRX Complex Mre11/Rad50/Xrs2]\n    W -->|ssDNA| Y[RPA Coating]\n    \n    X --> Z[Tel1 Kinase Recruitment]\n    Y --> AA[Mec1-Ddc2 Recruitment]\n    Z --> AB[Checkpoint Kinase Activation]\n    AA --> AB\n    \n    AB --> AC[Rad53 Phosphorylation]\n    AC --> AD[Rad53 Active]\n    AD --> AE{AND: Rad53 +<br/>Downstream Targets?}\n    \n    AE -->|Yes| AF[Multiple Checkpoint Outputs]\n    AF --> AG[/Inhibit CDK Activity/]\n    AF --> AH[Stabilize Replication Forks]\n    AF --> AI[Activate DNA Repair]\n    AF --> AJ[/Block Mitosis/]\n    \n    %% Intra-S Phase Checkpoint\n    D --> AK[Stalled Replication Fork]\n    AK --> AL[Mec1-Ddc2 at Fork]\n    AL --> AM[Rad53 Activation]\n    AM --> AN[/Prevent Late Origin Firing/]\n    AN --> AO[Stabilize Replisome]\n    AO --> AP[Allow Fork Recovery]\n    \n    AM --> AQ[Dun1 Kinase Activation]\n    AQ --> AR[/Sml1 Degradation/]\n    AR --> AS[Increase dNTP Pools]\n    AS --> AP\n    \n    %% G2/M Checkpoint\n    B --> AT{DNA Damage<br/>in G2?}\n    AT -->|Yes| AU[G2/M Arrest]\n    AT -->|No| AV[Proceed to Mitosis]\n    \n    AU --> AW[Chk1 Activation]\n    AW --> AX[Pds1/Securin Stabilization]\n    AX --> AY[/Block Anaphase/]\n    \n    %% Spindle Assembly Checkpoint (SAC)\n    F --> AZ[Mad1/Mad2 at Kinetochore]\n    AZ --> BA[Mad2 Conformational Change]\n    BA --> BB[Mad2-Cdc20 Complex]\n    BB --> BC[/APC/C Inhibition/]\n    BC --> BD[/Block Sister Separation/]\n    \n    E --> BE{OR: All Chromosomes<br/>Attached?}\n    BE -->|No| AZ\n    BE -->|Yes| BF[SAC Satisfied]\n    \n    BF --> BG[Mad2 Released from Cdc20]\n    BG --> BH[APC/C-Cdc20 Active]\n    BH --> BI[/Securin Degradation/]\n    BI --> BJ[Separase Active]\n    BJ --> BK[Cohesin Cleavage]\n    BK --> BL[Sister Chromatid Separation]\n    \n    %% Checkpoint Recovery\n    AI --> BM[DNA Repair Complete]\n    BM --> BN{Is Damage<br/>Repaired?}\n    BN -->|Yes| BO[Checkpoint Recovery]\n    BN -->|No| BP[Maintain Arrest]\n    \n    BO --> BQ[Ptc2/Ptc3 Phosphatases]\n    BQ --> BR[Dephosphorylate Rad53]\n    BR --> BS[Inactivate Checkpoint]\n    BS --> BT[Resume Cell Cycle]\n    \n    %% Checkpoint Adaptation\n    BP --> BU{Prolonged<br/>Arrest?}\n    BU -->|Yes| BV[Checkpoint Adaptation]\n    BV --> BW[Resume Despite Damage]\n    BW --> BX[Often Leads to Death]\n    BU -->|No| BP\n    \n    %% Feedback and Amplification\n    AD --> BY[Positive Feedback Loop]\n    BY --> BZ[More Rad53 Activation]\n    BZ --> AD\n    \n    %% CDK Inhibition Mechanisms\n    AG --> CA[Swe1 Stabilization]\n    CA --> CB[Cdk1-Y19 Phosphorylation]\n    CB --> CC[CDK Inactive]\n    \n    AG --> CD[/Degradation of Cyclins/]\n    CD --> CE[Clb5/Clb6 Reduced]\n    CE --> CC\n    \n    %% Checkpoint Outputs Summary\n    AJ --> CF[/Block Mitotic Entry/]\n    AN --> CG[Slow S Phase]\n    AY --> CH[/Block Anaphase/]\n    BD --> CH\n    \n    CF --> CI[Cell Cycle Arrest]\n    CG --> CI\n    CH --> CI\n    \n    CI --> CJ{Checkpoint<br/>Satisfied?}\n    CJ -->|Yes| BT\n    CJ -->|No| CI\n    \n    %% Final Outcomes\n    BT --> CK[Cell Division]\n    BX --> CL[Apoptosis or Senescence]\n    \n    %% Styles\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#ff6b6b,color:#fff\n    style G fill:#b197fc,color:#fff\n    style H fill:#ff6b6b,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#51cf66,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AF fill:#b197fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#51cf66,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#51cf66,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#74c0fc,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#51cf66,color:#fff\n    style BL fill:#74c0fc,color:#fff\n    style BM fill:#b197fc,color:#fff\n    style BO fill:#74c0fc,color:#fff\n    style BP fill:#74c0fc,color:#fff\n    style BQ fill:#51cf66,color:#fff\n    style BR fill:#74c0fc,color:#fff\n    style BS fill:#74c0fc,color:#fff\n    style BT fill:#b197fc,color:#fff\n    style BV fill:#b197fc,color:#fff\n    style BW fill:#ff6b6b,color:#fff\n    style BX fill:#74c0fc,color:#fff\n    style BY fill:#74c0fc,color:#fff\n    style BZ fill:#51cf66,color:#fff\n    style CA fill:#74c0fc,color:#fff\n    style CB fill:#51cf66,color:#fff\n    style CC fill:#74c0fc,color:#fff\n    style CD fill:#74c0fc,color:#fff\n    style CE fill:#74c0fc,color:#fff\n    style CF fill:#74c0fc,color:#fff\n    style CG fill:#74c0fc,color:#fff\n    style CH fill:#74c0fc,color:#fff\n    style CI fill:#b197fc,color:#fff\n    style CK fill:#b197fc,color:#fff\n    style CL fill:#74c0fc,color:#fff",
+  "complexity": {
+    "nodes": 85,
+    "logicGates": {
+      "orGates": 7,
+      "andGates": 1,
+      "total": 8
+    }
+  },
+  "citations": [
+    {
+      "title": "Cell cycle checkpoints and genome stability",
+      "authors": "Hartwell LH, Weinert TA",
+      "journal": "Science",
+      "year": 1989,
+      "pmid": "2683005",
+      "doi": "10.1126/science.2683005"
+    },
+    {
+      "title": "The DNA damage checkpoint in budding yeast",
+      "authors": "Branzei D, Foiani M",
+      "journal": "FEMS Microbiology Reviews",
+      "year": 2005,
+      "pmid": "16102595",
+      "doi": "10.1016/j.femsre.2005.03.003"
+    },
+    {
+      "title": "The spindle checkpoint: from normal cell division to cancer",
+      "authors": "Musacchio A, Salmon ED",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2007,
+      "pmid": "17318220",
+      "doi": "10.1038/nrm2100"
+    }
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Environmental signals, nutrient availability, stress conditions"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Enzymes, receptor proteins, regulatory complexes"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Metabolic reactions, signal transduction, gene expression"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, signaling molecules, regulatory states"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Biomolecules, cellular responses, system behaviors"
+    }
+  },
+  "logicGates": {
+    "or": 7,
+    "and": 1,
+    "not": 14
+  },
+  "notGates": 14,
+  "conditionals": 99,
+  "totalNodes": 90
+}

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLMP Database Summary Table</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 15px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .instruction {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            padding: 10px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card:nth-last-child(-n+2) {
+            min-width: 120px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 6px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border-left: 2px solid #3498db;
+        }
+        
+        .stat-number {
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+            white-space: nowrap;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.5em;
+            margin: 1px 0 0 0;
+        }
+        
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        .table-header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            margin: -30px -30px 20px -30px;
+        }
+        
+        .table-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 300;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        th, td {
+            padding: 12px 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #ecf0f1;
+            font-weight: 600;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .process-name {
+            font-weight: 600;
+            color: #2c3e50;
+            max-width: 200px;
+        }
+        
+        .organism {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .category {
+            background: #e8f4f8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            color: #2980b9;
+        }
+        
+        .complexity {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .complexity.detailed {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .complexity.maximum {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .number {
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 50px;
+            color: #e74c3c;
+        }
+        
+        .refresh-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 10px;
+        }
+        
+        .refresh-btn:hover {
+            background: #2980b9;
+        }
+        
+        .breakdown {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .breakdown h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .breakdown-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .breakdown-label {
+            color: #7f8c8d;
+        }
+        
+        .breakdown-count {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div id="loading" class="loading">
+            <h3>Loading GLMP database...</h3>
+            <p>Fetching process data from Google Cloud Storage</p>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <h3>❌ Error Loading Data</h3>
+            <p>Could not fetch GLMP metadata. Please check your connection and try again.</p>
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="stats-grid" id="statsGrid">
+                <!-- Stats will be populated here -->
+            </div>
+            
+            <div class="table-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px auto 15px auto; max-width: 50%; background: #2c3e50; padding: 2px 6px; border-radius: 4px;">
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.9em; color: white;">
+                        💡 Click on any process name to view its interactive flowchart
+                    </p>
+                    <div style="display: flex; gap: 8px;">
+                        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/simple-suggestion.html" target="_blank" style="padding: 4px 12px; font-size: 0.8em; background: #667eea; border: none; color: white; border-radius: 3px; text-decoration: none; font-weight: 600;">💡 Suggest a Process</a>
+                        <button class="refresh-btn" onclick="loadData()" style="padding: 4px 8px; font-size: 0.8em; background: #3498db; border: none; color: white; border-radius: 3px;">🔄 Refresh Data</button>
+                    </div>
+                </div>
+                <table id="processTable">
+                    <thead>
+                        <tr>
+                            <th>Process Name</th>
+                            <th>Organism</th>
+                            <th>Category</th>
+                            <th>Complexity</th>
+                            <th>Nodes</th>
+                            <th>Conditionals</th>
+                            <th>OR Gates 🟡</th>
+                            <th>AND Gates 🟣</th>
+                            <th>NOT Gates 🔴</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="breakdown">
+                <h3>📈 Database Analysis</h3>
+                <div class="breakdown-grid" id="breakdownGrid">
+                    <!-- Breakdown will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GLMP_METADATA_URL = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/metadata.json';
+        
+        async function loadData() {
+            // Add aggressive cache-busting to always load fresh data
+            const metadataUrl = GLMP_METADATA_URL + '?v=' + Date.now() + '&cb=' + Math.random();
+            console.log('🔄 Starting data load from:', metadataUrl);
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+            
+            try {
+                console.log('📡 Fetching metadata...');
+                const response = await fetch(metadataUrl, { cache: 'no-store' });
+                console.log('📥 Response status:', response.status, response.statusText);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                console.log('🔍 Parsing JSON...');
+                const data = await response.json();
+                console.log('✅ Data loaded successfully:', data.totalProcesses, 'processes');
+                
+                populateData(data);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                console.error('Error details:', {
+                    message: error.message,
+                    name: error.name,
+                    stack: error.stack
+                });
+                
+                // Update error message with more details
+                const errorDiv = document.getElementById('error');
+                errorDiv.innerHTML = `
+                    <h3>❌ Error Loading Data</h3>
+                    <p>Could not fetch GLMP metadata. Please check your connection and try again.</p>
+                    <p style="font-size: 0.9em; color: #95a5a6; margin-top: 10px;">
+                        Error: ${error.message}
+                    </p>
+                    <button onclick="loadData()" style="margin-top: 20px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Retry
+                    </button>
+                `;
+                
+                document.getElementById('loading').style.display = 'none';
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        function populateData(data) {
+            const processes = data.processes || [];
+            console.log('Processing data:', { processes: processes.length, data });
+            
+            // Use metadata statistics if available, otherwise calculate from individual process data
+            let totals;
+            if (data.statistics) {
+                totals = {
+                    totalNodes: data.statistics.totalNodes || 0,
+                    totalOR: data.statistics.orGates || 0,
+                    totalAND: data.statistics.andGates || 0,
+                    totalNOT: data.statistics.notGates || 0,
+                    totalGates: data.statistics.totalLogicGates || 0,
+                    totalConditionals: data.statistics.totalConditionals || 0
+                };
+            } else {
+                // Fallback to calculating from individual process data
+                totals = processes.reduce((acc, process) => {
+                    acc.totalNodes += process.nodes || 0;
+                    acc.totalOR += process.logicGates?.or || 0;
+                    acc.totalAND += process.logicGates?.and || 0;
+                    acc.totalNOT += process.notGates || 0;
+                    acc.totalGates += (process.logicGates?.or || 0) + (process.logicGates?.and || 0) + (process.notGates || 0);
+                    acc.totalConditionals += process.conditionals || 0;
+                    return acc;
+                }, { totalNodes: 0, totalOR: 0, totalAND: 0, totalNOT: 0, totalGates: 0, totalConditionals: 0 });
+            }
+            
+            console.log('Calculated totals:', totals);
+            
+            // Populate stats cards
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${processes.length}</div>
+                    <div class="stat-label">Total Processes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totals.totalNodes}</div>
+                    <div class="stat-label">Total Nodes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totals.totalConditionals}</div>
+                    <div class="stat-label">Conditionals (IF-THEN)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🟡 ${totals.totalOR}</div>
+                    <div class="stat-label">OR Gates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🟣 ${totals.totalAND}</div>
+                    <div class="stat-label">AND Gates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🔴 ${totals.totalNOT}</div>
+                    <div class="stat-label">NOT Gates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${(totals.totalConditionals / processes.length).toFixed(1)}</div>
+                    <div class="stat-label">Avg Conditionals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${(totals.totalOR / processes.length).toFixed(1)} : ${(totals.totalAND / processes.length).toFixed(1)} : ${(totals.totalNOT / processes.length).toFixed(1)}</div>
+                    <div class="stat-label">Avg OR:AND:NOT per Process</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100:7:7:8</div>
+                    <div class="stat-label">Computational Architecture</div>
+                </div>
+            `;
+            
+            // Group processes by organism
+            const organismGroups = {};
+            processes.forEach(process => {
+                const organism = process.organism || 'Unknown';
+                if (!organismGroups[organism]) {
+                    organismGroups[organism] = [];
+                }
+                organismGroups[organism].push(process);
+            });
+            
+            // Sort organisms: E. coli first, then yeast, then others
+            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis'];
+            const sortedOrganisms = organismOrder.filter(org => organismGroups[org]);
+            
+            // Populate table with organism headers
+            const tableBody = document.getElementById('tableBody');
+            let tableHTML = '';
+            
+            sortedOrganisms.forEach(organism => {
+                const organismProcesses = organismGroups[organism];
+                const organismDisplayName = organism === 'E. coli' ? 'E. coli' : 
+                                          organism === 'S. cerevisiae' ? 'Yeast' : 
+                                          organism === 'Bacillus subtilis' ? 'Bacillus' : organism;
+                
+                // Add organism header
+                tableHTML += `
+                <tr class="organism-header">
+                    <td colspan="9" style="background: #f8f9fa; font-weight: bold; font-size: 1.1em; padding: 15px 10px; border-bottom: 2px solid #3498db;">
+                        🧬 ${organismDisplayName} (${organismProcesses.length} processes)
+                    </td>
+                </tr>
+                `;
+                
+                // Add processes for this organism
+                organismProcesses.forEach(process => {
+                    const processId = process.id || '';
+                    const processName = process.name || 'Unknown';
+                    const viewerUrl = `https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=${processId}`;
+                    
+                    const conditionals = process.conditionals || 0;
+                    const orGates = process.logicGates?.or || 0;
+                    const andGates = process.logicGates?.and || 0;
+                    const notGates = process.notGates || 0;
+                    
+                    // Debug log for first few processes
+                    if (processes.indexOf(process) < 3) {
+                        console.log(`Process ${process.name}:`, { conditionals, orGates, andGates, notGates });
+                    }
+                    const totalGates = orGates + andGates + notGates;
+                    
+                    tableHTML += `
+                    <tr>
+                        <td class="process-name">
+                            <a href="${viewerUrl}" target="_blank" rel="noopener noreferrer" 
+                               style="color: #2c3e50; text-decoration: none; font-weight: 600;"
+                               onmouseover="this.style.color='#3498db'; this.style.textDecoration='underline';"
+                               onmouseout="this.style.color='#2c3e50'; this.style.textDecoration='none';">
+                                ${processName}
+                            </a>
+                        </td>
+                        <td class="organism">${process.organism || 'Unknown'}</td>
+                        <td><span class="category">${process.category || 'Unknown'}</span></td>
+                        <td><span class="complexity ${process.complexity || 'unknown'}">${process.complexity || 'Unknown'}</span></td>
+                        <td class="number">${process.nodes || 0}</td>
+                        <td class="number">${conditionals}</td>
+                        <td class="number">🟡 ${orGates}</td>
+                        <td class="number">🟣 ${andGates}</td>
+                        <td class="number">🔴 ${notGates}</td>
+                    </tr>
+                    `;
+                });
+            });
+            
+            tableBody.innerHTML = tableHTML;
+            
+            // Calculate breakdowns
+            const complexityCounts = {};
+            const categoryCounts = {};
+            const organismCounts = {};
+            
+            processes.forEach(process => {
+                const complexity = process.complexity || 'Unknown';
+                const category = process.category || 'Unknown';
+                const organism = process.organism || 'Unknown';
+                
+                complexityCounts[complexity] = (complexityCounts[complexity] || 0) + 1;
+                categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+                organismCounts[organism] = (organismCounts[organism] || 0) + 1;
+            });
+            
+            // Populate breakdown
+            const breakdownGrid = document.getElementById('breakdownGrid');
+            breakdownGrid.innerHTML = `
+                <div class="breakdown-card">
+                    <h4>🎯 Complexity Distribution</h4>
+                    ${Object.entries(complexityCounts).map(([complexity, count]) => `
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">${complexity}</span>
+                            <span class="breakdown-count">${count} processes</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="breakdown-card">
+                    <h4>📂 Category Distribution</h4>
+                    ${Object.entries(categoryCounts).map(([category, count]) => `
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">${category}</span>
+                            <span class="breakdown-count">${count} processes</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="breakdown-card">
+                    <h4>🧬 Organism Distribution</h4>
+                    ${Object.entries(organismCounts).map(([organism, count]) => `
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">${organism}</span>
+                            <span class="breakdown-count">${count} processes</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        // Load data on page load
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggest a Process - GLMP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.2s;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+        }
+        
+        .form-header {
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h2 {
+            color: #2c3e50;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-group label .optional {
+            color: #95a5a6;
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            background: #5568d3;
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>💡 Suggest a Process to be Analyzed</h1>
+        <a href="https://garywelz-glmp.static.hf.space/about.html" class="back-link">← Back to About</a>
+    </header>
+    
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Submit Your Suggestion</h2>
+            <p>Tell us about a biological process you'd like to see analyzed and added to the GLMP collection.</p>
+        </div>
+        
+        <div id="message" class="message"></div>
+        
+        <form id="suggestion-form">
+            <div class="form-group">
+                <label for="suggestion">
+                    Process Suggestion <span style="color: #e74c3c;">*</span>
+                </label>
+                <textarea 
+                    id="suggestion" 
+                    name="suggestion" 
+                    placeholder="e.g., E. coli quorum sensing, yeast cell cycle regulation, human insulin signaling pathway..."
+                    required
+                ></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="organism">
+                    Organism <span class="optional">(optional)</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="organism" 
+                    name="organism" 
+                    placeholder="e.g., E. coli, S. cerevisiae, Human, etc."
+                />
+            </div>
+            
+            <div class="form-group">
+                <label for="category">
+                    Category <span class="optional">(optional)</span>
+                </label>
+                <select id="category" name="category">
+                    <option value="">Select a category...</option>
+                    <option value="Gene Regulation">Gene Regulation</option>
+                    <option value="Metabolic Pathway">Metabolic Pathway</option>
+                    <option value="Stress Response">Stress Response</option>
+                    <option value="Cell Cycle">Cell Cycle</option>
+                    <option value="DNA Repair">DNA Repair</option>
+                    <option value="Protein Synthesis">Protein Synthesis</option>
+                    <option value="Signal Transduction">Signal Transduction</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">
+                    Email <span class="optional">(optional - for updates)</span>
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="your.email@example.com"
+                />
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submit-btn">
+                Submit Suggestion
+            </button>
+        </form>
+    </div>
+    
+    <script>
+        const SIMPLE_SUGGESTION_ENDPOINT = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/glmp_simple_suggestion';
+        
+        const form = document.getElementById('suggestion-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const messageDiv = document.getElementById('message');
+        
+        function showMessage(text, isError = false) {
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${isError ? 'error' : 'success'} show`;
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 5000);
+        }
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const suggestion = document.getElementById('suggestion').value.trim();
+            const organism = document.getElementById('organism').value.trim();
+            const category = document.getElementById('category').value;
+            const email = document.getElementById('email').value.trim();
+            
+            if (!suggestion) {
+                showMessage('Please enter a process suggestion.', true);
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const response = await fetch(SIMPLE_SUGGESTION_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        suggestion: suggestion,
+                        organism: organism,
+                        category: category,
+                        email: email
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to submit suggestion');
+                }
+                
+                showMessage('✅ Thank you! Your suggestion has been saved and will be reviewed.');
+                form.reset();
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                showMessage(`Error: ${error.message}. Please try again.`, true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Suggestion';
+            }
+        });
+    </script>
+</body>
+</html>
+
+

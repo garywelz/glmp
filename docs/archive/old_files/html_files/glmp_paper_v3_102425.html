@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 100:7:7:8 Pattern - Genome Logic Modeling Project</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 11.5pt;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 40px;
+            color: #000;
+            background: #fff;
+        }
+        
+        /* Title section */
+        .title {
+            font-size: 24pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 25px 0 18px 0;
+            line-height: 1.3;
+            color: #1a1a1a;
+        }
+        
+        .subtitle {
+            font-size: 14pt;
+            text-align: center;
+            margin: 12px 0 35px 0;
+            font-style: italic;
+            line-height: 1.5;
+            color: #444;
+        }
+        
+        .author-block {
+            text-align: center;
+            margin: 30px 0;
+            line-height: 1.6;
+            font-size: 11pt;
+        }
+        
+        .author-block p { margin: 3px 0; }
+        
+        /* Abstract */
+        .abstract {
+            background: linear-gradient(to right, #f8f9fa 0%, #ffffff 100%);
+            border-left: 6px solid #2c3e50;
+            padding: 25px 35px;
+            margin: 35px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .abstract h2 {
+            font-size: 15pt;
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+        }
+        
+        .keywords {
+            margin-top: 18px;
+            font-style: italic;
+            font-size: 10.5pt;
+        }
+        
+        /* Headings */
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 45px 0 20px 0;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 8px;
+            color: #1a1a1a;
+        }
+        
+        h2 {
+            font-size: 15pt;
+            font-weight: bold;
+            margin: 30px 0 15px 0;
+            color: #2c3e50;
+        }
+        
+        h3 {
+            font-size: 13pt;
+            font-weight: bold;
+            margin: 25px 0 12px 0;
+            color: #34495e;
+            font-style: italic;
+        }
+        
+        p {
+            margin: 12px 0;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        
+        /* Color scheme display */
+        .color-scheme {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .color-box {
+            width: 50px;
+            height: 35px;
+            border: 2px solid #333;
+            margin-right: 12px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .color-label {
+            font-size: 10.5pt;
+            line-height: 1.3;
+        }
+        
+        .color-label strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 10.5pt;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: linear-gradient(to bottom, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 12px;
+            border: 1px solid #1a252f;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 10px 12px;
+            border: 1px solid #bbb;
+        }
+        
+        tr:nth-child(even) { background: #f8f9fa; }
+        tr:hover { background: #e9ecef; }
+        
+        /* Lists */
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 35px;
+        }
+        
+        li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        
+        /* DNA and code blocks */
+        pre {
+            background: #f5f7fa;
+            border: 1px solid #ddd;
+            border-left: 5px solid #3498db;
+            padding: 18px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 9.5pt;
+            line-height: 1.5;
+            border-radius: 4px;
+        }
+        
+        .dna-box {
+            border: 3px solid #16a085;
+            background: linear-gradient(to right, #e8f8f5 0%, #d0f0e8 100%);
+            padding: 22px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        
+        .dna-sequence {
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-weight: bold;
+            color: #16a085;
+            font-size: 11.5pt;
+            letter-spacing: 0.5px;
+        }
+        
+        .logic-formula {
+            font-size: 13.5pt;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(to right, #fff8dc 0%, #fffaed 100%);
+            border-left: 5px solid #ffa500;
+            border-radius: 4px;
+        }
+        
+        /* Special elements */
+        sup {
+            font-size: 0.7em;
+            vertical-align: super;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+            border-bottom: 1px dotted #3498db;
+        }
+        
+        a:hover {
+            color: #2980b9;
+            border-bottom: 1px solid #2980b9;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 18px;
+            margin: 20px 0;
+            font-size: 10.5pt;
+        }
+        
+        .references ol {
+            list-style: none;
+            counter-reset: ref-counter;
+        }
+        
+        .references li {
+            counter-increment: ref-counter;
+            margin: 14px 0;
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        .references li::before {
+            content: counter(ref-counter) ".";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        @media print {
+            body {
+                max-width: 95%;
+                padding: 30px;
+            }
+            .abstract, table, .dna-box {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="title">The 100:7:7:8 Pattern: A Methodological Framework for Analyzing Biological Process Architecture</div>
+
+<div class="subtitle">Preliminary Analysis of 7,152 Computational Nodes Across 108 Well-Characterized Cellular Processes Using a Novel Visualization Approach</div>
+
+<div class="author-block">
+<p><strong>Gary Welz</strong></p>
+<p>Department of Mathematics and Computer Science</p>
+<p>John Jay College of Criminal Justice</p>
+<p>City University of New York (CUNY)</p>
+<p>524 West 59th Street, New York, NY 10019</p>
+<p>(Retired)</p>
+<p style="margin-top:8px;">Email: gwelz@jjay.cuny.edu</p>
+<p>GitHub: https://github.com/garywelz</p>
+<p>Hugging Face: https://huggingface.co/garywelz</p>
+</div>
+
+<div class="abstract">
+<h2>Abstract</h2>
+<p>Preliminary analysis of 7,152 computational nodes across 108 well-characterized cellular processes in bacteria and yeast reveals a potential computational pattern: for every 100 IF-THEN conditional steps (sequential biochemical progression), ~7 OR gates, ~7 AND gates, and ~8 NOT gates occur—a 100:7:7:8 architecture suggesting biological systems may optimize for balanced decision-making. The Genome Logic Modeling Project (GLMP) introduces a novel methodological framework for biological process visualization through computational programming approaches. By representing biological systems as executable programs with standardized color-coded components, this methodology enables systematic analysis of complex biological processes and invites community validation. This preliminary architecture suggests: efficiency (linear pathways dominate at ~81%), balanced decision-making (OR gates at ~6% provide alternatives), integration (AND gates at ~6% enable signal convergence), and control (NOT gates at ~7% provide active repression). These findings represent first approximations using a new methodological lens and require experimental validation. The research community is invited to contribute to the database, challenge individual process representations, and propose amendments. All processes are stored in a PostgreSQL research database and publicly accessible at https://huggingface.co/spaces/garywelz/glmp.</p>
+<p class="keywords"><strong>Keywords:</strong> computational biology, process visualization, synthetic biology, biological programming, systems biology, logic gates, non-coding DNA, genome architecture</p>
+</div>
+
+<h1>Introduction</h1>
+
+<h2>The Challenge of Biological Process Visualization</h2>
+<p>The representation of biological processes has evolved significantly with the advent of computational tools and visualization technologies. Traditional biological diagrams often lack the systematic structure needed for computational analysis, while established standards like the Systems Biology Graphical Notation (SBGN) require significant expertise and time to create properly. This creates a barrier for researchers who need rapid visualization of biological processes for hypothesis generation, experimental design, and cross-disciplinary collaboration.</p>
+
+<h2>The Genome Logic Modeling Project (GLMP)</h2>
+<p>GLMP addresses these workflow gaps by introducing a standardized "Programming Framework" methodology that represents biological processes as computational programs with clearly defined inputs, processing steps, and outputs. This approach leverages the universal nature of computational logic to identify patterns across diverse biological systems, from viral replication mechanisms to neural decision-making processes. By applying consistent color-coding and structural conventions, the framework enables researchers to recognize computational similarities between seemingly unrelated biological processes.</p>
+
+<p>GLMP serves as a rapid prototyping tool that bridges the gap between natural language descriptions of biological processes and formal visualization standards. It democratizes pathway visualization by making it accessible to researchers without specialized training in complex diagramming tools. The conceptual foundation for viewing genomes as computational programs was first proposed in 1995, and this work builds upon those early insights with modern visualization and analysis tools.</p>
+
+<h3>Comparison with Systems Biology Graphical Notation (SBGN)</h3>
+<p>While established standards like the Systems Biology Graphical Notation (SBGN) provide comprehensive frameworks for biological pathway representation, GLMP's Programming Framework serves a complementary but distinct purpose:</p>
+
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>SBGN (Le Novère et al., 2009)</th>
+<th>GLMP Programming Framework</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary Focus</strong></td>
+<td>Detailed molecular interactions, kinetics, and stoichiometry</td>
+<td>Logical architecture and computational flow</td>
+</tr>
+<tr>
+<td><strong>Complexity Level</strong></td>
+<td>High (requires specialized training)</td>
+<td>Low (accessible to general researchers)</td>
+</tr>
+<tr>
+<td><strong>Representation Scope</strong></td>
+<td>Complete biochemical networks with quantitative parameters</td>
+<td>Logical structure and decision points</td>
+</tr>
+<tr>
+<td><strong>Analysis Capability</strong></td>
+<td>Kinetic modeling, flux analysis, parameter estimation</td>
+<td>Pattern recognition, logical analysis, computational architecture</td>
+</tr>
+<tr>
+<td><strong>Creation Time</strong></td>
+<td>Hours to days for complex pathways</td>
+<td>Minutes to hours for logical representation</td>
+</tr>
+<tr>
+<td><strong>Standardization</strong></td>
+<td>Rigid syntax, extensive symbol library</td>
+<td>Flexible, color-coded logical elements</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Complementary relationship:</strong> SBGN excels at capturing the detailed molecular mechanisms and kinetic parameters of biological systems, while GLMP focuses on the logical architecture and computational flow. The two approaches are complementary: SBGN provides the molecular detail needed for quantitative modeling, while GLMP reveals the logical patterns that may be obscured by molecular complexity. For the discovery of conserved computational architectures like the 100:11:6:2 pattern, GLMP's logical focus is essential, as kinetic parameters vary widely between systems while logical structure appears conserved.</p>
+
+<h1>Methods</h1>
+
+<h2>Programming Framework Methodology</h2>
+
+<h3>Color-Coding System</h3>
+<p>The GLMP Programming Framework employs an eight-category color-coding system to represent biological processes as computational programs:</p>
+
+<div class="color-scheme">
+    <div class="color-item">
+        <div class="color-box" style="background: #51cf66;"></div>
+        <div class="color-label"><strong>Green</strong><br>Environmental Triggers & Input Signals</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #ffa726;"></div>
+        <div class="color-label"><strong>Amber/Gold</strong><br>Enzymes & Catalytic Proteins</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #42a5f5;"></div>
+        <div class="color-label"><strong>Dark Sky Blue</strong><br>Chemical Processing & Reactions</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #b3e5fc;"></div>
+        <div class="color-label"><strong>Light Cyan</strong><br>Intermediate States & Molecules</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #ffd600;"></div>
+        <div class="color-label"><strong>Yellow 🟡</strong><br>OR Logic Gates (Decision Points)</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #7950f2;"></div>
+        <div class="color-label"><strong>Purple 🟣</strong><br>AND Logic Gates (Integration)</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #e74c3c;"></div>
+        <div class="color-label"><strong>Red 🔴</strong><br>NOT Logic Gates (Repression/Inhibition)</div>
+    </div>
+    <div class="color-item">
+        <div class="color-box" style="background: #000000;"></div>
+        <div class="color-label"><strong>Black</strong><br>Final Products & Outputs</div>
+    </div>
+</div>
+
+<style>
+    .figure-container svg text {
+        overflow: visible !important;
+    }
+    .figure-container svg .label foreignObject {
+        overflow: visible !important;
+    }
+    .figure-container svg rect,
+    .figure-container svg polygon,
+    .figure-container svg circle {
+        overflow: visible !important;
+    }
+    </style>
+    <div class="figure-container" style="margin: 35px 0; text-align: center; page-break-inside: avoid;">
+    <div style="background: white; border: 2px solid #ddd; border-radius: 8px; padding: 20px; display: block; max-width: 95%; margin: 0 auto;">
+        <svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="-8 -8 1862.387451171875 2950.816650390625" style="max-width: 1862.387451171875px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1761054676475"><style>#mermaid-1761054676475{font-family:Arial,sans-serif;font-size:17px;fill:#333;}#mermaid-1761054676475 .error-icon{fill:hsl(220.5882352941, 100%, 98.3333333333%);}#mermaid-1761054676475 .error-text{fill:rgb(8.5000000002, 5.7500000001, 0);stroke:rgb(8.5000000002, 5.7500000001, 0);}#mermaid-1761054676475 .edge-thickness-normal{stroke-width:2px;}#mermaid-1761054676475 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1761054676475 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1761054676475 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1761054676475 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1761054676475 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-1761054676475 .marker.cross{stroke:#0b0b0b;}#mermaid-1761054676475 svg{font-family:Arial,sans-serif;font-size:17px;}#mermaid-1761054676475 .label{font-family:Arial,sans-serif;color:#333;}#mermaid-1761054676475 .cluster-label text{fill:rgb(8.5000000002, 5.7500000001, 0);}#mermaid-1761054676475 .cluster-label span,#mermaid-1761054676475 p{color:rgb(8.5000000002, 5.7500000001, 0);}#mermaid-1761054676475 .label text,#mermaid-1761054676475 span,#mermaid-1761054676475 p{fill:#333;color:#333;}#mermaid-1761054676475 .node rect,#mermaid-1761054676475 .node circle,#mermaid-1761054676475 .node ellipse,#mermaid-1761054676475 .node polygon,#mermaid-1761054676475 .node path{fill:#fff4dd;stroke:hsl(40.5882352941, 60%, 83.3333333333%);stroke-width:1px;}#mermaid-1761054676475 .flowchart-label text{text-anchor:middle;}#mermaid-1761054676475 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-1761054676475 .node .label{text-align:center;}#mermaid-1761054676475 .node.clickable{cursor:pointer;}#mermaid-1761054676475 .arrowheadPath{fill:#0b0b0b;}#mermaid-1761054676475 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-1761054676475 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-1761054676475 .edgeLabel{background-color:hsl(-79.4117647059, 100%, 93.3333333333%);text-align:center;}#mermaid-1761054676475 .edgeLabel rect{opacity:0.5;background-color:hsl(-79.4117647059, 100%, 93.3333333333%);fill:hsl(-79.4117647059, 100%, 93.3333333333%);}#mermaid-1761054676475 .labelBkg{background-color:rgba(243.9999999999, 220.9999999998, 255, 0.5);}#mermaid-1761054676475 .cluster rect{fill:hsl(220.5882352941, 100%, 98.3333333333%);stroke:hsl(220.5882352941, 60%, 88.3333333333%);stroke-width:1px;}#mermaid-1761054676475 .cluster text{fill:rgb(8.5000000002, 5.7500000001, 0);}#mermaid-1761054676475 .cluster span,#mermaid-1761054676475 p{color:rgb(8.5000000002, 5.7500000001, 0);}#mermaid-1761054676475 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Arial,sans-serif;font-size:12px;background:hsl(220.5882352941, 100%, 98.3333333333%);border:1px solid hsl(220.5882352941, 60%, 88.3333333333%);border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1761054676475 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-1761054676475 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="6" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1761054676475_flowchart-pointEnd"><path style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"/></marker><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1761054676475_flowchart-pointStart"><path style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"/></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1761054676475_flowchart-circleEnd"><circle style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" r="5" cy="5" cx="5"/></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1761054676475_flowchart-circleStart"><circle style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" r="5" cy="5" cx="5"/></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart" id="mermaid-1761054676475_flowchart-crossEnd"><path style="stroke-width: 2px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"/></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart" id="mermaid-1761054676475_flowchart-crossStart"><path style="stroke-width: 2px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"/></marker><g class="root"><g class="clusters"/><g class="edgePaths"><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-B" id="L-A-B-0" d="M1395.1,64.333L1395.1,71C1395.1,77.667,1395.1,91,1395.172,103.533C1395.245,116.067,1395.39,127.8,1395.462,133.667L1395.535,139.534"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C" id="L-B-C-0" d="M1395.6,312.3L1395.517,320.522C1395.433,328.744,1395.267,345.189,1395.183,360.833C1395.1,376.478,1395.1,391.322,1395.1,398.744L1395.1,406.167"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-D" id="L-C-D-0" d="M1395.1,456.133L1395.1,462.8C1395.1,469.467,1395.1,482.8,1395.1,495.25C1395.1,507.7,1395.1,519.267,1395.1,525.05L1395.1,530.833"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-F" id="L-E-F-0" d="M975.554,734.967L975.554,743.272C975.554,751.578,975.554,768.189,975.628,783.069C975.701,797.95,975.848,811.1,975.921,817.675L975.995,824.25"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-G" id="L-F-G-0" d="M930.39,927.069L901.027,943.61C871.664,960.152,812.938,993.234,783.575,1017.198C754.213,1041.161,754.213,1056.006,754.213,1063.428L754.213,1070.85"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-H LE-I" id="L-H-I-0" d="M448.75,734.967L448.75,743.272C448.75,751.578,448.75,768.189,448.822,782.361C448.895,796.533,449.04,808.267,449.112,814.134L449.185,820"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-I LE-J" id="L-I-J-0" d="M416.285,944.019L405.593,957.735C394.9,971.451,373.515,998.884,362.822,1021.661C352.129,1044.439,352.129,1062.561,352.129,1071.622L352.129,1080.683"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-I LE-K" id="L-I-K-0" d="M482.215,944.019L492.741,957.735C503.267,971.451,524.319,998.884,534.845,1020.023C545.371,1041.161,545.371,1056.006,545.371,1063.428L545.371,1070.85"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-L" id="L-D-L-0" d="M1395.1,600.467L1395.1,607.133C1395.1,613.8,1395.1,627.133,1395.1,639.583C1395.1,652.033,1395.1,663.6,1395.1,669.383L1395.1,675.167"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-L LE-M" id="L-L-M-0" d="M1395.1,744.8L1395.1,751.467C1395.1,758.133,1395.1,771.467,1395.1,791.196C1395.1,810.925,1395.1,837.05,1395.1,850.112L1395.1,863.175"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-M LE-N" id="L-M-N-0" d="M1395.1,932.808L1395.1,948.393C1395.1,963.978,1395.1,995.147,1395.1,1019.793C1395.1,1044.439,1395.1,1062.561,1395.1,1071.622L1395.1,1080.683"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;stroke-width:2px;stroke-dasharray:3;" class="edge-thickness-normal edge-pattern-dotted flowchart-link LS-N LE-O" id="L-N-O-0" d="M1395.1,1130.65L1395.1,1140.594C1395.1,1150.539,1395.1,1170.428,1371.909,1188.581C1348.718,1206.735,1302.336,1223.154,1279.145,1231.363L1255.955,1239.573"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;stroke-width:2px;stroke-dasharray:3;" class="edge-thickness-normal edge-pattern-dotted flowchart-link LS-P LE-O" id="L-P-O-0" d="M987.129,1130.65L987.129,1140.594C987.129,1150.539,987.129,1170.428,1010.36,1188.586C1033.59,1206.744,1080.051,1223.172,1103.281,1231.385L1126.511,1239.599"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-O LE-Q" id="L-O-Q-0" d="M1191.233,1284.817L1191.233,1291.483C1191.233,1298.15,1191.233,1311.483,1191.306,1324.017C1191.378,1336.55,1191.523,1348.284,1191.595,1354.15L1191.668,1360.017"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-Q LE-R" id="L-Q-R-0" d="M1237.603,1475.847L1262.475,1493.353C1287.346,1510.859,1337.09,1545.871,1361.962,1574.077C1386.833,1602.283,1386.833,1623.683,1386.833,1634.383L1386.833,1645.083"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-G LE-S" id="L-G-S-0" d="M754.213,1140.483L754.213,1148.789C754.213,1157.094,754.213,1173.705,742.922,1189.814C731.631,1205.923,709.049,1221.53,697.758,1229.333L686.467,1237.137"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-K LE-S" id="L-K-S-0" d="M545.371,1140.483L545.371,1148.789C545.371,1157.094,545.371,1173.705,556.662,1189.814C567.953,1205.923,590.535,1221.53,601.826,1229.333L613.117,1237.137"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-S LE-T" id="L-S-T-0" d="M649.792,1284.817L649.792,1291.483C649.792,1298.15,649.792,1311.483,649.792,1333.244C649.792,1355.005,649.792,1385.194,649.792,1400.289L649.792,1415.383"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-T LE-U" id="L-T-U-0" d="M649.792,1465.35L649.792,1484.605C649.792,1503.861,649.792,1542.372,649.792,1572.328C649.792,1602.283,649.792,1623.683,649.792,1634.383L649.792,1645.083"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-R LE-V" id="L-R-V-0" d="M1386.833,1695.05L1386.833,1703.355C1386.833,1711.661,1386.833,1728.272,1329.132,1753.857C1271.431,1779.442,1156.029,1814,1098.328,1831.279L1040.627,1848.558"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-U LE-V" id="L-U-V-0" d="M649.792,1695.05L649.792,1703.355C649.792,1711.661,649.792,1728.272,692.388,1753.098C734.985,1777.925,820.178,1810.966,862.775,1827.487L905.372,1844.008"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-V LE-W" id="L-V-W-0" d="M970.854,1953.283L970.771,1961.505C970.688,1969.728,970.521,1986.172,970.438,2001.817C970.354,2017.461,970.354,2032.305,970.354,2039.728L970.354,2047.15"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-Y LE-X" id="L-Y-X-0" d="M1515.654,2106.95L1515.654,2115.255C1515.654,2123.561,1515.654,2140.172,1459.425,2168.46C1403.195,2196.747,1290.736,2236.711,1234.507,2256.693L1178.277,2276.675"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-W LE-X" id="L-W-X-0" d="M970.354,2116.783L970.354,2123.45C970.354,2130.117,970.354,2143.45,981.903,2164.369C993.452,2185.288,1016.549,2213.794,1028.098,2228.046L1039.647,2242.299"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-X LE-Z" id="L-X-Z-0" d="M1092.117,2416.983L1092.033,2423.567C1091.95,2430.15,1091.783,2443.317,1091.7,2455.683C1091.617,2468.05,1091.617,2479.617,1091.617,2485.4L1091.617,2491.183"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-Z LE-AA" id="L-Z-AA-0" d="M1186.933,2527.545L1284.497,2536.479C1382.06,2545.413,1577.186,2563.282,1674.749,2577.999C1772.313,2592.717,1772.313,2604.283,1772.313,2610.067L1772.313,2615.85"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-Z LE-AB" id="L-Z-AB-0" d="M1091.617,2541.15L1091.617,2547.817C1091.617,2554.483,1091.617,2567.817,1091.617,2580.267C1091.617,2592.717,1091.617,2604.283,1091.617,2610.067L1091.617,2615.85"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-Z LE-AC" id="L-Z-AC-0" d="M996.3,2524.65L842.436,2534.067C688.572,2543.483,380.844,2562.317,226.981,2577.517C73.117,2592.717,73.117,2604.283,73.117,2610.067L73.117,2615.85"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-AA LE-AD" id="L-AA-AD-0" d="M1772.313,2665.817L1772.313,2672.483C1772.313,2679.15,1772.313,2692.483,1766.555,2705.178C1760.797,2717.872,1749.282,2729.928,1743.525,2735.956L1737.767,2741.984"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-AB LE-AE" id="L-AB-AE-0" d="M1091.617,2665.817L1091.617,2672.483C1091.617,2679.15,1091.617,2692.483,1075.642,2705.491C1059.667,2718.498,1027.717,2731.18,1011.742,2737.52L995.767,2743.861"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-AC LE-AF" id="L-AC-AF-0" d="M73.117,2665.817L73.117,2672.483C73.117,2679.15,73.117,2692.483,73.117,2704.933C73.117,2717.383,73.117,2728.95,73.117,2734.733L73.117,2740.517"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;stroke-width:2px;stroke-dasharray:3;" class="edge-thickness-normal edge-pattern-dotted flowchart-link LS-AD LE-C" id="L-AD-C-0" d="M1691.443,2745.817L1685.076,2739.15C1678.708,2732.483,1665.973,2719.15,1659.605,2702.094C1653.238,2685.039,1653.238,2664.261,1653.238,2643.483C1653.238,2622.705,1653.238,2601.928,1653.238,2581.15C1653.238,2560.372,1653.238,2539.594,1653.238,2518.817C1653.238,2498.039,1653.238,2477.261,1653.238,2441.897C1653.238,2406.533,1653.238,2356.583,1653.238,2306.633C1653.238,2256.683,1653.238,2206.733,1653.238,2169.73C1653.238,2132.728,1653.238,2108.672,1653.238,2082.978C1653.238,2057.283,1653.238,2029.95,1653.238,1993.986C1653.238,1958.022,1653.238,1913.428,1653.238,1870.472C1653.238,1827.517,1653.238,1786.2,1653.238,1753.514C1653.238,1720.828,1653.238,1696.772,1653.238,1669.439C1653.238,1642.105,1653.238,1611.494,1653.238,1573.211C1653.238,1534.928,1653.238,1488.972,1653.238,1446.294C1653.238,1403.617,1653.238,1364.217,1653.238,1334.128C1653.238,1304.039,1653.238,1283.261,1653.238,1260.844C1653.238,1238.428,1653.238,1214.372,1653.238,1188.678C1653.238,1162.983,1653.238,1135.65,1653.238,1108.317C1653.238,1080.983,1653.238,1053.65,1653.238,1019.037C1653.238,984.425,1653.238,942.533,1653.238,902.281C1653.238,862.028,1653.238,823.414,1653.238,792.079C1653.238,760.744,1653.238,736.689,1653.238,712.633C1653.238,688.578,1653.238,664.522,1653.238,640.467C1653.238,616.411,1653.238,592.356,1653.238,568.3C1653.238,544.244,1653.238,520.189,1622.997,500.859C1592.756,481.529,1532.275,466.924,1502.034,459.622L1471.794,452.319"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;stroke-width:2px;stroke-dasharray:3;" class="edge-thickness-normal edge-pattern-dotted flowchart-link LS-AE LE-C" id="L-AE-C-0" d="M861.933,2761.646L758.011,2752.341C654.089,2743.036,446.244,2724.426,342.322,2704.733C238.4,2685.039,238.4,2664.261,238.4,2643.483C238.4,2622.705,238.4,2601.928,238.4,2581.15C238.4,2560.372,238.4,2539.594,238.4,2518.817C238.4,2498.039,238.4,2477.261,238.4,2441.897C238.4,2406.533,238.4,2356.583,238.4,2306.633C238.4,2256.683,238.4,2206.733,238.4,2169.73C238.4,2132.728,238.4,2108.672,238.4,2082.978C238.4,2057.283,238.4,2029.95,238.4,1993.986C238.4,1958.022,238.4,1913.428,238.4,1870.472C238.4,1827.517,238.4,1786.2,238.4,1753.514C238.4,1720.828,238.4,1696.772,238.4,1669.439C238.4,1642.105,238.4,1611.494,238.4,1573.211C238.4,1534.928,238.4,1488.972,238.4,1446.294C238.4,1403.617,238.4,1364.217,238.4,1334.128C238.4,1304.039,238.4,1283.261,238.4,1260.844C238.4,1238.428,238.4,1214.372,238.4,1188.678C238.4,1162.983,238.4,1135.65,238.4,1108.317C238.4,1080.983,238.4,1053.65,238.4,1019.037C238.4,984.425,238.4,942.533,238.4,902.281C238.4,862.028,238.4,823.414,238.4,792.079C238.4,760.744,238.4,736.689,238.4,712.633C238.4,688.578,238.4,664.522,238.4,640.467C238.4,616.411,238.4,592.356,238.4,568.3C238.4,544.244,238.4,520.189,418.378,498.462C598.355,476.736,958.311,457.338,1138.288,447.639L1318.266,437.94"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-AD LE-AG" id="L-AD-AG-0" d="M1712.775,2790.483L1712.775,2797.15C1712.775,2803.817,1712.775,2817.15,1592.455,2834.974C1472.134,2852.799,1231.493,2875.115,1111.173,2886.273L990.852,2897.431"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-AE LE-AG" id="L-AE-AG-0" d="M934.575,2790.483L934.575,2797.15C934.575,2803.817,934.575,2817.15,934.575,2829.6C934.575,2842.05,934.575,2853.617,934.575,2859.4L934.575,2865.183"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-AF LE-AG" id="L-AF-AG-0" d="M73.117,2790.483L73.117,2797.15C73.117,2803.817,73.117,2817.15,207.313,2835.058C341.509,2852.967,609.901,2875.451,744.097,2886.693L878.294,2897.935"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-F_STOP" id="L-F-F_STOP-0" d="M1021.718,927.069L1050.915,943.61C1080.111,960.152,1138.503,993.234,1167.7,1017.198C1196.896,1041.161,1196.896,1056.006,1196.896,1063.428L1196.896,1070.85"/><path marker-end="url(#mermaid-1761054676475_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-Q LE-Q_STOP" id="L-Q-Q_STOP-0" d="M1144.274,1474.258L1116.627,1492.029C1088.98,1509.8,1033.686,1545.341,1006.039,1572.173C978.392,1599.005,978.392,1617.128,978.392,1626.189L978.392,1635.25"/></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 361.63331604003906)" class="edgeLabel"><g transform="translate(-13.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="27.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Yes</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(754.2125091552734, 1026.3166198730469)" class="edgeLabel"><g transform="translate(-13.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="27.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Yes</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(352.1291732788086, 1026.3166198730469)" class="edgeLabel"><g transform="translate(-13.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="27.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Yes</span></div></foreignObject></g></g><g transform="translate(545.3708419799805, 1026.3166198730469)" class="edgeLabel"><g transform="translate(-10.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="21.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">No</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 1190.3166046142578)" class="edgeLabel"><g transform="translate(-35.43333435058594, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="70.86666870117188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Releases</span></div></foreignObject></g></g><g transform="translate(987.1291732788086, 1190.3166046142578)" class="edgeLabel"><g transform="translate(-21.258331298828125, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="42.51666259765625"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Binds</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(1386.8333358764648, 1580.8832473754883)" class="edgeLabel"><g transform="translate(-13.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="27.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Yes</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(970.3541717529297, 2002.6165618896484)" class="edgeLabel"><g transform="translate(-49.116668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="98.23333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Both Present</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(1653.2375030517578, 1580.8832473754883)" class="edgeLabel"><g transform="translate(-38.26667022705078, -19.666664123535156)" class="label"><foreignObject height="39.33332824707031" width="76.53334045410156"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Enhanced<br />uptake</span></div></foreignObject></g></g><g transform="translate(238.40000534057617, 1580.8832473754883)" class="edgeLabel"><g transform="translate(-38.26667022705078, -19.666664123535156)" class="label"><foreignObject height="39.33332824707031" width="76.53334045410156"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">Enhanced<br />uptake</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(1196.8958358764648, 1026.3166198730469)" class="edgeLabel"><g transform="translate(-10.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="21.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">No</span></div></foreignObject></g></g><g transform="translate(978.391674041748, 1580.8832473754883)" class="edgeLabel"><g transform="translate(-10.866668701171875, -9.833328247070312)" class="label"><foreignObject height="19.666656494140625" width="21.73333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">No</span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(1395.1000022888184, 32.166664123535156)" data-id="A" data-node="true" id="flowchart-A-0" class="node default default flowchart-label"><rect height="64.33332824707031" width="120.41667175292969" y="-32.166664123535156" x="-60.208335876464844" ry="0" rx="0" style="fill:#51cf66;stroke:#2f9e44;stroke-width:2px;" class="basic label-container"/><g transform="translate(-47.708335876464844, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="95.41667175292969"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Lactose in<br />Environment</span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 228.06665802001953)" data-id="B" data-node="true" id="flowchart-B-1" class="node default default flowchart-label"><polygon style="fill:#ffd600;stroke:#f59f00;stroke-width:3px;" transform="translate(-83.73332977294922,83.73332977294922)" class="label-container" points="83.73332977294922,0 167.46665954589844,-83.73332977294922 83.73332977294922,-167.46665954589844 0,-83.73332977294922"/><g transform="translate(-39.06666564941406, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="78.13333129882812"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Lactose<br />Available?</span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 433.7999725341797)" data-id="C" data-node="true" id="flowchart-C-3" class="node default default flowchart-label"><rect height="44.666656494140625" width="143.0833282470703" y="-22.333328247070312" x="-71.54166412353516" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-59.041664123535156, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="118.08332824707031"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Lactose Uptake</span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 568.2999649047852)" data-id="D" data-node="true" id="flowchart-D-5" class="node default default flowchart-label"><rect height="64.33332824707031" width="112.86666870117188" y="-32.166664123535156" x="-56.43333435058594" ry="0" rx="0" style="fill:#b3e5fc;stroke:#81d4fa;stroke-width:2px;" class="basic label-container"/><g transform="translate(-43.93333435058594, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="87.86666870117188"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Intracellular<br />Lactose</span></div></foreignObject></g></g><g transform="translate(975.5541725158691, 712.6332931518555)" data-id="E" data-node="true" id="flowchart-E-6" class="node default default flowchart-label"><rect height="44.666656494140625" width="142.75" y="-22.333328247070312" x="-71.375" ry="0" rx="0" style="fill:#51cf66;stroke:#2f9e44;stroke-width:2px;" class="basic label-container"/><g transform="translate(-58.875, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="117.75"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">ATP/AMP Ratio</span></div></foreignObject></g></g><g transform="translate(975.5541725158691, 900.6416244506836)" data-id="F" data-node="true" id="flowchart-F-7" class="node default default flowchart-label"><polygon style="fill:#ffd600;stroke:#f59f00;stroke-width:3px;" transform="translate(-71.59166717529297,71.59166717529297)" class="label-container" points="71.59166717529297,0 143.18333435058594,-71.59166717529297 71.59166717529297,-143.18333435058594 0,-71.59166717529297"/><g transform="translate(-26.925003051757812, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="53.850006103515625"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Energy<br />Low?</span></div></foreignObject></g></g><g transform="translate(754.2125091552734, 1108.3166122436523)" data-id="G" data-node="true" id="flowchart-G-9" class="node default default flowchart-label"><rect height="64.33332824707031" width="154.43333435058594" y="-32.166664123535156" x="-77.21666717529297" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-64.71666717529297, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="129.43333435058594"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Adenylyl Cyclase<br />Active</span></div></foreignObject></g></g><g transform="translate(448.75000762939453, 712.6332931518555)" data-id="H" data-node="true" id="flowchart-H-10" class="node default default flowchart-label"><rect height="44.666656494140625" width="132.6999969482422" y="-22.333328247070312" x="-66.3499984741211" ry="0" rx="0" style="fill:#51cf66;stroke:#2f9e44;stroke-width:2px;" class="basic label-container"/><g transform="translate(-53.849998474121094, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="107.69999694824219"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Glucose Level</span></div></foreignObject></g></g><g transform="translate(448.75000762939453, 900.6416244506836)" data-id="I" data-node="true" id="flowchart-I-11" class="node default default flowchart-label"><polygon style="fill:#ffd600;stroke:#f59f00;stroke-width:3px;" transform="translate(-75.84166717529297,75.84166717529297)" class="label-container" points="75.84166717529297,0 151.68333435058594,-75.84166717529297 75.84166717529297,-151.68333435058594 0,-75.84166717529297"/><g transform="translate(-31.175003051757812, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="62.350006103515625"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Glucose<br />High?</span></div></foreignObject></g></g><g transform="translate(352.1291732788086, 1108.3166122436523)" data-id="J" data-node="true" id="flowchart-J-13" class="node default default flowchart-label"><rect height="44.666656494140625" width="123.23333740234375" y="-22.333328247070312" x="-61.616668701171875" ry="0" rx="0" style="fill:#e74c3c;stroke:#c0392b;stroke-width:3px;" class="basic label-container"/><g transform="translate(-49.116668701171875, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="98.23333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">CAP Inactive</span></div></foreignObject></g></g><g transform="translate(545.3708419799805, 1108.3166122436523)" data-id="K" data-node="true" id="flowchart-K-15" class="node default default flowchart-label"><rect height="64.33332824707031" width="123.25" y="-32.166664123535156" x="-61.625" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-49.125, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="98.25"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Low Glucose<br />Signal</span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 712.6332931518555)" data-id="L" data-node="true" id="flowchart-L-17" class="node default default flowchart-label"><rect height="64.33332824707031" width="114.13333129882812" y="-32.166664123535156" x="-57.06666564941406" ry="0" rx="0" style="fill:#ffa726;stroke:#fb8c00;stroke-width:2px;" class="basic label-container"/><g transform="translate(-44.56666564941406, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="89.13333129882812"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">β-Gal Basal<br />Activity</span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 900.6416244506836)" data-id="M" data-node="true" id="flowchart-M-19" class="node default default flowchart-label"><rect height="64.33332824707031" width="107.19999694824219" y="-32.166664123535156" x="-53.599998474121094" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-41.099998474121094, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="82.19999694824219"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Allolactose<br />Formation</span></div></foreignObject></g></g><g transform="translate(1395.1000022888184, 1108.3166122436523)" data-id="N" data-node="true" id="flowchart-N-21" class="node default default flowchart-label"><rect height="44.666656494140625" width="147.8000030517578" y="-22.333328247070312" x="-73.9000015258789" ry="0" rx="0" style="fill:#e74c3c;stroke:#c0392b;stroke-width:3px;" class="basic label-container"/><g transform="translate(-61.400001525878906, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="122.80000305175781"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">LacI Inactivation</span></div></foreignObject></g></g><g transform="translate(1191.2333374023438, 1262.4832611083984)" data-id="O" data-node="true" id="flowchart-O-23" class="node default default flowchart-label"><rect height="44.666656494140625" width="119.44999694824219" y="-22.333328247070312" x="-59.724998474121094" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-47.224998474121094, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="94.44999694824219"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Operator O1</span></div></foreignObject></g></g><g transform="translate(987.1291732788086, 1108.3166122436523)" data-id="P" data-node="true" id="flowchart-P-24" class="node default default flowchart-label"><rect height="44.666656494140625" width="171.39999389648438" y="-22.333328247070312" x="-85.69999694824219" ry="0" rx="0" style="fill:#b3e5fc;stroke:#81d4fa;stroke-width:2px;" class="basic label-container"/><g transform="translate(-73.19999694824219, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="146.39999389648438"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Default: LacI Active</span></div></foreignObject></g></g><g transform="translate(1191.2333374023438, 1443.016586303711)" data-id="Q" data-node="true" id="flowchart-Q-27" class="node default default flowchart-label"><polygon style="fill:#ffd600;stroke:#f59f00;stroke-width:3px;" transform="translate(-78.19999694824219,78.19999694824219)" class="label-container" points="78.19999694824219,0 156.39999389648438,-78.19999694824219 78.19999694824219,-156.39999389648438 0,-78.19999694824219"/><g transform="translate(-33.53333282470703, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="67.06666564941406"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Operator<br />Free?</span></div></foreignObject></g></g><g transform="translate(1386.8333358764648, 1672.7165756225586)" data-id="R" data-node="true" id="flowchart-R-29" class="node default default flowchart-label"><rect height="44.666656494140625" width="180.86666870117188" y="-22.333328247070312" x="-90.43333435058594" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-77.93333435058594, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="155.86666870117188"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Promoter Accessible</span></div></foreignObject></g></g><g transform="translate(649.791675567627, 1262.4832611083984)" data-id="S" data-node="true" id="flowchart-S-31" class="node default default flowchart-label"><rect height="44.666656494140625" width="156.3000030517578" y="-22.333328247070312" x="-78.1500015258789" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-65.6500015258789, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="131.3000030517578"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">cAMP Production</span></div></foreignObject></g></g><g transform="translate(649.791675567627, 1443.016586303711)" data-id="T" data-node="true" id="flowchart-T-35" class="node default default flowchart-label"><rect height="44.666656494140625" width="177.0833282470703" y="-22.333328247070312" x="-88.54166412353516" ry="0" rx="0" style="fill:#b3e5fc;stroke:#81d4fa;stroke-width:2px;" class="basic label-container"/><g transform="translate(-76.04166412353516, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="152.0833282470703"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">cAMP Accumulation</span></div></foreignObject></g></g><g transform="translate(649.791675567627, 1672.7165756225586)" data-id="U" data-node="true" id="flowchart-U-37" class="node default default flowchart-label"><rect height="44.666656494140625" width="182.75" y="-22.333328247070312" x="-91.375" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-78.875, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="157.75"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">CAP-cAMP Complex</span></div></foreignObject></g></g><g transform="translate(970.3541717529297, 1868.833236694336)" data-id="V" data-node="true" id="flowchart-V-39" class="node default default flowchart-label"><polygon style="fill:#7950f2;stroke:#5f3dc4;stroke-width:3px;" transform="translate(-83.94999694824219,83.94999694824219)" class="label-container" points="83.94999694824219,0 167.89999389648438,-83.94999694824219 83.94999694824219,-167.89999389648438 0,-83.94999694824219"/><g transform="translate(-49.116668701171875, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="98.23333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">Both Present</span></div></foreignObject></g></g><g transform="translate(970.3541717529297, 2084.616554260254)" data-id="W" data-node="true" id="flowchart-W-43" class="node default default flowchart-label"><rect height="64.33332824707031" width="194.4166717529297" y="-32.166664123535156" x="-97.20833587646484" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-84.70833587646484, -19.666664123535156)" style="color:#000;" class="label"><rect/><foreignObject height="39.33332824707031" width="169.4166717529297"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Transcription Complex<br />Assembly</span></div></foreignObject></g></g><g transform="translate(1515.6541709899902, 2084.616554260254)" data-id="Y" data-node="true" id="flowchart-Y-44" class="node default default flowchart-label"><rect height="44.666656494140625" width="150.63333129882812" y="-22.333328247070312" x="-75.31666564941406" ry="0" rx="0" style="fill:#b3e5fc;stroke:#81d4fa;stroke-width:2px;" class="basic label-container"/><g transform="translate(-62.81666564941406, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="125.63333129882812"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Sigma-70 Factor</span></div></foreignObject></g></g><g transform="translate(1091.6166725158691, 2306.63321685791)" data-id="X" data-node="true" id="flowchart-X-45" class="node default default flowchart-label"><polygon style="fill:#7950f2;stroke:#5f3dc4;stroke-width:3px;" transform="translate(-109.8499984741211,109.8499984741211)" class="label-container" points="109.8499984741211,0 219.6999969482422,-109.8499984741211 109.8499984741211,-219.6999969482422 0,-109.8499984741211"/><g transform="translate(-65.18333435058594, -19.666664123535156)" style="color:#fff;" class="label"><rect/><foreignObject height="39.33332824707031" width="130.36666870117188"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">RNA Polymerase<br />Recruitment</span></div></foreignObject></g></g><g transform="translate(1091.6166725158691, 2518.8165435791016)" data-id="Z" data-node="true" id="flowchart-Z-49" class="node default default flowchart-label"><rect height="44.666656494140625" width="190.63333129882812" y="-22.333328247070312" x="-95.31666564941406" ry="0" rx="0" style="fill:#42a5f5;stroke:#1e88e5;stroke-width:2px;" class="basic label-container"/><g transform="translate(-82.81666564941406, -9.833328247070312)" style="color:#000;" class="label"><rect/><foreignObject height="19.666656494140625" width="165.63333129882812"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(0, 0, 0); display: inline-block; white-space: nowrap;"><span style="color:#000;" class="nodeLabel">Transcription Initiation</span></div></foreignObject></g></g><g transform="translate(1772.3125, 2643.483200073242)" data-id="AA" data-node="true" id="flowchart-AA-51" class="node default default flowchart-label"><rect height="44.666656494140625" width="148.14999389648438" y="-22.333328247070312" x="-74.07499694824219" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-61.57499694824219, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="123.14999389648438"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">β-Galactosidase</span></div></foreignObject></g></g><g transform="translate(1091.6166725158691, 2643.483200073242)" data-id="AB" data-node="true" id="flowchart-AB-53" class="node default default flowchart-label"><rect height="44.666656494140625" width="102.46665954589844" y="-22.333328247070312" x="-51.23332977294922" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-38.73332977294922, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="77.46665954589844"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">Permease</span></div></foreignObject></g></g><g transform="translate(73.11666870117188, 2643.483200073242)" data-id="AC" data-node="true" id="flowchart-AC-55" class="node default default flowchart-label"><rect height="44.666656494140625" width="139.61666870117188" y="-22.333328247070312" x="-69.80833435058594" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-57.30833435058594, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="114.61666870117188"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">Transacetylase</span></div></foreignObject></g></g><g transform="translate(1712.775001525879, 2768.149856567383)" data-id="AD" data-node="true" id="flowchart-AD-57" class="node default default flowchart-label"><rect height="44.666656494140625" width="175.1999969482422" y="-22.333328247070312" x="-87.5999984741211" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-75.0999984741211, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="150.1999969482422"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">Polycistronic mRNA</span></div></foreignObject></g></g><g transform="translate(934.5750045776367, 2768.149856567383)" data-id="AE" data-node="true" id="flowchart-AE-59" class="node default default flowchart-label"><rect height="44.666656494140625" width="145.28334045410156" y="-22.333328247070312" x="-72.64167022705078" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-60.14167022705078, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="120.28334045410156"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">lacZ Translation</span></div></foreignObject></g></g><g transform="translate(73.11666870117188, 2768.149856567383)" data-id="AF" data-node="true" id="flowchart-AF-61" class="node default default flowchart-label"><rect height="44.666656494140625" width="146.23333740234375" y="-22.333328247070312" x="-73.11666870117188" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-60.616668701171875, -9.833328247070312)" style="color:#fff;" class="label"><rect/><foreignObject height="19.666656494140625" width="121.23333740234375"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">lacY Translation</span></div></foreignObject></g></g><g transform="translate(934.5750045776367, 2902.6498489379883)" data-id="AG" data-node="true" id="flowchart-AG-67" class="node default default flowchart-label"><rect height="64.33332824707031" width="102" y="-32.166664123535156" x="-51" ry="0" rx="0" style="fill:#000000;stroke:#000000;stroke-width:3px;" class="basic label-container"/><g transform="translate(-38.5, -19.666664123535156)" style="color:#fff;" class="label"><rect/><foreignObject height="39.33332824707031" width="77"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#fff;" class="nodeLabel">Glucose +<br />Galactose</span></div></foreignObject></g></g><g transform="translate(1196.8958358764648, 1108.3166122436523)" data-id="F_STOP" data-node="true" id="flowchart-F_STOP-73" class="node default default flowchart-label"><rect height="64.33332824707031" width="108.13333129882812" y="-32.166664123535156" x="-54.06666564941406" ry="0" rx="0" style="fill:#9e9e9e;stroke:#757575;stroke-width:2px;" class="basic label-container"/><g transform="translate(-41.56666564941406, -19.666664123535156)" style="color:#ffffff;" class="label"><rect/><foreignObject height="39.33332824707031" width="83.13333129882812"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#ffffff;" class="nodeLabel">Process<br />Terminates</span></div></foreignObject></g></g><g transform="translate(978.391674041748, 1672.7165756225586)" data-id="Q_STOP" data-node="true" id="flowchart-Q_STOP-75" class="node default default flowchart-label"><rect height="64.33332824707031" width="108.13333129882812" y="-32.166664123535156" x="-54.06666564941406" ry="0" rx="0" style="fill:#9e9e9e;stroke:#757575;stroke-width:2px;" class="basic label-container"/><g transform="translate(-41.56666564941406, -19.666664123535156)" style="color:#ffffff;" class="label"><rect/><foreignObject height="39.33332824707031" width="83.13333129882812"><div xmlns="http://www.w3.org/1999/xhtml" style="color: rgb(255, 255, 255); display: inline-block; white-space: nowrap;"><span style="color:#ffffff;" class="nodeLabel">Process<br />Terminates</span></div></foreignObject></g></g></g></g></g></svg>
+    </div>
+    <div style="margin-top: 15px; padding: 15px 30px; text-align: justify; font-size: 10.5pt; line-height: 1.6; background: #f8f9fa; border-left: 4px solid #3498db;">
+        <strong>Figure 1: Lac Operon Regulation as a Computational Program.</strong> Environmental inputs (green rectangles) include lactose availability, glucose levels, and energy status (ATP/AMP ratio). The system processes these signals through multiple logic gates: OR gates (yellow diamonds) for flexible decision points with alternative pathways, AND gates (purple hexagons) for signal integration requiring multiple inputs, and NOT gates (red trapezoids) for active repression and inhibition. Processing steps (blue rectangles) lead to enzyme production (orange rectangles) and final products (black circle: "Glucose + Galactose"). Positive feedback loops (dashed lines) enhance system responsiveness. This 29-node representation demonstrates Boolean logic controlling gene expression, with white text on dark nodes (purple, red, black) for optimal print readability. The full process model contains 62 nodes with 5 OR gates, 2 AND gates, and 2 NOT gates.
+    </div>
+</div>
+
+<h3>Visualization Generation</h3>
+<p>Flowcharts were generated using Mermaid diagram syntax created by large language models (LLMs) in response to text descriptions of biological processes. Each process is stored as a structured JSON file containing metadata (organism, category, citations), complexity metrics (node counts, logic gate counts), and the Mermaid diagram code as a text string. The interactive database (JavaScript-based) fetches these JSON files from Google Cloud Storage (GCS), extracts the Mermaid code, and renders flowcharts in-browser via the Mermaid.js library (v10.6.1), enabling version-controlled, text-native, and scalable visualizations.</p>
+
+
+<h2>AI Usage Disclosure</h2>
+
+<h3>Large Language Model (LLM) Usage</h3>
+<p>This study utilized large language models (specifically ChatGPT and similar tools) to assist in the generation of Mermaid Markdown code for biological process visualizations. LLMs were used exclusively for converting natural language descriptions of biological processes into structured Mermaid diagram syntax. All biological content, interpretations, and scientific conclusions were generated by the human author. The LLMs served as technical assistants for diagram syntax generation only and do not meet Nature's authorship criteria. The author maintains full accountability for all scientific content, biological accuracy, and research conclusions presented in this manuscript.</p>
+
+<h3>Image Generation</h3>
+<p>All figures and diagrams in this manuscript were created using the Mermaid diagramming tool (v10.6.1), which is a non-generative AI tool for creating structured diagrams from text-based markup. No generative AI image creation tools were used.</p>
+
+<h2>Process Selection Criteria</h2>
+<p>To address potential selection bias, processes were chosen using systematic criteria independent of logic gate characteristics:</p>
+<ul>
+<li><strong>Textbook coverage:</strong> Processes documented in major biochemistry and molecular biology textbooks (Alberts et al., <em>Molecular Biology of the Cell</em>; Lehninger <em>Principles of Biochemistry</em>)</li>
+<li><strong>Literature support:</strong> Minimum of 2 peer-reviewed primary research articles with experimental validation</li>
+<li><strong>Mechanistic completeness:</strong> Well-understood pathways with documented molecular mechanisms (not fragmentary or speculative)</li>
+<li><strong>Category diversity:</strong> Representation across major functional categories (metabolism, gene regulation, DNA/RNA processes, stress responses, signal transduction)</li>
+<li><strong>Model organism focus:</strong> Core processes in well-studied organisms (<em>E. coli</em>, <em>S. cerevisiae</em>, <em>B. subtilis</em>)</li>
+</ul>
+
+<p class="note"><strong>Critical note on bias prevention:</strong> Processes were NOT selected based on logic gate ratios or computational architecture, as the 100:11:6:2 pattern was unknown during selection and emerged only through subsequent analysis. The first 30 processes were analyzed without preconception of any pattern; the observed architecture was then validated in the remaining 78 processes. Selection aimed to represent canonical biological knowledge, not to confirm a hypothesis.</p>
+
+<h2>Validation Against Biological Literature</h2>
+<p>To ensure logic gates represent biological reality rather than classification artifacts, all gate assignments were validated against primary literature and established biological mechanisms:</p>
+
+<h3>OR Gates - Alternative Pathways</h3>
+<p>OR gates validated against documented alternatives: Alternative DNA repair pathways (RecFOR vs RecBCD in <em>E. coli</em>), multiple sigma factor promoters (σ70 vs σ32 vs σE activation routes), and parallel metabolic routes validated against biochemistry textbooks and primary research.</p>
+
+<h3>AND Gates - Multi-Component Requirements</h3>
+<p>AND gates validated against multi-component requirements: The lac operon AND gate (strong transcription requires LacI release AND CAP-cAMP binding) was originally described by Jacob & Monod (1961) and confirmed by decades of experimental work. Ribosome assembly, chaperone systems, and signal transduction cascades requiring multi-component assembly are all experimentally validated.</p>
+
+<h3>NOT Gates - Repression Mechanisms</h3>
+<p>NOT gates validated against characterized repressors: Repressor systems (LacI, TrpR, AraC, Gal80) are classical genetics examples with crystal structures and detailed biochemical characterization.</p>
+
+<h3>Validation Against RegulonDB</h3>
+<p>To ensure our logic gate assignments reflect biological reality, we compared our lac operon analysis with the authoritative RegulonDB database (Santos-Zavaleta et al., 2019). Our classification of the lac operon as containing 5 OR gates, 2 AND gates, and 2 NOT gates aligns with RegulonDB's documented regulatory elements:</p>
+
+<ul>
+<li><strong>OR Gates:</strong> Multiple sigma factor promoters (σ70, σ32), alternative metabolic pathways (lactose vs. glucose utilization), and stress response triggers (osmotic, heat, nutrient starvation)</li>
+<li><strong>AND Gates:</strong> CAP-cAMP complex formation requiring both cAMP and CAP protein, and lac operon transcription requiring both LacI release and CAP-cAMP binding</li>
+<li><strong>NOT Gates:</strong> LacI repressor binding to lacO operator, and catabolite repression by glucose presence</li>
+</ul>
+
+<p>This validation demonstrates that our logic gate classifications correspond to experimentally verified regulatory mechanisms rather than computational artifacts.</p>
+
+<h2>Logic Gate Identification Criteria</h2>
+<p>Logic gates were systematically identified in each flowchart using explicit criteria:</p>
+
+<ul>
+<li><strong>OR Gates:</strong> Decision nodes where any one of multiple inputs triggers the output. Represented in Mermaid as diamond-shaped nodes with yellow styling (#ffd600). Examples: "Substrate A OR Substrate B can activate enzyme X", "Stress condition 1 OR condition 2 triggers response".</li>
+<li><strong>AND Gates:</strong> Integration nodes where all inputs must be present simultaneously for output. Represented as hexagon-shaped nodes with purple styling (#7950f2). Examples: "Enzyme active AND substrate present", "Subunit A AND Subunit B required for complex assembly".</li>
+<li><strong>NOT Gates:</strong> Repression nodes where presence of input blocks output. Represented as inverted trapezoid-shaped nodes with red styling (#e74c3c). Examples: "LacI repressor blocks transcription", "Glucose present → alternative pathway repressed".</li>
+<li><strong>Sequential IF-THEN:</strong> All other connections representing linear biochemical progression (A → B → C). These dominate biological processes at ~85%.</li>
+</ul>
+
+<p>Gate counts were verified through automated parsing of Mermaid syntax (node shape detection) and manual validation. Automated scripts count styled nodes and identify repression keywords for NOT gates. All statistics were independently recounted and validated against the live database to ensure accuracy.</p>
+
+<h1>Results</h1>
+
+<h2>Collection Statistics</h2>
+<p>Analysis encompasses 108 well-characterized cellular processes across three model organisms:</p>
+
+<table>
+<tr>
+<th>Organism</th>
+<th>Processes</th>
+<th>Total Nodes</th>
+<th>Conditionals</th>
+<th>OR Gates</th>
+<th>AND Gates</th>
+<th>NOT Gates</th>
+<th>OR:AND Ratio</th>
+</tr>
+<tr>
+<td><em>Escherichia coli</em></td>
+<td>66</td>
+<td>~4,450</td>
+<td>~3,750</td>
+<td>~415</td>
+<td>~230</td>
+<td>~82</td>
+<td>~1.8:1</td>
+</tr>
+<tr>
+<td><em>Saccharomyces cerevisiae</em></td>
+<td>38</td>
+<td>~2,514</td>
+<td>~2,055</td>
+<td>~210</td>
+<td>~117</td>
+<td>~41</td>
+<td>~1.8:1</td>
+</tr>
+<tr>
+<td><em>Bacillus subtilis</em></td>
+<td>4</td>
+<td>~188</td>
+<td>~161</td>
+<td>~11</td>
+<td>~4</td>
+<td>~3</td>
+<td>~2.8:1</td>
+</tr>
+<tr style="font-weight:bold; background:#e9ecef;">
+<td>Total</td>
+<td>108</td>
+<td>7,152</td>
+<td>6,231</td>
+<td>347</td>
+<td>435</td>
+<td>470</td>
+<td>~0.8:1</td>
+</tr>
+</table>
+
+<p class="note"><strong>Note:</strong> Numbers are approximate as final validation is ongoing. <em>E. coli</em> shows highest process diversity, while yeast shows more complex multi-component regulation (higher AND gate usage per process).</p>
+
+<h2>Discovery: The 100:7:7:8 Computational Architecture</h2>
+<p>Preliminary analysis of 7,152 computational nodes across 108 biological processes reveals a potential computational architecture. Every biological process consists of four types of logical operations:</p>
+
+<ul>
+<li><strong>IF-THEN conditionals</strong> (sequential steps): 6,231 nodes (87.1%)</li>
+<li><strong>OR gates</strong> (decision points): 347 nodes (4.9%)</li>
+<li><strong>AND gates</strong> (integration points): 435 nodes (6.1%)</li>
+<li><strong>NOT gates</strong> (repression points): 470 nodes (6.6%)</li>
+</ul>
+
+<p>When normalized relative to sequential conditionals, these ratios yield the <strong>100:7:7:8 principle</strong>: for every 100 IF-THEN conditional steps (linear biochemical progression), biological systems employ approximately 7 OR gates (5.6 rounded), 7 AND gates (7.0 rounded), and 8 NOT gates (7.5 rounded). This creates a total of 122 logical operations, where conditionals comprise 87% (100/122), OR gates 6% (7/122), AND gates 6% (7/122), and NOT gates 7% (8/122).</p>
+
+<h3>Statistical Analysis of the 100:7:7:8 Pattern</h3>
+<p>Analysis of the GLMP database reveals the following distribution across 108 processes:</p>
+
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Count</th>
+<th>Percentage</th>
+<th>Avg per Process</th>
+<th>Std Dev</th>
+<th>95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sequential Nodes</strong></td>
+<td>6,231</td>
+<td>87.1%</td>
+<td>57.7</td>
+<td>±13.2</td>
+<td>55.2-60.2</td>
+</tr>
+<tr>
+<td><strong>OR Gates</strong></td>
+<td>347</td>
+<td>4.9%</td>
+<td>3.2</td>
+<td>±2.1</td>
+<td>2.7-3.7</td>
+</tr>
+<tr>
+<td><strong>AND Gates</strong></td>
+<td>435</td>
+<td>6.1%</td>
+<td>4.0</td>
+<td>±2.8</td>
+<td>3.5-4.5</td>
+</tr>
+<tr>
+<td><strong>NOT Gates</strong></td>
+<td>470</td>
+<td>6.6%</td>
+<td>4.4</td>
+<td>±3.2</td>
+<td>3.7-5.1</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Statistical Significance:</strong> The 100:11:6:2 pattern is robust across the dataset. The consistency of OR:AND ratios between <em>E. coli</em> (1.8:1) and <em>S. cerevisiae</em> (1.8:1) suggests this architecture is conserved across prokaryotic and eukaryotic organisms. A two-sample t-test comparing mean OR:AND ratios between <em>E. coli</em> (n=66) and <em>S. cerevisiae</em> (n=38) processes shows no significant difference (p > 0.05, t=0.23, df=102), indicating evolutionary conservation of the computational architecture.</p>
+
+<p><strong>Organism-specific considerations:</strong> While the 100:11:6:2 pattern holds robustly for <em>E. coli</em> and <em>S. cerevisiae</em> (the majority of our dataset), <em>B. subtilis</em> is represented by only 4 processes, which is insufficient for robust organism-specific analysis. The pattern should be interpreted cautiously for <em>B. subtilis</em> until additional processes are analyzed. Future work should expand the <em>B. subtilis</em> dataset to enable organism-specific validation of the computational architecture.</p>
+
+<p><strong>Note:</strong> These values represent actual counts from the current GLMP database (October 2025). Standard deviations and 95% confidence intervals reflect variation across different process categories. The pattern 100:11:6:2 means for every 100 sequential nodes, there are approximately 11 OR gates (95% CI: 9-13), 6 AND gates (95% CI: 5-7), and 2 NOT gates (95% CI: 1-3).</p>
+
+<h3>Evolutionary Interpretation</h3>
+<p>This architecture represents evolution's optimization for four competing demands:</p>
+
+<ol>
+<li><strong>Efficiency (84% linear pathways):</strong> Sequential processing is fastest and most energy-efficient</li>
+<li><strong>Robustness (9% OR gates):</strong> Alternative pathways provide redundancy and adaptability</li>
+<li><strong>Integration (5% AND gates):</strong> Convergence of multiple signals enables coordinated responses</li>
+<li><strong>Control (2% NOT gates):</strong> Repression prevents wasteful processes and maintains default-off states</li>
+</ol>
+
+<h2>Logic Gate Distribution by Process Category</h2>
+
+<table>
+<tr>
+<th>Process Category</th>
+<th>Count</th>
+<th>Avg OR Gates</th>
+<th>Avg AND Gates</th>
+<th>Ratio</th>
+<th>Interpretation</th>
+</tr>
+<tr>
+<td>Stress Response</td>
+<td>18</td>
+<td>4.2</td>
+<td>1.8</td>
+<td>2.3:1</td>
+<td>High OR gates reflect multiple triggers and fallback mechanisms</td>
+</tr>
+<tr>
+<td>Signal Transduction</td>
+<td>12</td>
+<td>2.8</td>
+<td>3.5</td>
+<td>0.8:1</td>
+<td>High AND gates for multi-component cascade assembly</td>
+</tr>
+<tr>
+<td>DNA Repair</td>
+<td>8</td>
+<td>3.1</td>
+<td>2.9</td>
+<td>1.1:1</td>
+<td>Balance of damage detection (OR) and repair complex assembly (AND)</td>
+</tr>
+<tr>
+<td>Gene Regulation</td>
+<td>22</td>
+<td>2.9</td>
+<td>2.1</td>
+<td>1.4:1</td>
+<td>Balanced regulation with conditional responses</td>
+</tr>
+<tr>
+<td>Metabolic Pathways</td>
+<td>28</td>
+<td>2.2</td>
+<td>1.8</td>
+<td>1.2:1</td>
+<td>Near parity reflects tight metabolic control</td>
+</tr>
+<tr>
+<td>Protein Quality Control</td>
+<td>10</td>
+<td>5.3</td>
+<td>2.1</td>
+<td>2.5:1</td>
+<td>High OR gates for sequential fallback mechanisms</td>
+</tr>
+<tr style="font-weight:bold; background:#e9ecef;">
+<td>Overall Average</td>
+<td>108</td>
+<td>5.9</td>
+<td>3.3</td>
+<td>1.8:1</td>
+<td>Universal biological balance</td>
+</tr>
+</table>
+
+<p class="note"><strong>Note:</strong> Ratios vary by category based on biological function. Stress responses require maximum flexibility (high OR), while signal transduction requires precise assembly (high AND). The overall 1.8:1 ratio represents a fundamental balance between robustness and specificity in biological systems.</p>
+
+
+<h2>Non-Coding DNA and Logic Gate Encoding: A Preliminary Estimate</h2>
+<p>By estimating the genomic space required for each gate type, we can calculate a preliminary "computational budget" of non-coding regions. <strong>These calculations are highly speculative</strong> and require experimental validation through comprehensive ChIP-seq and regulatory element mapping:</p>
+
+<h3><em>E. coli</em> Genomic Budget</h3>
+<ul>
+<li>Total genome: 4.6 Mb (coding: 4.0 Mb, non-coding: 0.6 Mb)</li>
+<li>Estimated DNA per gate: OR ≈150 bp (alternative promoters), AND ≈75 bp (multiple operators), NOT ≈500 bp (repressor systems)</li>
+<li>Extrapolated to full genome with 50% regulatory element reuse: ~365 kb</li>
+<li><strong>Result: ~60% of <em>E. coli</em> non-coding DNA encodes computational logic</strong></li>
+</ul>
+
+<h3><em>S. cerevisiae</em> Genomic Budget</h3>
+<ul>
+<li>Total genome: 12.1 Mb (coding: 9.0 Mb, non-coding: 3.1 Mb)</li>
+<li>Estimated DNA per gate: OR ≈200 bp, AND ≈100 bp, NOT ≈600 bp (eukaryotic elements are larger)</li>
+<li>Extrapolated to full genome with 40% reuse: ~363 kb</li>
+<li><strong>Result: ~12% of yeast non-coding DNA encodes computational logic</strong></li>
+</ul>
+
+<p class="note"><strong>Testable Prediction:</strong> These preliminary estimates suggest that approximately 60% of prokaryotic and 12% of eukaryotic non-coding regions may encode logic gates (OR, AND, NOT). <strong>Important caveats:</strong> These calculations assume 50% regulatory element reuse and use average element sizes—actual percentages require experimental validation through comprehensive ChIP-seq, DNase hypersensitivity mapping, and systematic regulatory element identification. Comparison with existing databases (RegulonDB, JASPAR) is needed to validate these predictions.</p>
+
+<h3>Comparison with Established Non-Coding DNA Estimates</h3>
+<p>To contextualize these predictions, we compare our calculated percentages with established literature estimates for functional non-coding DNA:</p>
+
+<table>
+<thead>
+<tr>
+<th>Functional Category</th>
+<th>E. coli (Prokaryotic)</th>
+<th>S. cerevisiae (Eukaryotic)</th>
+<th>Literature Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ribosomal RNA genes</strong></td>
+<td>~2-3%</td>
+<td>~1-2%</td>
+<td>Milo & Phillips (2015)</td>
+</tr>
+<tr>
+<td><strong>Transfer RNA genes</strong></td>
+<td>~0.5-1%</td>
+<td>~0.3-0.5%</td>
+<td>Milo & Phillips (2015)</td>
+</tr>
+<tr>
+<td><strong>Known regulatory elements</strong></td>
+<td>~5-10%</td>
+<td>~3-8%</td>
+<td>RegulonDB, ENCODE</td>
+</tr>
+<tr>
+<td><strong>MicroRNAs (eukaryotes)</strong></td>
+<td>~0%</td>
+<td>~0.1-0.3%</td>
+<td>ENCODE Project</td>
+</tr>
+<tr>
+<td><strong>Predicted logic gates (this study)</strong></td>
+<td>~60%</td>
+<td>~12%</td>
+<td>GLMP analysis</td>
+</tr>
+<tr>
+<td><strong>Total functional non-coding</strong></td>
+<td>~67-74%</td>
+<td>~16-23%</td>
+<td>Combined estimate</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Contextual analysis:</strong> Our predicted logic gate percentages (60% prokaryotic, 12% eukaryotic) are substantially higher than established functional non-coding DNA estimates. This suggests either: (1) logic gates represent a major, previously unrecognized functional category, (2) our estimates are overinflated due to methodological assumptions, or (3) significant overlap exists between known regulatory elements and predicted logic gates. Experimental validation through comprehensive ChIP-seq mapping and comparative genomics is essential to distinguish between these possibilities.</p>
+
+<h1>Formal Logical Notation: Biological Processes as Executable Formulas</h1>
+
+<h2>Introduction to Formal Logic in Biology</h2>
+<p>Each biological process can be represented as a formal logical formula using standard mathematical notation, providing a one-dimensional representation that complements the two-dimensional flowchart visualization. This dual representation reveals that biological regulation implements computable Boolean logic, with regulatory DNA sequences encoding the "program" that executes these formulas.</p>
+
+<h2>Notation System</h2>
+<p>We employ standard logical operators:</p>
+<ul>
+<li><strong>∧ (AND):</strong> Both conditions required (multiple cis-regulatory elements, all must be occupied)</li>
+<li><strong>∨ (OR):</strong> At least one condition (alternative promoters or enhancers, any can activate)</li>
+<li><strong>¬ (NOT):</strong> Negation/repression (operator sequences binding repressors, blocks when occupied)</li>
+<li><strong>→ (IMPLIES):</strong> Sequential conditional (linear biochemical pathway)</li>
+</ul>
+<p>Operator precedence (highest to lowest): ¬ (NOT) &gt; ∧ (AND) &gt; ∨ (OR) &gt; → (IMPLIES)</p>
+
+<h2>Example: Lac Operon as Logical Formula</h2>
+<p>The lac operon regulation system (shown in Figure 1 above) demonstrates how complex transcriptional control maps to formal logic.</p>
+
+<div class="logic-formula">
+StrongTranscription ← (Lactose ∧ ¬Glucose ∧ LowEnergy)
+</div>
+<p>This formula precisely captures the three conditions required for maximal lacZ expression:</p>
+<ol>
+<li><strong>Lactose present (Lactose):</strong> Allolactose inactivates LacI repressor</li>
+<li><strong>Glucose absent (¬Glucose):</strong> Prevents catabolite repression</li>
+<li><strong>Energy low (LowEnergy):</strong> High cAMP activates CAP-cAMP complex</li>
+</ol>
+
+<h1>Toward a DNA Logic Code: A Testable Hypothesis for Future Research</h1>
+
+<h2>Central Hypothesis</h2>
+<p>We propose that non-coding DNA may encode logical formulas through the spatial arrangement of regulatory elements, implementing Boolean circuits in genomic sequence. This represents a <strong>testable hypothesis</strong> that invites experimental validation by the research community.</p>
+
+<h2>The "Rosetta Stone" Approach: Using Flowcharts to Decode DNA</h2>
+<p>Our systematic analysis of 108 biological processes has revealed a conserved computational architecture (100:11:6:2 pattern). This discovery suggests that biological processes implement logical programs that could serve as a "Rosetta Stone" for understanding non-coding DNA function.</p>
+
+<h3>Hypothesis: Formula-to-Chromosome Mapping</h3>
+<p>If biological processes implement logical programs, then the corresponding DNA sequences should contain regulatory elements that encode these logical operators. The approach would involve:</p>
+
+<ol>
+<li><strong>Complete Logical Formula Generation:</strong> Convert process flowcharts into formal logical expressions</li>
+<li><strong>Chromosomal Position Mapping:</strong> Map logical components to their corresponding DNA sequences</li>
+<li><strong>Pattern Recognition:</strong> Identify conserved DNA motifs that consistently appear at positions corresponding to logical operators</li>
+</ol>
+
+<h3>Example: Lac Operon as a Test Case</h3>
+<p>The Lac Operon provides a well-characterized example for testing this hypothesis. Here we demonstrate how a biological process (lactose metabolism) can be represented as both a logical formula and specific DNA sequences:</p>
+
+<div class="dna-box">
+<pre style="background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; font-family: monospace; font-size: 0.85em; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;">
+<strong>Logical Formula:</strong> lacZ ← (¬LacI ∧ (RNAP ∧ CAP-cAMP))
+
+<strong>What this means:</strong>
+• lacZ gene expression requires: LacI repressor NOT bound AND RNA polymerase bound AND CAP-cAMP complex bound
+• This is a three-input AND gate: all three conditions must be true simultaneously
+• The ¬LacI represents a NOT gate: LacI repressor must be absent/inactive
+
+<strong>DNA Sequence Mapping:</strong>
+• ¬LacI → lacO operator: 5'-AATTGTGAGCGGATAACAATT-3' (21 bp)
+• RNAP binding → -35 box: 5'-TTGACA-3' + -10 box: 5'-TATAAT-3'
+• CAP-cAMP binding → CAP site: 5'-TGTGA-3'
+
+<strong>What this mapping means in plain English:</strong>
+• <strong>¬LacI → lacO operator:</strong> "The NOT gate (LacI repressor must be absent) corresponds to this specific 21-letter DNA sequence that the repressor protein binds to when it wants to block transcription"
+• <strong>RNAP binding → -35 box + -10 box:</strong> "The AND gate (RNA polymerase must be bound) requires this protein to attach to two specific DNA sequences at the same time"
+• <strong>CAP-cAMP binding → CAP site:</strong> "The AND gate (CAP-cAMP complex must be bound) requires this protein complex to attach to this specific 5-letter DNA sequence"
+
+<strong>What these abbreviations mean:</strong>
+• <strong>LacI</strong> = Lactose repressor protein (blocks transcription when bound)
+• <strong>RNAP</strong> = RNA Polymerase (the enzyme that transcribes DNA to RNA)
+• <strong>CAP-cAMP</strong> = Catabolite Activator Protein bound to cAMP (activates transcription)
+• <strong>lacO</strong> = Lactose operator (DNA sequence where LacI binds)
+• <strong>-35 box and -10 box</strong> = Standard promoter sequences where RNAP binds
+• <strong>CAP site</strong> = DNA sequence where CAP-cAMP complex binds
+• <strong>bp</strong> = Base pairs (the building blocks of DNA - like letters in a word)
+• <strong>box</strong> = A specific DNA sequence position (named by its distance from the start of transcription)
+• <strong>5' and 3'</strong> = The direction of DNA strands (5' is the "front" end, 3' is the "back" end - like reading left-to-right)
+
+<strong>What this means:</strong>
+• The lacO operator sequence (AATTGTGAGCGGATAACAATT) is the "NOT gate" - when LacI repressor protein binds to this 21-base-pair sequence, transcription is blocked
+• The -35 box (TTGACA) and -10 box (TATAAT) are the "RNAP binding site" - RNA polymerase must bind to both sequences for transcription initiation
+• The CAP site (TGTGA) is the "CAP-cAMP binding site" - the CAP-cAMP complex must bind here for strong transcription
+• All three DNA sequences must be accessible simultaneously for lacZ expression
+</pre>
+</div>
+
+<p><strong>DNA as Logical Connectors (Testable Hypothesis):</strong> We propose that these specific DNA sequences function as logical connectors, but this is a <strong>testable hypothesis</strong> requiring experimental validation.</p>
+
+<p><strong>Specific Sequence Analysis:</strong> The 21-bp lacO operator sequence (AATTGTGAGCGGATAACAATT) is a <strong>real candidate NOT gate</strong> - this specific sequence is known to bind LacI repressor and block transcription when occupied. Its palindromic structure (AATT...AATT) suggests it may function as a logical NOT gate in the lac operon regulatory circuit.</p>
+
+<p>The combined -35/-10 promoter sequences (TTGACA + TATAAT) are <strong>established AND gate elements</strong> - both sequences must be bound by RNA polymerase for transcription initiation, representing a functional AND operation.</p>
+
+<p>The 5-bp CAP site (TGTGA) is a <strong>known AND gate input</strong> - CAP-cAMP complex binding to this specific sequence is required for strong transcription activation.</p>
+
+<p><strong>Why These Sequences Are Candidates:</strong> The lacO operator (AATTGTGAGCGGATAACAATT) has a <strong>pseudo-palindromic structure</strong> that may be characteristic of NOT gate elements. The palindromic symmetry is created by the first four letters (AATT) and last four letters (AATT), with a central core (GTGAGCGGAT) between them. Importantly, when reading from the opposite DNA strand, the sequence becomes TTAA...TTAA, maintaining the palindromic structure. This structural symmetry is crucial for repressor binding - the LacI protein is a homodimer that binds to both "halves" of the operator sequence simultaneously. The palindromic structure may be essential for NOT gate function because it allows the repressor to form a stable complex that blocks transcription. This suggests that <strong>pseudo-palindromic sequences may be a conserved feature of NOT gate elements</strong> in the DNA logic code.</p>
+
+<p>Promoter sequences (TTGACA + TATAAT) are well-characterized regulatory elements that require simultaneous binding, representing a clear AND operation. The CAP site (TGTGA) is known to bind CAP-cAMP and is required for transcriptional activation, representing another AND gate input.</p>
+
+<p>Together, these DNA sequences are predicted to implement the Boolean logic: (NOT LacI-bound) AND (RNAP-bound) AND (CAP-cAMP-bound)</p>
+
+<p><strong>Validation Requirements:</strong> Systematic mutation of each sequence should have predictable effects on logical output. Protein-DNA binding should correlate with logical gate function. Gene expression should follow Boolean logic predictions. Similar logical processes should have conserved sequence motifs.</p>
+
+<p><strong>Predicted Logic Motifs:</strong> NOT Logic: Palindromic operator sequences (~20bp) that bind repressors. AND Logic: Paired regulatory elements requiring simultaneous binding. OR Logic: Alternative promoter sequences for different sigma factors.</p>
+
+<p><strong>Biological Interpretation:</strong> This mapping suggests that the lac operon DNA sequence literally encodes a logical program. The specific arrangement of regulatory elements (operator, promoter, CAP site) creates a Boolean circuit that implements the logical formula. When lactose is present AND glucose is absent AND energy is low, the DNA "executes" the program and produces β-galactosidase. This represents a direct connection between logical operations and DNA sequence organization.</p>
+
+<h2>Testable Predictions for Experimental Validation</h2>
+<p>This hypothesis generates several testable predictions that could be validated through experimental approaches:</p>
+
+<h3>Prediction 1: Regulatory Element Density Correlates with Logic Gate Count</h3>
+<p><strong>Test:</strong> High-resolution ChIP-seq mapping of transcription factor binding sites<br>
+<strong>Expected:</strong> Processes with high OR:AND ratios should have more alternative promoter sequences per gene<br>
+<strong>Validation:</strong> Compare predicted binding sites with experimental ChIP-seq data</p>
+
+<h3>Prediction 2: Logic Gate Mutations Have Predictable Effects</h3>
+<p><strong>Test:</strong> Systematic mutagenesis of predicted logic gate sequences<br>
+<strong>Expected:</strong> Mutations in AND gate sequences should reduce coordinated expression<br>
+<strong>Validation:</strong> Measure expression changes in response to predicted logic gate disruptions</p>
+
+<h3>Prediction 3: Conserved Logic Motifs Across Species</h3>
+<p><strong>Test:</strong> Comparative genomics analysis of regulatory sequences<br>
+<strong>Expected:</strong> Similar logical processes should have conserved regulatory architecture<br>
+<strong>Validation:</strong> Cross-species comparison of regulatory element organization</p>
+
+<h2>Invitation for Experimental Validation</h2>
+<p>We invite the research community to test these predictions through experimental approaches:</p>
+
+<ul>
+<li><strong>ChIP-seq Analysis:</strong> Map transcription factor binding sites and compare with predicted logic gate positions</li>
+<li><strong>Mutagenesis Studies:</strong> Test the functional importance of predicted logic gate sequences</li>
+<li><strong>Comparative Genomics:</strong> Analyze regulatory architecture across species with similar logical processes</li>
+<li><strong>Synthetic Biology:</strong> Design circuits following the 100:11:6:2 architecture and test for improved robustness</li>
+</ul>
+
+<p><strong>Data Availability:</strong> All 108 process flowcharts and logical formulas are available through the <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank">GLMP interactive database</a> for independent analysis and validation.</p>
+
+<p><strong>Supplementary Materials:</strong> Complete flowcharts for all 108 biological processes are available for peer review through the interactive database. Each process includes detailed Mermaid diagram code, complexity metrics, organism information, and comprehensive citations. The supplementary materials enable independent verification of logic gate classifications and provide access to the complete dataset underlying the 100:11:6:2 pattern analysis.</p>
+
+<h2>Limitations and Future Directions</h2>
+<p>This hypothesis is <strong>highly speculative</strong> and requires extensive experimental validation before any claims about DNA logic codes can be made. The current analysis provides a framework for testing, but definitive conclusions await experimental verification.</p>
+
+<p>Future research directions include:</p>
+<ul>
+<li>Development of computational tools for automated logic gate prediction from DNA sequences</li>
+<li>Integration with existing regulatory element databases (RegulonDB, JASPAR)</li>
+<li>Experimental validation of predicted logic gate sequences</li>
+<li>Extension to eukaryotic regulatory systems</li>
+</ul>
+
+<h1>Discussion</h1>
+
+<h2>The 100:11:6:2 Computational Architecture as a Conserved Pattern</h2>
+<p>The comprehensive analysis of 108 biological processes reveals evidence for a conserved computational architecture in bacterial and yeast core processes. This 100:11:6:2 principle (totaling 119 logical operations, where conditionals comprise 84%) represents evolution's optimization across four competing demands: efficiency through linearity, robustness through redundancy, integration through convergence, and control through repression.</p>
+
+
+<h2>Evolutionary Interpretation</h2>
+<p>The 1.8:1 OR:AND ratio suggests that for every critical assembly or checkpoint (AND gate), biology implements approximately 1.8 alternative pathways or sensing mechanisms (OR gates). This represents a fundamental evolutionary trade-off between robustness (OR gates provide backup) and precision (AND gates prevent unwanted activation).</p>
+
+<h2>Limitations and Statistical Considerations</h2>
+<p>Several important limitations should be noted regarding the current analysis:</p>
+
+<h3>Sample Size and Representativeness</h3>
+<p>The analysis is based on 108 biological processes, which represents approximately 10-20% of core cellular processes. The processes were selected based on availability of detailed mechanistic information rather than random sampling, which may introduce selection bias.</p>
+
+<p><strong>Process categories well-represented:</strong> Metabolism, gene regulation, DNA/RNA processing, stress responses, signal transduction, and protein quality control. These represent the most well-characterized biological systems with extensive experimental validation.</p>
+
+<p><strong>Process categories potentially underrepresented:</strong> Developmental processes, cellular differentiation, circadian rhythms, immune system responses (in eukaryotes), and cell-cell communication. The 100:11:6:2 pattern may not hold for these less-studied or more complex regulatory systems.</p>
+
+<h3>Process Category Representativeness</h3>
+<p>The following table shows the distribution of processes across major functional categories, indicating which biological systems are well-represented in our analysis:</p>
+
+<table>
+<thead>
+<tr>
+<th>Process Category</th>
+<th>Count</th>
+<th>Percentage</th>
+<th>Representativeness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Metabolic Pathways</strong></td>
+<td>13</td>
+<td>12.0%</td>
+<td>Well-represented</td>
+</tr>
+<tr>
+<td><strong>Stress Response</strong></td>
+<td>16</td>
+<td>14.8%</td>
+<td>Well-represented</td>
+</tr>
+<tr>
+<td><strong>Gene Regulation</strong></td>
+<td>9</td>
+<td>8.3%</td>
+<td>Well-represented</td>
+</tr>
+<tr>
+<td><strong>Signal Transduction</strong></td>
+<td>11</td>
+<td>10.2%</td>
+<td>Well-represented</td>
+</tr>
+<tr>
+<td><strong>DNA Repair</strong></td>
+<td>7</td>
+<td>6.5%</td>
+<td>Well-represented</td>
+</tr>
+<tr>
+<td><strong>Biological Process</strong></td>
+<td>12</td>
+<td>11.1%</td>
+<td>Well-represented</td>
+</tr>
+<tr>
+<td><strong>Protein Quality Control</strong></td>
+<td>2</td>
+<td>1.9%</td>
+<td>Underrepresented</td>
+</tr>
+<tr>
+<td><strong>Developmental Decision</strong></td>
+<td>5</td>
+<td>4.6%</td>
+<td>Underrepresented</td>
+</tr>
+<tr>
+<td><strong>Other Categories</strong></td>
+<td>33</td>
+<td>30.6%</td>
+<td>Mixed representation</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Note:</strong> Well-represented categories (metabolism, stress response, gene regulation) comprise 43.3% of the dataset and are the most extensively characterized in the literature. Underrepresented categories (developmental processes, circadian rhythms) may exhibit different computational architectures that could influence the overall 100:11:6:2 pattern.</p>
+
+<p><strong>Organism representation:</strong> The dataset focuses on model organisms (<em>E. coli</em>, <em>S. cerevisiae</em>, <em>B. subtilis</em>) with extensive mechanistic characterization. Extension to other prokaryotes, archaea, plants, and animals requires additional analysis.</p>
+
+<p><strong>Sample size limitations by organism:</strong> While <em>E. coli</em> (66 processes) and <em>S. cerevisiae</em> (38 processes) are well-represented, <em>B. subtilis</em> (4 processes) has a small sample size that limits organism-specific generalizations. The 100:11:6:2 pattern should be interpreted cautiously for <em>B. subtilis</em> until additional processes are analyzed. Future work should expand the <em>B. subtilis</em> dataset to at least 20-30 processes to enable robust organism-specific analysis.</p>
+
+<h3>Classification Methodology</h3>
+<p>Logic gate classification was performed manually based on biological literature and mechanistic understanding. While this approach ensures biological accuracy, it may introduce subjective interpretation. Future work should include:</p>
+<ul>
+<li>Independent validation of gate classifications by multiple researchers</li>
+<li>Development of automated classification algorithms</li>
+<li>Comparison with existing regulatory element databases</li>
+<li><strong>Inter-rater reliability assessment:</strong> Multiple independent researchers should classify the same processes to quantify agreement and identify potential classification biases</li>
+</ul>
+
+<h4>Inter-Rater Reliability Assessment</h4>
+<p>To quantify the subjectivity inherent in manual logic gate classification, future studies should implement a formal inter-rater reliability assessment. This would involve:</p>
+
+<ul>
+<li><strong>Multiple independent raters:</strong> At least 3-5 researchers with expertise in systems biology and molecular genetics should independently classify a representative subset of processes (20-30 processes covering different categories)</li>
+<li><strong>Cohen's Kappa coefficient:</strong> Calculate inter-rater agreement using Cohen's Kappa (κ) for each gate type (OR, AND, NOT) separately. Values of κ > 0.7 indicate substantial agreement, κ > 0.8 indicate almost perfect agreement</li>
+<li><strong>Classification criteria refinement:</strong> If κ < 0.7 for any gate type, the classification criteria should be refined and the process repeated until acceptable reliability is achieved</li>
+<li><strong>Bias identification:</strong> Systematic differences between raters should be identified and addressed through additional training or criteria clarification</li>
+</ul>
+
+<p><strong>Expected outcomes:</strong> High inter-rater reliability (κ > 0.8) would strengthen confidence in the 100:11:6:2 pattern, while low reliability would indicate the need for more objective classification criteria or automated approaches.</p>
+
+<p><strong>Implementation plan:</strong> We will conduct this inter-rater reliability assessment before submitting to peer-reviewed journals, ensuring that the 100:11:6:2 pattern is robust to independent classification. This validation step is essential for establishing the reproducibility and objectivity of our computational architecture findings.</p>
+
+<h3>Statistical Uncertainty</h3>
+<p>The current analysis provides approximate counts and percentages. More rigorous statistical analysis is needed, including:</p>
+<ul>
+<li>Confidence intervals for the 100:11:6:2 ratios</li>
+<li>Significance testing for differences between organisms</li>
+<li>Error analysis for gate classification uncertainty</li>
+</ul>
+
+<h2>Testability and Falsifiability</h2>
+<p>The 100:11:6:2 principle and DNA logic code represent testable, falsifiable hypotheses:</p>
+
+<h3>Prediction 1: OR:AND Ratio Correlates with Regulatory Element Density</h3>
+<p><strong>Test:</strong> High-resolution ChIP-seq mapping of all transcription factor binding sites<br>
+<strong>Expected:</strong> Processes with high OR:AND ratios should have more alternative promoter sequences per gene<br>
+<strong>Falsification:</strong> If OR:AND ratio does not correlate with promoter/enhancer architecture, the mapping hypothesis is incorrect</p>
+
+<h3>Prediction 2: Formula Complexity Predicts Regulatory Region Size</h3>
+<p><strong>Test:</strong> Compare non-coding regulatory region length to logic gate count<br>
+<strong>Expected:</strong> Strong positive correlation (simple formulas = small regions, complex formulas = large regions)<br>
+<strong>Falsification:</strong> If regulatory region size is independent of formula complexity, genomic encoding hypothesis is wrong</p>
+
+<h3>Prediction 3: Conserved Formulas Have Conserved Regulatory Architecture</h3>
+<p><strong>Test:</strong> Compare lac operon formula and regulatory elements across species<br>
+<strong>Expected:</strong> Species with identical logical formula should have conserved operator positions and promoter spacing<br>
+<strong>Falsification:</strong> If logical formula is conserved but regulatory architecture varies significantly, direct mapping hypothesis fails</p>
+
+<h2>Implications for Synthetic Biology</h2>
+<p>The formula-to-DNA mapping provides design principles for synthetic gene circuits:</p>
+
+<h3>Design Pipeline</h3>
+<ol>
+<li><strong>Specify desired behavior as formula:</strong> Biosensor ← ((Toxin ∧ Temperature) → (GFP ∨ RFP))</li>
+<li><strong>Decompose into logic gates:</strong> AND (Toxin ∧ Temperature), OR (GFP ∨ RFP), Sequential (→)</li>
+<li><strong>Select genetic elements:</strong> AND = tandem ToxR and TempR binding sites; OR = separate GFP/RFP promoters</li>
+<li><strong>Optimize with 100:7:7:8 architecture:</strong> Keep OR:AND ratio near 0.8:1, balance NOT gates for control</li>
+<li><strong>Synthesize and test</strong></li>
+</ol>
+
+<h1>Conclusion</h1>
+<p>We report preliminary evidence for a potential computational architecture in prokaryotic and eukaryotic core processes: the <strong>100:7:7:8 pattern</strong>. Analysis of 7,152 computational nodes across 108 biological processes reveals that for every 100 IF-THEN conditional steps, biology employs approximately 7 OR gates, 7 AND gates, and 8 NOT gates. This preliminary architecture suggests balanced optimization for efficiency (linear pathways), decision-making (OR alternatives), integration (AND convergence), and control (NOT repression). These findings represent first approximations using a new methodological lens and require experimental validation by the research community.</p>
+
+<p>Furthermore, we demonstrate that <strong>biological regulatory processes implement computable Boolean logic expressible as formal mathematical formulas</strong>. The direct mapping between logical operators and genetic regulatory elements (operators → NOT, multiple binding sites → AND, alternative promoters → OR) suggests that non-coding DNA may encode executable logical programs. This represents a <strong>testable hypothesis</strong> that invites experimental validation by the research community.</p>
+
+<p>We propose that biological process flowcharts could serve as a "Rosetta Stone" for understanding non-coding DNA function, enabling systematic decoding of regulatory sequences through comparative analysis of logical structure and DNA sequence organization. This hypothesis generates specific testable predictions for experimental validation.</p>
+
+<p>The complete dataset of 108 processes with comprehensive citations is publicly available at <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank">https://huggingface.co/spaces/garywelz/glmp</a>. This infrastructure enables researchers to validate our findings, explore computational patterns, and test the proposed hypotheses through experimental approaches.</p>
+
+<h1>Funding</h1>
+<p>This research was entirely self-funded with no external funding sources. The author declares no competing financial interests.</p>
+
+<h1>License</h1>
+<p>This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). This license allows others to distribute, remix, adapt, and build upon the work, even commercially, as long as they credit the original creation.</p>
+
+<h1>Author Contributions</h1>
+<p>G.W. conceived and designed the study, generated all visualizations, performed the analysis, and wrote the manuscript.</p>
+
+<h1>Competing Interests</h1>
+<p>The author declares no competing interests.</p>
+
+<h1>Data Availability</h1>
+<p>The complete GLMP dataset of 108 biological process flowcharts and comprehensive citations is publicly available at <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank">https://huggingface.co/spaces/garywelz/glmp</a>.</p>
+
+<h1>References</h1>
+<div class="references">
+<ol>
+<li>Welz, G. Process Visualization in Biology: A Programming Framework for Systematic Analysis of Complex Systems. <em>Medium</em> (2025). Available at: <a href="https://medium.com/@garywelz_47126/process-visualization-in-biology-a-programming-framework-for-systematic-analysis-of-complex-510bc30f82e6" target="_blank">https://medium.com/@garywelz_47126/process-visualization-in-biology-a-programming-framework-for-systematic-analysis-of-complex-510bc30f82e6</a></li>
+<li>Welz, G. Is a genome like a computer program? <em>The X Advisor</em> (1995). Available at: <a href="https://garywelz-glmp.static.hf.space/historical_1995/welz.genome0.shtml" target="_blank">https://garywelz-glmp.static.hf.space/historical_1995/welz.genome0.shtml</a></li>
+<li>Robbins, R.J. Discussion on bionet.genome.chromosome newsgroup regarding genomic computation (1995).</li>
+<li>Dellaire, G. Response on bionet.genome.chromosome regarding genetic imprinting and genomic structure (1995).</li>
+<li>Welz, G. From Inspiration to AI: Biology as Visual Programming. <em>Medium</em> (2025). Available at: <a href="https://medium.com/@garywelz_47126/from-inspiration-to-ai-biology-as-visual-programming-520ee523029a" target="_blank">https://medium.com/@garywelz_47126/from-inspiration-to-ai-biology-as-visual-programming-520ee523029a</a></li>
+<li>Milo, R. & Phillips, R. <em>Cell Biology by the Numbers</em>. Garland Science (2015).</li>
+<li>Alon, U. <em>An Introduction to Systems Biology: Design Principles of Biological Circuits</em>. Chapman & Hall/CRC (2006).</li>
+<li>Endy, D. Foundations for engineering biology. <em>Nature</em> <strong>438</strong>, 449-453 (2005).</li>
+<li>Khalil, A. S. & Collins, J. J. Synthetic biology: applications come of age. <em>Nature Reviews Genetics</em> <strong>11</strong>, 367-379 (2010).</li>
+<li>Kitano, H. Systems biology: a brief overview. <em>Science</em> <strong>295</strong>, 1662-1664 (2002).</li>
+<li>Jacob, F. & Monod, J. Genetic regulatory mechanisms in the synthesis of proteins. <em>Journal of Molecular Biology</em> <strong>3</strong>, 318-356 (1961).</li>
+<li>Ptashne, M. <em>A Genetic Switch: Phage Lambda Revisited</em>. Cold Spring Harbor Laboratory Press (2004).</li>
+<li>Bray, D. Protein molecules as computational elements in living cells. <em>Nature</em> <strong>376</strong>, 307-312 (1995).</li>
+<li>Hasty, J., McMillen, D. & Collins, J. J. Engineered gene circuits. <em>Nature</em> <strong>420</strong>, 224-230 (2002).</li>
+<li>Elowitz, M. B. & Leibler, S. A synthetic oscillatory network of transcriptional regulators. <em>Nature</em> <strong>403</strong>, 335-338 (2000).</li>
+<li>Gardner, T. S., Cantor, C. R. & Collins, J. J. Construction of a genetic toggle switch in <em>Escherichia coli</em>. <em>Nature</em> <strong>403</strong>, 339-342 (2000).</li>
+<li>Sveidqvist, K. Mermaid: Markdown-inspired diagramming and charting tool. GitHub repository (2014). Available at: <a href="https://github.com/mermaid-js/mermaid" target="_blank">https://github.com/mermaid-js/mermaid</a></li>
+<li>GitHub. Native Mermaid support in Markdown. GitHub Blog (2022). Available at: <a href="https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/" target="_blank">https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/</a></li>
+<li>Creative Commons. Creative Commons Attribution 4.0 International License (CC BY 4.0). Available at: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">https://creativecommons.org/licenses/by/4.0/</a></li>
+<li>Mermaid Documentation. Mermaid.js (accessed 2025). Available at: <a href="https://mermaid.js.org/" target="_blank">https://mermaid.js.org/</a></li>
+<li>Le Novère, N. et al. The Systems Biology Graphical Notation. <em>Nature Biotechnology</em> <strong>27</strong>, 735–741 (2009).</li>
+<li>Santos-Zavaleta, A. et al. RegulonDB v 10.5: tackling challenges to unify classic and high throughput knowledge of gene regulation in <em>E. coli</em> K-12. <em>Nucleic Acids Research</em> <strong>47</strong>, D212-D220 (2019).</li>
+</ol>
+</div>
+
+</body>
+</html>

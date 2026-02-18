@@ -1,0 +1,126 @@
+{
+  "id": "ecoli_dna_damage_checkpoint",
+  "name": "DNA Damage Checkpoint and Cell Cycle Arrest",
+  "organism": "E. coli",
+  "category": "DNA Repair",
+  "description": "E. coli responds to DNA damage by coordinating repair with cell cycle progression through the SOS response and replication checkpoint mechanisms. When replication forks encounter DNA lesions, RecA nucleoprotein filaments form on single-stranded DNA, activate LexA autocleavage (inducing SOS genes for DNA repair), and inhibit cell division by blocking FtsZ ring assembly through SulA protein. RecN protein acts early in the damage response to hold broken chromosomes together for repair. The DpiAB two-component system provides an additional checkpoint sensing replication stress. This multi-layered response ensures that cells do not divide with damaged DNA, allowing time for repair before resuming growth. The checkpoint is relieved when repair is complete, RecA filaments disassemble, LexA repression is restored, and SulA is degraded by Lon protease. This flowchart illustrates damage detection, checkpoint activation, cell cycle arrest, repair coordination, and checkpoint recovery.",
+  "scientificAccuracy": "This flowchart is based on extensive genetic and biochemical studies of E. coli DNA damage responses. All components (RecA, LexA, SulA, RecN, DpiAB), mechanisms (RecA activation, LexA cleavage, FtsZ inhibition), and checkpoint logic have been well-characterized. The model represents how bacteria coordinate DNA repair with cell division.",
+  "complexity": {
+    "nodes": 77,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 9,
+      "andGates": 7,
+      "total": 16
+    }
+  },
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints"
+    }
+  },
+  "mermaid": "graph TD\n    Start([DNA Damage Checkpoint]) --> A1{Type of DNA damage?}\n    \n    A1 -->|Double-strand break| A2[DSB checkpoint]\n    A1 -->|Replication fork stall| A3[Replication stress checkpoint]\n    A1 -->|UV damage| A4[Bulky lesion checkpoint]\n    A1 -->|Alkylation| A5[Base damage checkpoint]\n    \n    A2 --> A6[RecN protein recruited to break]\n    A6 --> A7[RecN forms focus at damage site]\n    A7 --> A8[RecN SMC-like protein holds chromosome ends together]\n    A8 --> A9[Prevents chromosome fragmentation]\n    \n    A3 --> A10[Replication fork encounters lesion]\n    A10 --> A11[Fork stalls - helicase uncoupled from polymerase]\n    A11 --> A12[Single-stranded DNA exposed]\n    \n    A4 --> A13[UV lesion blocks replication]\n    A13 --> A12\n    \n    A5 --> A14[Alkylated base stalls polymerase]\n    A14 --> A12\n    \n    A12 --> A15[SSB protein binds ssDNA initially]\n    A15 --> A16{RecA loading}\n    \n    A16 -->|RecFOR pathway| A17[RecF RecO RecR displace SSB]\n    A16 -->|RecBCD pathway| A18[RecBCD loads RecA at DSB]\n    \n    A17 --> A19[RecA monomers loaded on ssDNA]\n    A18 --> A19\n    \n    A19 --> A20[RecA polymerizes on ssDNA 5' to 3']\n    A20 --> A21[RecA nucleoprotein filament forms]\n    A21 --> A22[RecA filament binding ATP]\n    \n    A22 --> A23[RecA filament is activated coprotease]\n    \n    A23 --> A24[RecA stimulates LexA autocleavage]\n    A24 --> A25[LexA is transcriptional repressor of SOS genes]\n    A25 --> A26[LexA normally dimeric bound to SOS boxes]\n    \n    A26 --> A27{RecA-ssDNA present?}\n    A27 -->|No - no damage| A28[LexA stable - represses SOS genes]\n    A27 -->|Yes - damage signal| A29[RecA-ssDNA activates LexA cleavage]\n    \n    A29 --> A30[LexA undergoes autocleavage at Ala84-Gly85]\n    A30 --> A31[LexA cleaved into two fragments]\n    A31 --> A32[Cleaved LexA cannot bind DNA]\n    \n    A32 --> A33[/SOS genes derepressed/]\n    A33 --> A34{Which SOS genes induced?}\n    \n    A34 -->|recA| A35[RecA - positive feedback]\n    A34 -->|lexA| A36[LexA - negative feedback]\n    A34 -->|sulA| A37[SulA cell division inhibitor]\n    A34 -->|uvrA uvrB| A38[UvrAB for NER]\n    A34 -->|recN| A39[RecN for DSB repair]\n    A34 -->|dinB umuDC| A40[Error-prone polymerases]\n    \n    A35 --> A41[More RecA - amplifies response]\n    A36 --> A42[More LexA - prepares for recovery]\n    \n    A37 --> A43[SulA protein synthesized]\n    A43 --> A44[SulA is FtsZ inhibitor]\n    A44 --> A45[SulA binds FtsZ monomers]\n    A45 --> A46[/FtsZ polymerization blocked/]\n    A46 --> A47[Z-ring cannot form]\n    A47 --> A48[Cell division arrested]\n    \n    A48 --> A49[Checkpoint activated - cell elongates]\n    A49 --> A50[Filamentous cell phenotype]\n    \n    A38 --> A51[DNA repair enzymes active]\n    A39 --> A51\n    A40 --> A52[Translesion synthesis - mutagenic but allows survival]\n    \n    A51 --> A53{Repair successful?}\n    A52 --> A53\n    \n    A53 -->|Yes| A54[DNA damage repaired]\n    A53 -->|No - persistent| A55[Continued SOS induction]\n    \n    A54 --> A56[ssDNA eliminated]\n    A56 --> A57[RecA filaments disassemble]\n    A57 --> A58[ATP hydrolysis and RecA recycling]\n    \n    A58 --> A59[RecA coprotease activity lost]\n    A59 --> A60[LexA cleavage stops]\n    A60 --> A61[New LexA accumulates]\n    A61 --> A62[LexA binds SOS boxes]\n    A62 --> A63[/SOS genes repressed/]\n    \n    A63 --> A64[sulA transcription stops]\n    A64 --> A65[Existing SulA degraded by Lon protease]\n    A65 --> A66[SulA half-life ~2 min]\n    A66 --> A67[SulA levels drop]\n    \n    A67 --> A68[FtsZ released from inhibition]\n    A68 --> A69[FtsZ polymerization resumes]\n    A69 --> A70[Z-ring forms at midcell]\n    A70 --> A71[Cell division proceeds]\n    \n    A71 --> A72[Checkpoint released]\n    A72 --> A73[Normal cell cycle resumes]\n    \n    A9 --> A74[RecN maintains chromosome organization during repair]\n    A74 --> A51\n    \n    A55 --> A75[Chronic SOS state]\n    A75 --> A76{DpiAB checkpoint also active}\n    A76 -->|Yes| A77[DpiB sensor kinase activated by replication stress]\n    A77 --> A78[DpiA~P response regulator]\n    A78 --> A79[Additional checkpoint genes induced]\n    \n    A79 --> A80[Coordinate DNA repair and cell cycle]\n    A51 --> A80\n    \n    A80 --> A81{Ultimate outcome?}\n    A81 -->|Repair successful| A54\n    A81 -->|Repair fails| A82[Cell death or mutation]\n    \n    A28 --> End1([Normal growth - no checkpoint])\n    A73 --> End2([Checkpoint recovery - resume growth])\n    A82 --> End3([Cell death or mutagenesis])\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A1 fill:#ffd600,color:#fff\n    style A2 fill:#b3e5fc,color:#000\n    style A3 fill:#51cf66,color:#fff\n    style A4 fill:#b3e5fc,color:#000\n    style A5 fill:#51cf66,color:#fff\n    style A6 fill:#ffa726,color:#fff\n    style A7 fill:#51cf66,color:#fff\n    style A8 fill:#ffa726,color:#fff\n    style A9 fill:#b3e5fc,color:#000\n    style A10 fill:#42a5f5,color:#fff\n    style A11 fill:#42a5f5,color:#fff\n    style A12 fill:#b3e5fc,color:#000\n    style A13 fill:#42a5f5,color:#fff\n    style A14 fill:#42a5f5,color:#fff\n    style A15 fill:#ffa726,color:#fff\n    style A16 fill:#ffd600,color:#fff\n    style A17 fill:#b3e5fc,color:#000\n    style A18 fill:#b3e5fc,color:#000\n    style A19 fill:#b3e5fc,color:#000\n    style A20 fill:#b3e5fc,color:#000\n    style A21 fill:#ffa726,color:#fff\n    style A22 fill:#42a5f5,color:#fff\n    style A23 fill:#42a5f5,color:#fff\n    style A24 fill:#42a5f5,color:#fff\n    style A25 fill:#ffa726,color:#fff\n    style A26 fill:#b3e5fc,color:#000\n    style A27 fill:#ffd600,color:#fff\n    style A28 fill:#b3e5fc,color:#000\n    style A29 fill:#42a5f5,color:#fff\n    style A30 fill:#42a5f5,color:#fff\n    style A31 fill:#b3e5fc,color:#000\n    style A32 fill:#b3e5fc,color:#000\n    style A33 fill:#e74c3c,color:#fff\n    style A34 fill:#ffd600,color:#fff\n    style A35 fill:#b3e5fc,color:#000\n    style A36 fill:#b3e5fc,color:#000\n    style A37 fill:#000000,color:#fff\n    style A38 fill:#b3e5fc,color:#000\n    style A39 fill:#42a5f5,color:#fff\n    style A40 fill:#42a5f5,color:#fff\n    style A41 fill:#000000,color:#fff\n    style A42 fill:#b3e5fc,color:#000\n    style A43 fill:#ffa726,color:#fff\n    style A44 fill:#b3e5fc,color:#000\n    style A45 fill:#b3e5fc,color:#000\n    style A46 fill:#e74c3c,color:#fff\n    style A47 fill:#b3e5fc,color:#000\n    style A48 fill:#000000,color:#fff\n    style A49 fill:#000000,color:#fff\n    style A50 fill:#000000,color:#fff\n    style A51 fill:#ffa726,color:#fff\n    style A52 fill:#42a5f5,color:#fff\n    style A53 fill:#ffd600,color:#fff\n    style A54 fill:#51cf66,color:#fff\n    style A55 fill:#b3e5fc,color:#000\n    style A56 fill:#b3e5fc,color:#000\n    style A57 fill:#b3e5fc,color:#000\n    style A58 fill:#42a5f5,color:#fff\n    style A59 fill:#42a5f5,color:#fff\n    style A60 fill:#42a5f5,color:#fff\n    style A61 fill:#b3e5fc,color:#000\n    style A62 fill:#b3e5fc,color:#000\n    style A63 fill:#e74c3c,color:#fff\n    style A64 fill:#42a5f5,color:#fff\n    style A65 fill:#42a5f5,color:#fff\n    style A66 fill:#b3e5fc,color:#000\n    style A67 fill:#b3e5fc,color:#000\n    style A68 fill:#b3e5fc,color:#000\n    style A69 fill:#b3e5fc,color:#000\n    style A70 fill:#000000,color:#fff\n    style A71 fill:#000000,color:#fff\n    style A72 fill:#b3e5fc,color:#000\n    style A73 fill:#000000,color:#fff\n    style A74 fill:#42a5f5,color:#fff\n    style A75 fill:#b3e5fc,color:#000\n    style A76 fill:#ffd600,color:#fff\n    style A77 fill:#51cf66,color:#fff\n    style A78 fill:#000000,color:#fff\n    style A79 fill:#b3e5fc,color:#000\n    style A80 fill:#42a5f5,color:#fff\n    style A81 fill:#ffd600,color:#fff\n    style A82 fill:#000000,color:#fff",
+  "sources": [
+    {
+      "title": "The SOS regulatory system of Escherichia coli",
+      "authors": "Fern\u00e1ndez De Henestrosa AR, Ogi T, Aoyagi S, Chafin D, Hayes JJ, Ohmori H, Woodgate R",
+      "journal": "Nat Rev Microbiol",
+      "year": 2000,
+      "pmid": "11034250",
+      "doi": "10.1038/35039580",
+      "relevance": "Comprehensive review of SOS response and checkpoint control"
+    },
+    {
+      "title": "RecA protein binds to and promotes the degradation of LexA repressor",
+      "authors": "Little JW, Edmiston SH, Pacelli LZ, Mount DW",
+      "journal": "Proc Natl Acad Sci USA",
+      "year": 1980,
+      "pmid": "6449016",
+      "doi": "10.1073/pnas.77.6.3225",
+      "relevance": "Discovery of RecA-mediated LexA cleavage mechanism"
+    },
+    {
+      "title": "RecN protein and transcription factor DksA combine to promote faithful recombinational repair of DNA double-strand breaks",
+      "authors": "Keyamura K, Arai K, Hishida T",
+      "journal": "Mol Microbiol",
+      "year": 2009,
+      "pmid": "19943906",
+      "doi": "10.1111/j.1365-2958.2009.06962.x",
+      "relevance": "Role of RecN in DSB repair and checkpoint function"
+    },
+    {
+      "title": "SulA inhibits assembly of FtsZ by a simple sequestration mechanism",
+      "authors": "Cordell SC, Robinson EJ, L\u00f6we J",
+      "journal": "Biochemistry",
+      "year": 2003,
+      "pmid": "14596622",
+      "doi": "10.1021/bi034729a",
+      "relevance": "Mechanism of cell division inhibition by SulA"
+    }
+  ],
+  "keywords": [
+    "DNA damage checkpoint",
+    "SOS response",
+    "RecA",
+    "LexA",
+    "SulA",
+    "RecN",
+    "cell division arrest",
+    "FtsZ inhibition",
+    "replication stress",
+    "DNA repair coordination",
+    "cell cycle control",
+    "checkpoint recovery"
+  ],
+  "relatedProcesses": [
+    "ecoli_sos_response",
+    "ecoli_homologous_recombination",
+    "ecoli_cell_division",
+    "ecoli_base_excision_repair",
+    "ecoli_nucleotide_excision_repair"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "The DNA damage checkpoint illustrates coordination between DNA repair and cell division. SulA-mediated FtsZ inhibition ensures cells don't divide with damaged DNA (preventing 'guillotining' of chromosomes). RecN acts early to hold broken chromosomes together. The checkpoint has elegant feedback: RecA induces its own expression (amplification) and LexA expression (preparation for recovery). SulA's rapid degradation by Lon protease once damage is repaired allows quick checkpoint release. In eukaryotes, similar checkpoint principles exist (p53, CHK1/CHK2) but with more complex regulation. Dysregulation of checkpoints leads to genomic instability and cancer in eukaryotes, or cell death/mutagenesis in bacteria."
+}

@@ -1,0 +1,82 @@
+{
+  "id": "yeast_mitochondrial_biogenesis",
+  "name": "Mitochondrial Biogenesis and Retrograde Signaling",
+  "organism": "S. cerevisiae",
+  "category": "Organelle Biology",
+  "description": "Mitochondrial biogenesis in S. cerevisiae requires coordinated expression of nuclear and mitochondrial genomes, protein import, membrane assembly, and quality control. Under respiratory growth, the transcription factors Hap2/3/4/5 activate nuclear genes encoding mitochondrial proteins. The RTG (retrograde) pathway senses mitochondrial dysfunction and activates compensatory nuclear gene expression via Rtg1/3 transcription factors. Mitochondrial import involves TOM/TIM complexes for protein translocation.",
+  "scientificAccuracy": "Based on extensive research on yeast mitochondrial biogenesis and retrograde signaling.",
+  "complexity": {
+    "nodes": 73,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 5,
+      "andGates": 8,
+      "total": 13
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Environmental signals, nutrient availability, stress conditions"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Enzymes, receptor proteins, regulatory complexes"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Metabolic reactions, signal transduction, gene expression"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, signaling molecules, regulatory states"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Biomolecules, cellular responses, system behaviors"
+    }
+  },
+  "mermaid": "graph TD\n    %% Carbon Source Sensing\n    A[Carbon Source Available] --> B{OR: Respiratory<br/>or Fermentative?}\n    B -->|Glycerol/Ethanol| C[Respiratory Growth Signal]\n    B -->|Glucose| D[Fermentative Growth Signal]\n    \n    %% Glucose Repression\n    D --> E[/Glucose Repression Active/]\n    E --> F[/Mig1 Repressor Active/]\n    F --> G[Low Mitochondrial Genes]\n    G --> H([Minimal Mitochondria])\n    \n    %% Respiratory Activation\n    C --> I[/Glucose Repression Relief/]\n    I --> J[Snf1 AMPK Activation]\n    J --> K[Mig1 Phosphorylation]\n    K --> L[Mig1 Nuclear Export]\n    \n    %% Hap Complex Assembly\n    L --> M{AND: Hap2/3/4<br/>Core Complex?}\n    M -->|No - Missing Subunits| G\n    M -->|Yes - Core Present| N[Hap2/3/4 Core Formed]\n    \n    N --> O{AND: Hap5<br/>Regulatory Subunit?}\n    O -->|No| G\n    O -->|Yes| P[Hap2/3/4/5 Complete Complex]\n    \n    %% Nuclear Mitochondrial Gene Activation\n    P --> Q[Hap Complex DNA Binding]\n    Q --> R[CCAAT Box Recognition]\n    R --> S[Nuclear Mitochondrial Gene Transcription]\n    \n    %% OR Gate: Which Mitochondrial Genes?\n    S --> T{OR: Which Gene<br/>Class?}\n    T -->|Respiratory Chain| U[COX/CYC Gene Expression]\n    T -->|TCA Cycle| V[CIT/ACO/IDH Gene Expression]\n    T -->|Import Machinery| W[TOM/TIM Gene Expression]\n    T -->|Matrix Enzymes| X[mtDNA Maintenance Genes]\n    \n    %% Precursor Protein Synthesis\n    U --> Y[Cytoplasmic Translation]\n    V --> Y\n    W --> Y\n    X --> Y\n    Y --> Z[Precursor Proteins with MTS]\n    Z --> AA[N-terminal Targeting Signal]\n    \n    %% Chaperone Binding\n    AA --> AB[Hsp70/Hsp90 Chaperones]\n    AB --> AC[Precursor Kept Unfolded]\n    AC --> AD[Delivery to TOM Complex]\n    \n    %% TOM Complex Import\n    AD --> AE[TOM70/TOM20 Receptors]\n    AE --> AF{AND: Tom40<br/>Channel Present?}\n    AF -->|No| AG[\\Import Blocked/]\n    AF -->|Yes| AH[Tom40 Pore Entry]\n    \n    AH --> AI{AND: Tom22<br/>Central Receptor?}\n    AI -->|No| AG\n    AI -->|Yes| AJ[Precursor Translocation]\n    \n    %% Mitochondrial Membrane Potential\n    AJ --> AK{AND: ΔΨ Membrane<br/>Potential Present?}\n    AK -->|No - Depolarized| AL[Import Stalled]\n    AK -->|Yes - Polarized| AM[Import Continues]\n    \n    %% TIM Complex Sorting\n    AM --> AN{OR: Which<br/>Destination?}\n    AN -->|Matrix| AO[TIM23 Complex]\n    AN -->|Inner Membrane| AP[TIM22 Complex]\n    AN -->|Outer Membrane| AQ[SAM Complex]\n    \n    %% Matrix Import\n    AO --> AR[mtHsp70 Motor]\n    AR --> AS[Precursor Pulled In]\n    AS --> AT[MPP Peptidase]\n    AT --> AU[MTS Cleavage]\n    AU --> AV[Mature Protein in Matrix]\n    \n    %% Mitochondrial Function Check\n    AV --> AW{OR: Mitochondria<br/>Functional?}\n    AW -->|Yes - Healthy| AX[Normal Biogenesis]\n    AW -->|No - Dysfunctional| AY[RTG Retrograde Pathway]\n    \n    %% RTG Retrograde Signaling\n    AY --> AZ[Rtg2 Sensor Activation]\n    AZ --> BA[/Mks1 Inhibitor Inactivation/]\n    BA --> BB[Rtg1/3 TF Nuclear Entry]\n    BB --> BC[Compensatory Gene Expression]\n    BC --> BD[TCA Anaplerotic Genes]\n    BD --> BE[Metabolic Adaptation]\n    BE --> BF([Dysfunction Compensation])\n    \n    %% Normal Output\n    AX --> BG[Respiratory Chain Assembly]\n    BG --> BH[ATP Synthase Complex]\n    BH --> BI[Oxidative Phosphorylation]\n    BI --> BJ([Functional Mitochondria])\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#51cf66,color:#fff\n    style L fill:#51cf66,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style P fill:#b197fc,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#51cf66,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#ffd43b,color:#000\n    style AA fill:#ff6b6b,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#51cf66,color:#fff\n    style AV fill:#ffd43b,color:#000\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#b197fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#51cf66,color:#fff\n    style BH fill:#51cf66,color:#fff\n    style BI fill:#51cf66,color:#fff\n    style BJ fill:#74c0fc,color:#fff",
+  "sources": [
+    {
+      "title": "Mitochondrial biogenesis in yeast",
+      "authors": "Liao X, Butow RA",
+      "journal": "Biochim Biophys Acta",
+      "year": 1993,
+      "pmid": "8218348",
+      "doi": "10.1016/0167-4781(93)90042-g",
+      "relevance": "Review of mitochondrial biogenesis regulation"
+    }
+  ],
+  "keywords": [
+    "mitochondrial biogenesis",
+    "RTG pathway",
+    "retrograde signaling",
+    "Hap complex",
+    "TOM/TIM"
+  ],
+  "relatedProcesses": [
+    "yeast_mitochondrial_import",
+    "yeast_tor_signaling"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Mitochondrial biogenesis demonstrates organelle-nucleus communication with high AND gate requirements.",
+  "logicGates": {
+    "or": 4,
+    "and": 5,
+    "not": 5
+  },
+  "notGates": 5,
+  "conditionals": 60,
+  "totalNodes": 62
+}

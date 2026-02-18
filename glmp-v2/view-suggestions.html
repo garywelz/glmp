@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Process Suggestions - GLMP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.2s;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+        }
+        
+        .header-section {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-section h2 {
+            color: #2c3e50;
+            font-size: 1.75rem;
+        }
+        
+        .refresh-btn {
+            padding: 0.5rem 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .refresh-btn:hover {
+            background: #5568d3;
+        }
+        
+        .count {
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .suggestions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .suggestion-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #f8f9fa;
+        }
+        
+        .suggestion-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+        
+        .suggestion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .suggestion-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .suggestion-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .timestamp {
+            font-size: 0.85rem;
+            color: #95a5a6;
+        }
+        
+        .status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>📋 View Process Suggestions</h1>
+        <a href="https://garywelz-glmp.static.hf.space/about.html" class="back-link">← Back to About</a>
+    </header>
+    
+    <div class="container">
+        <div class="header-section">
+            <div>
+                <h2>Stored Suggestions</h2>
+                <div class="count" id="count">Loading...</div>
+            </div>
+            <button class="refresh-btn" onclick="loadSuggestions()">🔄 Refresh</button>
+        </div>
+        
+        <div id="suggestions-list" class="suggestions-list">
+            <div class="loading">Loading suggestions...</div>
+        </div>
+    </div>
+    
+    <script>
+        const VIEW_SUGGESTIONS_ENDPOINT = 'https://us-central1-regal-scholar-453620-r7.cloudfunctions.net/glmp_view_suggestions';
+        
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return 'Unknown';
+            const date = new Date(timestamp);
+            return date.toLocaleString();
+        }
+        
+        function renderSuggestions(data) {
+            const container = document.getElementById('suggestions-list');
+            const countDiv = document.getElementById('count');
+            
+            if (data.count === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No suggestions yet</h3>
+                        <p>Suggestions will appear here once users submit them.</p>
+                    </div>
+                `;
+                countDiv.textContent = '0 suggestions';
+                return;
+            }
+            
+            countDiv.textContent = `${data.count} suggestion${data.count !== 1 ? 's' : ''}`;
+            
+            container.innerHTML = data.suggestions.map(suggestion => `
+                <div class="suggestion-card">
+                    <div class="suggestion-header">
+                        <div style="flex: 1;">
+                            <div class="suggestion-text">${suggestion.suggestion || 'No suggestion text'}</div>
+                            <div class="suggestion-meta">
+                                ${suggestion.organism ? `<div class="meta-item">🧬 <strong>Organism:</strong> ${suggestion.organism}</div>` : ''}
+                                ${suggestion.category ? `<div class="meta-item">📁 <strong>Category:</strong> ${suggestion.category}</div>` : ''}
+                                ${suggestion.email ? `<div class="meta-item">📧 <strong>Email:</strong> ${suggestion.email}</div>` : ''}
+                            </div>
+                        </div>
+                        <span class="status ${suggestion.status || 'pending'}">${(suggestion.status || 'pending').toUpperCase()}</span>
+                    </div>
+                    <div class="timestamp">Submitted: ${formatTimestamp(suggestion.timestamp)}</div>
+                </div>
+            `).join('');
+        }
+        
+        async function loadSuggestions() {
+            const container = document.getElementById('suggestions-list');
+            container.innerHTML = '<div class="loading">Loading suggestions...</div>';
+            
+            try {
+                const response = await fetch(VIEW_SUGGESTIONS_ENDPOINT);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to load suggestions');
+                }
+                
+                renderSuggestions(data);
+                
+            } catch (error) {
+                console.error('Error loading suggestions:', error);
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Error loading suggestions</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Load on page load
+        document.addEventListener('DOMContentLoaded', loadSuggestions);
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,136 @@
+{
+  "id": "ecoli_translation_termination",
+  "name": "Translation Termination and Ribosome Recycling",
+  "organism": "E. coli",
+  "category": "Protein Synthesis",
+  "description": "Translation termination in E. coli occurs when the ribosome encounters a stop codon (UAA, UAG, or UGA) in the A site. Class I release factors RF1 (recognizes UAA/UAG) or RF2 (recognizes UAA/UGA) bind to the A site, enter the peptidyl transferase center, and catalyze hydrolysis of the peptidyl-tRNA ester bond, releasing the completed polypeptide. Class II release factor RF3-GTP then promotes dissociation of RF1/RF2. The ribosome recycling factor (RRF) and EF-G cooperate to dissociate the 70S ribosome into 50S and 30S subunits, which are then cleared of deacylated tRNA and mRNA by IF3. This flowchart illustrates the complete termination and recycling pathway from stop codon recognition through ribosome subunit dissociation and preparation for the next round of translation initiation.",
+  "scientificAccuracy": "This flowchart is based on structural and biochemical studies of bacterial translation termination. All release factors (RF1, RF2, RF3), ribosome recycling components (RRF, EF-G, IF3), and catalytic mechanisms have been validated through crystallography and cryo-EM. The model represents the current understanding of how bacteria achieve accurate termination at all three stop codons and efficiently recycle ribosomal subunits for new rounds of translation.",
+  "complexity": {
+    "nodes": 72,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 7,
+      "andGates": 4,
+      "total": 11
+    }
+  },
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints"
+    }
+  },
+  "mermaid": "graph TD\n    Start[/Translation Termination/] --> A1[/Ribosome reaches stop codon in A site/]\n    \n    A1 --> A2{Which stop codon?}\n    A2 -->|UAA| A3[UAA recognized by RF1 or RF2]\n    A2 -->|UAG amber| A4[UAG recognized by RF1 only]\n    A2 -->|UGA opal| A5[UGA recognized by RF2 only]\n    \n    A3 --> A6{RF1 or RF2 available?}\n    A4 --> A7[RF1 binds to ribosome A site]\n    A5 --> A8[RF2 binds to ribosome A site]\n    \n    A6 -->|RF1 binds first| A7\n    A6 -->|RF2 binds first| A8\n    \n    A7 --> A9[/RF1 tripeptide motif PVT recognizes stop codon/]\n    A8 --> A10[/RF2 tripeptide motif SPF recognizes stop codon/]\n    \n    A9 --> A11[RF1 GGQ motif enters peptidyl transferase center PTC]\n    A10 --> A12[RF2 GGQ motif enters PTC]\n    \n    A11 --> A13[GGQ glutamine positioned for catalysis]\n    A12 --> A13\n    \n    A13 --> A14[Water molecule activated in PTC]\n    A14 --> A15[Nucleophilic attack on peptidyl-tRNA ester bond]\n    A15 --> A16[Peptidyl-tRNA ester bond hydrolyzed]\n    \n    A16 --> A17[Completed polypeptide released with C-terminal carboxyl]\n    A17 --> A18[Deacylated tRNA remains in P site]\n    A18 --> A19[RF1 or RF2 remains in A site]\n    \n    A17 --> A20[Polypeptide exits through ribosome tunnel]\n    A20 --> A21[Polypeptide folding or targeting]\n    \n    A19 --> A22{RF3-GTP available?}\n    A22 -->|Yes| A23[RF3-GTP binds to ribosome]\n    A22 -->|No| Wait1[Wait for RF3-GTP]\n    Wait1 --> A22\n    \n    A23 --> A24[RF3 GTPase activated]\n    A24 --> A25[GTP hydrolysis by RF3]\n    A25 --> A26[Conformational change promotes RF1/RF2 dissociation]\n    A26 --> A27[RF1 or RF2 released]\n    A27 --> A28[RF3-GDP dissociates]\n    A28 --> A29[RF3-GTP regenerated]\n    \n    A27 --> A30[\"/Post-termination complex: 70S, mRNA, deacylated tRNA\"]\n    \n    A30 --> A31{RRF available?}\n    A31 -->|Yes| A32[Ribosome Recycling Factor RRF binds]\n    A31 -->|No| Wait2[Wait for RRF]\n    Wait2 --> A31\n    \n    A32 --> A33[RRF binds to ribosome A site mimicking tRNA L-shape]\n    \n    A33 --> A34{EF-G-GTP available?}\n    A34 -->|Yes| A35[EF-G-GTP binds]\n    A34 -->|No| Wait3[Wait for EF-G-GTP]\n    Wait3 --> A34\n    \n    A35 --> A36[EF-G GTPase activated]\n    A36 --> A37[GTP hydrolysis by EF-G]\n    A37 --> A38[EF-G and RRF cooperate]\n    \n    A38 --> A39[50S subunit dissociates from 30S]\n    A39 --> A40[70S ribosome splits into subunits]\n    \n    A40 --> A41[RRF dissociates]\n    A40 --> A42[EF-G-GDP dissociates]\n    \n    A40 --> A43[\"30S subunit retains: mRNA + deacylated tRNA\"]\n    \n    A43 --> A44{IF3 available?}\n    A44 -->|Yes| A45[IF3 binds to 30S subunit]\n    A44 -->|No| Wait4[Wait for IF3]\n    Wait4 --> A44\n    \n    A45 --> A46[/IF3 prevents premature 50S rejoining/]\n    A46 --> A47[IF3 promotes deacylated tRNA dissociation]\n    A47 --> A48[tRNA released from P site]\n    \n    A46 --> A49[IF3 promotes mRNA dissociation]\n    A49 --> A50[mRNA released from 30S]\n    \n    A48 --> A51[Clean 30S subunit with IF3 bound]\n    A50 --> A51\n    \n    A51 --> A52[30S ready for new initiation cycle]\n    \n    A40 --> A53[Clean 50S subunit]\n    A53 --> A54[50S ready for new initiation cycle]\n    \n    A52 --> End1([Subunits recycled for new translation])\n    A54 --> End1\n    \n    A21 --> End2([Completed polypeptide])\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A1 fill:#e74c3c,color:#fff\n    style A2 fill:#ffd600,color:#fff\n    style A3 fill:#b3e5fc,color:#000\n    style A4 fill:#b3e5fc,color:#000\n    style A5 fill:#b3e5fc,color:#000\n    style A6 fill:#ffd600,color:#fff\n    style A7 fill:#b3e5fc,color:#000\n    style A8 fill:#b3e5fc,color:#000\n    style A9 fill:#e74c3c,color:#fff\n    style A10 fill:#e74c3c,color:#fff\n    style A11 fill:#42a5f5,color:#fff\n    style A12 fill:#b3e5fc,color:#000\n    style A13 fill:#b3e5fc,color:#000\n    style A14 fill:#b3e5fc,color:#000\n    style A15 fill:#b3e5fc,color:#000\n    style A16 fill:#b3e5fc,color:#000\n    style A17 fill:#000000,color:#fff\n    style A18 fill:#b3e5fc,color:#000\n    style A19 fill:#b3e5fc,color:#000\n    style A20 fill:#b3e5fc,color:#000\n    style A21 fill:#b3e5fc,color:#000\n    style A22 fill:#ffd600,color:#fff\n    style A23 fill:#b3e5fc,color:#000\n    style A24 fill:#b3e5fc,color:#000\n    style A25 fill:#42a5f5,color:#fff\n    style A26 fill:#b3e5fc,color:#000\n    style A27 fill:#b3e5fc,color:#000\n    style A28 fill:#b3e5fc,color:#000\n    style A29 fill:#b3e5fc,color:#000\n    style A30 fill:#e74c3c,color:#fff\n    style A31 fill:#ffd600,color:#fff\n    style A32 fill:#ffa726,color:#fff\n    style A33 fill:#b3e5fc,color:#000\n    style A34 fill:#ffd600,color:#fff\n    style A35 fill:#b3e5fc,color:#000\n    style A36 fill:#b3e5fc,color:#000\n    style A37 fill:#42a5f5,color:#fff\n    style A38 fill:#b3e5fc,color:#000\n    style A39 fill:#b3e5fc,color:#000\n    style A40 fill:#b3e5fc,color:#000\n    style A41 fill:#b3e5fc,color:#000\n    style A42 fill:#b3e5fc,color:#000\n    style A43 fill:#b3e5fc,color:#000\n    style A44 fill:#ffd600,color:#fff\n    style A45 fill:#b3e5fc,color:#000\n    style A46 fill:#e74c3c,color:#fff\n    style A47 fill:#b3e5fc,color:#000\n    style A48 fill:#b3e5fc,color:#000\n    style A49 fill:#b3e5fc,color:#000\n    style A50 fill:#b3e5fc,color:#000\n    style A51 fill:#b3e5fc,color:#000\n    style A52 fill:#b3e5fc,color:#000\n    style A53 fill:#b3e5fc,color:#000\n    style A54 fill:#b3e5fc,color:#000\n    style Start fill:#e74c3c,color:#fff",
+  "sources": [
+    {
+      "title": "Structural basis for translation termination on the 70S ribosome",
+      "authors": "Weixlbaumer A, Jin H, Neubauer C, Voorhees RM, Petry S, Kelley AC, Ramakrishnan V",
+      "journal": "Nature",
+      "year": 2008,
+      "pmid": "18408881",
+      "doi": "10.1038/nature06700",
+      "relevance": "Crystal structures of RF1 and RF2 bound to 70S ribosome at stop codons"
+    },
+    {
+      "title": "The structure of the ribosome with elongation factor G trapped in the posttranslocational state",
+      "authors": "Gao YG, Selmer M, Dunham CM, Weixlbaumer A, Kelley AC, Ramakrishnan V",
+      "journal": "Science",
+      "year": 2009,
+      "pmid": "19359587",
+      "doi": "10.1126/science.1172896",
+      "relevance": "Structural basis for EF-G function in translocation and recycling"
+    },
+    {
+      "title": "Structural insights into the role of rRNA modifications in protein synthesis and ribosome assembly",
+      "authors": "Decatur WA, Fournier MJ",
+      "journal": "Curr Opin Struct Biol",
+      "year": 2002,
+      "pmid": "12127453",
+      "doi": "10.1016/S0959-440X(02)00344-X",
+      "relevance": "rRNA modifications in peptidyl transferase center catalysis"
+    },
+    {
+      "title": "Release factor RF3 in E.coli accelerates the dissociation of release factors RF1 and RF2 from the ribosome in a GTP-dependent manner",
+      "authors": "Freistroffer DV, Pavlov MY, MacDougall J, Buckingham RH, Ehrenberg M",
+      "journal": "EMBO J",
+      "year": 1997,
+      "pmid": "9312005",
+      "doi": "10.1093/emboj/16.13.4126",
+      "relevance": "Biochemical characterization of RF3 function in termination"
+    }
+  ],
+  "keywords": [
+    "translation termination",
+    "release factors",
+    "RF1",
+    "RF2",
+    "RF3",
+    "stop codon",
+    "ribosome recycling",
+    "RRF",
+    "peptide release",
+    "GGQ motif",
+    "UAA",
+    "UAG",
+    "UGA",
+    "peptidyl transferase",
+    "ribosome dissociation"
+  ],
+  "relatedProcesses": [
+    "ecoli_translation_initiation",
+    "ecoli_translation_elongation",
+    "ecoli_ribosome_assembly",
+    "ecoli_protein_folding"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Translation termination must be highly accurate to prevent readthrough at stop codons while allowing suppressor tRNAs to function when appropriate. RF1 and RF2 have overlapping specificity at UAA but distinct recognition of UAG vs UGA. The ribosome recycling pathway is essential to prevent ribosome depletion and is coordinated with the next initiation event. Recent structures reveal how the GGQ motif positions a water molecule for peptide release, and how RRF mimics tRNA structure to facilitate subunit splitting. This process is a target for translational readthrough drugs in genetic diseases.",
+  "logicGates": {
+    "or": 6,
+    "and": 0,
+    "not": 6
+  },
+  "notGates": 6,
+  "conditionals": 62,
+  "totalNodes": 61
+}

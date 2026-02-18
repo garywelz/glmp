@@ -1,0 +1,61 @@
+{
+  "id": "yeast_ribosome_biogenesis",
+  "name": "Ribosome Biogenesis and rRNA Processing",
+  "organism": "S. cerevisiae",
+  "category": "Gene Expression",
+  "description": "Ribosome biogenesis in Saccharomyces cerevisiae is one of the most energy-intensive cellular processes, requiring coordinated transcription of rRNA by RNA Pol I and III, extensive rRNA processing and modification, assembly with ~80 ribosomal proteins, and maturation facilitated by over 200 assembly factors. Pre-ribosomal particles are assembled in the nucleolus and mature through nucleoplasmic and cytoplasmic steps to produce functional 40S and 60S subunits.",
+  "mermaid": "graph TD\n    A[Cell Growth Signal] --> B[Nutrient Availability]\n    C[TOR Pathway Active] --> D[Anabolic Metabolism]\n    \n    B --> E{AND: Nutrients +<br/>TOR Active?}\n    D --> E\n    \n    E -->|Yes| F[Activate Ribosome Biogenesis]\n    E -->|No| G[/Repress Ribosome Production/]\n    \n    F --> H[rDNA Transcription Activation]\n    H --> I[RNA Pol I on 35S rDNA]\n    I --> J[35S Pre-rRNA Synthesis]\n    \n    H --> K[RNA Pol III on 5S rDNA]\n    K --> L[5S rRNA Synthesis]\n    \n    J --> M[Primary 35S Transcript]\n    M --> N[Contains 18S, 5.8S, 25S rRNAs]\n    \n    N --> O{Processing Site<br/>Selection}\n    O --> P[A0 Cleavage]\n    P --> Q[A1 Cleavage]\n    Q --> R[A2 Cleavage]\n    \n    R --> S[20S Pre-rRNA to 40S]\n    R --> T[27S Pre-rRNA to 60S]\n    \n    S --> U[20S Export to Cytoplasm]\n    U --> V[Cytoplasmic Cleavage D]\n    V --> W[Mature 18S rRNA]\n    \n    T --> X{OR: 27SA2 Processing<br/>Pathway?}\n    X -->|Pathway 1| Y[27SA3 by RNase MRP]\n    X -->|Pathway 2| Z[27SB by Rat1]\n    \n    Y --> AA[27SB Formation]\n    Z --> AA\n    \n    AA --> AB[C2 Cleavage]\n    AB --> AC[25.5S + 7S Pre-rRNA]\n    AC --> AD[C1 Cleavage of 7S]\n    AD --> AE[Mature 5.8S rRNA]\n    AB --> AF[Mature 25S rRNA]\n    \n    L --> AG{AND: 5S rRNA +<br/>60S Assembly?}\n    AF --> AG\n    AE --> AG\n    \n    AG -->|Yes| AH[Complete 60S Subunit]\n    \n    W --> AI[Mature 40S Small Subunit]\n    AH --> AJ[Mature 60S Large Subunit]\n    \n    F --> AK[Ribosomal Protein Synthesis]\n    AK --> AL[~80 r-Proteins Transcribed]\n    AL --> AM[Cytoplasmic Translation]\n    AM --> AN[r-Protein Import to Nucleus]\n    \n    AN --> AO{OR: 40S or<br/>60S Protein?}\n    AO -->|Small Subunit| AP[40S r-Proteins]\n    AO -->|Large Subunit| AQ[60S r-Proteins]\n    \n    AP --> AR[Early 40S Assembly]\n    S --> AR\n    \n    AR --> AS{AND: All Small<br/>Subunit Components?}\n    AS -->|Yes| AT[Pre-40S Particle]\n    AS -->|No| AU[Wait for Components]\n    \n    AQ --> AV[Early 60S Assembly]\n    T --> AV\n    \n    AV --> AW{AND: All Large<br/>Subunit Components?}\n    AW -->|Yes| AX[Pre-60S Particle]\n    AW -->|No| AY[Wait for Components]\n    \n    AT --> AZ[Nuclear Export Rio2/Ltv1]\n    AZ --> BA[Cytoplasmic Maturation]\n    BA --> BB[Test Factors Removal]\n    BB --> BC[Dim1 Methylation]\n    BC --> AI\n    \n    AX --> BD[Nuclear Export Nmd3/Arx1]\n    BD --> BE[Cytoplasmic Maturation]\n    BE --> BF[Drg1 GTPase Activity]\n    BF --> BG[Nmd3 Release]\n    BG --> BH[Final Maturation Steps]\n    BH --> AJ\n    \n    J --> BI[snoRNA-Guided Modifications]\n    BI --> BJ{OR: Modification<br/>Type?}\n    BJ -->|Pseudouridylation| BK[Box H/ACA snoRNPs]\n    BJ -->|Methylation| BL[Box C/D snoRNPs]\n    \n    BK --> BM[Ψ at Specific Sites]\n    BL --> BN[2'-O-Methylation]\n    BM --> N\n    BN --> N\n    \n    F --> BO[Assembly Factor Recruitment]\n    BO --> BP[>200 Trans-Acting Factors]\n    BP --> BQ{Factor Function?}\n    BQ -->|Chaperone| BR[/Prevent Misfolding/]\n    BQ -->|Nuclease| BS[rRNA Processing]\n    BQ -->|RNA Helicase| BT(\\1)\n    BQ -->|Quality Control| BU(\\1)\n    \n    BR --> AR\n    BS --> R\n    BT --> AR\n    BU --> BV{Assembly<br/>Correct?}\n    \n    BV -->|Yes| AT\n    BV -->|No| BW[/Degrade Defective Particle/]\n    \n    F --> BX[Nucleolar Organization]\n    BX --> BY[rDNA in Nucleolus]\n    BY --> BZ[Transcription Factories]\n    BZ --> I\n    \n    C --> CA[Regulate by Signaling]\n    CA --> CB{TOR Signaling<br/>Status?}\n    CB -->|Active| F\n    CB -->|Inactive| CC[Autophagy of Ribosomes]\n    \n    G --> CD[Stress Response]\n    CD --> CE[Reduce rRNA Transcription]\n    CE --> CF(\\1)\n    \n    AI --> CG[Functional 40S Subunit]\n    AJ --> CH[Functional 60S Subunit]\n    \n    CG --> CI{AND: 40S + 60S<br/>+ mRNA?}\n    CH --> CI\n    \n    CI -->|Yes| CJ[Translation Initiation]\n    CJ --> CK[Protein Synthesis]\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style P fill:#51cf66,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#51cf66,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AH fill:#b197fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#ffd43b,color:#000\n    style AL fill:#ffd43b,color:#000\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#ffd43b,color:#000\n    style AP fill:#ffd43b,color:#000\n    style AQ fill:#ffd43b,color:#000\n    style AR fill:#51cf66,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#51cf66,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#ffd43b,color:#000\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#51cf66,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#74c0fc,color:#fff\n    style BH fill:#b197fc,color:#fff\n    style BI fill:#51cf66,color:#fff\n    style BK fill:#74c0fc,color:#fff\n    style BL fill:#74c0fc,color:#fff\n    style BM fill:#74c0fc,color:#fff\n    style BN fill:#74c0fc,color:#fff\n    style BO fill:#ffd43b,color:#000\n    style BP fill:#ffd43b,color:#000\n    style BR fill:#74c0fc,color:#fff\n    style BS fill:#51cf66,color:#fff\n    style BT fill:#74c0fc,color:#fff\n    style BU fill:#74c0fc,color:#fff\n    style BW fill:#74c0fc,color:#fff\n    style BX fill:#74c0fc,color:#fff\n    style BY fill:#74c0fc,color:#fff\n    style BZ fill:#ffd43b,color:#000\n    style CA fill:#ff6b6b,color:#fff\n    style CC fill:#74c0fc,color:#fff\n    style CD fill:#ff6b6b,color:#fff\n    style CE fill:#51cf66,color:#fff\n    style CF fill:#74c0fc,color:#fff\n    style CG fill:#74c0fc,color:#fff\n    style CH fill:#74c0fc,color:#fff\n    style CJ fill:#51cf66,color:#fff\n    style CK fill:#ffd43b,color:#000",
+  "complexity": {
+    "nodes": 86,
+    "logicGates": {
+      "orGates": 7,
+      "andGates": 6,
+      "total": 13
+    }
+  },
+  "citations": [
+    {
+      "title": "Ribosome synthesis in Saccharomyces cerevisiae",
+      "authors": "Woolford JL Jr, Baserga SJ",
+      "journal": "Genetics",
+      "year": 2013,
+      "pmid": "23633143",
+      "doi": "10.1534/genetics.113.153197"
+    }
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Environmental signals, nutrient availability, stress conditions"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Enzymes, receptor proteins, regulatory complexes"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Metabolic reactions, signal transduction, gene expression"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, signaling molecules, regulatory states"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Biomolecules, cellular responses, system behaviors"
+    }
+  },
+  "logicGates": {
+    "or": 7,
+    "and": 5,
+    "not": 3
+  },
+  "notGates": 3,
+  "conditionals": 88,
+  "totalNodes": 89
+}

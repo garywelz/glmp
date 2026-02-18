@@ -1,0 +1,127 @@
+{
+  "id": "ecoli_heavy_metal_resistance",
+  "name": "Heavy Metal Resistance (Copper and Zinc Homeostasis)",
+  "organism": "E. coli",
+  "category": "Stress Response",
+  "description": "E. coli maintains metal homeostasis through tightly regulated import, export, and sequestration systems. Copper homeostasis involves the CusSCFBA efflux system (regulated by CusRS two-component system) that exports excess Cu+ and Ag+, and the CopA P-type ATPase that pumps Cu+ into the periplasm. Zinc homeostasis is controlled by the ZnuABC high-affinity importer (regulated by Zur repressor under zinc limitation) and the ZntA P-type ATPase exporter (regulated by ZntR activator under zinc excess). Both systems involve metal-sensing transcriptional regulators with metal-binding sites that change DNA affinity upon metal coordination. This flowchart illustrates copper and zinc sensing, regulatory responses, and the transport systems that maintain non-toxic intracellular metal concentrations essential for metalloenzyme function while preventing toxicity.",
+  "scientificAccuracy": "This flowchart is based on extensive biochemical and genetic characterization of E. coli metal homeostasis systems. All transporters (CusSCFBA, CopA, ZnuABC, ZntA), regulators (CusRS, Zur, ZntR), and mechanisms have been validated through structural biology and functional studies. The model represents bacterial strategies for essential metal acquisition and toxic metal resistance.",
+  "complexity": {
+    "nodes": 74,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 8,
+      "andGates": 6,
+      "total": 14
+    }
+  },
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Triggers & Environmental Signals",
+      "description": "External signals, stress conditions, nutrient availability, cell states"
+    },
+    "amber": {
+      "hex": "#fab005",
+      "category": "Enzymes & Catalysts",
+      "description": "Protein enzymes, regulatory complexes, molecular machines"
+    },
+    "skyblue": {
+      "hex": "#74c0fc",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, signal transduction, molecular transformations"
+    },
+    "salmon": {
+      "hex": "#ffa07a",
+      "category": "Intermediates & Metabolites",
+      "description": "Chemical intermediates, signaling molecules, transient states"
+    },
+    "orange": {
+      "hex": "#ff8c1a",
+      "category": "OR Logic Gates",
+      "description": "Decision points with multiple alternative branches"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-signal integration requiring all conditions"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Gates & Repression",
+      "description": "Inhibition, blocking, inactivation, repression mechanisms"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Products & Outcomes",
+      "description": "Final products, cellular outcomes, system states"
+    }
+  },
+  "mermaid": "graph TD\n    Start([Metal Homeostasis]) --> A1{{{Which metal and condition?}}}\n    \n    A1 -->|Copper excess| A2[Copper resistance pathway]\n    A1 -->|Zinc excess| A3[Zinc export pathway]\n    A1 -->|Zinc limitation| A4[Zinc import pathway]\n    \n    A2 --> A5[Elevated Cu+ or Ag+ in periplasm]\n    A5 --> A6[CusS sensor kinase in inner membrane]\n    A6 --> A7[CusS has periplasmic sensor domain]\n    \n    A7 --> A8[Cu+ or Ag+ binds to CusS sensor]\n    A8 --> A9[CusS autophosphorylation activated]\n    A9 --> A10[His270 phosphorylated on CusS]\n    \n    A10 --> A11[Phosphotransfer to Asp578 CusS]\n    A11 --> A12[Phosphotransfer to CusR response regulator]\n    A12 --> A13[CusR~P activated]\n    \n    A13 --> A14[CusR~P binds cusCFBA promoter]\n    A14 --> A15[Transcription of cusCFBA operon]\n    \n    A15 --> A16[CusCFBA efflux system synthesized]\n    A16 --> A17[CusC outer membrane channel]\n    A17 --> A18[CusB periplasmic adaptor]\n    A18 --> A19[CusF periplasmic Cu+ chaperone]\n    A19 --> A20[CusA inner membrane RND transporter]\n    \n    A20 --> A21{{{CusCFBA complex assembly}}}\n    A21 -->|All components present| A22[Tripartite efflux complex forms]\n    A21 -->|Components missing| Wait1[Wait for synthesis]\n    Wait1 --> A21\n    \n    A22 --> A23[CusF binds Cu+ in periplasm]\n    A23 --> A24[CusF transfers Cu+ to CusB]\n    A24 --> A25[CusB transfers to CusA]\n    A25 --> A26[CusA pumps Cu+ through CusC to extracellular space]\n    A26 --> A27[Proton motive force drives efflux]\n    \n    A27 --> A28{Also CopA pathway}\n    A28 -->|Yes| A29[CopA P-type ATPase]\n    A29 --> A30[CopA pumps cytoplasmic Cu+ to periplasm]\n    A30 --> A31[ATP hydrolysis drives transport]\n    \n    A31 --> A32[Cu+ exported from cytoplasm]\n    A27 --> A32\n    \n    A32 --> A33{Copper levels reduced?}\n    A33 -->|Yes| A34[CusS no longer activated]\n    A33 -->|No - persistent| A35[Maintain efflux]\n    A34 --> A36[CusR dephosphorylated]\n    A36 --> A37[cusCFBA transcription decreases]\n    \n    A3 --> A40[Elevated Zn2+ in cytoplasm]\n    A40 --> A41[ZntR repressor protein present]\n    A41 --> A42[ZntR homodimer]\n    \n    A42 --> A43{Zinc binding to ZntR?}\n    A43 -->|Low Zn - apo-ZntR| A44[ZntR cannot bind DNA]\n    A43 -->|High Zn - Zn-ZntR| A45[Zn2+ binds to ZntR metal-binding site]\n    \n    A45 --> A46[Zn-ZntR conformational change]\n    A46 --> A47[Zn-ZntR binds zntA promoter]\n    A47 --> A48[Transcription of zntA activated]\n    \n    A48 --> A49[ZntA P-type ATPase synthesized]\n    A49 --> A50[ZntA inserts in inner membrane]\n    \n    A50 --> A51[ZntA binds cytoplasmic Zn2+]\n    A51 --> A52[ATP binds to ZntA]\n    A52 --> A53[ATP hydrolysis drives conformational change]\n    A53 --> A54[Zn2+ translocated across membrane to periplasm]\n    \n    A54 --> A55{Zinc levels reduced?}\n    A55 -->|Yes| A56[Zn2+ dissociates from ZntR]\n    A55 -->|No - persistent| A57[Maintain export]\n    A56 --> A58[\\Apo-ZntR inactive/]\n    A58 --> A59[zntA transcription decreases]\n    \n    A4 --> A60[Low Zn2+ in cytoplasm]\n    A60 --> A61[Zur repressor protein present]\n    A61 --> A62[Zur homodimer]\n    \n    A62 --> A63{Zinc binding to Zur?}\n    A63 -->|High Zn - Zn-Zur| A64[Zn2+ binds to Zur metal-binding sites]\n    A63 -->|Low Zn - apo-Zur| A65[No zinc bound to Zur]\n    \n    A64 --> A66[Zn-Zur binds znuABC promoter]\n    A66 --> A67[\\Transcription of znuABC blocked/]\n    A67 --> A68[Low ZnuABC expression]\n    \n    A65 --> A69[Apo-Zur cannot bind DNA]\n    A69 --> A70[\\Transcription of znuABC operon derepressed/]\n    \n    A70 --> A71[ZnuABC transporter synthesized]\n    A71 --> A72[ZnuA periplasmic Zn2+ binding protein]\n    A72 --> A73[ZnuB membrane permease]\n    A73 --> A74[ZnuC cytoplasmic ATPase]\n    \n    A74 --> A75{{{ZnuABC complex formation}}}\n    A75 -->|All components| A76[ABC transporter complex assembled]\n    A75 -->|Incomplete| Wait2[Wait for synthesis]\n    Wait2 --> A75\n    \n    A76 --> A77[ZnuA binds Zn2+ in periplasm high affinity]\n    A77 --> A78[ZnuA delivers Zn2+ to ZnuB]\n    A78 --> A79[ZnuC hydrolyzes ATP]\n    A79 --> A80[Zn2+ transported into cytoplasm]\n    \n    A80 --> A81{Zinc sufficient?}\n    A81 -->|Yes - enough Zn| A82[Zn2+ binds to Zur]\n    A81 -->|No - still limiting| A83[Maintain import]\n    A82 --> A64\n    \n    A32 --> A84[Copper homeostasis restored]\n    A59 --> A85[Zinc homeostasis restored]\n    A80 --> A86[Zinc acquisition for metalloenzymes]\n    \n    A84 --> End1([Metal resistance - survival])\n    A85 --> End2([Metal homeostasis maintained])\n    A86 --> End3([Zinc-dependent enzymes functional])\n    \n    A37 --> End2\n    A68 --> End3\n    A35 --> A87[Chronic copper stress]\n    A57 --> A88[Chronic zinc excess]\n    A83 --> A89[Chronic zinc limitation]\n    \n    A87 --> A90[Continued efflux or cell death]\n    A88 --> A90\n    A89 --> A91[Impaired metalloenzyme function]\n    A91 --> A92[Growth defect]\n    \n    style Start fill:#000000\n    style A1 fill:#ff8c1a\n    style A2 fill:#74c0fc\n    style A3 fill:#74c0fc\n    style A4 fill:#74c0fc\n    style A5 fill:#ff6b6b\n    style A6 fill:#ffd43b\n    style A7 fill:#74c0fc\n    style A8 fill:#51cf66\n    style A9 fill:#51cf66\n    style A10 fill:#51cf66\n    style A11 fill:#51cf66\n    style A12 fill:#51cf66\n    style A13 fill:#ffd43b\n    style A14 fill:#51cf66\n    style A15 fill:#51cf66\n    style A16 fill:#ffd43b\n    style A17 fill:#ffd43b\n    style A18 fill:#ffd43b\n    style A19 fill:#ffd43b\n    style A20 fill:#ffd43b\n    style A21 fill:#7950f2\n    style A22 fill:#74c0fc\n    style A23 fill:#51cf66\n    style A24 fill:#51cf66\n    style A25 fill:#51cf66\n    style A26 fill:#51cf66\n    style A27 fill:#51cf66\n    style A28 fill:#ff8c1a\n    style A29 fill:#ffd43b\n    style A30 fill:#51cf66\n    style A31 fill:#51cf66\n    style A32 fill:#000000\n    style A33 fill:#ff8c1a\n    style A34 fill:#74c0fc\n    style A35 fill:#74c0fc\n    style A36 fill:#51cf66\n    style A37 fill:#51cf66\n    style A40 fill:#ff6b6b\n    style A41 fill:#ffd43b\n    style A42 fill:#ffd43b\n    style A43 fill:#ff8c1a\n    style A44 fill:#74c0fc\n    style A45 fill:#51cf66\n    style A46 fill:#74c0fc\n    style A47 fill:#51cf66\n    style A48 fill:#51cf66\n    style A49 fill:#ffd43b\n    style A50 fill:#51cf66\n    style A51 fill:#51cf66\n    style A52 fill:#51cf66\n    style A53 fill:#51cf66\n    style A54 fill:#51cf66\n    style A55 fill:#ff8c1a\n    style A56 fill:#51cf66\n    style A57 fill:#74c0fc\n    style A58 fill:#74c0fc\n    style A59 fill:#51cf66\n    style A60 fill:#ff6b6b\n    style A61 fill:#ffd43b\n    style A62 fill:#ffd43b\n    style A63 fill:#ff8c1a\n    style A64 fill:#51cf66\n    style A65 fill:#74c0fc\n    style A66 fill:#51cf66\n    style A67 fill:#51cf66\n    style A68 fill:#74c0fc\n    style A69 fill:#74c0fc\n    style A70 fill:#51cf66\n    style A71 fill:#ffd43b\n    style A72 fill:#ffd43b\n    style A73 fill:#ffd43b\n    style A74 fill:#ffd43b\n    style A75 fill:#7950f2\n    style A76 fill:#74c0fc\n    style A77 fill:#51cf66\n    style A78 fill:#51cf66\n    style A79 fill:#51cf66\n    style A80 fill:#51cf66\n    style A81 fill:#ff8c1a\n    style A82 fill:#51cf66\n    style A83 fill:#74c0fc\n    style A84 fill:#000000\n    style A85 fill:#000000\n    style A86 fill:#000000\n    style A87 fill:#74c0fc\n    style A88 fill:#74c0fc\n    style A89 fill:#74c0fc\n    style A90 fill:#74c0fc\n    style A91 fill:#74c0fc\n    style A92 fill:#000000\n    style End1 fill:#000000\n    style End2 fill:#000000\n    style End3 fill:#000000\n    style Wait1 fill:#74c0fc\n    style Wait2 fill:#74c0fc\n    style A58 fill:#e74c3c,color:#fff\n    style A67 fill:#e74c3c,color:#fff\n    style A70 fill:#e74c3c,color:#fff\n    style A1 fill:#7950f2,color:#fff\n    style A2 fill:#ffa07a,color:#000\n    style A3 fill:#74c0fc,color:#fff\n    style A4 fill:#74c0fc,color:#fff\n    style A5 fill:#ffa07a,color:#000\n    style A6 fill:#fab005,color:#000\n    style A7 fill:#ffa07a,color:#000\n    style A8 fill:#ffa07a,color:#000\n    style A9 fill:#74c0fc,color:#fff\n    style A10 fill:#ffa07a,color:#000\n    style A11 fill:#ffa07a,color:#000\n    style A12 fill:#000000,color:#fff\n    style A13 fill:#ffa07a,color:#000\n    style A14 fill:#ffa07a,color:#000\n    style A15 fill:#74c0fc,color:#fff\n    style A16 fill:#ffa07a,color:#000\n    style A17 fill:#ffa07a,color:#000\n    style A18 fill:#ffa07a,color:#000\n    style A19 fill:#ffa07a,color:#000\n    style A20 fill:#74c0fc,color:#fff\n    style A21 fill:#7950f2,color:#fff\n    style A22 fill:#ffa07a,color:#000\n    style A23 fill:#ffa07a,color:#000\n    style A24 fill:#ffa07a,color:#000\n    style A25 fill:#ffa07a,color:#000\n    style A26 fill:#000000,color:#fff\n    style A27 fill:#ffa07a,color:#000\n    style A28 fill:#ff8c1a,color:#fff\n    style A29 fill:#fab005,color:#000\n    style A30 fill:#ffa07a,color:#000\n    style A31 fill:#74c0fc,color:#fff\n    style A32 fill:#74c0fc,color:#fff\n    style A33 fill:#ff8c1a,color:#fff\n    style A34 fill:#ffa07a,color:#000\n    style A35 fill:#ffa07a,color:#000\n    style A36 fill:#ffa07a,color:#000\n    style A37 fill:#74c0fc,color:#fff\n    style A40 fill:#ffa07a,color:#000\n    style A41 fill:#51cf66,color:#fff\n    style A42 fill:#ffa07a,color:#000\n    style A43 fill:#ff8c1a,color:#fff\n    style A44 fill:#ffa07a,color:#000\n    style A45 fill:#74c0fc,color:#fff\n    style A46 fill:#ffa07a,color:#000\n    style A47 fill:#ffa07a,color:#000\n    style A48 fill:#74c0fc,color:#fff\n    style A49 fill:#fab005,color:#000\n    style A50 fill:#ffa07a,color:#000\n    style A51 fill:#ffa07a,color:#000\n    style A52 fill:#ffa07a,color:#000\n    style A53 fill:#74c0fc,color:#fff\n    style A54 fill:#ffa07a,color:#000\n    style A55 fill:#ff8c1a,color:#fff\n    style A56 fill:#ffa07a,color:#000\n    style A57 fill:#74c0fc,color:#fff\n    style A59 fill:#74c0fc,color:#fff\n    style A60 fill:#ffa07a,color:#000\n    style A61 fill:#51cf66,color:#fff\n    style A62 fill:#ffa07a,color:#000\n    style A63 fill:#ff8c1a,color:#fff\n    style A64 fill:#74c0fc,color:#fff\n    style A65 fill:#ffa07a,color:#000\n    style A66 fill:#ffa07a,color:#000\n    style A68 fill:#ffa07a,color:#000\n    style A69 fill:#ffa07a,color:#000\n    style A71 fill:#74c0fc,color:#fff\n    style A72 fill:#fab005,color:#000\n    style A73 fill:#ffa07a,color:#000\n    style A74 fill:#fab005,color:#000\n    style A75 fill:#7950f2,color:#fff\n    style A76 fill:#74c0fc,color:#fff\n    style A77 fill:#ffa07a,color:#000\n    style A78 fill:#ffa07a,color:#000\n    style A79 fill:#ffa07a,color:#000\n    style A80 fill:#74c0fc,color:#fff\n    style A81 fill:#ff8c1a,color:#fff\n    style A82 fill:#ffa07a,color:#000\n    style A83 fill:#74c0fc,color:#fff\n    style A84 fill:#000000,color:#fff\n    style A85 fill:#000000,color:#fff\n    style A86 fill:#fab005,color:#000\n    style A87 fill:#51cf66,color:#fff\n    style A88 fill:#ffa07a,color:#000\n    style A89 fill:#51cf66,color:#fff\n    style A90 fill:#000000,color:#fff\n    style A91 fill:#fab005,color:#000\n    style A92 fill:#000000,color:#fff",
+  "sources": [
+    {
+      "title": "The CusABC efflux system removes toxic ions via a methionine shuttle",
+      "authors": "Franke S, Grass G, Rensing C, Nies DH",
+      "journal": "EMBO J",
+      "year": 2003,
+      "pmid": "12682013",
+      "doi": "10.1093/emboj/cdg239",
+      "relevance": "Characterization of Cus copper/silver efflux system"
+    },
+    {
+      "title": "ZntR-mediated transcriptional induction of zntA upon zinc excess in Escherichia coli",
+      "authors": "Brocklehurst KR, Hobman JL, Lawley B, Blank L, Marshall SJ, Brown NL, Morby AP",
+      "journal": "Mol Microbiol",
+      "year": 1999,
+      "pmid": "10383764",
+      "doi": "10.1046/j.1365-2958.1999.01459.x",
+      "relevance": "Mechanism of ZntR activation by zinc"
+    },
+    {
+      "title": "The Escherichia coli Zur regulates ZnuABC zinc import",
+      "authors": "Patzer SI, Hantke K",
+      "journal": "J Bacteriol",
+      "year": 1998,
+      "pmid": "9422595",
+      "doi": "10.1128/jb.180.3.680-689.1998",
+      "relevance": "Discovery and characterization of Zur-mediated zinc homeostasis"
+    },
+    {
+      "title": "CopA: An Escherichia coli Cu(I)-translocating P-type ATPase",
+      "authors": "Rensing C, Fan B, Sharma R, Mitra B, Rosen BP",
+      "journal": "Proc Natl Acad Sci USA",
+      "year": 2000,
+      "pmid": "10716729",
+      "doi": "10.1073/pnas.97.2.652",
+      "relevance": "Characterization of CopA copper export ATPase"
+    }
+  ],
+  "keywords": [
+    "heavy metal resistance",
+    "copper homeostasis",
+    "zinc homeostasis",
+    "CusSCFBA",
+    "CopA",
+    "ZnuABC",
+    "ZntA",
+    "Zur",
+    "ZntR",
+    "metal sensing",
+    "P-type ATPase",
+    "RND efflux",
+    "ABC transporter",
+    "two-component system"
+  ],
+  "relatedProcesses": [
+    "ecoli_iron_homeostasis",
+    "ecoli_oxidative_stress_response",
+    "ecoli_envelope_stress_response",
+    "ecoli_two_component_signaling"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "Metal homeostasis illustrates the dual challenge bacteria face: acquiring essential metals (Zn for metalloenzymes) while preventing toxicity from excess. The reciprocal regulation of ZnuABC (import, repressed by Zur when Zn high) and ZntA (export, activated by ZntR when Zn high) creates homeostasis. Copper is particularly toxic due to Fenton chemistry generating ROS. The Cus system is notable for handling both Cu+ and Ag+. These systems are important for pathogen survival in hosts (metal withholding by immune system) and for bioremediation applications. The metal-sensing mechanisms (conformational changes upon metal binding) are paradigms for allosteric regulation."
+}

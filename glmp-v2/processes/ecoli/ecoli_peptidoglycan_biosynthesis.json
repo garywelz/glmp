@@ -1,0 +1,68 @@
+{
+  "id": "ecoli_peptidoglycan_biosynthesis",
+  "name": "Peptidoglycan Biosynthesis and Cell Wall Assembly",
+  "organism": "E. coli",
+  "category": "Cell Wall Biogenesis",
+  "description": "Peptidoglycan biosynthesis in Escherichia coli is the essential process of bacterial cell wall synthesis, involving cytoplasmic synthesis of UDP-NAM-pentapeptide precursors, membrane-localized lipid II assembly, and periplasmic transglycosylation and transpeptidation by penicillin-binding proteins (PBPs). This pathway is the primary target of β-lactam antibiotics and is essential for cell shape determination, osmotic protection, and cell division.",
+  "mermaid": "graph TD\n    A[Cell Growth] --> B[Need for Cell Wall]\n    C[Cell Division Initiated] --> D[Septum Formation Signal]\n    \n    B --> E{OR: Growth or<br/>Division?}\n    D --> E\n    \n    E -->|Lateral Growth| F[Activate PG Synthesis]\n    E -->|Septal Growth| G[Activate Septal PG]\n    \n    F --> H[Cytoplasmic Precursor Synthesis]\n    H --> I[UDP-GlcNAc from Glucose]\n    I --> J[\"MurA: UDP-GlcNAc + PEP\"]\n    J --> K[UDP-GlcNAc-enolpyruvate]\n    K --> L[MurB Reduction]\n    L --> M(\\1)\n    \n    M --> N[\"MurC: Add L-Alanine\"]\n    N --> O[UDP-MurNAc-L-Ala]\n    O --> P[\"MurD: Add D-Glutamate\"]\n    P --> Q[UDP-MurNAc-L-Ala-D-Glu]\n    \n    Q --> R[\"MurE: Add meso-DAP\"]\n    R --> S[UDP-MurNAc-tripeptide]\n    S --> T[\"MurF: Add D-Ala-D-Ala\"]\n    T --> U[UDP-MurNAc-pentapeptide]\n    \n    U --> V[Cytoplasmic Precursor Complete]\n    V --> W[\"MraY: Transfer to Undecaprenyl-P\"]\n    W --> X[Lipid I at Membrane]\n    \n    X --> Y[\"MurG: Add GlcNAc\"]\n    Y --> Z[Lipid II Formation]\n    Z --> AA[GlcNAc-MurNAc-pentapeptide]\n    \n    AA --> AB{AND: Lipid II +<br/>Flippase?}\n    Z --> AC[FtsW/RodA Flippase]\n    AC --> AB\n    \n    AB -->|Yes| AD[Lipid II Translocation]\n    AD --> AE[Periplasmic Face of Membrane]\n    \n    AE --> AF{OR: Lateral or<br/>Septal?}\n    AF -->|Lateral| AG[RodA-PBP2 Complex]\n    AF -->|Septal| AH[FtsW-PBP3/FtsI Complex]\n    \n    AG --> AI[Lateral Wall Synthesis]\n    AH --> AJ[Septal Wall Synthesis]\n    \n    AI --> AK[Transglycosylase Activity]\n    AJ --> AK\n    \n    AK --> AL[PBP1a/PBP1b Bifunctional]\n    AL --> AM[Glycan Chain Polymerization]\n    AM --> AN[β-1,4 Glycosidic Bonds]\n    AN --> AO[Extend Glycan Strand]\n    \n    AO --> AP{AND: Glycan Extended +<br/>Adjacent Strands?}\n    AP -->|Yes| AQ[Transpeptidase Activity]\n    \n    AQ --> AR[PBP2 or PBP3 Transpeptidase]\n    AR --> AS[Cross-Link Formation]\n    AS --> AT[D-Ala at Position 4]\n    AT --> AU[meso-DAP at Position 3]\n    AU --> AV[Peptide Bond 4→3]\n    AV --> AW[Release Terminal D-Ala]\n    \n    AW --> AX[Cross-Linked Peptidoglycan]\n    AX --> AY[3D Mesh Network]\n    AY --> AZ[Cell Wall Strength]\n    \n    AZ --> BA[Osmotic Protection]\n    BA --> BB[Cell Shape Maintenance]\n    \n    F --> BC[MreB Cytoskeleton]\n    BC --> BD[Direct Lateral PG Synthesis]\n    BD --> BE[/Rod Shape Determination/]\n    \n    G --> BF[FtsZ Ring Formation]\n    BF --> BG[Z-Ring at Midcell]\n    BG --> BH[Recruit Division Machinery]\n    BH --> BI[FtsQLB Complex]\n    BI --> AH\n    \n    AS --> BJ{β-Lactam<br/>Antibiotic Present?}\n    BJ -->|Yes| BK[/PBP Inhibition/]\n    BK --> BL[/Block Transpeptidation/]\n    BL --> BM[Weakened Cell Wall]\n    BM --> BN[Cell Lysis]\n    \n    BJ -->|No| AW\n    \n    AX --> BO[Cell Wall Recycling]\n    BO --> BP[Lytic Transglycosylases]\n    BP --> BQ[Cleave Glycan Strands]\n    BQ --> BR[Anhydro-MurNAc Products]\n    BR --> BS[Import to Cytoplasm]\n    BS --> BT[AmpG Permease]\n    BT --> BU[Recycle NAM-peptides]\n    BU --> V\n    \n    BB --> BV{Cell<br/>Elongated?}\n    BV -->|Yes| BW[Proceed to Division]\n    BV -->|No| F\n    \n    BW --> BX[Septal PG Synthesis]\n    BX --> AJ\n    AJ --> BY[Septum Closure]\n    BY --> BZ[Two Daughter Cells]\n    \n    AX --> CA[Quality Control]\n    CA --> CB{Proper<br/>Cross-Linking?}\n    CB -->|Yes| AZ\n    CB -->|No| CC[Activate Autolysins]\n    CC --> CD[/Localized PG Degradation/]\n    CD --> CE[Remodel Cell Wall]\n    CE --> F\n    \n    M --> CF{OR: Alternative<br/>Substrate?}\n    CF -->|Minor| CG[Lipid II Variants]\n    CF -->|Major| N\n    \n    AS --> CH[Different PBP Specificity]\n    CH --> CI{PBP Type?}\n    CI -->|High MW| AR\n    CI -->|Low MW| CJ[PBP4/5/6 Carboxypeptidase]\n    CJ --> CK[Trim Pentapeptide to Tetrapeptide]\n    CK --> CL[Regulate Cross-Linking Degree]\n    \n    AY --> CM[~30% Cross-Linked in E. coli]\n    CM --> CN[Balance Rigidity and Flexibility]\n    \n    BZ --> CO[Cell Separation]\n    CO --> CP[Two Independent Cells]\n    CP --> CQ[Return to Growth]\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#b197fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#b197fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#b197fc,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#b197fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#51cf66,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#b197fc,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BK fill:#74c0fc,color:#fff\n    style BL fill:#74c0fc,color:#fff\n    style BM fill:#b197fc,color:#fff\n    style BN fill:#b197fc,color:#fff\n    style BO fill:#b197fc,color:#fff\n    style BP fill:#74c0fc,color:#fff\n    style BQ fill:#74c0fc,color:#fff\n    style BR fill:#b197fc,color:#fff\n    style BS fill:#51cf66,color:#fff\n    style BT fill:#74c0fc,color:#fff\n    style BU fill:#74c0fc,color:#fff\n    style BW fill:#74c0fc,color:#fff\n    style BX fill:#51cf66,color:#fff\n    style BY fill:#74c0fc,color:#fff\n    style BZ fill:#b197fc,color:#fff\n    style CA fill:#74c0fc,color:#fff\n    style CC fill:#74c0fc,color:#fff\n    style CD fill:#74c0fc,color:#fff\n    style CE fill:#b197fc,color:#fff\n    style CG fill:#74c0fc,color:#fff\n    style CH fill:#74c0fc,color:#fff\n    style CJ fill:#74c0fc,color:#fff\n    style CK fill:#74c0fc,color:#fff\n    style CL fill:#74c0fc,color:#fff\n    style CM fill:#74c0fc,color:#fff\n    style CN fill:#74c0fc,color:#fff\n    style CO fill:#b197fc,color:#fff\n    style CP fill:#b197fc,color:#fff\n    style CQ fill:#b197fc,color:#fff",
+  "complexity": {
+    "nodes": 92,
+    "logicGates": {
+      "orGates": 8,
+      "andGates": 2,
+      "total": 10
+    }
+  },
+  "citations": [
+    {
+      "title": "Bacterial cell wall synthesis: new insights from localization studies",
+      "authors": "Typas A, Banzhaf M, Gross CA, Vollmer W",
+      "journal": "Nature Reviews Microbiology",
+      "year": 2011,
+      "pmid": "22196251",
+      "doi": "10.1038/nrmicro2677"
+    },
+    {
+      "title": "Architecture of peptidoglycan: an artist's view",
+      "authors": "Vollmer W, Blanot D, de Pedro MA",
+      "journal": "FEMS Microbiology Reviews",
+      "year": 2008,
+      "pmid": "18266856"
+    }
+  ],
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Environmental signals, nutrient availability, stress conditions"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Enzymes, receptor proteins, regulatory complexes"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Metabolic reactions, signal transduction, gene expression"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, signaling molecules, regulatory states"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Biomolecules, cellular responses, system behaviors"
+    }
+  },
+  "logicGates": {
+    "or": 7,
+    "and": 2,
+    "not": 4
+  },
+  "notGates": 4,
+  "conditionals": 95,
+  "totalNodes": 95
+}

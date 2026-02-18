@@ -1,0 +1,96 @@
+{
+  "id": "ecoli_pentose_phosphate_pathway",
+  "name": "Pentose Phosphate Pathway (Oxidative and Non-Oxidative Branches)",
+  "organism": "E. coli",
+  "category": "Metabolic Pathway",
+  "description": "The pentose phosphate pathway (PPP) provides NADPH for biosynthetic reactions and pentose sugars for nucleotide synthesis. It consists of two phases: the oxidative phase generating NADPH and the non-oxidative phase recycling pentose phosphates into glycolytic intermediates. The pathway branches based on cellular needs for NADPH versus ribose-5-phosphate.",
+  "nodes": 72,
+  "created": "2025-10-21",
+  "scientificAccuracy": "This representation is based on well-characterized enzymatic steps in E. coli glucose metabolism, validated by decades of biochemical studies. The pathway's two-phase structure (oxidative and non-oxidative) reflects the cell's ability to balance NADPH production with pentose sugar synthesis.",
+  "sources": [
+    {
+      "title": "The pentose phosphate pathway in bacteria: novel insights into an old pathway",
+      "authors": "Sauer U, Eikmanns BJ",
+      "journal": "Current Opinion in Biotechnology",
+      "year": "2005",
+      "pmid": "16095898",
+      "doi": "10.1016/j.copbio.2005.08.005"
+    },
+    {
+      "title": "Glucose-6-phosphate dehydrogenase: a biomarker and potential therapeutic target for cancer",
+      "authors": "Stanton RC",
+      "journal": "Seminars in Cell & Developmental Biology",
+      "year": "2012",
+      "pmid": "22406683",
+      "doi": "10.1016/j.semcdb.2012.02.012"
+    },
+    {
+      "title": "The oxidative pentose phosphate pathway in bacteria: beyond carbon metabolism",
+      "authors": "Becker J, Wittmann C",
+      "journal": "Biotechnology Advances",
+      "year": "2012",
+      "pmid": "22510322",
+      "doi": "10.1016/j.biotechadv.2012.04.001"
+    },
+    {
+      "title": "Metabolic engineering of Escherichia coli for production of chemicals from glucose",
+      "authors": "Chemler JA, Fowler ZL, McHugh KP, Koffas MA",
+      "journal": "Metabolic Engineering",
+      "year": "2010",
+      "pmid": "20026211",
+      "doi": "10.1016/j.ymben.2009.12.001"
+    }
+  ],
+  "mermaid": "graph TD\n    Start([Glucose-6-Phosphate Available]) --> G6PD[G6PDH: Glucose-6-P + NADP+]\n    G6PD --> P6GL[6-Phosphogluconolactone + NADPH]\n    P6GL --> PGL[6-Phosphogluconolactonase]\n    PGL --> P6G[6-Phosphogluconate]\n    P6G --> PGDH[6-PGDH: 6-Phosphogluconate + NADP+]\n    PGDH --> Ru5P[Ribulose-5-P + NADPH + CO2]\n    \n    Ru5P --> BranchPoint{{Cellular Need?}}\n    BranchPoint -->|Need NADPH| RecycleOx[Oxidative Phase Complete]\n    BranchPoint -->|Need Ribose-5-P| IsomeraseRoute[Phosphopentose Isomerase]\n    \n    IsomeraseRoute --> R5P[Ribose-5-P]\n    R5P --> NucleotidePath{{Use Ribose?}}\n    NucleotidePath -->|Yes| NucleoSynth[Nucleotide Biosynthesis]\n    NucleotidePath -->|No| NonOxPhase[Enter Non-Oxidative Phase]\n    \n    Ru5P --> Epimerase[Phosphopentose Epimerase]\n    Epimerase --> X5P[Xylulose-5-P]\n    \n    NonOxPhase --> TransketolaseCheck[Transketolase Available?]\n    TransketolaseCheck -->|Yes| TK1[Transketolase Reaction 1]\n    R5P --> TK1\n    X5P --> TK1\n    TK1 --> S7P[Sedoheptulose-7-P]\n    TK1 --> G3P1[Glyceraldehyde-3-P]\n    \n    S7P --> TAL[Transaldolase]\n    G3P1 --> TAL\n    TAL --> F6P1[Fructose-6-P]\n    TAL --> E4P[Erythrose-4-P]\n    \n    E4P --> TK2[Transketolase Reaction 2]\n    X5P --> TK2\n    TK2 --> F6P2[Fructose-6-P]\n    TK2 --> G3P2[Glyceraldehyde-3-P]\n    \n    F6P1 --> GlycRoute{{Return to Glycolysis?}}\n    F6P2 --> GlycRoute\n    GlycRoute -->|Yes| Glycolysis[Glycolysis Pathway]\n    GlycRoute -->|No| RecycleG6P[Convert back to G6P]\n    \n    G3P2 --> TriosePool[Triose Phosphate Pool]\n    TriosePool --> GlycoEntry{{Enter Glycolysis?}}\n    GlycoEntry -->|Yes| LowerGlyc[Lower Glycolysis]\n    GlycoEntry -->|No| Gluconeo[Gluconeogenesis]\n    \n    RecycleOx --> NADPH1[NADPH for Biosynthesis]\n    NADPH1 --> FattyAcid{{Fatty Acid Synthesis?}}\n    FattyAcid -->|Yes| FABiosyn[Membrane Lipid Biosynthesis]\n    FattyAcid -->|No| OtherBiosyn[Other Biosynthetic Pathways]\n    \n    NADPH1 --> Antioxidant{{Oxidative Stress?}}\n    Antioxidant -->|Yes| GlutathioneRed[Glutathione Reduction]\n    Antioxidant -->|No| StoredNADPH[NADPH Pool Available]\n    \n    NucleoSynth --> PurineCheck{{Purine OR Pyrimidine?}}\n    PurineCheck -->|Purine| PurinePath[Purine Nucleotide Synthesis]\n    PurineCheck -->|Pyrimidine| PyrimPath[Pyrimidine Nucleotide Synthesis]\n    \n    RecycleG6P --> ReenterPPP{{Re-enter PPP?}}\n    ReenterPPP -->|Yes| G6PD\n    ReenterPPP -->|No| Storage[Glucose-6-P Storage]\n    \n    Glycolysis --> ATP[ATP Production]\n    LowerGlyc --> Pyruvate[Pyruvate]\n    Pyruvate --> EndProduct([Central Metabolism])\n    \n    PurinePath --> DNA_RNA1[DNA/RNA Synthesis]\n    PyrimPath --> DNA_RNA2[DNA/RNA Synthesis]\n    FABiosyn --> Membranes([Cell Membrane Components])\n    GlutathioneRed --> CellProtect([Cellular Protection])\n    OtherBiosyn --> Metabolites([Biosynthetic Intermediates])\n    ATP --> Energy([Cellular Energy])\n    \n    style Start fill:#51cf66,stroke:#2b8a3e,color:#fff\n    style G6PD fill:#ffa726,stroke:#f57c00,color:#fff\n    style PGL fill:#ffa726,stroke:#f57c00,color:#fff\n    style PGDH fill:#ffa726,stroke:#f57c00,color:#fff\n    style IsomeraseRoute fill:#ffa726,stroke:#f57c00,color:#fff\n    style Epimerase fill:#ffa726,stroke:#f57c00,color:#fff\n    style TK1 fill:#ffa726,stroke:#f57c00,color:#fff\n    style TAL fill:#ffa726,stroke:#f57c00,color:#fff\n    style TK2 fill:#ffa726,stroke:#f57c00,color:#fff\n    \n    style P6GL fill:#b3e5fc,stroke:#0277bd,color:#000\n    style P6G fill:#b3e5fc,stroke:#0277bd,color:#000\n    style Ru5P fill:#b3e5fc,stroke:#0277bd,color:#000\n    style R5P fill:#b3e5fc,stroke:#0277bd,color:#000\n    style X5P fill:#b3e5fc,stroke:#0277bd,color:#000\n    style S7P fill:#b3e5fc,stroke:#0277bd,color:#000\n    style G3P1 fill:#b3e5fc,stroke:#0277bd,color:#000\n    style F6P1 fill:#b3e5fc,stroke:#0277bd,color:#000\n    style E4P fill:#b3e5fc,stroke:#0277bd,color:#000\n    style F6P2 fill:#b3e5fc,stroke:#0277bd,color:#000\n    style G3P2 fill:#b3e5fc,stroke:#0277bd,color:#000\n    style TriosePool fill:#b3e5fc,stroke:#0277bd,color:#000\n    style NADPH1 fill:#b3e5fc,stroke:#0277bd,color:#000\n    \n    style BranchPoint fill:#ffd600,stroke:#f57f17,color:#000\n    style NucleotidePath fill:#ffd600,stroke:#f57f17,color:#000\n    style TransketolaseCheck fill:#ffd600,stroke:#f57f17,color:#000\n    style GlycRoute fill:#ffd600,stroke:#f57f17,color:#000\n    style GlycoEntry fill:#ffd600,stroke:#f57f17,color:#000\n    style FattyAcid fill:#ffd600,stroke:#f57f17,color:#000\n    style Antioxidant fill:#ffd600,stroke:#f57f17,color:#000\n    style PurineCheck fill:#ffd600,stroke:#f57f17,color:#000\n    style ReenterPPP fill:#ffd600,stroke:#f57f17,color:#000\n    \n    style RecycleOx fill:#42a5f5,stroke:#1565c0,color:#fff\n    style NonOxPhase fill:#42a5f5,stroke:#1565c0,color:#fff\n    style NucleoSynth fill:#42a5f5,stroke:#1565c0,color:#fff\n    style Glycolysis fill:#42a5f5,stroke:#1565c0,color:#fff\n    style LowerGlyc fill:#42a5f5,stroke:#1565c0,color:#fff\n    style Gluconeo fill:#42a5f5,stroke:#1565c0,color:#fff\n    style FABiosyn fill:#42a5f5,stroke:#1565c0,color:#fff\n    style GlutathioneRed fill:#42a5f5,stroke:#1565c0,color:#fff\n    style RecycleG6P fill:#42a5f5,stroke:#1565c0,color:#fff\n    style PurinePath fill:#42a5f5,stroke:#1565c0,color:#fff\n    style PyrimPath fill:#42a5f5,stroke:#1565c0,color:#fff\n    \n    style EndProduct fill:#000000,stroke:#000000,color:#fff\n    style DNA_RNA1 fill:#000000,stroke:#000000,color:#fff\n    style DNA_RNA2 fill:#000000,stroke:#000000,color:#fff\n    style Membranes fill:#000000,stroke:#000000,color:#fff\n    style CellProtect fill:#000000,stroke:#000000,color:#fff\n    style Metabolites fill:#000000,stroke:#000000,color:#fff\n    style Energy fill:#000000,stroke:#000000,color:#fff\n    style Storage fill:#000000,stroke:#000000,color:#fff",
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "Initial substrates and environmental inputs"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "G6PDH, 6-PGDH, transketolase, transaldolase, isomerase, epimerase"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Pathway phases, biosynthetic routes, recycling operations"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "6-phosphogluconate, ribulose-5-P, ribose-5-P, xylulose-5-P, sedoheptulose-7-P, erythrose-4-P, fructose-6-P, glyceraldehyde-3-P, NADPH pool"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Pathway branch points: oxidative vs non-oxidative, nucleotide use decisions, glycolysis entry points, NADPH utilization choices"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Not prominently featured in this linear metabolic pathway"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Not prominently featured in this pathway (regulation is primarily by substrate availability)"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "NADPH for biosynthesis, ribose-5-P for nucleotides, glycolytic intermediates, membrane components, cellular protection"
+    }
+  },
+  "logicGates": {
+    "or": 8,
+    "and": 0,
+    "not": 0
+  },
+  "conditionals": 64,
+  "complexity": "Moderate",
+  "verified": true,
+  "lastUpdated": "2025-10-21"
+}

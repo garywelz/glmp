@@ -20,40 +20,30 @@
     "red": {
       "hex": "#ff6b6b",
       "category": "Triggers & Inputs",
-      "description": "Maltose/maltodextrin availability, glucose status"
+      "description": "Environmental signals, nutrient availability, stress conditions"
     },
     "yellow": {
       "hex": "#ffd43b",
       "category": "Structures & Objects",
-      "description": "MalT activator, MalK repressor, transport proteins, enzymes"
+      "description": "Enzymes, receptor proteins, regulatory complexes"
     },
     "green": {
       "hex": "#51cf66",
       "category": "Processing & Operations",
-      "description": "Transcription, transport, maltose metabolism"
+      "description": "Metabolic reactions, signal transduction, gene expression"
     },
     "blue": {
       "hex": "#74c0fc",
       "category": "Intermediates & States",
-      "description": "mRNA, maltotriose, metabolic intermediates"
-    },
-    "orange": {
-      "hex": "#ff9f43",
-      "category": "OR Logic Gates",
-      "description": "Maltose presence check, glucose status"
-    },
-    "lavender": {
-      "hex": "#b4b4dc",
-      "category": "AND Logic Gates",
-      "description": "Activation requires maltose AND CRP-cAMP AND MalK-ATP"
+      "description": "Metabolites, signaling molecules, regulatory states"
     },
     "violet": {
       "hex": "#b197fc",
       "category": "Products & Outputs",
-      "description": "Maltose utilization, coordinated operon expression"
+      "description": "Biomolecules, cellular responses, system behaviors"
     }
   },
-  "mermaid": "graph TD\n    %% Input Signals\n    A[Maltose in Medium] --> B[Maltose Transport]\n    C[Maltodextrins in Medium] --> D[Maltodextrin Transport]\n    E[Glucose Status] --> F[cAMP Synthesis]\n    \n    %% Transport\n    B --> G[LamB Porin]\n    D --> G\n    G --> H[Maltose/Maltodextrin Inside]\n    H --> I[Maltotriose Formation]\n    \n    %% Decision: Maltose Present?\n    I --> J{Maltose/Maltotriose<br/>Present?}\n    \n    %% No Maltose - Basal State\n    J -->|No| K[MalT Inactive]\n    K --> L[Low mal Gene Expression]\n    L --> M[Basal Transport Only]\n    M --> N[No Maltose Catabolism]\n    \n    %% Maltose Present - MalT Activation\n    J -->|Yes| O[Maltotriose Binds MalT]\n    O --> P[MalT Conformational Change]\n    P --> Q[MalT Active Form]\n    \n    %% Decision: Glucose Status\n    F --> R{High cAMP?}\n    \n    %% AND Gate 1: CRP-cAMP Requirement\n    Q --> ANDGATE1{MalT Active AND<br/>CRP-cAMP Present?}\n    R -->|Yes| S[CRP-cAMP Complex]\n    S --> ANDGATE1\n    \n    %% MalK Regulatory Signal\n    T[MalK ATPase] --> U[ATP Binding]\n    U --> V[MalK-ATP Complex]\n    V --> W[MalK Regulatory State]\n    \n    %% AND Gate 2: MalK Anti-activation\n    ANDGATE1 -->|Yes| ANDGATE2{MalT-CRP Active AND<br/>MalK-ATP Low?}\n    W --> X{High MalK-ATP?}\n    X -->|No| ANDGATE2\n    \n    %% Full Activation\n    ANDGATE2 -->|Yes| Y[MalT Binds Mal Boxes]\n    Y --> Z[Multiple Operon Activation]\n    \n    %% malEFG Operon\n    Z --> AA[malEFG Transcription]\n    AA --> AB[MalE Periplasmic Binding Protein]\n    AB --> AC[MalF Membrane Protein]\n    AC --> AD[MalG Membrane Protein]\n    \n    %% malK-lamB-malM Operon\n    Z --> AE[malK-lamB-malM Transcription]\n    AE --> T\n    AE --> AF[LamB Maltose Porin]\n    AF --> G\n    AE --> AG[MalM Maltose Regulation]\n    \n    %% malPQ Operon\n    Z --> AH[malPQ Transcription]\n    AH --> AI[MalP Phosphorylase]\n    AI --> AJ[MalQ Amylomaltase]\n    \n    %% Maltose Catabolism\n    H --> AK[Maltose Substrate]\n    AI --> AL[Maltodextrin to Maltose + Glucose-1-P]\n    AK --> AL\n    AL --> AM[Maltose Hydrolysis]\n    AJ --> AN[Maltose to Glucose]\n    AM --> AN\n    AN --> AO[Glucose Products]\n    AO --> AP[Glycolysis Entry]\n    AP --> AQ[Energy Production]\n    \n    %% AND Gate 3: malT Autoactivation\n    Y --> ANDGATE3{MalT Active AND<br/>malT Promoter?}\n    Q --> ANDGATE3\n    ANDGATE3 -->|Yes| AR[malT Gene Transcription]\n    AR --> AS[More MalT Protein]\n    AS --> K\n    \n    %% Catabolite Repression Path\n    R -->|No| AT[Low cAMP]\n    AT --> AU[CRP Inactive]\n    AU --> AV[Weak mal Expression]\n    AV --> AW[Glucose Preference]\n    \n    %% MalK Inhibition Path\n    X -->|Yes| AX[MalK-ATP Inhibits MalT]\n    AX --> AY[Reduced mal Expression]\n    AY --> AZ[Feedback Control]\n    \n    %% System Outputs\n    N --> BA[Maltose System Off]\n    AQ --> BB[Maltose Utilization]\n    AW --> BC[Glucose-Preferential Growth]\n    AZ --> BD[Regulated Mal Expression]\n    \n    %% Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#ffd43b,color:#000\n    style H fill:#74c0fc,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#ff9f43,color:#fff\n    style K fill:#ffd43b,color:#000\n    style L fill:#51cf66,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#b197fc,color:#fff\n    style O fill:#51cf66,color:#fff\n    style P fill:#51cf66,color:#fff\n    style Q fill:#ffd43b,color:#000\n    style R fill:#ff9f43,color:#fff\n    style S fill:#ffd43b,color:#000\n    style ANDGATE1 fill:#b4b4dc,color:#fff\n    style T fill:#ffd43b,color:#000\n    style U fill:#51cf66,color:#fff\n    style V fill:#ffd43b,color:#000\n    style W fill:#74c0fc,color:#fff\n    style ANDGATE2 fill:#b4b4dc,color:#fff\n    style X fill:#ff9f43,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AB fill:#ffd43b,color:#000\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#ffd43b,color:#000\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#ffd43b,color:#000\n    style AG fill:#ffd43b,color:#000\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#ffd43b,color:#000\n    style AJ fill:#ffd43b,color:#000\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#51cf66,color:#fff\n    style AQ fill:#b197fc,color:#fff\n    style ANDGATE3 fill:#b4b4dc,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#ffd43b,color:#000\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#ffd43b,color:#000\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#b197fc,color:#fff\n    style AX fill:#51cf66,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#b197fc,color:#fff\n    style BA fill:#b197fc,color:#fff\n    style BB fill:#b197fc,color:#fff\n    style BC fill:#b197fc,color:#fff\n    style BD fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    %% Input Signals\n    A[Maltose in Medium] --> B[Maltose Transport]\n    C[Maltodextrins in Medium] --> D[Maltodextrin Transport]\n    E[Glucose Status] --> F[cAMP Synthesis]\n    \n    %% Transport\n    B --> G[LamB Porin]\n    D --> G\n    G --> H[Maltose/Maltodextrin Inside]\n    H --> I[Maltotriose Formation]\n    \n    %% Decision: Maltose Present?\n    I --> J{Maltose/Maltotriose<br/>Present?}\n    \n    %% No Maltose - Basal State\n    J -->|No| K[MalT Inactive]\n    K --> L[Low mal Gene Expression]\n    L --> M[Basal Transport Only]\n    M --> N[No Maltose Catabolism]\n    \n    %% Maltose Present - MalT Activation\n    J -->|Yes| O[Maltotriose Binds MalT]\n    O --> P[MalT Conformational Change]\n    P --> Q[MalT Active Form]\n    \n    %% Decision: Glucose Status\n    F --> R{High cAMP?}\n    \n    %% AND Gate 1: CRP-cAMP Requirement\n    Q --> ANDGATE1{MalT Active AND<br/>CRP-cAMP Present?}\n    R -->|Yes| S[CRP-cAMP Complex]\n    S --> ANDGATE1\n    \n    %% MalK Regulatory Signal\n    T[MalK ATPase] --> U[ATP Binding]\n    U --> V[MalK-ATP Complex]\n    V --> W[MalK Regulatory State]\n    \n    %% AND Gate 2: MalK Anti-activation\n    ANDGATE1 -->|Yes| ANDGATE2{MalT-CRP Active AND<br/>MalK-ATP Low?}\n    W --> X{High MalK-ATP?}\n    X -->|No| ANDGATE2\n    \n    %% Full Activation\n    ANDGATE2 -->|Yes| Y[MalT Binds Mal Boxes]\n    Y --> Z[Multiple Operon Activation]\n    \n    %% malEFG Operon\n    Z --> AA[malEFG Transcription]\n    AA --> AB[MalE Periplasmic Binding Protein]\n    AB --> AC[MalF Membrane Protein]\n    AC --> AD[MalG Membrane Protein]\n    \n    %% malK-lamB-malM Operon\n    Z --> AE[malK-lamB-malM Transcription]\n    AE --> T\n    AE --> AF[LamB Maltose Porin]\n    AF --> G\n    AE --> AG[MalM Maltose Regulation]\n    \n    %% malPQ Operon\n    Z --> AH[malPQ Transcription]\n    AH --> AI[MalP Phosphorylase]\n    AI --> AJ[MalQ Amylomaltase]\n    \n    %% Maltose Catabolism\n    H --> AK[Maltose Substrate]\n    AI --> AL[Maltodextrin to Maltose + Glucose-1-P]\n    AK --> AL\n    AL --> AM[Maltose Hydrolysis]\n    AJ --> AN[Maltose to Glucose]\n    AM --> AN\n    AN --> AO[Glucose Products]\n    AO --> AP[Glycolysis Entry]\n    AP --> AQ[Energy Production]\n    \n    %% AND Gate 3: malT Autoactivation\n    Y --> ANDGATE3{MalT Active AND<br/>malT Promoter?}\n    Q --> ANDGATE3\n    ANDGATE3 -->|Yes| AR[malT Gene Transcription]\n    AR --> AS[More MalT Protein]\n    AS --> K\n    \n    %% Catabolite Repression Path\n    R -->|No| AT[Low cAMP]\n    AT --> AU[CRP Inactive]\n    AU --> AV[Weak mal Expression]\n    AV --> AW[Glucose Preference]\n    \n    %% MalK Inhibition Path\n    X -->|Yes| AX[/MalK-ATP Inhibits MalT/]\n    AX --> AY[Reduced mal Expression]\n    AY --> AZ[Feedback Control]\n    \n    %% System Outputs\n    N --> BA[Maltose System Off]\n    AQ --> BB[Maltose Utilization]\n    AW --> BC[Glucose-Preferential Growth]\n    AZ --> BD[Regulated Mal Expression]\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#51cf66,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#51cf66,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#51cf66,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AB fill:#ffd43b,color:#000\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#ffd43b,color:#000\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#b197fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#b197fc,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#ffd43b,color:#000\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#b197fc,color:#fff\n    style BD fill:#74c0fc,color:#fff",
   "sources": [
     {
       "title": "The maltose system",
@@ -72,7 +62,7 @@
       "volume": "48",
       "issue": "3",
       "pages": "273-286",
-      "pmid": 6387427",
+      "pmid": "6387427",
       "note": "Classic review of mal regulon organization"
     },
     {
@@ -83,7 +73,7 @@
       "volume": "5",
       "issue": "5",
       "pages": "1197-1202",
-      "pmid": 1956296",
+      "pmid": "1956296",
       "doi": "10.1111/j.1365-2958.1991.tb01893.x",
       "note": "Mechanism of MalT activation"
     },
@@ -95,7 +85,7 @@
       "volume": "57",
       "issue": "2",
       "pages": "444-455",
-      "pmid": 15978076",
+      "pmid": "15978076",
       "doi": "10.1111/j.1365-2958.2005.04703.x",
       "note": "MalK regulatory mechanism"
     }
@@ -121,5 +111,13 @@
   "lastUpdated": "2025-10-08",
   "verified": true,
   "verifiedBy": "Literature review of maltose regulon research",
-  "notes": "This flowchart represents the maltose regulon with 40 unique nodes (A-BD). Contains 2 OR logic gates (maltose presence, glucose status) and 3 AND gates (MalT activation requires maltose AND CRP-cAMP; full activation requires MalT-CRP AND low MalK-ATP; autoregulation requires MalT AND malT promoter). The system demonstrates multi-operon coordination, integration with catabolite repression, and ATP-dependent feedback control through MalK. Five operons are coordinately regulated by MalT binding to mal boxes. All mechanisms validated against genetic and biochemical studies."
+  "notes": "This flowchart represents the maltose regulon with 40 unique nodes (A-BD). Contains 2 OR logic gates (maltose presence, glucose status) and 3 AND gates (MalT activation requires maltose AND CRP-cAMP; full activation requires MalT-CRP AND low MalK-ATP; autoregulation requires MalT AND malT promoter). The system demonstrates multi-operon coordination, integration with catabolite repression, and ATP-dependent feedback control through MalK. Five operons are coordinately regulated by MalT binding to mal boxes. All mechanisms validated against genetic and biochemical studies.",
+  "logicGates": {
+    "or": 3,
+    "and": 3,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 37,
+  "totalNodes": 59
 }

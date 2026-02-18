@@ -8,31 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <h1>🧬 GLMP Viewer</h1>
-            <p class="tagline">Genome Logic Modeling Project - Interactive Biological Process Visualization</p>
-        </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container">
-            <button class="nav-btn" onclick="showHome()">🏠 Home</button>
-            <button class="nav-btn" onclick="showProcessList()">📋 Process List</button>
-            <button class="nav-btn" onclick="showAbout()">ℹ️ About</button>
-        </div>
-    </nav>
-
     <!-- Main Content -->
     <main class="main">
         <div class="container">
-            <!-- Home View - Simple Table of Contents -->
+            <!-- Home View - Simple Table List -->
             <div id="home-view" class="view">
-                <h2>Biological Processes</h2>
-                <p class="subtitle">Interactive flowcharts with verified scientific citations</p>
-                <div id="process-list" class="process-grid">
+                <div id="process-list" class="process-list-container">
                     <!-- Populated by JavaScript -->
                 </div>
             </div>
@@ -47,8 +28,9 @@
 
             <!-- Process Detail View -->
             <div id="process-view" class="view" style="display: none;">
+                <!-- Back button will be inserted here by JavaScript -->
+                <!-- Compact Header -->
                 <div class="process-header">
-                    <button class="back-btn" onclick="showProcessList()">← Back to List</button>
                     <h2 id="process-title">Loading...</h2>
                     <div class="process-meta">
                         <span id="process-organism" class="meta-tag"></span>
@@ -56,22 +38,24 @@
                     </div>
                 </div>
 
-                <div class="process-description">
+                <!-- Short Description (2-3 lines max) -->
+                <div class="process-description-short">
                     <p id="process-desc"></p>
                 </div>
 
-                <!-- Scientific Accuracy Statement -->
-                <div id="scientific-accuracy" class="scientific-accuracy" style="display: none;">
-                    <h4>📊 Scientific Accuracy</h4>
-                    <p id="accuracy-statement"></p>
+                <!-- 🎯 DIAGRAM FIRST! (What users want to see) -->
+                <div class="diagram-container">
+                    <div id="mermaid-diagram" class="mermaid"></div>
                 </div>
 
-                <!-- Color Legend -->
-                <div id="color-legend" class="color-legend" style="display: none;">
-                    <h4>🎨 Color Coding System</h4>
-                    <div id="color-key-grid" class="color-key-grid">
-                        <!-- Populated by JavaScript -->
-                    </div>
+                <!-- Color Legend (compact, AFTER diagram) -->
+                <div id="color-legend" class="color-legend-compact" style="display: none;">
+                    <details open>
+                        <summary>🎨 Color Coding System</summary>
+                        <div id="color-key-grid" class="color-key-grid">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </details>
                 </div>
 
                 <!-- Detail Level Selector (if applicable) -->
@@ -81,26 +65,156 @@
                     <span id="detail-label">Basic (1)</span>
                 </div>
 
-                <!-- Diagram Container -->
-                <div class="diagram-container">
-                    <div id="mermaid-diagram" class="mermaid"></div>
-                </div>
+                <!-- Compact Feedback Panel -->
+                <section id="feedback-panel" class="feedback-panel">
+                    <h3 class="feedback-title">Improve this process</h3>
+                    <p class="feedback-intro">
+                        Spotted an issue or better representation? Send a quick suggestion.
+                    </p>
 
-                <!-- Citations -->
-                <div class="citations-section">
-                    <h3>📚 Sources & Citations</h3>
-                    <div id="citations-list">
+                    <!-- Context (auto-filled by JS) -->
+                    <div class="feedback-context">
+                        <div class="feedback-context-line">
+                            <span class="feedback-context-label">Process</span>
+                            <span id="feedback-process-name" class="feedback-context-value"></span>
+                        </div>
+                        <div class="feedback-context-line">
+                            <span class="feedback-context-label">ID</span>
+                            <span id="feedback-process-id" class="feedback-context-value" style="font-weight: 600; color: var(--primary-color);">Loading...</span>
+                        </div>
+                    </div>
+
+                    <!-- Issue type -->
+                    <label class="feedback-label" for="feedback-issue-type">Issue type</label>
+                    <select id="feedback-issue-type" class="feedback-input">
+                        <option value="" disabled selected>Select one</option>
+                        <option value="node_edge">Specific node/edge</option>
+                        <option value="logic">Process logic</option>
+                        <option value="label">Label / wording</option>
+                        <option value="visual">Visual / layout</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <!-- Node / edge -->
+                    <label class="feedback-label" for="feedback-node">
+                        Node / edge (optional)
+                    </label>
+                    <input
+                        id="feedback-node"
+                        class="feedback-input"
+                        type="text"
+                        placeholder="e.g., A33 or A33 --> B10"
+                    />
+                    <small id="feedback-node-hint" class="feedback-hint">
+                        Tip: tap a node in the diagram to auto-fill this field.
+                    </small>
+
+                    <!-- Suggested change -->
+                    <label class="feedback-label" for="feedback-suggestion">
+                        Your suggestion
+                    </label>
+                    <textarea
+                        id="feedback-suggestion"
+                        class="feedback-input feedback-textarea"
+                        rows="3"
+                        placeholder="e.g., Change node A33 label to… or add edge from A35 to B10 to show…"
+                    ></textarea>
+
+                    <!-- Why / refs (compact) -->
+                    <label class="feedback-label" for="feedback-why">
+                        Why? (optional)
+                    </label>
+                    <textarea
+                        id="feedback-why"
+                        class="feedback-input feedback-textarea"
+                        rows="2"
+                        placeholder="Brief rationale or context."
+                    ></textarea>
+
+                    <label class="feedback-label" for="feedback-refs">
+                        Refs (optional)
+                    </label>
+                    <input
+                        id="feedback-refs"
+                        class="feedback-input"
+                        type="text"
+                        placeholder="e.g., PMID: 12345678"
+                    />
+
+                    <!-- Role + email -->
+                    <div class="feedback-row">
+                        <div class="feedback-col">
+                            <label class="feedback-label" for="feedback-role">Role</label>
+                            <select id="feedback-role" class="feedback-input">
+                                <option value="" selected>Optional</option>
+                                <option value="researcher">Researcher</option>
+                                <option value="student">Student</option>
+                                <option value="clinician">Clinician</option>
+                                <option value="educator">Educator</option>
+                                <option value="industry">Industry</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="feedback-col">
+                            <label class="feedback-label" for="feedback-email">Email</label>
+                            <input
+                                id="feedback-email"
+                                class="feedback-input"
+                                type="email"
+                                placeholder="Optional"
+                            />
+                        </div>
+                    </div>
+
+                    <label class="feedback-checkbox">
+                        <input type="checkbox" id="feedback-ok-contact" />
+                        <span>OK to contact me about this suggestion</span>
+                    </label>
+
+                    <label class="feedback-checkbox feedback-consent">
+                        <input type="checkbox" id="feedback-consent" />
+                        <span>I understand my suggestion may be edited and not all suggestions will be used.</span>
+                    </label>
+
+                    <button id="feedback-submit" class="feedback-submit-btn">
+                        Submit feedback
+                    </button>
+
+                    <p id="feedback-status" class="feedback-status" aria-live="polite"></p>
+                    <small class="feedback-hint" style="display: block; margin-top: 0.5rem; color: var(--text-light);">
+                        Your feedback will appear in the comments section below for transparency and collaboration.
+                    </small>
+                </section>
+
+                <!-- Comments Section -->
+                <section id="comments-section" class="comments-section" style="display: none;">
+                    <h3 class="comments-title">💬 Comments & Suggestions</h3>
+                    <div id="comments-container" class="comments-container">
+                        <p class="comments-loading">Loading comments...</p>
+                    </div>
+                </section>
+
+                <!-- Expandable Sections (collapsed by default for cleaner UX) -->
+                <details class="expandable-section">
+                    <summary>📊 Scientific Accuracy</summary>
+                    <div id="scientific-accuracy" class="scientific-accuracy-content">
+                        <p id="accuracy-statement"></p>
+                    </div>
+                </details>
+
+                <details class="expandable-section">
+                    <summary>📚 Sources & Citations</summary>
+                    <div id="citations-list" class="citations-section">
                         <!-- Populated by JavaScript -->
                     </div>
-                </div>
+                </details>
 
-                <!-- Metadata -->
-                <div class="metadata-section">
-                    <h3>📋 Metadata</h3>
-                    <div id="metadata-info">
+                <details class="expandable-section">
+                    <summary>📋 Metadata</summary>
+                    <div id="metadata-info" class="metadata-section">
                         <!-- Populated by JavaScript -->
                     </div>
-                </div>
+                </details>
             </div>
 
             <!-- About View -->
@@ -135,6 +249,28 @@
                         <li><strong>JSON</strong> for portable, structured data</li>
                         <li><strong>Static hosting</strong> on Google Cloud Storage</li>
                     </ul>
+                    
+                    <h3>🔗 Resources</h3>
+                    <div class="resource-links">
+                        <ul>
+                            <li>
+                                <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" 
+                                   target="_blank">
+                                    📊 Database Table - View all 108 processes with detailed statistics, logic gate analysis, and architecture patterns
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/yourusername/glmp" target="_blank">
+                                    💻 GitHub Repository - Source code and documentation
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://huggingface.co/datasets/yourusername/glmp" target="_blank">
+                                    🤗 Hugging Face Dataset - Download process data
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
                     <h3>Citation</h3>
                     <p>
@@ -151,14 +287,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 GLMP - Genome Logic Modeling Project</p>
-            <p>Built with scientific rigor and proper citations</p>
-        </div>
-    </footer>
 
-    <!-- Load the viewer JavaScript -->
-    <script src="viewer.js"></script>
+
+    <!-- Load the viewer JavaScript as ES6 module -->
+    <script type="module" src="viewer.js"></script>
 </body>
 </html>
