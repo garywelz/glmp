@@ -1,0 +1,88 @@
+
+======================================================================
+RESULTS
+======================================================================
+
+1. SARLE'S BIMODALITY COEFFICIENT BY CLASS (control cells)
+------------------------------------------------------------
+  Class I: N= 768, mean BC=0.5903, median=0.5677, frac BC>5/9=0.516
+  Class II: N=  13, mean BC=0.5309, median=0.5090, frac BC>5/9=0.385
+  Class III: N=  16, mean BC=0.5782, median=0.5785, frac BC>5/9=0.562
+  Class IV: N=   2, mean BC=0.6269, median=0.6269, frac BC>5/9=0.500
+  Class V: N=   9, mean BC=0.6753, median=0.5788, frac BC>5/9=0.667
+
+2. ASHMAN'S D BY CLASS
+------------------------------------------------------------
+  Class I: N= 768, mean D=3.6114, median=3.6020, frac D>2=0.997
+  Class II: N=  13, mean D=3.3548, median=3.0770, frac D>2=1.000
+  Class III: N=  16, mean D=3.6039, median=3.5326, frac D>2=1.000
+  Class IV: N=   2, mean D=3.6999, median=3.6999, frac D>2=1.000
+  Class V: N=   9, mean D=4.1027, median=3.8437, frac D>2=1.000
+
+3. CLASS III vs CLASS I — STATISTICAL TESTS
+------------------------------------------------------------
+  Bimodality Coefficient:
+    Class I:   mean=0.5903, median=0.5677 (N=768)
+    Class III: mean=0.5782, median=0.5785 (N=16)
+    t-test (C3 > C1): t=-0.289, p=0.6137
+    Mann-Whitney (C3 > C1): U=6034, p=0.5490
+
+  Ashman's D:
+    Class I:   mean=3.6114, median=3.6020
+    Class III: mean=3.6039, median=3.5326
+    t-test (C3 > C1): t=-0.030, p=0.5118
+    Mann-Whitney (C3 > C1): U=6105, p=0.5176
+
+4. PER-GENE DETAIL: CLASS III
+------------------------------------------------------------
+  Gene               BC   Ashman D   Mean Expr     %NZ
+  RAD51          0.8175     4.8351       0.184   0.248 ***
+  BUB1B          0.7336     4.3035       0.272   0.345 ***
+  MAX            0.6747     4.4360       0.361   0.444 ***
+  VHL            0.6457     4.3567       0.397   0.480 ***
+  CDC20          0.6135     3.6722       0.557   0.538 ***
+  STAT5A         0.6065     4.0554       0.469   0.539 ***
+  HSF1           0.6003     4.1800       0.451   0.526 ***
+  BCL2L1         0.5925     3.9847       0.470   0.537 ***
+  BUB1           0.5645     3.3931       0.618   0.607 ***
+  CDC6           0.5446     3.3035       0.591   0.615
+  CHEK1          0.5184     3.0938       0.646   0.671
+  MED1           0.5153     3.1646       0.602   0.647
+  GATA1          0.5002     2.9784       0.723   0.711
+  GRB2           0.4517     2.7623       0.872   0.799
+  MAD2L1         0.4506     2.5234       1.120   0.881
+  MYC            0.4220     2.6195       1.247   0.887
+
+5. FRACTION OF GENES ABOVE BIMODALITY THRESHOLD
+------------------------------------------------------------
+  Class I: 396/768 genes with BC > 5/9 (0.516)
+  Class II: 5/13 genes with BC > 5/9 (0.385)
+  Class III: 9/16 genes with BC > 5/9 (0.562)
+  Class IV: 1/2 genes with BC > 5/9 (0.500)
+  Class V: 6/9 genes with BC > 5/9 (0.667)
+
+  Fisher exact (C3 vs C1, fraction bimodal): OR=1.21, p=0.4541
+
+6. CONFOUND CHECK: BC vs EXPRESSION LEVEL
+------------------------------------------------------------
+  Pearson r(BC, mean_expr) = -0.825, p = 0
+  Pearson r(BC, frac_nonzero) = -0.983, p = 0
+  Class III vs I mean expression: t=-0.941, p=0.3469
+
+7. BIMODALITY OF PERTURBED GENE'S OWN EXPRESSION (perturbed cells)
+------------------------------------------------------------
+  For each perturbation, compute BC of the perturbed gene's expression
+  across the cells where that gene was knocked out.
+  (Tests whether the perturbation creates a bimodal response.)
+  Class III: N=16, mean pert_BC=0.8126, median=0.8454
+  Class I: N=49, mean pert_BC=0.8645, median=0.9111
+  t-test (C3 > C1): t=-1.501, p=0.9308
+
+8. INTERPRETATION
+------------------------------------------------------------
+  NOT SUPPORTED: No significant difference in bimodality between
+  Class III and Class I. However, dropout and sparsity in scRNA-seq
+  data can mask bimodality. Protein-level or ATAC-seq data may
+  reveal the hidden states that mRNA snapshots cannot.
+
+Total runtime: 271s

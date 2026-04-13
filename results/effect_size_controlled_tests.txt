@@ -1,0 +1,126 @@
+======================================================================
+EFFECT-SIZE CONTROLLED ANALYSIS
+======================================================================
+
+Question: Does circuit class predict accuracy AFTER
+controlling for perturbation effect size (E-distance)?
+
+══════════════════════════════════════════════════════════════════════
+METHOD: scGPT  (N = 780)
+══════════════════════════════════════════════════════════════════════
+
+  Effect-size confound check:
+    Class I effect size:  mean=0.8840  median=0.9288
+    Feedback effect size: mean=0.8898  median=0.9140
+    Mann-Whitney p = 0.695677  → no significant confound
+
+  OLS Regression: accuracy ~ effect_size + feedback_class
+  N = 780,  R² = 0.3974
+  Variable                     β        SE         t           p
+  ------------------------------------------------------------
+  intercept              -0.2121    0.0391    -5.428    0.000000  ***
+  effect_size             0.9881    0.0437    22.596    0.000000  ***
+  feedback (II-V)         0.0414    0.0340     1.219    0.223126  n.s.
+
+  Effect-Size Matched Subsampling (1000 iterations)
+  Matching window: ±0.05 E-distance (nearest 5 if none)
+  Feedback genes: 22
+  Mean difference (matched Class I − feedback): -0.0512
+  Bootstrap 95% CI: [-0.1201, +0.0149]
+  → CI includes zero (no significant difference after matching)
+
+  Partial Correlation: accuracy ~ feedback | effect_size
+  r_partial = 0.0437,  p = 0.222828  n.s.
+  Direction: positive (feedback → higher accuracy, opposite to H1)
+
+  Figure: results/fig4_effect_size_vs_accuracy_scGPT.png
+
+══════════════════════════════════════════════════════════════════════
+METHOD: GEARS  (N = 780)
+══════════════════════════════════════════════════════════════════════
+
+  Effect-size confound check:
+    Class I effect size:  mean=0.8840  median=0.9288
+    Feedback effect size: mean=0.8898  median=0.9140
+    Mann-Whitney p = 0.695677  → no significant confound
+
+  OLS Regression: accuracy ~ effect_size + feedback_class
+  N = 780,  R² = 0.5027
+  Variable                     β        SE         t           p
+  ------------------------------------------------------------
+  intercept              -0.1056    0.0331    -3.188    0.001490  **
+  effect_size             1.0364    0.0371    27.971    0.000000  ***
+  feedback (II-V)         0.0442    0.0288     1.535    0.125216  n.s.
+
+  Effect-Size Matched Subsampling (1000 iterations)
+  Matching window: ±0.05 E-distance (nearest 5 if none)
+  Feedback genes: 22
+  Mean difference (matched Class I − feedback): -0.0466
+  Bootstrap 95% CI: [-0.1048, +0.0088]
+  → CI includes zero (no significant difference after matching)
+
+  Partial Correlation: accuracy ~ feedback | effect_size
+  r_partial = 0.0550,  p = 0.124973  n.s.
+  Direction: positive (feedback → higher accuracy, opposite to H1)
+
+  Figure: results/fig4_effect_size_vs_accuracy_GEARS.png
+
+══════════════════════════════════════════════════════════════════════
+METHOD: linearModel  (N = 780)
+══════════════════════════════════════════════════════════════════════
+
+  Effect-size confound check:
+    Class I effect size:  mean=0.8840  median=0.9288
+    Feedback effect size: mean=0.8898  median=0.9140
+    Mann-Whitney p = 0.695677  → no significant confound
+
+  OLS Regression: accuracy ~ effect_size + feedback_class
+  N = 780,  R² = 0.4947
+  Variable                     β        SE         t           p
+  ------------------------------------------------------------
+  intercept               0.0094    0.0289     0.325    0.745473  n.s.
+  effect_size             0.8913    0.0324    27.531    0.000000  ***
+  feedback (II-V)         0.0374    0.0251     1.488    0.137256  n.s.
+
+  Effect-Size Matched Subsampling (1000 iterations)
+  Matching window: ±0.05 E-distance (nearest 5 if none)
+  Feedback genes: 22
+  Mean difference (matched Class I − feedback): -0.0394
+  Bootstrap 95% CI: [-0.0903, +0.0061]
+  → CI includes zero (no significant difference after matching)
+
+  Partial Correlation: accuracy ~ feedback | effect_size
+  r_partial = 0.0533,  p = 0.137003  n.s.
+  Direction: positive (feedback → higher accuracy, opposite to H1)
+
+  Figure: results/fig4_effect_size_vs_accuracy_linearModel.png
+
+══════════════════════════════════════════════════════════════════════
+METHOD: trainMean  (N = 780)
+══════════════════════════════════════════════════════════════════════
+
+  Effect-size confound check:
+    Class I effect size:  mean=0.8840  median=0.9288
+    Feedback effect size: mean=0.8898  median=0.9140
+    Mann-Whitney p = 0.695677  → no significant confound
+
+  OLS Regression: accuracy ~ effect_size + feedback_class
+  N = 780,  R² = 0.3001
+  Variable                     β        SE         t           p
+  ------------------------------------------------------------
+  intercept               0.3185    0.0273    11.661    0.000000  ***
+  effect_size             0.5573    0.0306    18.232    0.000000  ***
+  feedback (II-V)         0.0176    0.0237     0.741    0.459091  n.s.
+
+  Effect-Size Matched Subsampling (1000 iterations)
+  Matching window: ±0.05 E-distance (nearest 5 if none)
+  Feedback genes: 22
+  Mean difference (matched Class I − feedback): -0.0254
+  Bootstrap 95% CI: [-0.0716, +0.0191]
+  → CI includes zero (no significant difference after matching)
+
+  Partial Correlation: accuracy ~ feedback | effect_size
+  r_partial = 0.0266,  p = 0.458802  n.s.
+  Direction: positive (feedback → higher accuracy, opposite to H1)
+
+  Figure: results/fig4_effect_size_vs_accuracy_trainMean.png
