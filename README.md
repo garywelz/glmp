@@ -52,4 +52,4 @@ Welz, G. (2025). Process Visualization in Biology: A Programming Framework for S
 ```
 
 ## Contact
-For questions about this dataset, contact: gwelz@jjay.cuny.edu
+For questions about this dataset, contact: gwelz@gc.cuny.edu
