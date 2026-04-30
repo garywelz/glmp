@@ -61,7 +61,33 @@ Built from textbook-style reasoning, this encoding foregrounds **explicit AND-st
 
 Figure A. Literature-first logic. **Purple diamonds** = explicit Boolean-style questions. **Green** = strong transcription outcome. **Red dashed box** = what this encoding usually leaves implicit (no biosynthesis path for LacI).
 
-graph TD L{Lactose / allolactose relieves LacI?} L --\>\|No\| RepOn\[Repressor bound at operator\] L --\>\|Yes\| OpFree\[Operator accessible\] RepOn --\> Blocked\[Transcription blocked or basal\] G{Glucose low → high cAMP?} G --\>\|Yes\| CAP\[CAMP-CAP productive at promoter\] G --\>\|No\| NoCAP\[Weak CAP activation\] OpFree --\> AND{Operator free AND strong CAP assist?} CAP --\> AND NoCAP --\> AND AND --\>\|Yes\| ON\[Strong lacZYA expression\] AND --\>\|No\| WEAK\[Weak or delayed expression\] L -.-\>\|Repressor appears with no prior step\| MISSING\["NOT SHOWN: lacI gene → transcription → LacI protein"\] style L fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000 style G fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000 style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000 style ON fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000 style WEAK fill:#e8f5e9,stroke:#33691e,color:#000 style CAP fill:#b3e5fc,stroke:#01579b,color:#000 style NoCAP fill:#e1f5fe,stroke:#0277bd,color:#000 style OpFree fill:#fff9c4,stroke:#f57f17,color:#000 style RepOn fill:#ffccbc,stroke:#bf360c,color:#000 style Blocked fill:#ffccbc,stroke:#bf360c,color:#000 style MISSING fill:#ffcdd2,stroke:#c62828,stroke-width:3px,stroke-dasharray: 6 4,color:#000
+```mermaid
+graph TD
+  L{Lactose / allolactose relieves LacI?}
+  L -->|No| RepOn[Repressor bound at operator]
+  L -->|Yes| OpFree[Operator accessible]
+  RepOn --> Blocked[Transcription blocked or basal]
+  G{Glucose low → high cAMP?}
+  G -->|Yes| CAP[CAMP-CAP productive at promoter]
+  G -->|No| NoCAP[Weak CAP activation]
+  OpFree --> AND{Operator free AND strong CAP assist?}
+  CAP --> AND
+  NoCAP --> AND
+  AND -->|Yes| ON[Strong lacZYA expression]
+  AND -->|No| WEAK[Weak or delayed expression]
+  L -.->|Repressor appears with no prior step| MISSING["NOT SHOWN: lacI gene → transcription → LacI protein"]
+  style L fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style G fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style ON fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+  style WEAK fill:#e8f5e9,stroke:#33691e,color:#000
+  style CAP fill:#b3e5fc,stroke:#01579b,color:#000
+  style NoCAP fill:#e1f5fe,stroke:#0277bd,color:#000
+  style OpFree fill:#fff9c4,stroke:#f57f17,color:#000
+  style RepOn fill:#ffccbc,stroke:#bf360c,color:#000
+  style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+  style MISSING fill:#ffcdd2,stroke:#c62828,stroke-width:3px,stroke-dasharray: 6 4,color:#000
+```
 
 **Read Figure A against Figure C:** the red dashed node has *no counterpart* in the main flow above—the hybrid instead inserts a real chain of orange nodes for *lacI* expression before any “repressor off operator?” question.
 
@@ -71,7 +97,32 @@ A chart faithful to how **RegulonDB** (and similar TF→target resources) repres
 
 Figure B. Regulatory wiring emphasis (schematic). **Orange** highlights the same *lacI* gene → protein spine RegulonDB-style resources encode as first-class entities. There are still **no purple AND diamonds**—combining “operator free” with “CAP assist” is left to the reader.
 
-graph LR lacIgene\[lacI gene\] lacIgene --\> LacI\[LacI repressor protein\] allo\[Allolactose / inducer\] allo -. antagonizes .-\> LacI LacI -. repression .-\> lacOp\[lac promoter / operon\] crp\[CRP-cAMP\] crp -. activation .-\> lacOp lacOp --\> lacZ\[lacZ\] lacOp --\> lacY\[lacY\] lacOp --\> lacA\[lacA\] Glc\[High glucose / low cAMP\] Glc -. reduces .-\> crp lacZ --\> products\[Lactose utilization products\] style lacIgene fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000 style LacI fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000 style lacOp fill:#e3f2fd,stroke:#0d47a1,color:#000 style crp fill:#b3e5fc,stroke:#01579b,color:#000 style lacZ fill:#c8e6c9,stroke:#2e7d32,color:#000 style lacY fill:#c8e6c9,stroke:#2e7d32,color:#000 style lacA fill:#c8e6c9,stroke:#2e7d32,color:#000 style allo fill:#fff9c4,stroke:#f57f17,color:#000 style Glc fill:#ffccbc,stroke:#bf360c,color:#000 style products fill:#e1bee7,stroke:#6a1b9a,color:#000
+```mermaid
+graph LR
+  lacIgene[lacI gene]
+  lacIgene --> LacI[LacI repressor protein]
+  allo[Allolactose / inducer]
+  allo -. antagonizes .-> LacI
+  LacI -. repression .-> lacOp[lac promoter / operon]
+  crp[CRP-cAMP]
+  crp -. activation .-> lacOp
+  lacOp --> lacZ[lacZ]
+  lacOp --> lacY[lacY]
+  lacOp --> lacA[lacA]
+  Glc[High glucose / low cAMP]
+  Glc -. reduces .-> crp
+  lacZ --> products[Lactose utilization products]
+  style lacIgene fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
+  style LacI fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000
+  style lacOp fill:#e3f2fd,stroke:#0d47a1,color:#000
+  style crp fill:#b3e5fc,stroke:#01579b,color:#000
+  style lacZ fill:#c8e6c9,stroke:#2e7d32,color:#000
+  style lacY fill:#c8e6c9,stroke:#2e7d32,color:#000
+  style lacA fill:#c8e6c9,stroke:#2e7d32,color:#000
+  style allo fill:#fff9c4,stroke:#f57f17,color:#000
+  style Glc fill:#ffccbc,stroke:#bf360c,color:#000
+  style products fill:#e1bee7,stroke:#6a1b9a,color:#000
+```
 
 ### 6.3 Hybrid diagram (literature logic + RegulonDB entity completeness)
 
@@ -81,7 +132,33 @@ The **hybrid** merges interpretive structure from reviews and LLM drafts with **
 
 Figure C. Hybrid. **Orange** = explicit *lacI* gene → protein (RegulonDB-style completeness). **Purple diamonds** = same style of Boolean questions as Figure A. **Green** = strong lacZYA output.
 
-graph TD lacI_tx\["lacI gene to transcription to LacI protein"\] lacI_tx --\> LacI\[LacI repressor at operator\] Lact\[Lactose / inducer signal\] Lact --\> IndR{Repressor off operator?} LacI --\> IndR IndR --\>\|No\| Blocked\[Operon blocked\] IndR --\>\|Yes\| OpOK\[Operator accessible\] Glc\[Glucose / cAMP state\] Glc --\> CAPs{CAMP-CAP assists promoter?} CAPs --\> AND{Operator free AND CAP assist?} OpOK --\> AND AND --\>\|Yes\| Strong\[Strong lacZYA transcription\] AND --\>\|No\| Weak\[Weak / basal transcription\] style lacI_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000 style LacI fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000 style IndR fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000 style CAPs fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000 style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000 style Strong fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000 style Weak fill:#e8f5e9,stroke:#33691e,color:#000 style OpOK fill:#fff9c4,stroke:#f57f17,color:#000 style Blocked fill:#ffccbc,stroke:#bf360c,color:#000 style Lact fill:#fff9c4,stroke:#f9a825,color:#000 style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+```mermaid
+graph TD
+  lacI_tx["lacI gene to transcription to LacI protein"]
+  lacI_tx --> LacI[LacI repressor at operator]
+  Lact[Lactose / inducer signal]
+  Lact --> IndR{Repressor off operator?}
+  LacI --> IndR
+  IndR -->|No| Blocked[Operon blocked]
+  IndR -->|Yes| OpOK[Operator accessible]
+  Glc[Glucose / cAMP state]
+  Glc --> CAPs{CAMP-CAP assists promoter?}
+  CAPs --> AND{Operator free AND CAP assist?}
+  OpOK --> AND
+  AND -->|Yes| Strong[Strong lacZYA transcription]
+  AND -->|No| Weak[Weak / basal transcription]
+  style lacI_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+  style LacI fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+  style IndR fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style CAPs fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style Strong fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+  style Weak fill:#e8f5e9,stroke:#33691e,color:#000
+  style OpOK fill:#fff9c4,stroke:#f57f17,color:#000
+  style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+  style Lact fill:#fff9c4,stroke:#f9a825,color:#000
+  style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+```
 
 **Visual diff A → C:** follow the orange boxes—Figure A has no such path; Figure C inserts the same biological spine already drawn in orange in Figure B, then reconnects it to the purple logic diamonds.
 

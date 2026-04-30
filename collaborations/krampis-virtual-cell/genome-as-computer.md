@@ -295,16 +295,27 @@ The GLMP hybridization strategy — using RegulonDB as a primary regulatory back
 
 The companion paper identified LEAN 4 and Mathlib as the long-term formal verification path for the genomic conjecture. In the context of this sequel, the LEAN formalization path takes on additional significance: it is the path toward formally verified grammar-aware AI models. A grammar-aware model whose logical specifications are formalized in LEAN would have a property no current biological AI model possesses — its predictions could be formally verified against circuit specifications.
 
-graph TD FR\["Formally specify genomic primitive relations  
-in LEAN's type theory  
-(binding as a typed dyadic relation)"\] CT\["Define circuit topology classes in LEAN  
-(DAG vs. cyclic graph; feedback types;  
-temporal and modal operators)"\] CS\["Prove decidability of Class I circuits within LEAN  
-(analogous to Tarski's completeness proof)"\] GR\["Formalize the regulatory grammar  
-(promoter logic as typed formulas in LEAN)"\] RM\["Establish Reverse Mathematics equivalences  
-for each complexity class"\] GA\["Train grammar-aware models  
-on LEAN-verified circuit specifications"\] TH\["Full formalization of the five-class ladder  
-as a theorem in LEAN/Mathlib"\] FR --\> CT --\> CS --\> GR --\> RM --\> TH GR --\> GA classDef lean fill:#2E75B6,color:#fff,stroke:#1a4f8a classDef model fill:#27ae60,color:#fff,stroke:#1e8449 classDef theorem fill:#c0392b,color:#fff,stroke:#96281b class FR,CT,CS,GR,RM lean class GA model class TH theorem
+```mermaid
+graph TD
+  FR["Formally specify genomic primitive relations<br/>in LEAN's type theory<br/>(binding as a typed dyadic relation)"]
+  CT["Define circuit topology classes in LEAN<br/>(DAG vs. cyclic graph; feedback types;<br/>temporal and modal operators)"]
+  CS["Prove decidability of Class I circuits within LEAN<br/>(analogous to Tarski's completeness proof)"]
+  GR["Formalize the regulatory grammar<br/>(promoter logic as typed formulas in LEAN)"]
+  RM["Establish Reverse Mathematics equivalences<br/>for each complexity class"]
+  GA["Train grammar-aware models<br/>on LEAN-verified circuit specifications"]
+  TH["Full formalization of the five-class ladder<br/>as a theorem in LEAN/Mathlib"]
+
+  FR --> CT --> CS --> GR --> RM --> TH
+  GR --> GA
+
+  classDef lean fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  classDef model fill:#27ae60,color:#fff,stroke:#1e8449
+  classDef theorem fill:#c0392b,color:#fff,stroke:#96281b
+
+  class FR,CT,CS,GR,RM lean
+  class GA model
+  class TH theorem
+```
 
 **Figure 5.** The LEAN formalization path for grammar-aware biological AI. Blue: LEAN specification and proof steps. Green: grammar-aware model training. Red: the long-term theorem target.
 

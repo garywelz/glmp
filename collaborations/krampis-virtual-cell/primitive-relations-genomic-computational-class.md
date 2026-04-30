@@ -86,23 +86,66 @@ A system qualifies as a root node in the foundational DAG if it cannot be derive
 
 The following diagram shows the primary dependency and convergence relationships among the foundational roots, tracing the path to numerical and geometric algorithms. Tarski and Euclid converge early at Classical Geometry before meeting Peano via Descartes’ coordinatization. ZFC subsumes the arithmetic tradition. Lambda Calculus and Intuitionistic Logic feed independently into Contemporary Computer Science via Dependent Type Theory. LEAN sits above the foundational systems as an implementation and verification layer.
 
-graph TD T\["Tarski's Geometry  
-betweenness · equidistance"\] E\["Euclid's Postulates  
-point · line · circle"\] PA\["Peano Arithmetic  
-zero · successor · induction"\] ZFC\["ZFC Set Theory  
-set membership ∈"\] LC\["Lambda Calculus  
-abstraction · application"\] IL\["Intuitionistic Logic  
-constructive proof"\] HoTT\["Homotopy Type Theory  
-types · paths · equivalence"\] CL\["Combinatory Logic  
-S and K combinators"\] CAT\["Category Theory  
-objects · morphisms"\] FG\["First-order Geometry  
-(complete · decidable)"\] SG\["Synthetic Geometry  
-(constructive)"\] AR\["Arithmetic"\] RA\["Real Analysis"\] CG\["Classical Geometry"\] DES\["Descartes Coordinatization  
-bridge: geometry → arithmetic"\] AG\["Analytic Geometry"\] MM\["Modern Mathematics  
-(ZFC basis)"\] DTT\["Dependent Type Theory  
-(Martin-Löf)"\] ALG\["Numerical & Geometric Algorithms"\] CS\["Contemporary Mathematics  
-& Computer Science"\] LEAN\["LEAN 4 / Mathlib  
-proof-assistant layer"\] T --\> FG E --\> SG FG --\> CG SG --\> CG PA --\> AR AR --\> RA CG --\> DES RA --\> DES DES --\> AG AG --\> ALG ZFC --\> MM MM --\> CS LC --\> DTT IL --\> DTT HoTT --\> DTT CL --\> LC CAT --\> MM DTT --\> CS ALG --\> CS CS --\> LEAN MM --\> LEAN DTT --\> LEAN classDef root fill:#c0392b,color:#fff,stroke:#96281b,stroke-width:2px classDef derived fill:#1abc9c,color:#fff,stroke:#16a085,stroke-width:1px classDef bridge fill:#9b59b6,color:#fff,stroke:#8e44ad,stroke-width:2px classDef endpoint fill:#27ae60,color:#fff,stroke:#1e8449,stroke-width:2px classDef layer fill:#2E75B6,color:#fff,stroke:#1a4f8a,stroke-width:2px class T,E,PA,ZFC,LC,IL,HoTT,CL,CAT root class FG,SG,AR,RA,CG,AG,MM,DTT derived class DES bridge class ALG,CS endpoint class LEAN layer
+```mermaid
+graph TD
+  T["Tarski's Geometry<br/>betweenness · equidistance"]
+  E["Euclid's Postulates<br/>point · line · circle"]
+  PA["Peano Arithmetic<br/>zero · successor · induction"]
+  ZFC["ZFC Set Theory<br/>set membership ∈"]
+  LC["Lambda Calculus<br/>abstraction · application"]
+  IL["Intuitionistic Logic<br/>constructive proof"]
+  HoTT["Homotopy Type Theory<br/>types · paths · equivalence"]
+  CL["Combinatory Logic<br/>S and K combinators"]
+  CAT["Category Theory<br/>objects · morphisms"]
+
+  FG["First-order Geometry<br/>(complete · decidable)"]
+  SG["Synthetic Geometry<br/>(constructive)"]
+  AR["Arithmetic"]
+  RA["Real Analysis"]
+  CG["Classical Geometry"]
+  DES["Descartes Coordinatization<br/>bridge: geometry → arithmetic"]
+  AG["Analytic Geometry"]
+  MM["Modern Mathematics<br/>(ZFC basis)"]
+  DTT["Dependent Type Theory<br/>(Martin-Löf)"]
+  ALG["Numerical & Geometric Algorithms"]
+  CS["Contemporary Mathematics<br/>& Computer Science"]
+  LEAN["LEAN 4 / Mathlib<br/>proof-assistant layer"]
+
+  T --> FG
+  E --> SG
+  FG --> CG
+  SG --> CG
+  PA --> AR
+  AR --> RA
+  CG --> DES
+  RA --> DES
+  DES --> AG
+  AG --> ALG
+  ZFC --> MM
+  MM --> CS
+  LC --> DTT
+  IL --> DTT
+  HoTT --> DTT
+  CL --> LC
+  CAT --> MM
+  DTT --> CS
+  ALG --> CS
+  CS --> LEAN
+  MM --> LEAN
+  DTT --> LEAN
+
+  classDef root fill:#c0392b,color:#fff,stroke:#96281b,stroke-width:2px
+  classDef derived fill:#1abc9c,color:#fff,stroke:#16a085,stroke-width:1px
+  classDef bridge fill:#9b59b6,color:#fff,stroke:#8e44ad,stroke-width:2px
+  classDef endpoint fill:#27ae60,color:#fff,stroke:#1e8449,stroke-width:2px
+  classDef layer fill:#2E75B6,color:#fff,stroke:#1a4f8a,stroke-width:2px
+
+  class T,E,PA,ZFC,LC,IL,HoTT,CL,CAT root
+  class FG,SG,AR,RA,CG,AG,MM,DTT derived
+  class DES bridge
+  class ALG,CS endpoint
+  class LEAN layer
+```
 
 Figure 1. Foundational dependency DAG. Red: root nodes (independent axiomatic systems). Teal: derived systems. Purple: bridge concept (Descartes’ coordinatization). Green: algorithmic and contemporary endpoints. Blue: LEAN 4 proof-assistant layer, sitting above the foundational systems as their implementation and verification environment.
 
@@ -154,15 +197,27 @@ The other major proof assistants — **Coq** (which uses a similar Calculus of C
 
 The relationship between LEAN and the foundational systems of this paper is represented in the following diagram:
 
-graph TD FS\["Foundational Systems  
-ZFC · PA · Tarski · HoTT  
-Lambda Calculus · Category Theory"\] CC\["Calculus of Constructions  
-+ classical axioms  
-(LEAN's type theory)"\] TK\["LEAN's Trusted Kernel  
-mechanical proof checking"\] ML\["Mathlib  
-tens of thousands of verified theorems"\] MP\["Mathematical Practice  
-new theorems · error detection  
-collaborative verification"\] FS --\> CC CC --\> TK TK --\> ML ML --\> MP classDef found fill:#c0392b,color:#fff,stroke:#96281b classDef lean fill:#2E75B6,color:#fff,stroke:#1a4f8a classDef output fill:#27ae60,color:#fff,stroke:#1e8449 class FS found class CC,TK,ML lean class MP output
+```mermaid
+graph TD
+  FS["Foundational Systems<br/>ZFC · PA · Tarski · HoTT<br/>Lambda Calculus · Category Theory"]
+  CC["Calculus of Constructions<br/>+ classical axioms<br/>(LEAN's type theory)"]
+  TK["LEAN's Trusted Kernel<br/>mechanical proof checking"]
+  ML["Mathlib<br/>tens of thousands of verified theorems"]
+  MP["Mathematical Practice<br/>new theorems · error detection<br/>collaborative verification"]
+
+  FS --> CC
+  CC --> TK
+  TK --> ML
+  ML --> MP
+
+  classDef found fill:#c0392b,color:#fff,stroke:#96281b
+  classDef lean fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  classDef output fill:#27ae60,color:#fff,stroke:#1e8449
+
+  class FS found
+  class CC,TK,ML lean
+  class MP output
+```
 
 Figure 2. LEAN 4 as a proof-assistant layer above the foundational systems. The foundational systems are encoded in LEAN’s type theory, checked by the trusted kernel, organized in Mathlib, and used to verify new mathematical results.
 
@@ -194,22 +249,22 @@ Reverse Mathematics, initiated by Harvey Friedman in the 1970s and developed ext
 
 These five systems, in increasing order of strength, are:
 
-graph TD RCA\["RCA₀  
-Recursive Comprehension Axiom  
-Computable mathematics;  
-continuous functions on compact spaces"\] WKL\["WKL₀  
-Weak König's Lemma  
-Heine-Borel theorem;  
-completeness of propositional logic"\] ACA\["ACA₀  
-Arithmetical Comprehension  
-Bolzano-Weierstrass;  
-sequential completeness of ℝ"\] ATR\["ATR₀  
-Arithmetical Transfinite Recursion  
-comparability of countable ordinals;  
-perfect set theorem"\] PI\["Π¹₁-CA₀  
-Π¹₁ Comprehension  
-Silver's theorem;  
-basis theorems for Π¹₁ sets"\] RCA --\> WKL WKL --\> ACA ACA --\> ATR ATR --\> PI classDef rm fill:#1abc9c,color:#fff,stroke:#16a085 class RCA,WKL,ACA,ATR,PI rm
+```mermaid
+graph TD
+  RCA["RCA₀<br/>Recursive Comprehension Axiom<br/>Computable mathematics;<br/>continuous functions on compact spaces"]
+  WKL["WKL₀<br/>Weak König's Lemma<br/>Heine-Borel theorem;<br/>completeness of propositional logic"]
+  ACA["ACA₀<br/>Arithmetical Comprehension<br/>Bolzano-Weierstrass;<br/>sequential completeness of ℝ"]
+  ATR["ATR₀<br/>Arithmetical Transfinite Recursion<br/>comparability of countable ordinals;<br/>perfect set theorem"]
+  PI["Π¹₁-CA₀<br/>Π¹₁ Comprehension<br/>Silver's theorem;<br/>basis theorems for Π¹₁ sets"]
+
+  RCA --> WKL
+  WKL --> ACA
+  ACA --> ATR
+  ATR --> PI
+
+  classDef rm fill:#1abc9c,color:#fff,stroke:#16a085
+  class RCA,WKL,ACA,ATR,PI rm
+```
 
 Figure 3. The Big Five subsystems of Reverse Mathematics, in increasing order of strength. Most theorems of classical mathematics are provably equivalent to exactly one of these five levels.
 
@@ -221,16 +276,20 @@ While Gödel’s incompleteness theorems showed that no sufficiently powerful co
 
 The **proof-theoretic ordinal** of a system is the supremum of the ordinals whose well-foundedness can be proven within the system. It provides a precise numerical measure of foundational strength:
 
-graph LR T0\["Tarski's Geometry  
-ω (omega)  
-decidable"\] EA\["Elementary Arithmetic  
-ω^ω"\] PAo\["Peano Arithmetic  
-ε₀ (epsilon-naught)  
-Gentzen 1936"\] ATRo\["ATR₀  
-Γ₀ (Feferman-Schütte)"\] PI11\["Π¹₁-CA₀  
-ψ(Ω_ω)"\] ZFCo\["ZFC Set Theory  
-far beyond ε₀  
-(not fully computed)"\] T0 --\> EA --\> PAo --\> ATRo --\> PI11 --\> ZFCo classDef ord fill:#2E75B6,color:#fff,stroke:#1a4f8a class T0,EA,PAo,ATRo,PI11,ZFCo ord
+```mermaid
+graph LR
+  T0["Tarski's Geometry<br/>ω (omega)<br/>decidable"]
+  EA["Elementary Arithmetic<br/>ω^ω"]
+  PAo["Peano Arithmetic<br/>ε₀ (epsilon-naught)<br/>Gentzen 1936"]
+  ATRo["ATR₀<br/>Γ₀ (Feferman-Schütte)"]
+  PI11["Π¹₁-CA₀<br/>ψ(Ω_ω)"]
+  ZFCo["ZFC Set Theory<br/>far beyond ε₀<br/>(not fully computed)"]
+
+  T0 --> EA --> PAo --> ATRo --> PI11 --> ZFCo
+
+  classDef ord fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  class T0,EA,PAo,ATRo,PI11,ZFCo ord
+```
 
 Figure 4. The ordinal hierarchy of foundational systems. Each system’s proof-theoretic ordinal measures exactly how much transfinite induction it can formalize. Tarski’s geometry sits at the bottom; ZFC extends far beyond what has been fully computed.
 
@@ -252,18 +311,21 @@ The **halting problem** (Turing, 1936) establishes that there is no algorithm th
 
 The **arithmetic hierarchy** stratifies the degrees of undecidability into levels Σ⁰ₙ and Π⁰ₙ, indexed by the number of alternating quantifier blocks required to express a property:
 
-graph TD DEC\["Decidable problems  
-(Tarski's geometry sits here)  
-Δ⁰₁"\] S1\["Σ⁰₁ / Π⁰₁  
-Halting problem  
-recursively enumerable sets"\] S2\["Σ⁰₂ / Π⁰₂  
-Halting problem with oracle  
-total functions"\] SN\["Σ⁰ₙ / Π⁰ₙ  
-n alternating quantifiers"\] AH\["Arithmetic Hierarchy  
-everything expressible in PA"\] AN\["Analytical Hierarchy  
-Σ¹ₙ / Π¹ₙ  
-second-order arithmetic"\] ZF\["ZFC territory  
-large cardinals · forcing extensions"\] DEC --\> S1 --\> S2 --\> SN --\> AH --\> AN --\> ZF classDef comp fill:#9b59b6,color:#fff,stroke:#8e44ad class DEC,S1,S2,SN,AH,AN,ZF comp
+```mermaid
+graph TD
+  DEC["Decidable problems<br/>(Tarski's geometry sits here)<br/>Δ⁰₁"]
+  S1["Σ⁰₁ / Π⁰₁<br/>Halting problem<br/>recursively enumerable sets"]
+  S2["Σ⁰₂ / Π⁰₂<br/>Halting problem with oracle<br/>total functions"]
+  SN["Σ⁰ₙ / Π⁰ₙ<br/>n alternating quantifiers"]
+  AH["Arithmetic Hierarchy<br/>everything expressible in PA"]
+  AN["Analytical Hierarchy<br/>Σ¹ₙ / Π¹ₙ<br/>second-order arithmetic"]
+  ZF["ZFC territory<br/>large cardinals · forcing extensions"]
+
+  DEC --> S1 --> S2 --> SN --> AH --> AN --> ZF
+
+  classDef comp fill:#9b59b6,color:#fff,stroke:#8e44ad
+  class DEC,S1,S2,SN,AH,AN,ZF comp
+```
 
 Figure 5. The computability hierarchy, from decidable problems at the base through the arithmetic and analytical hierarchies to ZFC territory. The genomic complexity ladder of Part II is designed to map onto this hierarchy.
 
@@ -273,16 +335,24 @@ For the genomic conjecture, computability theory provides the most direct formal
 
 The four tools of this section are not competing frameworks but complementary instruments, each measuring a different dimension of foundational strength:
 
-graph LR RM\["Reverse Mathematics  
-What axioms does  
-a theorem need?"\] OA\["Ordinal Analysis  
-How much transfinite  
-induction is required?"\] FO\["Forcing  
-Which statements are  
-independent of ZFC?"\] CT\["Computability Theory  
-Where in the undecidability  
-hierarchy does this sit?"\] FS\["Foundational  
-System"\] FS --\> RM FS --\> OA FS --\> FO FS --\> CT classDef tool fill:#e67e22,color:#fff,stroke:#d35400 classDef sys fill:#1abc9c,color:#fff,stroke:#16a085 class RM,OA,FO,CT tool class FS sys
+```mermaid
+graph LR
+  RM["Reverse Mathematics<br/>What axioms does<br/>a theorem need?"]
+  OA["Ordinal Analysis<br/>How much transfinite<br/>induction is required?"]
+  FO["Forcing<br/>Which statements are<br/>independent of ZFC?"]
+  CT["Computability Theory<br/>Where in the undecidability<br/>hierarchy does this sit?"]
+  FS["Foundational<br/>System"]
+
+  FS --> RM
+  FS --> OA
+  FS --> FO
+  FS --> CT
+
+  classDef tool fill:#e67e22,color:#fff,stroke:#d35400
+  classDef sys fill:#1abc9c,color:#fff,stroke:#16a085
+  class RM,OA,FO,CT tool
+  class FS sys
+```
 
 Figure 6. Four complementary instruments for measuring foundational strength. Each gives a different metric on the same foundational landscape.
 
@@ -315,11 +385,45 @@ An important caveat applies to all GLMP charts: no chart in the current sample �
 
 The conjecture in Section 7 turns on whether the regulatory graph contains a **directed cycle**. The lac operon is too large to show here; instead, Figures 7a and 7b are **minimal schematic** Mermaid flowcharts in the GLMP palette. They are not quantitative models of kinetics — only topological cartoons for the distinction between an acyclic cascade and a single feedback arc.
 
-graph LR T1\[Trigger / inducer\] Y1\[TF / variable\] O1{Promoter gate} G1\[Gene ON\] P1\[Product\] T1 --\> Y1 --\> O1 --\> G1 --\> P1 classDef glmp_trig fill:#e74c3c,color:#fff,stroke:#c0392b classDef glmp_tf fill:#f4d03f,color:#1a1a1a,stroke:#caae05 classDef glmp_gate fill:#e67e22,color:#fff,stroke:#d35400 classDef glmp_mid fill:#3498db,color:#fff,stroke:#2874a6 classDef glmp_out fill:#27ae60,color:#fff,stroke:#1e8449 class T1 glmp_trig class Y1 glmp_tf class O1 glmp_gate class G1 glmp_mid class P1 glmp_out
+```mermaid
+graph LR
+  T1[Trigger / inducer]
+  Y1[TF / variable]
+  O1{Promoter gate}
+  G1[Gene ON]
+  P1[Product]
+  T1 --> Y1 --> O1 --> G1 --> P1
+  classDef glmp_trig fill:#e74c3c,color:#fff,stroke:#c0392b
+  classDef glmp_tf fill:#f4d03f,color:#1a1a1a,stroke:#caae05
+  classDef glmp_gate fill:#e67e22,color:#fff,stroke:#d35400
+  classDef glmp_mid fill:#3498db,color:#fff,stroke:#2874a6
+  classDef glmp_out fill:#27ae60,color:#fff,stroke:#1e8449
+  class T1 glmp_trig
+  class Y1 glmp_tf
+  class O1 glmp_gate
+  class G1 glmp_mid
+  class P1 glmp_out
+```
 
 Figure 7a. Pure feed-forward chain: no path returns to an upstream node; behavior is conjecturally “Tarski-like” — decidable, bounded, no internal memory from topology alone. Corresponds to Class I in the complexity ladder and the Δ⁰₁ level of the computability hierarchy.
 
-graph LR T2\[Trigger\] Y2\[TF\] O2{Promoter} P2\[Product\] T2 --\> Y2 --\> O2 --\> P2 P2 --\>\|feedback\| Y2 classDef glmp_trig fill:#e74c3c,color:#fff,stroke:#c0392b classDef glmp_tf fill:#f4d03f,color:#1a1a1a,stroke:#caae05 classDef glmp_gate fill:#e67e22,color:#fff,stroke:#d35400 classDef glmp_out fill:#27ae60,color:#fff,stroke:#1e8449 class T2 glmp_trig class Y2 glmp_tf class O2 glmp_gate class P2 glmp_out
+```mermaid
+graph LR
+  T2[Trigger]
+  Y2[TF]
+  O2{Promoter}
+  P2[Product]
+  T2 --> Y2 --> O2 --> P2
+  P2 -->|feedback| Y2
+  classDef glmp_trig fill:#e74c3c,color:#fff,stroke:#c0392b
+  classDef glmp_tf fill:#f4d03f,color:#1a1a1a,stroke:#caae05
+  classDef glmp_gate fill:#e67e22,color:#fff,stroke:#d35400
+  classDef glmp_out fill:#27ae60,color:#fff,stroke:#1e8449
+  class T2 glmp_trig
+  class Y2 glmp_tf
+  class O2 glmp_gate
+  class P2 glmp_out
+```
 
 Figure 7b. A single feedback edge closes a directed cycle. The biological interpretation — activation vs. repression, delays, cooperativity — matters for dynamics, but topologically this is the class of circuits conjectured to reach richer computational behavior. Corresponds to Class II–V in the complexity ladder depending on feedback type, and Σ⁰₁ or above in the computability hierarchy.
 
@@ -400,16 +504,19 @@ None of these proofs exist yet. They represent the formal mathematical work requ
 
 The proof assistants of Section 4.4 — especially LEAN 4 and Mathlib — represent the most promising long-term path toward formalizing the genomic conjecture. The path would proceed in stages:
 
-graph TD FR\["Formally specify genomic primitive relations  
-in LEAN's type theory  
-(binding as a typed dyadic relation)"\] CT\["Define circuit topology classes  
-in LEAN  
-(DAG vs. cyclic graph; feedback types)"\] CS2\["Prove decidability of Class I circuits  
-within LEAN  
-(analogous to Tarski's completeness proof)"\] RM2\["Establish Reverse Mathematics equivalences  
-for each complexity class  
-(within LEAN's second-order arithmetic library)"\] TH\["Full formalization of the five-class ladder  
-as a theorem in LEAN/Mathlib"\] FR --\> CT --\> CS2 --\> RM2 --\> TH classDef step fill:#2E75B6,color:#fff,stroke:#1a4f8a class FR,CT,CS2,RM2,TH step
+```mermaid
+graph TD
+  FR["Formally specify genomic primitive relations<br/>in LEAN's type theory<br/>(binding as a typed dyadic relation)"]
+  CT["Define circuit topology classes<br/>in LEAN<br/>(DAG vs. cyclic graph; feedback types)"]
+  CS2["Prove decidability of Class I circuits<br/>within LEAN<br/>(analogous to Tarski's completeness proof)"]
+  RM2["Establish Reverse Mathematics equivalences<br/>for each complexity class<br/>(within LEAN's second-order arithmetic library)"]
+  TH["Full formalization of the five-class ladder<br/>as a theorem in LEAN/Mathlib"]
+
+  FR --> CT --> CS2 --> RM2 --> TH
+
+  classDef step fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  class FR,CT,CS2,RM2,TH step
+```
 
 Figure 8. The LEAN formalization path for the genomic conjecture. Each step builds on the previous, moving from informal specification to machine-verified theorem.
 

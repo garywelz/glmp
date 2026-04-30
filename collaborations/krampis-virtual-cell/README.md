@@ -38,5 +38,5 @@ These documents are working drafts and collaboration materials, not final peer-r
 ## Notes
 
 - The HTML-to-Markdown conversion was automated with `pandoc` and lightly cleaned. Some inline HTML may remain where the source documents used styled links or custom layout.
-- Mermaid diagrams and code blocks should be preserved as plain text where possible so GitHub can render or display them cleanly.
+- Mermaid diagrams are fenced as `mermaid` code blocks so GitHub can render them directly in Markdown preview.
 - If an exact April 2026 course slide deck should replace the included March 18 Krampis deck, add it here as Markdown or HTML and update this README.

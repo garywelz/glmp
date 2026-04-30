@@ -115,67 +115,100 @@ The following GLMP-style flowcharts illustrate the topological distinction betwe
 
 **Class I — Feed-forward cascade (JUN/AP-1).** Signal flows in one direction; no cycle. The perturbation response is fully determined by the current input.
 
-graph LR S\["Growth factor  
-signal"\]:::signal --\> MAPK\["MAPK  
-cascade"\]:::gene --\> JUN\["JUN / AP-1  
-transcription"\]:::gene --\> T\["Target gene  
-expression"\]:::outcome classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+```mermaid
+graph LR
+  S["Growth factor<br/>signal"]:::signal --> MAPK["MAPK<br/>cascade"]:::gene --> JUN["JUN / AP-1<br/>transcription"]:::gene --> T["Target gene<br/>expression"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+```
 
 **Class II — Negative feedback (ATF4 stress response).** A single negative cycle produces self-correction: the output damps the signal that produced it. The circuit is homeostatic.
 
-graph LR Stress\["ER stress  
-signal"\]:::signal --\> eIF2\["eIF2α  
-phosphorylation"\]:::gene --\> ATF4\["ATF4  
-translation"\]:::gene --\> CHOP\["CHOP / GADD34  
-targets"\]:::outcome CHOP -. "negative  
-feedback" .-\> eIF2 classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff linkStyle 3 stroke:#e74c3c,stroke-width:2px
+```mermaid
+graph LR
+  Stress["ER stress<br/>signal"]:::signal --> eIF2["eIF2α<br/>phosphorylation"]:::gene --> ATF4["ATF4<br/>translation"]:::gene --> CHOP["CHOP / GADD34<br/>targets"]:::outcome
+  CHOP -. "negative<br/>feedback" .-> eIF2
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 3 stroke:#e74c3c,stroke-width:2px
+```
 
 **Class III — Bistable switch: GATA1 / PU.1 mutual repression.** Each transcription factor represses the other, creating two stable attractor states: high-GATA1 (erythroid fate) or high-PU.1 (myeloid fate). Once a cell “nucleates” into one state, the mutual repression lock maintains it. A grammar-blind model observing a snapshot cannot determine which attractor the cell has committed to. *This gene’s benchmark accuracy (mean r = 0.699) is below the Class I average (0.780).*
 
-graph TD Signal\["Lineage  
-signal"\]:::signal --\> GATA1\["GATA1"\]:::gene Signal --\> PU1\["PU.1"\]:::gene GATA1 -- "activates  
-own promoter" --\> GATA1 PU1 -- "activates  
-own promoter" --\> PU1 GATA1 -. "represses" .-\> PU1 PU1 -. "represses" .-\> GATA1 GATA1 --\> Ery\["Erythroid  
-fate"\]:::outcome PU1 --\> Myel\["Myeloid  
-fate"\]:::outcome classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff linkStyle 4 stroke:#e74c3c,stroke-width:2px linkStyle 5 stroke:#e74c3c,stroke-width:2px
+```mermaid
+graph TD
+  Signal["Lineage<br/>signal"]:::signal --> GATA1["GATA1"]:::gene
+  Signal --> PU1["PU.1"]:::gene
+  GATA1 -- "activates<br/>own promoter" --> GATA1
+  PU1 -- "activates<br/>own promoter" --> PU1
+  GATA1 -. "represses" .-> PU1
+  PU1 -. "represses" .-> GATA1
+  GATA1 --> Ery["Erythroid<br/>fate"]:::outcome
+  PU1 --> Myel["Myeloid<br/>fate"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 4 stroke:#e74c3c,stroke-width:2px
+  linkStyle 5 stroke:#e74c3c,stroke-width:2px
+```
 
 **Class III — Bistable switch: MYC autoactivation.** MYC protein activates its own transcription through a positive feedback loop. Above a threshold, the circuit locks into a high-MYC proliferative state — the “siphon” is self-sustaining. The initiating signal is no longer necessary. *Benchmark accuracy: mean r = 0.817, above Class I average — illustrating that not all Class III genes are hard to predict, but the class as a whole is.*
 
-graph LR Mitogen\["Mitogenic  
-signal"\]:::signal --\> MYC\["MYC  
-protein"\]:::gene MYC -- "positive  
-autoactivation" --\> MYC MYC --\> Prolif\["Cell  
-proliferation"\]:::outcome MYC --\> Apop\["Apoptosis  
-(if ARF/p53 active)"\]:::outcome2 classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff classDef outcome2 fill:#e74c3c,stroke:#c0392b,color:#fff
+```mermaid
+graph LR
+  Mitogen["Mitogenic<br/>signal"]:::signal --> MYC["MYC<br/>protein"]:::gene
+  MYC -- "positive<br/>autoactivation" --> MYC
+  MYC --> Prolif["Cell<br/>proliferation"]:::outcome
+  MYC --> Apop["Apoptosis<br/>(if ARF/p53 active)"]:::outcome2
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  classDef outcome2 fill:#e74c3c,stroke:#c0392b,color:#fff
+```
 
 **Class III — Bistable switch: VHL-HIF oxygen sensing.** Under normoxia, VHL degrades HIF1α. Under hypoxia, HIF1α accumulates and activates a transcriptional program including genes that further stabilize the hypoxic state. The circuit exhibits bistable behavior around the oxygen threshold. *Benchmark accuracy: mean r = 0.921, the highest in Class III.*
 
-graph TD O2\["Oxygen  
-level"\]:::signal --\> VHL\["VHL  
-E3 ligase"\]:::gene VHL -. "degrades  
-(normoxia)" .-\> HIF\["HIF1α"\]:::gene HIF -- "activates  
-(hypoxia)" --\> Targets\["VEGF, GLUT1  
-glycolytic genes"\]:::outcome Targets -- "positive  
-feedback" --\> HIF classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff linkStyle 1 stroke:#e74c3c,stroke-width:2px
+```mermaid
+graph TD
+  O2["Oxygen<br/>level"]:::signal --> VHL["VHL<br/>E3 ligase"]:::gene
+  VHL -. "degrades<br/>(normoxia)" .-> HIF["HIF1α"]:::gene
+  HIF -- "activates<br/>(hypoxia)" --> Targets["VEGF, GLUT1<br/>glycolytic genes"]:::outcome
+  Targets -- "positive<br/>feedback" --> HIF
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 1 stroke:#e74c3c,stroke-width:2px
+```
 
 **Class IV — Delayed negative feedback (circadian CLOCK–BMAL1 / PER–CRY).** Class IV denotes **mixed feedback with delay**: typically a negative loop spanning three or more nodes so that transcription–translation delays convert a simple negative feedback into **sustained oscillation** rather than a static toggle. The CLOCK–BMAL1 heterodimer activates *Per* and *Cry* genes; the accumulating PER–CRY complex feeds back to repress CLOCK/BMAL1-driven transcription after a lag, closing the loop. The relevant hidden variable is often **phase** (where the cell sits in the cycle), not only which attractor basin is occupied. *Only two benchmark genes fall in Class IV in our table (HDAC7, TFDP1); interpret aggregate Class IV statistics with caution.*
 
-graph TD Input\["Light / SCN  
-entraining input"\]:::signal --\> CBC\["CLOCK / BMAL1  
-heterodimer"\]:::gene CBC -- "activates  
-transcription" --\> PC\["PER / CRY  
-mRNA to protein"\]:::gene PC -. "delayed  
-repression" .-\> CBC PC --\> Out\["Circadian output  
-genes"\]:::outcome classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff linkStyle 2 stroke:#e74c3c,stroke-width:2px
+```mermaid
+graph TD
+  Input["Light / SCN<br/>entraining input"]:::signal --> CBC["CLOCK / BMAL1<br/>heterodimer"]:::gene
+  CBC -- "activates<br/>transcription" --> PC["PER / CRY<br/>mRNA to protein"]:::gene
+  PC -. "delayed<br/>repression" .-> CBC
+  PC --> Out["Circadian output<br/>genes"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 2 stroke:#e74c3c,stroke-width:2px
+```
 
 **Class V — Self-modifying chromatin (BRD4).** BRD4 reads acetylated histones and recruits the transcriptional machinery, which includes histone acetyltransferases that create more acetylation marks — modifying the regulatory architecture itself. The circuit rewrites its own program. *Benchmark accuracy: mean r = 0.876.*
 
-graph TD HAc\["Histone  
-acetylation"\]:::signal --\> BRD4\["BRD4  
-(reads acetyl marks)"\]:::gene BRD4 --\> TxnMach\["Transcriptional  
-machinery + HATs"\]:::gene TxnMach -- "writes new  
-acetyl marks" --\> HAc BRD4 --\> Targets\["Super-enhancer  
-target genes"\]:::outcome classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff classDef gene fill:#1abc9c,stroke:#16a085,color:#fff classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff linkStyle 2 stroke:#9b59b6,stroke-width:2px,stroke-dasharray:5
+```mermaid
+graph TD
+  HAc["Histone<br/>acetylation"]:::signal --> BRD4["BRD4<br/>(reads acetyl marks)"]:::gene
+  BRD4 --> TxnMach["Transcriptional<br/>machinery + HATs"]:::gene
+  TxnMach -- "writes new<br/>acetyl marks" --> HAc
+  BRD4 --> Targets["Super-enhancer<br/>target genes"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 2 stroke:#9b59b6,stroke-width:2px,stroke-dasharray:5
+```
 
 ## 4. Phase 2: Virtual Cell Model Evaluation
 
