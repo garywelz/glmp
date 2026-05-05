@@ -305,6 +305,8 @@ Virtual-cell models are evaluated as if all genes posed the same statistical lea
 6.  Welz G. *The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction* (GLMP Working Paper II, 2026). [HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html)
 7.  Welz G. *Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis* (GLMP Working Paper III, 2026). [HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html)
 
+8.  Istrate A-M et al. rbio-1: training scientific reasoning LLMs with biological world models as soft verifiers. *bioRxiv* (2025). DOI: 10.1101/2025.08.18.670981
+
 Draft synthesis for bioRxiv posting · not peer-reviewed · April 2026  
 Suggested bioRxiv category: Systems biology / Computational biology  
 Source file maintained alongside GLMP working papers.
