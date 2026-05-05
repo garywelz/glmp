@@ -236,6 +236,8 @@ Paper II develops a detailed isomorphism-style lexicon: Boolean operators implem
 
 The actionable piece for biologists is predictive: **if a target gene sits in a Class III subgraph under TRRUST-style literature edges, aggregate accuracy is a poor summary statistic** because successful prediction may require inferring latent commitment variables that bulk training signals under-specify.
 
+Independent support for the Class III stratum comes from a computational experiment using rBio-1, a perturbation reasoning model trained on CZI's TranscriptFormer virtual cell embeddings (Istrate et al. 2025). When queried about knockdown effects in K562 cells, rBio assigned affirmative perturbation outcomes to Class III genes at twice the rate of Class I genes (median frac_yes: 0.40 vs 0.20, p=3.8×10⁻⁴), with a bootstrap 95% CI for the median difference of [0.20, 0.40]. This pattern emerged without any access to GLMP classifications — rBio's training signal is gene co-expression and perturbation data, not circuit topology. The convergence of a topology-based classification system and an independently trained reasoning model on the same gene stratum provides cross-framework support for the Class III distinction.
+
 Readers who prefer diagrams to axioms may consult the GLMP methods primer on Mermaid flowcharts for perturbation design, which walks through lac-operon style logic charts, hybridization with RegulonDB-style entity completeness, and layered use of public databases without requiring any formal background ([HTML draft](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/bioRxiv_Mermaid_Flowcharts_Perturbation_Methods_Draft.html)).
 
 ## 7. Analysis cohort and execution notes
