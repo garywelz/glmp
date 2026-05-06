@@ -12,6 +12,7 @@ Working paper HTML, Colab notebooks, and Python scripts for the K562 Perturb-seq
 | `STATE_Rescore_DE20.ipynb` | DE20 re-scoring (Colab) |
 | `../results/*.tsv` | Per-gene scores, merged benchmark, bimodality, etc. |
 | `../gene_circuit_classes.tsv` | GLMP circuit class (I–V) per benchmark gene |
+| `benchmark_data/` | **Local only** — Replogle `.h5ad` and derived `.npz` (see [`benchmark_data/README.md`](benchmark_data/README.md)) |
 
 ## Re-running analyses
 
