@@ -111,7 +111,7 @@ Circuit class assignment follows the five-class ladder from Paper I:
 
 ### 3.4 Circuit Topology Illustrations
 
-The following GLMP-style flowcharts illustrate the topological distinction between classes. These are deliberately simplified to highlight the structural feature — the presence or absence of directed cycles — that determines the class. Full GLMP flowcharts with complete molecular detail for these and other regulatory circuits are available in the [GLMP database](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html). Colors follow the GLMP palette: <span style="color:#1abc9c;">green</span> = gene/protein, <span style="color:#e74c3c;">red</span> = repression, <span style="color:#2E75B6;">blue</span> = activation/signal, <span style="color:#f39c12;">orange</span> = regulatory outcome.
+The following GLMP-style flowcharts illustrate the topological distinction between classes. These are deliberately simplified to highlight the structural feature — the presence or absence of directed cycles — that determines the class. Full GLMP flowcharts with complete molecular detail for these and other regulatory circuits are available in the [GLMP database](https://github.com/garywelz/glmp/blob/main/glmp-database-table.html). Colors follow the GLMP palette: <span style="color:#1abc9c;">green</span> = gene/protein, <span style="color:#e74c3c;">red</span> = repression, <span style="color:#2E75B6;">blue</span> = activation/signal, <span style="color:#f39c12;">orange</span> = regulatory outcome.
 
 **Class I — Feed-forward cascade (JUN/AP-1).** Signal flows in one direction; no cycle. The perturbation response is fully determined by the current input.
 
@@ -595,7 +595,7 @@ All data and code necessary to reproduce the analyses in this paper are availabl
 - **Analysis scripts:** `k562-empirical-sequel/scripts/` — `merge_state_results.py`, `merge_state_de20_results.py`, `merge_hypothesis2_meta.py`, `run_grn_propagation.py`, `run_celloracle_grammar_advantage.py`, `run_bimodality_analysis.py`, `compute_de_genes.py` (run from repository root; requires Figshare `.h5ad` and `regulatory_data/trrust_rawdata.human.tsv` for propagation)
 - **STATE Colab notebooks:** `k562-empirical-sequel/STATE_K562_Benchmark_v4.ipynb` (inference), `k562-empirical-sequel/STATE_Rescore_DE20.ipynb` (DE20 re-scoring)
 
-The K562 Perturb-seq benchmark data (Replogle et al. 2022) is available at [Figshare](https://plus.figshare.com/articles/dataset/Mapping_information-rich_genotype-phenotype_landscapes_with_genome-scale_Perturb-seq/20029387). The GLMP flowchart database and companion theoretical papers are hosted at the [GLMP HuggingFace Space](https://huggingface.co/spaces/garywelz/glmp) and [GLMP database](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html).
+The K562 Perturb-seq benchmark data (Replogle et al. 2022) is available at [Figshare](https://plus.figshare.com/articles/dataset/Mapping_information-rich_genotype-phenotype_landscapes_with_genome-scale_Perturb-seq/20029387). The GLMP flowchart database and companion theoretical papers are hosted at the [GLMP HuggingFace Space](https://huggingface.co/spaces/garywelz/glmp) and [GLMP database](https://github.com/garywelz/glmp/blob/main/glmp-database-table.html).
 
 ------------------------------------------------------------------------
 
