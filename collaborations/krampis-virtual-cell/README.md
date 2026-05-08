@@ -1,5 +1,10 @@
 # Krampis Virtual Cell Collaboration Drafts
 
+Gary Welz  
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
+
 This folder collects Markdown working drafts for a proposed collaboration between Gary Welz and Prof. Konstantinos Krampis on GLMP, perturbation design, genomic circuit complexity, and virtual cell model evaluation.
 
 The Markdown files are intended to be the collaboration source of truth. Legacy public HTML snapshots may remain on Google Cloud Storage for some GLMP assets; for these working papers, the canonical versions are the Markdown files in this folder on GitHub, and edits should happen here so changes can be reviewed through pull requests.

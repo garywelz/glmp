@@ -4,10 +4,10 @@ GLMP Working Paper 2026 · Empirical Companion · Results
 
 Empirical companion to: <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a> and <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/genome-as-computer.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>The Genome as Computer</em></a>
 
-**Gary Welz**  
-<gwelz@gc.cuny.edu>  
-CUNY Graduate Center / New Media Lab  
-Genome Logic Modeling Project (GLMP)
+Gary Welz  
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
 
 Abstract
 

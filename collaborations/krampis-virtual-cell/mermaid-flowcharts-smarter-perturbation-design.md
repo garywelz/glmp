@@ -4,8 +4,10 @@
 
 A methods-oriented primer for investigators combining large language models, RegulonDB-class resources, and logic-style process charts
 
-**Gary Welz**  
-<gwelz@gc.cuny.edu> · CUNY Graduate Center  
+Gary Welz  
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
 Draft date: April 2026
 
 ## Recommended hands-on before reading the methods sections

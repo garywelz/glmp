@@ -4,9 +4,10 @@ GLMP · Synthesis for biology · Draft for bioRxiv
 
 Companion overview to three working papers on foundational typology, logical primitives for gene regulation, and the first empirical stratification of virtual-cell benchmarks by circuit topology.
 
-**Gary Welz**  
-<gwelz@gc.cuny.edu>  
-CUNY Graduate Center / New Media Lab · Genome Logic Modeling Project (GLMP)
+Gary Welz  
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
 
 Abstract
 

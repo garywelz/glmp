@@ -2,10 +2,10 @@ GLMP Working Paper — 2026
 
 # Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class
 
-**Gary Welz**  
-<gwelz@gc.cuny.edu>  
-CUNY Graduate Center / New Media Lab  
-Genome Logic Modeling Project (GLMP)
+Gary Welz  
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
 
 Abstract
 

@@ -2,7 +2,12 @@
 
 **Backbone-constrained flowcharts for multi-organism regulatory networks**
 
-Gary Welz & Prof. Konstantin Krampis — 3-year NSF-oriented proposal
+Gary Welz  
+Researcher, New Media Lab, CUNY Graduate Center  
+Email: gwelz@gc.cuny.edu  
+ORCID: https://orcid.org/0009-0005-7806-0892
+
+Prof. Konstantin Krampis — 3-year NSF-oriented proposal
 
 March 18, 2026
 
