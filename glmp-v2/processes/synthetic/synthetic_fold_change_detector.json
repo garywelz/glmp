@@ -1,0 +1,109 @@
+{
+  "id": "synthetic_fold_change_detector",
+  "name": "Incoherent-FFL Fold-Change Detector",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A fold-change detector built on an incoherent feed-forward loop: the input activates the output and, through an intermediate, also represses it in proportion to input level. The output then depends only on the relative (fold) change of the input, not its absolute value — the synthetic realization of fold-change detection / exact adaptation.",
+  "scientificAccuracy": "Ground-truth design. The IFFL fold-change-detection property was derived and demonstrated (Goentoro, Shoval, Kirschner & Alon 2009).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input signal X]\n    B[Activates output Z]\n    C[Intermediate Y tracks X]\n    D[/Y represses Z in proportion to X/]\n    E{Z = X / Y?}\n    F(Output Z: responds to fold-change)\n\n    A --> B\n    A --> C\n    C --> D\n    B --> E\n    D -->|⊣| E\n    E -->|Yes| F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The incoherent feedforward loop can provide fold-change detection in gene regulation",
+      "authors": "Goentoro L, Shoval O, Kirschner MW, Alon U",
+      "journal": "Molecular Cell",
+      "year": 2009,
+      "volume": "36",
+      "pages": "894-899",
+      "pmid": "20005851",
+      "doi": "10.1016/j.molcel.2009.11.018"
+    }
+  ],
+  "keywords": [
+    "fold-change detection",
+    "incoherent feed-forward",
+    "exact adaptation",
+    "scale invariance",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_incoherent_ffl"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth circuit grouped in Class II (adaptive negative regulation); functionally a fold-change detector.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "output promoter (activator + proportional repressor)",
+        "boundFactor": "X (activator) + Y (X-driven repressor)",
+        "operator": "X AND NOT Y",
+        "effect": "output ~ X/Y",
+        "sequenceMotif": "(activator + operator)",
+        "note": "repressor scales with input -> fold-change readout"
+      }
+    ],
+    "derivedLogic": "Z ~ X / Y where Y ~ X -> Z responds to fold-change of X",
+    "references": [
+      "Goentoro et al. 2009"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "incoherent_ffl_fold_change_detection",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "An incoherent feed-forward loop with the right (e.g. division-like) interaction responds to the fold-change of the input rather than its absolute level — a form of exact adaptation. The internal repression branch acts as a negative regulator of the output, so it is grouped with the adaptive/homeostatic Class II circuits (Goentoro et al. 2009).",
+  "groundTruth": true
+}

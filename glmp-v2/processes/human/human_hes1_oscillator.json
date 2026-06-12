@@ -1,0 +1,113 @@
+{
+  "id": "human_hes1_oscillator",
+  "name": "HES1 Ultradian Oscillator",
+  "organism": "Homo sapiens",
+  "category": "Developmental Signaling",
+  "description": "HES1, a bHLH repressor downstream of Notch, binds and represses its own promoter. The delay between transcription, translation, and protein turnover converts this negative-autoregulation loop into a ~2 hour ultradian oscillator that paces the segmentation clock and neural-progenitor cell-fate timing.",
+  "scientificAccuracy": "HES1 delayed negative-autoregulation oscillations are directly measured (Hirata et al. 2002; Lewis 2003).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Notch / signaling input]\n    B[HES1 transcription]\n    C[HES1 protein]\n    D[/HES1 represses own promoter/]\n    E(~2 h ultradian oscillation)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|⊣ delayed| B\n    C --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Oscillatory expression of the bHLH factor Hes1 regulated by a negative feedback loop",
+      "authors": "Hirata H, Yoshiura S, Ohtsuka T, et al.",
+      "journal": "Science",
+      "year": 2002,
+      "volume": "298",
+      "pages": "840-843",
+      "pmid": "12399594",
+      "doi": "10.1126/science.1074560"
+    }
+  ],
+  "keywords": [
+    "HES1",
+    "oscillator",
+    "negative autoregulation",
+    "segmentation clock",
+    "delay",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_circadian_clock",
+    "synthetic_negative_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IV oscillator: single delayed negative-autoregulation loop (the human analogue of synthetic NAR pushed into oscillation by delay).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "HES1 promoter N-box",
+        "boundFactor": "HES1",
+        "operator": "NOT",
+        "effect": "autorepression",
+        "sequenceMotif": "CACNAG (N-box)",
+        "note": "HES1 represses its own promoter with delay"
+      }
+    ],
+    "derivedLogic": "HES1 = NOT HES1(t-τ) -> ~2 h oscillation",
+    "references": [
+      "Hirata et al. 2002"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 5,
+  "loops": 1,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "delayed_negative_autoregulation_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "HES1 represses its own promoter; transcription/translation delay turns this single negative-autoregulation loop into a ~2 h ultradian oscillator (Hirata et al. 2002) that times somite segmentation and neural progenitor dynamics. Class IV.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

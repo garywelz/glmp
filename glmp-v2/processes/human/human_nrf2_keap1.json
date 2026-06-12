@@ -1,0 +1,112 @@
+{
+  "id": "human_nrf2_keap1",
+  "name": "NRF2–KEAP1 Oxidative-Stress Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Stress Response",
+  "description": "The master antioxidant response. KEAP1 normally ubiquitinates NRF2 for degradation; reactive electrophiles modify KEAP1 cysteines, stabilizing NRF2, which enters the nucleus and activates ARE-driven antioxidant and detoxification genes, including feedback regulators that restore the redox set-point.",
+  "scientificAccuracy": "KEAP1-NRF2 stress sensing and ARE-driven negative feedback are established (Itoh et al. 1999; Suzuki & Yamamoto 2015).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Oxidative / electrophilic stress]\n    B{Stress present?}\n    C[KEAP1 active]\n    D[/NRF2 degraded/]\n    E[NRF2 stabilized]\n    F[ARE targets: antioxidants]\n    G[/Feedback regulators/]\n    H(Redox homeostasis)\n\n    A --> B\n    B -->|No| C\n    C --> D\n    B -->|Yes| E\n    E --> F\n    F --> H\n    F --> G\n    G -->|+ feedback| C\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Keap1 represses nuclear activation of antioxidant responsive elements by Nrf2 through binding to the amino-terminal Neh2 domain",
+      "authors": "Itoh K, Wakabayashi N, Katoh Y, et al.",
+      "journal": "Genes & Development",
+      "year": 1999,
+      "volume": "13",
+      "pages": "76-86",
+      "pmid": "9887101",
+      "doi": "10.1101/gad.13.1.76"
+    }
+  ],
+  "keywords": [
+    "NRF2",
+    "KEAP1",
+    "ARE",
+    "oxidative stress",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_vhl_hif_oxygen_sensing"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II redox homeostat: KEAP1-NRF2 with ARE-driven feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ARE (antioxidant response element)",
+        "boundFactor": "NRF2-sMAF",
+        "operator": "IF / NOT(KEAP1)",
+        "effect": "activation when NRF2 stabilized",
+        "sequenceMotif": "TGACnnnGC",
+        "note": "KEAP1 gates NRF2 stability"
+      }
+    ],
+    "derivedLogic": "ARE-targets = NOT(basal KEAP1) ; feedback regulators -> homeostat",
+    "references": [
+      "Itoh et al. 1999"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 8,
+  "edges": 8,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "keap1_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Under basal conditions KEAP1 targets NRF2 for degradation; oxidative/electrophilic stress modifies KEAP1 to stabilize NRF2, which drives antioxidant (ARE) genes and feedback regulators — a negative-feedback redox homeostat. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

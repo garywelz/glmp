@@ -1,0 +1,109 @@
+{
+  "id": "synthetic_three_input_and",
+  "name": "Three-Input Transcriptional AND Gate",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A three-input AND gate assembled by layering two-input AND modules (e.g. hrpRS plus a third inducible input). The output promoter fires only when all three inputs are present, demonstrating scalable combinatorial transcriptional logic with no feedback.",
+  "scientificAccuracy": "Ground-truth circuit. A genetic 3-input AND gate built from layered modules was demonstrated by Moon et al. (2012).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 2,
+      "total": 2
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input 1]\n    B[Input 2]\n    C[Input 3]\n    D{Input 1 AND Input 2?}\n    E[Intermediate activator]\n    F{intermediate AND Input 3?}\n    G[Output promoter active]\n    H(Output GFP: all three required)\n\n    A --> D\n    B --> D\n    D -->|Yes| E\n    E --> F\n    C --> F\n    F -->|Yes| G\n    G --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#74c0fc,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Genetic programs constructed from layered logic gates in single cells",
+      "authors": "Moon TS, Lou C, Tamsir A, Stanton BC, Voigt CA",
+      "journal": "Nature",
+      "year": 2012,
+      "volume": "491",
+      "pages": "249-253",
+      "pmid": "23041931",
+      "doi": "10.1038/nature11516"
+    }
+  ],
+  "keywords": [
+    "AND gate",
+    "three-input",
+    "layered logic",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_and_gate"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I deep logic: two layered AND gates, no feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "layered AND promoters",
+        "boundFactor": "split activators / integrases",
+        "operator": "AND (x2)",
+        "effect": "activation only if all inputs present",
+        "sequenceMotif": "(module-specific)",
+        "note": "two AND layers compose a 3-input AND"
+      }
+    ],
+    "derivedLogic": "Output = Input1 AND Input2 AND Input3",
+    "references": [
+      "Moon et al. 2012"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 2,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 2,
+  "totalNodes": 8,
+  "edges": 7,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "layered_transcriptional_AND",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Three inputs are combined through layered split-activator / integrase logic so the output fires only when all three are present: out = A AND B AND C. Feed-forward, no cycle — Class I — extending two-input logic to deeper combinatorial control (Moon et al. 2012).",
+  "groundTruth": true
+}

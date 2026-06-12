@@ -1,0 +1,112 @@
+{
+  "id": "human_hsf1_heat_shock",
+  "name": "HSF1 Heat-Shock Response with HSP70 Feedback",
+  "organism": "Homo sapiens",
+  "category": "Stress Response",
+  "description": "The cytoprotective heat-shock response. Misfolded proteins titrate chaperones away from HSF1, allowing HSF1 to trimerize and induce HSP70/HSP90. As chaperones refold the proteome, free HSP70 rebinds and inactivates HSF1 — a negative-feedback loop that scales the response to the folding load.",
+  "scientificAccuracy": "HSF1 activation and HSP70-mediated negative feedback are established (Anckar & Sistonen 2011).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Heat / proteotoxic stress]\n    B[HSF1 trimerizes, active]\n    C[Chaperone transcription: HSP70/90]\n    D[Chaperones refold proteins]\n    E[/HSP70 binds, inactivates HSF1/]\n    F(Proteostasis restored)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Regulation of the heat shock response in eukaryotes",
+      "authors": "Anckar J, Sistonen L",
+      "journal": "Annual Review of Biochemistry",
+      "year": 2011,
+      "volume": "80",
+      "pages": "1089-1115",
+      "pmid": "21417720",
+      "doi": "10.1146/annurev-biochem-060809-095203"
+    }
+  ],
+  "keywords": [
+    "HSF1",
+    "HSP70",
+    "heat shock",
+    "proteostasis",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_nrf2_keap1"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II proteostasis homeostat: HSP70 negative feedback on HSF1.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Heat-shock element (HSE)",
+        "boundFactor": "HSF1 trimer",
+        "operator": "IF",
+        "effect": "activation of chaperones",
+        "sequenceMotif": "nGAAn-nTTCn-nGAAn (inverted repeats)",
+        "note": "HSP70 product feeds back to inactivate HSF1"
+      }
+    ],
+    "derivedLogic": "chaperones = HSF1 ; HSF1 = NOT HSP70 (negative feedback) -> proteostasis",
+    "references": [
+      "Anckar & Sistonen 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "hsp70_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Proteotoxic stress frees and trimerizes HSF1, which induces chaperones (HSP70/90); accumulated HSP70 binds and inactivates HSF1 — a negative-feedback proteostasis homeostat. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

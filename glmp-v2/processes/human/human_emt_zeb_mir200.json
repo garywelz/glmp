@@ -1,0 +1,132 @@
+{
+  "id": "human_emt_zeb_mir200",
+  "name": "EMT ZEB/miR-200 Bistable Switch",
+  "organism": "Homo sapiens",
+  "category": "EMT / Cancer",
+  "description": "The core EMT decision circuit. ZEB1/2 transcription factors and the miR-200 microRNA family mutually repress each other, while ZEB also represses E-cadherin. The double-negative feedback is bistable (with a hybrid intermediate), locking cells into epithelial or mesenchymal identity — the switch that drives metastatic plasticity.",
+  "scientificAccuracy": "ZEB/miR-200 mutual repression and its bistable EMT interpretation are established (Burk et al. 2008; Lu et al. 2013; Tian et al. 2013).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[EMT signal: TGF-β / hypoxia]\n    B[ZEB1/2]\n    C[miR-200 family]\n    D[/ZEB represses miR-200/]\n    E[/miR-200 represses ZEB/]\n    F[/ZEB represses E-cadherin/]\n    G(Mesenchymal state: migratory)\n    H(Epithelial state: E-cadherin+)\n\n    A --> B\n    B --> D\n    D -->|⊣| C\n    C --> E\n    E -->|⊣| B\n    B --> F\n    F --> G\n    C --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "MicroRNA-based regulation of epithelial-hybrid-mesenchymal fate determination",
+      "authors": "Lu M, Jolly MK, Levine H, Onuchic JN, Ben-Jacob E",
+      "journal": "PNAS",
+      "year": 2013,
+      "volume": "110",
+      "pages": "18144-18149",
+      "pmid": "24154725",
+      "doi": "10.1073/pnas.1318192110"
+    },
+    {
+      "title": "Coupled reversible and irreversible bistable switches underlying TGF-β-induced EMT",
+      "authors": "Tian XJ, Zhang H, Xing J",
+      "journal": "Biophysical Journal",
+      "year": 2013,
+      "volume": "105",
+      "pages": "1079-1089",
+      "pmid": "23972859",
+      "doi": "10.1016/j.bpj.2013.07.011"
+    }
+  ],
+  "keywords": [
+    "EMT",
+    "ZEB",
+    "miR-200",
+    "bistable",
+    "double-negative feedback",
+    "metastasis",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_snail_mir34_emt",
+    "synthetic_toggle_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa EMT switch: ZEB/miR-200 double-negative bistability (3 repressions).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ZEB E-box (CDH1, miR-200 promoters)",
+        "boundFactor": "ZEB1/2",
+        "operator": "NOT",
+        "effect": "repression of miR-200 and E-cadherin",
+        "sequenceMotif": "CACCTG (Z-box)",
+        "note": "ZEB binds Z-box E-boxes"
+      },
+      {
+        "name": "miR-200 target sites in ZEB 3'UTR",
+        "boundFactor": "miR-200",
+        "operator": "NOT",
+        "effect": "post-transcriptional repression of ZEB",
+        "sequenceMotif": "CAGUGUU (miR-200 seed match)",
+        "note": "closes the double-negative loop"
+      }
+    ],
+    "derivedLogic": "ZEB = NOT miR-200 ; miR-200 = NOT ZEB -> bistable epithelial/mesenchymal",
+    "references": [
+      "Lu et al. 2013"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 3
+  },
+  "notGates": 3,
+  "conditionals": 0,
+  "totalNodes": 8,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "double_negative_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "ZEB1/2 and the miR-200 family repress each other; the double-negative loop is bistable, latching cells into either an epithelial (high miR-200) or mesenchymal (high ZEB) state — a persistent (IIIa) switch central to metastasis (Lu et al. 2013; Tian et al. 2013).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

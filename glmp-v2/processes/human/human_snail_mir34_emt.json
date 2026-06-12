@@ -1,0 +1,122 @@
+{
+  "id": "human_snail_mir34_emt",
+  "name": "SNAIL/miR-34 EMT Switch",
+  "organism": "Homo sapiens",
+  "category": "EMT / Cancer",
+  "description": "A second, upstream EMT switch. SNAIL represses miR-34, and miR-34 (a p53 target) represses SNAIL; SNAIL also represses E-cadherin to drive the mesenchymal program. The double-negative feedback is bistable and feeds the ZEB/miR-200 switch, giving EMT its staged, hysteretic dynamics.",
+  "scientificAccuracy": "SNAIL/miR-34 double-negative feedback and its EMT-switch role are established (Siemens et al. 2011; Kim et al. 2011).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[EMT trigger: TGF-β / p53 loss]\n    B[SNAIL]\n    C[miR-34]\n    D[/SNAIL represses miR-34/]\n    E[/miR-34 represses SNAIL/]\n    F[/SNAIL represses E-cadherin/]\n    G(EMT commitment)\n\n    A --> B\n    B --> D\n    D -->|⊣| C\n    C --> E\n    E -->|⊣| B\n    B --> F\n    F --> G\n    B --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "miR-34 and SNAIL form a double-negative feedback loop to regulate epithelial-mesenchymal transition",
+      "authors": "Siemens H, Jackstadt R, Hünten S, et al.",
+      "journal": "Cell Cycle",
+      "year": 2011,
+      "volume": "10",
+      "pages": "4256-4271",
+      "pmid": "22134354",
+      "doi": "10.4161/cc.10.24.18552"
+    }
+  ],
+  "keywords": [
+    "EMT",
+    "SNAIL",
+    "miR-34",
+    "p53",
+    "bistable",
+    "double-negative feedback",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_emt_zeb_mir200",
+    "human_p53_mdm2"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III EMT switch (SNAIL/miR-34 double-negative); upstream partner of ZEB/miR-200.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "SNAIL E-box (CDH1, miR-34 promoters)",
+        "boundFactor": "SNAIL",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "CAGGTG (E-box)",
+        "note": ""
+      },
+      {
+        "name": "miR-34 site in SNAIL 3'UTR",
+        "boundFactor": "miR-34",
+        "operator": "NOT",
+        "effect": "post-transcriptional repression",
+        "sequenceMotif": "(miR-34 seed match)",
+        "note": "p53 induces miR-34"
+      }
+    ],
+    "derivedLogic": "SNAIL = NOT miR-34 ; miR-34 = NOT SNAIL -> bistable EMT",
+    "references": [
+      "Siemens et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 3
+  },
+  "notGates": 3,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "double_negative_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "SNAIL and miR-34 repress each other (and SNAIL represses E-cadherin); the double-negative loop is bistable and, coupled to ZEB/miR-200, forms the cascade of switches that times EMT (Siemens et al. 2011). Class III.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_stricker_oscillator",
+  "name": "Stricker Fast Dual-Feedback Oscillator",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A robust, fast synthetic oscillator. A single hybrid promoter drives both AraC (an activator of that promoter, positive feedback) and LacI (a repressor of it, negative feedback). The interlinked positive and negative loops, with matched protein degradation, produce tunable oscillations far more regular than the original repressilator.",
+  "scientificAccuracy": "Ground-truth circuit. Built and characterized with single-cell microfluidics by Stricker et al. (2008).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inducers: arabinose + IPTG]\n    B[Hybrid promoter Plac/ara]\n    C[AraC activator]\n    D[\\AraC activates promoter/]\n    E[LacI repressor]\n    F[/LacI represses promoter/]\n    G(Fast tunable oscillation)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| B\n    B --> E\n    E --> F\n    F -->|⊣| B\n    B --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A fast, robust and tunable synthetic gene oscillator",
+      "authors": "Stricker J, Cookson S, Bennett MR, Mather WH, Tsimring LS, Hasty J",
+      "journal": "Nature",
+      "year": 2008,
+      "volume": "456",
+      "pages": "516-519",
+      "pmid": "18971928",
+      "doi": "10.1038/nature07389"
+    }
+  ],
+  "keywords": [
+    "oscillator",
+    "dual feedback",
+    "AraC",
+    "LacI",
+    "Stricker",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_atkinson_oscillator",
+    "synthetic_repressilator"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IV oscillator: interlinked positive + negative feedback on one hybrid promoter.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Plac/ara-1 hybrid promoter",
+        "boundFactor": "AraC (activator) + LacI (repressor)",
+        "operator": "positive AND NOT",
+        "effect": "interlinked activation + repression",
+        "sequenceMotif": "araI + lacO within one promoter",
+        "note": "both regulators expressed from this promoter"
+      }
+    ],
+    "derivedLogic": "P = +AraC AND NOT LacI -> fast oscillation",
+    "references": [
+      "Stricker et al. 2008"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "dual_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A hybrid promoter is activated by AraC (positive feedback) and repressed by LacI (negative feedback), both driven from the same promoter; the interlinked fast positive and negative loops give robust, tunable, fast oscillations (Stricker et al. 2008). Class IV.",
+  "groundTruth": true
+}

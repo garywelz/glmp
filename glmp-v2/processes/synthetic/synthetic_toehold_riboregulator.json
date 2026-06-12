@@ -1,0 +1,110 @@
+{
+  "id": "synthetic_toehold_riboregulator",
+  "name": "Toehold Switch Riboregulator",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A toehold switch: the output mRNA carries a hairpin that sequesters its own ribosome-binding site. A separate trigger RNA binds the single-stranded toehold and unfolds the hairpin, exposing the RBS and turning on translation. Sequence-programmable and orthogonal, with no regulatory loop.",
+  "scientificAccuracy": "Ground-truth circuit. Toehold-switch riboregulators with high dynamic range and orthogonality were engineered by Green et al. (2014).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Trigger RNA input]\n    B[Binds toehold of hairpin mRNA]\n    C[\\Hairpin unfolds, exposes RBS/]\n    D[Ribosome-binding site free]\n    E[Translation ON]\n    F(Output protein)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Toehold switches: de-novo-designed regulators of gene expression",
+      "authors": "Green AA, Silver PA, Collins JJ, Yin P",
+      "journal": "Cell",
+      "year": 2014,
+      "volume": "159",
+      "pages": "925-939",
+      "pmid": "25417166",
+      "doi": "10.1016/j.cell.2014.10.002"
+    }
+  ],
+  "keywords": [
+    "toehold switch",
+    "riboregulator",
+    "trigger RNA",
+    "translation",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_theophylline_riboswitch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I RNA input device (trans-activating, feed-forward).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "toehold + hairpin with sequestered RBS",
+        "boundFactor": "trigger RNA",
+        "operator": "IF",
+        "effect": "RNA-gated translation activation",
+        "sequenceMotif": "programmable toehold (linear-linear hybridization)",
+        "note": "trigger binding exposes Shine-Dalgarno + start codon"
+      }
+    ],
+    "derivedLogic": "Output = IF trigger-RNA THEN translate",
+    "references": [
+      "Green et al. 2014"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "rna_trans_translational_activation",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A trans-acting trigger RNA opens a cis-repressed hairpin to expose the ribosome-binding site, switching translation ON. A programmable RNA input device with no feedback. Class I.",
+  "groundTruth": true
+}

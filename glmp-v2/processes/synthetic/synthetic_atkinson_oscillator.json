@@ -1,0 +1,119 @@
+{
+  "id": "synthetic_atkinson_oscillator",
+  "name": "Atkinson Relaxation Oscillator",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "One of the first engineered gene oscillators: an NRI activator that activates its own promoter (positive feedback) is coupled to a LacI repressor module it drives, which in turn represses the activator (delayed negative feedback). The interplay of the fast positive and slow negative loops gives relaxation-type oscillations.",
+  "scientificAccuracy": "Ground-truth circuit. Built and shown to oscillate (damped) in E. coli by Atkinson et al. (2003).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Activator NRI]\n    B[\\NRI activates own promoter/]\n    C[Represser LacI expressed]\n    D[/LacI represses NRI promoter/]\n    E(Relaxation oscillation)\n\n    A --> B\n    B -->|+| A\n    A --> C\n    C --> D\n    D -->|⊣ delayed| A\n    A --> E\n\n    style A fill:#ffd43b,color:#000\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Development of genetic circuitry exhibiting toggle switch or oscillatory behavior in Escherichia coli",
+      "authors": "Atkinson MR, Savageau MA, Myers JT, Ninfa AJ",
+      "journal": "Cell",
+      "year": 2003,
+      "volume": "113",
+      "pages": "597-607",
+      "pmid": "12787501",
+      "doi": "10.1016/S0092-8674(03)00346-5"
+    }
+  ],
+  "keywords": [
+    "oscillator",
+    "relaxation oscillator",
+    "positive feedback",
+    "negative feedback",
+    "Atkinson",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_repressilator",
+    "synthetic_stricker_oscillator"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IV oscillator: coupled positive + delayed negative feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "glnAp2 (NRI-activated)",
+        "boundFactor": "NRI~P (activator)",
+        "operator": "IF / positive feedback",
+        "effect": "activation of activator + repressor modules",
+        "sequenceMotif": "NRI enhancer",
+        "note": "positive arm"
+      },
+      {
+        "name": "lac operator",
+        "boundFactor": "LacI",
+        "operator": "NOT",
+        "effect": "delayed repression of activator",
+        "sequenceMotif": "AATTGTGAGCGGATAACAATT",
+        "note": "negative arm"
+      }
+    ],
+    "derivedLogic": "NRI = +NRI AND NOT LacI(t-τ) -> relaxation oscillation",
+    "references": [
+      "Atkinson et al. 2003"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 6,
+  "loops": 2,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "coupled_pos_neg_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Couples a positive-feedback activator module to a negative-feedback repressor module; the delayed negative arm against the fast positive arm produces relaxation oscillations in E. coli (Atkinson, Savageau, Myers & Ninfa 2003). Class IV.",
+  "groundTruth": true
+}
