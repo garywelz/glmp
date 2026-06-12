@@ -1,0 +1,122 @@
+{
+  "id": "human_mtorc1_nutrient",
+  "name": "mTORC1 Nutrient Homeostat with S6K Feedback",
+  "organism": "Homo sapiens",
+  "category": "Metabolic Signaling",
+  "description": "mTORC1 integrates amino-acid and growth-factor inputs to drive protein synthesis through S6K1 and 4E-BP1. Active S6K1 phosphorylates IRS-1, attenuating upstream insulin/PI3K signaling — a well-characterized negative-feedback loop (the basis of rapamycin's paradoxical AKT activation).",
+  "scientificAccuracy": "mTORC1 control of growth and S6K1–IRS-1 negative feedback are established (Harrington et al. 2004; Saxton & Sabatini 2017).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Amino acids + growth factors]\n    B[mTORC1 active]\n    C[S6K1 / 4E-BP1]\n    D[Protein synthesis / growth]\n    E[/S6K1 inhibits IRS-1/]\n    F(Growth homeostasis)\n\n    A --> B\n    B --> C\n    C --> D\n    C --> E\n    E -->|⊣ feedback| A\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The TSC1-2 tumor suppressor controls insulin-PI3K signaling via regulation of IRS proteins",
+      "authors": "Harrington LS, Findlay GM, Gray A, et al.",
+      "journal": "Journal of Cell Biology",
+      "year": 2004,
+      "volume": "166",
+      "pages": "213-223",
+      "pmid": "15249583",
+      "doi": "10.1083/jcb.200403069"
+    },
+    {
+      "title": "mTOR signaling in growth, metabolism, and disease",
+      "authors": "Saxton RA, Sabatini DM",
+      "journal": "Cell",
+      "year": 2017,
+      "volume": "168",
+      "pages": "960-976",
+      "pmid": "28283069",
+      "doi": "10.1016/j.cell.2017.02.004"
+    }
+  ],
+  "keywords": [
+    "mTORC1",
+    "S6K1",
+    "IRS-1",
+    "nutrient sensing",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_akt_foxo_insulin"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II nutrient homeostat: S6K1-IRS-1 negative feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "mTORC1 signaling (post-translational)",
+        "boundFactor": "S6K1 -> IRS-1",
+        "operator": "NOT",
+        "effect": "inhibitory phosphorylation of IRS-1",
+        "sequenceMotif": "(protein-level)",
+        "note": "feedback realized in phosphorylation, not cis-DNA"
+      }
+    ],
+    "derivedLogic": "growth = mTORC1(nutrients) ; PI3K input = NOT S6K1 -> homeostat",
+    "references": [
+      "Saxton & Sabatini 2017"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "s6k_irs_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Amino acids and growth factors activate mTORC1, which drives growth via S6K1/4E-BP1; activated S6K1 phosphorylates and inhibits IRS-1, dampening upstream PI3K input — a negative-feedback loop tuning growth signaling. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

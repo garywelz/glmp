@@ -1,0 +1,112 @@
+{
+  "id": "human_jak_stat_socs",
+  "name": "JAK–STAT Signaling with SOCS Feedback",
+  "organism": "Homo sapiens",
+  "category": "Cytokine Signaling",
+  "description": "Cytokine binding activates receptor-associated JAK kinases, which phosphorylate STAT transcription factors. Nuclear STAT dimers drive target genes including the SOCS family, which bind and inhibit JAK — closing a negative-feedback loop that limits the duration of cytokine signaling.",
+  "scientificAccuracy": "JAK-STAT activation and SOCS-mediated negative feedback are established (Alexander & Hilton 2004; Yoshimura, Naka & Kubo 2007).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cytokine: e.g. IL-6 / IFN]\n    B[JAK kinase active]\n    C[STAT phosphorylated, dimerized]\n    D[Nuclear STAT target transcription]\n    E[SOCS induced]\n    F[/SOCS inhibits JAK/]\n    G(Transient adaptive response)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|⊣ feedback| B\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The role of suppressors of cytokine signalling (SOCS) proteins in regulation of the immune response",
+      "authors": "Alexander WS, Hilton DJ",
+      "journal": "Annual Review of Immunology",
+      "year": 2004,
+      "volume": "22",
+      "pages": "503-529",
+      "pmid": "15032587",
+      "doi": "10.1146/annurev.immunol.22.091003.090312"
+    }
+  ],
+  "keywords": [
+    "JAK",
+    "STAT",
+    "SOCS",
+    "cytokine",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_irf7_interferon_amplifier"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II circuit: STAT induces SOCS which inhibits JAK (delayed negative feedback).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "GAS / ISRE element (incl. SOCS promoters)",
+        "boundFactor": "STAT dimer",
+        "operator": "IF",
+        "effect": "activation (incl. its own inhibitor SOCS)",
+        "sequenceMotif": "TTCNNNGAA (GAS)",
+        "note": "induces SOCS -> negative feedback on JAK"
+      }
+    ],
+    "derivedLogic": "targets, SOCS = STAT ; JAK = NOT SOCS(t-τ) -> adaptive response",
+    "references": [
+      "Alexander & Hilton 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "socs_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Cytokine-activated JAK phosphorylates STAT, which transcribes targets including SOCS; SOCS then inhibits JAK — a delayed negative-feedback loop that makes cytokine signaling transient and adaptive. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

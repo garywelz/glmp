@@ -1,0 +1,123 @@
+{
+  "id": "human_bcl2_bax_momp",
+  "name": "BCL-2/BAX Mitochondrial Apoptosis Switch",
+  "organism": "Homo sapiens",
+  "category": "Apoptosis",
+  "description": "The mitochondrial apoptosis decision. BH3-only proteins inhibit anti-apoptotic BCL-2/BCL-xL, releasing BAX/BAK; active BAX auto-amplifies its own activation and oligomerizes in the outer mitochondrial membrane, producing all-or-none MOMP. The positive feedback makes commitment switch-like and upstream of the caspase cascade.",
+  "scientificAccuracy": "BCL-2-family regulation of BAX/BAK and bistable, all-or-none MOMP are established (Chipuk & Green 2008; Tait & Green 2010).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Apoptotic stress: BH3-only]\n    B[/Inhibits BCL-2 / BCL-xL/]\n    C[BAX/BAK activated]\n    D[\\BAX auto-amplifies activation/]\n    E[MOMP: all-or-none]\n    F(Commitment to apoptosis)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| C\n    C --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "How cells die: apoptosis pathways",
+      "authors": "Chipuk JE, Green DR",
+      "journal": "Journal of Allergy and Clinical Immunology",
+      "year": 2008,
+      "volume": "121",
+      "pages": "S87-S92",
+      "pmid": "18505631",
+      "doi": "10.1016/j.jaci.2007.10.026"
+    },
+    {
+      "title": "Mitochondria and cell death: outer membrane permeabilization and beyond",
+      "authors": "Tait SW, Green DR",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2010,
+      "volume": "11",
+      "pages": "621-632",
+      "pmid": "20683470",
+      "doi": "10.1038/nrm2952"
+    }
+  ],
+  "keywords": [
+    "BCL-2",
+    "BAX",
+    "MOMP",
+    "apoptosis",
+    "bistable",
+    "positive feedback",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_apoptosis_caspase_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III bistable MOMP switch (upstream of caspase switch); BAX positive feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "BAX activation (protein-protein)",
+        "boundFactor": "BH3-only / BCL-2 / BAX",
+        "operator": "NOT / positive feedback",
+        "effect": "membrane permeabilization",
+        "sequenceMotif": "(protein-level: BH3 groove)",
+        "note": "switch implemented in protein interactions, not cis-DNA"
+      }
+    ],
+    "derivedLogic": "MOMP = NOT BCL-2 AND positive-feedback(BAX) -> all-or-none",
+    "references": [
+      "Tait & Green 2010"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_feedback_momp_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "BH3-only proteins neutralize anti-apoptotic BCL-2/BCL-xL, freeing BAX/BAK; activated BAX recruits and activates more BAX (positive feedback), driving all-or-none mitochondrial outer-membrane permeabilization — a bistable Class III commitment switch upstream of caspases.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

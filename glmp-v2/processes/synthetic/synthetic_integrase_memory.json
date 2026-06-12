@@ -1,0 +1,122 @@
+{
+  "id": "synthetic_integrase_memory",
+  "name": "Integrase Recombinase Permanent Memory",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A permanent genetic memory device. A transient input drives a site-specific serine integrase that flips a DNA segment between attB/attP sites, switching a reporter ON and changing the orientation of its own DNA. Because the edit is to the DNA sequence itself, the state is digital, heritable, and persists indefinitely without the input — a circuit that rewrites its own genome rather than only its expression state.",
+  "scientificAccuracy": "Ground-truth circuit. Recombinase-based rewritable memory and integrase state machines were built and characterized (Bonnet, Subsoontorn & Endy 2012; Siuti, Yazbek & Lu 2013).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input signal pulse]\n    B[Integrase expressed]\n    C[\\Inverts DNA between att sites/]\n    D[Rewritten DNA state, heritable]\n    E[Reporter ON]\n    F(Permanent genetic memory)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Rewritable digital data storage in live cells via engineered control of recombination directionality",
+      "authors": "Bonnet J, Subsoontorn P, Endy D",
+      "journal": "PNAS",
+      "year": 2012,
+      "volume": "109",
+      "pages": "8884-8889",
+      "pmid": "22615351",
+      "doi": "10.1073/pnas.1202344109"
+    },
+    {
+      "title": "Synthetic circuits integrating logic and memory in living cells",
+      "authors": "Siuti P, Yazbek J, Lu TK",
+      "journal": "Nature Biotechnology",
+      "year": 2013,
+      "volume": "31",
+      "pages": "448-452",
+      "pmid": "23396014",
+      "doi": "10.1038/nbt.2510"
+    }
+  ],
+  "keywords": [
+    "integrase",
+    "recombinase",
+    "memory",
+    "self-modifying DNA",
+    "DNA inversion",
+    "Class V",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch",
+    "synthetic_crispri_toggle"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class V anchor: the circuit edits its own DNA (self-modifying genetic state), giving heritable memory without standing feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "attB / attP recombination sites",
+        "boundFactor": "serine integrase",
+        "operator": "SELF-MODIFY",
+        "effect": "irreversible DNA inversion/excision",
+        "sequenceMotif": "attB x attP -> attL / attR",
+        "note": "directionality set by integrase +/- RDF; rewrites the DNA template itself"
+      }
+    ],
+    "derivedLogic": "DNA_state := flip(DNA_state) on input pulse -> heritable memory (self-modifying)",
+    "references": [
+      "Bonnet et al. 2012",
+      "Siuti et al. 2013"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "V",
+  "circuitClassName": "Self-modifying chromatin / epigenetic",
+  "topologyType": "self_modifying_dna_recombinase_memory",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "An input pulse expresses a site-specific integrase that inverts (or excises) a DNA segment between recombination sites, permanently rewriting the cell's own genetic state. The circuit modifies its own DNA template and the new state is heritable without further input — the synthetic analogue of the self-modifying (Class V) rung (Bonnet et al. 2012; Siuti et al. 2013).",
+  "groundTruth": true
+}

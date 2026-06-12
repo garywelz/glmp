@@ -1,0 +1,113 @@
+{
+  "id": "human_p16_rb_senescence",
+  "name": "p16–Rb Senescence Commitment Switch",
+  "organism": "Homo sapiens",
+  "category": "Senescence",
+  "description": "Sustained oncogenic or replicative stress drives p16INK4a, which inhibits CDK4/6 so Rb stays hypophosphorylated and active. Active Rb represses E2F proliferation genes and reinforces the senescence program, a positive-feedback loop that makes senescence a stable, essentially irreversible cell-fate decision.",
+  "scientificAccuracy": "Oncogene-induced senescence and the p16-Rb stable-arrest circuit are established (Serrano et al. 1997; Narita et al. 2003).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Oncogenic / replicative stress]\n    B[p16INK4a]\n    C[/Inhibits CDK4/6/]\n    D[Rb hypophosphorylated, active]\n    E[/Rb represses E2F proliferation/]\n    F[\\Reinforces p16 program/]\n    G(Irreversible senescence: stable arrest)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    D --> F\n    F -->|+| B\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Oncogenic ras provokes premature cell senescence associated with accumulation of p53 and p16INK4a",
+      "authors": "Serrano M, Lin AW, McCurrach ME, Beach D, Lowe SW",
+      "journal": "Cell",
+      "year": 1997,
+      "volume": "88",
+      "pages": "593-602",
+      "pmid": "9054499",
+      "doi": "10.1016/S0092-8674(00)81902-9"
+    }
+  ],
+  "keywords": [
+    "p16",
+    "Rb",
+    "senescence",
+    "bistable",
+    "positive feedback",
+    "irreversible",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_rb_e2f_restriction_point"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa irreversible commitment switch (senescence) via p16-Rb positive feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "E2F site (repressed in senescence)",
+        "boundFactor": "Rb-E2F",
+        "operator": "NOT",
+        "effect": "stable repression of proliferation genes",
+        "sequenceMotif": "TTTSSCGC",
+        "note": "locked OFF in senescent state; reinforced by p16"
+      }
+    ],
+    "derivedLogic": "proliferation = NOT(p16 -> Rb) ; positive feedback -> stable senescent state",
+    "references": [
+      "Serrano et al. 1997"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_feedback_irreversible_senescence",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Oncogenic/replicative stress induces p16INK4a, which inhibits CDK4/6 and activates Rb; active Rb represses proliferative E2F targets and reinforces p16, a positive-feedback loop that locks cells into a stable, irreversible senescent state — a persistent (IIIa) switch.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

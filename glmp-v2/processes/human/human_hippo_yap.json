@@ -1,0 +1,124 @@
+{
+  "id": "human_hippo_yap",
+  "name": "Hippo–YAP/TAZ Growth-Control Pathway",
+  "organism": "Homo sapiens",
+  "category": "Growth Control Signaling",
+  "description": "The Hippo pathway scales organ size and enforces contact inhibition. At high density the MST1/2–LATS1/2 kinase cascade phosphorylates YAP/TAZ, sequestering them in the cytoplasm; at low density YAP/TAZ enter the nucleus, partner with TEAD, and drive proliferative targets that also feed back on pathway components.",
+  "scientificAccuracy": "Hippo kinase regulation of YAP/TAZ and density-dependent growth control are established (Zhao et al. 2007; Yu, Zhao & Guan 2015).",
+  "complexity": {
+    "nodes": 9,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cell density / mechanical cues]\n    B{High density?}\n    C[MST-LATS kinases active]\n    D[/LATS phosphorylates YAP-TAZ/]\n    E[YAP-TAZ retained in cytoplasm]\n    F[YAP-TAZ nuclear + TEAD]\n    G[Target transcription: CTGF, CYR61]\n    H[/Feedback on pathway regulators/]\n    I(Contact inhibition vs growth)\n\n    A --> B\n    B -->|Yes| C\n    C --> D\n    D --> E\n    B -->|No| F\n    F --> G\n    G --> I\n    G --> H\n    H -->|+ feedback| C\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#ffd43b,color:#000\n    style G fill:#51cf66,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Inactivation of YAP oncoprotein by the Hippo pathway is involved in cell contact inhibition",
+      "authors": "Zhao B, Wei X, Li W, et al.",
+      "journal": "Genes & Development",
+      "year": 2007,
+      "volume": "21",
+      "pages": "2747-2761",
+      "pmid": "17974916",
+      "doi": "10.1101/gad.1602907"
+    },
+    {
+      "title": "The Hippo pathway: regulators and regulations",
+      "authors": "Yu FX, Zhao B, Guan KL",
+      "journal": "Cell",
+      "year": 2015,
+      "volume": "163",
+      "pages": "811-828",
+      "pmid": "26544935",
+      "doi": "10.1016/j.cell.2015.10.044"
+    }
+  ],
+  "keywords": [
+    "Hippo",
+    "YAP",
+    "TAZ",
+    "LATS",
+    "TEAD",
+    "contact inhibition",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_wnt_beta_catenin"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II growth homeostat: LATS-mediated repression of YAP/TAZ with target feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "TEAD binding site",
+        "boundFactor": "YAP/TAZ-TEAD",
+        "operator": "IF / NOT(LATS)",
+        "effect": "activation when YAP nuclear",
+        "sequenceMotif": "GGAATG (MCAT)",
+        "note": "LATS phosphorylation gates YAP nuclear access -> negative control"
+      }
+    ],
+    "derivedLogic": "YAP-targets = NOT(high-density LATS) ; feedback re-tunes set-point",
+    "references": [
+      "Yu et al. 2015"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 9,
+  "edges": 9,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "kinase_cascade_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "At high cell density the MST–LATS kinase cascade phosphorylates YAP/TAZ, retaining them in the cytoplasm and blocking growth; YAP/TAZ targets feed back on pathway regulators — a negative-feedback growth homeostat. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

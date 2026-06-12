@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 136,
+  "totalProcesses": 149,
   "organisms": [
     {
       "name": "E. coli",
@@ -19,11 +19,11 @@
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 12
+      "processCount": 18
     },
     {
       "name": "Homo sapiens",
-      "processCount": 16
+      "processCount": 23
     }
   ],
   "categories": [
@@ -97,7 +97,7 @@
     },
     {
       "name": "Innate Immunity",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Nutrient Transport",
@@ -113,7 +113,7 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 12
+      "processCount": 18
     },
     {
       "name": "Hematopoiesis",
@@ -133,7 +133,7 @@
     },
     {
       "name": "Apoptosis",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Circadian Rhythm",
@@ -166,22 +166,38 @@
     {
       "name": "Developmental Signaling",
       "processCount": 2
+    },
+    {
+      "name": "Metabolic Signaling",
+      "processCount": 2
+    },
+    {
+      "name": "Growth Control Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Cytokine Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Senescence",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7469,
-    "totalConditionals": 6240,
-    "orGates": 348,
+    "totalNodes": 7556,
+    "totalConditionals": 6243,
+    "orGates": 349,
     "andGates": 439,
-    "notGates": 501,
-    "totalLogicGates": 1288,
-    "verifiedProcesses": 127,
+    "notGates": 516,
+    "totalLogicGates": 1304,
+    "verifiedProcesses": 140,
     "circuitClassDistribution": {
-      "I": 52,
-      "II": 51,
-      "III": 24,
-      "IV": 7,
-      "V": 2
+      "I": 55,
+      "II": 56,
+      "III": 27,
+      "IV": 8,
+      "V": 3
     }
   },
   "processes": [
@@ -2670,6 +2686,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_5node_repressilator",
+      "name": "Five-Repressor Ring Oscillator",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A longer ring oscillator: five repressors arranged so each represses the next and the last closes the loop on the first. An odd number of repressions makes the loop a delayed negative-feedback circuit that oscillates, with a longer period and more phase steps than the canonical three-node repressilator.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 5,
+      "circuitClass": "IV",
+      "topologyType": "odd_ring_oscillator_delayed_neg_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_and_gate",
       "name": "Transcriptional AND Gate (hrpR/hrpS)",
       "organism": "Synthetic circuit",
@@ -2690,6 +2729,29 @@
       "notGates": 0,
       "circuitClass": "I",
       "topologyType": "transcriptional_AND_gate",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_antithetic_integral_feedback",
+      "name": "Antithetic Integral-Feedback Controller",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A synthetic controller that achieves robust perfect adaptation. Controller species Z1 is made at a reference rate and activates the output; the output drives production of Z2, and Z1 and Z2 annihilate each other. This molecular sequestration integrates the error over time (integral feedback), so the steady-state output is invariant to disturbances and parameter changes.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "antithetic_integral_feedback",
       "circuitClassConfidence": "high"
     },
     {
@@ -2785,6 +2847,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_integrase_memory",
+      "name": "Integrase Recombinase Permanent Memory",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A permanent genetic memory device. A transient input drives a site-specific serine integrase that flips a DNA segment between attB/attP sites, switching a reporter ON and changing the orientation of its own DNA. Because the edit is to the DNA sequence itself, the state is digital, heritable, and persists indefinitely without the input — a circuit that rewrites its own genome rather than only its expression state.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_modifying_dna_recombinase_memory",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_metabolator",
       "name": "Metabolator (synthetic metabolic oscillator)",
       "organism": "Synthetic circuit",
@@ -2828,6 +2913,29 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "negative_autoregulation",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_nor_gate",
+      "name": "Transcriptional NOR Gate",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A two-input NOR gate: either input drives a repressor of the shared output promoter, so the output is ON only when both inputs are absent. NOR is functionally complete, and distributing NOR gates across communicating colonies is how Tamsir, Tabor & Voigt built multicellular Boolean logic.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 1,
+        "and": 0,
+        "total": 1
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "transcriptional_NOR_gate",
       "circuitClassConfidence": "high"
     },
     {
@@ -2923,6 +3031,52 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_sender_receiver_qs",
+      "name": "Sender–Receiver Quorum-Sensing Relay",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "The minimal cell-cell communication module. Sender cells express LuxI to make the diffusible autoinducer AHL; receiver cells express LuxR, which binds AHL and activates an output promoter. With no feedback it is a feed-forward relay, the building block of synthetic multicellular pattern-formation systems.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "intercellular_feed_forward_relay",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_theophylline_riboswitch",
+      "name": "Theophylline Riboswitch (ligand-gated translation)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "An RNA-based input device: a theophylline aptamer fused to a ribosome-binding site. Without ligand the RBS is sequestered; theophylline binding restructures the RNA to expose the RBS and switch on translation of the downstream gene. A feed-forward molecular sensor with no regulatory loop.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "rna_ligand_gated_translation",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_toggle_switch",
       "name": "Genetic Toggle Switch (Gardner-Collins)",
       "organism": "Synthetic circuit",
@@ -2946,6 +3100,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_akt_foxo_insulin",
+      "name": "Insulin–AKT–FOXO Metabolic Homeostat",
+      "organism": "Homo sapiens",
+      "category": "Metabolic Signaling",
+      "description": "Insulin signaling through PI3K-AKT phosphorylates FOXO transcription factors, excluding them from the nucleus and shutting off gluconeogenic and stress-resistance genes. When insulin is low, FOXO enters the nucleus and activates those programs, including feedback regulators of the insulin pathway — a homeostatic loop balancing glucose and stress responses.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "foxo_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_apoptosis_caspase_switch",
       "name": "Caspase Apoptosis Commitment Switch",
       "organism": "Homo sapiens",
@@ -2966,6 +3143,29 @@
       "notGates": 1,
       "circuitClass": "III",
       "topologyType": "positive_feedback_irreversible_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_bcl2_bax_momp",
+      "name": "BCL-2/BAX Mitochondrial Apoptosis Switch",
+      "organism": "Homo sapiens",
+      "category": "Apoptosis",
+      "description": "The mitochondrial apoptosis decision. BH3-only proteins inhibit anti-apoptotic BCL-2/BCL-xL, releasing BAX/BAK; active BAX auto-amplifies its own activation and oligomerizes in the outer mitochondrial membrane, producing all-or-none MOMP. The positive feedback makes commitment switch-like and upstream of the caspase cascade.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_momp_bistable",
       "circuitClassConfidence": "high"
     },
     {
@@ -3058,6 +3258,98 @@
       "notGates": 2,
       "circuitClass": "III",
       "topologyType": "mutual_repression_dual_autoactivation_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_hippo_yap",
+      "name": "Hippo–YAP/TAZ Growth-Control Pathway",
+      "organism": "Homo sapiens",
+      "category": "Growth Control Signaling",
+      "description": "The Hippo pathway scales organ size and enforces contact inhibition. At high density the MST1/2–LATS1/2 kinase cascade phosphorylates YAP/TAZ, sequestering them in the cytoplasm; at low density YAP/TAZ enter the nucleus, partner with TEAD, and drive proliferative targets that also feed back on pathway components.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 9,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "kinase_cascade_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_irf7_interferon_amplifier",
+      "name": "IRF7 Type-I Interferon Amplification Switch",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity",
+      "description": "Detection of viral nucleic acids activates IRF3/IRF7 to produce type-I interferon. Secreted IFN acts back through the JAK-STAT-ISGF3 pathway to induce more IRF7, a positive-feedback loop that sharply amplifies the response and commits the cell (and its neighbors) to an all-or-none antiviral state.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_antiviral_switch",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_jak_stat_socs",
+      "name": "JAK–STAT Signaling with SOCS Feedback",
+      "organism": "Homo sapiens",
+      "category": "Cytokine Signaling",
+      "description": "Cytokine binding activates receptor-associated JAK kinases, which phosphorylate STAT transcription factors. Nuclear STAT dimers drive target genes including the SOCS family, which bind and inhibit JAK — closing a negative-feedback loop that limits the duration of cytokine signaling.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "socs_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_mtorc1_nutrient",
+      "name": "mTORC1 Nutrient Homeostat with S6K Feedback",
+      "organism": "Homo sapiens",
+      "category": "Metabolic Signaling",
+      "description": "mTORC1 integrates amino-acid and growth-factor inputs to drive protein synthesis through S6K1 and 4E-BP1. Active S6K1 phosphorylates IRS-1, attenuating upstream insulin/PI3K signaling — a well-characterized negative-feedback loop (the basis of rapamycin's paradoxical AKT activation).",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "s6k_irs_negative_feedback",
       "circuitClassConfidence": "high"
     },
     {
@@ -3173,6 +3465,29 @@
       "notGates": 1,
       "circuitClass": "III",
       "topologyType": "interlocked_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_p16_rb_senescence",
+      "name": "p16–Rb Senescence Commitment Switch",
+      "organism": "Homo sapiens",
+      "category": "Senescence",
+      "description": "Sustained oncogenic or replicative stress drives p16INK4a, which inhibits CDK4/6 so Rb stays hypophosphorylated and active. Active Rb represses E2F proliferation genes and reinforces the senescence program, a positive-feedback loop that makes senescence a stable, essentially irreversible cell-fate decision.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_irreversible_senescence",
       "circuitClassConfidence": "high"
     },
     {

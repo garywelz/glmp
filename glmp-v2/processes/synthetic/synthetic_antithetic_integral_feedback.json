@@ -1,0 +1,120 @@
+{
+  "id": "synthetic_antithetic_integral_feedback",
+  "name": "Antithetic Integral-Feedback Controller",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A synthetic controller that achieves robust perfect adaptation. Controller species Z1 is made at a reference rate and activates the output; the output drives production of Z2, and Z1 and Z2 annihilate each other. This molecular sequestration integrates the error over time (integral feedback), so the steady-state output is invariant to disturbances and parameter changes.",
+  "scientificAccuracy": "Ground-truth circuit. The antithetic integral-feedback motif and its perfect-adaptation property were derived and demonstrated (Briat, Gupta & Khammash 2016; Aoki et al. 2019).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Reference input]\n    B[Controller Z1 produced]\n    C[Z1 activates output X]\n    D[Output species X]\n    E[X produces Z2]\n    F[/Z1 + Z2 annihilate/]\n    G(Robust perfect adaptation of X)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|⊣ sequester| B\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Antithetic integral feedback ensures robust perfect adaptation in noisy biomolecular networks",
+      "authors": "Briat C, Gupta A, Khammash M",
+      "journal": "Cell Systems",
+      "year": 2016,
+      "volume": "2",
+      "pages": "15-26",
+      "pmid": "27136686",
+      "doi": "10.1016/j.cels.2016.01.004"
+    },
+    {
+      "title": "A universal biomolecular integral feedback controller for robust perfect adaptation",
+      "authors": "Aoki SK, Lillacci G, Gupta A, Baumschlager A, Schweingruber D, Khammash M",
+      "journal": "Nature",
+      "year": 2019,
+      "volume": "570",
+      "pages": "533-537",
+      "pmid": "31217585",
+      "doi": "10.1038/s41586-019-1321-1"
+    }
+  ],
+  "keywords": [
+    "antithetic",
+    "integral feedback",
+    "perfect adaptation",
+    "control theory",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_negative_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class II designed homeostat: integral (negative) feedback via molecular sequestration.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Z1 / Z2 production + sequestration",
+        "boundFactor": "sigma factor / anti-sigma (one realization)",
+        "operator": "integral NOT",
+        "effect": "error-integrating negative feedback",
+        "sequenceMotif": "(reference promoter for Z1; output promoter for Z2)",
+        "note": "Z1+Z2 annihilation integrates error"
+      }
+    ],
+    "derivedLogic": "X_steady-state = reference (integral feedback -> perfect adaptation)",
+    "references": [
+      "Briat et al. 2016"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "antithetic_integral_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two controller species are produced in proportion to reference and output and annihilate each other; the sequestration implements integral feedback, giving robust perfect adaptation of the output to disturbances (Briat, Gupta & Khammash 2016). A designed negative-feedback homeostat — Class II.",
+  "groundTruth": true
+}

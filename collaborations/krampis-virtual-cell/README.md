@@ -40,30 +40,34 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 
 ## Live Flowchart Collection (updated 2026-06-12)
 
-The interactive collection is the empirical companion to the papers. It now holds **136 process flowcharts**, each tagged with its position on the five-class complexity ladder (Paper I/III) and, increasingly, a **sequence → logic** annotation that maps cis-regulatory binding sites to the Boolean operator they implement — the core training pair of the Big Picture goal.
+The interactive collection is the empirical companion to the papers. It now holds **149 process flowcharts**, each tagged with its position on the five-class complexity ladder (Paper I/III) and, increasingly, a **sequence → logic** annotation that maps cis-regulatory binding sites to the Boolean operator they implement — the core training pair of the Big Picture goal.
 
 - **Browse / query:** [database table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html) — sortable **Circuit class** column, class filter buttons (I–V), class-distribution panel, and CSV export (now including `circuit_class` and `topology_type`).
 - **Per-process viewer:** each diagram page shows a colored **Class I–V badge** and, where curated, a **Sequence → Logic** table.
 
-**Collection composition (136 total):**
+**Collection composition (149 total):**
 
 | Group | Count | Notes |
 |---|---|---|
 | E. coli | 66 | microbial regulatory + execution circuits |
 | S. cerevisiae | 38 | yeast circuits |
-| Homo sapiens | 16 | **Batches 2–3** — curated human circuits (see breakdown below) |
-| Synthetic circuit | 12 | **Batches 1–2** — ground-truth synthetic biology (toggle, repressilator, FFLs, logic gates, band detector, population control, metabolator, CRISPRi toggle) |
+| Homo sapiens | 23 | **Batches 2–4** — curated human circuits (see breakdown below) |
+| Synthetic circuit | 18 | **Batches 1–3** — ground-truth synthetic biology (see breakdown below) |
 | Bacillus subtilis | 4 | developmental switches |
 
-**Circuit-class distribution:** Class I 52 · Class II 51 · Class III 24 · Class IV 7 · Class V 2.
+**Circuit-class distribution:** Class I 55 · Class II 56 · Class III 27 · Class IV 8 · Class V 3.
 
-**Classification confidence:** of the 108 microbial charts, **103 are high-confidence** (curated from literature) and **5 remain flagged `needs_review`** for expert validation — down from 61 after the 2026-06 curation pass. The five open items (`ecoli_cell_division`, `ecoli_mal_regulon`, `ecoli_sigma_factor_competition`, `ecoli_transcription_regulation`, `yeast_yeast_glycolysis_regulation`) are genuinely ambiguous and are the priority validation worklist. All 28 synthetic and human charts carry authored, ground-truth classes (not heuristic), and each has a `sequenceAnnotation` block.
+**Classification confidence:** of the 108 microbial charts, **103 are high-confidence** (curated from literature) and **5 remain flagged `needs_review`** for expert validation — down from 61 after the 2026-06 curation pass. The five open items (`ecoli_cell_division`, `ecoli_mal_regulon`, `ecoli_sigma_factor_competition`, `ecoli_transcription_regulation`, `yeast_yeast_glycolysis_regulation`) are genuinely ambiguous and are the priority validation worklist. All 41 synthetic and human charts carry authored, ground-truth classes (not heuristic), and each has a `sequenceAnnotation` block.
 
-**Human circuits (16), classed by their real biology — not forced to one label.** Five are genuine **Class IIIa persistent bistable switches**: GATA1/PU.1 (hematopoiesis), OCT4–SOX2–NANOG (pluripotency), MyoD (myogenesis), T-bet/GATA3 (Th1/Th2), and Rb–E2F (restriction point). Four more are **Class III** bistable/all-or-none switches (Cdk1 mitotic trigger, caspase apoptosis, Notch–Delta lateral inhibition, ERK ultrasensitive switch). Three are **Class IV oscillators** (p53–MDM2, NF-κB/IκB, circadian BMAL1-CLOCK/PER-CRY), and four are **Class II negative-feedback** circuits (MYC autosuppression, VHL–HIF oxygen sensing, Wnt/β-catenin, TGF-β/SMAD). This is the complexity ladder applied honestly across one organism's regulatory repertoire.
+**Human circuits (23), classed by their real biology — not forced to one label.**
+- **Class IIIa persistent bistable switches (6):** GATA1/PU.1 (hematopoiesis), OCT4–SOX2–NANOG (pluripotency), MyoD (myogenesis), T-bet/GATA3 (Th1/Th2), Rb–E2F (restriction point), and p16–Rb (irreversible senescence).
+- **Other Class III bistable / all-or-none switches (5):** Cdk1 mitotic trigger, caspase apoptosis, BCL-2/BAX MOMP, Notch–Delta lateral inhibition, ERK ultrasensitive switch, IRF7 interferon amplifier.
+- **Class IV oscillators (3):** p53–MDM2, NF-κB/IκB, circadian BMAL1-CLOCK/PER-CRY.
+- **Class II negative-feedback / homeostats (8):** MYC, VHL–HIF, Wnt/β-catenin, TGF-β/SMAD, Hippo–YAP, JAK-STAT/SOCS, mTORC1, insulin–AKT–FOXO.
 
-**Synthetic circuits (12)** are ground-truth anchors whose topology *and* dynamics are known by construction: negative/positive autoregulation, the Gardner–Collins toggle, the Elowitz–Leibler repressilator, coherent/incoherent feed-forward loops, transcriptional AND/OR gates, the Basu band-pass detector, the You quorum-sensing population control, the Fung metabolator oscillator, and a CRISPRi toggle.
+**Synthetic circuits (18)** are ground-truth anchors whose topology *and* dynamics are known by construction: negative/positive autoregulation, the Gardner–Collins toggle, the Elowitz–Leibler repressilator and a five-node ring, coherent/incoherent feed-forward loops, transcriptional AND/OR/NOR gates, the Basu band-pass detector, sender/receiver quorum sensing, the You population-control circuit, the Fung metabolator, a theophylline riboswitch, the antithetic integral-feedback controller, a CRISPRi toggle, and an **integrase recombinase memory** — a synthetic **Class V** self-modifying-DNA device that anchors the otherwise rare top rung of the ladder.
 
-Reproducibility — the collection is regenerated by committed scripts: `scripts/classify_flowchart_circuits.py` (class assignment), `scripts/apply_circuit_classes.py` (write classes into JSON + metadata), `scripts/annotate_microbial_sequences.py` (sequence → logic on microbial circuits), `scripts/build_synthetic_batch1.py` + `scripts/build_synthetic_batch2.py` and `scripts/build_human_batch2.py` + `scripts/build_human_batch3.py` (ground-truth batches), `scripts/integrate_synthetic_batch1.py` (metadata integration).
+Reproducibility — the collection is regenerated by committed scripts: `scripts/classify_flowchart_circuits.py` (class assignment), `scripts/apply_circuit_classes.py` (write classes into JSON + metadata), `scripts/annotate_microbial_sequences.py` (sequence → logic on microbial circuits), `scripts/build_synthetic_batch1.py`/`_batch2`/`_batch3` and `scripts/build_human_batch2.py`/`_batch3`/`_batch4` (ground-truth batches), `scripts/integrate_synthetic_batch1.py` (metadata integration).
 
 ---
 

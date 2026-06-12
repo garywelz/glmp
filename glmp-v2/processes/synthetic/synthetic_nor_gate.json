@@ -1,0 +1,110 @@
+{
+  "id": "synthetic_nor_gate",
+  "name": "Transcriptional NOR Gate",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A two-input NOR gate: either input drives a repressor of the shared output promoter, so the output is ON only when both inputs are absent. NOR is functionally complete, and distributing NOR gates across communicating colonies is how Tamsir, Tabor & Voigt built multicellular Boolean logic.",
+  "scientificAccuracy": "Ground-truth circuit. NOR-gate cells and chemical-wire logic were built and characterized by Tamsir, Tabor & Voigt (2011).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input 1]\n    B[Input 2]\n    C{Input 1 OR Input 2?}\n    D[/Repressor silences output/]\n    E[Output promoter active]\n    F(Output GFP: NOR)\n\n    A --> C\n    B --> C\n    C -->|Yes| D\n    D -->|⊣| E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Robust multicellular computing using genetically encoded NOR gates and chemical 'wires'",
+      "authors": "Tamsir A, Tabor JJ, Voigt CA",
+      "journal": "Nature",
+      "year": 2011,
+      "volume": "469",
+      "pages": "212-215",
+      "pmid": "21150903",
+      "doi": "10.1038/nature09565"
+    }
+  ],
+  "keywords": [
+    "NOR gate",
+    "logic gate",
+    "functionally complete",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_and_gate",
+    "synthetic_or_gate"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I universal logic element: one OR + one NOT, no feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "output promoter (operator-controlled)",
+        "boundFactor": "input-driven repressor",
+        "operator": "NOR",
+        "effect": "repression if either input present",
+        "sequenceMotif": "(repressor operator)",
+        "note": "ON only when both inputs absent"
+      }
+    ],
+    "derivedLogic": "Output = NOT (Input1 OR Input2)",
+    "references": [
+      "Tamsir et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 1,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "transcriptional_NOR_gate",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Either input expresses a repressor that silences the output; the output is ON only when neither input is present: out = NOT (A OR B). Feed-forward, no cycle — Class I — and the universal gate from which Tamsir et al. built cellular logic.",
+  "groundTruth": true
+}

@@ -1,0 +1,123 @@
+{
+  "id": "human_akt_foxo_insulin",
+  "name": "Insulin–AKT–FOXO Metabolic Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Metabolic Signaling",
+  "description": "Insulin signaling through PI3K-AKT phosphorylates FOXO transcription factors, excluding them from the nucleus and shutting off gluconeogenic and stress-resistance genes. When insulin is low, FOXO enters the nucleus and activates those programs, including feedback regulators of the insulin pathway — a homeostatic loop balancing glucose and stress responses.",
+  "scientificAccuracy": "AKT phosphorylation/nuclear exclusion of FOXO and its transcriptional feedback are established (Brunet et al. 1999; Manning & Toker 2017).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Insulin signal]\n    B{Insulin high?}\n    C[PI3K-AKT active]\n    D[/AKT excludes FOXO from nucleus/]\n    E[FOXO nuclear active]\n    F[Targets: G6Pase, SOD2, feedback]\n    G[/Feedback regulators on PI3K/]\n    H(Glucose / stress homeostasis)\n\n    A --> B\n    B -->|Yes| C\n    C --> D\n    D -->|⊣| E\n    B -->|No| E\n    E --> F\n    F --> H\n    F --> G\n    G -->|⊣ feedback| C\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Akt promotes cell survival by phosphorylating and inhibiting a Forkhead transcription factor",
+      "authors": "Brunet A, Bonni A, Zigmond MJ, et al.",
+      "journal": "Cell",
+      "year": 1999,
+      "volume": "96",
+      "pages": "857-868",
+      "pmid": "10102273",
+      "doi": "10.1016/S0092-8674(00)80595-4"
+    },
+    {
+      "title": "AKT/PKB signaling: navigating the network",
+      "authors": "Manning BD, Toker A",
+      "journal": "Cell",
+      "year": 2017,
+      "volume": "169",
+      "pages": "381-405",
+      "pmid": "28431241",
+      "doi": "10.1016/j.cell.2017.04.001"
+    }
+  ],
+  "keywords": [
+    "insulin",
+    "AKT",
+    "FOXO",
+    "PI3K",
+    "negative feedback",
+    "metabolism",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_mtorc1_nutrient"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II metabolic homeostat: AKT-FOXO with transcriptional feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "FOXO response element (DBE)",
+        "boundFactor": "FOXO1/3",
+        "operator": "IF / NOT(AKT)",
+        "effect": "activation when insulin low",
+        "sequenceMotif": "TTGTTTAC",
+        "note": "AKT phosphorylation excludes FOXO from nucleus"
+      }
+    ],
+    "derivedLogic": "FOXO-targets = NOT insulin(AKT) ; feedback regulators -> homeostat",
+    "references": [
+      "Brunet et al. 1999"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 1,
+  "totalNodes": 8,
+  "edges": 9,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "foxo_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Insulin activates PI3K-AKT, which phosphorylates FOXO and excludes it from the nucleus; nuclear FOXO drives gluconeogenic/stress genes plus feedback regulators of the pathway — a negative-feedback metabolic homeostat switch-like in insulin. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

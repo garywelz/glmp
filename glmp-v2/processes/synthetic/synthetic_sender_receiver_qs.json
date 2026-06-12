@@ -1,0 +1,112 @@
+{
+  "id": "synthetic_sender_receiver_qs",
+  "name": "Sender–Receiver Quorum-Sensing Relay",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "The minimal cell-cell communication module. Sender cells express LuxI to make the diffusible autoinducer AHL; receiver cells express LuxR, which binds AHL and activates an output promoter. With no feedback it is a feed-forward relay, the building block of synthetic multicellular pattern-formation systems.",
+  "scientificAccuracy": "Ground-truth circuit. Engineered sender/receiver AHL communication is established (Weiss & Knight 2000; Basu et al. 2005).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Sender cell]\n    B[LuxI synthesizes AHL]\n    C[AHL diffuses]\n    D[Receiver: LuxR-AHL]\n    E[Receiver output promoter active]\n    F(Coordinated GFP output)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synthetic multicellular system for programmed pattern formation",
+      "authors": "Basu S, Gerchman Y, Collins CH, Arnold FH, Weiss R",
+      "journal": "Nature",
+      "year": 2005,
+      "volume": "434",
+      "pages": "1130-1134",
+      "pmid": "15858574",
+      "doi": "10.1038/nature03461"
+    }
+  ],
+  "keywords": [
+    "quorum sensing",
+    "sender receiver",
+    "LuxI",
+    "LuxR",
+    "feed-forward",
+    "cell communication",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_population_control",
+    "synthetic_band_detector"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I intercellular relay (feed-forward, no feedback).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Plux (receiver)",
+        "boundFactor": "LuxR-AHL",
+        "operator": "IF",
+        "effect": "activation on signal receipt",
+        "sequenceMotif": "ACCTGTAGGATCGTACAGGT (lux box)",
+        "note": "AHL produced by sender's LuxI"
+      }
+    ],
+    "derivedLogic": "Output_receiver = AHL_sender (feed-forward relay)",
+    "references": [
+      "Basu et al. 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "intercellular_feed_forward_relay",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A sender cell synthesizes a diffusible AHL signal via LuxI; a receiver cell detects it through LuxR and fires an output promoter. No feedback edge — a pure intercellular feed-forward relay. Class I.",
+  "groundTruth": true
+}

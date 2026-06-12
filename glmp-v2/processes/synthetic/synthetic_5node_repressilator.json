@@ -1,0 +1,120 @@
+{
+  "id": "synthetic_5node_repressilator",
+  "name": "Five-Repressor Ring Oscillator",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A longer ring oscillator: five repressors arranged so each represses the next and the last closes the loop on the first. An odd number of repressions makes the loop a delayed negative-feedback circuit that oscillates, with a longer period and more phase steps than the canonical three-node repressilator.",
+  "scientificAccuracy": "Ground-truth design. Odd-length repressor rings oscillate by the same delayed-negative-feedback principle established for the three-node repressilator (Elowitz & Leibler 2000); robust long-period rings characterized by Potvin-Trottier et al. 2016.",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Repressor R1]\n    B[Repressor R2]\n    C[Repressor R3]\n    D[Repressor R4]\n    E[Repressor R5]\n    F(Oscillating reporter, long period)\n\n    A -->|⊣| B\n    B -->|⊣| C\n    C -->|⊣| D\n    D -->|⊣| E\n    E -->|⊣| A\n    A --> F\n\n    style A fill:#ffd43b,color:#000\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#ffd43b,color:#000\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synthetic oscillatory network of transcriptional regulators",
+      "authors": "Elowitz MB, Leibler S",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "403",
+      "pages": "335-338",
+      "pmid": "10659856",
+      "doi": "10.1038/35002125"
+    },
+    {
+      "title": "Synchronous long-term oscillations in a synthetic gene circuit",
+      "authors": "Potvin-Trottier L, Lord ND, Vinnicombe G, Paulsson J",
+      "journal": "Nature",
+      "year": 2016,
+      "volume": "538",
+      "pages": "514-517",
+      "pmid": "27732583",
+      "doi": "10.1038/nature19841"
+    }
+  ],
+  "keywords": [
+    "repressilator",
+    "ring oscillator",
+    "five-node",
+    "delayed negative feedback",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_repressilator",
+    "synthetic_metabolator"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IV oscillator: five repressions (odd ring) -> one delayed-feedback loop.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "five operator-controlled promoters in a ring",
+        "boundFactor": "R1..R5 repressors",
+        "operator": "NOT (x5)",
+        "effect": "cyclic repression",
+        "sequenceMotif": "(distinct operator per repressor)",
+        "note": "odd number of inversions -> oscillation"
+      }
+    ],
+    "derivedLogic": "Ri = NOT R(i-1) around a 5-ring -> sustained oscillation",
+    "references": [
+      "Elowitz & Leibler 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 5
+  },
+  "notGates": 5,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "odd_ring_oscillator_delayed_neg_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Five repressors in a cyclic chain, each repressing the next. The odd number of inversions around the loop gives delayed negative feedback and sustained oscillation, generalizing the three-node repressilator (Elowitz & Leibler 2000) to a longer, slower ring. Class IV.",
+  "groundTruth": true
+}
