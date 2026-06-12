@@ -1,0 +1,118 @@
+{
+  "id": "synthetic_band_detector",
+  "name": "Band-Pass / Edge Detector (Basu 2005)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A synthetic band-pass filter: a diffusible signal feeds two branches with different thresholds. The low-threshold branch activates the reporter; the high-threshold branch represses it. The output is therefore ON only at intermediate signal levels, producing concentric ring patterns in a lawn of receiver cells — an edge/band detector.",
+  "scientificAccuracy": "Ground-truth circuit. The band-detect receiver and ring patterning were built and characterized by Basu, Gerchman, Collins, Arnold & Weiss (2005).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[AHL concentration gradient]\n    B[Low-threshold branch: activates]\n    C[High-threshold branch: represses]\n    D[Low AHL activates reporter]\n    E[/High AHL represses reporter/]\n    F{Low-on AND NOT High-on?}\n    G(Output GFP: band-pass)\n\n    A --> B\n    A --> C\n    B --> D\n    C --> E\n    D --> F\n    E -->|⊣| F\n    F -->|Yes| G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synthetic multicellular system for programmed pattern formation",
+      "authors": "Basu S, Gerchman Y, Collins CH, Arnold FH, Weiss R",
+      "journal": "Nature",
+      "year": 2005,
+      "volume": "434",
+      "pages": "1130-1134",
+      "pmid": "15858574",
+      "doi": "10.1038/nature03461"
+    }
+  ],
+  "keywords": [
+    "band detector",
+    "band-pass",
+    "edge detection",
+    "incoherent feed-forward",
+    "pattern formation",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_incoherent_ffl"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I (feed-forward) circuit with band-pass function: one AND + one NOT, no feedback edge.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "lux promoter (low-threshold)",
+        "boundFactor": "LuxR-AHL (high affinity)",
+        "operator": "IF",
+        "effect": "activation at low AHL",
+        "sequenceMotif": "ACCTGTAGGATCGTACAGGT",
+        "note": "drives reporter and a repressor"
+      },
+      {
+        "name": "reporter promoter (repressed at high AHL)",
+        "boundFactor": "CI/LacI repressor (induced at high AHL)",
+        "operator": "NOT",
+        "effect": "repression at high AHL",
+        "sequenceMotif": "(operator)",
+        "note": "sets the upper edge of the band"
+      }
+    ],
+    "derivedLogic": "Output = (AHL > low) AND NOT (AHL > high)  -> band-pass",
+    "references": [
+      "Basu et al. 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "incoherent_feed_forward_band_pass",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "An incoherent feed-forward arrangement with a low-threshold activating branch and a high-threshold repressing branch makes the output ON only for an intermediate inducer concentration: output = LOW-on AND NOT HIGH-on. Feed-forward topology (Class I), functional band-pass (Basu et al. 2005).",
+  "groundTruth": true
+}

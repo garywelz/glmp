@@ -1,0 +1,118 @@
+{
+  "id": "synthetic_crispri_toggle",
+  "name": "CRISPRi Mutual-Repression Toggle",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A bistable toggle built with CRISPR interference instead of protein repressors. Two single-guide RNAs each direct catalytically dead Cas9 (dCas9) to silence the promoter expressing the other sgRNA. The mutual repression yields two stable states; transient induction flips the latch — a programmable, sequence-addressable memory element.",
+  "scientificAccuracy": "Ground-truth circuit. CRISPRi-based bistable toggles and layered logic were demonstrated (Santos-Moreno et al. 2020; Zhang & Voigt 2018).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input pulses]\n    B[sgRNA-1 + dCas9]\n    C[sgRNA-2 + dCas9]\n    D[/sgRNA-1 represses promoter 2/]\n    E[/sgRNA-2 represses promoter 1/]\n    F(Stable state 1)\n    G(Stable state 2)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|⊣| C\n    C --> E\n    E -->|⊣| B\n    B --> F\n    C --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Multistable and dynamic CRISPRi-based synthetic circuits",
+      "authors": "Santos-Moreno J, Tasiudi E, Stelling J, Schaerli Y",
+      "journal": "Nature Communications",
+      "year": 2020,
+      "volume": "11",
+      "pages": "2746",
+      "pmid": "32488086",
+      "doi": "10.1038/s41467-020-16574-1"
+    }
+  ],
+  "keywords": [
+    "CRISPRi",
+    "dCas9",
+    "toggle switch",
+    "bistable",
+    "mutual repression",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class III bistable toggle (CRISPRi): two mutual repressions (2 NOT).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "promoter 1 (sgRNA-2 target)",
+        "boundFactor": "dCas9-sgRNA2",
+        "operator": "NOT",
+        "effect": "CRISPRi repression",
+        "sequenceMotif": "20-nt protospacer + NGG PAM",
+        "note": "guide programmable; blocks transcription"
+      },
+      {
+        "name": "promoter 2 (sgRNA-1 target)",
+        "boundFactor": "dCas9-sgRNA1",
+        "operator": "NOT",
+        "effect": "CRISPRi repression",
+        "sequenceMotif": "20-nt protospacer + NGG PAM",
+        "note": ""
+      }
+    ],
+    "derivedLogic": "sgRNA1 = NOT sgRNA2 ; sgRNA2 = NOT sgRNA1  -> two stable states",
+    "references": [
+      "Santos-Moreno et al. 2020"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_repression_bistable_crispri",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two sgRNAs guide dCas9 to repress each other's promoters; the double-negative loop is bistable with two stable states, a CRISPRi implementation of the toggle switch (Santos-Moreno et al. 2020; Zhang & Voigt 2018). Class III.",
+  "groundTruth": true
+}

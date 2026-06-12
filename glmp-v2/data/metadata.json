@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 118,
+  "totalProcesses": 136,
   "organisms": [
     {
       "name": "E. coli",
@@ -19,11 +19,11 @@
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 6
+      "processCount": 12
     },
     {
       "name": "Homo sapiens",
-      "processCount": 4
+      "processCount": 16
     }
   ],
   "categories": [
@@ -77,7 +77,7 @@
     },
     {
       "name": "Cell Cycle",
-      "processCount": 2
+      "processCount": 4
     },
     {
       "name": "Protein Quality Control",
@@ -113,7 +113,7 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 6
+      "processCount": 12
     },
     {
       "name": "Hematopoiesis",
@@ -130,21 +130,57 @@
     {
       "name": "Hypoxia Signaling",
       "processCount": 1
+    },
+    {
+      "name": "Apoptosis",
+      "processCount": 1
+    },
+    {
+      "name": "Circadian Rhythm",
+      "processCount": 1
+    },
+    {
+      "name": "Growth Factor Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Myogenesis",
+      "processCount": 1
+    },
+    {
+      "name": "Inflammatory Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Developmental Patterning",
+      "processCount": 1
+    },
+    {
+      "name": "Stem Cell / Pluripotency",
+      "processCount": 1
+    },
+    {
+      "name": "Immune Differentiation",
+      "processCount": 1
+    },
+    {
+      "name": "Developmental Signaling",
+      "processCount": 2
     }
   ],
   "statistics": {
-    "totalNodes": 7346,
-    "totalConditionals": 6236,
-    "orGates": 347,
-    "andGates": 437,
-    "notGates": 482,
-    "totalLogicGates": 1266,
-    "verifiedProcesses": 109,
+    "totalNodes": 7469,
+    "totalConditionals": 6240,
+    "orGates": 348,
+    "andGates": 439,
+    "notGates": 501,
+    "totalLogicGates": 1288,
+    "verifiedProcesses": 127,
     "circuitClassDistribution": {
-      "I": 49,
-      "II": 48,
-      "III": 15,
-      "IV": 4,
+      "I": 52,
+      "II": 51,
+      "III": 24,
+      "IV": 7,
       "V": 2
     }
   },
@@ -2634,6 +2670,52 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_and_gate",
+      "name": "Transcriptional AND Gate (hrpR/hrpS)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A two-input transcriptional AND gate built from the hrpR/hrpS sigma-54 activator pair. Input 1 drives HrpR, input 2 drives HrpS; both proteins must be present to form the active hetero-hexamer that fires the pHrpL output promoter. With no feedback edge it is a feed-forward logic element.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "transcriptional_AND_gate",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_band_detector",
+      "name": "Band-Pass / Edge Detector (Basu 2005)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A synthetic band-pass filter: a diffusible signal feeds two branches with different thresholds. The low-threshold branch activates the reporter; the high-threshold branch represses it. The output is therefore ON only at intermediate signal levels, producing concentric ring patterns in a lawn of receiver cells — an edge/band detector.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "incoherent_feed_forward_band_pass",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_coherent_ffl",
       "name": "Coherent Feed-Forward Loop (type-1, AND)",
       "organism": "Synthetic circuit",
@@ -2654,6 +2736,29 @@
       "notGates": 0,
       "circuitClass": "I",
       "topologyType": "coherent_feed_forward_AND",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_crispri_toggle",
+      "name": "CRISPRi Mutual-Repression Toggle",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A bistable toggle built with CRISPR interference instead of protein repressors. Two single-guide RNAs each direct catalytically dead Cas9 (dCas9) to silence the promoter expressing the other sgRNA. The mutual repression yields two stable states; transient induction flips the latch — a programmable, sequence-addressable memory element.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable_crispri",
       "circuitClassConfidence": "high"
     },
     {
@@ -2680,6 +2785,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_metabolator",
+      "name": "Metabolator (synthetic metabolic oscillator)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A synthetic oscillator wired through metabolism rather than pure transcription. Glycolytic flux feeds an acetyl-phosphate pool that transcriptionally activates Pta (which makes more acetyl-phosphate, positive arm) and Acs (which consumes it, delayed negative arm). The delayed negative feedback drives sustained oscillations in metabolite and reporter levels.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "IV",
+      "topologyType": "metabolic_delayed_negative_feedback_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_negative_autoregulation",
       "name": "Negative Autoregulation (NAR motif)",
       "organism": "Synthetic circuit",
@@ -2700,6 +2828,52 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "negative_autoregulation",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_or_gate",
+      "name": "Transcriptional OR Gate (tandem promoters)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A two-input OR gate built from two inducible promoters arranged in tandem upstream of one reporter. Either aTc (via PLtetO-1) or AHL (via Plux) is sufficient to transcribe the output. No feedback edge, so it is a feed-forward Boolean logic element.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 1,
+        "and": 0,
+        "total": 1
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "transcriptional_OR_gate",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_population_control",
+      "name": "Quorum-Sensing Population Control (You 2004)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "An engineered population-control circuit. Each cell makes the autoinducer AHL via LuxI; as density rises AHL accumulates and, through LuxR, induces the killer protein CcdB. Higher density therefore raises the death rate, a negative feedback that stabilizes the population below the carrying capacity at a programmable set-point.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "quorum_sensing_negative_feedback",
       "circuitClassConfidence": "high"
     },
     {
@@ -2772,6 +2946,98 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_apoptosis_caspase_switch",
+      "name": "Caspase Apoptosis Commitment Switch",
+      "organism": "Homo sapiens",
+      "category": "Apoptosis",
+      "description": "Apoptosis executes as a switch, not a dial. After mitochondrial outer-membrane permeabilization, cytochrome c forms the apoptosome and activates caspase-9, then caspase-3. Caspase-3 amplifies its own activation and cleaves the inhibitor XIAP, positive feedback that makes commitment to death all-or-none and irreversible.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_irreversible_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_cdk1_mitotic_switch",
+      "name": "Cdk1–Cdc25–Wee1 Mitotic Trigger",
+      "organism": "Homo sapiens",
+      "category": "Cell Cycle",
+      "description": "Entry into mitosis is a snap-action switch. Cdk1-cyclin B activates the phosphatase Cdc25 (which activates Cdk1) and inhibits the kinase Wee1 (which inhibits Cdk1). The interlocked positive and double-negative feedback give bistability and hysteresis — mitosis commits in an all-or-none, irreversible step.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "interlocked_feedback_bistable_trigger",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_circadian_clock",
+      "name": "Circadian Clock (BMAL1/CLOCK–PER/CRY)",
+      "organism": "Homo sapiens",
+      "category": "Circadian Rhythm",
+      "description": "The mammalian circadian oscillator. The BMAL1-CLOCK activator drives Per and Cry transcription at E-boxes; PER-CRY proteins accumulate, enter the nucleus, and repress BMAL1-CLOCK. The built-in transcription-translation-degradation delay yields a free-running ~24 h rhythm entrained by light/metabolic cues.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "IV",
+      "topologyType": "transcription_translation_feedback_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_erk_bistable_switch",
+      "name": "ERK/MAPK Ultrasensitive Bistable Switch",
+      "organism": "Homo sapiens",
+      "category": "Growth Factor Signaling",
+      "description": "Growth-factor signaling through the RAF-MEK-ERK cascade is highly ultrasensitive, and positive feedback from ERK back to RAF/SOS can convert graded input into a bistable, switch-like ERK response that underlies all-or-none cell-fate decisions such as Xenopus oocyte maturation.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "ultrasensitive_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_gata1_pu1_switch",
       "name": "GATA1–PU.1 Hematopoietic Lineage Switch",
       "organism": "Homo sapiens",
@@ -2818,6 +3084,98 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_myod_myogenesis",
+      "name": "MyoD Myogenic Determination Switch",
+      "organism": "Homo sapiens",
+      "category": "Myogenesis",
+      "description": "MyoD is a master myogenic bHLH factor that activates its own gene and the muscle differentiation program through E-box (CANNTG) sites. Positive autoregulation makes myogenic commitment a latching switch: once MyoD passes threshold, the muscle fate is maintained even without the initiating signal.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_nfkb_ikb_oscillator",
+      "name": "NF-κB–IκB Inflammatory Oscillator",
+      "organism": "Homo sapiens",
+      "category": "Inflammatory Signaling",
+      "description": "On TNF/IL-1 signaling, IKK degrades IκB, freeing NF-κB to enter the nucleus and transcribe inflammatory genes — including IκBα itself, which resequesters NF-κB in the cytoplasm. The transcription-delayed negative feedback drives damped oscillations of nuclear NF-κB whose timing shapes gene expression.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "IV",
+      "topologyType": "delayed_negative_feedback_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_notch_delta_lateral_inhibition",
+      "name": "Notch–Delta Lateral Inhibition Switch",
+      "organism": "Homo sapiens",
+      "category": "Developmental Patterning",
+      "description": "Lateral inhibition patterns equivalent cells into alternating fates. Delta ligand on one cell activates Notch on a neighbor; activated Notch represses Delta in that neighbor, so a cell making more Delta forces its neighbors to make less. The intercellular double-negative feedback is bistable and generates fine-grained salt-and-pepper patterns.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "intercellular_mutual_inhibition_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_oct4_sox2_nanog_pluripotency",
+      "name": "OCT4–SOX2–NANOG Pluripotency Core",
+      "organism": "Homo sapiens",
+      "category": "Stem Cell / Pluripotency",
+      "description": "The core pluripotency network. An OCT4–SOX2 heterodimer co-activates NANOG and reinforces its own expression at composite octamer–sox enhancers. The interlocked positive feedback makes pluripotency a self-sustaining attractor; collapse of the loop triggers differentiation.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "interlocked_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_p53_mdm2",
       "name": "p53–MDM2 DNA-Damage Response Oscillator",
       "organism": "Homo sapiens",
@@ -2841,6 +3199,75 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_rb_e2f_restriction_point",
+      "name": "Rb–E2F Restriction-Point Switch",
+      "organism": "Homo sapiens",
+      "category": "Cell Cycle",
+      "description": "The mammalian restriction point. Mitogens activate Cyclin D-CDK4/6 to phosphorylate (inactivate) Rb, freeing E2F; E2F induces Cyclin E-CDK2 which hyperphosphorylates Rb, a positive-feedback loop that converts graded mitogen input into an all-or-none, memory-bearing commitment to S phase.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 3,
+      "circuitClass": "III",
+      "topologyType": "double_negative_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_tbet_gata3_th1_th2",
+      "name": "T-bet–GATA3 Th1/Th2 Lineage Switch",
+      "organism": "Homo sapiens",
+      "category": "Immune Differentiation",
+      "description": "Naive CD4 T cells choose between Th1 and Th2 fates via the master regulators T-bet and GATA3, which repress each other and amplify themselves. The mutual-repression-plus-autoactivation circuit is bistable, committing the cell to IFN-γ (Th1) or IL-4 (Th2) programs.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 9,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_dual_autoactivation_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_tgfbeta_smad",
+      "name": "TGF-β–SMAD Signaling with SMAD7 Feedback",
+      "organism": "Homo sapiens",
+      "category": "Developmental Signaling",
+      "description": "TGF-β receptors phosphorylate SMAD2/3, which partner with SMAD4 to drive transcription. Among the targets is inhibitory SMAD7, which binds the receptor and blocks further signaling — a negative-feedback loop giving adaptive, context-dependent TGF-β responses.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "smad7_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_vhl_hif_oxygen_sensing",
       "name": "VHL–HIF Oxygen-Sensing Homeostat",
       "organism": "Homo sapiens",
@@ -2861,6 +3288,29 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "phd_vhl_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_wnt_beta_catenin",
+      "name": "Wnt–β-catenin Destruction-Complex Switch",
+      "organism": "Homo sapiens",
+      "category": "Developmental Signaling",
+      "description": "The canonical Wnt pathway. The APC/Axin/GSK3 destruction complex keeps cytoplasmic β-catenin low; Wnt binding inactivates the complex, so β-catenin accumulates, enters the nucleus, and activates TCF/LEF targets such as c-Myc and Axin2. Axin2 reconstitutes the destruction complex, a negative-feedback loop that re-tunes the set-point.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "destruction_complex_negative_feedback",
       "circuitClassConfidence": "high"
     }
   ]

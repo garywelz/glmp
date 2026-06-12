@@ -1,0 +1,124 @@
+{
+  "id": "human_oct4_sox2_nanog_pluripotency",
+  "name": "OCT4–SOX2–NANOG Pluripotency Core",
+  "organism": "Homo sapiens",
+  "category": "Stem Cell / Pluripotency",
+  "description": "The core pluripotency network. An OCT4–SOX2 heterodimer co-activates NANOG and reinforces its own expression at composite octamer–sox enhancers. The interlocked positive feedback makes pluripotency a self-sustaining attractor; collapse of the loop triggers differentiation.",
+  "scientificAccuracy": "OCT4/SOX2/NANOG auto- and cross-activation and the bistable interpretation are well established (Boyer et al. 2005; Chickarmane et al. 2006).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Pluripotency signals: LIF / BMP]\n    B[OCT4-SOX2 heterodimer]\n    C[NANOG]\n    D[\\OCT4-SOX2 autoactivation/]\n    E[/Represses differentiation genes/]\n    F(Self-renewing pluripotent state)\n    G(Differentiated state)\n\n    A --> B\n    B --> D\n    D -->|+| B\n    B --> C\n    C -->|+| B\n    B --> E\n    E -->|⊣| G\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Core transcriptional regulatory circuitry in human embryonic stem cells",
+      "authors": "Boyer LA, Lee TI, Cole MF, et al.",
+      "journal": "Cell",
+      "year": 2005,
+      "volume": "122",
+      "pages": "947-956",
+      "pmid": "16153702",
+      "doi": "10.1016/j.cell.2005.08.020"
+    },
+    {
+      "title": "Transcriptional dynamics of the embryonic stem cell switch",
+      "authors": "Chickarmane V, Troein C, Nuber UA, Sauro HM, Peterson C",
+      "journal": "PLoS Computational Biology",
+      "year": 2006,
+      "volume": "2",
+      "pages": "e123",
+      "pmid": "16978048",
+      "doi": "10.1371/journal.pcbi.0020123"
+    }
+  ],
+  "keywords": [
+    "OCT4",
+    "SOX2",
+    "NANOG",
+    "pluripotency",
+    "bistable",
+    "positive feedback",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_gata1_pu1_switch",
+    "synthetic_positive_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa pluripotency switch: interlocked positive feedback (2 activating loops) + repression of differentiation.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "oct-sox composite element",
+        "boundFactor": "OCT4-SOX2",
+        "operator": "AND",
+        "effect": "activation",
+        "sequenceMotif": "ATGCAAAT + CATTGTT",
+        "note": "adjacent octamer (OCT4) and sox (SOX2) sites; cooperative binding"
+      }
+    ],
+    "derivedLogic": "NANOG, OCT4, SOX2 = OCT4 AND SOX2 (interlocked positive feedback) -> bistable pluripotency",
+    "references": [
+      "Boyer et al. 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "interlocked_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "OCT4 and SOX2 form a heterodimer that activates NANOG and their own genes; the interlocked positive-feedback core is bistable, locking cells into a self-sustaining pluripotent state — a persistent (IIIa) switch with memory.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

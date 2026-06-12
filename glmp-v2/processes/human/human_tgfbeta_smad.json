@@ -1,0 +1,111 @@
+{
+  "id": "human_tgfbeta_smad",
+  "name": "TGF-β–SMAD Signaling with SMAD7 Feedback",
+  "organism": "Homo sapiens",
+  "category": "Developmental Signaling",
+  "description": "TGF-β receptors phosphorylate SMAD2/3, which partner with SMAD4 to drive transcription. Among the targets is inhibitory SMAD7, which binds the receptor and blocks further signaling — a negative-feedback loop giving adaptive, context-dependent TGF-β responses.",
+  "scientificAccuracy": "SMAD signaling and SMAD7 negative feedback are established (Massagué 2012).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[TGF-β ligand]\n    B[TGF-β receptor active]\n    C[SMAD2/3 phosphorylated]\n    D[SMAD complex + SMAD4 nuclear]\n    E[Target transcription]\n    F[SMAD7 induced]\n    G[/SMAD7 inhibits receptor/]\n    H(Adaptive context-dependent response)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> H\n    D --> F\n    F --> G\n    G -->|⊣ feedback| B\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#ffd43b,color:#000\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "TGFβ signalling in context",
+      "authors": "Massagué J",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2012,
+      "volume": "13",
+      "pages": "616-630",
+      "pmid": "22992590",
+      "doi": "10.1038/nrm3434"
+    }
+  ],
+  "keywords": [
+    "TGF-β",
+    "SMAD",
+    "SMAD7",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_wnt_beta_catenin"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II signaling with SMAD7 negative feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "SMAD binding element",
+        "boundFactor": "SMAD3/4",
+        "operator": "IF",
+        "effect": "activation (incl. SMAD7)",
+        "sequenceMotif": "AGAC / GTCT",
+        "note": "induces SMAD7 -> negative feedback on receptor"
+      }
+    ],
+    "derivedLogic": "targets, SMAD7 = TGF-β ; receptor = NOT SMAD7 (negative feedback)",
+    "references": [
+      "Massagué 2012"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 8,
+  "edges": 8,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "smad7_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "TGF-β activates SMAD2/3, which with SMAD4 enter the nucleus and induce targets including the inhibitory SMAD7, which blocks the receptor — a negative-feedback loop that limits and adapts the response. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

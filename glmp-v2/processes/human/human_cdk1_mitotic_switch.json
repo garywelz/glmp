@@ -1,0 +1,124 @@
+{
+  "id": "human_cdk1_mitotic_switch",
+  "name": "Cdk1–Cdc25–Wee1 Mitotic Trigger",
+  "organism": "Homo sapiens",
+  "category": "Cell Cycle",
+  "description": "Entry into mitosis is a snap-action switch. Cdk1-cyclin B activates the phosphatase Cdc25 (which activates Cdk1) and inhibits the kinase Wee1 (which inhibits Cdk1). The interlocked positive and double-negative feedback give bistability and hysteresis — mitosis commits in an all-or-none, irreversible step.",
+  "scientificAccuracy": "Bistability and hysteresis of the Cdk1 system were demonstrated in Xenopus extracts (Sha et al. 2003; Pomerening et al. 2003); the Novak-Tyson model is the canonical description.",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cyclin B accumulation]\n    B[Cdk1-Cyclin B]\n    C[Cdc25 phosphatase]\n    D[Wee1 kinase]\n    E[\\Cdk1 activates Cdc25, which activates Cdk1/]\n    F[/Cdk1 inhibits Wee1, disinhibiting Cdk1/]\n    G(Mitotic entry: all-or-none)\n\n    A --> B\n    B --> C\n    C --> E\n    E -->|+| B\n    B --> D\n    D --> F\n    F -->|⊣| B\n    B --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Hysteresis drives cell-cycle transitions in Xenopus laevis egg extracts",
+      "authors": "Sha W, Moore J, Chen K, Lassaletta AD, Yi CS, Tyson JJ, Sible JC",
+      "journal": "PNAS",
+      "year": 2003,
+      "volume": "100",
+      "pages": "975-980",
+      "pmid": "12509509",
+      "doi": "10.1073/pnas.0235349100"
+    },
+    {
+      "title": "Building a cell cycle oscillator: hysteresis and bistability in the activation of Cdc2",
+      "authors": "Pomerening JR, Sontag ED, Ferrell JE",
+      "journal": "Nature Cell Biology",
+      "year": 2003,
+      "volume": "5",
+      "pages": "346-351",
+      "pmid": "12629549",
+      "doi": "10.1038/ncb954"
+    }
+  ],
+  "keywords": [
+    "Cdk1",
+    "Cdc25",
+    "Wee1",
+    "bistable",
+    "hysteresis",
+    "mitosis",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "yeast_cell_cycle_control",
+    "human_rb_e2f_restriction_point"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III bistable trigger (interlocked positive + double-negative feedback). Within the cell-cycle oscillator (Class IV) this is the switch sub-module.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Cdk1 activity (post-translational)",
+        "boundFactor": "Cdc25 (activator), Wee1 (inhibitor)",
+        "operator": "AND / NOT",
+        "effect": "phospho-activation vs inhibitory phosphorylation",
+        "sequenceMotif": "(protein-level: Tyr15 / Thr14)",
+        "note": "switch implemented in phosphorylation state, not cis-DNA"
+      }
+    ],
+    "derivedLogic": "Cdk1_active = Cdc25 AND NOT Wee1 ; both controlled by Cdk1 -> bistable",
+    "references": [
+      "Pomerening et al. 2003"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "interlocked_feedback_bistable_trigger",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Cdk1-cyclin B activates its activator Cdc25 (positive feedback) and inhibits its inhibitor Wee1 (double-negative), producing a bistable, hysteretic all-or-none trigger for mitotic entry (Novak-Tyson; Sha et al. 2003; Pomerening et al. 2003).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

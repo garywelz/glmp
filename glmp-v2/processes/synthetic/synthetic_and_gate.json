@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_and_gate",
+  "name": "Transcriptional AND Gate (hrpR/hrpS)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A two-input transcriptional AND gate built from the hrpR/hrpS sigma-54 activator pair. Input 1 drives HrpR, input 2 drives HrpS; both proteins must be present to form the active hetero-hexamer that fires the pHrpL output promoter. With no feedback edge it is a feed-forward logic element.",
+  "scientificAccuracy": "Ground-truth circuit. The hrpRS AND gate was built and characterized in E. coli (Wang et al. 2011).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input 1: inducer A]\n    B[Input 2: inducer B]\n    C[HrpR expressed]\n    D[HrpS expressed]\n    E{HrpR AND HrpS?}\n    F[pHrpL output promoter active]\n    G(Output GFP: only if both inputs)\n\n    A --> C\n    B --> D\n    C --> E\n    D --> E\n    E -->|Yes| F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#74c0fc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Engineering modular and orthogonal genetic logic gates for robust digital-like synthetic biology",
+      "authors": "Wang B, Kitney RI, Joly N, Buck M",
+      "journal": "Nature Communications",
+      "year": 2011,
+      "volume": "2",
+      "pages": "508",
+      "pmid": "22009040",
+      "doi": "10.1038/ncomms1516"
+    }
+  ],
+  "keywords": [
+    "AND gate",
+    "logic gate",
+    "hrpR",
+    "hrpS",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_or_gate",
+    "synthetic_coherent_ffl"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I logic element: one AND gate, no feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "pHrpL (sigma-54 promoter)",
+        "boundFactor": "HrpR-HrpS hetero-hexamer",
+        "operator": "AND",
+        "effect": "activation",
+        "sequenceMotif": "TGGCAC-N5-TTGCA (sigma-54 -24/-12)",
+        "note": "requires both bEBP subunits to fire"
+      }
+    ],
+    "derivedLogic": "Output = HrpR AND HrpS = Input1 AND Input2",
+    "references": [
+      "Wang et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "transcriptional_AND_gate",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two inputs each drive one subunit of a hetero-activator; only when both subunits are present (AND) is the output promoter activated. Pure feed-forward, no cycle — Class I — implementing Boolean AND (Wang, Kitney, Joly & Buck 2011).",
+  "groundTruth": true
+}

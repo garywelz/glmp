@@ -1,0 +1,122 @@
+{
+  "id": "human_tbet_gata3_th1_th2",
+  "name": "T-bet–GATA3 Th1/Th2 Lineage Switch",
+  "organism": "Homo sapiens",
+  "category": "Immune Differentiation",
+  "description": "Naive CD4 T cells choose between Th1 and Th2 fates via the master regulators T-bet and GATA3, which repress each other and amplify themselves. The mutual-repression-plus-autoactivation circuit is bistable, committing the cell to IFN-γ (Th1) or IL-4 (Th2) programs.",
+  "scientificAccuracy": "T-bet/GATA3 cross-regulation and autoactivation underpinning bistable Th1/Th2 commitment are established (Szabo et al. 2000; Höfer et al. 2002).",
+  "complexity": {
+    "nodes": 9,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Naive CD4 T cell + cytokines]\n    B[T-bet]\n    C[GATA3]\n    D[\\T-bet autoactivation/]\n    E[\\GATA3 autoactivation/]\n    F[/T-bet represses GATA3/]\n    G[/GATA3 represses T-bet/]\n    H(Th1 fate: IFN-gamma)\n    I(Th2 fate: IL-4)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| B\n    C --> E\n    E -->|+| C\n    B --> F\n    F -->|⊣| C\n    C --> G\n    G -->|⊣| B\n    B --> H\n    C --> I\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff\n    style I fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A novel transcription factor, T-bet, directs Th1 lineage commitment",
+      "authors": "Szabo SJ, Kim ST, Costa GL, Zhang X, Fathman CG, Glimcher LH",
+      "journal": "Cell",
+      "year": 2000,
+      "volume": "100",
+      "pages": "655-669",
+      "pmid": "10761931",
+      "doi": "10.1016/S0092-8674(00)80702-3"
+    }
+  ],
+  "keywords": [
+    "T-bet",
+    "GATA3",
+    "Th1",
+    "Th2",
+    "bistable",
+    "mutual repression",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_gata1_pu1_switch",
+    "synthetic_toggle_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa immune toggle: 2 cross-repressions + 2 autoactivations.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "T-box site",
+        "boundFactor": "T-bet (TBX21)",
+        "operator": "IF/NOT",
+        "effect": "activation (Th1) / repression (Th2 loci)",
+        "sequenceMotif": "AGGTGTGAAATT",
+        "note": "T-box consensus"
+      },
+      {
+        "name": "GATA site",
+        "boundFactor": "GATA3",
+        "operator": "IF/NOT",
+        "effect": "activation (Th2) / repression (Th1 loci)",
+        "sequenceMotif": "WGATAR",
+        "note": ""
+      }
+    ],
+    "derivedLogic": "T-bet = T-bet AND NOT GATA3 ; GATA3 = GATA3 AND NOT T-bet -> bistable Th1/Th2",
+    "references": [
+      "Szabo et al. 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 9,
+  "edges": 12,
+  "loops": 4,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_repression_dual_autoactivation_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "T-bet and GATA3 cross-antagonize while each autoactivates, the same double-positive/double-negative topology as GATA1/PU.1 — a persistent (IIIa) bistable switch between Th1 and Th2 helper-T fates.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

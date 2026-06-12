@@ -1,0 +1,112 @@
+{
+  "id": "human_notch_delta_lateral_inhibition",
+  "name": "Notch–Delta Lateral Inhibition Switch",
+  "organism": "Homo sapiens",
+  "category": "Developmental Patterning",
+  "description": "Lateral inhibition patterns equivalent cells into alternating fates. Delta ligand on one cell activates Notch on a neighbor; activated Notch represses Delta in that neighbor, so a cell making more Delta forces its neighbors to make less. The intercellular double-negative feedback is bistable and generates fine-grained salt-and-pepper patterns.",
+  "scientificAccuracy": "The mutual-inhibition / bistable-patterning model of Notch-Delta lateral inhibition is established (Collier, Monk, Maini & Lewis 1996; Sprinzak et al. 2010).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Equivalent neighboring cells]\n    B[Cell 1: Delta high]\n    C[Cell 2: Notch active]\n    D[\\Delta activates Notch in neighbor/]\n    E[/Notch represses Delta in that cell/]\n    F(Alternating salt-and-pepper fates)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| C\n    C --> E\n    E -->|⊣| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Pattern formation by lateral inhibition with feedback: a mathematical model of Delta-Notch intercellular signalling",
+      "authors": "Collier JR, Monk NA, Maini PK, Lewis JH",
+      "journal": "Journal of Theoretical Biology",
+      "year": 1996,
+      "volume": "183",
+      "pages": "429-446",
+      "pmid": "9015458",
+      "doi": "10.1006/jtbi.1996.0233"
+    }
+  ],
+  "keywords": [
+    "Notch",
+    "Delta",
+    "lateral inhibition",
+    "bistable",
+    "patterning",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III intercellular bistable switch (lateral inhibition).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "CSL/RBPJ site (Notch targets, e.g. HES1)",
+        "boundFactor": "NICD-RBPJ",
+        "operator": "IF",
+        "effect": "activation of repressors of Delta",
+        "sequenceMotif": "TGGGAA",
+        "note": "Notch target HES1 represses Delta -> intercellular double-negative"
+      }
+    ],
+    "derivedLogic": "Notch_cellB = Delta_cellA ; Delta_cellB = NOT Notch_cellB -> bistable pattern",
+    "references": [
+      "Collier et al. 1996"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "intercellular_mutual_inhibition_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Delta on one cell activates Notch on its neighbor, and Notch signaling represses Delta in the receiving cell — an intercellular mutual-inhibition loop that amplifies small differences into a bistable salt-and-pepper pattern (Collier et al. 1996).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

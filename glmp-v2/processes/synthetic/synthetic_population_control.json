@@ -1,0 +1,110 @@
+{
+  "id": "synthetic_population_control",
+  "name": "Quorum-Sensing Population Control (You 2004)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "An engineered population-control circuit. Each cell makes the autoinducer AHL via LuxI; as density rises AHL accumulates and, through LuxR, induces the killer protein CcdB. Higher density therefore raises the death rate, a negative feedback that stabilizes the population below the carrying capacity at a programmable set-point.",
+  "scientificAccuracy": "Ground-truth circuit. Built and characterized in E. coli by You, Cox, Weiss & Arnold (2004).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cell density]\n    B[LuxI makes AHL]\n    C[AHL accumulates]\n    D[LuxR-AHL]\n    E[Killer gene CcdB expressed]\n    F[/Cell death lowers density/]\n    G(Steady-state population set-point)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|⊣ feedback| A\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Programmed population control by cell-cell communication and regulated killing",
+      "authors": "You L, Cox RS 3rd, Weiss R, Arnold FH",
+      "journal": "Nature",
+      "year": 2004,
+      "volume": "428",
+      "pages": "868-871",
+      "pmid": "15064770",
+      "doi": "10.1038/nature02491"
+    }
+  ],
+  "keywords": [
+    "population control",
+    "quorum sensing",
+    "LuxR",
+    "LuxI",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_negative_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class II circuit: density-dependent negative feedback (one feedback edge).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Plux (killer-gene promoter)",
+        "boundFactor": "LuxR-AHL",
+        "operator": "IF",
+        "effect": "activation of CcdB at high density",
+        "sequenceMotif": "ACCTGTAGGATCGTACAGGT (lux box)",
+        "note": "couples density to death rate -> negative feedback on population"
+      }
+    ],
+    "derivedLogic": "death_rate = LuxR-AHL = f(density)  -> negative feedback set-point",
+    "references": [
+      "You et al. 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "quorum_sensing_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Cell density drives LuxI/AHL synthesis; accumulated AHL activates LuxR, which induces a killer gene that raises death rate — a density-dependent negative-feedback loop that holds the population at a programmed set-point (You, Cox, Weiss & Arnold 2004). Class II.",
+  "groundTruth": true
+}

@@ -1,0 +1,113 @@
+{
+  "id": "human_wnt_beta_catenin",
+  "name": "Wnt–β-catenin Destruction-Complex Switch",
+  "organism": "Homo sapiens",
+  "category": "Developmental Signaling",
+  "description": "The canonical Wnt pathway. The APC/Axin/GSK3 destruction complex keeps cytoplasmic β-catenin low; Wnt binding inactivates the complex, so β-catenin accumulates, enters the nucleus, and activates TCF/LEF targets such as c-Myc and Axin2. Axin2 reconstitutes the destruction complex, a negative-feedback loop that re-tunes the set-point.",
+  "scientificAccuracy": "Destruction-complex regulation and Axin2 negative feedback are established (Clevers & Nusse 2012; Lustig et al. 2002).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Wnt ligand]\n    B{Wnt present?}\n    C[Destruction complex: APC/Axin/GSK3]\n    D[/β-catenin degraded/]\n    E[β-catenin stabilized]\n    F[TCF/LEF target activation]\n    G[/Axin2 reinforces destruction complex/]\n    H(Targets: c-Myc, Axin2)\n\n    A --> B\n    B -->|No| C\n    C --> D\n    B -->|Yes| E\n    E --> F\n    F --> H\n    F --> G\n    G -->|+ feedback| C\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Wnt/β-catenin signaling and disease",
+      "authors": "Clevers H, Nusse R",
+      "journal": "Cell",
+      "year": 2012,
+      "volume": "149",
+      "pages": "1192-1205",
+      "pmid": "22682243",
+      "doi": "10.1016/j.cell.2012.05.012"
+    }
+  ],
+  "keywords": [
+    "Wnt",
+    "β-catenin",
+    "TCF",
+    "LEF",
+    "Axin2",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_vhl_hif_oxygen_sensing"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II circuit; switch-like β-catenin response with Axin2 negative feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "TCF/LEF site",
+        "boundFactor": "β-catenin-TCF/LEF",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "CTTTGWW",
+        "note": "induces Axin2 -> negative feedback on β-catenin"
+      }
+    ],
+    "derivedLogic": "targets = Wnt (-| destruction complex) ; Axin2 = target -| β-catenin (negative feedback)",
+    "references": [
+      "Clevers & Nusse 2012"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 8,
+  "edges": 8,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "destruction_complex_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Without Wnt, the APC/Axin/GSK3 destruction complex degrades β-catenin; Wnt inhibits the complex so β-catenin accumulates and activates TCF/LEF targets — including Axin2, a negative-feedback brake. Switch-like in Wnt but homeostatic in topology — Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

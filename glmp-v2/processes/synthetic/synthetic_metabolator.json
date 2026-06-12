@@ -1,0 +1,110 @@
+{
+  "id": "synthetic_metabolator",
+  "name": "Metabolator (synthetic metabolic oscillator)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A synthetic oscillator wired through metabolism rather than pure transcription. Glycolytic flux feeds an acetyl-phosphate pool that transcriptionally activates Pta (which makes more acetyl-phosphate, positive arm) and Acs (which consumes it, delayed negative arm). The delayed negative feedback drives sustained oscillations in metabolite and reporter levels.",
+  "scientificAccuracy": "Ground-truth circuit. The metabolator was built and shown to oscillate by Fung et al. (2005).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Glycolytic flux input]\n    B[Acetyl-phosphate pool]\n    C[Activates Pta promoter]\n    D[\\Pta makes more AcP/]\n    E[/Acs consumes AcP, delayed/]\n    F(Metabolite / reporter oscillation)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| B\n    B --> E\n    E -->|⊣ delayed| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synthetic gene-metabolic oscillator",
+      "authors": "Fung E, Wong WW, Suen JK, Bulter T, Lee SG, Liao JC",
+      "journal": "Nature",
+      "year": 2005,
+      "volume": "435",
+      "pages": "118-122",
+      "pmid": "15875027",
+      "doi": "10.1038/nature03508"
+    }
+  ],
+  "keywords": [
+    "metabolator",
+    "metabolic oscillator",
+    "acetyl-phosphate",
+    "delayed negative feedback",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_repressilator",
+    "human_circadian_clock"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IV oscillator coupling metabolism and gene expression (delayed negative feedback).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Pta/Acs promoter (AcP-responsive)",
+        "boundFactor": "acetyl-phosphate-responsive regulator",
+        "operator": "IF / delayed NOT",
+        "effect": "activation of producing + consuming enzymes",
+        "sequenceMotif": "(AcP-responsive promoter)",
+        "note": "couples metabolite level to enzyme expression with delay"
+      }
+    ],
+    "derivedLogic": "Pta = AcP (positive) ; Acs = AcP (delayed negative) -> oscillation",
+    "references": [
+      "Fung et al. 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "metabolic_delayed_negative_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A metabolic intermediate (acetyl-phosphate) drives expression of enzymes that both produce and consume it, with a delay; the resulting delayed negative feedback produces sustained oscillations in metabolite and gene expression (Fung, Wong, Suen, Bulter, Lee & Liao 2005). Class IV.",
+  "groundTruth": true
+}

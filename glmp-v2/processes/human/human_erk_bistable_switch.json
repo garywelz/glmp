@@ -1,0 +1,113 @@
+{
+  "id": "human_erk_bistable_switch",
+  "name": "ERK/MAPK Ultrasensitive Bistable Switch",
+  "organism": "Homo sapiens",
+  "category": "Growth Factor Signaling",
+  "description": "Growth-factor signaling through the RAF-MEK-ERK cascade is highly ultrasensitive, and positive feedback from ERK back to RAF/SOS can convert graded input into a bistable, switch-like ERK response that underlies all-or-none cell-fate decisions such as Xenopus oocyte maturation.",
+  "scientificAccuracy": "Ultrasensitivity and bistable, all-or-none MAPK activation with feedback are established (Ferrell & Machleder 1998).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Growth factor: EGF]\n    B[RAS-RAF]\n    C[MEK]\n    D[ERK active]\n    E[\\ERK positive feedback to RAF/SOS/]\n    F[Ultrasensitive cascade]\n    G(Bistable ERK on/off; cell-fate)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|+| B\n    B --> F\n    F --> D\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The biochemical basis of an all-or-none cell fate switch in Xenopus oocytes",
+      "authors": "Ferrell JE, Machleder EM",
+      "journal": "Science",
+      "year": 1998,
+      "volume": "280",
+      "pages": "895-898",
+      "pmid": "9572732",
+      "doi": "10.1126/science.280.5365.895"
+    }
+  ],
+  "keywords": [
+    "ERK",
+    "MAPK",
+    "ultrasensitivity",
+    "bistable",
+    "positive feedback",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_erk_bistable_switch",
+    "synthetic_positive_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III bistable switch from cascade ultrasensitivity + positive feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ERK signaling (post-translational + SRE targets)",
+        "boundFactor": "ERK -> RSK/ELK1 -> SRF (SRE)",
+        "operator": "positive feedback / IF",
+        "effect": "kinase cascade; immediate-early gene activation",
+        "sequenceMotif": "CCWWWWWWGG (SRE/CArG)",
+        "note": "bistability arises in phospho-cascade; transcriptional output at SRE"
+      }
+    ],
+    "derivedLogic": "ERK = ultrasensitive(RAF-MEK) AND positive-feedback(ERK) -> bistable on/off",
+    "references": [
+      "Ferrell & Machleder 1998"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "ultrasensitive_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "The RAF-MEK-ERK cascade is ultrasensitive, and positive feedback from ERK to RAF/SOS can make ERK activation bistable and all-or-none (Ferrell & Machleder 1998; Bhalla et al. 2002). Class III.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

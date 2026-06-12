@@ -1,0 +1,113 @@
+{
+  "id": "human_rb_e2f_restriction_point",
+  "name": "Rb–E2F Restriction-Point Switch",
+  "organism": "Homo sapiens",
+  "category": "Cell Cycle",
+  "description": "The mammalian restriction point. Mitogens activate Cyclin D-CDK4/6 to phosphorylate (inactivate) Rb, freeing E2F; E2F induces Cyclin E-CDK2 which hyperphosphorylates Rb, a positive-feedback loop that converts graded mitogen input into an all-or-none, memory-bearing commitment to S phase.",
+  "scientificAccuracy": "Bistability of the Rb-E2F switch was demonstrated quantitatively at the single-cell level (Yao, Lee, Nevins & You 2008).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Mitogen: Cyclin D-CDK4/6]\n    B[Rb]\n    C[E2F]\n    D[/Rb represses E2F/]\n    E[\\E2F drives Cyclin E, inactivates Rb/]\n    F(Restriction point passed: S phase)\n\n    A -->|⊣ phosphorylate| B\n    B --> D\n    D -->|⊣| C\n    C --> E\n    E -->|⊣ feedback| B\n    C --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A bistable Rb-E2F switch underlies the restriction point",
+      "authors": "Yao G, Lee TJ, Mori S, Nevins JR, You L",
+      "journal": "Nature Cell Biology",
+      "year": 2008,
+      "volume": "10",
+      "pages": "476-482",
+      "pmid": "18364697",
+      "doi": "10.1038/ncb1711"
+    }
+  ],
+  "keywords": [
+    "Rb",
+    "E2F",
+    "restriction point",
+    "bistable",
+    "positive feedback",
+    "cell cycle",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_cdk1_mitotic_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa bistable switch; positive feedback realized through a double-negative (Rb ⊣ E2F ; CycE ⊣ Rb).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "E2F site",
+        "boundFactor": "E2F-DP (repressed by Rb)",
+        "operator": "IF / NOT(Rb)",
+        "effect": "activation when Rb inactive",
+        "sequenceMotif": "TTTSSCGC",
+        "note": "Rb binds E2F to block activation; CDK phosphorylation of Rb relieves repression"
+      }
+    ],
+    "derivedLogic": "E2F targets = NOT Rb ; Rb inactivated by mitogen AND by E2F-driven CycE -> bistable",
+    "references": [
+      "Yao et al. 2008"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 3
+  },
+  "notGates": 3,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "double_negative_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Mitogen-driven CDK phosphorylation inactivates Rb, releasing E2F; E2F drives Cyclin E, which further inactivates Rb (positive feedback through a double-negative), making the G1/S restriction point a bistable, irreversible commitment (Yao et al. 2008).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

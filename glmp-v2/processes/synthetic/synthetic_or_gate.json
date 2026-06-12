@@ -1,0 +1,117 @@
+{
+  "id": "synthetic_or_gate",
+  "name": "Transcriptional OR Gate (tandem promoters)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A two-input OR gate built from two inducible promoters arranged in tandem upstream of one reporter. Either aTc (via PLtetO-1) or AHL (via Plux) is sufficient to transcribe the output. No feedback edge, so it is a feed-forward Boolean logic element.",
+  "scientificAccuracy": "Ground-truth circuit. Tandem-promoter OR gates are a standard, well-characterized synthetic logic primitive (Tamsir, Tabor & Voigt 2011).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input 1: aTc]\n    B[Input 2: AHL]\n    C{Input 1 OR Input 2?}\n    D[Tandem output promoter active]\n    E(Output GFP: if either input)\n\n    A --> C\n    B --> C\n    C -->|Yes| D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Robust multicellular computing using genetically encoded NOR gates and chemical 'wires'",
+      "authors": "Tamsir A, Tabor JJ, Voigt CA",
+      "journal": "Nature",
+      "year": 2011,
+      "volume": "469",
+      "pages": "212-215",
+      "pmid": "21150903",
+      "doi": "10.1038/nature09565"
+    }
+  ],
+  "keywords": [
+    "OR gate",
+    "logic gate",
+    "tandem promoter",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_and_gate"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I logic element: one OR gate, no feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "PLtetO-1",
+        "boundFactor": "TetR (relieved by aTc)",
+        "operator": "IF",
+        "effect": "activation on induction",
+        "sequenceMotif": "TCCCTATCAGTGATAGAGA",
+        "note": "first promoter in tandem"
+      },
+      {
+        "name": "Plux",
+        "boundFactor": "LuxR-AHL",
+        "operator": "IF",
+        "effect": "activation on induction",
+        "sequenceMotif": "ACCTGTAGGATCGTACAGGT (lux box)",
+        "note": "second promoter in tandem"
+      }
+    ],
+    "derivedLogic": "Output = Input1 OR Input2",
+    "references": [
+      "Tamsir et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 1,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 5,
+  "edges": 4,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "transcriptional_OR_gate",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Either of two inducible promoters in tandem drives the same output; the output is ON if either input is present (OR). Feed-forward, no cycle — Class I — implementing Boolean OR.",
+  "groundTruth": true
+}

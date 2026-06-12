@@ -1,0 +1,113 @@
+{
+  "id": "human_apoptosis_caspase_switch",
+  "name": "Caspase Apoptosis Commitment Switch",
+  "organism": "Homo sapiens",
+  "category": "Apoptosis",
+  "description": "Apoptosis executes as a switch, not a dial. After mitochondrial outer-membrane permeabilization, cytochrome c forms the apoptosome and activates caspase-9, then caspase-3. Caspase-3 amplifies its own activation and cleaves the inhibitor XIAP, positive feedback that makes commitment to death all-or-none and irreversible.",
+  "scientificAccuracy": "Bistable, irreversible caspase activation with feedback through XIAP cleavage is established (Legewie, Blüthgen & Herzel 2006; Albeck et al. 2008).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Death signal / MOMP]\n    B[Cytochrome c + apoptosome]\n    C[Caspase-9 active]\n    D[Caspase-3 active]\n    E[\\Caspase-3 amplifies caspase-9/]\n    F[/Cleaves XIAP inhibitor/]\n    G(Irreversible apoptosis commitment)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|+| C\n    D --> F\n    F -->|+ disinhibit| C\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Mathematical modeling identifies inhibitors of apoptosis as mediators of positive feedback and bistability",
+      "authors": "Legewie S, Blüthgen N, Herzel H",
+      "journal": "PLoS Computational Biology",
+      "year": 2006,
+      "volume": "2",
+      "pages": "e120",
+      "pmid": "16978046",
+      "doi": "10.1371/journal.pcbi.0020120"
+    }
+  ],
+  "keywords": [
+    "apoptosis",
+    "caspase",
+    "bistable",
+    "positive feedback",
+    "XIAP",
+    "irreversible",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_positive_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III irreversible bistable switch via caspase-3 positive feedback + XIAP cleavage.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "caspase activation (proteolytic)",
+        "boundFactor": "caspase-3 / XIAP",
+        "operator": "positive feedback / NOT",
+        "effect": "self-amplifying proteolysis",
+        "sequenceMotif": "(protein-level: DEVD cleavage)",
+        "note": "switch implemented in proteolytic cascade, not cis-DNA"
+      }
+    ],
+    "derivedLogic": "Casp3 = Casp9 AND positive-feedback(Casp3) AND NOT XIAP -> irreversible commitment",
+    "references": [
+      "Legewie et al. 2006"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 8,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_feedback_irreversible_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Effector caspase-3 feeds back to amplify its own activation and cleaves the inhibitor XIAP (double-negative), producing an all-or-none, irreversible apoptosis commitment — a bistable Class III switch.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}
