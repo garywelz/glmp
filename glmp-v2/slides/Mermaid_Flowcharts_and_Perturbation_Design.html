@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mermaid Flowcharts and Smarter Perturbation Design</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0369a1;
+      --accent-soft: #e0f2fe;
+      --border: #cbd5e1;
+      --callout: #fef3c7;
+      --callout-border: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+    }
+    article {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    header.doc {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 0.75rem;
+      font-family: system-ui, sans-serif;
+    }
+    .meta {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-family: system-ui, sans-serif;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-family: system-ui, sans-serif;
+      margin: 2.25rem 0 0.75rem;
+      color: var(--accent);
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-family: system-ui, sans-serif;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--text);
+    }
+    p { margin: 0.65rem 0; }
+    ul, ol { margin: 0.5rem 0; padding-left: 1.35rem; }
+    li { margin: 0.35rem 0; }
+    a { color: var(--accent); }
+    .exercise {
+      background: var(--callout);
+      border: 1px solid var(--callout-border);
+      border-radius: 8px;
+      padding: 1.25rem 1.35rem;
+      margin: 1.75rem 0 2.25rem;
+      font-family: system-ui, sans-serif;
+    }
+    .exercise h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.15rem;
+      color: #92400e;
+    }
+    .exercise .prompt {
+      font-family: ui-monospace, monospace;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.75);
+      padding: 0.85rem 1rem;
+      border-radius: 6px;
+      border-left: 4px solid var(--callout-border);
+      margin: 0.75rem 0;
+      line-height: 1.5;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      font-family: system-ui, sans-serif;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.55rem;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--accent-soft); font-weight: 600; }
+    .refs {
+      font-size: 0.92rem;
+    }
+    .refs ol { padding-left: 1.5rem; }
+    .refs li { margin: 0.6rem 0; }
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      font-style: italic;
+    }
+    sup a { text-decoration: none; font-weight: 600; }
+    @media print {
+      body { background: #fff; }
+      article { max-width: none; }
+      .exercise { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<article>
+  <header class="doc">
+    <h1>Mermaid Flowcharts and Smarter Perturbation Design</h1>
+    <p class="meta">
+      <strong>Gary Welz</strong> · <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a><br>
+      Guest seminar notes (expanded), BIO 37105 / 77105 — Prof. Konstantinos Krampis, April 14, 2026.<br>
+      Companion to slide deck: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/slides/GLMP_Krampis_Combined_April_2026.html">GLMP_Krampis_Combined_April_2026.html</a>
+    </p>
+  </header>
+
+  <section class="exercise" id="reader-exercise" aria-labelledby="exercise-heading">
+    <h2 id="exercise-heading">Do this before you read on</h2>
+    <p><strong>Hands-on (your LLM, your device).</strong> In the large language model of your choice, use the following prompt verbatim (you may paste it as written):</p>
+    <p class="prompt">Use mermaid markdown format to make a flowchart of the Lac Operon and deliver it to me as an html file.</p>
+    <p>Save or inspect the HTML you receive. <strong>Then</strong> run a <em>second</em> prompt of the same kind for <strong>another biological process you choose</strong> (any pathway or regulatory story you are curious about), again asking for Mermaid and delivery as HTML.</p>
+    <p>Only after you have produced <strong>at least these two flowcharts</strong> should you continue into the sections below. The rest of this document assumes you have seen how variable, detailed, and revisable LLM-generated diagrams can be—and why validation against curated sources still matters.</p>
+  </section>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>
+      Perturbation experiments in transcriptomics and related fields succeed when investigators can state, in advance, what might change when they intervene. Logic-style flowcharts—especially when authored as <em>diagrams-as-code</em> with Mermaid—offer a lightweight, inspectable complement to pathway databases, genome browsers, and machine-learning models. This article synthesizes material from a classroom-oriented seminar: it motivates Mermaid in the wet-lab and computational workflow, compares six deliberately different representations of the classical <em>E. coli</em> lac operon (literature-informed LLM output, hybrid RegulonDB-informed charts, and database-native views from RegulonDB, EcoCyc, KEGG, and Abasy), explains why only some encodings surface the full two-input AND logic of induction, and recommends <em>layered hybridization</em> rather than naive merging of incompatible ontologies. The emphasis throughout is on habits students can adopt with generic tools, not on any single curated corpus.
+    </p>
+  </section>
+
+  <section id="intro">
+    <h2>1. Introduction</h2>
+    <p>
+      Classical bacterial gene regulation—notably the lac operon—remains a touchstone for teaching how signals, repressors, and catabolite activation combine to gate transcription.<sup><a href="#ref-jacob-monod">1</a></sup> Modern courses increasingly pair that biology with bulk and single-cell readouts, predictive models, and “virtual cell” narratives. In that stack, a hand-drawn or code-generated flowchart is not a substitute for a mechanistic model or a trained neural network; it is a <strong>hypothesis sketch</strong>: an explicit map of branches, feedback, and candidate intervention points that can be shared, versioned, and critiqued in a lab meeting.
+    </p>
+    <p>
+      <strong>Mermaid</strong> is a text-based diagram language embedded in many Markdown workflows; renderers produce flowcharts, sequence diagrams, and state machines from source that diffs cleanly in Git.<sup><a href="#ref-mermaid">2</a></sup> Large language models (LLMs) can draft Mermaid blocks from natural-language prompts, which lowers the barrier to first drafts but raises the cost of <em>verification</em>: different prompts and models yield legitimately different graphs for the same pathway.<sup><a href="#ref-zenodo">3</a></sup>
+    </p>
+    <p>
+      The seminar used the lac operon as a worked example because multiple curated resources can be aligned to the same story at different abstraction levels (references <a href="#ref-regulondb">4</a>–<a href="#ref-abasy">10</a>). Comparing those views side by side illustrates a broader lesson: <strong>source choice is scientific information</strong>, and reconciling diagrams is analogous to reconciling pipelines or model outputs.
+    </p>
+  </section>
+
+  <section id="message">
+    <h2>2. Pedagogical aim</h2>
+    <p>The central messages for readers mirror the classroom deck:</p>
+    <ul>
+      <li>A well-designed perturbation begins with clarity about <strong>what could change</strong> when a gene, nutrient, or drug is manipulated.</li>
+      <li>Mermaid (or equivalent diagram-as-code) supports rapid iteration and collaboration alongside literature and databases.</li>
+      <li>The durable skill is <strong>tool stack plus critical reading</strong>, not dependence on any single database or pre-built chart.</li>
+      <li>Prompt and model variation produces diagram variation; readers should <strong>validate</strong> against textbooks and curated resources.</li>
+    </ul>
+  </section>
+
+  <section id="alignment">
+    <h2>3. Alignment with transcriptomics and AI-heavy curricula</h2>
+    <p>
+      Students learning to predict and interpret cellular responses to perturbations from high-dimensional data still benefit from a compact picture of inputs, branch points, and feedback before they commit to expensive readouts or large fits. A flowchart complements feature matrices, deep models, and virtual-cell lectures: it helps choose <em>what to perturb</em> and <em>what to measure</em>, and it supports sanity checks on whether predicted directions of change match mechanism.
+    </p>
+  </section>
+
+  <section id="mermaid">
+    <h2>4. What Mermaid offers in practice</h2>
+    <ul>
+      <li><strong>Text to diagram:</strong> Markdown-like syntax is rendered to vector graphics in editors, static sites, and the Mermaid Live Editor.</li>
+      <li><strong>Portability:</strong> the same source travels with version control and notebooks.</li>
+      <li><strong>Collaboration:</strong> readable diffs and straightforward post-meeting revision.</li>
+      <li><strong>LLM compatibility:</strong> models can emit fenced <code>mermaid</code> blocks; human authors should edit, cite, and verify.</li>
+    </ul>
+  </section>
+
+  <section id="lac-llm">
+    <h2>5. Lac operon: an LLM-first draft</h2>
+    <p>
+      When asked (via a conversational prompt) for a Mermaid flowchart of lac operon biochemistry, contemporary LLMs often return a surprisingly rich first pass: two-input logic (lactose / allolactose and glucose / cAMP–CAP), default OFF with repressor on the operator, graded induction, and sometimes a feedback arc as lactose is depleted. That quality is <strong>not guaranteed</strong>; it depends on model, prompt, and training cutoff. Treat LLM output as a <strong>first draft</strong> to be checked against authoritative descriptions and databases.
+    </p>
+  </section>
+
+  <section id="v1v2">
+    <h2>6. V1 versus V2: one node teaches hybrid value</h2>
+    <p>
+      In the six-way comparison used in class, <strong>V1</strong> denotes an LLM- or literature-leaning chart that captures regulatory logic but may <strong>elide</strong> explicit transcription of the <em>lacI</em> repressor gene as its own event. <strong>V2</strong> (hybrid: LLM logic on a RegulonDB-informed backbone) adds exactly that node—<em>LacI gene expression</em>—between cAMP–CAP signaling and the conditional steps at the operator. For perturbation design, tuning or knocking down <em>lacI</em> is a real lever; representing it explicitly matters. The lesson generalizes: regulatory databases encode entity-level completeness that narrative or shortcut LLM graphs may omit.<sup><a href="#ref-regulondb">4</a></sup>
+    </p>
+    <p>
+      Interactive comparison (same operon, switchable versions): <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/glmp-viewer-demo-v1-v6.html?process=ecoli_lac_operon&amp;version=v1">GLMP lac operon viewer (V1–V6)</a>.
+    </p>
+  </section>
+
+  <section id="six-versions">
+    <h2>7. Six versions, six questions</h2>
+    <p>
+      The same biological system can support six charts that differ systematically because each source was built to answer a <em>different primary question</em>: mechanistic logic (V1), logic plus regulator identity (V2), transcriptional wiring (V3), parts and reactions (V4), stable identifiers and pathway membership (V5), or regulon-level architecture (V6). None is “wrong” in isolation; each is partial relative to the others.
+    </p>
+    <h3>7.1 Feature comparison (summary)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>V1 LLM</th>
+          <th>V2 Hybrid</th>
+          <th>V3 RegulonDB</th>
+          <th>V4 EcoCyc</th>
+          <th>V5 KEGG</th>
+          <th>V6 Abasy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Boolean AND/OR gates</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Feedback loop</td><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Gene identifiers (e.g. eco:b)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td></tr>
+        <tr><td>Regulon abstraction</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+        <tr><td>Operon as single unit</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td></tr>
+        <tr><td>Metabolic products shown</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+        <tr><td>Node count (typical)</td><td>High</td><td>High</td><td>Medium</td><td>Medium</td><td>Medium</td><td>Low</td></tr>
+        <tr><td><strong>Primary question</strong></td><td>How does the logic work?</td><td>Logic + who regulates?</td><td>Who regulates whom?</td><td>What are the parts?</td><td>Which genes/pathway?</td><td>Which regulons?</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="and-gate">
+    <h2>8. Only some encodings surface the full AND condition</h2>
+    <p>
+      Strong induction of the lac operon requires lactose (via allolactose-mediated relief of LacI repression) <em>and</em> catabolite repression to be overcome (often summarized as glucose absent so cAMP–CRP can assist). In the seminar comparison, <strong>only V1 and V2 encode that two-input AND structure</strong> as explicit Boolean-style gates. Database-native views emphasize facts—who binds whom, which genes belong to which regulon—without necessarily packaging the simultaneous environmental logic the way a textbook narrative does. The LLM, when well prompted, supplies that interpretive layer; the hybrid preserves it while grounding entities in RegulonDB-style wiring.
+    </p>
+  </section>
+
+  <section id="hybrid">
+    <h2>9. Layered hybridization instead of one giant merge</h2>
+    <p>
+      Naively unioning nodes and edges from RegulonDB, EcoCyc, KEGG, and Abasy risks <strong>ontology collision</strong>: mixed abstraction levels bury the very conditional logic that makes V1/V2 useful for experiment planning. A more productive pattern is layered:
+    </p>
+    <ol>
+      <li><strong>Structural partner:</strong> a regulatory database at TF→gene resolution (for <em>E. coli</em>, RegulonDB-class) for entity completeness compatible with logic graphs.</li>
+      <li><strong>Parts audit:</strong> EcoCyc / BioCyc for enzyme names, reactions, and products—often as validation rather than wholesale structural merge.<sup><a href="#ref-biocyc">5</a></sup></li>
+      <li><strong>Identifier layer:</strong> KEGG locus tags and pathway IDs as metadata on stabilized nodes.<sup><a href="#ref-kegg">6</a></sup></li>
+      <li><strong>Architecture check:</strong> Abasy or similar regulon summaries as a zoomed-out consistency check.<sup><a href="#ref-abasy">10</a></sup></li>
+    </ol>
+  </section>
+
+  <section id="prompts">
+    <h2>10. Prompts change the picture</h2>
+    <p>
+      Wording shifts (detail level, audience, whether to foreground CAP, metabolism versus regulation) change node sets and layout. There is no single “official” Mermaid chart for a biological story—only better or worse fits to evidence. Good practice: generate two versions from two prompts, diff them, and reconcile against a trusted review or database page; store both Mermaid source and citations in the lab record.
+    </p>
+  </section>
+
+  <section id="tools">
+    <h2>11. Habits: use tools to reveal structure</h2>
+    <p>
+      Readers should build a habit of reaching for literature, databases, and diagram-as-code together so that <strong>inputs, branch points, and feedback</strong> are explicit before major experimental or modeling investment. Optional public demos (for example the GLMP viewer hub) illustrate how source mixtures change diagrams; they are galleries for comparison, not prerequisites for sound practice.<sup><a href="#ref-glmp-viewer">11</a></sup>
+    </p>
+  </section>
+
+  <section id="buckets">
+    <h2>12. Seven resource buckets for perturbation design</h2>
+    <p>Most real projects blend multiple evidence types:</p>
+    <ol>
+      <li><strong>Primary literature and reviews</strong> — mechanism, conditions, phenotypes; PubMed / Europe PMC.</li>
+      <li><strong>Pathway and interaction context</strong> — Reactome, KEGG, WikiPathways, BioCyc; STRING for functional associations (references <a href="#ref-biocyc">5</a>–<a href="#ref-string">9</a>).</li>
+      <li><strong>Gene-centric facts</strong> — NCBI Gene, Ensembl, UniProt, Gene Ontology; model-organism databases (e.g. SGD for yeast).</li>
+      <li><strong>Regulatory layers</strong> — RegulonDB, Abasy, review figures.</li>
+      <li><strong>Perturbation modalities</strong> — CRISPR, RNAi, libraries, small molecules; reagent repositories such as Addgene.<sup><a href="#ref-addgene">12</a></sup></li>
+      <li><strong>Data-first inspiration</strong> — GEO, atlases, screens for realistic readouts.<sup><a href="#ref-geo">13</a></sup></li>
+      <li><strong>Organism choice</strong> — human cell lines versus classic genetics models; regulatory depth varies and should be stated.</li>
+    </ol>
+  </section>
+
+  <section id="supplement">
+    <h2>13. How logic flowcharts supplement databases and papers</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>What typical resources give</th>
+          <th>What logic-style flowcharts add</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lists of genes/reactions and standard pathway maps</td>
+          <td>Explicit narrative flow, branching, and AND/OR-style reasoning under stated conditions</td>
+        </tr>
+        <tr>
+          <td>Static maps optimized for lookup</td>
+          <td>Teaching-oriented layouts for discourse—“if we cut this edge, what breaks first?”</td>
+        </tr>
+        <tr>
+          <td>Interaction confidence from omics</td>
+          <td>Clear hypothesis structure: which steps are treated as coupled assumptions</td>
+        </tr>
+        <tr>
+          <td>Methods for executing perturbations</td>
+          <td>A perturbation <em>menu</em>: inputs, master regulators, branch points, feedback—suggesting informative rather than arbitrary interventions</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="distillation">
+    <h2>14. Synthesis</h2>
+    <blockquote>
+      “Databases tell you what is connected; papers tell you what was measured; a logic flowchart helps you choose perturbations that disambiguate mechanisms and predict qualitative directions before you spend money and time on the experiment or on fitting a large model.”
+    </blockquote>
+    <p>
+      That framing places interpretive structure <em>on top of</em> the usual evidence stack—complementary to transcriptomics, machine learning, and virtual-cell themes, not in competition with them. From chart to bench: mark manipulable inputs, mark branch points for discriminative perturbations, map boxes to measurement targets, and expect to revise after data—the loop is the science.
+    </p>
+  </section>
+
+  <section id="framework">
+    <h2>15. Structured prompting (optional)</h2>
+    <p>
+      For JSON-first extraction of steps and edges before Mermaid, readers may consult the Programming Framework materials on Zenodo and the one-page Appendix A prompt HTML linked from the slide deck.<sup><a href="#ref-zenodo">3</a></sup>
+    </p>
+  </section>
+
+  <section id="glmp-papers">
+    <h2>16. Related GLMP manuscripts (HTML)</h2>
+    <p>These companion pieces develop genomic computational framing and empirical tests referenced in broader GLMP work:</p>
+    <ul>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html">Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis</a></li>
+    </ul>
+  </section>
+
+  <section id="references" class="refs">
+    <h2>References</h2>
+    <ol>
+      <li id="ref-jacob-monod">Jacob F, Monod J. Genetic regulatory mechanisms in the synthesis of proteins. <em>J Mol Biol</em>. 1961;3(3):318–356. (<em>Classic lac operon regulatory logic.</em>)</li>
+      <li id="ref-mermaid">Mermaid project documentation and syntax reference. <a href="https://mermaid.js.org/">https://mermaid.js.org/</a> (accessed 2026).</li>
+      <li id="ref-zenodo">Welz G. Programming Framework materials (structured prompting for biological process diagrams). Zenodo record 18463442, CC-BY-4.0. <a href="https://doi.org/10.5281/zenodo.18463442">https://doi.org/10.5281/zenodo.18463442</a> (2025).</li>
+      <li id="ref-regulondb">Gama-Castro S, et al. RegulonDB: a database of transcriptional regulation in <em>Escherichia coli</em> K-12. <em>Nucleic Acids Res</em>. (ongoing database series; cite the version used, e.g. 2024 update). <a href="https://regulondb.ccg.unam.mx/">https://regulondb.ccg.unam.mx/</a></li>
+      <li id="ref-biocyc">Keseler IM, et al. EcoCyc: enriching the BioCyc collection of databases. <em>Nucleic Acids Res</em>. 2021;49(D1):D608–D612. <a href="https://biocyc.org/">https://biocyc.org/</a></li>
+      <li id="ref-kegg">Kanehisa M, Furumichi M, Sato Y, Kawashima M, Ishiguro-Watanabe M. KEGG for taxonomy-based analysis of pathways and genomes. <em>Nucleic Acids Res</em>. 2023;51(D1):D587–D592. <a href="https://www.genome.jp/kegg/">https://www.genome.jp/kegg/</a></li>
+      <li id="ref-reactome">Gillespie M, et al. The Reactome Pathway Knowledgebase 2024. <em>Nucleic Acids Res</em>. 2024;52(D1):D672–D678. <a href="https://reactome.org/">https://reactome.org/</a></li>
+      <li id="ref-wikipathways">Martens M, et al. WikiPathways: connecting communities. <em>Nucleic Acids Res</em>. 2021;49(D1):D613–D621. <a href="https://www.wikipathways.org/">https://www.wikipathways.org/</a></li>
+      <li id="ref-string">Szklarczyk D, et al. The STRING database in 2025: protein association networks and functional enrichment analyses for any sequenced genome. <em>Nucleic Acids Res</em>. 2025;53(D1):D638–D646. <a href="https://string-db.org/">https://string-db.org/</a></li>
+      <li id="ref-abasy">Escorcia-Rodríguez JM, Tauch A, Freyre-González JA. Abasy Atlas v2.2: the most comprehensive and up-to-date inventory of meta-curated, historical, bacterial regulatory networks, their completeness and system-level characterization. <em>Comput Struct Biotechnol J</em>. 2020;18:1228–1237. <a href="https://abasy.ccg.unam.mx/">https://abasy.ccg.unam.mx/</a></li>
+      <li id="ref-glmp-viewer">GLMP viewer demo hub (multi-process, multi-version Mermaid comparisons). <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/index.html">https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/index.html</a> (accessed 2026).</li>
+      <li id="ref-addgene">Addgene: nonprofit plasmid repository. <a href="https://www.addgene.org/">https://www.addgene.org/</a> (accessed 2026).</li>
+      <li id="ref-geo">Barrett T, et al. NCBI GEO: archive for functional genomics data—updated. <em>Nucleic Acids Res</em>. 2013;41(D1):D991–D995. <a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a></li>
+    </ol>
+  </section>
+
+  <footer class="meta" style="margin-top:3rem;padding-top:1rem;border-top:1px solid var(--border);">
+    <p>Document generated to accompany <cite>Flowcharts, Mermaid &amp; smarter perturbation design</cite> (Krampis seminar, April 2026). Suggested citation: Welz G. <em>Mermaid Flowcharts and Smarter Perturbation Design</em> (HTML companion). 2026.</p>
+  </footer>
+</article>
+</body>
+</html>

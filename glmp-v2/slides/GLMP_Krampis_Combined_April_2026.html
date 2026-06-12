@@ -59,13 +59,7 @@
     .t9 { background: linear-gradient(135deg, #1a1a2e 0%, #312e81 50%, #1e3a5f 100%); }
     .t9 h2 { color: #a5b4fc; }
     .t9 li::marker { color: #818cf8; }
-    .slide.has-mermaid h2 { font-size: clamp(1.1rem, 2.2vw, 1.65rem); }
-    .slide .diagram-wrap { margin: 0.35rem 0 0.15rem; text-align: center; overflow-x: auto; max-width: 100%; }
-    .slide .diagram-wrap .mermaid { display: inline-block; text-align: left; max-width: 100%; }
-    .slide .mmd-caption { font-size: clamp(0.72rem, 1.25vw, 0.95rem); color: #94a3b8; margin: 0.2rem 0 0.5rem; line-height: 1.35; }
-    .slide.appendix-intro p { font-size: clamp(0.85rem, 1.5vw, 1.1rem); }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>
 <body>
 
@@ -75,6 +69,13 @@
     <p class="sub"><strong>Gary Welz</strong> · <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a></p>
     <p><strong>BIO 37105 / 77105</strong> · <strong>April 14, 2026</strong></p>
     <p class="sub" style="margin-top:1.25rem;">Big idea: <strong>you</strong> can author diagrams — tools like <strong>Mermaid</strong> (and LLM assistants) help you think before you pipette or queue a sequencing run.</p>
+  </section>
+
+  <section class="slide t6">
+    <h2>Start here — your LLM, your device</h2>
+    <p>Use the following prompt in the <strong>LLM of your choice</strong>:</p>
+    <p class="pullquote" style="font-style:normal;">“Use mermaid markdown format to make a flowchart of the Lac Operon and deliver it to me as an html file.”</p>
+    <p><strong>Afterwards we will discuss.</strong> Then prompt a <strong>similar</strong> flowchart of <strong>some other biological process</strong> and see what you get.</p>
   </section>
 
   <section class="slide t2">
@@ -90,38 +91,13 @@
   <section class="slide t3">
     <h2>What we’ll cover</h2>
     <ul>
-      <li><strong>Resource buckets</strong> researchers actually use to design perturbations (outline Prof. Krampis called a good fit for this course)</li>
+      <li><strong>Hands-on first:</strong> lac operon + a second process in <strong>your</strong> LLM, on <strong>your</strong> device — then we discuss before going deeper</li>
+      <li><strong>Resource buckets</strong> researchers actually use to design perturbations</li>
       <li>How <strong>logic-style flowcharts</strong> sit on top of those resources — not a replacement for databases or papers</li>
       <li>Why explicit diagrams help <strong>before</strong> virtual-cell / ML-heavy work · <strong>Mermaid</strong> and LLMs</li>
       <li><strong>Lac operon</strong>: <strong>V1–V6</strong> comparison + <strong>layered hybridization</strong> (why not merge every database into one chart)</li>
       <li>Optional <strong>GLMP</strong> demos &amp; <strong>Programming Framework</strong> materials as illustration only</li>
     </ul>
-  </section>
-
-  <section class="slide t7">
-    <p class="deck-tag">GLMP · working papers (optional reading)</p>
-    <h2>Three GLMP papers — where the “genome as program” story lives</h2>
-    <p>These are <strong>separate from tonight’s skills focus</strong> (Mermaid + databases + hybrid design). They are the written spine if you want the full argument and the K562 benchmark numbers.</p>
-    <ul>
-      <li><strong>Paper I — Foundational typology:</strong> five-class regulatory ladder, computability metaphor, what “class” is supposed to mean.
-        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html" target="_blank" rel="noopener">Open Paper I</a></li>
-      <li><strong>Paper II — The genome as computer:</strong> logical primitives, runtime vs program, derived predictions (including what virtual-cell benchmarks should stress-test).
-        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html" target="_blank" rel="noopener">Open Paper II</a></li>
-      <li><strong>Paper III — Empirical sequel:</strong> 780 K562 genes × 16 perturbation-prediction evaluations; class-stratified accuracy; metric alignment (DE20); naive GRN-aware baselines that <strong>do not</strong> erase the Class III gap.
-        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html" target="_blank" rel="noopener">Open Paper III</a></li>
-    </ul>
-    <p class="sub"><strong>Artifacts / code:</strong> <a href="https://github.com/garywelz/glmp" target="_blank" rel="noopener">github.com/garywelz/glmp</a> (tables, <code>gene_circuit_classes.tsv</code>, analysis scripts).</p>
-  </section>
-
-  <section class="slide t6">
-    <p class="deck-tag">GLMP · why mention it here?</p>
-    <h2>Same habit as tonight: make structure explicit before you spend</h2>
-    <ul>
-      <li>Paper III asks a <strong>measurement question</strong>: after you stratify genes by <strong>regulatory topology</strong> (feed-forward vs feedback vs …), do virtual-cell-style predictors show <strong>structured</strong> errors — not just one aggregate <em>r</em>?</li>
-      <li>The lac <strong>V1–V6</strong> story tonight is about <strong>how evidence sources change the diagram</strong>. Paper III is the complementary move: <strong>hold the benchmark fixed</strong> and change the <strong>gene stratification axis</strong>.</li>
-      <li><strong>Appendix</strong> at the end of this deck imports the <strong>Section 3.4 “cartoon” circuits</strong> from Paper III (Mermaid) — intuition only, not fitted models.</li>
-    </ul>
-    <p class="sub">Zoom-friendly: advance when ready; Mermaid renders when you first land on each appendix slide.</p>
   </section>
 
   <section class="slide t4">
@@ -175,7 +151,6 @@
     <h2>Six versions — six questions</h2>
     <p><strong>Same biology. Six evidence mixes. Six different diagrams.</strong></p>
     <p>The lac operon has been in textbooks for decades — yet each source yields a genuinely different chart. Not because any version is “wrong,” but because each database was built to answer a <strong>different question</strong>.</p>
-    <p class="pullquote">Like Euclid and Tarski describing the same geometry from different primitive bases — same reality, different logical projections.</p>
     <p class="sub">Live viewer:
       <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/glmp-viewer-demo-v1-v6.html?process=ecoli_lac_operon&amp;version=v1" target="_blank" rel="noopener">switch V1–V6 here</a>
     </p>
@@ -210,7 +185,6 @@
   </section>
 
   <section class="slide t9">
-    <p class="deck-tag">V1</p>
     <h2>V1 — LLM from literature</h2>
     <p><em>Primary question: How does the logic work?</em></p>
     <ul>
@@ -225,7 +199,6 @@
   </section>
 
   <section class="slide t2">
-    <p class="deck-tag">V2</p>
     <h2>V2 — Hybrid (LLM + RegulonDB backbone)</h2>
     <p><em>Primary question: Logic + who exactly regulates what?</em></p>
     <ul>
@@ -239,7 +212,6 @@
   </section>
 
   <section class="slide t3">
-    <p class="deck-tag">V3</p>
     <h2>V3 — RegulonDB only</h2>
     <p><em>Primary question: Who regulates whom, and how?</em></p>
     <ul>
@@ -253,7 +225,6 @@
   </section>
 
   <section class="slide t4">
-    <p class="deck-tag">V4</p>
     <h2>V4 — EcoCyc only</h2>
     <p><em>Primary question: What are the molecular parts and what do they do?</em></p>
     <ul>
@@ -268,7 +239,6 @@
   </section>
 
   <section class="slide t5">
-    <p class="deck-tag">V5</p>
     <h2>V5 — KEGG only</h2>
     <p><em>Primary question: Which genes, which pathway, which identifiers?</em></p>
     <ul>
@@ -282,7 +252,6 @@
   </section>
 
   <section class="slide t6">
-    <p class="deck-tag">V6</p>
     <h2>V6 — Abasy only</h2>
     <p><em>Primary question: Which regulons control which genes?</em></p>
     <ul>
@@ -440,9 +409,9 @@
   </section>
 
   <section class="slide t8">
-    <h2>Stress the tools, not “my database”</h2>
+    <h2>Use the tools</h2>
     <ul>
-      <li><strong>You do not need GLMP</strong> to do well in this course — you need a <strong>habit of explicit structure</strong>.</li>
+      <li><strong>Build a habit</strong> of using the <strong>right tools</strong> — literature, databases, diagram-as-code — to <strong>reveal the explicit structure</strong> of what you are researching (inputs, branch points, feedback) <strong>before</strong> you sink cost into experiments or large models.</li>
       <li>GLMP (and similar projects) are <strong>optional galleries</strong> of how others styled logic-heavy biology in Mermaid.</li>
       <li>What scales is: <strong>Mermaid (or equivalent) + literature + databases + your judgment</strong>.</li>
     </ul>
@@ -537,7 +506,7 @@
   <section class="slide t6">
     <h2>One-sentence distillation</h2>
     <p class="pullquote">“Databases tell you what is connected; papers tell you what was measured; a logic flowchart helps you choose perturbations that disambiguate mechanisms and predict qualitative directions before you spend money and time on the experiment or on fitting a large model.”</p>
-    <p class="sub">That frames interpretive structure as sitting <strong>on top of</strong> the usual evidence stack — complementary to transcriptomics + AI + virtual-cell themes, not competing with them. Prof. Krampis: this outline was a good fit for your objectives here.</p>
+    <p class="sub">That frames interpretive structure as sitting <strong>on top of</strong> the usual evidence stack — complementary to transcriptomics + AI + virtual-cell themes, not competing with them.</p>
   </section>
 
   <section class="slide t7">
@@ -575,145 +544,6 @@
     </ul>
   </section>
 
-  <section class="slide t1 appendix-intro">
-    <p class="deck-tag">Appendix</p>
-    <h2>Paper III §3.4 — topology cartoons (Mermaid)</h2>
-    <p>From <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html" target="_blank" rel="noopener">Empirical sequel (Paper III)</a>, Section 3.4. These diagrams highlight <strong>structural motifs</strong> used to assign GLMP-style complexity classes in the benchmark — <strong>not</strong> quantitative fits and <strong>not</strong> organism-complete wiring diagrams.</p>
-    <p class="sub">Palette (GLMP): blue = signal/input; teal = gene/protein; orange = outcome; red emphasis = repression / negative links where marked.</p>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class I</p>
-    <h2>Class I — feed-forward (JUN / AP-1)</h2>
-    <p class="mmd-caption">No directed cycle: response follows current input.</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph LR
-  S["Growth factor signal"]:::signal --> MAPK["MAPK cascade"]:::gene --> JUN["JUN / AP-1"]:::gene --> T["Target expression"]:::outcome
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-      </div>
-    </div>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class II</p>
-    <h2>Class II — negative feedback (ATF4 stress)</h2>
-    <p class="mmd-caption">Single negative cycle: homeostatic correction.</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph LR
-  Stress["ER stress signal"]:::signal --> eIF2["eIF2a phosphorylation"]:::gene --> ATF4["ATF4 translation"]:::gene --> CHOP["CHOP / GADD34 targets"]:::outcome
-  CHOP -. "negative feedback" .-> eIF2
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-  linkStyle 3 stroke:#e74c3c,stroke-width:2px
-      </div>
-    </div>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class III (example 1)</p>
-    <h2>Class III — mutual repression (GATA1 / PU.1)</h2>
-    <p class="mmd-caption">Double-negative / positive self-activation: two attractor basins (cartoon).</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph TD
-  Signal["Lineage signal"]:::signal --> GATA1["GATA1"]:::gene
-  Signal --> PU1["PU.1"]:::gene
-  GATA1 -- "activates own promoter" --> GATA1
-  PU1 -- "activates own promoter" --> PU1
-  GATA1 -. "represses" .-> PU1
-  PU1 -. "represses" .-> GATA1
-  GATA1 --> Ery["Erythroid fate"]:::outcome
-  PU1 --> Myel["Myeloid fate"]:::outcome
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-  linkStyle 4 stroke:#e74c3c,stroke-width:2px
-  linkStyle 5 stroke:#e74c3c,stroke-width:2px
-      </div>
-    </div>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class III (example 2)</p>
-    <h2>Class III — MYC autoactivation</h2>
-    <p class="mmd-caption">Positive feedback: threshold / “siphon” intuition (Paper III text).</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph LR
-  Mitogen["Mitogenic signal"]:::signal --> MYC["MYC protein"]:::gene
-  MYC -- "positive autoactivation" --> MYC
-  MYC --> Prolif["Proliferation"]:::outcome
-  MYC --> Apop["Apoptosis if ARF-p53 active"]:::outcome2
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-  classDef outcome2 fill:#e74c3c,stroke:#c0392b,color:#fff
-      </div>
-    </div>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class III (example 3)</p>
-    <h2>Class III — VHL / HIF oxygen sensing</h2>
-    <p class="mmd-caption">Normoxia vs hypoxia toggle with positive feedback on targets (cartoon).</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph TD
-  O2["Oxygen level"]:::signal --> VHL["VHL E3 ligase"]:::gene
-  VHL -. "degrades normoxia" .-> HIF["HIF1a"]:::gene
-  HIF -- "activates hypoxia" --> Targets["VEGF GLUT1 glycolytic genes"]:::outcome
-  Targets -- "positive feedback" --> HIF
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-  linkStyle 1 stroke:#e74c3c,stroke-width:2px
-      </div>
-    </div>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class IV</p>
-    <h2>Class IV — delayed negative feedback (circadian)</h2>
-    <p class="mmd-caption">Three+ nodes + delay → oscillation; phase can be a hidden dynamical variable.</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph TD
-  Input["Light / SCN input"]:::signal --> CBC["CLOCK / BMAL1 heterodimer"]:::gene
-  CBC -- "activates transcription" --> PC["PER / CRY mRNA to protein"]:::gene
-  PC -. "delayed repression" .-> CBC
-  PC --> Out["Circadian output genes"]:::outcome
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-  linkStyle 2 stroke:#e74c3c,stroke-width:2px
-      </div>
-    </div>
-  </section>
-
-  <section class="slide t3 has-mermaid">
-    <p class="deck-tag">Appendix · Class V</p>
-    <h2>Class V — self-modifying chromatin (BRD4 sketch)</h2>
-    <p class="mmd-caption">Architecture that rewrites its own regulatory marks (illustrative).</p>
-    <div class="diagram-wrap">
-      <div class="mermaid">
-graph TD
-  HAc["Histone acetylation"]:::signal --> BRD4["BRD4 reads marks"]:::gene
-  BRD4 --> TxnMach["Transcription machinery + HATs"]:::gene
-  TxnMach -- "writes new acetyl marks" --> HAc
-  BRD4 --> Targets["Super-enhancer targets"]:::outcome
-  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
-  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
-  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
-  linkStyle 2 stroke:#9b59b6,stroke-width:2px,stroke-dasharray:5
-      </div>
-    </div>
-  </section>
-
   <section class="slide t2">
     <h2>Takeaways</h2>
     <ul>
@@ -729,6 +559,13 @@ graph TD
     <h2>Thank you</h2>
     <p><strong>Questions?</strong></p>
     <p><strong>Gary Welz</strong> · <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a></p>
+    <p style="margin-top:0.85rem;"><strong>GLMP papers (HTML)</strong></p>
+    <ul style="margin-top:0.35rem;">
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html" target="_blank" rel="noopener">Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html" target="_blank" rel="noopener">The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction</a></li>
+      <li><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html" target="_blank" rel="noopener">Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis</a></li>
+    </ul>
+    <p style="margin-top:0.85rem;"><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/slides/Mermaid_Flowcharts_and_Perturbation_Design.html" target="_blank" rel="noopener">Companion article (HTML): <em>Mermaid Flowcharts and Smarter Perturbation Design</em></a> — expanded notes, hands-on preface, references</p>
     <p><a href="https://zenodo.org/records/18463442" target="_blank" rel="noopener">Programming Framework (Zenodo)</a></p>
     <p><a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/programming-framework-appendix-a-prompt.html" target="_blank" rel="noopener">Appendix A prompt (one-page HTML)</a></p>
     <p class="sub">Mermaid: <a href="https://mermaid.js.org/" target="_blank" rel="noopener">mermaid.js.org</a></p>
@@ -746,36 +583,11 @@ graph TD
     const total = slides.length;
     document.getElementById('tot').textContent = total;
     let idx = 0;
-    let mermaidInitialized = false;
-
-    function runMermaidOnSlide(active) {
-      if (!active.classList.contains('has-mermaid')) return;
-      if (active.dataset.mermaidDone === '1') return;
-      if (typeof mermaid === 'undefined') return;
-      const nodes = active.querySelectorAll('.mermaid:not([data-processed])');
-      if (!nodes.length) return;
-      if (!mermaidInitialized) {
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: 'dark',
-          securityLevel: 'loose',
-          flowchart: { curve: 'basis', nodeSpacing: 28, rankSpacing: 36 }
-        });
-        mermaidInitialized = true;
-      }
-      mermaid.run({ nodes: Array.from(nodes) }).then(function () {
-        active.dataset.mermaidDone = '1';
-      }).catch(function () {});
-    }
 
     function go(i) {
       idx = Math.max(0, Math.min(total - 1, i));
       slides.forEach((s, k) => s.classList.toggle('active', k === idx));
       document.getElementById('cur').textContent = idx + 1;
-      const active = slides[idx];
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () { runMermaidOnSlide(active); });
-      });
     }
     document.getElementById('next').onclick = () => go(idx + 1);
     document.getElementById('prev').onclick = () => go(idx - 1);

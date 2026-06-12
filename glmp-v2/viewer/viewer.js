@@ -8,7 +8,8 @@ import { loadProcessList, loadProcess, getCurrentProcess, getProcessList, setCur
 import { renderDiagram, updateDetailLevel, getDetailLevel } from './modules/mermaidRenderer.js';
 import { initializeFeedbackPanel } from './modules/feedbackHandler.js';
 import { loadComments } from './modules/commentsManager.js';
-import { renderProcessList, renderProcess, renderColorLegend, renderCitations, renderMetadata, showLoadingSpinner } from './modules/uiRenderer.js';
+import { renderProcessList, renderProcess, renderColorLegend, renderCitations, renderMetadata, showLoadingSpinner } from './modules/uiRenderer.js?v=20260325';
+import { initProcessCiteModal, fillProcessCiteModal } from './modules/processCiteModal.js';
 
 // Initialize Mermaid
 mermaid.initialize(MERMAID_CONFIG);
@@ -46,10 +47,38 @@ window.debugFeedbackPanel = () => {
     return el;
 };
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
+function setupStaticPageChrome() {
+    initProcessCiteModal();
+
+    const dbTableBtn = document.getElementById('database-table-btn');
+    if (dbTableBtn) {
+        dbTableBtn.addEventListener('click', () => {
+            window.open('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html', '_blank');
+        });
+    }
+
+    const detailSelector = document.getElementById('detail-selector');
+    if (detailSelector) {
+        const detailInput = detailSelector.querySelector('input[type="range"]');
+        if (detailInput) {
+            detailInput.addEventListener('input', (e) => {
+                handleDetailLevelChange(parseInt(e.target.value, 10));
+            });
+        }
+    }
+}
+
+function bootViewer() {
+    setupStaticPageChrome();
     initializeViewer();
-});
+}
+
+// Module scripts are deferred; DOMContentLoaded may already have fired in some environments.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootViewer);
+} else {
+    bootViewer();
+}
 
 /**
  * Initialize the viewer
@@ -78,6 +107,8 @@ async function initializeViewer() {
                     <p>🔄 Loading process diagram...</p>
                 </div>
             `;
+            
+            await loadProcessList();
             
             // Then load the actual process
             await loadProcessFromCard(processId);
@@ -191,6 +222,10 @@ async function loadProcessFromCard(processId) {
     try {
         // Load the process
         const processData = await loadProcess(processId);
+        const fromList = getProcessList().find(p => p.id === processId);
+        if (fromList) {
+            processData._metaSummary = fromList;
+        }
         
         // Store in module state
         setCurrentProcess(processData);
@@ -298,6 +333,7 @@ function renderProcessView(process) {
     
     // Use the module's renderProcess function which handles all rendering
     renderProcess(process);
+    fillProcessCiteModal(process);
     
     // Render diagram separately (needs detail level)
     renderDiagram(process, getDetailLevel());
@@ -338,25 +374,4 @@ window.loadProcessFromCard = loadProcessFromCard;
 // Handle browser back/forward buttons
 window.addEventListener('popstate', () => {
     initializeViewer();
-});
-
-// Database Table navigation
-document.addEventListener('DOMContentLoaded', () => {
-    const dbTableBtn = document.getElementById('database-table-btn');
-    if (dbTableBtn) {
-        dbTableBtn.addEventListener('click', () => {
-            window.open('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html', '_blank');
-        });
-    }
-    
-    // Handle detail level selector
-    const detailSelector = document.getElementById('detail-selector');
-    if (detailSelector) {
-        const detailInput = detailSelector.querySelector('input[type="range"]');
-        if (detailInput) {
-            detailInput.addEventListener('input', (e) => {
-                handleDetailLevelChange(parseInt(e.target.value));
-            });
-        }
-    }
 });

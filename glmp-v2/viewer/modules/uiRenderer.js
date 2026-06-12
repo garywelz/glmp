@@ -4,6 +4,7 @@
  */
 
 import { escapeHtml } from './utils.js';
+import { getArxivFrontier, countMermaidEdges, estimateMermaidNodeCount } from './frontier.js';
 
 /**
  * Render the process list as a table
@@ -90,6 +91,45 @@ export function renderProcess(process) {
     
     // Render metadata
     renderMetadata(process);
+    
+    renderProcessStatistics(process);
+}
+
+/**
+ * Compact graph stats + arXiv "Frontier" link (mirrors mathematics process pages, e.g. Frontier: math.MP).
+ */
+export function renderProcessStatistics(process) {
+    const box = document.getElementById('process-statistics');
+    if (!box) return;
+    
+    const summary = process._metaSummary || {};
+    const nodes = summary.nodes
+        ?? process.complexity?.nodes
+        ?? estimateMermaidNodeCount(process.mermaid);
+    const edges = process.edges
+        ?? countMermaidEdges(process.mermaid);
+    
+    const nodesStr = nodes != null ? String(nodes) : '—';
+    const edgesStr = edges != null ? String(edges) : '—';
+    
+    const frontier = getArxivFrontier(process);
+    const loopsVal = summary.loops != null ? String(summary.loops) : '—';
+    
+    box.innerHTML = `
+        <h3 class="process-statistics-title">Process statistics</h3>
+        <dl class="process-statistics-grid">
+            <dt>Nodes</dt><dd>${escapeHtml(nodesStr)}</dd>
+            <dt>Edges</dt><dd>${escapeHtml(edgesStr)}</dd>
+            <dt title="Count of nodes that have an outgoing edge to a node defined earlier in the Mermaid source (text order). Many edges to one early hub (e.g. regulation) count as separate loop nodes—not the same as counting obvious visual cycles on the canvas.">Loop nodes</dt>
+            <dd>${escapeHtml(loopsVal)}</dd>
+            <dt>Frontier</dt>
+            <dd>
+                <a href="${escapeHtml(frontier.href)}" target="_blank" rel="noopener noreferrer" class="frontier-link" title="${escapeHtml(frontier.hint)} — recent arXiv preprints">${escapeHtml(frontier.code)}</a>
+                <span class="frontier-hint">(${escapeHtml(frontier.hint)})</span>
+            </dd>
+        </dl>
+    `;
+    box.style.display = 'block';
 }
 
 /**
@@ -159,14 +199,18 @@ export function renderCitations(process) {
     const citationsContainer = document.getElementById('citations-list');
     
     if (!citationsContainer) return;
-    
-    if (!process.sources || process.sources.length === 0) {
-        citationsContainer.innerHTML = '<p>No citations available.</p>';
+
+    // Process JSON uses `sources` in most files; some use `citations` (same shape).
+    const sources = process.sources || process.citations;
+    if (!sources || sources.length === 0) {
+        citationsContainer.innerHTML =
+            '<p>No primary-literature sources are listed for this process.</p>' +
+            '<p class="citations-empty-hint">To cite the <strong>GLMP diagram</strong> (not the biology papers), use the purple <strong>Cite</strong> button next to the title at the top of the page.</p>';
         return;
     }
     
     let html = '<ol class="citations">';
-    process.sources.forEach(source => {
+    sources.forEach(source => {
         html += '<li class="citation">';
         html += `<strong>${escapeHtml(source.authors || 'Unknown')}.</strong> `;
         html += `${escapeHtml(source.title || 'Untitled')}. `;

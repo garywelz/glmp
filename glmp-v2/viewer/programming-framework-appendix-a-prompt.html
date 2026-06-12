@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Framework — Appendix A: Complete Prompt Template</title>
+    <style>
+        :root {
+            --text: #1a1a1a;
+            --muted: #444;
+            --border: #ccc;
+            --code-bg: #f4f4f5;
+            --link: #2563eb;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", system-ui, sans-serif;
+            color: var(--text);
+            line-height: 1.35;
+            margin: 0 auto;
+            padding: 0.75rem 1rem 1.5rem;
+            max-width: 52rem;
+            font-size: 11px;
+        }
+        h1 {
+            font-size: 1.15rem;
+            margin: 0 0 0.35rem;
+            font-weight: 700;
+        }
+        .sub {
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 0.65rem;
+        }
+        .sub a { color: var(--link); }
+        h2 {
+            font-size: 0.85rem;
+            margin: 0.55rem 0 0.2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.15rem;
+        }
+        p, li { margin: 0.2rem 0; font-size: 10.5px; }
+        ul { margin: 0.15rem 0 0.25rem; padding-left: 1.1rem; }
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.35rem 0.45rem;
+            overflow-x: auto;
+            font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+            font-size: 9px;
+            line-height: 1.25;
+            margin: 0.25rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1rem;
+        }
+        @media (max-width: 640px) {
+            .cols { grid-template-columns: 1fr; }
+        }
+        @media print {
+            @page { size: letter; margin: 0.4in; }
+            body {
+                font-size: 9px;
+                max-width: none;
+                padding: 0;
+            }
+            h1 { font-size: 11pt; }
+            h2 { font-size: 9pt; }
+            p, li { font-size: 9pt; }
+            pre { font-size: 7.5pt; line-height: 1.2; }
+            a { color: #000; text-decoration: none; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Appendix A: Complete Prompt Template</h1>
+    <p class="sub">
+        <em>The Programming Framework: A General Method for Process Analysis Using LLMs and Mermaid Visualization</em>
+        — Zenodo: <a href="https://zenodo.org/records/18463442">zenodo.org/records/18463442</a>
+        · DOI <a href="https://doi.org/10.5281/zenodo.18463442">10.5281/zenodo.18463442</a>
+        <span class="no-print"> · Print this page (Ctrl/Cmd+P) for a single-sheet handout.</span>
+    </p>
+
+    <h2>Task statement</h2>
+    <p>You are a scientific process modeler. Given a textual description of a process, extract a sequence of steps, decisions, and flows. Classify each element according to the Programming Framework’s suggested color system.</p>
+
+    <div class="cols">
+        <div>
+            <h2>Color system</h2>
+            <ul>
+                <li><strong>Red (#ff6b6b):</strong> Triggers &amp; Inputs — initial conditions, environmental inputs, starting materials, or data inputs</li>
+                <li><strong>Yellow (#ffd43b):</strong> Structures &amp; Objects — physical structures, molecules, data structures, algorithms, or logical constructs</li>
+                <li><strong>Green (#51cf66):</strong> Processing &amp; Operations — transformations, reactions, computations, or operations that change state</li>
+            </ul>
+        </div>
+        <div>
+            <h2 style="border:none">&nbsp;</h2>
+            <ul>
+                <li><strong>Blue (#74c0fc):</strong> Intermediates &amp; States — intermediate products, temporary states, or transitional conditions</li>
+                <li><strong>Violet (#b197fc):</strong> Products &amp; Outputs — final outputs, end products, or results</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Output format (JSON)</h2>
+<pre>{
+  "steps": [
+    {
+      "id": "step_1",
+      "type": "trigger|structure|operation|intermediate|product",
+      "label": "Concise description",
+      "color": "red|yellow|green|blue|violet",
+      "inputs": ["entity1", "entity2"],
+      "outputs": ["entity3"]
+    }
+  ],
+  "edges": [
+    { "from": "step_1", "to": "step_2", "label": "optional edge label" }
+  ]
+}</pre>
+
+    <h2>Constraints</h2>
+    <ul>
+        <li>No speculative steps beyond the text</li>
+        <li>Use consistent terminology for entities</li>
+        <li>Explicitly represent branching conditions</li>
+        <li>Maintain color consistency throughout</li>
+    </ul>
+
+    <h2>Example</h2>
+    <p><strong>Input:</strong> “When lactose is present, the Lac repressor releases from the operator, allowing RNA polymerase to bind and transcribe the lac operon genes.”</p>
+<pre>{
+  "steps": [
+    {"id": "s1", "type": "trigger", "label": "Lactose Present", "color": "red"},
+    {"id": "s2", "type": "operation", "label": "Repressor Release", "color": "green"},
+    {"id": "s3", "type": "structure", "label": "RNA Polymerase", "color": "yellow"},
+    {"id": "s4", "type": "operation", "label": "Transcription", "color": "green"},
+    {"id": "s5", "type": "product", "label": "lac Operon mRNA", "color": "violet"}
+  ],
+  "edges": [
+    {"from": "s1", "to": "s2"},
+    {"from": "s2", "to": "s3"},
+    {"from": "s3", "to": "s4"},
+    {"from": "s4", "to": "s5"}
+  ]
+}</pre>
+
+    <p><strong>Final instruction:</strong> Now analyze the following process description: <strong>[PROCESS_TEXT_HERE]</strong></p>
+
+    <h2>Note on prompt sensitivity</h2>
+    <p>Prompt design significantly influences extraction fidelity. Small variations in wording, example selection, or constraint specification can yield substantially different outputs. The Framework addresses this through iterative refinement and validation workflows, acknowledging that prompt engineering is an ongoing process rather than a one-time configuration.</p>
+
+    <h2>Author note</h2>
+    <p>This work is part of the CopernicusAI Knowledge Engine project, which aims to create AI-powered tools for scientific research synthesis and knowledge discovery. The Programming Framework serves as a foundational component enabling structured representation of processes across scientific disciplines.</p>
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GLMP Viewer - Genome Logic Modeling Project</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260325">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 </head>
 <body>
@@ -31,10 +31,17 @@
                 <!-- Back button will be inserted here by JavaScript -->
                 <!-- Compact Header -->
                 <div class="process-header">
-                    <h2 id="process-title">Loading...</h2>
-                    <div class="process-meta">
-                        <span id="process-organism" class="meta-tag"></span>
-                        <span id="process-category" class="meta-tag"></span>
+                    <div class="process-header-top">
+                        <div class="process-header-titles">
+                            <h2 id="process-title">Loading...</h2>
+                            <div class="process-meta">
+                                <span id="process-organism" class="meta-tag"></span>
+                                <span id="process-category" class="meta-tag"></span>
+                            </div>
+                        </div>
+                        <button type="button" id="process-cite-btn" class="process-cite-btn" aria-haspopup="dialog">
+                            Cite
+                        </button>
                     </div>
                 </div>
 
@@ -42,6 +49,9 @@
                 <div class="process-description-short">
                     <p id="process-desc"></p>
                 </div>
+
+                <aside id="process-statistics" class="process-statistics" style="display: none;" aria-label="Process graph statistics and literature frontier">
+                </aside>
 
                 <!-- 🎯 DIAGRAM FIRST! (What users want to see) -->
                 <div class="diagram-container">
@@ -286,10 +296,36 @@
         </div>
     </main>
 
+    <div id="process-cite-modal" class="process-cite-modal" role="dialog" aria-modal="true"
+        aria-labelledby="process-cite-title" aria-hidden="true">
+        <div class="process-cite-panel">
+            <div class="process-cite-close-row">
+                <button type="button" id="process-cite-close" class="process-cite-close" aria-label="Close">Close</button>
+            </div>
+            <h2 id="process-cite-title" class="process-cite-heading">Cite this diagram</h2>
+            <p class="process-cite-lead">
+                Use this to attribute the <strong>GLMP diagram and viewer</strong> in papers or grants.
+                The <strong>Sources &amp; Citations</strong> section below is for <strong>primary literature</strong> on the biology itself.
+            </p>
+            <h3 class="process-cite-sub">Suggested attribution (plain text)</h3>
+            <pre id="process-cite-plain" class="process-cite-pre"></pre>
+            <div class="process-cite-actions">
+                <button type="button" id="process-cite-copy-plain" class="process-cite-copy">Copy plain text</button>
+            </div>
+            <h3 class="process-cite-sub">BibTeX (generic)</h3>
+            <pre id="process-cite-bibtex" class="process-cite-pre"></pre>
+            <div class="process-cite-actions">
+                <button type="button" id="process-cite-copy-bib" class="process-cite-copy">Copy BibTeX</button>
+            </div>
+            <h3 class="process-cite-sub">Links</h3>
+            <ul id="process-cite-links" class="process-cite-links"></ul>
+        </div>
+    </div>
+
     <!-- Footer -->
 
 
     <!-- Load the viewer JavaScript as ES6 module -->
-    <script type="module" src="viewer.js"></script>
+    <script type="module" src="viewer.js?v=20260325"></script>
 </body>
 </html>
