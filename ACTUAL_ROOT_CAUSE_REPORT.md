@@ -74,7 +74,7 @@ A39[Low O2 - quinones accumulate in reduced form]
 | Colons in node labels (outside edges) | **3** | 0 | 🔴 **CULPRIT** |
 | Tildes `~` | 6 → 0 (fixed earlier) | 0 | ✅ Not the issue |
 | Brackets in formulas | 3 (already fixed) | 0 | ✅ Not the issue |
-| Double curly `{{` | 1 | 1 | ✅ Both have it |
+| Double curly ``{{`` | 1 | 1 | ✅ Both have it |
 
 **Key Finding:** Working file has **ZERO** colons in node labels (only in edge labels, which are fine).
 
