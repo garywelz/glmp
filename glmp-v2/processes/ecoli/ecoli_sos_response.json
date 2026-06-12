@@ -106,10 +106,29 @@
   "notGates": 7,
   "conditionals": 62,
   "totalNodes": 74,
-  "circuitClass": "I",
-  "circuitClassName": "Feed-forward cascade",
-  "topologyType": "repair_feed_forward",
-  "circuitClassConfidence": "medium",
-  "circuitClassNeedsReview": true,
-  "circuitClassRationale": "Repair execution pathway"
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "lexA_recA_neg_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "SOS response: LexA repression with RecA*-coactivated LexA autocleavage; repression restored after repair (negative feedback) — corrected from repair-execution default",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "SOS box (LexA box)",
+        "boundFactor": "LexA dimer",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "CTGT-N8-ACAG",
+        "note": "RecA*-stimulated LexA autocleavage derepresses; repression restored after repair (negative feedback)"
+      }
+    ],
+    "derivedLogic": "SOS genes = NOT LexA ; LexA cleaved IF RecA* (ssDNA damage signal)",
+    "references": [
+      "Little & Mount 1982",
+      "Walker 1996"
+    ]
+  }
 }

@@ -1,0 +1,133 @@
+{
+  "id": "human_gata1_pu1_switch",
+  "name": "GATA1–PU.1 Hematopoietic Lineage Switch",
+  "organism": "Homo sapiens",
+  "category": "Hematopoiesis",
+  "description": "The master switch of myeloid-erythroid commitment. GATA1 and PU.1 bind and inhibit each other's activity while each reinforces its own expression. The double-negative-plus-autoactivation topology has two stable states, locking a multipotent progenitor into either the erythroid/megakaryocyte or the myeloid program — the canonical human Class IIIa bistable switch.",
+  "scientificAccuracy": "Mutual antagonism (protein-protein inhibition + cross-repression) and autoregulation are established for GATA1/PU.1; the bistable interpretation follows standard developmental-systems-biology modeling (Huang et al. 2007; Graf & Enver 2009).",
+  "complexity": {
+    "nodes": 9,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Multipotent progenitor / CMP]\n    B[GATA1]\n    C[PU.1 / SPI1]\n    D[\\GATA1 autoactivation/]\n    E[\\PU.1 autoactivation/]\n    F[/GATA1 represses PU.1/]\n    G[/PU.1 represses GATA1/]\n    H(Erythroid / megakaryocyte fate)\n    I(Myeloid fate)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| B\n    C --> E\n    E -->|+| C\n    B --> F\n    F -->|⊣| C\n    C --> G\n    G -->|⊣| B\n    B --> H\n    C --> I\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff\n    style I fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Bifurcation dynamics in lineage-commitment in bipotent progenitor cells",
+      "authors": "Huang S, Guo YP, May G, Enver T",
+      "journal": "Developmental Biology",
+      "year": 2007,
+      "volume": "305",
+      "pages": "695-713",
+      "pmid": "17412320",
+      "doi": "10.1016/j.ydbio.2007.02.036"
+    },
+    {
+      "title": "Forcing cells to change lineages",
+      "authors": "Graf T, Enver T",
+      "journal": "Nature",
+      "year": 2009,
+      "volume": "462",
+      "pages": "587-594",
+      "pmid": "19956253",
+      "doi": "10.1038/nature08533"
+    }
+  ],
+  "keywords": [
+    "GATA1",
+    "PU.1",
+    "SPI1",
+    "bistable switch",
+    "mutual repression",
+    "hematopoiesis",
+    "cell fate",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Flagship human Class IIIa bistable switch. Two cross-repressions (NOT) plus two autoactivations create the double-positive/double-negative bistability.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "GATA motif (target & self enhancers)",
+        "boundFactor": "GATA1",
+        "operator": "IF",
+        "effect": "activation (self) / repression (PU.1 loci)",
+        "sequenceMotif": "WGATAR",
+        "note": "GATA1 occupies its own enhancers (autoactivation) and antagonizes PU.1"
+      },
+      {
+        "name": "ETS / PU-box",
+        "boundFactor": "PU.1 (SPI1)",
+        "operator": "IF",
+        "effect": "activation (self) / repression (GATA1 loci)",
+        "sequenceMotif": "AGAGGAAGTG",
+        "note": "purine-rich ETS core GGAA; PU.1 autoactivates and antagonizes GATA1"
+      }
+    ],
+    "derivedLogic": "GATA1 = GATA1 AND NOT PU.1 ; PU.1 = PU.1 AND NOT GATA1  -> two stable fates",
+    "references": [
+      "Huang et al. 2007",
+      "Graf & Enver 2009"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 9,
+  "edges": 12,
+  "loops": 4,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_repression_dual_autoactivation_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "GATA1 and PU.1 (SPI1) repress each other and each activates its own expression. Mutual repression plus dual positive autoregulation is the textbook persistent bistable (Class IIIa) cell-fate switch governing the erythroid/megakaryocyte vs. myeloid decision.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

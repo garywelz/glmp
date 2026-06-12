@@ -126,5 +126,32 @@
   "topologyType": "repressor_catabolite_neg_feedback",
   "circuitClassConfidence": "high",
   "circuitClassNeedsReview": false,
-  "circuitClassRationale": "LacI repression + CAP activation; allolactose-mediated negative feedback (Jacob-Monod)"
+  "circuitClassRationale": "LacI repression + CAP activation; allolactose-mediated negative feedback (Jacob-Monod)",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "lacO1 operator",
+        "boundFactor": "LacI tetramer",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "AATTGTGAGCGGATAACAATT",
+        "note": "primary lac operator; LacI occupancy occludes RNAP"
+      },
+      {
+        "name": "CAP/CRP site (-61.5)",
+        "boundFactor": "CAP-cAMP",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "TGTGA-N6-TCACA",
+        "note": "class II activation; requires low glucose (high cAMP)"
+      }
+    ],
+    "derivedLogic": "lacZYA = (NOT LacI[no allolactose]) AND (CAP-cAMP[low glucose])",
+    "references": [
+      "Jacob & Monod 1961",
+      "Müller-Hill 1996"
+    ]
+  }
 }

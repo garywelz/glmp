@@ -128,5 +128,31 @@
   "topologyType": "repression_attenuation",
   "circuitClassConfidence": "high",
   "circuitClassNeedsReview": false,
-  "circuitClassRationale": "Trp repressor + transcriptional attenuation: end-product negative feedback"
+  "circuitClassRationale": "Trp repressor + transcriptional attenuation: end-product negative feedback",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "trp operator (trpO)",
+        "boundFactor": "TrpR-tryptophan",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "ACTAGTTAACTAGT",
+        "note": "TrpR is active only when charged with tryptophan (corepressor)"
+      },
+      {
+        "name": "trpL attenuator",
+        "boundFactor": "ribosome / leader RNA",
+        "operator": "NOT",
+        "effect": "premature termination",
+        "sequenceMotif": "(trpL 1-2/3-4 hairpins)",
+        "note": "tryptophan-charged tRNA controls terminator vs antiterminator"
+      }
+    ],
+    "derivedLogic": "trpEDCBA = NOT (tryptophan abundant)  [repression + attenuation]",
+    "references": [
+      "Yanofsky 1981"
+    ]
+  }
 }

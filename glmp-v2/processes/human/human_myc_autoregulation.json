@@ -1,0 +1,130 @@
+{
+  "id": "human_myc_autoregulation",
+  "name": "MYC Proliferation Hub with Autosuppression",
+  "organism": "Homo sapiens",
+  "category": "Oncogene Signaling",
+  "description": "MYC sits downstream of mitogenic (Wnt/ERK) signaling and, as a MYC-MAX dimer, activates a large E-box target program driving proliferation and metabolism. MYC also suppresses transcription from its own promoter, a negative-autoregulation loop that keeps MYC levels bounded; loss of this autosuppression is a recurrent feature of MYC-driven cancers.",
+  "scientificAccuracy": "MYC autosuppression of its own promoter and MYC-MAX E-box activation are well established (Penn et al. 1990; Grandori et al. 2000).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Mitogenic signal: Wnt / ERK]\n    B[MYC transcription]\n    C[MYC-MAX dimer]\n    D[E-box target activation]\n    E[/MYC suppresses own promoter/]\n    F(Proliferation / metabolism program)\n\n    A --> B\n    B --> C\n    C --> D\n    C --> E\n    E -->|⊣| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Negative autoregulation of c-myc transcription",
+      "authors": "Penn LJ, Brooks MW, Laufer EM, Land H",
+      "journal": "EMBO Journal",
+      "year": 1990,
+      "volume": "9",
+      "pages": "1113-1121",
+      "pmid": "2182320",
+      "doi": "10.1002/j.1460-2075.1990.tb08217.x"
+    },
+    {
+      "title": "The Myc/Max/Mad network and the transcriptional control of cell behavior",
+      "authors": "Grandori C, Cowley SM, James LP, Eisenman RN",
+      "journal": "Annual Review of Cell and Developmental Biology",
+      "year": 2000,
+      "volume": "16",
+      "pages": "653-699",
+      "pmid": "11031250",
+      "doi": "10.1146/annurev.cellbio.16.1.653"
+    }
+  ],
+  "keywords": [
+    "MYC",
+    "negative autoregulation",
+    "E-box",
+    "oncogene",
+    "proliferation",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_negative_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II circuit (negative autoregulation). The human analogue of the bacterial NAR ground-truth motif.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "E-box (target promoters)",
+        "boundFactor": "MYC-MAX",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "CACGTG",
+        "note": "canonical MYC-MAX E-box"
+      },
+      {
+        "name": "MYC P2 promoter",
+        "boundFactor": "MYC",
+        "operator": "NOT",
+        "effect": "autosuppression",
+        "sequenceMotif": "(MYC P2 region)",
+        "note": "negative autoregulation bounding MYC level"
+      }
+    ],
+    "derivedLogic": "targets = MYC-MAX(E-box) ; MYC = mitogen AND NOT MYC  (autosuppression)",
+    "references": [
+      "Penn et al. 1990"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "negative_autoregulation_hub",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "MYC is induced by mitogenic signaling and represses its own promoter (MYC autosuppression; Penn et al. 1990). The dominant local feedback on MYC level is negative autoregulation — Class II — even though MYC acts as a broad feed-forward amplifier on its targets.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

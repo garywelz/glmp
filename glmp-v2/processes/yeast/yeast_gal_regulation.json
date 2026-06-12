@@ -130,5 +130,32 @@
   "topologyType": "gal_positive_feedback_bistable",
   "circuitClassConfidence": "high",
   "circuitClassNeedsReview": false,
-  "circuitClassRationale": "Gal3/Gal80 positive feedback; classic bistable GAL switch"
+  "circuitClassRationale": "Gal3/Gal80 positive feedback; classic bistable GAL switch",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "UAS_G",
+        "boundFactor": "Gal4 dimer",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "CGG-N11-CCG",
+        "note": "Gal4 bound constitutively; Gal80 masks its activation domain"
+      },
+      {
+        "name": "Gal80/Gal3 switch",
+        "boundFactor": "Gal80 (inhibitor), Gal3 (galactose sensor)",
+        "operator": "NOT(NOT)",
+        "effect": "de-repression + positive feedback",
+        "sequenceMotif": "(protein-protein)",
+        "note": "galactose+Gal3 sequesters Gal80 -> Gal4 active; GAL3/GAL80 feedback gives bistability"
+      }
+    ],
+    "derivedLogic": "GAL genes = Gal4 AND (galactose -> Gal3 -| Gal80)  [bistable]",
+    "references": [
+      "Johnston 1987",
+      "Acar et al. 2005"
+    ]
+  }
 }

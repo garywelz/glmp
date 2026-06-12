@@ -15,16 +15,17 @@ import json
 from collections import Counter
 from pathlib import Path
 
-SYNTH_GLOB = "glmp-v2/processes/synthetic/*.json"
+EXTRA_GLOBS = ["glmp-v2/processes/synthetic/*.json", "glmp-v2/processes/human/*.json"]
+EXTRA_PREFIXES = ("synthetic_", "human_")
 META_FILES = ["glmp-v2/metadata.json", "glmp-v2/data/metadata.json", "glmp-v2/viewer/metadata.json"]
-SYNTH_ORGANISM = "Synthetic circuit"
-SYNTH_CATEGORY = "Synthetic Biology"
 
 
 def load_synthetic():
+    """Load all extra-batch process JSONs (synthetic ground-truth + human curated)."""
     procs = []
-    for f in sorted(glob.glob(SYNTH_GLOB)):
-        procs.append(json.load(open(f)))
+    for pattern in EXTRA_GLOBS:
+        for f in sorted(glob.glob(pattern)):
+            procs.append(json.load(open(f)))
     return procs
 
 
@@ -86,9 +87,9 @@ def patch_file(path, synth):
     data = json.load(open(path))
     procs = data["processes"]
 
-    # 1. Remove any prior synthetic entries (idempotency).
+    # 1. Remove any prior extra-batch entries (idempotency).
     before = len(procs)
-    procs = [p for p in procs if not str(p.get("id", "")).startswith("synthetic_")]
+    procs = [p for p in procs if not str(p.get("id", "")).startswith(EXTRA_PREFIXES)]
     removed = before - len(procs)
 
     # 2. Build entries matching this file's entry schema.
@@ -148,10 +149,8 @@ def patch_file(path, synth):
         st["circuitClassDistribution"] = {k: dist[k] for k in ["I", "II", "III", "IV", "V"] if dist.get(k)}
         data["statistics"] = st
 
-    # organisms / categories
+    # organisms / categories (recompute counts from the full process list)
     if "organisms" in data:
-        upsert_named_count(data["organisms"], SYNTH_ORGANISM, n - 0)  # n added; baseline had 0 synthetic
-        # Ensure we don't double count on re-run: recompute from procs.
         org_counts = Counter(p.get("organism", "Unknown") for p in procs)
         for item in data["organisms"]:
             if item.get("name") in org_counts:

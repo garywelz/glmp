@@ -82,8 +82,26 @@
   "totalNodes": 80,
   "circuitClass": "II",
   "circuitClassName": "Negative feedback (homeostatic)",
-  "topologyType": "stress_neg_feedback",
-  "circuitClassConfidence": "medium",
-  "circuitClassNeedsReview": true,
-  "circuitClassRationale": "Stress responses are predominantly homeostatic negative feedback"
+  "topologyType": "gcn2_eif2a_neg_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "GAAC: Gcn2-eIF2α-Gcn4 amino-acid-starvation negative feedback",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "GCRE (Gcn4 response element)",
+        "boundFactor": "Gcn4",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "TGACTC",
+        "note": "Gcn4 translation up under aa starvation via uORF reinitiation control on GCN4 mRNA"
+      }
+    ],
+    "derivedLogic": "aa-biosynthesis genes = IF (uncharged tRNA -> Gcn2 -> eIF2alpha-P -> Gcn4 up)",
+    "references": [
+      "Hinnebusch 2005"
+    ]
+  }
 }

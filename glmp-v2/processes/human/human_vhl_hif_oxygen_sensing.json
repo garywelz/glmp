@@ -1,0 +1,121 @@
+{
+  "id": "human_vhl_hif_oxygen_sensing",
+  "name": "VHL–HIF Oxygen-Sensing Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Hypoxia Signaling",
+  "description": "The cellular oxygen sensor. Under normoxia, prolyl hydroxylases (PHDs) modify HIF-1α so the VHL E3 ligase destroys it. Under hypoxia HIF-1α is stabilized, dimerizes with HIF-1β, and activates hypoxia-response genes (VEGF, EPO, glycolytic enzymes) — including PHD2/PHD3, which feed back negatively to re-tune the set-point.",
+  "scientificAccuracy": "PHD-dependent hydroxylation, VHL-mediated degradation, and HIF-induced PHD2/PHD3 negative feedback are established (Kaelin & Ratcliffe 2008, Nobel-recognized oxygen-sensing pathway).",
+  "complexity": {
+    "nodes": 9,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[O2 / 2-oxoglutarate]\n    B{Normoxia?}\n    C[PHD hydroxylates HIF-1α]\n    D[VHL E3 ubiquitin ligase]\n    E[\\HIF-1α degraded/]\n    F[HIF-1α stabilized]\n    G[HIF-1α/HIF-1β + HRE]\n    H(VEGF, EPO, glycolysis)\n    I[/Induces PHD2 / PHD3/]\n\n    A --> B\n    B -->|Yes| C\n    C --> D\n    D --> E\n    B -->|No: hypoxia| F\n    F --> G\n    G --> H\n    G --> I\n    I -->|⊣ feedback| C\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#ffd43b,color:#000\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff\n    style I fill:#51cf66,color:#fff",
+  "sources": [
+    {
+      "title": "Oxygen sensing by metazoans: the central role of the HIF hydroxylase pathway",
+      "authors": "Kaelin WG Jr, Ratcliffe PJ",
+      "journal": "Molecular Cell",
+      "year": 2008,
+      "volume": "30",
+      "pages": "393-402",
+      "pmid": "18498744",
+      "doi": "10.1016/j.molcel.2008.04.009"
+    }
+  ],
+  "keywords": [
+    "VHL",
+    "HIF-1",
+    "hypoxia",
+    "oxygen sensing",
+    "PHD",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_negative_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II homeostat. Switch-like O2 response with HIF-induced PHD negative feedback (one feedback edge).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "HRE (hypoxia response element)",
+        "boundFactor": "HIF-1α/HIF-1β",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "RCGTG",
+        "note": "HIF heterodimer binds HRE in hypoxia targets including PHD2/PHD3"
+      },
+      {
+        "name": "HIF-1α ODD degron",
+        "boundFactor": "PHD -> VHL",
+        "operator": "NOT",
+        "effect": "O2-dependent hydroxylation -> degradation",
+        "sequenceMotif": "(protein-level, Pro402/Pro564)",
+        "note": "normoxic OFF-switch; feedback via HIF-induced PHDs"
+      }
+    ],
+    "derivedLogic": "HIF targets = NOT O2 ; PHD = HIF target  -> negative-feedback O2 homeostat",
+    "references": [
+      "Kaelin & Ratcliffe 2008"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 9,
+  "edges": 9,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "phd_vhl_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "In normoxia PHD enzymes hydroxylate HIF-1α, flagging it for VHL-mediated degradation; hypoxia stabilizes HIF-1α, which induces PHD2/PHD3 — a negative-feedback loop that restores oxygen homeostasis. Switch-like in O2 but homeostatic in topology — Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

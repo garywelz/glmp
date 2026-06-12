@@ -127,5 +127,31 @@
   "topologyType": "araC_positive_autoregulation",
   "circuitClassConfidence": "high",
   "circuitClassNeedsReview": false,
-  "circuitClassRationale": "AraC positive autoregulation; arabinose-uptake bistability"
+  "circuitClassRationale": "AraC positive autoregulation; arabinose-uptake bistability",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "araI1-araI2 + araO2",
+        "boundFactor": "AraC",
+        "operator": "XOR-like",
+        "effect": "repression (loop) / activation (arabinose)",
+        "sequenceMotif": "(araI half-sites)",
+        "note": "AraC represses by DNA looping (araO2-araI1); arabinose switches it to activator at araI1-araI2"
+      },
+      {
+        "name": "CAP/CRP site",
+        "boundFactor": "CAP-cAMP",
+        "operator": "AND",
+        "effect": "activation",
+        "sequenceMotif": "TGTGA-N6-TCACA",
+        "note": "needed for full pBAD activation"
+      }
+    ],
+    "derivedLogic": "araBAD = arabinose AND CAP-cAMP  (AraC flips repressor->activator)",
+    "references": [
+      "Schleif 2010"
+    ]
+  }
 }

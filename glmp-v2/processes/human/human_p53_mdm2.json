@@ -1,0 +1,132 @@
+{
+  "id": "human_p53_mdm2",
+  "name": "p53–MDM2 DNA-Damage Response Oscillator",
+  "organism": "Homo sapiens",
+  "category": "Tumor Suppressor",
+  "description": "The core DNA-damage response loop: DNA damage activates ATM/ATR, which stabilizes p53; p53 induces its own negative regulator MDM2, which targets p53 for degradation. The transcription-degradation delay turns this negative-feedback loop into an oscillator — repeated p53 pulses whose number tunes the cell-fate outcome.",
+  "scientificAccuracy": "p53→MDM2→p53 negative feedback and damage-induced p53 pulses are directly measured at the single-cell level (Lahav et al. 2004; Batchelor et al. 2011).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[DNA damage]\n    B[ATM / ATR active]\n    C[p53 stabilized]\n    D[Target transcription: p21, PUMA]\n    E[MDM2 expressed]\n    F[/MDM2 ubiquitinates p53/]\n    G(p53 pulses: arrest or apoptosis)\n\n    A --> B\n    B --> C\n    C --> D\n    C --> E\n    E --> F\n    F -->|⊣ delayed| C\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Dynamics of the p53-Mdm2 feedback loop in individual cells",
+      "authors": "Lahav G, Rosenfeld N, Sigal A, Geva-Zatorsky N, Levine AJ, Elowitz MB, Alon U",
+      "journal": "Nature Genetics",
+      "year": 2004,
+      "volume": "36",
+      "pages": "147-150",
+      "pmid": "14730303",
+      "doi": "10.1038/ng1293"
+    },
+    {
+      "title": "Stimulus-dependent dynamics of p53 in single cells",
+      "authors": "Batchelor E, Loewer A, Mock C, Lahav G",
+      "journal": "Molecular Systems Biology",
+      "year": 2011,
+      "volume": "7",
+      "pages": "488",
+      "pmid": "21556066",
+      "doi": "10.1038/msb.2011.20"
+    }
+  ],
+  "keywords": [
+    "p53",
+    "MDM2",
+    "negative feedback",
+    "oscillator",
+    "DNA damage",
+    "tumor suppressor",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_negative_autoregulation",
+    "synthetic_repressilator"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IV oscillator. One delayed repression (NOT) closes the negative-feedback loop driving p53 pulses.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "p53 response element (MDM2 P2 promoter)",
+        "boundFactor": "p53 tetramer",
+        "operator": "IF",
+        "effect": "activation of MDM2",
+        "sequenceMotif": "RRRCWWGYYY-RRRCWWGYYY",
+        "note": "two decameric half-sites; p53 induces its own antagonist"
+      },
+      {
+        "name": "MDM2-p53 degron",
+        "boundFactor": "MDM2 (E3 ligase)",
+        "operator": "NOT",
+        "effect": "ubiquitination -> p53 degradation",
+        "sequenceMotif": "(protein-level)",
+        "note": "closes the negative-feedback loop with delay"
+      }
+    ],
+    "derivedLogic": "MDM2 = p53 ; p53 = NOT MDM2(t-τ)  -> delayed negative feedback -> pulses",
+    "references": [
+      "Lahav et al. 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "delayed_negative_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "p53 transcriptionally induces MDM2, and MDM2 ubiquitinates p53 for degradation — a delayed negative-feedback loop that produces a train of p53 pulses after DNA damage (Lahav et al. 2004). Delayed negative feedback with oscillation is Class IV.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

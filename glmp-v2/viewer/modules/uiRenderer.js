@@ -81,6 +81,7 @@ export function renderProcess(process) {
     if (descEl) descEl.textContent = process.description || '';
 
     renderCircuitClass(process);
+    renderSequenceAnnotation(process);
     
     // Render scientific accuracy
     renderScientificAccuracy(process);
@@ -124,6 +125,51 @@ function renderCircuitClass(process) {
         ? `${name} — ${process.circuitClassRationale}`
         : name;
     el.style.display = '';
+}
+
+/**
+ * Render the sequence -> logic (regulatory grammar) block, when present.
+ * Maps each cis-regulatory site to the logical operator it implements.
+ */
+function renderSequenceAnnotation(process) {
+    const section = document.getElementById('sequence-annotation-section');
+    const container = document.getElementById('sequence-annotation');
+    if (!section || !container) return;
+
+    const sa = process.sequenceAnnotation;
+    if (!sa || !Array.isArray(sa.regulatoryRegions) || sa.regulatoryRegions.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+
+    let html = '';
+    if (sa.derivedLogic) {
+        html += `<p class="seq-derived-logic"><strong>Derived logic:</strong> <code>${escapeHtml(sa.derivedLogic)}</code></p>`;
+    }
+    html += `
+        <table class="seq-annotation-table">
+            <thead>
+                <tr><th>Regulatory site</th><th>Bound factor</th><th>Operator</th><th>Effect</th><th>Motif</th></tr>
+            </thead>
+            <tbody>`;
+    sa.regulatoryRegions.forEach(r => {
+        html += `
+            <tr>
+                <td>${escapeHtml(r.name || '')}</td>
+                <td>${escapeHtml(r.boundFactor || '')}</td>
+                <td><span class="seq-operator">${escapeHtml(r.operator || '')}</span></td>
+                <td>${escapeHtml(r.effect || '')}</td>
+                <td><code>${escapeHtml(r.sequenceMotif || '')}</code>${r.note ? `<br><small>${escapeHtml(r.note)}</small>` : ''}</td>
+            </tr>`;
+    });
+    html += '</tbody></table>';
+    if (Array.isArray(sa.references) && sa.references.length) {
+        html += `<p class="seq-refs"><small>References: ${sa.references.map(escapeHtml).join('; ')}</small></p>`;
+    }
+    html += `<p class="seq-schema"><small>sequenceAnnotation schema v${escapeHtml(sa.schemaVersion || '0.1')} — the genome's control layer read as logical formulae (GLMP Big Picture).</small></p>`;
+
+    container.innerHTML = html;
+    section.style.display = 'block';
 }
 
 /**

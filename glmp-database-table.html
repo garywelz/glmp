@@ -715,7 +715,7 @@
                 if (!organismGroups[organism]) organismGroups[organism] = [];
                 organismGroups[organism].push(process);
             });
-            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis', 'Synthetic circuit'];
+            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis', 'Homo sapiens', 'Synthetic circuit'];
             const sortedOrganisms = organismOrder.filter(org => organismGroups[org]);
             let tableHTML = '';
             sortedOrganisms.forEach(organism => {
@@ -723,6 +723,7 @@
                 const organismDisplayName = organism === 'E. coli' ? 'E. coli'
                     : organism === 'S. cerevisiae' ? 'Yeast'
                     : organism === 'Bacillus subtilis' ? 'Bacillus'
+                    : organism === 'Homo sapiens' ? 'Human (curated regulatory circuits)'
                     : organism === 'Synthetic circuit' ? 'Synthetic biology (ground-truth circuits)' : organism;
                 tableHTML += `
                 <tr class="organism-header">

@@ -94,6 +94,77 @@ CURATED = {
     # ── Class V — self-modifying chromatin / epigenetic ──
     "yeast_chromatin_silencing":     ("V", "sir_heterochromatin_self_propagating", "Sir2/3/4 self-propagating heterochromatin; epigenetic memory"),
     "yeast_mating_type_switching":   ("V", "silencing_recombination", "HM-locus epigenetic silencing + HO-directed cassette switching"),
+
+    # ────────────────────────────────────────────────────────────────────────
+    # Curated-layer extension (2026-06): promote textbook-unambiguous medium-
+    # confidence charts to HIGH, and correct a few category-default misassignments.
+    # Conservative: only entries defensible from standard literature are added;
+    # genuinely ambiguous charts are left at medium (needs_review) for Krampis.
+    # ────────────────────────────────────────────────────────────────────────
+
+    # ── Class I — execution machinery (central dogma / metabolism / transport) ──
+    # No regulatory feedback loop in the process itself; the chart is the pathway.
+    "ecoli_glycolysis":              ("I", "glycolysis_execution", "Embden-Meyerhof-Parnas glycolysis: linear catabolic execution pathway (allostery noted, no transcriptional feedback loop in chart)"),
+    "ecoli_tca_cycle":               ("I", "tca_execution_cycle", "TCA cycle is a metabolic execution cycle (mass flow), not a regulatory feedback circuit"),
+    "ecoli_pentose_phosphate_pathway":("I", "ppp_execution", "Pentose phosphate execution pathway"),
+    "ecoli_fatty_acid_synthesis":    ("I", "fas_execution", "Type II fatty-acid synthesis execution pathway"),
+    "ecoli_fatty_acid_degradation":  ("I", "beta_oxidation_execution", "Fatty-acid β-oxidation execution pathway (FadR regulation handled separately)"),
+    "ecoli_aerobic_respiration":     ("I", "etc_execution", "Aerobic respiration / electron-transport execution chain (ArcAB/FNR regulation is a separate circuit)"),
+    "ecoli_dna_replication_initiation":("I", "replication_initiation_machinery", "oriC/DnaA replication-initiation execution machinery"),
+    "ecoli_dna_replication_elongation":("I", "replication_machinery", "Replisome elongation execution machinery"),
+    "ecoli_dna_replication_termination":("I", "replication_termination", "Ter/Tus replication-termination execution"),
+    "ecoli_transcription_elongation":("I", "transcription_machinery", "Transcription elongation execution machinery"),
+    "ecoli_transcription_termination":("I", "transcription_termination", "Rho-dependent / intrinsic termination execution"),
+    "ecoli_translation_initiation":  ("I", "translation_machinery", "Translation initiation execution machinery"),
+    "ecoli_translation_elongation":  ("I", "translation_machinery", "Translation elongation execution machinery"),
+    "ecoli_translation_termination": ("I", "translation_machinery", "Translation termination & ribosome recycling execution"),
+    "ecoli_ribosome_assembly":       ("I", "ribosome_assembly_execution", "Ribosome assembly/maturation execution pathway"),
+    "ecoli_rna_polymerase_recycling":("I", "rnap_recycling_execution", "RNA-polymerase recycling/reinitiation execution"),
+    "ecoli_base_excision_repair":    ("I", "ber_execution", "Base-excision-repair execution pathway"),
+    "ecoli_nucleotide_excision_repair":("I", "ner_execution", "Nucleotide-excision-repair execution pathway"),
+    "ecoli_mismatch_repair":         ("I", "mmr_execution", "Methyl-directed mismatch-repair execution pathway"),
+    "ecoli_homologous_recombination":("I", "recombination_execution", "RecBCD/RecA homologous-recombination execution pathway"),
+    "ecoli_peptidoglycan_biosynthesis":("I", "pg_biosynthesis_execution", "Peptidoglycan biosynthesis execution pathway"),
+    "ecoli_outer_membrane_assembly": ("I", "bam_assembly_execution", "BAM-complex outer-membrane-protein assembly execution"),
+    "ecoli_type_iii_secretion":      ("I", "t3ss_execution", "Type III secretion assembly/export execution"),
+    "ecoli_phosphate_transport":     ("I", "transport_execution", "Pst/Pit phosphate-transport execution"),
+    "ecoli_antibiotic_efflux_pumps": ("I", "efflux_execution", "Antibiotic efflux-pump export execution"),
+    "ecoli_protein_folding_chaperones":("I", "folding_execution", "Chaperone-assisted protein-folding execution"),
+    "ecoli_phage_defense":           ("I", "rm_crispr_execution", "Restriction-modification / CRISPR defense execution pathway"),
+    # Feed-forward cascade corrected from a Class III developmental default:
+    "ecoli_flagellar_assembly":      ("I", "flhDC_feed_forward_cascade", "Flagellar gene expression is an FlhDC→σ28 temporal feed-forward cascade (just-in-time program; Kalir et al. 2001), not a bistable switch"),
+    "ecoli_e._coli_flagellar_assembly":("I", "flhDC_feed_forward_cascade", "Flagellar assembly temporal feed-forward cascade (Kalir et al. 2001)"),
+    "yeast_glycolysis":              ("I", "glycolysis_execution", "Glycolysis execution pathway"),
+    "yeast_aerobic_respiration":     ("I", "oxphos_execution", "Respiration / oxidative-phosphorylation execution chain"),
+    "yeast_alcoholic_fermentation":  ("I", "fermentation_execution", "Alcoholic fermentation execution pathway"),
+    "yeast_dna_replication":         ("I", "replication_machinery", "Replication & origin-licensing execution machinery"),
+    "yeast_nucleotide_excision_repair":("I", "ner_execution", "NER execution pathway"),
+    "yeast_rna_splicing":            ("I", "spliceosome_execution", "Spliceosomal pre-mRNA splicing execution"),
+    "yeast_ribosome_biogenesis":     ("I", "ribosome_biogenesis_execution", "Ribosome biogenesis / rRNA-processing execution"),
+    "yeast_ubiquitin_proteasome":    ("I", "ups_execution", "Ubiquitin-proteasome degradation execution"),
+    "yeast_autophagy":               ("I", "autophagy_execution", "Autophagy execution pathway"),
+    "yeast_mitochondrial_import":    ("I", "mito_import_execution", "TOM/TIM mitochondrial-import execution"),
+    "yeast_mitochondrial_biogenesis":("I", "mito_biogenesis_execution", "Mitochondrial biogenesis execution (retrograde signaling separate)"),
+    "yeast_vesicle_trafficking":     ("I", "copii_execution", "COPII ER-to-Golgi vesicle-trafficking execution"),
+    "yeast_protein_folding":         ("I", "folding_execution", "Chaperone-assisted protein-folding execution"),
+    "yeast_yeast_er_associated_degradation":("I", "erad_execution", "ER-associated degradation (ERAD) execution"),
+    "yeast_yeast_vacuolar_protein_sorting":("I", "vps_execution", "Vacuolar protein sorting execution"),
+    "yeast_yeast_peroxisome_biogenesis":("I", "peroxisome_execution", "Peroxisome biogenesis execution"),
+
+    # ── Class II — regulatory negative feedback (promotions + corrections) ──
+    "ecoli_sos_response":            ("II", "lexA_recA_neg_feedback", "SOS response: LexA repression with RecA*-coactivated LexA autocleavage; repression restored after repair (negative feedback) — corrected from repair-execution default"),
+    "ecoli_dna_damage_checkpoint":   ("II", "sos_sula_checkpoint", "SOS-induced SulA inhibits FtsZ division; negative division control lifted after repair"),
+    "ecoli_nucleotide_biosynthesis": ("II", "end_product_feedback_inhibition", "Purine/pyrimidine biosynthesis feedback-inhibited by end-products (ATP/GTP, CTP/UTP) — corrected from pathway default"),
+    "ecoli_sulfur_metabolism":       ("II", "cysB_end_product_feedback", "Cysteine biosynthesis: CysB activation with end-product (cysteine) feedback"),
+    "ecoli_phosphate_regulation":    ("II", "phoBR_homeostasis", "PhoB/PhoR phosphate-starvation homeostasis"),
+    "yeast_pka_pathway":             ("II", "camp_pka_neg_feedback", "Ras-cAMP-PKA growth signaling with PDE-mediated negative feedback"),
+    "yeast_snf1_pathway":            ("II", "snf1_energy_homeostasis", "Snf1/AMPK energy-homeostasis negative feedback"),
+    "yeast_tor_signaling":           ("II", "tor_nutrient_homeostasis", "TORC1 nutrient-sensing homeostatic feedback"),
+    "yeast_nitrogen_metabolism":     ("II", "ncr_torc1_homeostasis", "Nitrogen catabolite repression via TORC1; homeostatic"),
+    "yeast_gcn4_starvation":         ("II", "gcn2_eif2a_neg_feedback", "GAAC: Gcn2-eIF2α-Gcn4 amino-acid-starvation negative feedback"),
+
+    # ── Class III — positive feedback / symmetry breaking (correction) ──
+    "yeast_yeast_cell_polarity":     ("III", "cdc42_positive_feedback_polarity", "Cdc42 GTPase positive-feedback symmetry breaking (spontaneous polarization; Wedlich-Söldner et al.) — corrected from generic default"),
 }
 
 # ── Category default heuristic (MEDIUM confidence) ───────────────────────────
@@ -191,6 +262,10 @@ def main():
 
     for f in files:
         proc = json.load(open(f))
+        # Ground-truth batches (synthetic biology, human curated) carry their own
+        # authored class and must not be heuristically reclassified.
+        if proc.get("groundTruth") or str(proc.get("id", "")).startswith(("synthetic_", "human_")):
+            continue
         cls, topo, rationale, source, confidence, needs_review = classify(proc)
         has_cycle, cyc_len = mermaid_has_cycle(proc.get("mermaid", ""))
         rows.append({

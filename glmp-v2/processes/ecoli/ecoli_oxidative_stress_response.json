@@ -122,5 +122,31 @@
   "topologyType": "oxyR_soxRS_autoregulation",
   "circuitClassConfidence": "high",
   "circuitClassNeedsReview": false,
-  "circuitClassRationale": "OxyR / SoxRS negative autoregulation restores redox homeostasis"
+  "circuitClassRationale": "OxyR / SoxRS negative autoregulation restores redox homeostasis",
+  "circuitClassEvidence": "curated_literature",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "OxyR site",
+        "boundFactor": "OxyR (oxidized)",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "(4 ATAG elements)",
+        "note": "H2O2 oxidizes OxyR disulfide -> activator; negative autoregulation restores set-point"
+      },
+      {
+        "name": "SoxS site (soxbox)",
+        "boundFactor": "SoxS",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "(soxbox)",
+        "note": "SoxR senses superoxide -> induces soxS"
+      }
+    ],
+    "derivedLogic": "antioxidant genes = IF (H2O2 -> OxyR-ox) OR (O2- -> SoxRS)",
+    "references": [
+      "Storz & Imlay 1999"
+    ]
+  }
 }
