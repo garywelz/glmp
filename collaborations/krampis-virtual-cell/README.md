@@ -1,47 +1,70 @@
-# Krampis Virtual Cell Collaboration Drafts
+# Krampis–Welz GLMP Collaboration
 
-Gary Welz  
-Researcher, New Media Lab, CUNY Graduate Center  
-Email: gwelz@gc.cuny.edu  
-ORCID: https://orcid.org/0009-0005-7806-0892
+**Gary Welz** · Researcher, New Media Lab, CUNY Graduate Center
+**Prof. Konstantinos Krampis** · Hunter College / CUNY, Computational Biology
+Email: gwelz@gc.cuny.edu · ORCID: https://orcid.org/0009-0005-7806-0892
 
-This folder collects Markdown working drafts for a proposed collaboration between Gary Welz and Prof. Konstantinos Krampis on GLMP, perturbation design, genomic circuit complexity, and virtual cell model evaluation.
+---
 
-The Markdown files are intended to be the collaboration source of truth. Legacy public HTML snapshots may remain on Google Cloud Storage for some GLMP assets; for these working papers, the canonical versions are the Markdown files in this folder on GitHub, and edits should happen here so changes can be reviewed through pull requests.
+## About This Collaboration
+
+This folder is the source of truth for the Welz–Krampis collaboration on the **Genome Logic Modeling Project (GLMP)** — a research program aimed at decoding the regulatory grammar of the genome.
+
+The central hypothesis: the control layer of the genome is written in a language whose alphabet consists of transcription factor binding motifs, whose syntax is encoded in the spatial arrangement of those motifs in promoter and enhancer sequences, and whose semantics are the logical connectives AND, OR, NOT, and IF-THEN. **The Big Picture Goal is to decode that language** — to build the training corpus, computational infrastructure, and analytical framework needed to read any regulatory sequence as a logical formula.
+
+The collaboration focuses on four near-term priorities in service of that goal:
+
+- **RPE1 replication** of the K562 Perturb-seq empirical results (Paper III)
+- **Grammar-aware comparison** using RegVelo as the topology-aware virtual cell model
+- **Persistent vs. transient bistability** sub-classification (Class IIIa/IIIb)
+- **Multiome bimodality analysis** — testing attractor state detection via chromatin accessibility
+
+The full collaboration plan, including paper trajectory, infrastructure expansion, and division of labor, is in `glmp-collaboration-plan-2026.md`.
+
+---
 
 ## Contents
 
-| File | Description | Canonical (GitHub) |
-| --- | --- | --- |
-| `primitive-relations-genomic-computational-class.md` | Foundational typology paper: primitive relations, computational complexity, and the genomic computational class conjecture. | <https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md> |
-| `genome-as-computer.md` | Companion paper on logical primitives, runtime states, and limits of biological prediction. | <https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/genome-as-computer.md> |
-| `circuit-class-predicts-virtual-cell-model-accuracy.md` | Empirical sequel draft testing whether circuit class predicts virtual cell model accuracy. | <https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/circuit-class-predicts-virtual-cell-model-accuracy.md> |
-| `glmp-genomic-complexity-synthesis.md` | Biology-facing synthesis draft for the genomic regulatory complexity argument. | <https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/glmp-genomic-complexity-synthesis.md> |
-| `mermaid-flowcharts-smarter-perturbation-design.md` | Methods paper on Mermaid flowcharts and smarter perturbation design. | <https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/mermaid-flowcharts-smarter-perturbation-design.md> |
-| `teaching-deck-krampis-biochemical-process-modeling.md` | Converted Markdown version of the local Krampis-oriented teaching/proposal slide deck available in the repository workspace. | Local source: `nsf-proposal/Biochemical_Process_Modeling_Project_Slides_Krampis_0318.html` |
+| File | Description |
+|---|---|
+| `glmp-collaboration-plan-2026.md` | **Start here.** Full collaboration plan: Big Picture Goal, near-term empirical priorities, infrastructure expansion, paper trajectory, division of labor, and immediate next steps. |
+| `paper-I-foundational-typology.md` | **Paper I** — *Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.* Foundational typology; five-class complexity ladder; the Tarski/Peano contrast as precision instrument. |
+| `paper-II-genome-as-computer.md` | **Paper II** — *The Genome as Computer.* 22-primitive logical vocabulary; transcriptome as runtime state; nine falsifiable predictions; grammar-aware AI research program. |
+| `paper-III-empirical-sequel.md` | **Paper III** — *Circuit Class Predicts Virtual Cell Model Accuracy.* Empirical test: 780 genes, K562 Perturb-seq, 16 virtual cell models; Class III persistent bistable genes systematically harder to predict (*t* = −3.55, *p* = 0.0015). |
+| `synthesis-biorxiv.md` | **Synthesis** — *Genomic Regulatory Complexity and the Limits of Perturbation Prediction.* Biology-facing bioRxiv draft for a general biology audience. |
+| `methods-mermaid-perturbation-design.md` | **Methods paper** — *Mermaid Flowcharts for Smarter Perturbation Design.* Flowchart pipeline; under active revision to add sequence annotation layer and Big Picture framing. |
+| `teaching-deck-krampis-biochemical-process-modeling.md` | Proposal slide deck — GLMP overview oriented toward the Krampis collaboration and biochemical process modeling context. |
+
+---
 
 ## Collaboration Workflow
 
-Recommended workflow for Prof. Krampis:
+Prof. Krampis's preferred workflow:
 
-1. Fork the `garywelz/glmp` repository on GitHub.
-2. Edit these Markdown files in the fork, either locally or through the GitHub web editor.
-3. Open a pull request back to `garywelz/glmp` for review.
+1. **Fork** the `garywelz/glmp` repository on GitHub
+2. Edit Markdown files in the fork, either locally or via the GitHub web editor
+3. Open a **pull request** back to `garywelz/glmp` for review
 
-This keeps the main repository stable while making it easy to discuss edits line by line.
+This keeps the main repository stable and makes it easy to discuss edits line by line. All substantive changes to the working papers should come through pull requests so both collaborators can review before merging.
+
+The Markdown files in this folder are the canonical versions of all working papers. Legacy HTML snapshots on Google Cloud Storage exist for some assets but should not be edited — edits happen here.
+
+---
 
 ## Draft Status
 
 These documents are working drafts and collaboration materials, not final peer-reviewed publications. Suggested edits should focus on:
 
-- biological accuracy and terminology,
-- single-cell and perturbation-data framing,
-- virtual cell model evaluation design,
-- claims that need stronger qualification,
-- references and datasets suitable for empirical validation.
+- Biological accuracy and terminology
+- Single-cell and perturbation-data framing
+- Virtual cell model evaluation design
+- Claims that need stronger qualification or additional citation
+- Datasets and references suitable for empirical validation
+
+---
 
 ## Notes
 
-- The HTML-to-Markdown conversion was automated with `pandoc` and lightly cleaned. Some inline HTML may remain where the source documents used styled links or custom layout.
-- Mermaid diagrams are fenced as `mermaid` code blocks so GitHub can render them directly in Markdown preview.
-- If an exact April 2026 course slide deck should replace the included March 18 Krampis deck, add it here as Markdown or HTML and update this README.
+- Mermaid diagrams are fenced as `mermaid` code blocks and render directly in GitHub Markdown preview.
+- The HTML-to-Markdown conversion was automated with pandoc and lightly cleaned; some inline HTML may remain where source documents used styled links or custom layout.
+- The methods paper (`mermaid-flowcharts-smarter-perturbation-design.md`) is under active revision and should not be considered stable until the next commit explicitly marks it as ready for review.
