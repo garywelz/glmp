@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction &mdash; GLMP 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  /* ── Variables ── */
+  :root {
+    --ink:    #1a1a2e;
+    --deep:   #1F3864;
+    --accent: #2E75B6;
+    --red:    #c0392b;
+    --green:  #27ae60;
+    --orange: #e67e22;
+    --purple: #8e44ad;
+    --muted:  #5a6a7a;
+    --rule:   #d0d8e0;
+    --bg:     #fafaf8;
+    --bg-alt: #f2f4f0;
+    --serif:  'Crimson Pro', Georgia, serif;
+    --sans:   'Outfit', system-ui, sans-serif;
+    --mono:   'JetBrains Mono', monospace;
+    --max:    760px;
+  }
+
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  /* ── Body ── */
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.8;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2.5rem 2rem 6rem;
+  }
+
+  /* ── Title block ── */
+  .title-block {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--rule);
+  }
+  .sequel-note {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .title-block h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 600;
+    color: var(--deep);
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+  }
+  .title-block .subtitle {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .author-block {
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .author-block strong { color: var(--ink); }
+  .author-block a { color: var(--accent); text-decoration: none; }
+
+  /* ── Abstract ── */
+  .abstract {
+    background: var(--bg-alt);
+    border-left: 4px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .abstract .label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .abstract p {
+    font-size: 0.92rem;
+    font-style: italic;
+    color: #2a3a4a;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ── Scope box ── */
+  .scope {
+    background: #f8f8f5;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0 2.5rem;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    color: #3a4a5a;
+    line-height: 1.7;
+  }
+  .scope .label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ── Part headers ── */
+  .part-header {
+    margin: 3.5rem 0 1.5rem;
+    padding: 0.9rem 1.4rem;
+    background: var(--deep);
+    border-radius: 4px;
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+  }
+  .part-header .part-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #a8c4e0;
+    flex-shrink: 0;
+  }
+  .part-header .part-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .part-bridge {
+    background: var(--bg-alt);
+    border-left: 3px solid var(--accent);
+    padding: 0.9rem 1.25rem;
+    margin: 0 0 2rem;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    color: #2a3a4a;
+    line-height: 1.75;
+    font-style: italic;
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin: 2.5rem 0 0.9rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1.5px solid var(--rule);
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 1.75rem 0 0.65rem;
+  }
+  h4 {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 1.4rem 0 0.5rem;
+    font-style: italic;
+  }
+
+  /* ── Paragraphs ── */
+  p { margin-bottom: 1rem; text-align: justify; hyphens: auto; }
+  strong.term { font-weight: 600; color: var(--deep); }
+
+  /* ── Conjecture ── */
+  .conjecture {
+    background: linear-gradient(135deg, #eef4fb, #f5f0fa);
+    border: 1px solid #b8cfe8;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 5px 5px 0;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #1a2a3a;
+    line-height: 1.85;
+  }
+  .conjecture .label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-style: normal;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Predictions ── */
+  .prediction {
+    border-radius: 5px;
+    padding: 1rem 1.3rem;
+    margin: 1.25rem 0;
+    border-left: 4px solid;
+  }
+  .prediction.high     { background: #eafaf1; border-color: var(--green); }
+  .prediction.medium   { background: #fef9e7; border-color: var(--orange); }
+  .prediction.spec     { background: #fdf2f2; border-color: var(--red); }
+
+  .pred-head {
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .pred-num { font-family: var(--mono); font-size: 0.75rem; }
+  .high   .pred-num { color: #145a32; }
+  .medium .pred-num { color: #784212; }
+  .spec   .pred-num { color: #922b21; }
+
+  .pred-conf {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    padding: 0.12rem 0.45rem;
+    border-radius: 8px;
+  }
+  .high   .pred-conf { background: #d5f5e3; color: #145a32; }
+  .medium .pred-conf { background: #fdebd0; color: #784212; }
+  .spec   .pred-conf { background: #fadbd8; color: #922b21; }
+
+  .pred-body { font-size: 0.9rem; line-height: 1.7; }
+  .testability {
+    margin-top: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding-top: 0.4rem;
+  }
+
+  /* ── Tables ── */
+  .tbl-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.82rem; }
+  thead tr { background: var(--deep); color: #fff; }
+  thead th { padding: 0.55rem 0.8rem; text-align: left; }
+  tbody tr:nth-child(even) { background: var(--bg-alt); }
+  tbody td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+  tbody td:first-child { font-weight: 600; color: var(--deep); }
+
+  /* ── Lists ── */
+  ul.plist { list-style: none; margin: 1rem 0 1.5rem; padding: 0; }
+  ul.plist li { padding: 0.35rem 0 0.35rem 1.5rem; position: relative; line-height: 1.65; border-bottom: 1px solid var(--rule); }
+  ul.plist li:last-child { border-bottom: none; }
+  ul.plist li::before { content: "›"; position: absolute; left: 0.3rem; color: var(--accent); font-weight: 700; }
+
+  /* ── Figures ── */
+  .figure {
+    margin: 2rem 0 2.5rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    padding: 1.25rem 1rem 0.75rem;
+    overflow: hidden;
+  }
+  .figure svg { display: block; width: 100%; height: auto; }
+  .fig-caption {
+    margin-top: 0.75rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.55;
+    font-style: italic;
+    padding: 0.5rem 0.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .fig-caption strong { font-style: normal; color: var(--ink); }
+
+  /* ── Mermaid ── */
+  .mmd-wrap {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    padding: 1.25rem 0.75rem 0.75rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    overflow-x: auto;
+  }
+  .mmd-caption {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .mmd-caption strong { font-style: normal; color: var(--ink); }
+
+  /* ── Divider ── */
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+  /* ── References ── */
+  .references ol { padding-left: 1.4rem; font-family: var(--sans); font-size: 0.84rem; line-height: 1.7; color: var(--muted); }
+  .references ol li { margin-bottom: 0.45rem; }
+  .references ol li a { color: var(--accent); text-decoration: none; }
+  .references ol li a:hover { text-decoration: underline; }
+
+  /* ── Footer ── */
+  .paper-footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  /* ── Navigation ── */
+  .paper-nav {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    background: #243954;
+    padding: 0.7rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #1a2a42;
+  }
+  .paper-nav a { color: #a8c4e0; text-decoration: none; margin: 0 0.85rem; white-space: nowrap; }
+  .paper-nav a:hover { text-decoration: underline; color: #fff; }
+  .paper-nav .nav-sep { color: #4a6a8a; margin: 0 0.25rem; }
+  .paper-nav .nav-aux {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    opacity: 0.92;
+  }
+  .paper-nav .nav-aux a { margin: 0 0.65rem; }
+
+  /* ── Print ── */
+  @media print {
+    body { max-width: 100%; padding: 0; font-size: 11pt; }
+    .part-header { background: #fff; border: 1px solid #ccc; }
+    .part-header .part-label, .part-header .part-title { color: var(--ink); }
+    .figure { break-inside: avoid; }
+    .prediction { break-inside: avoid; }
+    .paper-nav { display: none; }
+    a { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="paper-nav" aria-label="GLMP working papers and resources">
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I: Foundational Typology</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html" aria-current="page">Paper II: The Genome as Computer</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html">Paper III: Empirical Sequel</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP Database</a>
+  <span class="nav-aux">
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2">Mathematics Database</a>
+    <a href="https://gdubs-copernicus-web.hf.space/" target="_blank" rel="noopener">Programming Framework (HuggingFace)</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/foundations/foundations-axiomatic-set-theory.html">ZFC index</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/geometry_topology/geometry_topology-euclid-elements.html">Euclid index</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/number_theory/number_theory-peano-arithmetic.html">Peano arithmetic</a>
+  </span>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  TITLE                                                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="title-block">
+  <div class="sequel-note">GLMP Working Paper 2026 · Sequel</div>
+  <h1>The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction</h1>
+  <p class="subtitle">Sequel to: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a></p>
+  <div class="author-block">
+    <strong>Gary Welz</strong><br>
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a><br>
+    CUNY Graduate Center / New Media Lab<br>
+    Genome Logic Modeling Project (GLMP)
+  </div>
+</div>
+
+<!-- ABSTRACT -->
+<div class="abstract">
+  <div class="label">Abstract</div>
+  <p>The companion paper established that the choice of primitive relations determines the logical character of a formal system, and conjectured that gene regulatory circuits can be classified by computational complexity class. This paper develops the computational hypothesis to its full extent. We argue that the genome implements a genuine two-layer computational system: a data layer (the codon table, encoding protein sequences) and a control layer (promoter architecture, encoding regulatory logic). The logical primitives of the control layer — binding, NOT, AND, OR, CONDITIONAL, NAND, NOR, XOR, biconditional, and their temporal, modal, and predicate extensions — have specific molecular implementations at the level of promoter sequence architecture and transcription factor interaction geometry. The CONDITIONAL (IF-THEN) is identified as the master primitive, of which all feedback relationships are special cases. The transcriptome is the runtime state of this computational system: a snapshot of which instructions are currently executing, readable as a logical state vector. From this framework we derive nine predictions about cell fate, cancer, drug resistance, the limits of virtual cell models, and the computational irreducibility of complex biological behavior. The most consequential prediction follows from Rice's theorem: if Class V genomic circuits are Turing-complete, then perfect prediction of cellular behavior from genomic sequence is provably impossible for any algorithm. We propose that grammar-aware AI models, informed by the logical structure of the control layer, will outperform grammar-blind statistical models in interpretability, sample efficiency, and formal verifiability.</p>
+</div>
+
+<!-- SCOPE -->
+<div class="scope">
+  <div class="label">Scope and Relationship to Companion Paper</div>
+  This paper is the direct sequel to <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a> (Welz, 2026). Readers are assumed familiar with the companion paper's framework: the foundational dependency DAG, the five-class complexity ladder, the epistemic rung table, and the mathematical instruments of Reverse Mathematics, ordinal analysis, forcing, and computability theory. Where the companion paper established the theoretical framework and stated the central conjecture, this paper takes the conjecture as a working hypothesis and develops its consequences to the level of specific, falsifiable predictions. All predictions are explicitly labeled by confidence level. The companion paper's seven-rung epistemic ladder applies here — the predictions of this paper sit at Rungs 3 through 7.
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!--  PART I                                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part I</span>
+  <span class="part-title">The Two-Layer Genome</span>
+</div>
+
+<h2>1. Introduction: Beyond the Codon Table</h2>
+
+<p>The decoding of the genetic code between 1961 and 1966 — the mapping of 64 codons to 20 amino acids and three stop signals — is one of the great intellectual achievements of the 20th century. It revealed that the genome encodes protein sequences in a systematic, universal, and readable language. But it decoded only one layer of the genome's computational architecture. The codon table is the <strong class="term">data layer</strong>: it specifies what proteins are made. A second layer — the <strong class="term">control layer</strong> — specifies when, where, under what conditions, and in response to what signals each gene is expressed. This control layer is the regulatory program of the cell, and it remains only partially decoded.</p>
+
+<p>The distinction between data layer and control layer corresponds to a fundamental distinction in computer science between a program's data structures and its control flow. A program that stores numbers in memory but has no conditional branching, no loops, and no subroutine calls is not a useful program — it is just a data store. The control flow — the IF-THEN statements, the loops, the function calls — is what makes a program a computation. The codon table, read in isolation, is the genome's data store. The regulatory architecture — the promoters, operators, enhancers, silencers, and the transcription factor networks that read them — is the genome's control flow.</p>
+
+<p>This paper argues that the control layer is written in a language whose primitives are logical rather than chemical, whose grammar encodes computational operations, and whose runtime state is the transcriptome. The logical primitives of this language have specific molecular implementations that are in principle readable from genomic sequence and transcriptomic data.</p>
+
+<!-- FIGURE 1: Two-Layer Genome -->
+<div class="figure">
+<svg viewBox="0 -18 720 378" xmlns="http://www.w3.org/2000/svg" font-family="'Outfit',sans-serif">
+  <defs>
+    <marker id="a1" markerWidth="7" markerHeight="5" refX="3" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#888"/></marker>
+    <marker id="a2" markerWidth="7" markerHeight="5" refX="3" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#c0392b"/></marker>
+    <marker id="a3" markerWidth="7" markerHeight="5" refX="3" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#2980b9"/></marker>
+    <marker id="a4" markerWidth="7" markerHeight="5" refX="3" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#27ae60"/></marker>
+  </defs>
+
+  <!-- Layer labels -->
+  <text x="8" y="58" font-size="9" font-weight="700" fill="#c0392b" font-family="'JetBrains Mono',monospace">CONTROL LAYER</text>
+  <text x="8" y="68" font-size="8" fill="#c0392b" font-family="'JetBrains Mono',monospace">(program)</text>
+  <text x="8" y="148" font-size="9" font-weight="700" fill="#555" font-family="'JetBrains Mono',monospace">DNA</text>
+  <text x="8" y="158" font-size="8" fill="#555" font-family="'JetBrains Mono',monospace">backbone</text>
+  <text x="8" y="248" font-size="9" font-weight="700" fill="#2980b9" font-family="'JetBrains Mono',monospace">DATA LAYER</text>
+  <text x="8" y="258" font-size="8" fill="#2980b9" font-family="'JetBrains Mono',monospace">(sequences)</text>
+
+  <!-- ─── CONTROL LAYER ─── -->
+  <!-- Promoter region label -->
+  <rect x="100" y="12" width="170" height="14" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="185" y="23" text-anchor="middle" font-size="8.5" fill="#c0392b" font-weight="600" font-family="'JetBrains Mono',monospace">PROMOTER / CONTROL REGION</text>
+
+  <!-- NOT gate site -->
+  <rect x="100" y="30" width="56" height="28" rx="4" fill="#f5eef8" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="128" y="43" text-anchor="middle" font-size="8" fill="#8e44ad" font-weight="600" font-family="'JetBrains Mono',monospace">OPERATOR</text>
+  <text x="128" y="53" text-anchor="middle" font-size="7.5" fill="#8e44ad" font-family="'JetBrains Mono',monospace">NOT gate  ¬P</text>
+
+  <!-- AND gate dual site -->
+  <rect x="162" y="30" width="106" height="28" rx="4" fill="#eaf4fb" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="215" y="43" text-anchor="middle" font-size="8" fill="#2980b9" font-weight="600" font-family="'JetBrains Mono',monospace">DUAL BINDING SITE</text>
+  <text x="215" y="53" text-anchor="middle" font-size="7.5" fill="#2980b9" font-family="'JetBrains Mono',monospace">AND gate  TF-A ∧ TF-B</text>
+  <line x1="215" y1="32" x2="215" y2="56" stroke="#2980b9" stroke-width="0.8" stroke-dasharray="2,2"/>
+
+  <!-- CONDITIONAL site -->
+  <rect x="274" y="30" width="82" height="28" rx="4" fill="#fef9e7" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="315" y="43" text-anchor="middle" font-size="8" fill="#e67e22" font-weight="600" font-family="'JetBrains Mono',monospace">SIGNAL SITE</text>
+  <text x="315" y="53" text-anchor="middle" font-size="7.5" fill="#e67e22" font-family="'JetBrains Mono',monospace">CONDITIONAL  P→Q</text>
+
+  <!-- TSS -->
+  <rect x="362" y="30" width="32" height="28" rx="4" fill="#e8f8f5" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="378" y="43" text-anchor="middle" font-size="8" fill="#27ae60" font-weight="600" font-family="'JetBrains Mono',monospace">TSS</text>
+  <text x="378" y="53" text-anchor="middle" font-size="7" fill="#27ae60" font-family="'JetBrains Mono',monospace">start</text>
+
+  <!-- Logical formula derived -->
+  <rect x="404" y="26" width="306" height="36" rx="5" fill="#fafaf5" stroke="#ccc" stroke-width="1"/>
+  <text x="416" y="41" font-size="8.5" fill="#555" font-family="'JetBrains Mono',monospace">Regulatory logic:</text>
+  <text x="416" y="56" font-size="9.5" fill="#1a1a2e" font-weight="600" font-family="'JetBrains Mono',monospace">¬Rep ∧ (A∧B) ∧ Signal → Gene ON</text>
+  <path d="M396,44 L402,44" stroke="#888" stroke-width="1" marker-end="url(#a1)"/>
+
+  <!-- TF molecules (positioned above the promoter label bar) -->
+  <ellipse cx="128" cy="-4" rx="20" ry="9" fill="#8e44ad" opacity="0.15"/>
+  <text x="128" y="-1" text-anchor="middle" font-size="8" fill="#8e44ad" font-weight="600">Repressor</text>
+  <ellipse cx="198" cy="-4" rx="17" ry="9" fill="#2980b9" opacity="0.15"/>
+  <text x="198" y="-1" text-anchor="middle" font-size="8" fill="#2980b9" font-weight="600">TF-A</text>
+  <ellipse cx="244" cy="-4" rx="17" ry="9" fill="#2980b9" opacity="0.15"/>
+  <text x="244" y="-1" text-anchor="middle" font-size="8" fill="#2980b9" font-weight="600">TF-B</text>
+  <ellipse cx="315" cy="-4" rx="20" ry="9" fill="#e67e22" opacity="0.15"/>
+  <text x="315" y="-1" text-anchor="middle" font-size="8" fill="#e67e22" font-weight="600">Signal mol.</text>
+
+  <!-- Binding arrows from TFs down to gate boxes -->
+  <path d="M128,5 L128,28" stroke="#8e44ad" stroke-width="1" stroke-dasharray="2,1" marker-end="url(#a2)"/>
+  <path d="M198,5 L198,28" stroke="#2980b9" stroke-width="1" stroke-dasharray="2,1" marker-end="url(#a3)"/>
+  <path d="M244,5 L244,28" stroke="#2980b9" stroke-width="1" stroke-dasharray="2,1" marker-end="url(#a3)"/>
+  <path d="M315,5 L315,28" stroke="#e67e22" stroke-width="1" stroke-dasharray="2,1" marker-end="url(#a1)"/>
+
+  <!-- ─── DNA BACKBONE ─── -->
+  <path d="M100,120 Q200,108 300,120 Q400,132 500,120 Q600,108 710,120" stroke="#555" stroke-width="2.5" fill="none"/>
+  <path d="M100,136 Q200,148 300,136 Q400,124 500,136 Q600,148 710,136" stroke="#555" stroke-width="2.5" fill="none"/>
+  <!-- Rungs -->
+  <line x1="130" y1="117" x2="130" y2="139" stroke="#aaa" stroke-width="1"/>
+  <line x1="162" y1="112" x2="162" y2="144" stroke="#aaa" stroke-width="1"/>
+  <line x1="200" y1="109" x2="200" y2="147" stroke="#aaa" stroke-width="1"/>
+  <line x1="240" y1="112" x2="240" y2="144" stroke="#aaa" stroke-width="1"/>
+  <line x1="280" y1="117" x2="280" y2="139" stroke="#aaa" stroke-width="1"/>
+  <line x1="320" y1="124" x2="320" y2="132" stroke="#aaa" stroke-width="1"/>
+  <line x1="360" y1="128" x2="360" y2="128" stroke="#aaa" stroke-width="1"/>
+  <line x1="400" y1="124" x2="400" y2="132" stroke="#aaa" stroke-width="1"/>
+  <line x1="440" y1="117" x2="440" y2="139" stroke="#aaa" stroke-width="1"/>
+  <line x1="480" y1="112" x2="480" y2="144" stroke="#aaa" stroke-width="1"/>
+  <line x1="520" y1="109" x2="520" y2="147" stroke="#aaa" stroke-width="1"/>
+  <line x1="560" y1="112" x2="560" y2="144" stroke="#aaa" stroke-width="1"/>
+  <line x1="600" y1="117" x2="600" y2="139" stroke="#aaa" stroke-width="1"/>
+  <line x1="640" y1="112" x2="640" y2="144" stroke="#aaa" stroke-width="1"/>
+  <line x1="680" y1="109" x2="680" y2="147" stroke="#aaa" stroke-width="1"/>
+
+  <!-- Region labels on DNA -->
+  <rect x="100" y="144" width="170" height="12" rx="2" fill="#fdecea" opacity="0.7"/>
+  <text x="185" y="153" text-anchor="middle" font-size="7.5" fill="#c0392b" font-family="'JetBrains Mono',monospace">← PROMOTER / REGULATORY →</text>
+  <rect x="276" y="144" width="134" height="12" rx="2" fill="#e8f8f5" opacity="0.7"/>
+  <text x="343" y="153" text-anchor="middle" font-size="7.5" fill="#27ae60" font-family="'JetBrains Mono',monospace">← GENE BODY (coding) →</text>
+  <rect x="416" y="144" width="70" height="12" rx="2" fill="#f5f5f0" opacity="0.7"/>
+  <text x="451" y="153" text-anchor="middle" font-size="7.5" fill="#999" font-family="'JetBrains Mono',monospace">intergenic</text>
+  <rect x="492" y="144" width="218" height="12" rx="2" fill="#eafaf1" opacity="0.7"/>
+  <text x="601" y="153" text-anchor="middle" font-size="7.5" fill="#27ae60" font-family="'JetBrains Mono',monospace">← NEXT GENE BODY →</text>
+
+  <!-- Arrows linking layers -->
+  <path d="M200,70 L200,106" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#a2)"/>
+  <text x="202" y="90" font-size="7" fill="#c0392b" font-family="'JetBrains Mono',monospace">reads</text>
+  <path d="M343,157 L343,182" stroke="#27ae60" stroke-width="1.2" marker-end="url(#a4)"/>
+  <text x="345" y="172" font-size="7" fill="#27ae60" font-family="'JetBrains Mono',monospace">transcribes</text>
+
+  <!-- ─── DATA LAYER ─── -->
+  <text x="100" y="200" font-size="8.5" fill="#2980b9" font-weight="600" font-family="'JetBrains Mono',monospace">Codon sequence (gene body):</text>
+
+  <!-- START codon -->
+  <rect x="100" y="208" width="38" height="22" rx="3" fill="#27ae60"/>
+  <text x="119" y="219" text-anchor="middle" font-size="8.5" fill="white" font-weight="600" font-family="'JetBrains Mono',monospace">AUG</text>
+  <text x="119" y="228" text-anchor="middle" font-size="6.5" fill="#d5f5e3" font-family="'JetBrains Mono',monospace">START</text>
+
+  <!-- Coding codons -->
+  <rect x="142" y="208" width="38" height="22" rx="3" fill="#d6eaf8" stroke="#aed6f1" stroke-width="0.8"/>
+  <text x="161" y="219" text-anchor="middle" font-size="8.5" fill="#1a5276" font-family="'JetBrains Mono',monospace">GCU</text>
+  <text x="161" y="228" text-anchor="middle" font-size="6.5" fill="#5dade2" font-family="'JetBrains Mono',monospace">Ala</text>
+  <rect x="184" y="208" width="38" height="22" rx="3" fill="#d6eaf8" stroke="#aed6f1" stroke-width="0.8"/>
+  <text x="203" y="219" text-anchor="middle" font-size="8.5" fill="#1a5276" font-family="'JetBrains Mono',monospace">AAA</text>
+  <text x="203" y="228" text-anchor="middle" font-size="6.5" fill="#5dade2" font-family="'JetBrains Mono',monospace">Lys</text>
+  <rect x="226" y="208" width="38" height="22" rx="3" fill="#d6eaf8" stroke="#aed6f1" stroke-width="0.8"/>
+  <text x="245" y="219" text-anchor="middle" font-size="8.5" fill="#1a5276" font-family="'JetBrains Mono',monospace">UGG</text>
+  <text x="245" y="228" text-anchor="middle" font-size="6.5" fill="#5dade2" font-family="'JetBrains Mono',monospace">Trp</text>
+  <rect x="268" y="208" width="38" height="22" rx="3" fill="#d6eaf8" stroke="#aed6f1" stroke-width="0.8"/>
+  <text x="287" y="219" text-anchor="middle" font-size="8.5" fill="#1a5276" font-family="'JetBrains Mono',monospace">CAU</text>
+  <text x="287" y="228" text-anchor="middle" font-size="6.5" fill="#5dade2" font-family="'JetBrains Mono',monospace">His</text>
+  <text x="316" y="221" font-size="11" fill="#aaa">· · ·</text>
+
+  <!-- STOP codon -->
+  <rect x="340" y="208" width="38" height="22" rx="3" fill="#e74c3c"/>
+  <text x="359" y="219" text-anchor="middle" font-size="8.5" fill="white" font-weight="600" font-family="'JetBrains Mono',monospace">UAA</text>
+  <text x="359" y="228" text-anchor="middle" font-size="6.5" fill="#fadbd8" font-family="'JetBrains Mono',monospace">STOP</text>
+
+  <!-- Protein product -->
+  <text x="100" y="252" font-size="8.5" fill="#2980b9" font-weight="600" font-family="'JetBrains Mono',monospace">Translation ↓  Protein product:</text>
+  <text x="100" y="270" font-size="12" fill="#1a1a2e" font-family="'Crimson Pro',serif">H₂N — Ala — Lys — Trp — His · · · — COOH</text>
+  <text x="100" y="284" font-size="8" fill="#888" font-family="'JetBrains Mono',monospace">Transcription factor / enzyme / structural protein</text>
+
+  <!-- Key insight box -->
+  <rect x="100" y="298" width="610" height="44" rx="5" fill="#fafaf5" stroke="#ddd" stroke-width="1"/>
+  <text x="114" y="315" font-size="11" fill="#1a1a2e" font-family="'Crimson Pro',serif" font-style="italic">Key insight: </text>
+  <text x="186" y="315" font-size="11" fill="#1a1a2e" font-family="'Crimson Pro',serif">The codon table (data layer) has been fully decoded since 1966. The promoter</text>
+  <text x="114" y="331" font-size="11" fill="#1a1a2e" font-family="'Crimson Pro',serif">grammar (control layer) remains only partially decoded. Reading both layers is the project of which GLMP is a part.</text>
+</svg>
+<div class="fig-caption"><strong>Figure 1.</strong> The genome as a two-layer computational system. The <strong>control layer</strong> (top, red) is written in promoter and regulatory regions: binding sites encode NOT, AND, and CONDITIONAL gates. The <strong>DNA backbone</strong> (middle) carries both layers. The <strong>data layer</strong> (bottom, blue) is written in coding regions: codons specify amino acid sequences, decoded since 1961–1966. The codon table maps 64 triplets to 20 amino acids, START, and STOP — a complete dictionary. The regulatory grammar of the control layer maps ~1,600 TF binding motifs to logical operations — a vocabulary partially mapped in databases (JASPAR, RegulonDB, ENCODE) but not yet understood as a complete formal grammar.</div>
+</div>
+
+<h2>2. The Logical Primitives and Their Molecular Implementations</h2>
+
+<h3>2.1 Binding: The True Primitive</h3>
+<p>As established in the companion paper, binding is the foundational primitive — the molecular analog of Tarski's betweenness relation. All other logical operations are derived from binding in specific geometric and contextual arrangements: <strong class="term">sequence-specific protein-DNA binding</strong> (a transcription factor recognizes and binds a specific sequence motif), <strong class="term">protein-protein binding</strong> (TFs interact with co-activators, co-repressors, and mediator complexes), and <strong class="term">RNA-protein binding</strong> (regulatory RNAs bind target mRNAs or proteins, implementing post-transcriptional logic). The binding relation B(X, Y) is dyadic, binary in the logical abstraction, and the ground-level primitive — the RCA₀-level operation of the genomic computational system.</p>
+
+<h3>2.2 NOT, AND, OR — The Boolean Foundation</h3>
+<p><strong class="term">NOT (Repression)</strong> is implemented by the repressor-operator system. A repressor protein binds an operator sequence within the promoter; when bound, RNA polymerase cannot access the promoter and transcription is blocked. The operator sequence is the physical encoding of the NOT gate. In single-cell RNA-seq data, NOT relationships appear as anti-correlated expression pairs.</p>
+<p><strong class="term">AND (Cooperativity)</strong> requires two conditions simultaneously. It is implemented by promoter architectures requiring multiple transcription factors: dual binding sites where both must be occupied, or cooperative assembly of multi-protein complexes. The interferon-β enhanceosome — requiring eight distinct proteins to assemble simultaneously on a 55 bp enhancer — is an eight-input AND gate. AND gates appear in transcriptomic data as genes expressed only when both upstream inputs are simultaneously high.</p>
+<p><strong class="term">OR (Alternative Activation)</strong> requires at least one of multiple conditions. It is implemented by multiple independent promoters or alternative upstream activating sequences. OR gates appear as genes expressed in the union of upstream input domains.</p>
+
+<!-- FIGURE 2: Gate Dictionary as HTML table -->
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Gate</th><th>Symbol</th><th>Truth Table</th><th>Molecular Implementation</th><th>scRNA-seq Signature</th><th>Class</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="color:#8e44ad;">¬ NOT<br><small>Repression</small></td>
+      <td><code>¬P</code></td>
+      <td>P=0 → 1<br>P=1 → 0</td>
+      <td>Repressor binds operator, blocks RNAP.<br><em>lac</em> operon: LacI binds <em>lacO</em>. Operator sequence <strong>is</strong> the NOT gate.</td>
+      <td>Anti-correlated pairs: TF↑ → target↓</td>
+      <td>I</td>
+    </tr>
+    <tr>
+      <td style="color:#2980b9;">∧ AND<br><small>Cooperativity</small></td>
+      <td><code>P∧Q</code></td>
+      <td>0,0→0 &nbsp; 1,0→0<br>0,1→0 &nbsp; <strong>1,1→1</strong></td>
+      <td>Dual binding sites; both must be occupied.<br>IFN-β enhanceosome: 8-protein AND gate.</td>
+      <td>Intersection domain: gene ON only when both inputs high</td>
+      <td>I</td>
+    </tr>
+    <tr>
+      <td style="color:#27ae60;">∨ OR<br><small>Alt. Activation</small></td>
+      <td><code>P∨Q</code></td>
+      <td>0,0→0 &nbsp; <strong>1,0→1</strong><br><strong>0,1→1</strong> &nbsp; <strong>1,1→1</strong></td>
+      <td>Multiple independent promoters; either sufficient.<br>Stress response genes, tissue-specific promoters.</td>
+      <td>Union domain: gene ON when any input high</td>
+      <td>I</td>
+    </tr>
+    <tr style="background:#fef9e7;">
+      <td style="color:#e67e22;"><strong>→ CONDITIONAL</strong><br><small>IF-THEN &middot; Master</small></td>
+      <td><code>P→Q</code></td>
+      <td>P=0 → Q=0<br><strong>P=1 → Q=1</strong><br><small>Introduces time, context, threshold</small></td>
+      <td>Signal transduction cascade; threshold = K<sub>d</sub>.<br><em>lac</em>: allolactose → LacI release → <em>lacZ</em> ON.<br><strong>All feedback = CONDITIONAL applied recursively.</strong></td>
+      <td>Correlated response with sharp threshold at K<sub>d</sub>; time-delayed</td>
+      <td>I–V</td>
+    </tr>
+    <tr>
+      <td style="color:#c0392b;">⊼ NAND<br><small>Co-repressor</small><br><small><strong>COMPLETE</strong></small></td>
+      <td><code>¬(P∧Q)</code></td>
+      <td>0,0→1 &nbsp; 1,0→1<br>0,1→1 &nbsp; <strong>1,1→0</strong></td>
+      <td>Repressor requires co-repressor for active conformation.<br><em>trp</em> operon: TrpR + 2× tryptophan. <strong>NAND alone is Boolean-complete.</strong></td>
+      <td>Gene ON except when both repressor and co-repressor present</td>
+      <td>I</td>
+    </tr>
+    <tr>
+      <td style="color:#1a5276;">⊽ NOR<br><small>Dual Repression</small><br><small><strong>COMPLETE</strong></small></td>
+      <td><code>¬(P∨Q)</code></td>
+      <td><strong>0,0→1</strong> &nbsp; 1,0→0<br>0,1→0 &nbsp; 1,1→0</td>
+      <td>Either of two repressors alone blocks transcription.<br>Developmental genes: TF repressor + Polycomb. <strong>NOR alone is also Boolean-complete.</strong></td>
+      <td>Very narrow expression: gene ON only when both repressors absent</td>
+      <td>I</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--muted);font-style:italic;margin-top:0.5rem;"><strong>Figure 2.</strong> All six gates derive from the single ground primitive of <strong style="color:var(--ink);">binding</strong>. NAND and NOR are each individually functionally complete — any Boolean regulatory logic can be built from NAND gates alone. The CONDITIONAL is the master primitive; all feedback structures are CONDITIONAL applied recursively.</p>
+
+<h3>2.3 The CONDITIONAL: Master Primitive</h3>
+<p>The CONDITIONAL — IF P THEN Q — is the most biologically fundamental logical operation. It is not merely one gate among others. Unlike the Boolean gates (NOT, AND, OR), which are truth-functional (output depends only on current input values), the CONDITIONAL introduces a <em>temporal</em> dimension (P is detected before Q is executed), a <em>contextual</em> dimension (the same P can trigger different Q in different cell types), and a <em>threshold</em> dimension (the response fires only when signal exceeds the binding affinity Kd). The molecular implementation is a signal transduction cascade: ligand binds receptor → conformational change → TF activation → target gene transcription.</p>
+
+<p><strong class="term">Feedback as a special case of the CONDITIONAL.</strong> Feedback is the CONDITIONAL applied recursively: IF output Q exceeds threshold T THEN modify input P. Negative feedback (Q → ¬P) implements homeostasis. Positive feedback (Q → P) implements bistability. Delayed negative feedback (Q →[D] ¬Q) implements oscillation. Self-modifying feedback (Q → modify(P → Q)) implements Class V epigenetic reprogramming. The CONDITIONAL without feedback is Class I (decidable); the CONDITIONAL with feedback generates all higher complexity classes. This makes the CONDITIONAL the gateway to the entire complexity ladder.</p>
+
+<h3>2.4 NAND, NOR, XOR, and Functional Completeness</h3>
+<p><strong class="term">NAND</strong> is implemented by the co-repressor system: a repressor requires a co-repressor molecule to achieve active conformation. The trp operon repressor (TrpR) requires two tryptophan molecules — neither alone represses. <strong class="term">NOR</strong> is implemented by dual alternative repression: either of two repressors alone is sufficient to block transcription, so the gene is expressed only when neither is present. <strong class="term">XOR</strong> (exclusive OR) appears in competitive binding, where two TFs compete for the same site. The key theoretical consequence: NAND alone is functionally complete — any Boolean regulatory logic is in principle implementable. But Boolean completeness is only the floor of the system's expressive power; the feedback primitives of Class II-V circuits provide additional expressive power beyond it.</p>
+
+<h3>2.5 The Biconditional: A Derived but Fundamental Structure</h3>
+<p>The biconditional P ↔ Q — P if and only if Q — is derived from two CONDITIONALs running in opposite directions: (P → Q) ∧ (Q → P). It is not a new primitive, but it underlies two of the most important regulatory architectures in biology.</p>
+<p><strong class="term">Mutual activation (biconditional without negation):</strong> Gene A activates Gene B and Gene B activates Gene A — (A → B) ∧ (B → A). Once either gene is activated, the loop sustains both. This is the logical structure of commitment. MyoD and myogenin in skeletal muscle differentiation, Oct4 and Sox2 in pluripotency, and GATA1 and PU.1 in hematopoietic lineage decisions all exhibit mutual activation.</p>
+<p><strong class="term">Mutual repression (biconditional with negation):</strong> Gene A represses Gene B and Gene B represses Gene A — (A → ¬B) ∧ (B → ¬A). The circuit has exactly two stable states: A high/B low, and A low/B high. This is the toggle switch (Gardner et al. 2000) — bistability in its purest logical form. The biconditional reinforces the primacy of the CONDITIONAL: two of the most important regulatory architectures in biology emerge from combinations of primitives already identified, requiring no new molecular machinery.</p>
+
+<h3>2.6 Beyond Classical Logic: Temporal, Modal, and Predicate Extensions</h3>
+<h4>Temporal Logic</h4>
+<p>The four fundamental temporal operators each have biological implementations. <strong class="term">ALWAYS (□P)</strong> — constitutive expression; housekeeping genes. <strong class="term">EVENTUALLY (◇P)</strong> — inducible expression; the lac operon implements EVENTUALLY(lacZ expressed). <strong class="term">UNTIL (P U Q)</strong> — transient developmental expression; Hox genes expressed until positional identity is established. <strong class="term">NEXT (○P)</strong> — the delay cascade; gene A activates gene B after one transcription-translation cycle. The repressilator implements NEXT recursively, producing sustained oscillation.</p>
+<p>Temporal logic operators map onto the complexity ladder: ALWAYS, EVENTUALLY, UNTIL, and NEXT without recursion are Class I; NEXT applied recursively generates Class IV oscillation; UNTIL with a self-modifying condition generates Class V epigenetic silencing. The full logical grammar of the control layer is better described by temporal logic than classical propositional logic — a claim with consequences for the LEAN formalization path, since Mathlib contains substantial formal treatments of temporal logic.</p>
+
+<h4>Modal Logic</h4>
+<p>Modal operators distinguish between current state and possible states. <strong class="term">Necessity (□P)</strong> maps to constitutive expression (housekeeping genes). <strong class="term">Possibility (◇P)</strong> maps to cell-type-specific expression. The clinically significant operator is <strong class="term">Impossibility (¬◇P)</strong> — epigenetic silencing, where a promoter is permanently inaccessible via heterochromatin or DNA methylation. The distinction between "gene G is not currently expressed" (propositional) and "gene G cannot be expressed in this context" (modal) matters: oncogene silencing by methylation (modal ¬◇) is fundamentally different from oncogene repression by a TF (propositional). Modal impossibility is a Class V operation.</p>
+
+<h4>Predicate Logic and Quantifiers</h4>
+<p>Predicate quantifiers distinguish population-level from cell-level expression: <strong class="term">∀x: expressed(G, x)</strong> (universal, housekeeping), <strong class="term">∃x: expressed(G, x)</strong> (existential, detected somewhere), <strong class="term">∃!x: expressed(G, x)</strong> (unique cell-type marker). This framework clarifies the difference between bulk RNA-seq (existential queries over cell mixtures) and single-cell RNA-seq (individual queries per cell). Single-cell heterogeneity — ∃x: expressed(G, x) ∧ ∃y: ¬expressed(G, y) — is the population-level signature of a bistable (Class III) circuit.</p>
+
+<h3>2.7 The Complete Primitive Vocabulary</h3>
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>Primitive</th><th>Symbol</th><th>Molecular Implementation</th><th>Complexity Class</th><th>Type</th></tr></thead>
+  <tbody>
+    <tr><td>Binding</td><td>B(X,Y)</td><td>Sequence-specific molecular contact</td><td>RCA₀ ground</td><td>Foundational</td></tr>
+    <tr><td>NOT</td><td>¬P</td><td>Repressor-operator system</td><td>Class I</td><td>Boolean</td></tr>
+    <tr><td>AND</td><td>P∧Q</td><td>Cooperative dual binding site</td><td>Class I</td><td>Boolean</td></tr>
+    <tr><td>OR</td><td>P∨Q</td><td>Multiple independent promoters</td><td>Class I</td><td>Boolean</td></tr>
+    <tr><td>NAND</td><td>¬(P∧Q)</td><td>Co-repressor dual requirement</td><td>Class I</td><td>Boolean (complete)</td></tr>
+    <tr><td>NOR</td><td>¬(P∨Q)</td><td>Dual alternative repressors</td><td>Class I</td><td>Boolean (complete)</td></tr>
+    <tr><td>XOR</td><td>(P∨Q)∧¬(P∧Q)</td><td>Competitive binding at shared site</td><td>Class I</td><td>Boolean</td></tr>
+    <tr><td>CONDITIONAL</td><td>P→Q</td><td>Signal transduction cascade</td><td>Class I (no feedback)</td><td>Response — master primitive</td></tr>
+    <tr><td>BICONDITIONAL</td><td>P↔Q</td><td>Mutual activation loop</td><td>Class III (derived)</td><td>Derived</td></tr>
+    <tr><td>BICONDITIONAL+NOT</td><td>P↔¬Q</td><td>Toggle switch (mutual repression)</td><td>Class III (derived)</td><td>Derived</td></tr>
+    <tr><td>Negative feedback</td><td>Q→¬P</td><td>Autorepressor; product inhibition</td><td>Class II</td><td>Recursive</td></tr>
+    <tr><td>Positive feedback</td><td>Q→P</td><td>Autoactivator; bistable switch</td><td>Class III</td><td>Recursive</td></tr>
+    <tr><td>Delayed feedback</td><td>Q→[D]¬Q</td><td>Repressilator architecture</td><td>Class IV</td><td>Recursive</td></tr>
+    <tr><td>Self-modifying feedback</td><td>Q→modify(P→Q)</td><td>Epigenetic architecture modification</td><td>Class V</td><td>Recursive</td></tr>
+    <tr><td>ALWAYS</td><td>□P</td><td>Constitutive expression</td><td>Class I</td><td>Temporal</td></tr>
+    <tr><td>EVENTUALLY</td><td>◇P</td><td>Inducible expression</td><td>Class I</td><td>Temporal</td></tr>
+    <tr><td>UNTIL</td><td>P U Q</td><td>Transient developmental expression</td><td>Class I–II</td><td>Temporal</td></tr>
+    <tr><td>NEXT (recursive)</td><td>○P recursively</td><td>Oscillatory delay cascade</td><td>Class IV</td><td>Temporal</td></tr>
+    <tr><td>Necessity</td><td>□P (modal)</td><td>Housekeeping expression</td><td>Class I</td><td>Modal</td></tr>
+    <tr><td>Possibility</td><td>◇P (modal)</td><td>Cell-type-specific expression</td><td>Class I</td><td>Modal</td></tr>
+    <tr><td>Impossibility</td><td>¬◇P</td><td>Epigenetic silencing</td><td>Class V</td><td>Modal</td></tr>
+    <tr><td>Universal</td><td>∀x: expr(G,x)</td><td>Universal population expression</td><td>Class I</td><td>Predicate</td></tr>
+    <tr><td>Existential</td><td>∃x: expr(G,x)</td><td>Expression in some cells (bulk RNA-seq)</td><td>Class I</td><td>Predicate</td></tr>
+    <tr><td>Bistable population</td><td>∃x∧∃y¬: expr(G)</td><td>Single-cell bistable heterogeneity</td><td>Class III</td><td>Predicate</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The most striking feature of this complete vocabulary is that all of its richness — temporal, modal, predicate, Boolean, recursive — derives from the single ground-level primitive of <strong class="term">binding</strong>. Every entry is binding in a specific geometric, temporal, and contextual arrangement.</p>
+
+<h2>3. The Transcriptome as Runtime State</h2>
+
+<p>At any moment, each gene in a cell's genome is either expressed or not, and if expressed, at some level. The collection of all mRNA levels across all genes is the transcriptome. In the computational interpretation, this is the <strong class="term">state vector</strong> of the genomic program. The dimensionality of the transcriptome (~20,000 dimensions for a human cell) is the dimensionality of the state space of the genomic computer. A single-cell RNA-seq dataset is a sample from the state space of the genomic program — not merely a collection of expression profiles.</p>
+
+<p>The dimensionality reduction techniques standard in single-cell analysis — PCA, UMAP, t-SNE, diffusion maps — are techniques for finding the <strong class="term">attractor structure</strong> of the genomic program's state space. The clusters that appear in UMAP plots of single-cell data are not merely statistical clusters — they are the attractors of the genomic computation. <strong class="term">Cell types are attractors.</strong> The geometry of the UMAP plot reflects the computational topology of the regulatory circuits generating the data: Class III bistable circuits generate two-cluster UMAP plots; Class IV oscillatory circuits generate trajectory structure; Class V circuits generate complex attractor structure.</p>
+
+<h2>4. The Grammar of the Control Layer</h2>
+
+<p>The promoter architecture — the arrangement of binding sites, operator sequences, and regulatory elements upstream of each gene — is the <strong class="term">instruction encoding</strong>: the physical medium in which the control layer program is written. Binding site motifs encode the identity of the TF; site position relative to the TSS encodes effect type; site spacing and orientation encode combinatorial logic; clustering encodes complexity; distance from TSS encodes temporal character.</p>
+
+<p>The strongest claim of this paper is that the control layer of all organisms shares a <strong class="term">universal grammar</strong> — the same logical primitives implemented in organism-specific molecular machinery. (Note: "universal grammar" here is used in the computational sense — a shared set of logical operations — not in Chomsky's linguistic sense of an innate language faculty. The analogy is structural, not cognitive.) Evidence: the same circuit motifs (autoregulation, feedforward loops, feedback oscillators) appear across all domains of life; the same computational functions (bistability, oscillation, adaptation) are implemented by different molecular machines in different organisms; synthetic biology circuits transplanted across organisms function correctly. The universal grammar conjecture predicts that logical structure is more conserved across evolution than molecular identity — testable by comparing GLMP flowcharts across organisms at the topological level.</p>
+
+<!-- PART II -->
+<div class="part-header">
+  <span class="part-label">Part II</span>
+  <span class="part-title">Computational Consequences</span>
+</div>
+<div class="part-bridge">
+  The molecular and logical framework of Part I generates specific, falsifiable predictions. Each prediction is labeled by confidence level: <strong>High</strong> confidence follows directly from the framework; <strong>Medium</strong> confidence requires the full computational hypothesis; <strong>Speculative</strong> predictions are offered explicitly as research directions.
+</div>
+
+<h2>5. The Five-Class Complexity Ladder</h2>
+
+<!-- FIGURE 3: Complexity Ladder as HTML table -->
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>Name</th><th>Description</th><th>Computability</th><th>Rev.&nbsp;Math</th><th>Ordinal</th><th>Analog</th><th>Example</th></tr>
+  </thead>
+  <tbody>
+    <tr style="background:#fdf0ef;">
+      <td style="color:#c0392b;font-size:1.1rem;"><strong>V</strong></td>
+      <td style="color:#c0392b;"><strong>Self-modifying / Epigenetic Feedback</strong></td>
+      <td>Circuit rewrites its own regulatory architecture. Rice's theorem applies: perfect prediction provably impossible if Turing-complete.</td>
+      <td>Σ⁰₁ or above</td>
+      <td>ATR₀ / Π¹₁-CA₀</td>
+      <td>ε₀ or beyond</td>
+      <td>Peano Arithmetic</td>
+      <td>Epigenetic reprogramming circuits</td>
+    </tr>
+    <tr style="background:#fdf2e9;">
+      <td style="color:#e67e22;font-size:1.1rem;"><strong>IV</strong></td>
+      <td style="color:#e67e22;"><strong>Mixed Feedback &mdash; Oscillators</strong></td>
+      <td>Sustained oscillation. Circadian rhythms and developmental clocks. Period determined by delay structure.</td>
+      <td>Primitive recursive</td>
+      <td>ACA₀</td>
+      <td>Approaching ε₀</td>
+      <td>Pushdown automata</td>
+      <td>Repressilator (Elowitz &amp; Leibler 2000)</td>
+    </tr>
+    <tr style="background:#fef9e7;">
+      <td style="color:#f39c12;font-size:1.1rem;"><strong>III</strong></td>
+      <td style="color:#f39c12;"><strong>Positive Feedback &mdash; Bistable Switches</strong></td>
+      <td>Two stable attractors: cell fate decisions. State persists after signal removal. Toggle switch is the canonical case.</td>
+      <td>Δ⁰₂ (limit computable)</td>
+      <td>WKL₀</td>
+      <td>ω<sup>ω</sup></td>
+      <td>Finite automata with memory</td>
+      <td>Toggle switch (Gardner et al. 2000)</td>
+    </tr>
+    <tr style="background:#eafaf1;">
+      <td style="color:#27ae60;font-size:1.1rem;"><strong>II</strong></td>
+      <td style="color:#27ae60;"><strong>Negative Feedback &mdash; Damped Regulation</strong></td>
+      <td>Graded responses and homeostasis. Negative feedback suppresses noise. No sustained oscillation.</td>
+      <td>Δ⁰₁ (bounded recursion)</td>
+      <td>RCA₀</td>
+      <td>ω<sup>ω</sup></td>
+      <td>Bounded arithmetic</td>
+      <td>Homeostatic gene regulation</td>
+    </tr>
+    <tr style="background:#eaf4fb;">
+      <td style="color:#2980b9;font-size:1.1rem;"><strong>I</strong></td>
+      <td style="color:#2980b9;"><strong>Feed-Forward Only &mdash; No Loops</strong></td>
+      <td>Decidable, complete, bounded expressive power. Output always determinable from input. No memory, no oscillation. <em>The Tarski-like logical floor.</em></td>
+      <td>Δ⁰₁ (decidable)</td>
+      <td>Below RCA₀</td>
+      <td>ω</td>
+      <td>Tarski's geometry</td>
+      <td>Simple inducible promoters</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--muted);font-style:italic;margin-top:0.5rem;"><strong>Figure 3.</strong> The five-class genomic computational complexity ladder, from most expressive (Class V, Peano-like ceiling) to most constrained (Class I, Tarski-like floor). Each class is calibrated against three formal measures: <strong>Computability</strong> (Δ⁰₁ = decidable; Σ⁰₁ = recursively enumerable), <strong>Reverse Mathematics</strong> (Big Five subsystems), and <strong>proof-theoretic ordinal</strong> (ω = Tarski-level; ε₀ = Peano-level). Classes I and II are in principle fully predictable. Class V circuits are subject to Rice's theorem if Turing-complete.</p>
+
+<h2>6. Nine Predictions</h2>
+
+<div class="prediction high">
+  <div class="pred-head"><span class="pred-num">PREDICTION 1</span><span>Transcriptomic Noise Distribution Diagnoses Circuit Class</span><span class="pred-conf">High Confidence</span></div>
+  <div class="pred-body"><p>Different circuit classes generate different noise distributions in single-cell expression data. Class I: unimodal, low-variance. Class II (negative feedback): unimodal, very low-variance — feedback suppresses noise. Class III (bistable): bimodal. Class IV (oscillatory): time-structured, periodic. Class V (self-modifying): heavy-tailed, non-stationary.</p>
+  <div class="testability"><strong>Testability:</strong> For genes regulated by circuits of characterized class (toggle switch genes, repressilator genes, simple inducible promoters), compare observed single-cell expression distributions against predicted patterns.</div></div>
+</div>
+
+<div class="prediction high">
+  <div class="pred-head"><span class="pred-num">PREDICTION 2</span><span>Cell Fate Decisions Are Minimum-Energy State Transitions</span><span class="pred-conf">High Confidence</span></div>
+  <div class="pred-body"><p>If cell types are computational attractors, then cell fate decisions are transitions between attractors requiring passage through a region of low probability between two basins. The minimum number of transcription factor perturbations required to convert cell type A to cell type B is determined by the logical distance between the two attractors. Yamanaka's four reprogramming factors are the minimum perturbation set required to cross the energy barrier between the somatic and pluripotent attractors.</p>
+  <div class="testability"><strong>Testability:</strong> For any pair of cell types, the minimum reprogramming factor set can in principle be predicted from GLMP-style flowcharts of the relevant regulatory circuits.</div></div>
+</div>
+
+<div class="prediction high">
+  <div class="pred-head"><span class="pred-num">PREDICTION 3</span><span>Drug Resistance Is Attractor Escape</span><span class="pred-conf">High Confidence</span></div>
+  <div class="pred-body"><p>When a cancer cell population develops drug resistance, it transitions from a drug-sensitive attractor to a drug-resistant attractor. Circuit mutation resistance (permanent: the attractor structure changes) differs fundamentally from state transition resistance (potentially reversible: the cell moves to a pre-existing resistant attractor). Cancers that develop resistance through state transitions should be re-sensitizable by forcing the cell back to the sensitive attractor. Cancers with circuit mutation resistance cannot be re-sensitized because the sensitive attractor no longer exists.</p>
+  <div class="testability"><strong>Testability:</strong> The fraction of reversible vs. irreversible resistance correlates with circuit class: Class III generates reversible resistance; Class V generates irreversible resistance.</div></div>
+</div>
+
+<div class="prediction high">
+  <div class="pred-head"><span class="pred-num">PREDICTION 4</span><span>The Complexity Gradient Across Organisms</span><span class="pred-conf">High Confidence</span></div>
+  <div class="pred-body"><p>The modal computational class of regulatory circuits correlates with organismal complexity, measurable by GLMP-style topological classification across species. Prokaryotes: predominantly Class I-II. Unicellular eukaryotes: Class II-III. Simple multicellular organisms: Class III-IV. Complex vertebrates: Class IV-V.</p></div>
+</div>
+
+<div class="prediction medium">
+  <div class="pred-head"><span class="pred-num">PREDICTION 5</span><span>Virtual Cell Model Accuracy Correlates with Circuit Class</span><span class="pred-conf">Medium Confidence</span></div>
+  <div class="pred-body"><p>Virtual cell models should have accuracy correlating with the circuit class of target genes. Highest accuracy for Class I-II circuits (decidable, uniquely determined). Lower accuracy for Class III (bistable — response depends on which attractor the cell is currently in). Lowest for Class IV-V (oscillatory and self-modifying — response depends on phase or current epigenetic state).</p>
+  <div class="testability"><strong>Testability:</strong> Reanalyze existing virtual cell model benchmarks, stratifying predictions by the circuit class of target genes.</div></div>
+</div>
+
+<div class="prediction medium">
+  <div class="pred-head"><span class="pred-num">PREDICTION 6</span><span>The Reprogramming Factor Minimum Is a Circuit Depth Measure</span><span class="pred-conf">Medium Confidence</span></div>
+  <div class="pred-body"><p>The number of transcription factors required for cellular reprogramming should relate to the logical depth of the circuit separating source and target cell type attractors. Topologically close cell type pairs require fewer factors; topologically distant pairs require more. A GLMP-style analysis should produce predicted reprogramming factor counts correlating with experimentally observed minimums.</p></div>
+</div>
+
+<div class="prediction medium">
+  <div class="pred-head"><span class="pred-head-content"><span class="pred-num">PREDICTION 7</span><span>Rice's Theorem Sets a Hard Ceiling on Cancer Prediction</span></span><span class="pred-conf">Medium Confidence</span></div>
+  <div class="pred-body"><p>Rice's theorem (1953) states that any non-trivial semantic property of programs is undecidable. If Class V genomic circuits are Turing-complete — a conjecture, not a proven theorem — then by Rice's theorem, no algorithm can determine for an arbitrary Class V circuit whether it will produce a given gene expression pattern. The predictive accuracy ceiling for AI models of cancer driven by Class V circuits is less than 100% and cannot be reached by scaling data or compute. This is a mathematical theorem about what any algorithm can achieve, not a technological limitation. The practical implication is constructive: identify which cancers are driven by Class I-III circuits (potentially fully predictable) versus Class IV-V (subject to principled limits).</p></div>
+</div>
+
+<!-- FIGURE 4: Complexity Ceiling -->
+<div class="figure">
+<svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="mkarr" markerWidth="7" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#333"/></marker>
+    <linearGradient id="ccurve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2980b9"/>
+      <stop offset="40%" stop-color="#27ae60"/>
+      <stop offset="70%" stop-color="#e67e22"/>
+      <stop offset="100%" stop-color="#c0392b"/>
+    </linearGradient>
+    <linearGradient id="cfill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2980b9" stop-opacity="0.12"/>
+      <stop offset="40%" stop-color="#27ae60" stop-opacity="0.12"/>
+      <stop offset="70%" stop-color="#e67e22" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#c0392b" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+
+  <text x="10" y="16" font-size="10" font-weight="700" fill="#1F3864" font-family="'Outfit',sans-serif">The Predictability Ceiling for AI Models of Biological Regulation</text>
+  <text x="10" y="28" font-size="8" fill="#888" font-family="'Outfit',sans-serif">Schematic — not empirical data. Class V ceiling conditional on unproven Turing-completeness conjecture.</text>
+
+  <!-- Chart area -->
+  <rect x="60" y="36" width="520" height="260" fill="white" stroke="#e0e0d8" stroke-width="1" rx="3"/>
+
+  <!-- Class background bands -->
+  <rect x="60" y="36" width="104" height="260" fill="#eaf4fb" opacity="0.5"/>
+  <rect x="164" y="36" width="104" height="260" fill="#eafaf1" opacity="0.5"/>
+  <rect x="268" y="36" width="104" height="260" fill="#fef9e7" opacity="0.5"/>
+  <rect x="372" y="36" width="104" height="260" fill="#fdf2e9" opacity="0.5"/>
+  <rect x="476" y="36" width="104" height="260" fill="#fdf0ef" opacity="0.5"/>
+
+  <!-- Dividers -->
+  <line x1="164" y1="36" x2="164" y2="296" stroke="#ddd" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <line x1="268" y1="36" x2="268" y2="296" stroke="#ddd" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <line x1="372" y1="36" x2="372" y2="296" stroke="#ddd" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <line x1="476" y1="36" x2="476" y2="296" stroke="#ddd" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+  <!-- 100% line -->
+  <line x1="60" y1="54" x2="580" y2="54" stroke="#c0392b" stroke-width="0.8" stroke-dasharray="5,3"/>
+  <text x="585" y="58" font-size="8" fill="#c0392b" font-weight="600" font-family="'JetBrains Mono',monospace">100%</text>
+
+  <!-- Ceiling curve + fill -->
+  <path d="M60,56 L164,56 Q216,56 268,66 Q320,78 372,112 Q424,158 476,204 Q528,244 580,268"
+        fill="url(#cfill)" stroke="none"/>
+  <path d="M60,56 L164,56 Q216,56 268,66 Q320,78 372,112 Q424,158 476,204 Q528,244 580,268 L580,296 L60,296 Z"
+        fill="url(#cfill)" stroke="none"/>
+  <path d="M60,56 L164,56 Q216,56 268,66 Q320,78 372,112 Q424,158 476,204 Q528,244 580,268"
+        stroke="url(#ccurve)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Current AI models (dashed) -->
+  <path d="M60,100 L164,104 Q216,108 268,124 Q320,144 372,178 Q424,218 476,252 Q528,272 580,282"
+        stroke="#666" stroke-width="1.8" fill="none" stroke-dasharray="5,3"/>
+
+  <!-- Grammar-aware projection (green dashed) -->
+  <path d="M60,68 L164,70 Q216,70 268,82 Q320,96 372,132 Q424,176 476,220 Q528,254 580,272"
+        stroke="#27ae60" stroke-width="1.8" fill="none" stroke-dasharray="4,2"/>
+
+  <!-- Y axis -->
+  <line x1="60" y1="36" x2="60" y2="304" stroke="#333" stroke-width="1.5" marker-end="url(#mkarr)"/>
+  <text x="56" y="58" text-anchor="end" font-size="8" fill="#333" font-family="'JetBrains Mono',monospace">100%</text>
+  <text x="56" y="110" text-anchor="end" font-size="7.5" fill="#888" font-family="'JetBrains Mono',monospace">~80%</text>
+  <text x="56" y="180" text-anchor="end" font-size="7.5" fill="#888" font-family="'JetBrains Mono',monospace">~55%</text>
+  <text x="56" y="250" text-anchor="end" font-size="7.5" fill="#aaa" font-family="'JetBrains Mono',monospace">~25%</text>
+  <text x="56" y="296" text-anchor="end" font-size="7.5" fill="#bbb" font-family="'JetBrains Mono',monospace">0%</text>
+
+  <!-- Y axis title -->
+  <text transform="translate(14,200) rotate(-90)" text-anchor="middle" font-size="9" fill="#555" font-weight="600" font-family="'Outfit',sans-serif">Max. Prediction Accuracy</text>
+
+  <!-- X axis -->
+  <line x1="60" y1="296" x2="592" y2="296" stroke="#333" stroke-width="1.5" marker-end="url(#mkarr)"/>
+
+  <!-- X labels -->
+  <text x="112" y="310" text-anchor="middle" font-size="9" fill="#2980b9" font-weight="700" font-family="'Outfit',sans-serif">Class I</text>
+  <text x="112" y="320" text-anchor="middle" font-size="7" fill="#2980b9" font-family="'JetBrains Mono',monospace">Feed-fwd · Δ⁰₁</text>
+  <text x="216" y="310" text-anchor="middle" font-size="9" fill="#27ae60" font-weight="700" font-family="'Outfit',sans-serif">Class II</text>
+  <text x="216" y="320" text-anchor="middle" font-size="7" fill="#27ae60" font-family="'JetBrains Mono',monospace">Neg.fb · RCA₀</text>
+  <text x="320" y="310" text-anchor="middle" font-size="9" fill="#f39c12" font-weight="700" font-family="'Outfit',sans-serif">Class III</text>
+  <text x="320" y="320" text-anchor="middle" font-size="7" fill="#f39c12" font-family="'JetBrains Mono',monospace">Bistable · WKL₀</text>
+  <text x="424" y="310" text-anchor="middle" font-size="9" fill="#e67e22" font-weight="700" font-family="'Outfit',sans-serif">Class IV</text>
+  <text x="424" y="320" text-anchor="middle" font-size="7" fill="#e67e22" font-family="'JetBrains Mono',monospace">Oscillatory · ACA₀</text>
+  <text x="528" y="310" text-anchor="middle" font-size="9" fill="#c0392b" font-weight="700" font-family="'Outfit',sans-serif">Class V</text>
+  <text x="528" y="320" text-anchor="middle" font-size="7" fill="#c0392b" font-family="'JetBrains Mono',monospace">Self-mod. · Σ⁰₁</text>
+
+  <!-- X title -->
+  <text x="320" y="338" text-anchor="middle" font-size="9" fill="#333" font-weight="600" font-family="'Outfit',sans-serif">Genomic Circuit Complexity Class</text>
+
+  <!-- Annotations -->
+  <rect x="66" y="42" width="100" height="20" rx="3" fill="white" stroke="#2980b9" stroke-width="0.7" opacity="0.9"/>
+  <text x="116" y="52" text-anchor="middle" font-size="7.5" fill="#1a5276" font-family="'JetBrains Mono',monospace">100% in principle</text>
+  <text x="116" y="61" text-anchor="middle" font-size="7" fill="#888" font-family="'JetBrains Mono',monospace">fully decidable</text>
+
+  <rect x="420" y="118" width="150" height="20" rx="3" fill="white" stroke="#c0392b" stroke-width="0.7" opacity="0.9"/>
+  <text x="495" y="128" text-anchor="middle" font-size="7.5" fill="#922b21" font-family="'JetBrains Mono',monospace">Rice's theorem: ceiling &lt; 100%</text>
+  <text x="495" y="137" text-anchor="middle" font-size="7" fill="#888" font-family="'JetBrains Mono',monospace">if Class V is Turing-complete</text>
+
+  <!-- Legend -->
+  <rect x="66" y="218" width="220" height="60" rx="3" fill="white" stroke="#e0e0d8" stroke-width="1"/>
+  <text x="76" y="232" font-size="8" fill="#333" font-weight="600" font-family="'Outfit',sans-serif">LEGEND</text>
+  <line x1="76" y1="243" x2="106" y2="243" stroke="url(#ccurve)" stroke-width="2.5"/>
+  <text x="112" y="247" font-size="8" fill="#333" font-family="'Crimson Pro',serif">Theoretical accuracy ceiling</text>
+  <line x1="76" y1="256" x2="106" y2="256" stroke="#666" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <text x="112" y="260" font-size="8" fill="#555" font-family="'Crimson Pro',serif">Current AI models (schematic)</text>
+  <line x1="76" y1="269" x2="106" y2="269" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,2"/>
+  <text x="112" y="273" font-size="8" fill="#27ae60" font-family="'Crimson Pro',serif">Grammar-aware models (projected)</text>
+</svg>
+<div class="fig-caption"><strong>Figure 4.</strong> Schematic diagram of the maximum theoretical prediction accuracy for AI models of biological regulation as a function of genomic circuit class. The <strong>colored ceiling curve</strong> is the theoretical maximum achievable by any algorithm. Class I circuits are in principle fully predictable. Accuracy declines through Classes II-IV. For <strong>Class V circuits</strong>, Rice's theorem establishes the ceiling is strictly less than 100% for any algorithm — not a technological limitation but a mathematical theorem about computability, <em>if the Turing-completeness conjecture holds.</em> The <strong>green dashed line</strong> projects performance of grammar-aware models (not yet built) predicted to approach the ceiling more closely than grammar-blind statistical models (gray dashed). All values are schematic; no empirical data is presented.</div>
+</div>
+
+<div class="prediction medium">
+  <div class="pred-head"><span class="pred-num">PREDICTION 8</span><span>Grammar-Aware AI Models Will Outperform Grammar-Blind Models</span><span class="pred-conf">Medium Confidence</span></div>
+  <div class="pred-body"><p>Grammar-aware models explicitly representing the logical primitives and using them as inductive biases should require less training data for equivalent accuracy on Class I-III circuits; be more interpretable (predictions expressible in terms of logical primitives, auditable by biologists); generalize better across organisms (because the logical grammar is universal); and be formally verifiable against the LEAN formalization path described in the companion paper.</p></div>
+</div>
+
+<div class="prediction medium">
+  <div class="pred-head"><span class="pred-num">PREDICTION 9</span><span>The Control Layer Has a Finite Vocabulary</span><span class="pred-conf">Medium Confidence</span></div>
+  <div class="pred-body"><p>If the control layer is a language with a universal grammar, it has a finite vocabulary — approximately 1,600 known human TF binding motifs constituting the alphabet of regulatory instructions. Completing the vocabulary is a finite project, analogous to completing the codon table. Once complete, any promoter sequence can in principle be read as a logical formula in the regulatory grammar — a program fragment specifying which conditions activate the gene, which repress it, and which combination is required for each outcome.</p></div>
+</div>
+
+<!-- PART III -->
+<div class="part-header">
+  <span class="part-label">Part III</span>
+  <span class="part-title">The Grammar-Aware AI Research Program</span>
+</div>
+
+<h2>7. From Grammar-Blind to Grammar-Aware Models</h2>
+
+<p>Current AI models for biology — ESM2 (protein language model), Enformer (genomic sequence to gene expression), the Arc Institute's STATE model (perturbation response prediction) — learn statistical regularities in biological data without explicit knowledge of the logical grammar of gene regulation. A grammar-aware model would explicitly represent the logical primitives of the control layer as inductive biases. Rather than treating a promoter sequence as a string of nucleotides, it would parse the promoter as a logical formula: binding site X (TF-A) AND binding site Y (TF-B), with NOT site Z (repressor-C), CONDITIONAL on signal S.</p>
+
+<p>The GLMP hybridization strategy — using RegulonDB as a primary regulatory backbone combined with LLM-generated logical interpretation — is a practical implementation of grammar decoding. Databases contribute entity completeness (which TFs, which binding sites, which genes); LLMs contribute logical interpretation (AND vs. OR, conditional vs. constitutive, feedback vs. feed-forward). Scaling this approach across the GLMP sample would produce a corpus of logical specifications for regulatory circuits — the training data for grammar-aware AI models.</p>
+
+<h2>8. The LEAN Formalization Path Revisited</h2>
+
+<p>The companion paper identified LEAN 4 and Mathlib as the long-term formal verification path for the genomic conjecture. In the context of this sequel, the LEAN formalization path takes on additional significance: it is the path toward formally verified grammar-aware AI models. A grammar-aware model whose logical specifications are formalized in LEAN would have a property no current biological AI model possesses — its predictions could be formally verified against circuit specifications.</p>
+
+<div class="mmd-wrap">
+<div class="mermaid">
+graph TD
+  FR["Formally specify genomic primitive relations<br/>in LEAN's type theory<br/>(binding as a typed dyadic relation)"]
+  CT["Define circuit topology classes in LEAN<br/>(DAG vs. cyclic graph; feedback types;<br/>temporal and modal operators)"]
+  CS["Prove decidability of Class I circuits within LEAN<br/>(analogous to Tarski's completeness proof)"]
+  GR["Formalize the regulatory grammar<br/>(promoter logic as typed formulas in LEAN)"]
+  RM["Establish Reverse Mathematics equivalences<br/>for each complexity class"]
+  GA["Train grammar-aware models<br/>on LEAN-verified circuit specifications"]
+  TH["Full formalization of the five-class ladder<br/>as a theorem in LEAN/Mathlib"]
+
+  FR --> CT --> CS --> GR --> RM --> TH
+  GR --> GA
+
+  classDef lean fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  classDef model fill:#27ae60,color:#fff,stroke:#1e8449
+  classDef theorem fill:#c0392b,color:#fff,stroke:#96281b
+
+  class FR,CT,CS,GR,RM lean
+  class GA model
+  class TH theorem
+</div>
+<div class="mmd-caption"><strong>Figure 5.</strong> The LEAN formalization path for grammar-aware biological AI. Blue: LEAN specification and proof steps. Green: grammar-aware model training. Red: the long-term theorem target.</div>
+</div>
+
+<!-- PART IV -->
+<div class="part-header">
+  <span class="part-label">Part IV</span>
+  <span class="part-title">Future Directions</span>
+</div>
+
+<h2>9. The Empirical Sequel</h2>
+
+<p>This paper is the theoretical version of an argument that has an empirical sequel. The empirical tests include:</p>
+<ul class="plist">
+  <li><strong>Noise distribution analysis:</strong> For genes regulated by circuits of characterized class, compare observed single-cell expression distributions against the predicted patterns (Prediction 1).</li>
+  <li><strong>Attractor geometry analysis:</strong> For single-cell datasets from organisms with regulatory networks of characterized topological class, test whether UMAP geometry matches predicted attractor structure (Section 3).</li>
+  <li><strong>Virtual cell model stratification:</strong> Reanalyze existing virtual cell model benchmarks, stratified by the circuit class of target genes, to test whether accuracy correlates with circuit class (Prediction 5).</li>
+  <li><strong>Cross-organism topology conservation:</strong> Compare GLMP flowcharts of homologous circuits across organisms to test whether topological structure is more conserved than molecular identity (Universal Grammar Conjecture).</li>
+</ul>
+
+<h2>10. Open Questions</h2>
+<ul class="plist">
+  <li><strong>Is the control layer fully readable?</strong> Some regulatory elements may implement context-dependent logic whose meaning depends on three-dimensional chromatin structure or developmental history — information not encoded in sequence alone.</li>
+  <li><strong>What is the correct formalization of the CONDITIONAL?</strong> Real biological responses are graded. The correct formalization may require fuzzy logic, probabilistic logic, or continuous dynamical systems rather than classical Boolean logic.</li>
+  <li><strong>Does the complexity gradient extend to neural computation?</strong> If activity-dependent gene expression in neurons implements Class V circuits, the regulatory logic of neural plasticity may be subject to the same computability analysis as any other genomic circuit.</li>
+  <li><strong>What is the relationship between circuit class and evolutionary rate?</strong> Are Class V circuits subject to stronger purifying selection because their undecidability makes maladaptive behavior more likely?</li>
+  <li><strong>Consciousness and Class V regulatory dynamics (speculative).</strong> If Class V genomic circuits exhibit Turing-complete behavior including potential undecidability, and if neural function involves gene regulatory dynamics in neurons (activity-dependent gene expression, synaptic plasticity, epigenetic modification of chromatin in response to experience), then the computational substrate of neural information processing may include Class V circuit dynamics. This would be consistent with — though does not prove — the intuition that consciousness involves something computationally irreducible. We make no stronger claim than this: the computational framework of this paper is <em>consistent with</em> that intuition and provides a molecular mechanism through which such irreducibility might be implemented.</li>
+</ul>
+
+<h2>11. Conclusion</h2>
+
+<p>We have argued that the genome is a computer in a precise and non-metaphorical sense: its control layer implements a logical language whose primitives are binding, NOT, AND, OR, CONDITIONAL, and their temporal, modal, and predicate extensions, each with specific molecular implementations readable from genomic sequence and promoter architecture. The CONDITIONAL is the master primitive — the operation that introduces temporal response, contextual adaptation, and threshold sensitivity — of which all feedback relationships are special cases. The biconditional, NAND, NOR, XOR, and the full temporal-modal-predicate vocabulary are derived from these foundational operations, all grounded ultimately in the single primitive of binding.</p>
+
+<p>The transcriptome is the runtime state of this program: a high-dimensional snapshot sampleable by single-cell RNA-seq and analyzable as an attractor landscape. Cell types are attractors; cell fate decisions are state transitions; transcriptomic noise distributions are diagnostic signatures of circuit class.</p>
+
+<p>From this framework we derived nine predictions. The most consequential — that Rice's theorem sets a hard ceiling on cancer prediction for Class V circuits — is a mathematical claim about the limits of any algorithm. The most constructive — that grammar-aware AI models will outperform grammar-blind models — is a research program that GLMP's hybridization methodology is designed to support.</p>
+
+<p>The genome has been partially read for sixty years, since the cracking of the codon table. What remains unread is the control layer — the regulatory program that determines when, where, and under what conditions each gene's instruction is executed. Reading that program is the next great project of molecular biology. The logical framework developed in this paper and its companion is one approach to that reading. It may not be the right approach. But it is a precise approach, with falsifiable predictions, a clear epistemic ladder, and a long-term formalization path.</p>
+
+<p style="text-align:center; font-style:italic; color:var(--muted); margin-top:1.5rem; margin-bottom:0;">Either outcome advances the field.</p>
+
+<hr>
+
+<section class="references">
+<h2>Key References</h2>
+<p style="font-family:var(--sans);font-size:0.82rem;color:var(--muted);margin-bottom:1rem;font-style:italic;">This paper builds on references 1–33 of the companion paper. New references for this sequel:</p>
+<p style="font-family:var(--sans);font-size:0.88rem;margin-bottom:1.2rem;"><strong>Companion paper:</strong> Welz, G. <em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.</em> GLMP Working Paper, 2026. <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Full text</a>.</p>
+<ol>
+  <li>Jacob, F. &amp; Monod, J. Genetic regulatory mechanisms in the synthesis of proteins. <em>Journal of Molecular Biology,</em> 3(3), 1961. <a href="https://doi.org/10.1016/S0022-2836(61)80072-7">DOI</a>. Founding paper of molecular regulatory logic; establishes the repressor-operator NOT gate.</li>
+  <li>Ptashne, M. <em>A Genetic Switch: Phage Lambda Revisited.</em> 3rd ed. Cold Spring Harbor Laboratory Press, 2004. Bistable Class III circuit as biconditional with negation.</li>
+  <li>Thanos, D. &amp; Maniatis, T. Virus induction of human IFN-β gene expression requires the assembly of an enhanceosome. <em>Cell,</em> 83(7), 1995. <a href="https://doi.org/10.1016/0092-8674(95)90417-0">DOI</a>. Multi-input AND gate.</li>
+  <li>Alon, U. <em>An Introduction to Systems Biology: Design Principles of Biological Circuits.</em> Chapman &amp; Hall/CRC, 2006. Network motifs as computational units.</li>
+  <li>Milo, R. et al. Network motifs: simple building blocks of complex networks. <em>Science,</em> 298(5594), 2002. <a href="https://doi.org/10.1126/science.298.5594.824">DOI</a>.</li>
+  <li>Gardner, T. et al. Construction of a genetic toggle switch in Escherichia coli. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002131">DOI</a>. Toggle switch as bistable Class III circuit; biconditional with negation.</li>
+  <li>Elowitz, M. &amp; Leibler, S. A synthetic oscillatory network of transcriptional regulators. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002125">DOI</a>. Repressilator as Class IV oscillatory circuit.</li>
+  <li>Ferrell, J.E. &amp; Xiong, W. Bistability in cell signaling. <em>Chaos,</em> 11(1), 2001. <a href="https://doi.org/10.1063/1.1349894">DOI</a>. Mathematical basis of bistability.</li>
+  <li>Waddington, C.H. <em>The Strategy of the Genes.</em> Allen &amp; Unwin, 1957. The epigenetic landscape; reinterpreted here as attractor landscape.</li>
+  <li>Takahashi, K. &amp; Yamanaka, S. Induction of pluripotent stem cells from mouse embryonic and adult fibroblast cultures by defined factors. <em>Cell,</em> 126(4), 2006. <a href="https://doi.org/10.1016/j.cell.2006.07.024">DOI</a>. Reprogramming as forced attractor transition.</li>
+  <li>Rice, H.G. Classes of Recursively Enumerable Sets and Their Decision Problems. <em>Transactions of the American Mathematical Society,</em> 74(2), 1953. <a href="https://doi.org/10.2307/1990888">JSTOR</a>. Rice's theorem.</li>
+  <li>Pnueli, A. The temporal logic of programs. In <em>Proc. 18th Annual Symposium on Foundations of Computer Science,</em> 1977. <a href="https://doi.org/10.1109/SFCS.1977.32">DOI</a>. Founding paper of temporal logic for program verification.</li>
+  <li>Clarke, E.M., Grumberg, O. &amp; Peled, D. <em>Model Checking.</em> MIT Press, 1999. Temporal logic model checking; applicable to gene regulatory circuit verification.</li>
+  <li>Lin, Z. et al. Evolutionary-scale prediction of atomic-level protein structure with a language model. <em>Science,</em> 379(6637), 2023. <a href="https://doi.org/10.1126/science.ade2574">DOI</a>. ESM2: grammar-blind protein language model.</li>
+  <li>Avsec, Ž. et al. Effective gene expression prediction from sequence by integrating long-range interactions. <em>Nature Methods,</em> 18, 2021. <a href="https://doi.org/10.1038/s41592-021-01252-x">DOI</a>. Enformer: sequence to expression model.</li>
+  <li>Stormo, G.D. DNA binding sites: representation and discovery. <em>Bioinformatics,</em> 16(1), 2000. <a href="https://doi.org/10.1093/bioinformatics/16.1.16">DOI</a>. The JASPAR/motif database approach.</li>
+  <li>ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. <em>Nature,</em> 489, 2012. <a href="https://doi.org/10.1038/nature11247">DOI</a>. Systematic mapping of regulatory elements.</li>
+  <li>Ptashne, M. &amp; Gann, A. <em>Genes and Signals.</em> Cold Spring Harbor Laboratory Press, 2002. Molecular basis of transcriptional activation and repression as logical operations.</li>
+  <li>Bintu, L. et al. Transcriptional regulation by the numbers: models. <em>Current Opinion in Genetics &amp; Development,</em> 15(2), 2005. <a href="https://doi.org/10.1016/j.gde.2005.02.007">DOI</a>. Quantitative treatment of promoter logic as combinatorial input-output functions.</li>
+</ol>
+</section>
+
+<div class="paper-footer">
+  Genome Logic Modeling Project — Gary Welz — CUNY Graduate Center / New Media Lab — Working Paper 2026<br>
+  Sequel to: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a>
+</div>
+
+<script>
+(function () {
+  var cfg = {
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#1abc9c',
+      primaryTextColor: '#fff',
+      primaryBorderColor: '#16a085',
+      lineColor: '#333',
+      secondaryColor: '#2E75B6',
+      tertiaryColor: '#f0f4f8'
+    },
+    flowchart: { curve: 'basis', nodeSpacing: 50, rankSpacing: 60 }
+  };
+  function renderDiagrams() {
+    if (typeof mermaid === 'undefined' || !mermaid.run) return;
+    try { mermaid.initialize(cfg); } catch (e) { console.warn('Mermaid initialize', e); }
+    mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
+      console.warn('Mermaid run', err);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderDiagrams);
+  } else {
+    renderDiagrams();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draft — Mermaid flowcharts for perturbation design (methods primer)</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #0d47a1;
+      --border: #ccc;
+      --callout: #fff8e1;
+      --callout-border: #f9a825;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+    }
+    article { max-width: 44rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    .banner {
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+      background: #e3f2fd;
+      border: 1px solid #90caf9;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: system-ui, sans-serif;
+      font-size: 1.65rem;
+      line-height: 1.25;
+      margin: 0 0 0.5rem;
+    }
+    .subtitle { font-size: 1.05rem; color: var(--muted); margin: 0 0 1rem; }
+    .meta {
+      font-family: system-ui, sans-serif;
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-family: system-ui, sans-serif;
+      font-size: 1.28rem;
+      margin: 2rem 0 0.65rem;
+      color: var(--accent);
+    }
+    h3 { font-family: system-ui, sans-serif; font-size: 1.08rem; margin: 1.35rem 0 0.45rem; }
+    p { margin: 0.6rem 0; }
+    ul, ol { margin: 0.45rem 0; padding-left: 1.35rem; }
+    li { margin: 0.3rem 0; }
+    a { color: var(--accent); }
+    .exercise {
+      background: var(--callout);
+      border: 1px solid var(--callout-border);
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem;
+      margin: 1.5rem 0 2rem;
+      font-family: system-ui, sans-serif;
+    }
+    .exercise h2 { margin-top: 0; color: #e65100; font-size: 1.1rem; }
+    .prompt {
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      padding: 0.75rem 0.9rem;
+      border-radius: 4px;
+      border-left: 4px solid var(--callout-border);
+      margin: 0.65rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      font-family: system-ui, sans-serif;
+      margin: 1rem 0;
+    }
+    th, td { border: 1px solid var(--border); padding: 0.4rem 0.5rem; vertical-align: top; text-align: left; }
+    th { background: #e8eaf6; }
+    .fig {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.25rem 0;
+      overflow-x: auto;
+    }
+    .fig-caption {
+      font-family: system-ui, sans-serif;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      border-left: 4px solid var(--accent);
+      background: #e8eaf6;
+      font-style: italic;
+    }
+    .refs { font-size: 0.9rem; }
+    .refs ol { padding-left: 1.4rem; }
+    code { font-size: 0.88em; background: #eee; padding: 0.1em 0.35em; border-radius: 3px; }
+    .diff-legend {
+      font-family: system-ui, sans-serif;
+      font-size: 0.88rem;
+      margin: 0.5rem 0 0;
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      line-height: 1.45;
+    }
+    .diff-missing {
+      background: #ffebee;
+      border: 2px solid #e57373;
+      color: #b71c1c;
+    }
+    .diff-added {
+      background: #fff8e1;
+      border: 2px solid #ff9800;
+      color: #e65100;
+    }
+    .diff-table { font-family: system-ui, sans-serif; font-size: 0.88rem; margin: 1rem 0; }
+    .diff-table th { background: #eceff1; }
+    @media print { body { background: #fff; } }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+<article>
+  <div class="banner">
+    <strong>Draft for bioRxiv / methods submission.</strong> Not peer-reviewed. Text and figures may change before posting.
+  </div>
+
+  <header>
+    <h1>Mermaid flowcharts for perturbation design: diagrams-as-code, curated databases, and the <em>E. coli</em> lac operon as a worked example</h1>
+    <p class="subtitle">A methods-oriented primer for investigators combining large language models, RegulonDB-class resources, and logic-style process charts</p>
+    <p class="meta">
+      <strong>Gary Welz</strong><br>
+      <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a> · CUNY Graduate Center<br>
+      Draft date: April 2026
+    </p>
+  </header>
+
+  <section class="exercise" id="hands-on">
+    <h2>Recommended hands-on before reading the methods sections</h2>
+    <p>In any contemporary large language model, run the following prompt verbatim (paste as written):</p>
+    <p class="prompt">Use mermaid markdown format to make a flowchart of the Lac Operon and deliver it to me as an html file.</p>
+    <p>Inspect the returned HTML. Then issue a <em>second</em> prompt of the same form for <strong>any other biological process</strong> you use in the lab or in silico (pathway, signaling cascade, drug mechanism). The remainder of this draft assumes familiarity with how variable, detailed, and revisable such outputs are—and why reconciliation with curated data remains necessary.</p>
+  </section>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>
+      Planning genetic, pharmacological, or nutritional perturbations is easier when the investigator can state, in advance, which molecular levers are plausible and which readouts would discriminate competing mechanisms. Logic-style flowcharts—authored as <em>diagrams-as-code</em> (here using <strong>Mermaid</strong> markdown)—provide a lightweight, versionable complement to pathway databases, genome browsers, and machine-learning predictors. This methods paper distills a seminar-tested workflow for a general research audience: we motivate text-based diagrams in wet-lab and computational pipelines; we compare three deliberately different encodings of the classical <em>Escherichia coli</em> lactose (<em>lac</em>) operon—a <strong>literature-first logic diagram</strong> with explicit Boolean-style gates, a <strong>RegulonDB-emphasis regulatory wiring diagram</strong> without those gates, and a <strong>hybrid diagram</strong> that retains interpretive logic while adding database-grounded entities (notably explicit <em>lacI</em> expression); we explain why the full two-input induction condition (inducer present and catabolite repression relieved) appears only in some encodings; and we recommend <em>layered hybridization</em> (regulatory backbone + literature logic + identifier and parts audits) instead of naively merging incompatible ontologies. No bespoke software is required beyond ordinary LLM access, Mermaid rendering, and public databases.
+    </p>
+  </section>
+
+  <section id="intro">
+    <h2>1. Introduction</h2>
+    <p>
+      The <em>lac</em> operon remains the canonical bacterial example of integrating environmental signals, transcription factors, and promoter logic.<sup><a href="#r1">1</a></sup> Contemporary laboratories rarely study it in isolation, but it is ideal as a <em>tutorial system</em>: many curated representations exist, so <strong>source choice</strong> becomes visible as scientific information rather than as an invisible preprocessing step.
+    </p>
+    <p>
+      Meanwhile, perturbation-forward workflows—CRISPR screens, chemical genetics, single-cell readouts, virtual-cell-style predictors—benefit from an explicit, criticizable sketch of <strong>inputs, branch points, feedback, and candidate measurements</strong> before budget is committed. A flowchart is not a mechanistic ordinary differential equation model and not a trained deep network; it is a <strong>hypothesis artifact</strong> suitable for group review, supplementary files, and teaching.
+    </p>
+    <p>
+      <strong>Mermaid</strong> is a widely supported markdown-adjacent language for flowcharts and related diagrams; source text diffs cleanly in Git and renders in browsers, notebooks, and static site generators.<sup><a href="#r2">2</a></sup> Modern LLMs can emit fenced <code>mermaid</code> blocks from natural language, which accelerates first drafts but <em>increases</em> the obligation to validate against authoritative resources: prompt and model choice change topology and node identity.
+    </p>
+  </section>
+
+  <section id="aims">
+    <h2>2. Objectives for the practicing investigator</h2>
+    <ul>
+      <li>State <strong>what could change</strong> under a planned intervention before locking readouts or model architecture.</li>
+      <li>Maintain <strong>diagrams-as-code</strong> beside literature notes and analysis scripts.</li>
+      <li>Combine <strong>LLM-assisted layout</strong> with <strong>RegulonDB-class</strong> (or organism-equivalent) regulatory facts without collapsing distinct abstraction levels into one unreadable graph.</li>
+      <li>Treat <strong>disagreement between diagram sources</strong> as data—analogous to comparing alignment or quantification pipelines.</li>
+    </ul>
+  </section>
+
+  <section id="transcriptomics">
+    <h2>3. Role alongside transcriptomics and predictive models</h2>
+    <p>
+      High-dimensional expression or chromatin data and modern predictors answer different questions than a hand-specified logic chart. The chart’s job is to make <strong>conditional structure</strong> discussable: which environmental axes gate which genes, where redundancy may hide causal effects, and which branch-point perturbations would be most informative. It should complement—not replace—controlled experiments and quantitative models.
+    </p>
+  </section>
+
+  <section id="mermaid-practice">
+    <h2>4. Practical properties of Mermaid in research groups</h2>
+    <ul>
+      <li><strong>Text → vector diagram:</strong> the same source renders in CI documentation, lab wikis, and supplementary PDF pipelines.</li>
+      <li><strong>Collaboration:</strong> pull requests on diagram source are interpretable; meeting-driven edits are quick.</li>
+      <li><strong>LLM interface:</strong> models can propose structure; human authors remain responsible for citations, organism fit, and experimental feasibility.</li>
+    </ul>
+  </section>
+
+  <section id="llm-lac">
+    <h2>5. LLM-first <em>lac</em> charts: what to expect</h2>
+    <p>
+      A well-posed conversational prompt often yields a surprisingly detailed first pass: two-input logic (allolactose / LacI and glucose / cAMP–CRP), default OFF at the operator, graded induction, sometimes a feedback arc as inducer is consumed. Reliability varies by model version and prompt; treat any auto-generated chart as <strong>revision zero</strong> to be checked against reviews and databases.
+    </p>
+  </section>
+
+  <section id="three-charts">
+    <h2>6. Three encodings of the same operon</h2>
+    <p>
+      GLMP-style public comparisons (see viewer linked below) contrast multiple evidence mixes for one operon. For methods exposition we isolate <strong>three</strong> complementary styles—without the older “V1/V2” labels that confused seminar audiences. Names here are descriptive only.
+    </p>
+
+    <h3>6.1 Literature-first logic diagram</h3>
+    <p>
+      Built from textbook-style reasoning, this encoding foregrounds <strong>explicit AND-style integration</strong> (e.g. strong transcription when the operator is free <em>and</em> CAP is productively engaged) and separates high-glucose / low-cAMP branches. It is optimized for <em>pedagogy and perturbation intuition</em>, not for locus tags.
+    </p>
+    <p>
+      <strong>What is typically <em>missing</em> here:</strong> there is <strong>no</strong> first-class node for <strong><em>lacI</em> transcription</strong> or for the <strong>gene → protein</strong> production of the repressor. “LacI” appears only inside the wording of the first diamond—the repressor is <em>assumed</em> to exist whenever lactose logic is discussed. That is fine for high-level logic, but it hides a real experimental lever (CRISPRi on <em>lacI</em>, titration of repressor copy number, etc.).
+    </p>
+    <div class="fig">
+      <div class="fig-caption">Figure A. Literature-first logic. <strong style="color:#6a1b9a;">Purple diamonds</strong> = explicit Boolean-style questions. <strong style="color:#2e7d32;">Green</strong> = strong transcription outcome. <strong style="color:#c62828;">Red dashed box</strong> = what this encoding usually leaves implicit (no biosynthesis path for LacI).</div>
+      <div class="mermaid mmd-a">
+graph TD
+  L{Lactose / allolactose relieves LacI?}
+  L -->|No| RepOn[Repressor bound at operator]
+  L -->|Yes| OpFree[Operator accessible]
+  RepOn --> Blocked[Transcription blocked or basal]
+  G{Glucose low → high cAMP?}
+  G -->|Yes| CAP[CAMP-CAP productive at promoter]
+  G -->|No| NoCAP[Weak CAP activation]
+  OpFree --> AND{Operator free AND strong CAP assist?}
+  CAP --> AND
+  NoCAP --> AND
+  AND -->|Yes| ON[Strong lacZYA expression]
+  AND -->|No| WEAK[Weak or delayed expression]
+  L -.->|Repressor appears with no prior step| MISSING["NOT SHOWN: lacI gene → transcription → LacI protein"]
+  style L fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style G fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style ON fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+  style WEAK fill:#e8f5e9,stroke:#33691e,color:#000
+  style CAP fill:#b3e5fc,stroke:#01579b,color:#000
+  style NoCAP fill:#e1f5fe,stroke:#0277bd,color:#000
+  style OpFree fill:#fff9c4,stroke:#f57f17,color:#000
+  style RepOn fill:#ffccbc,stroke:#bf360c,color:#000
+  style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+  style MISSING fill:#ffcdd2,stroke:#c62828,stroke-width:3px,stroke-dasharray: 6 4,color:#000
+      </div>
+      <p class="diff-legend diff-missing"><strong>Read Figure A against Figure C:</strong> the red dashed node has <em>no counterpart</em> in the main flow above—the hybrid instead inserts a real chain of orange nodes for <em>lacI</em> expression before any “repressor off operator?” question.</p>
+    </div>
+
+    <h3>6.2 RegulonDB-emphasis regulatory wiring</h3>
+    <p>
+      A chart faithful to how <strong>RegulonDB</strong> (and similar TF→target resources) represent <em>E. coli</em> transcriptional regulation centers <strong>who regulates whom</strong> with signed or labeled edges; it does not, by itself, encode the full Boolean “both conditions” story as explicit gate nodes. It excels at <strong>entity completeness for regulatory interactions</strong>.<sup><a href="#r3">3</a></sup>
+    </p>
+    <div class="fig">
+      <div class="fig-caption">Figure B. Regulatory wiring emphasis (schematic). <strong style="color:#e65100;">Orange</strong> highlights the same <em>lacI</em> gene → protein spine RegulonDB-style resources encode as first-class entities. There are still <strong>no purple AND diamonds</strong>—combining “operator free” with “CAP assist” is left to the reader.</div>
+      <div class="mermaid mmd-b">
+graph LR
+  lacIgene[lacI gene]
+  lacIgene --> LacI[LacI repressor protein]
+  allo[Allolactose / inducer]
+  allo -. antagonizes .-> LacI
+  LacI -. repression .-> lacOp[lac promoter / operon]
+  crp[CRP-cAMP]
+  crp -. activation .-> lacOp
+  lacOp --> lacZ[lacZ]
+  lacOp --> lacY[lacY]
+  lacOp --> lacA[lacA]
+  Glc[High glucose / low cAMP]
+  Glc -. reduces .-> crp
+  lacZ --> products[Lactose utilization products]
+  style lacIgene fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000
+  style LacI fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000
+  style lacOp fill:#e3f2fd,stroke:#0d47a1,color:#000
+  style crp fill:#b3e5fc,stroke:#01579b,color:#000
+  style lacZ fill:#c8e6c9,stroke:#2e7d32,color:#000
+  style lacY fill:#c8e6c9,stroke:#2e7d32,color:#000
+  style lacA fill:#c8e6c9,stroke:#2e7d32,color:#000
+  style allo fill:#fff9c4,stroke:#f57f17,color:#000
+  style Glc fill:#ffccbc,stroke:#bf360c,color:#000
+  style products fill:#e1bee7,stroke:#6a1b9a,color:#000
+      </div>
+    </div>
+
+    <h3>6.3 Hybrid diagram (literature logic + RegulonDB entity completeness)</h3>
+    <p>
+      The <strong>hybrid</strong> merges interpretive structure from reviews and LLM drafts with <strong>database-grounded entities</strong>. Concretely for <em>lac</em>, one adds an explicit step for <strong><em>lacI</em> transcription → LacI protein</strong> upstream of operator control. That node matters for real perturbations (e.g. tuning repressor dosage) that a purely narrative “repressor exists” arrow can elide. Boolean-style gates from the literature-first chart are retained where they clarify conditionality.
+    </p>
+    <p>
+      <strong>Exactly one structural addition vs. Figure A:</strong> the two <strong style="color:#e65100;">orange</strong> nodes at the top—<em>lacI</em> biosynthesis—are the RegulonDB-class spine that Figure A’s red “NOT SHOWN” box warned was missing. The <strong style="color:#6a1b9a;">purple diamonds</strong> and the final <strong style="color:#2e7d32;">green</strong> transcription outcome use the same color language as Figure A so the <em>logic</em> layer is visually comparable; only the orange chain is new.
+    </p>
+    <div class="fig">
+      <div class="fig-caption">Figure C. Hybrid. <strong style="color:#e65100;">Orange</strong> = explicit <em>lacI</em> gene → protein (RegulonDB-style completeness). <strong style="color:#6a1b9a;">Purple diamonds</strong> = same style of Boolean questions as Figure A. <strong style="color:#2e7d32;">Green</strong> = strong lacZYA output.</div>
+      <div class="mermaid mmd-c">
+graph TD
+  lacI_tx["lacI gene to transcription to LacI protein"]
+  lacI_tx --> LacI[LacI repressor at operator]
+  Lact[Lactose / inducer signal]
+  Lact --> IndR{Repressor off operator?}
+  LacI --> IndR
+  IndR -->|No| Blocked[Operon blocked]
+  IndR -->|Yes| OpOK[Operator accessible]
+  Glc[Glucose / cAMP state]
+  Glc --> CAPs{CAMP-CAP assists promoter?}
+  CAPs --> AND{Operator free AND CAP assist?}
+  OpOK --> AND
+  AND -->|Yes| Strong[Strong lacZYA transcription]
+  AND -->|No| Weak[Weak / basal transcription]
+  style lacI_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+  style LacI fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+  style IndR fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style CAPs fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+  style Strong fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+  style Weak fill:#e8f5e9,stroke:#33691e,color:#000
+  style OpOK fill:#fff9c4,stroke:#f57f17,color:#000
+  style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+  style Lact fill:#fff9c4,stroke:#f9a825,color:#000
+  style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+      </div>
+      <p class="diff-legend diff-added"><strong>Visual diff A → C:</strong> follow the orange boxes—Figure A has no such path; Figure C inserts the same biological spine already drawn in orange in Figure B, then reconnects it to the purple logic diamonds.</p>
+    </div>
+
+    <h3>6.4 At-a-glance: literature-first vs. hybrid</h3>
+    <table class="diff-table">
+      <thead>
+        <tr><th>Feature</th><th>Literature-first (Fig. A)</th><th>Hybrid (Fig. C)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><em>lacI</em> gene → mRNA → LacI protein</td><td><strong>Absent</strong> (repressor “appears” only inside question text)</td><td><strong>Present</strong> as two orange nodes at the top of the graph</td></tr>
+        <tr><td>Explicit AND gate for strong transcription</td><td>Yes (purple diamond)</td><td>Yes (same color convention)</td></tr>
+        <tr><td>Perturbation you can read off the picture</td><td>Nutrients, operator, CAP branch</td><td>Those <strong>plus</strong> tuning <em>lacI</em> expression as its own lever</td></tr>
+        <tr><td>RegulonDB-style entity completeness</td><td>Not the goal</td><td>Explicitly merged into the logic chart</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Interactive multi-encoding views for the same operon (many additional source mixes exist in the public corpus) are available at the GLMP demo viewer:<br>
+      <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/glmp-viewer-demo-v1-v6.html?process=ecoli_lac_operon&amp;version=v1">https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/glmp-viewer-demo-v1-v6.html?process=ecoli_lac_operon&amp;version=v1</a>
+    </p>
+  </section>
+
+  <section id="and">
+    <h2>7. Why the two-input induction condition is not automatic in database-native views</h2>
+    <p>
+      Strong induction requires relief of LacI-mediated repression <em>and</em> favorable catabolite control (often summarized as glucose scarcity → sufficient cAMP for CRP). Textbook diagrams express that as <strong>AND</strong> logic. Curated regulatory databases excel at listing regulators, targets, and evidence; they do not always export that <strong>simultaneous</strong> requirement as explicit gate nodes. LLM- or review-driven charts supply that interpretive layer—subject to validation—while RegulonDB-class edges supply <strong>who is connected to whom</strong>.
+    </p>
+  </section>
+
+  <section id="layered">
+    <h2>8. Layered hybridization (recommended workflow)</h2>
+    <ol>
+      <li><strong>Regulatory backbone:</strong> TF→gene resolution from a trusted resource (for <em>E. coli</em>, RegulonDB or equivalent).</li>
+      <li><strong>Interpretive overlay:</strong> literature or LLM-assisted gates and feedback arcs where they clarify conditionality.</li>
+      <li><strong>Parts audit:</strong> EcoCyc / BioCyc for enzyme identities and reactions—often checked rather than merged as raw topology.<sup><a href="#r4">4</a></sup></li>
+      <li><strong>Identifier layer:</strong> KEGG or model-organism locus tags attached as node metadata after topology stabilizes.<sup><a href="#r5">5</a></sup></li>
+    </ol>
+    <p>
+      Naive union of every node type from multiple ontologies typically <strong>obscures</strong> the very branch logic that makes diagrams useful for perturbation planning.
+    </p>
+  </section>
+
+  <section id="prompts">
+    <h2>9. Prompt sensitivity</h2>
+    <p>
+      Same pathway, same organism, different natural-language instructions (detail level, whether to foreground CRP, metabolism vs. regulation) yield different Mermaid topologies. Best practice: generate two charts, diff the source, reconcile against one primary review figure or database page, and archive both the Mermaid text and the citation in supplementary material.
+    </p>
+  </section>
+
+  <section id="habits">
+    <h2>10. Operational habit: tools before sunk cost</h2>
+    <p>
+      Investigators benefit from routinely pairing literature search, structured databases, and diagram-as-code so that <strong>inputs, branch points, and feedback</strong> are explicit before large experiments or model training runs. Public GLMP galleries illustrate how source mixtures change charts; they are optional references, not prerequisites.
+    </p>
+  </section>
+
+  <section id="buckets">
+    <h2>11. Evidence buckets for perturbation design</h2>
+    <p>Real projects combine:</p>
+    <ol>
+      <li>Primary literature and reviews (mechanism, conditions).</li>
+      <li>Pathway and interaction databases (Reactome, KEGG, WikiPathways, BioCyc; STRING for functional linkage).<sup><a href="#r6">6</a>–<a href="#r8">8</a></sup></li>
+      <li>Gene-centric resources (NCBI Gene, UniProt, Ensembl, GO).</li>
+      <li>Regulatory layers (RegulonDB, Abasy-class summaries where available; refs. <a href="#r3">3</a>, <a href="#r9">9</a>).</li>
+      <li>Perturbation execution (reagents, libraries, chemistry).</li>
+      <li>Data archives for realistic readouts (e.g. GEO).<sup><a href="#r10">10</a></sup></li>
+    </ol>
+  </section>
+
+  <section id="supplement">
+    <h2>12. What logic charts add on top of databases and papers</h2>
+    <table>
+      <thead>
+        <tr><th>Typical resources</th><th>Logic-style flowchart</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Gene lists and canonical pathway maps</td><td>Explicit branching and AND/OR reasoning under stated conditions</td></tr>
+        <tr><td>Static lookup-optimized maps</td><td>Discourse layout: “if this edge is removed, what fails first?”</td></tr>
+        <tr><td>Perturbation methods</td><td>Menu of informative interventions tied to mechanism sketch</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="synthesis">
+    <h2>13. Synthesis</h2>
+    <blockquote>
+      Databases summarize what is connected; papers record what was measured under stated designs; a logic flowchart helps investigators choose perturbations that disambiguate mechanisms and anticipate qualitative directions before committing full experimental or computational cost.
+    </blockquote>
+  </section>
+
+  <section id="data-availability" class="refs">
+    <h2>Data and code availability</h2>
+    <p>
+      Public GLMP process JSON and viewers reside on Google Cloud Storage; the lac operon multi-viewer URL is given in §6. No new experimental data were generated for this methods draft.
+    </p>
+  </section>
+
+  <section id="references" class="refs">
+    <h2>References</h2>
+    <ol>
+      <li id="r1">Jacob F, Monod J. Genetic regulatory mechanisms in the synthesis of proteins. <em>J Mol Biol</em>. 1961;3(3):318–356.</li>
+      <li id="r2">Mermaid documentation. <a href="https://mermaid.js.org/">https://mermaid.js.org/</a> (accessed 2026).</li>
+      <li id="r3">Gama-Castro S, et al. RegulonDB: a database of transcriptional regulation in <em>Escherichia coli</em> K-12. <em>Nucleic Acids Res</em>. (current database issue). <a href="https://regulondb.ccg.unam.mx/">https://regulondb.ccg.unam.mx/</a></li>
+      <li id="r4">Keseler IM, et al. EcoCyc: enriching the BioCyc collection of databases. <em>Nucleic Acids Res</em>. 2021;49(D1):D608–D612.</li>
+      <li id="r5">Kanehisa M, Furumichi M, Sato Y, Kawashima M, Ishiguro-Watanabe M. KEGG for taxonomy-based analysis of pathways and genomes. <em>Nucleic Acids Res</em>. 2023;51(D1):D587–D592.</li>
+      <li id="r6">Gillespie M, et al. The Reactome Pathway Knowledgebase 2024. <em>Nucleic Acids Res</em>. 2024;52(D1):D672–D678.</li>
+      <li id="r7">Martens M, et al. WikiPathways: connecting communities. <em>Nucleic Acids Res</em>. 2021;49(D1):D613–D621.</li>
+      <li id="r8">Szklarczyk D, et al. The STRING database in 2025. <em>Nucleic Acids Res</em>. 2025;53(D1):D638–D646.</li>
+      <li id="r9">Escorcia-Rodríguez JM, Tauch A, Freyre-González JA. Abasy Atlas v2.2. <em>Comput Struct Biotechnol J</em>. 2020;18:1228–1237.</li>
+      <li id="r10">Barrett T, et al. NCBI GEO: archive for functional genomics data—updated. <em>Nucleic Acids Res</em>. 2013;41(D1):D991–D995.</li>
+    </ol>
+  </section>
+
+  <footer class="meta" style="margin-top:2.5rem;font-family:system-ui,sans-serif;font-size:0.88rem;color:#666;border-top:1px solid #ccc;padding-top:1rem;">
+    <p><strong>Suggested bioRxiv category:</strong> Methods / Systems biology. &nbsp;|&nbsp; Correspondence: <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a></p>
+  </footer>
+</article>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'neutral',
+    securityLevel: 'loose',
+    flowchart: { curve: 'basis', useMaxWidth: true }
+  });
+</script>
+</body>
+</html>

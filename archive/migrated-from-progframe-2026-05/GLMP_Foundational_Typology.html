@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class &mdash; GLMP 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --ink:       #1a1a2e;
+    --deep:      #1F3864;
+    --accent:    #2E75B6;
+    --accent2:   #c0392b;
+    --muted:     #5a6a7a;
+    --rule:      #d0d8e4;
+    --bg:        #faf9f7;
+    --bg-alt:    #f0f4f8;
+    --bg-table:  #f7f9fc;
+    --serif:     'Libre Baskerville', Georgia, serif;
+    --sans:      'Source Sans 3', system-ui, sans-serif;
+    --mono:      'Source Code Pro', monospace;
+    --max:       780px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  .paper-header {
+    background: var(--deep);
+    color: #fff;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+  }
+  .paper-header .label {
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #a8c4e0;
+    margin-bottom: 1.5rem;
+  }
+  .paper-header h1.paper-title-main {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #fff;
+    max-width: 820px;
+    margin: 0 auto 0.5rem;
+  }
+  .paper-header .paper-subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.35;
+    color: #c8dced;
+    max-width: 760px;
+    margin: 0 auto 0.35rem;
+    text-align: center;
+  }
+  .paper-header .paper-subtitle:last-of-type { margin-bottom: 1.5rem; }
+  .paper-header .meta {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: #c8d8e8;
+    line-height: 1.6;
+  }
+  .paper-header .meta strong { color: #fff; font-weight: 600; }
+  .paper-header .meta a { color: #a8d4f5; text-decoration: none; }
+  .paper-header .meta a:hover { text-decoration: underline; }
+
+  .paper-body {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  .abstract {
+    background: var(--bg-alt);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0 3rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .abstract .abstract-label {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .abstract p {
+    font-size: 0.95rem;
+    color: #2a3a4a;
+    line-height: 1.8;
+    font-style: italic;
+  }
+  .abstract p + p { margin-top: 1rem; }
+
+  .scope-note {
+    background: #f4f6f9;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--deep);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0 2.5rem;
+    border-radius: 0 4px 4px 0;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #2a3a4a;
+  }
+  .scope-note .scope-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--deep);
+    margin-bottom: 0.65rem;
+  }
+  .scope-note p { margin-bottom: 0.85rem; text-align: left; hyphens: none; }
+  .scope-note p:last-child { margin-bottom: 0; }
+
+  .section { margin-bottom: 3rem; }
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--deep);
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--rule);
+  }
+  h3.sub-title {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.01em;
+  }
+  p {
+    margin-bottom: 1.1rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .conjecture {
+    background: linear-gradient(135deg, #eef4fb 0%, #f5f0fa 100%);
+    border: 1px solid #b8cfe8;
+    border-left: 5px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0 2rem;
+    font-style: italic;
+    color: #1a2a3a;
+    line-height: 1.85;
+  }
+  .conjecture .conjecture-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-style: normal;
+    margin-bottom: 0.6rem;
+  }
+
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0 2rem; }
+  table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.875rem; }
+  thead tr { background: var(--deep); color: #fff; }
+  thead th { padding: 0.65rem 0.85rem; text-align: left; font-weight: 600; letter-spacing: 0.02em; }
+  tbody tr:nth-child(even) { background: var(--bg-table); }
+  tbody tr:nth-child(odd)  { background: #fff; }
+  tbody tr:hover           { background: #e8f0f8; }
+  tbody td { padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+  tbody td:first-child { font-weight: 600; color: var(--deep); }
+
+  .paper-list { list-style: none; margin: 1rem 0 1.5rem 0; padding: 0; }
+  .paper-list li { padding: 0.4rem 0 0.4rem 1.6rem; position: relative; line-height: 1.65; border-bottom: 1px solid var(--rule); }
+  .paper-list li:last-child { border-bottom: none; }
+  .paper-list li::before { content: "\203A"; position: absolute; left: 0.3rem; color: var(--accent); font-weight: 700; font-size: 1.1rem; line-height: 1.5; }
+  .paper-list li strong { color: var(--deep); }
+
+  .class-ladder { list-style: none; margin: 1rem 0 1.5rem; padding: 0; }
+  .class-ladder li {
+    padding: 0.6rem 0.75rem 0.6rem 3.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    background: var(--bg-alt);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent);
+    line-height: 1.6;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+  .class-ladder li .class-num {
+    position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 0.75rem;
+    width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .class-ladder li .ladder-sep { margin-right: 0.35em; color: var(--muted); font-weight: 600; user-select: none; }
+  .class-ladder li strong { color: var(--deep); }
+
+  .diagram-wrap {
+    background: var(--bg-alt);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 2rem 1rem;
+    margin: 1.5rem 0 2.5rem;
+    text-align: center;
+    overflow-x: auto;
+  }
+  .diagram-caption {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  .rung-label {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: var(--sans);
+  }
+  .status-done    { color: #1a7a3a; font-weight: 600; }
+  .status-partial { color: #b86000; font-weight: 600; }
+  .status-conj    { color: var(--accent); font-weight: 600; }
+  .status-spec    { color: var(--muted); font-style: italic; }
+
+  .references ol { padding-left: 1.5rem; font-family: var(--sans); font-size: 0.875rem; line-height: 1.7; color: var(--muted); }
+  .references ol li { margin-bottom: 0.5rem; }
+  .references a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .references a:hover { color: var(--deep); }
+
+  .paper-footer {
+    background: var(--deep);
+    color: #8aa8c8;
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  hr.divider { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  em.term { font-style: normal; font-weight: 600; color: var(--deep); }
+
+  /* Part headers */
+  .part-header {
+    margin: 3rem 0 1.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--deep);
+    border-radius: 4px;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .part-label {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #a8c4e0;
+  }
+  .part-title {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .part-bridge {
+    background: var(--bg-alt);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0 3rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: #2a3a4a;
+    line-height: 1.75;
+    font-style: italic;
+  }
+
+  /* Table footnote */
+  .table-footnote {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  @media print {
+    .paper-header { background: #fff; color: var(--ink); }
+    .paper-header h1.paper-title-main,
+    .paper-header .paper-subtitle { color: var(--deep); }
+    .paper-nav { display: none; }
+    .part-header { background: var(--bg-alt); color: var(--deep); }
+    .part-header .part-label { color: var(--muted); }
+    .part-header .part-title { color: var(--deep); }
+    body { font-size: 11pt; }
+  }
+
+  .paper-nav {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    background: #243954;
+    padding: 0.65rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #1a2a42;
+  }
+  .paper-nav a { color: #a8c4e0; text-decoration: none; margin: 0 0.85rem; white-space: nowrap; }
+  .paper-nav a:hover { text-decoration: underline; color: #fff; }
+  .paper-nav .nav-sep { color: #4a6a8a; margin: 0 0.25rem; }
+  .paper-nav .nav-aux {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    opacity: 0.92;
+  }
+  .paper-nav .nav-aux a { margin: 0 0.65rem; }
+</style>
+</head>
+<body>
+
+<nav class="paper-nav" aria-label="GLMP working papers and resources">
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html" aria-current="page">Paper I: Foundational Typology</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II: The Genome as Computer</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html">Paper III: Empirical Sequel</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Genomic_Complexity_Synthesis_bioRxiv.html">Synthesis (bioRxiv)</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/bioRxiv_Mermaid_Flowcharts_Perturbation_Methods_Draft.html">Methods: Mermaid &amp; perturbation design</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP Database</a>
+  <span class="nav-aux">
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2">Mathematics Database</a>
+    <a href="https://gdubs-copernicus-web.hf.space/" target="_blank" rel="noopener">Programming Framework (HuggingFace)</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/foundations/foundations-axiomatic-set-theory.html">ZFC index</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/geometry_topology/geometry_topology-euclid-elements.html">Euclid index</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/number_theory/number_theory-peano-arithmetic.html">Peano arithmetic</a>
+  </span>
+</nav>
+
+<!-- HEADER -->
+<header class="paper-header">
+  <div class="label">GLMP Working Paper &mdash; 2026</div>
+  <h1 class="paper-title-main">Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</h1>
+  <div class="meta">
+    <strong>Gary Welz</strong><br>
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a><br>
+    CUNY Graduate Center / New Media Lab<br>
+    Genome Logic Modeling Project (GLMP)
+  </div>
+</header>
+
+<main class="paper-body">
+
+  <!-- ABSTRACT -->
+  <div class="abstract">
+    <div class="abstract-label">Abstract</div>
+    <p>The choice of primitive relations in an axiomatic system determines not merely what can be proven within it, but the logical character of the entire theory &mdash; its decidability, completeness, and computational complexity class. This paper examines three foundational axiomatic systems &mdash; Peano Arithmetic, Euclid&rsquo;s Postulates, and Tarski&rsquo;s geometry of betweenness and equidistance &mdash; as paradigm cases of how primitive relations shape computational power. We extend this analysis to a broader typology of foundational roots including Zermelo-Fraenkel Set Theory, Category Theory, Lambda Calculus, Intuitionistic Logic, Homotopy Type Theory, and LEAN&nbsp;4, mapping their relationships as a directed acyclic graph (DAG). We further examine the <strong>underlying logical substrate</strong> assumed by each system &mdash; from the classical first-order predicate logic common to Peano, Tarski, and ZFC, to the constructive logic of Lambda Calculus and Homotopy Type Theory &mdash; arguing that this choice of underlying logic is itself a foundational decision with consequences for expressive power and decidability. We then survey the tools mathematicians have developed for measuring foundational strength: Reverse Mathematics, ordinal analysis, forcing, and computability theory, each of which provides a different metric on the foundational landscape.</p>
+    <p>In Part&nbsp;II we apply this framework to the genomic regulatory system as described in the Genome Logic Modeling Project (GLMP), a visualization project in its germinal stages that aspires to produce typed flowcharts of thousands of gene regulatory processes sourced from research literature and curated databases. We argue that the primitive relations of gene regulation &mdash; binding, activation, repression, cooperativity, and feedback &mdash; form a three-tier grounding hierarchy from molecular to network to logical levels. We conjecture that circuits without feedback occupy a decidable, Tarski-like logical floor, while circuits with feedback approach the expressive power associated with Peano Arithmetic, and propose three complementary empirical paths toward determining the actual computational class of genomic circuits. This conjecture is offered as a motivated hypothesis with a clearly articulated ladder of steps required for rigorous proof. LEAN&nbsp;4 and its Mathlib library are identified as the long-term formal verification path by which the conjecture might one day become a theorem.</p>
+  </div>
+
+  <aside class="scope-note" aria-label="Scope and placement">
+    <div class="scope-label">Scope and placement</div>
+    <p><strong>Sources of diagrammatic &ldquo;data.&rdquo;</strong> The claims below about dependency structure and regulatory topology are backed, on the mathematics side, by the browsable <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2" target="_blank" rel="noopener noreferrer">Algorithms and Axiomatic Theories database</a> (algorithms plus axiomatic theory charts). On the biology side, the companion index is the <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" rel="noopener noreferrer">GLMP database table</a>. This working paper sits between them as a conceptual <strong>bridge</strong>: it does not merge GLMP into the mathematics taxonomy.</p>
+    <p>The genomic sections below are <strong>interpretive</strong>: mathematics may inform how we read regulatory logic, but we do not treat biology as a formal branch inside the mathematics catalog. <strong>Biology may mirror mathematics in suggestive ways; mathematics does not thereby take on biological categories.</strong> The association belongs in this document and in GLMP&rsquo;s wider program, not in the formal organization of the mathematics database.</p>
+  </aside>
+
+  <!-- ═══════════ PART I ═══════════ -->
+  <div class="part-header">
+    <span class="part-label">Part I</span>
+    <span class="part-title">The Mathematical Foundation</span>
+  </div>
+
+  <!-- 1. INTRODUCTION -->
+  <section class="section">
+    <h2 class="section-title">1. Introduction</h2>
+    <p>One of the deepest insights in the foundations of mathematics is that the choice of primitives is not a notational convenience &mdash; it determines the computational and logical universe of discourse. Euclid chose points, lines, and circles as primitives and built classical plane geometry. Peano chose zero, the successor function, and induction and built arithmetic. Tarski chose betweenness and equidistance as primitives and built a geometry describing the same Euclidean plane as Euclid, yet with radically different logical properties: completeness and decidability where Euclid&rsquo;s and Peano&rsquo;s systems are not.</p>
+    <p>This observation motivates two parallel projects pursued in this paper. The first is a typology of axiomatic foundations &mdash; a DAG in which root nodes represent genuinely independent foundational systems, and edges represent dependency, translation, or subsumption relationships. The second is an application of this framework to biological computation: if the genome implements a computational system, what are its primitive relations, and what logical universe do they define?</p>
+    <p>Part&nbsp;I develops the mathematical foundation in full. It moves from the three paradigm cases through a broad typology of root systems, examines the underlying logic each system assumes, and surveys the mathematical tools &mdash; Reverse Mathematics, ordinal analysis, forcing, computability theory, and proof assistants &mdash; that give the foundational landscape its metric structure. Part&nbsp;II applies this foundation to the genomic regulatory system via the GLMP typed flowchart framework, stating the central conjecture and its epistemic status.</p>
+    <p>The conjecture advanced in Part&nbsp;II is offered as a motivated hypothesis, not a proven theorem. The ladder from molecular primitives to complexity class characterization has several rungs yet to be secured, which we identify explicitly. This is an invitation to formal investigation rather than a settled claim.</p>
+  </section>
+
+  <!-- 2. THREE PARADIGM CASES -->
+  <section class="section">
+    <h2 class="section-title">2. Three Paradigm Cases: Primitives and Their Logical Consequences</h2>
+
+    <h3 class="sub-title">2.1 Peano Arithmetic: Induction as the Source of Power and Incompleteness</h3>
+    <p>Peano Arithmetic (PA) is founded on five axioms with three primitive notions: zero (a distinguished constant), the successor function S (a unary operation), and mathematical induction (a schema allowing uniform reasoning about all natural numbers). From these, the full arithmetic of the natural numbers is derived. In practice, most <strong>discrete numerical algorithms</strong> &mdash; counting, iteration, indexing, modular arithmetic &mdash; presuppose the same number structure that PA codifies; machine implementations of algorithms therefore inherit PA&rsquo;s logical strength, and indirectly its incompleteness horizon, even when programmers never write a formal axiom.</p>
+    <p>The logical character of PA is determined by the induction schema. It confers enormous expressive power &mdash; PA can simulate any Turing machine &mdash; but this same power renders the system necessarily incomplete by G&ouml;del&rsquo;s first incompleteness theorem: any consistent formal system strong enough to express PA contains true statements unprovable within it. PA is also undecidable; no algorithm can determine for an arbitrary PA statement whether it is provable. These are not defects of PA but consequences of its expressive strength. A system powerful enough to talk about all natural numbers is powerful enough to encode its own provability predicate, and G&ouml;del showed this self-reference is the source of incompleteness.</p>
+    <p><strong>Primitives:</strong> zero, successor, induction &nbsp;&bull;&nbsp; <strong>Logical character:</strong> incomplete, undecidable &nbsp;&bull;&nbsp; <strong>Computational class:</strong> Turing-complete</p>
+
+    <h3 class="sub-title">2.2 Euclid&rsquo;s Postulates: Constructive Geometry and Its Gaps</h3>
+    <p>Euclid&rsquo;s Elements founds plane geometry on five postulates and five common notions. The primitives are constructive: drawing a straight line between two points, extending a line, drawing a circle with given center and radius, the equality of right angles, and the parallel postulate. They describe what can be done with compass and straightedge &mdash; a procedural rather than relational primitive basis.</p>
+    <p>Euclid&rsquo;s system contains logical gaps made explicit only in the 19th century when Hilbert&rsquo;s rigorous reformulation identified missing axioms about continuity of lines and circles. Hilbert required 20 axioms to fully capture the geometry Euclid had described with 10 postulates and common notions. Nevertheless, the dependency structure of the Elements is a clean DAG: each proposition cites its predecessors explicitly, postulates and common notions form root nodes, and no circularity exists. This makes Book I of the Elements an ideal pilot case for dependency DAG visualization &mdash; indeed, it is the historical origin of the axiomatic method itself.</p>
+    <p>Crucially, Euclid&rsquo;s geometry does not contain induction and cannot express statements about all natural numbers. This limitation is also what prevents it from inheriting PA&rsquo;s incompleteness. The system is bounded in expressive power in a way that PA is not &mdash; and this boundedness is a consequence of its primitive choices, not an accident.</p>
+    <p><strong>Primitives:</strong> point, line, circle (constructive) &nbsp;&bull;&nbsp; <strong>Logical character:</strong> incomplete (gaps), bounded &nbsp;&bull;&nbsp; <strong>Computational class:</strong> compass-and-straightedge constructibility</p>
+
+    <h3 class="sub-title">2.3 Tarski&rsquo;s Geometry: The Surprising Power of Betweenness</h3>
+    <p>Alfred Tarski developed an axiom system for Euclidean geometry using only two primitive relations: <em class="term">betweenness</em> (point b lies between points a and c) and <em class="term">equidistance</em> (the distance from a to b equals the distance from c to d). From these purely relational primitives &mdash; no numbers, no set theory, no induction &mdash; Tarski derived all of elementary Euclidean geometry. The contrast with Euclid is instructive: Euclid&rsquo;s primitives are operations (draw, extend, describe), while Tarski&rsquo;s are relations (between, equidistant). The shift from operational to relational primitives has deep logical consequences.</p>
+    <p>The logical character of Tarski&rsquo;s system is the key contrast case in this paper. Because betweenness and equidistance are purely geometric relations that cannot define the natural numbers, the system avoids the G&ouml;del incompleteness theorems entirely. Tarski proved his geometry is both complete &mdash; every true statement in the language is provable &mdash; and decidable &mdash; an algorithm exists to determine whether any given statement is provable. This is a remarkable result: a rich mathematical theory that is nevertheless fully tractable. It stands as the clearest demonstration that the choice of primitives, not the subject matter, determines the logical character of a theory. Euclid and Tarski are describing the same geometric reality; their theories have different logical characters entirely because of their different primitive choices.</p>
+    <p><strong>Primitives:</strong> betweenness, equidistance &nbsp;&bull;&nbsp; <strong>Logical character:</strong> complete, decidable, first-order &nbsp;&bull;&nbsp; <strong>Computational class:</strong> weaker than arithmetic; no induction possible</p>
+  </section>
+
+  <!-- 3. FOUNDATIONAL DAG -->
+  <section class="section">
+    <h2 class="section-title">3. The Foundational Dependency DAG</h2>
+    <p>Figure 1 and the tables in this section are not free-floating sketches: they summarize a body of <strong>published dependency charts</strong> indexed in the <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2" target="_blank" rel="noopener noreferrer">Algorithms and Axiomatic Theories database</a> (ZFC, Peano, Euclid&rsquo;s Elements, category theory, typed lambda calculus, etc.). Readers should treat that table as the primary mathematical evidence base for the foundational claims here; new charts continue to extend the same typology.</p>
+
+    <h3 class="sub-title">3.1 Root Nodes: Genuinely Independent Foundational Systems</h3>
+    <p>A system qualifies as a root node in the foundational DAG if it cannot be derived from or reduced to another system without loss of generality or change of logical character. The following systems qualify. Note that LEAN&nbsp;4 occupies a special position &mdash; it is not a foundational system in precisely the same sense as the others, but rather a proof-assistant layer that implements and verifies reasoning across them; it is included because it represents a genuinely new kind of foundational confidence, discussed in detail in Section&nbsp;4.4.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>System</th><th>Primitives</th><th>Logical Character</th><th>Key Figures</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Peano Arithmetic (PA)</td><td>zero, successor, induction</td><td>Incomplete, undecidable, Turing-complete</td><td>Peano, G&ouml;del</td></tr>
+          <tr><td>Euclid&rsquo;s Postulates</td><td>point, line, circle (constructive)</td><td>Incomplete (gaps), bounded</td><td>Euclid, Hilbert</td></tr>
+          <tr><td>Tarski&rsquo;s Geometry</td><td>betweenness, equidistance</td><td>Complete, decidable, first-order</td><td>Tarski</td></tr>
+          <tr><td>ZFC Set Theory</td><td>set membership (&isin;)</td><td>Incomplete, undecidable, subsumes PA</td><td>Zermelo, Fraenkel</td></tr>
+          <tr><td>Category Theory</td><td>objects, morphisms, composition</td><td>Structurally foundational; set-independent</td><td>Lawvere, Eilenberg</td></tr>
+          <tr><td>Lambda Calculus</td><td>abstraction, application, &beta;-reduction</td><td>Turing-complete; foundation of computation</td><td>Church</td></tr>
+          <tr><td>Intuitionistic Logic</td><td>constructive proof; no excluded middle</td><td>Weaker than classical; different completeness</td><td>Brouwer, Heyting</td></tr>
+          <tr><td>Combinatory Logic</td><td>S and K combinators</td><td>Equivalent to lambda calculus; no variables</td><td>Sch&ouml;nfinkel, Curry</td></tr>
+          <tr><td>Homotopy Type Theory</td><td>types, paths, homotopy equivalence</td><td>Emerging; unifies logic, topology, computation</td><td>Voevodsky et al.</td></tr>
+          <tr><td>LEAN&nbsp;4 (proof-assistant layer)</td><td>Type, Term, inhabitation; dependent types; inductive definitions</td><td>Constructive core + classical axioms added; all proofs machine-checked by trusted kernel</td><td>de Moura, Mathlib community</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-footnote"><em>Note on LEAN&nbsp;4:</em> LEAN is not a foundational system in precisely the same sense as the others &mdash; it is a proof-assistant layer that implements dependent type theory with classical extensions and verifies reasoning mechanically via a trusted kernel. It is included here because it occupies a specific and novel position: the first practical system capable of mechanically verifying proofs across all the other systems in this table. See Section&nbsp;4.4.</p>
+
+    <h3 class="sub-title">3.2 The Foundational Dependency DAG</h3>
+    <p>The following diagram shows the primary dependency and convergence relationships among the foundational roots, tracing the path to numerical and geometric algorithms. Tarski and Euclid converge early at Classical Geometry before meeting Peano via Descartes&rsquo; coordinatization. ZFC subsumes the arithmetic tradition. Lambda Calculus and Intuitionistic Logic feed independently into Contemporary Computer Science via Dependent Type Theory. LEAN sits above the foundational systems as an implementation and verification layer.</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph TD
+  T["Tarski's Geometry<br/>betweenness · equidistance"]
+  E["Euclid's Postulates<br/>point · line · circle"]
+  PA["Peano Arithmetic<br/>zero · successor · induction"]
+  ZFC["ZFC Set Theory<br/>set membership ∈"]
+  LC["Lambda Calculus<br/>abstraction · application"]
+  IL["Intuitionistic Logic<br/>constructive proof"]
+  HoTT["Homotopy Type Theory<br/>types · paths · equivalence"]
+  CL["Combinatory Logic<br/>S and K combinators"]
+  CAT["Category Theory<br/>objects · morphisms"]
+
+  FG["First-order Geometry<br/>(complete · decidable)"]
+  SG["Synthetic Geometry<br/>(constructive)"]
+  AR["Arithmetic"]
+  RA["Real Analysis"]
+  CG["Classical Geometry"]
+  DES["Descartes Coordinatization<br/>bridge: geometry → arithmetic"]
+  AG["Analytic Geometry"]
+  MM["Modern Mathematics<br/>(ZFC basis)"]
+  DTT["Dependent Type Theory<br/>(Martin-Löf)"]
+  ALG["Numerical &amp; Geometric Algorithms"]
+  CS["Contemporary Mathematics<br/>&amp; Computer Science"]
+  LEAN["LEAN 4 / Mathlib<br/>proof-assistant layer"]
+
+  T --> FG
+  E --> SG
+  FG --> CG
+  SG --> CG
+  PA --> AR
+  AR --> RA
+  CG --> DES
+  RA --> DES
+  DES --> AG
+  AG --> ALG
+  ZFC --> MM
+  MM --> CS
+  LC --> DTT
+  IL --> DTT
+  HoTT --> DTT
+  CL --> LC
+  CAT --> MM
+  DTT --> CS
+  ALG --> CS
+  CS --> LEAN
+  MM --> LEAN
+  DTT --> LEAN
+
+  classDef root fill:#c0392b,color:#fff,stroke:#96281b,stroke-width:2px
+  classDef derived fill:#1abc9c,color:#fff,stroke:#16a085,stroke-width:1px
+  classDef bridge fill:#9b59b6,color:#fff,stroke:#8e44ad,stroke-width:2px
+  classDef endpoint fill:#27ae60,color:#fff,stroke:#1e8449,stroke-width:2px
+  classDef layer fill:#2E75B6,color:#fff,stroke:#1a4f8a,stroke-width:2px
+
+  class T,E,PA,ZFC,LC,IL,HoTT,CL,CAT root
+  class FG,SG,AR,RA,CG,AG,MM,DTT derived
+  class DES bridge
+  class ALG,CS endpoint
+  class LEAN layer
+      </div>
+      <p class="diagram-caption">Figure 1. Foundational dependency DAG. Red: root nodes (independent axiomatic systems). Teal: derived systems. Purple: bridge concept (Descartes&rsquo; coordinatization). Green: algorithmic and contemporary endpoints. Blue: LEAN&nbsp;4 proof-assistant layer, sitting above the foundational systems as their implementation and verification environment.</p>
+    </div>
+
+    <h3 class="sub-title">3.3 Key Structural Observations</h3>
+    <ul class="paper-list">
+      <li><strong>Tarski and Euclid as sibling roots:</strong> Both describe Euclidean plane geometry but from different primitive bases. Their convergence at Classical Geometry precedes Descartes, distinguishing them from Peano and ZFC which meet the geometric tradition only via coordinatization.</li>
+      <li><strong>Descartes as the critical bridge:</strong> Coordinatization translates geometric primitives into arithmetic ones, making most modern computational geometry ultimately dependent on arithmetic foundations. This is why geometric algorithms run on machines implementing arithmetic rather than synthetic geometry.</li>
+      <li><strong>ZFC as the dominant subsumer:</strong> Modern mathematics is predominantly founded on ZFC, which can express PA, classical geometry, and much of category theory. Its power comes at the same cost as PA: incompleteness and undecidability.</li>
+      <li><strong>Tarski as the logical floor:</strong> Of all root nodes, Tarski&rsquo;s geometry is the most restricted and most well-behaved: complete, decidable, expressively limited. It is the appropriate baseline for asking what computational class a given system occupies.</li>
+      <li><strong>Lambda Calculus and PA are computationally equivalent:</strong> Church&rsquo;s thesis establishes that lambda calculus and Turing machines (which PA can simulate) compute the same functions. The computational root of programming languages and the arithmetic root of mathematics converge at Turing-completeness.</li>
+      <li><strong>Dependent Type Theory as a convergence point:</strong> Lambda Calculus, Intuitionistic Logic, and Homotopy Type Theory all flow into Dependent Type Theory (Martin-L&ouml;f), which is the shared ancestor of LEAN, Coq, and Agda. This convergence reflects the Curry-Howard correspondence: proofs and programs are the same thing when viewed through the right lens.</li>
+      <li><strong>LEAN above the foundational systems:</strong> LEAN&nbsp;4 is not a peer of the root nodes but sits above them as their implementation environment. It can encode ZFC-style reasoning, constructive reasoning, and category-theoretic reasoning within a single framework, checking all of them against its trusted kernel. This is represented in the DAG by LEAN receiving edges from both MM (Modern Mathematics, the ZFC tradition) and DTT (Dependent Type Theory, the constructive tradition).</li>
+    </ul>
+  </section>
+
+  <!-- 4. THE LOGICAL SUBSTRATES -->
+  <section class="section">
+    <h2 class="section-title">4. The Logical Substrates</h2>
+    <p>Every axiomatic system rests on a layer of inference rules that are usually left implicit &mdash; the logical machinery that permits deriving conclusions from axioms. This layer is as foundational as the axioms themselves, yet it went largely unstated in mathematics until Russell and Whitehead undertook the monumental project of making it fully explicit in <em>Principia Mathematica</em> (1910&ndash;1913). Their work formalized both propositional logic &mdash; the logic of &ldquo;and,&rdquo; &ldquo;or,&rdquo; &ldquo;not,&rdquo; and &ldquo;if-then&rdquo; applied to whole statements &mdash; and predicate logic &mdash; extending this to statements involving variables, quantifiers, and relations &mdash; demonstrating that all of classical mathematics could in principle be derived from explicit logical rules plus a small set of axioms. The ambition of <em>Principia</em> was not merely to prove mathematical theorems but to show that the rules of inference themselves could be written down, inspected, and verified &mdash; a program that directly inspired G&ouml;del&rsquo;s incompleteness theorems, which showed that no such formal system could be both complete and consistent if strong enough to express arithmetic.</p>
+
+    <h3 class="sub-title">4.1 The Classical Substrate: First-Order Predicate Logic</h3>
+    <p>The three paradigm cases of this paper &mdash; Peano Arithmetic, Tarski&rsquo;s Geometry, and ZFC Set Theory &mdash; all assume classical first-order predicate logic (FOL) as their underlying inference system. FOL provides the quantifiers &ldquo;for all&rdquo; (&forall;) and &ldquo;there exists&rdquo; (&exist;), the classical law of excluded middle (every proposition is either true or false, with no third option), and the rule of modus ponens. It is important to recognize that Tarski&rsquo;s geometry is decidable <em>precisely because</em> it is formulated in first-order logic &mdash; had it been formulated in second-order logic, where quantification over sets of points is permitted, decidability would be lost. The choice of underlying logic is not a neutral technical matter; it determines the expressive power and logical character of the entire system built on top of it.</p>
+    <p>Euclid&rsquo;s Elements assumes classical logic informally &mdash; the inference rules are used throughout but never stated, which is precisely what Hilbert&rsquo;s rigorous reformulation had to supply. The gap between Euclid and Hilbert is not in the geometry but in the logic: Euclid was doing FOL without knowing it, and Hilbert made the substrate explicit. Hilbert and Ackermann&rsquo;s <em>Grundz&uuml;ge der theoretischen Logik</em> (1928) was the first systematic textbook of first-order predicate logic, providing the explicit substrate that all three paradigm cases were implicitly using.</p>
+
+    <h3 class="sub-title">4.2 The Constructive Alternative: Intuitionistic and Type-Theoretic Logic</h3>
+    <p>The most consequential divide in the logical substrate table is between systems assuming classical logic and those assuming constructive or intuitionistic logic. Classical logic permits the law of excluded middle: for any proposition P, either P is true or its negation is true. This allows non-constructive existence proofs &mdash; one can prove that something exists without exhibiting it. Intuitionistic logic, developed by L.E.J. Brouwer in his 1907 doctoral dissertation and formalized by Arend Heyting, rejects excluded middle: to prove existence you must produce a witness. Every proof is a construction.</p>
+    <p>Lambda Calculus sits on the constructive side of this divide not by design but by consequence &mdash; Church&rsquo;s original calculus has no excluded middle because it has no logic; it is pure computation. The connection to logic emerges through the Curry-Howard correspondence: a proof in an intuitionistic system is literally a program that computes the thing being proved. A type is a proposition; a term inhabiting that type is a proof of that proposition; running a program is performing an inference. This correspondence, worked out by Haskell Curry and William Howard, means that the boundary between logic and computation dissolves in constructive systems. It is one of the most profound unifications in 20th century mathematics and directly underlies the design of all modern proof assistants.</p>
+
+    <h3 class="sub-title">4.3 Homotopy Type Theory: Where Logic, Computation, and Topology Converge</h3>
+    <p>Homotopy Type Theory (HoTT) deserves special attention as the most recently developed entry in the foundational typology and the one that most radically departs from the classical picture. Developed by Vladimir Voevodsky and collaborators at the Institute for Advanced Study in the 2000s and formally presented in the 2013 collective volume <em>Homotopy Type Theory: Univalent Foundations of Mathematics,</em> HoTT replaces sets as the primitive notion with <strong>types</strong>, and replaces logical equality with <strong>homotopy equivalence</strong> &mdash; the notion from topology that two spaces are equivalent if one can be continuously deformed into the other. In HoTT, a proposition is a type, a proof of that proposition is an element of that type, and two proofs are considered identical if there is a path &mdash; in the topological sense &mdash; between them. This unification means that HoTT is simultaneously a foundation for mathematics, a type system for programming languages, and a framework for reasoning about topological spaces &mdash; the three domains do not merely connect, they are aspects of a single underlying structure.</p>
+    <p>The underlying logic of HoTT is Martin-L&ouml;f dependent type theory, which is constructive: the law of excluded middle does not hold by default, and existence requires construction. What makes HoTT novel even within the constructive tradition is the <strong>Univalence Axiom</strong>, which states that equivalent types are identical &mdash; a powerful principle that has no analog in classical or even standard intuitionistic logic. HoTT is the only foundational system in which topology is not a superstructure built on top of logic and set theory, but is woven into the logic itself at the primitive level.</p>
+
+    <h3 class="sub-title">4.4 LEAN 4 and the Proof-Assistant Layer: A New Kind of Foundational Confidence</h3>
+    <p>The most significant recent development in mathematical foundations is not a new axiomatic system but a new <em>mode of confidence</em> about axiomatic systems. Interactive theorem provers &mdash; software environments in which mathematical proofs are written in a formal language and mechanically checked for correctness &mdash; have matured to the point where working mathematicians use them to verify original research. The leading system is <strong>LEAN&nbsp;4</strong>, developed by Leonardo de Moura (originally at Microsoft Research, now at AWS), whose associated library <strong>Mathlib</strong> now contains tens of thousands of formalized theorems spanning undergraduate algebra, analysis, number theory, algebraic geometry, and category theory.</p>
+    <p>LEAN&rsquo;s logical foundation is the <strong>Calculus of Constructions with universes</strong> &mdash; a dependent type theory in the tradition of Martin-L&ouml;f, the same ancestor as HoTT. Unlike HoTT, LEAN does not adopt the Univalence Axiom. Instead, LEAN deliberately adds the <strong>law of excluded middle</strong> and the <strong>axiom of choice</strong> as explicit axioms on top of its constructive core, making it fully compatible with classical mathematics while retaining the proof-checking power of type theory. This gives LEAN a unique position: constructive foundations augmented with classical axioms, occupying a principled middle ground between the purely constructive tradition and the classical tradition.</p>
+    <p>LEAN&rsquo;s primitive notions are <strong>Type</strong> (every object has a type; types themselves have types organized in a universe hierarchy), <strong>Term</strong> (an object belonging to a type), and the <strong>inhabitation relation</strong> (a term inhabits a type &mdash; the fundamental judgment of the system). Where ZFC asks &ldquo;does element x belong to set S?&rdquo; via the &isin; relation, LEAN asks &ldquo;does term t have type T?&rdquo; via the inhabitation relation. The logical layer is built directly into the type system through the special universe <strong>Prop</strong> &mdash; the type of propositions &mdash; so that a proof of a proposition P is literally a term of type P.</p>
+    <p>What makes LEAN novel in the foundational landscape is its <strong>trusted kernel</strong> &mdash; a small, auditable piece of code at LEAN&rsquo;s core that checks every proof term for correctness. All of Mathlib&rsquo;s theorems ultimately reduce to kernel-checkable proof objects. This represents the fulfillment in practical form of the program Russell and Whitehead began in <em>Principia Mathematica</em>: a mathematics whose inferential substrate is fully explicit, inspectable, and mechanically checked.</p>
+    <p>Recent high-profile results have brought LEAN to the attention of the broader mathematical community. The <strong>Liquid Tensor Experiment</strong> (2022) saw Peter Scholze&rsquo;s condensed mathematics formalized in LEAN &mdash; Scholze himself reported that the process revealed subtle gaps in his original arguments invisible to expert human readers. The <strong>Polynomial Freiman-Ruzsa conjecture</strong> proof (Gowers, Green, Manners, Tao, 2023) was formalized in LEAN within weeks of the paper&rsquo;s appearance. Terence Tao has become a prominent advocate, arguing that proof assistants will change mathematical practice by making large collaborative proofs verifiable and by catching errors that evade human review.</p>
+    <p>The other major proof assistants &mdash; <strong>Coq</strong> (which uses a similar Calculus of Constructions and was the dominant system before Mathlib shifted momentum to LEAN), <strong>Isabelle/HOL</strong> (which uses classical higher-order logic rather than dependent type theory and is widely used in computer science verification), and <strong>Agda</strong> (which is closer to HoTT in spirit and does not add classical axioms) &mdash; occupy related but distinct positions in this landscape. Their existence confirms that the proof-assistant layer is not a single system but an emerging ecosystem.</p>
+    <p>The relationship between LEAN and the foundational systems of this paper is represented in the following diagram:</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph TD
+  FS["Foundational Systems<br/>ZFC · PA · Tarski · HoTT<br/>Lambda Calculus · Category Theory"]
+  CC["Calculus of Constructions<br/>+ classical axioms<br/>(LEAN's type theory)"]
+  TK["LEAN's Trusted Kernel<br/>mechanical proof checking"]
+  ML["Mathlib<br/>tens of thousands of verified theorems"]
+  MP["Mathematical Practice<br/>new theorems · error detection<br/>collaborative verification"]
+
+  FS --> CC
+  CC --> TK
+  TK --> ML
+  ML --> MP
+
+  classDef found fill:#c0392b,color:#fff,stroke:#96281b
+  classDef lean fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  classDef output fill:#27ae60,color:#fff,stroke:#1e8449
+
+  class FS found
+  class CC,TK,ML lean
+  class MP output
+      </div>
+      <p class="diagram-caption">Figure 2. LEAN&nbsp;4 as a proof-assistant layer above the foundational systems. The foundational systems are encoded in LEAN&rsquo;s type theory, checked by the trusted kernel, organized in Mathlib, and used to verify new mathematical results.</p>
+    </div>
+
+    <h3 class="sub-title">4.5 The Underlying Logic Table</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>System</th><th>Underlying Logic</th><th>Key Consequence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Euclid&rsquo;s <em>Elements</em></td><td>Classical logic (informal, unstated)</td><td>Hilbert had to supply missing inference rules explicitly</td></tr>
+          <tr><td>Peano Arithmetic</td><td>Classical first-order predicate logic</td><td>G&ouml;del incompleteness applies; induction schema requires FOL</td></tr>
+          <tr><td>Tarski&rsquo;s Geometry</td><td>Classical first-order predicate logic</td><td>Decidability depends critically on FOL; second-order version is not decidable</td></tr>
+          <tr><td>ZFC Set Theory</td><td>Classical first-order predicate logic</td><td>Axiom of Choice and Continuum Hypothesis are independent of ZFC</td></tr>
+          <tr><td><em>Principia Mathematica</em></td><td>Ramified type theory with explicit propositional and predicate logic</td><td>First explicit full formalization of classical logic; inspired G&ouml;del</td></tr>
+          <tr><td>Lambda Calculus</td><td>No external logic assumed &mdash; corresponds to intuitionistic logic via Curry-Howard</td><td>Computation and proof are the same thing; no excluded middle needed</td></tr>
+          <tr><td>Intuitionistic Logic</td><td>Constructive logic; law of excluded middle rejected</td><td>Existence requires exhibition of a witness; non-constructive proofs disallowed</td></tr>
+          <tr><td>Category Theory</td><td>Classical or intuitionistic depending on the topos</td><td>Logic is internal to the category; different categories instantiate different logics</td></tr>
+          <tr><td>Homotopy Type Theory</td><td>Martin-L&ouml;f dependent type theory (constructive/intuitionistic)</td><td>Propositions are types; proofs are programs; topology, logic, and computation unified</td></tr>
+          <tr><td>Combinatory Logic</td><td>No external logic; equivalent to lambda calculus</td><td>Variables eliminated entirely; pure combinatorial computation</td></tr>
+          <tr><td>LEAN&nbsp;4</td><td>Calculus of Constructions + excluded middle + axiom of choice</td><td>Constructive foundation made classical by explicit axiom addition; all proofs machine-checked by trusted kernel</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>For the genomic conjecture of this paper, the choice of underlying logic has a concrete implication. If we formalize the primitive relations of genomic regulation &mdash; binding, activation, repression, cooperativity &mdash; within classical first-order logic, we obtain a framework analogous to Tarski&rsquo;s geometry: one where decidability is at least conceivable for feed-forward circuits. If instead we were to formalize genomic regulation constructively, existence of a regulatory output would require exhibiting the molecular pathway that produces it, which is arguably the more biologically honest requirement. This is a question for future formal work, but it underscores that the choice of underlying logic is not merely a mathematical technicality &mdash; it reflects a stance on what it means for a biological claim to be proven.</p>
+  </section>
+
+  <!-- 5. MEASURING FOUNDATIONAL STRENGTH -->
+  <section class="section">
+    <h2 class="section-title">5. Measuring Foundational Strength</h2>
+    <p>The root nodes table and the underlying logic table characterize the foundational systems qualitatively. But mathematics has developed precise quantitative tools for measuring foundational strength &mdash; for asking not just &ldquo;is this system stronger than that one?&rdquo; but &ldquo;exactly how much stronger, and by what metric?&rdquo; Four of these tools are directly relevant to the paper&rsquo;s argument: Reverse Mathematics, ordinal analysis, forcing, and computability theory. Together they give the foundational DAG its metric structure.</p>
+
+    <h3 class="sub-title">5.1 Reverse Mathematics: What Axioms Does a Theorem Actually Need?</h3>
+    <p>Reverse Mathematics, initiated by Harvey Friedman in the 1970s and developed extensively by Stephen Simpson, inverts the usual direction of mathematical proof. Rather than asking &ldquo;what theorems follow from these axioms?&rdquo; it asks: &ldquo;given this theorem, what are the minimal axioms required to prove it?&rdquo; The central discovery of Reverse Mathematics is that the vast majority of theorems in classical analysis, algebra, and combinatorics are equivalent &mdash; over a weak base theory &mdash; to one of exactly five subsystems of second-order arithmetic, known as the <strong>Big Five</strong>.</p>
+    <p>These five systems, in increasing order of strength, are:</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph TD
+  RCA["RCA₀<br/>Recursive Comprehension Axiom<br/>Computable mathematics;<br/>continuous functions on compact spaces"]
+  WKL["WKL₀<br/>Weak König's Lemma<br/>Heine-Borel theorem;<br/>completeness of propositional logic"]
+  ACA["ACA₀<br/>Arithmetical Comprehension<br/>Bolzano-Weierstrass;<br/>sequential completeness of ℝ"]
+  ATR["ATR₀<br/>Arithmetical Transfinite Recursion<br/>comparability of countable ordinals;<br/>perfect set theorem"]
+  PI["Π¹₁-CA₀<br/>Π¹₁ Comprehension<br/>Silver's theorem;<br/>basis theorems for Π¹₁ sets"]
+
+  RCA --> WKL
+  WKL --> ACA
+  ACA --> ATR
+  ATR --> PI
+
+  classDef rm fill:#1abc9c,color:#fff,stroke:#16a085
+  class RCA,WKL,ACA,ATR,PI rm
+      </div>
+      <p class="diagram-caption">Figure 3. The Big Five subsystems of Reverse Mathematics, in increasing order of strength. Most theorems of classical mathematics are provably equivalent to exactly one of these five levels.</p>
+    </div>
+
+    <p>The philosophical significance of Reverse Mathematics for this paper is direct: it is the mathematical method for asking precisely what primitives are needed to prove a given result. When we conjecture in Part&nbsp;II that feed-forward genomic circuits occupy a Tarski-like decidable floor, we are making a Reverse Mathematics claim in biological clothing &mdash; we are asking what minimal logical resources are needed to describe and verify the behavior of circuits of a given topological class. The weakest system, RCA&#8320;, corresponds roughly to computable mathematics &mdash; the level at which Tarski&rsquo;s geometry operates. The stronger systems correspond to increasing uses of non-constructive reasoning, ultimately approaching the power of full PA. The five-class genomic complexity ladder of Part&nbsp;II is designed to parallel this hierarchy, with Class&nbsp;I circuits corresponding to RCA&#8320;-level reasoning and Class&nbsp;V circuits potentially requiring the full strength of PA or beyond.</p>
+
+    <h3 class="sub-title">5.2 Ordinal Analysis: Measuring Proof-Theoretic Strength</h3>
+    <p>While G&ouml;del&rsquo;s incompleteness theorems showed that no sufficiently powerful consistent system can prove its own consistency, Gerhard Gentzen showed in 1936 that PA&rsquo;s consistency <em>can</em> be proven &mdash; using a form of reasoning PA itself cannot formalize. Specifically, Gentzen proved the consistency of PA using transfinite induction up to the ordinal <strong>&epsilon;&#8320;</strong> (epsilon-naught), the smallest ordinal satisfying &omega;^&epsilon;&#8320;&nbsp;=&nbsp;&epsilon;&#8320;. This result inaugurated proof theory as a discipline and introduced <strong>ordinal analysis</strong> as a tool for measuring the strength of formal systems.</p>
+    <p>The <strong>proof-theoretic ordinal</strong> of a system is the supremum of the ordinals whose well-foundedness can be proven within the system. It provides a precise numerical measure of foundational strength:</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph LR
+  T0["Tarski's Geometry<br/>ω (omega)<br/>decidable"]
+  EA["Elementary Arithmetic<br/>ω^ω"]
+  PAo["Peano Arithmetic<br/>ε₀ (epsilon-naught)<br/>Gentzen 1936"]
+  ATRo["ATR₀<br/>Γ₀ (Feferman-Schütte)"]
+  PI11["Π¹₁-CA₀<br/>ψ(Ω_ω)"]
+  ZFCo["ZFC Set Theory<br/>far beyond ε₀<br/>(not fully computed)"]
+
+  T0 --> EA --> PAo --> ATRo --> PI11 --> ZFCo
+
+  classDef ord fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  class T0,EA,PAo,ATRo,PI11,ZFCo ord
+      </div>
+      <p class="diagram-caption">Figure 4. The ordinal hierarchy of foundational systems. Each system&rsquo;s proof-theoretic ordinal measures exactly how much transfinite induction it can formalize. Tarski&rsquo;s geometry sits at the bottom; ZFC extends far beyond what has been fully computed.</p>
+    </div>
+
+    <p>Ordinal analysis gives the foundational DAG its edge weights. Rather than saying merely that PA is stronger than Tarski&rsquo;s geometry, we can say it is stronger by exactly the gap between &omega; and &epsilon;&#8320; &mdash; a precise and non-trivial measure. For the genomic conjecture, ordinal analysis suggests a further refinement of the five-class complexity ladder: each class might be associated not just with a named foundational system but with a specific proof-theoretic ordinal, giving the conjecture a quantitative rather than merely qualitative character.</p>
+
+    <h3 class="sub-title">5.3 Forcing and Independence: The Set-Theoretic Multiverse</h3>
+    <p>Paul Cohen&rsquo;s invention of <strong>forcing</strong> in 1963 &mdash; for which he received the Fields Medal &mdash; is the most powerful technique in set theory and one of the most consequential results in 20th century mathematics. Cohen proved that the <strong>Continuum Hypothesis</strong> (CH) &mdash; the proposition that there is no cardinality between the natural numbers and the real numbers &mdash; is independent of ZFC. Combined with G&ouml;del&rsquo;s earlier result (1938) that CH is consistent with ZFC, this established that CH is neither provable nor disprovable from the standard axioms of mathematics. Mathematics has multiple consistent universes, differing in which cardinalities exist.</p>
+    <p>Forcing works by constructing a new model of set theory &mdash; a <strong>generic extension</strong> of an existing model &mdash; in which a desired statement holds or fails. The technique has been used to prove the independence of hundreds of statements from ZFC, including questions about cardinal arithmetic, the structure of the real line, and the existence of certain large cardinals. It reveals that ZFC, despite being the dominant foundational system, leaves an enormous landscape of mathematical questions permanently open &mdash; not because we lack cleverness, but because the questions are genuinely independent of the axioms.</p>
+    <p>For this paper&rsquo;s typology, forcing has two implications. First, it confirms that ZFC&rsquo;s incompleteness is not a marginal phenomenon &mdash; it pervades the most natural questions of set theory. Second, it reveals that the foundational DAG is not a tree leading to a single mathematical universe but a branching structure: different consistent extensions of ZFC lead to different mathematical realities. The foundational landscape is a multiverse, not a single edifice.</p>
+
+    <h3 class="sub-title">5.4 Computability Theory: The Arithmetic Hierarchy and Rice&rsquo;s Theorem</h3>
+    <p>Computability theory, founded independently by Alan Turing, Alonzo Church, Emil Post, and Stephen Kleene in 1936, provides the deepest framework for understanding what can and cannot be computed. Its central results &mdash; the undecidability of the halting problem, Rice&rsquo;s theorem, and the arithmetic hierarchy &mdash; are the computational analogs of G&ouml;del&rsquo;s incompleteness theorems and are directly relevant to the genomic conjecture.</p>
+    <p>The <strong>halting problem</strong> (Turing, 1936) establishes that there is no algorithm that can determine, for an arbitrary program and input, whether the program will eventually halt. <strong>Rice&rsquo;s theorem</strong> (1953) generalizes this dramatically: any non-trivial semantic property of programs &mdash; not just halting, but any property that depends on what a program computes rather than how it is written &mdash; is undecidable. Rice&rsquo;s theorem is the reason that perfect static analysis of programs is impossible in principle, not merely in practice.</p>
+    <p>The <strong>arithmetic hierarchy</strong> stratifies the degrees of undecidability into levels &Sigma;&#8304;&#8345; and &Pi;&#8304;&#8345;, indexed by the number of alternating quantifier blocks required to express a property:</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph TD
+  DEC["Decidable problems<br/>(Tarski's geometry sits here)<br/>Δ⁰₁"]
+  S1["Σ⁰₁ / Π⁰₁<br/>Halting problem<br/>recursively enumerable sets"]
+  S2["Σ⁰₂ / Π⁰₂<br/>Halting problem with oracle<br/>total functions"]
+  SN["Σ⁰ₙ / Π⁰ₙ<br/>n alternating quantifiers"]
+  AH["Arithmetic Hierarchy<br/>everything expressible in PA"]
+  AN["Analytical Hierarchy<br/>Σ¹ₙ / Π¹ₙ<br/>second-order arithmetic"]
+  ZF["ZFC territory<br/>large cardinals · forcing extensions"]
+
+  DEC --> S1 --> S2 --> SN --> AH --> AN --> ZF
+
+  classDef comp fill:#9b59b6,color:#fff,stroke:#8e44ad
+  class DEC,S1,S2,SN,AH,AN,ZF comp
+      </div>
+      <p class="diagram-caption">Figure 5. The computability hierarchy, from decidable problems at the base through the arithmetic and analytical hierarchies to ZFC territory. The genomic complexity ladder of Part&nbsp;II is designed to map onto this hierarchy.</p>
+    </div>
+
+    <p>For the genomic conjecture, computability theory provides the most direct formal framework. A gene regulatory circuit implements a computational process; asking what computational class that process belongs to is precisely a question in computability theory. If feed-forward circuits are decidable &mdash; their output always determinable from their input &mdash; then they sit at the &Delta;&#8304;&#8321; level. If feedback circuits can implement arbitrary recursively enumerable processes, they sit at the &Sigma;&#8304;&#8321; level. Rice&rsquo;s theorem has a specific biological implication: if genomic circuits of sufficient complexity are Turing-complete, then no algorithm can determine for an arbitrary circuit whether it will produce a given gene expression pattern. Perfect prediction of cellular behavior from circuit topology would be impossible in principle &mdash; not merely computationally expensive. This is not a discouraging result; it is a precise characterization of why biology is difficult, and it suggests that the right question is not &ldquo;can we predict everything?&rdquo; but &ldquo;which circuit classes are predictable, and which cross the undecidability threshold?&rdquo;</p>
+
+    <h3 class="sub-title">5.5 A Unified Metric on the Foundational Landscape</h3>
+    <p>The four tools of this section are not competing frameworks but complementary instruments, each measuring a different dimension of foundational strength:</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph LR
+  RM["Reverse Mathematics<br/>What axioms does<br/>a theorem need?"]
+  OA["Ordinal Analysis<br/>How much transfinite<br/>induction is required?"]
+  FO["Forcing<br/>Which statements are<br/>independent of ZFC?"]
+  CT["Computability Theory<br/>Where in the undecidability<br/>hierarchy does this sit?"]
+  FS["Foundational<br/>System"]
+
+  FS --> RM
+  FS --> OA
+  FS --> FO
+  FS --> CT
+
+  classDef tool fill:#e67e22,color:#fff,stroke:#d35400
+  classDef sys fill:#1abc9c,color:#fff,stroke:#16a085
+  class RM,OA,FO,CT tool
+  class FS sys
+      </div>
+      <p class="diagram-caption">Figure 6. Four complementary instruments for measuring foundational strength. Each gives a different metric on the same foundational landscape.</p>
+    </div>
+
+    <p>Together they allow the foundational DAG to be read not just as a dependency structure but as a metric space: the distance between Tarski&rsquo;s geometry and Peano Arithmetic is measurable in proof-theoretic ordinals (&omega; vs.&nbsp;&epsilon;&#8320;), in Reverse Mathematics levels (below RCA&#8320; vs. equivalent to ACA&#8320; for many theorems), and in computability terms (decidable vs.&nbsp;&Sigma;&#8304;&#8321;-hard). This metric structure is what makes the genomic conjecture of Part&nbsp;II more than an analogy &mdash; it gives the claim that &ldquo;feed-forward circuits are Tarski-like&rdquo; a precise formal content that could in principle be verified or refuted.</p>
+  </section>
+
+  <!-- ═══════════ PART II ═══════════ -->
+  <div class="part-header">
+    <span class="part-label">Part II</span>
+    <span class="part-title">The Biological Application</span>
+  </div>
+  <div class="part-bridge">
+    The mathematical foundation of Part&nbsp;I is not merely background for what follows &mdash; it is the toolkit. The genomic conjecture of Part&nbsp;II is stated in the language of foundational systems, measured by the instruments of Section&nbsp;5, and points toward LEAN&nbsp;4 as its long-term verification path. Readers primarily interested in the biological application may read Part&nbsp;II independently, returning to Part&nbsp;I as specific claims require grounding.
+  </div>
+
+  <!-- 6. GENOMIC PRIMITIVES -->
+  <section class="section">
+    <h2 class="section-title">6. The Primitive Relations of Genomic Regulation</h2>
+    <p>The regulatory diagrams discussed here correspond to concrete flowcharts indexed in the <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" rel="noopener noreferrer">GLMP database table</a>. GLMP is a visualization and graphing project in its germinal stages, currently comprising 108 flowcharts of gene regulatory processes in <em>E.&nbsp;coli</em> and related systems. It aspires to grow into a resource covering thousands of genes and processes, sourced from research literature, textbooks, and curated databases. The 108-graph sample already demonstrates that regulatory circuits exhibit a range of structural complexity &mdash; some are purely feed-forward cascades, others contain feedback loops of varying character. Expanding this sample and validating its charts against biological evidence is a central part of GLMP&rsquo;s call to action. Figures in this section follow the same color semantics as charts in the GLMP database and the <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" rel="noopener noreferrer">Programming Framework</a> Hugging Face Space.</p>
+
+    <h3 class="sub-title">6.1 Background: GLMP and the Typed Flowchart Model</h3>
+    <p>The Genome Logic Modeling Project (GLMP) originated in a 1995 article, &ldquo;Is the Genome Like a Computer Program?,&rdquo; published in the <em>X Advisor</em>, which proposed modeling gene regulation as computational logic and presented one of the first computational flowcharts of the lac operon. That piece is archived in the <a href="https://web.archive.org/web/19970310064130/http://landru.unx.com/DD/advisor/docs/jul95/welz.genome0.shtml" target="_blank" rel="noopener noreferrer">Wayback Machine</a> (Internet Archive snapshot, March 1997). GLMP is the systematic descendant of that work, generating typed Mermaid flowcharts of gene regulatory circuits via an LLM-from-text pipeline, with a color-coding scheme distinguishing molecular primitives by computational role:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Color</th><th>Molecular Role</th><th>Computational Analog</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Red</td><td>Trigger / inducer</td><td>Input signal</td></tr>
+          <tr><td>Yellow</td><td>Protein / transcription factor</td><td>Variable / data structure</td></tr>
+          <tr><td>Teal</td><td>Enzyme / catalytic agent</td><td>Operator / function</td></tr>
+          <tr><td>Blue</td><td>Intermediate compound</td><td>Intermediate value</td></tr>
+          <tr><td>Green</td><td>Product / output</td><td>Output / result</td></tr>
+          <tr><td>Orange</td><td>Decision / regulatory gate</td><td>Conditional / branch</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>An important caveat applies to all GLMP charts: no chart in the current sample &mdash; or in any foreseeable expansion &mdash; can be designated the definitive canonical flowchart of a given gene or process. Biochemical research continually reveals greater molecular detail than any graph can currently represent. A flowchart of the lac operon today captures the known regulatory logic as of current literature; a future chart will incorporate newly discovered interactions, alternative regulatory states, and context-dependent behaviors invisible at the current resolution. GLMP charts are therefore best understood as snapshots of current knowledge structured for computational analysis &mdash; not permanent authoritative representations.</p>
+
+    <h3 class="sub-title">6.2 Idealized Subgraphs: Feed-Forward vs. Feedback</h3>
+    <p>The conjecture in Section&nbsp;7 turns on whether the regulatory graph contains a <strong>directed cycle</strong>. The lac operon is too large to show here; instead, Figures 7a and 7b are <strong>minimal schematic</strong> Mermaid flowcharts in the GLMP palette. They are not quantitative models of kinetics &mdash; only topological cartoons for the distinction between an acyclic cascade and a single feedback arc.</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph LR
+  T1[Trigger / inducer]
+  Y1[TF / variable]
+  O1{Promoter gate}
+  G1[Gene ON]
+  P1[Product]
+  T1 --> Y1 --> O1 --> G1 --> P1
+  classDef glmp_trig fill:#e74c3c,color:#fff,stroke:#c0392b
+  classDef glmp_tf fill:#f4d03f,color:#1a1a1a,stroke:#caae05
+  classDef glmp_gate fill:#e67e22,color:#fff,stroke:#d35400
+  classDef glmp_mid fill:#3498db,color:#fff,stroke:#2874a6
+  classDef glmp_out fill:#27ae60,color:#fff,stroke:#1e8449
+  class T1 glmp_trig
+  class Y1 glmp_tf
+  class O1 glmp_gate
+  class G1 glmp_mid
+  class P1 glmp_out
+      </div>
+      <p class="diagram-caption">Figure 7a. Pure feed-forward chain: no path returns to an upstream node; behavior is conjecturally &ldquo;Tarski-like&rdquo; &mdash; decidable, bounded, no internal memory from topology alone. Corresponds to Class&nbsp;I in the complexity ladder and the &Delta;&#8304;&#8321; level of the computability hierarchy.</p>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph LR
+  T2[Trigger]
+  Y2[TF]
+  O2{Promoter}
+  P2[Product]
+  T2 --> Y2 --> O2 --> P2
+  P2 -->|feedback| Y2
+  classDef glmp_trig fill:#e74c3c,color:#fff,stroke:#c0392b
+  classDef glmp_tf fill:#f4d03f,color:#1a1a1a,stroke:#caae05
+  classDef glmp_gate fill:#e67e22,color:#fff,stroke:#d35400
+  classDef glmp_out fill:#27ae60,color:#fff,stroke:#1e8449
+  class T2 glmp_trig
+  class Y2 glmp_tf
+  class O2 glmp_gate
+  class P2 glmp_out
+      </div>
+      <p class="diagram-caption">Figure 7b. A single feedback edge closes a directed cycle. The biological interpretation &mdash; activation vs. repression, delays, cooperativity &mdash; matters for dynamics, but topologically this is the class of circuits conjectured to reach richer computational behavior. Corresponds to Class&nbsp;II&ndash;V in the complexity ladder depending on feedback type, and &Sigma;&#8304;&#8321; or above in the computability hierarchy.</p>
+    </div>
+
+    <h3 class="sub-title">6.3 The Three-Tier Hierarchy of Genomic Primitives</h3>
+    <p>The molecular, network, and logical levels of biological description are not competing accounts of the same phenomena &mdash; they form a grounding hierarchy directly analogous to how mathematics builds from geometric intuition to formal axioms. Each level grounds the one above it:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Level</th><th>Description</th><th>Mathematical Analog</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Molecular</td><td>Physical binding events, allosteric changes, catalytic reactions between specific molecules</td><td>Geometric intuition (pre-formal)</td></tr>
+          <tr><td>Network</td><td>Nodes (genes/proteins), directed edges (activation/repression), circuit topology</td><td>Formal primitive relations (betweenness, equidistance)</td></tr>
+          <tr><td>Logical</td><td>Boolean gates derived from binding cooperativity and network topology</td><td>Axioms derived from primitives</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The molecular level grounds the network level: an edge in the regulatory network represents a physical binding event. The network level grounds the logical level: an AND gate emerges from cooperative binding at a promoter requiring two transcription factors simultaneously. This three-tier grounding is what makes the genomic system potentially formalizable rather than merely analogical &mdash; each level of description is derived from the one below it by a principled abstraction step.</p>
+
+    <h3 class="sub-title">6.4 What Counts as a Primitive Relation</h3>
+    <p>Drawing on Tarski&rsquo;s criterion &mdash; that a primitive relation is one that cannot be further decomposed within the system without leaving the relevant level of description &mdash; we identify the following candidates at each tier:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Molecular Primitive</th><th>Relation Type</th><th>Logical Analog</th><th>Tier</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Binding (TF binds promoter Y)</td><td>Binary occupancy (on/off)</td><td>Boolean variable</td><td>Molecular</td></tr>
+          <tr><td>Activation (binding increases transcription)</td><td>Causal enhancement</td><td>Positive literal</td><td>Network</td></tr>
+          <tr><td>Repression (binding decreases transcription)</td><td>Causal inhibition</td><td>Logical negation</td><td>Network</td></tr>
+          <tr><td>Cooperativity (X and Y must both bind)</td><td>Joint requirement</td><td>Logical AND</td><td>Network/Logical</td></tr>
+          <tr><td>Competition (X or Y alone suffices)</td><td>Alternative sufficiency</td><td>Logical OR</td><td>Network/Logical</td></tr>
+          <tr><td>Cascade (sequential activation)</td><td>Ordered composition</td><td>Function composition</td><td>Network</td></tr>
+          <tr><td>Feedback (output feeds back to input)</td><td>Self-reference / recursion</td><td>Recursive call</td><td>Network/Logical</td></tr>
+          <tr><td>Bistability (stable state memory)</td><td>Hysteresis</td><td>Register / memory cell</td><td>Logical</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The key insight is that <em class="term">binding is the true primitive</em> &mdash; everything else (activation, repression, cooperativity, competition) is derived from binding in a specific molecular context. This is the genomic analog of Tarski&rsquo;s betweenness: a single dyadic relation from which the full logical architecture of gene regulation emerges. Just as betweenness suffices to define all of Euclidean geometry without appealing to numbers or sets, binding suffices to ground all of genomic logic without appealing directly to the higher-level Boolean concepts.</p>
+    <p>In the language of Reverse Mathematics, binding is the RCA&#8320;-level primitive &mdash; the minimum needed to ground the system. The higher-level relations (cooperativity, feedback, bistability) correspond to ascending levels of the Big Five, each requiring stronger axioms to characterize fully.</p>
+
+    <h3 class="sub-title">6.5 How We Might Determine Actual Genomic Primitives Empirically</h3>
+    <p>Identifying the primitive relations of the genomic system theoretically is a first step; determining which relations actually operate in specific biological circuits, and what computational class those circuits occupy, requires empirical investigation. Three complementary approaches, each contributing differently, are available to GLMP:</p>
+
+    <ul class="paper-list">
+      <li><strong>From synthetic biology circuits (ground truth validation):</strong> Synthetic biologists have constructed circuits of known topology &mdash; toggle switches, repressilators, feed-forward loops &mdash; and characterized their computational behavior experimentally. These serve as ground truth: if our typed flowchart of a toggle switch correctly predicts bistability, we have evidence that the flowchart faithfully captures the relevant primitives. This is the immediate validation path, pursued through collaboration with computational biologists familiar with characterized circuit behavior.</li>
+      <li><strong>From regulatory network databases (scale and coverage):</strong> Databases such as RegulonDB (E.&nbsp;coli transcription factor binding), ENCODE (human regulatory element mapping), and STRING (protein interaction networks) catalog known binding relationships at scale. Mining these for circuit topology statistics &mdash; the distribution of AND gates, OR gates, and feedback loops across the genome &mdash; would allow empirical characterization of the genome&rsquo;s actual complexity class distribution. This is the path from curated biological knowledge to a population-level estimate of genomic computational class.</li>
+      <li><strong>From LLM-generated flowchart topology classification (literature coverage):</strong> The GLMP pipeline generates typed flowcharts from scientific text. As the current 108-graph sample grows, systematically classifying circuit topologies &mdash; counting feed-forward versus feedback circuits, identifying AND/OR gate ratios, flagging bistable and oscillatory patterns &mdash; will provide an empirical profile of the regulatory complexity represented in the sample. This approach can be extended as GLMP expands its coverage of the literature, with the long-term aspiration of characterizing complexity class distribution across a broad range of organisms and regulatory systems. The CopernicusAI Knowledge Engine, a separate but related project, maintains a growing knowledge graph of scientific literature that may eventually provide the paper sourcing infrastructure for such an expansion.</li>
+    </ul>
+
+    <p>These three approaches are genuinely complementary: synthetic biology provides ground truth for specific circuits, database mining provides biological scale, and LLM-generated flowcharts provide literature-wide coverage. Together they constitute a research program for empirically determining the computational class of genomic regulation &mdash; moving the conjecture below from motivated hypothesis toward testable scientific claim.</p>
+  </section>
+
+  <!-- 7. THE CONJECTURE -->
+  <section class="section">
+    <h2 class="section-title">7. The Genomic Conjecture and Complexity Class Ladder</h2>
+
+    <h3 class="sub-title">7.1 The Central Conjecture</h3>
+    <div class="conjecture">
+      <div class="conjecture-label">Conjecture</div>
+      <p>Gene regulatory circuits without feedback loops implement a computational logic analogous to Tarski&rsquo;s geometry: decidable, bounded, and expressively limited. Given fixed inputs, the output of such a circuit is always determinable, and the system cannot generate sustained oscillation, memory, or undecidable behavior. In the language of computability theory, feed-forward circuits are &Delta;&#8304;&#8321; &mdash; their output function is computable and total. In the language of Reverse Mathematics, their behavior can be characterized within RCA&#8320; &mdash; the weakest of the Big Five subsystems. Their proof-theoretic ordinal is bounded, analogous to Tarski&rsquo;s geometry sitting at &omega; in the ordinal hierarchy.</p>
+      <p>Circuits with feedback loops cross into a richer computational class: they acquire the capacity for bistability, oscillation, and potentially undecidable long-term behavior, by analogy with the inductive power of Peano Arithmetic. The molecular primitive of binding &mdash; like betweenness and equidistance &mdash; grounds the full logical architecture of genomic regulation, and the presence or absence of feedback determines which tier of the computational hierarchy the resulting circuit occupies. In the extreme case of self-modifying epigenetic circuits, the computational class may require the full strength of PA or beyond &mdash; proof-theoretic ordinals approaching &epsilon;&#8320;, Reverse Mathematics levels reaching ACA&#8320; or ATR&#8320;, and computability properties at the &Sigma;&#8304;&#8321; level or above.</p>
+      <p>This conjecture is grounded in GLMP&rsquo;s current 108-graph sample, which demonstrates that both feed-forward and feedback circuit topologies occur in biological regulatory networks and that the structural distinction is meaningful and classifiable. The conjecture is not a claim about the full scope of genomic regulation &mdash; which remains far beyond the current sample &mdash; but a motivated hypothesis about the relationship between circuit topology and computational class that the sample makes plausible and future expansion may test.</p>
+    </div>
+
+    <h3 class="sub-title">7.2 The Five-Class Complexity Ladder</h3>
+    <p>We propose the following ladder of computational classes for genomic circuits, calibrated against the mathematical instruments of Section&nbsp;5:</p>
+
+    <ul class="class-ladder">
+      <li><span class="class-num">I</span><span class="ladder-sep">&mdash;</span> <strong>Feed-forward only (no loops):</strong> Analogous to Tarski&rsquo;s geometry. Decidable, complete within scope, bounded expressive power. Computability level: &Delta;&#8304;&#8321;. Reverse Mathematics level: below RCA&#8320;. Proof-theoretic ordinal: &omega;. Biological example: simple inducible promoters.</li>
+      <li><span class="class-num">II</span><span class="ladder-sep">&mdash;</span> <strong>Negative feedback (damped regulation):</strong> Analogous to bounded arithmetic. Capable of graded responses and homeostasis, but not sustained oscillation. Computability level: &Delta;&#8304;&#8321; with bounded recursion. Reverse Mathematics level: RCA&#8320;. Biological example: homeostatic gene regulation.</li>
+      <li><span class="class-num">III</span><span class="ladder-sep">&mdash;</span> <strong>Positive feedback (bistable switches):</strong> Analogous to finite automata with memory. Capable of representing stable cell fate decisions and epigenetic locking. Computability level: &Delta;&#8304;&#8322; (limit computable). Reverse Mathematics level: WKL&#8320;. Biological example: toggle switch circuits (Gardner et al. 2000).</li>
+      <li><span class="class-num">IV</span><span class="ladder-sep">&mdash;</span> <strong>Mixed feedback (oscillators):</strong> Analogous to pushdown automata or primitive recursive arithmetic. Capable of representing circadian rhythms and developmental clocks. Computability level: primitive recursive. Reverse Mathematics level: ACA&#8320;. Proof-theoretic ordinal: approaching &epsilon;&#8320;. Biological example: repressilator circuits (Elowitz &amp; Leibler 2000).</li>
+      <li><span class="class-num">V</span><span class="ladder-sep">&mdash;</span> <strong>Self-modifying / epigenetic feedback:</strong> Potentially analogous to Peano Arithmetic. Turing-complete behavior not excludable. Computability level: &Sigma;&#8304;&#8321; or above. Reverse Mathematics level: ATR&#8320; or &Pi;&#185;&#8321;-CA&#8320;. Proof-theoretic ordinal: &epsilon;&#8320; or beyond. Rice&rsquo;s theorem applies: if Class&nbsp;V circuits are Turing-complete, no algorithm can determine for an arbitrary circuit whether it produces a given expression pattern. Biological example: epigenetic reprogramming circuits.</li>
+    </ul>
+
+    <h3 class="sub-title">7.3 Connection to Reverse Mathematics</h3>
+    <p>The five-class ladder is a Reverse Mathematics conjecture in biological form. The central question &mdash; what minimal logical resources are needed to characterize the behavior of a circuit of class C? &mdash; is precisely the question Reverse Mathematics was designed to answer. For each class, a rigorous proof would need to establish:</p>
+    <ol style="margin: 1rem 0 1.5rem 1.5rem; font-family: var(--sans); font-size: 0.9rem; line-height: 1.7;">
+      <li>That circuits of that topological class can be formalized in the corresponding subsystem of second-order arithmetic</li>
+      <li>That circuits of the next class cannot be so formalized &mdash; that the step up in class corresponds to a genuine increase in logical strength</li>
+      <li>That the biological examples cited are correctly classified</li>
+    </ol>
+    <p>None of these proofs exist yet. They represent the formal mathematical work required to move the conjecture from motivated hypothesis to established theorem.</p>
+
+    <h3 class="sub-title">7.4 LEAN as the Long-Term Verification Path</h3>
+    <p>The proof assistants of Section&nbsp;4.4 &mdash; especially LEAN&nbsp;4 and Mathlib &mdash; represent the most promising long-term path toward formalizing the genomic conjecture. The path would proceed in stages:</p>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+graph TD
+  FR["Formally specify genomic primitive relations<br/>in LEAN's type theory<br/>(binding as a typed dyadic relation)"]
+  CT["Define circuit topology classes<br/>in LEAN<br/>(DAG vs. cyclic graph; feedback types)"]
+  CS2["Prove decidability of Class I circuits<br/>within LEAN<br/>(analogous to Tarski's completeness proof)"]
+  RM2["Establish Reverse Mathematics equivalences<br/>for each complexity class<br/>(within LEAN's second-order arithmetic library)"]
+  TH["Full formalization of the five-class ladder<br/>as a theorem in LEAN/Mathlib"]
+
+  FR --> CT --> CS2 --> RM2 --> TH
+
+  classDef step fill:#2E75B6,color:#fff,stroke:#1a4f8a
+  class FR,CT,CS2,RM2,TH step
+      </div>
+      <p class="diagram-caption">Figure 8. The LEAN formalization path for the genomic conjecture. Each step builds on the previous, moving from informal specification to machine-verified theorem.</p>
+    </div>
+
+    <h3 class="sub-title">7.5 Epistemic Status: The Ladder of Claims</h3>
+    <p>This conjecture is offered as a motivated hypothesis. The following steps are required to make it rigorous:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Rung</th><th>Claim</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rung-label">1</span></td>
+            <td>Regulatory circuits can be represented as typed flowcharts</td>
+            <td class="status-done">Demonstrated &mdash; core GLMP contribution; 108-graph sample</td>
+          </tr>
+          <tr>
+            <td><span class="rung-label">2</span></td>
+            <td>Flowcharts faithfully capture known circuit logic</td>
+            <td class="status-partial">Partially validated &mdash; needs biological review and expansion</td>
+          </tr>
+          <tr>
+            <td><span class="rung-label">3</span></td>
+            <td>Circuit topology determines computational class</td>
+            <td class="status-conj">Conjectured &mdash; requires formal proof</td>
+          </tr>
+          <tr>
+            <td><span class="rung-label">4</span></td>
+            <td>Molecular primitives map rigorously to logical primitives</td>
+            <td class="status-conj">Conjectured &mdash; requires formal specification</td>
+          </tr>
+          <tr>
+            <td><span class="rung-label">5</span></td>
+            <td>Complexity classes correspond to Big Five subsystems</td>
+            <td class="status-spec">Speculative &mdash; requires Reverse Mathematics proof</td>
+          </tr>
+          <tr>
+            <td><span class="rung-label">6</span></td>
+            <td>Genomic circuits can be assigned to specific complexity classes</td>
+            <td class="status-spec">Speculative &mdash; long-term research goal</td>
+          </tr>
+          <tr>
+            <td><span class="rung-label">7</span></td>
+            <td>The conjecture can be formalized and verified in LEAN</td>
+            <td class="status-spec">Very long-term &mdash; requires full formal pipeline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>GLMP&rsquo;s contribution at this stage is most defensibly positioned as establishing Rung&nbsp;1 rigorously across its current 108-graph sample and articulating the ladder from Rungs&nbsp;2 through 7 as a research program. The sample is sufficient to demonstrate that the structural distinctions the conjecture depends on &mdash; feed-forward versus feedback, AND/OR gate presence, bistable versus oscillatory topology &mdash; are real, classifiable, and meaningful. A paper making this contribution honestly &mdash; demonstrating the typed flowchart pipeline, stating the conjecture with its calibrated complexity ladder, connecting it to Reverse Mathematics and computability theory, and identifying the rungs &mdash; is a legitimate contribution to computational biology and the foundations of biological information processing.</p>
+  </section>
+
+  <!-- 8. IMPLICATIONS -->
+  <section class="section">
+    <h2 class="section-title">8. Implications and Future Directions</h2>
+
+    <h3 class="sub-title">8.1 For the Mathematics Processes Database and Programming Framework</h3>
+    <p>The foundational DAG of Section&nbsp;3 provides the backbone for positioning processes in the <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2" target="_blank" rel="noopener noreferrer">Algorithms and Axiomatic Theories database</a> and extending the <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" rel="noopener noreferrer">Programming Framework</a> on Hugging Face. Each algorithm in the framework can be positioned within the DAG: numerical algorithms trace foundational dependencies to PA and ZFC via real analysis; geometric algorithms trace to Euclid and Tarski via Descartes&rsquo; coordinatization; sorting and search algorithms trace to lambda calculus and PA. The dependency structure among algorithms is itself a DAG &mdash; distinct from the execution flowchart of any individual algorithm &mdash; and both representations are natural outputs of the LLM-from-text pipeline already validated for GLMP. The ordinal analysis of Section&nbsp;5.2 suggests a further enrichment: algorithm dependency DAGs could be annotated with proof-theoretic ordinals, giving the database a metric structure rather than merely a topological one.</p>
+
+    <h3 class="sub-title">8.2 For Biological Validation</h3>
+    <p>Rung&nbsp;2 &mdash; biological validation of GLMP flowcharts &mdash; is the immediate priority. The toggle switch (Gardner et al. 2000) and repressilator (Elowitz &amp; Leibler 2000) are the canonical test cases &mdash; circuits of known topology whose computational behavior has been experimentally characterized and which the ladder places at Classes&nbsp;III and IV respectively. A formal comparison between GLMP flowcharts of these circuits and their known computational properties would constitute the first empirical test of the conjecture. Expanding the 108-graph sample to cover a broader range of organisms, regulatory contexts, and circuit topologies is the longer-term validation path. Given the open-ended nature of biochemical knowledge, validation is an ongoing process rather than a terminal state &mdash; each new chart represents current knowledge, subject to revision as research reveals greater molecular detail.</p>
+
+    <h3 class="sub-title">8.3 For the Foundations of Biological Information</h3>
+    <p>The deepest implication is that the question &ldquo;is the genome like a computer program?&rdquo; has a more precise form: &ldquo;which computational complexity class does genomic regulation occupy, given its molecular primitives, and which level of the Big Five hierarchy is required to characterize it?&rdquo; This reframing connects GLMP to foundational questions in theoretical computer science, mathematical logic, and proof theory. If Rice&rsquo;s theorem applies to Class&nbsp;V genomic circuits &mdash; if complete prediction of cellular behavior from circuit topology is provably impossible &mdash; that is a fundamental result about the nature of biological complexity, not merely a practical limitation.</p>
+
+    <h3 class="sub-title">8.4 For Proof Formalization</h3>
+    <p>The LEAN formalization path of Section&nbsp;7.4 is a very long-term direction, but naming it is important for two reasons. First, it gives the conjecture a clear falsifiability criterion: if the conjecture is correct, LEAN should eventually be able to verify it; if not, the attempt at formalization will reveal precisely where the analogy breaks down. Second, it connects GLMP to the broader program of formal verification in biology &mdash; a field beginning to emerge as proof assistants become accessible to non-specialists. The Mathlib community&rsquo;s ongoing formalization of analysis, topology, and combinatorics is building the mathematical infrastructure that a future formalization of the genomic conjecture would require.</p>
+  </section>
+
+  <!-- 9. CONCLUSION -->
+  <section class="section">
+    <h2 class="section-title">9. Conclusion</h2>
+    <p>We have argued, in two parts, that the choice of primitive relations determines the logical character of a formal system &mdash; and that this principle applies not only to axiomatic mathematics but to the computational logic of biological regulation.</p>
+    <p>In Part&nbsp;I we developed this argument through three paradigm cases: Peano Arithmetic, whose induction schema confers Turing-complete expressive power at the cost of incompleteness; Euclid&rsquo;s geometry, whose constructive primitives yield a bounded and gap-ridden system; and Tarski&rsquo;s geometry, whose relational primitives of betweenness and equidistance yield a complete, decidable theory despite describing the same geometric reality as Euclid. We extended the analysis to a full typology of foundational root systems, examined the logical substrate each assumes &mdash; from classical first-order logic through constructive and type-theoretic logics to LEAN&rsquo;s Calculus of Constructions &mdash; and surveyed the four instruments mathematicians use to measure foundational strength: Reverse Mathematics (the Big Five), ordinal analysis (proof-theoretic ordinals from &omega; to &epsilon;&#8320; and beyond), forcing (the set-theoretic multiverse and independence results), and computability theory (the arithmetic hierarchy and Rice&rsquo;s theorem). Together these instruments give the foundational landscape its metric structure and give the paper&rsquo;s central claim its formal content.</p>
+    <p>In Part&nbsp;II we applied this framework to the genomic regulatory system via the GLMP typed flowchart model, a visualization project in germinal stages whose current 108-graph sample demonstrates that regulatory circuits span a range of computational complexity. We argued that binding is the true molecular primitive &mdash; the genomic analog of Tarski&rsquo;s betweenness &mdash; from which the full logical architecture of gene regulation is derived. We stated the central conjecture: that feed-forward genomic circuits occupy a Tarski-like, &Delta;&#8304;&#8321;, RCA&#8320;-level logical floor, while feedback-bearing circuits ascend the computability and Reverse Mathematics hierarchies, potentially reaching the full expressive power and undecidability of Peano Arithmetic in the case of self-modifying epigenetic circuits. We calibrated this conjecture against the Big Five and the proof-theoretic ordinal scale, giving it a quantitative rather than merely qualitative character, and identified LEAN&nbsp;4 and Mathlib as the long-term formal verification path.</p>
+    <p>No chart in the GLMP sample &mdash; or in any foreseeable expansion &mdash; can be designated the definitive canonical flowchart of a given gene or process. Biochemical research continually reveals greater molecular detail than any graph can currently represent. This is not a limitation of the project but a reflection of the nature of biological knowledge: open-ended, cumulative, and always subject to revision at greater resolution. The conjecture is calibrated accordingly &mdash; it is a claim about structural patterns observable in the current sample and plausible across a broader range of regulatory systems, not a claim about the complete and final computational character of any specific biological circuit.</p>
+    <p>The conjecture is offered as a motivated hypothesis with a seven-rung ladder of steps required for rigorous proof. It is the kind of conjecture that, if correct, places biological computation at a precise location in the landscape of mathematical logic; and if incorrect, sharpens our understanding of where the analogy between molecular primitives and logical primitives breaks down.</p>
+    <p>Either outcome advances the field.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- REFERENCES -->
+  <section class="section references">
+    <h2 class="section-title">Key References</h2>
+    <ol>
+      <li>Euclid. <em>Elements, Book I.</em> (c. 300 BCE). Heath translation, Cambridge University Press, 1908. <a href="https://mathcs.clarku.edu/~djoyce/java/elements/bookI/bookI.html" target="_blank" rel="noopener noreferrer">Online text (Joyce, Clark University)</a>.</li>
+      <li>Peano, G. <em>Arithmetices Principia, Nova Methodo Exposita.</em> 1889. <a href="https://archive.org/details/arithmeticesprin00peangoog" target="_blank" rel="noopener noreferrer">Internet Archive</a>.</li>
+      <li>Tarski, A. What is Elementary Geometry? In <em>The Axiomatic Method,</em> North-Holland, 1959. <a href="https://en.wikipedia.org/wiki/Tarski%27s_axiomatization_of_Euclidean_geometry" target="_blank" rel="noopener noreferrer">Overview (Wikipedia)</a>.</li>
+      <li>G&ouml;del, K. On Formally Undecidable Propositions of Principia Mathematica and Related Systems. 1931. <a href="https://plato.stanford.edu/entries/goedel-incompleteness/" target="_blank" rel="noopener noreferrer">Stanford Encyclopedia overview</a>.</li>
+      <li>Hilbert, D. <em>Foundations of Geometry (Grundlagen der Geometrie).</em> Teubner, 1899. <a href="https://archive.org/details/grundlagendergeo00hilbrich" target="_blank" rel="noopener noreferrer">Internet Archive (1902 Eng. ed.)</a>.</li>
+      <li>Church, A. An Unsolvable Problem of Elementary Number Theory. <em>American Journal of Mathematics,</em> 1936. <a href="https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis" target="_blank" rel="noopener noreferrer">Context (Wikipedia)</a>; original via <a href="https://doi.org/10.2307/2371045" target="_blank" rel="noopener noreferrer">JSTOR DOI</a>.</li>
+      <li>Kauffman, S. <em>The Origins of Order.</em> Oxford University Press, 1993. <a href="https://global.oup.com/academic/product/the-origins-of-order-9780195070659" target="_blank" rel="noopener noreferrer">Publisher page</a>.</li>
+      <li>Welz, G. &ldquo;Is the Genome Like a Computer Program?&rdquo; <em>X Advisor</em>, 1995. <a href="https://web.archive.org/web/19970310064130/http://landru.unx.com/DD/advisor/docs/jul95/welz.genome0.shtml" target="_blank" rel="noopener noreferrer">Wayback Machine</a> (Internet Archive).</li>
+      <li>Voevodsky, V. et al. <em>Homotopy Type Theory: Univalent Foundations of Mathematics.</em> Institute for Advanced Study, 2013. <a href="https://homotopytypetheory.org/book/" target="_blank" rel="noopener noreferrer">Free online book</a>.</li>
+      <li>Lawvere, F.W. Functorial Semantics of Algebraic Theories. Columbia University, 1963. <a href="http://www.tac.mta.ca/tac/reprints/articles/5/tr5abs.html" target="_blank" rel="noopener noreferrer">Theory and Applications of Categories (reprint)</a>.</li>
+      <li>Shen-Orr, S. et al. Network motifs in the transcriptional regulation network of Escherichia coli. <em>Nature Genetics,</em> 2002. <a href="https://doi.org/10.1038/ng881" target="_blank" rel="noopener noreferrer">DOI</a>.</li>
+      <li>Elowitz, M. &amp; Leibler, S. A synthetic oscillatory network of transcriptional regulators. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002125" target="_blank" rel="noopener noreferrer">DOI</a>.</li>
+      <li>Gardner, T. et al. Construction of a genetic toggle switch in Escherichia coli. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002131" target="_blank" rel="noopener noreferrer">DOI</a>.</li>
+      <li>Russell, B. &amp; Whitehead, A.N. <em>Principia Mathematica.</em> 3 vols. Cambridge University Press, 1910&ndash;1913. <a href="https://plato.stanford.edu/entries/principia-mathematica/" target="_blank" rel="noopener noreferrer">Overview (Stanford Encyclopedia of Philosophy)</a>.</li>
+      <li>Martin-L&ouml;f, P. Intuitionistic Type Theory. Notes by Giovanni Sambin, Bibliopolis, Naples, 1984. <a href="https://archive-pml.github.io/martin-lof/pdfs/Bibliopolis-Book-retypeset-1984.pdf" target="_blank" rel="noopener noreferrer">PDF (online)</a>.</li>
+      <li>Howard, W.A. The formulae-as-types notion of construction. In <em>To H.B. Curry: Essays on Combinatory Logic, Lambda Calculus and Formalism,</em> Academic Press, 1980. <a href="https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence" target="_blank" rel="noopener noreferrer">Overview (Wikipedia)</a>.</li>
+      <li>Brouwer, L.E.J. On the foundations of mathematics. Doctoral dissertation, University of Amsterdam, 1907. <a href="https://plato.stanford.edu/entries/intuitionism/" target="_blank" rel="noopener noreferrer">Overview (Stanford Encyclopedia)</a>.</li>
+      <li>Church, A. A formulation of the simple theory of types. <em>Journal of Symbolic Logic,</em> 5(2), 1940. <a href="https://doi.org/10.2307/2266170" target="_blank" rel="noopener noreferrer">JSTOR</a>.</li>
+      <li>Hilbert, D. &amp; Ackermann, W. <em>Grundz&uuml;ge der theoretischen Logik</em> (Principles of Mathematical Logic). Springer, 1928. <a href="https://plato.stanford.edu/entries/hilbert-program/" target="_blank" rel="noopener noreferrer">Context (Stanford Encyclopedia: Hilbert&rsquo;s Program)</a>.</li>
+      <li>Curry, H.B. &amp; Feys, R. <em>Combinatory Logic, Vol.&nbsp;I.</em> North-Holland, 1958. <a href="https://plato.stanford.edu/entries/combinatory-logic/" target="_blank" rel="noopener noreferrer">Overview (Stanford Encyclopedia)</a>.</li>
+      <li>de Moura, L. &amp; Ullrich, S. The Lean&nbsp;4 Theorem Prover and Programming Language. In <em>CADE-28: Automated Deduction,</em> Springer, 2021. <a href="https://leanprover.github.io/" target="_blank" rel="noopener noreferrer">Lean Prover</a>.</li>
+      <li>The Mathlib Community. Mathlib: A unified library of mathematics for Lean. <a href="https://github.com/leanprover-community/mathlib4" target="_blank" rel="noopener noreferrer">mathlib4 on GitHub</a>; documentation at <a href="https://leanprover-community.github.io/" target="_blank" rel="noopener noreferrer">leanprover-community.github.io</a>.</li>
+      <li>Scholze, P. Half a year of the Liquid Tensor Experiment. <em>Xena Project blog,</em> 2021. <a href="https://xenaproject.wordpress.com/2021/06/05/half-a-year-of-the-liquid-tensor-experiment/" target="_blank" rel="noopener noreferrer">Blog post</a>.</li>
+      <li>Simpson, S.G. <em>Subsystems of Second Order Arithmetic.</em> 2nd ed. Cambridge University Press, 2009. <a href="https://plato.stanford.edu/entries/reverse-mathematics/" target="_blank" rel="noopener noreferrer">Overview (Stanford Encyclopedia)</a>.</li>
+      <li>Friedman, H. Some systems of second order arithmetic and their use. In <em>Proceedings of the International Congress of Mathematicians,</em> Vancouver, 1974. The founding paper of Reverse Mathematics.</li>
+      <li>Gentzen, G. The consistency of elementary number theory. 1936. Translated in <em>The Collected Papers of Gerhard Gentzen,</em> North-Holland, 1969. <a href="https://en.wikipedia.org/wiki/Gentzen%27s_consistency_proof" target="_blank" rel="noopener noreferrer">Overview (Wikipedia)</a>.</li>
+      <li>Cohen, P.J. The independence of the Continuum Hypothesis. <em>Proceedings of the National Academy of Sciences,</em> 1963. <a href="https://doi.org/10.1073/pnas.50.6.1143" target="_blank" rel="noopener noreferrer">DOI</a>.</li>
+      <li>G&ouml;del, K. The consistency of the axiom of choice and of the generalized continuum-hypothesis with the axioms of set theory. <em>Proceedings of the National Academy of Sciences,</em> 1938. <a href="https://en.wikipedia.org/wiki/Constructible_universe" target="_blank" rel="noopener noreferrer">Overview (Wikipedia)</a>.</li>
+      <li>Turing, A.M. On Computable Numbers, with an Application to the Entscheidungsproblem. <em>Proceedings of the London Mathematical Society,</em> 1936. <a href="https://en.wikipedia.org/wiki/Turing%27s_proof" target="_blank" rel="noopener noreferrer">Overview (Wikipedia)</a>.</li>
+      <li>Rice, H.G. Classes of Recursively Enumerable Sets and Their Decision Problems. <em>Transactions of the American Mathematical Society,</em> 74(2), 1953. <a href="https://doi.org/10.2307/1990888" target="_blank" rel="noopener noreferrer">JSTOR</a>.</li>
+      <li>Rogers, H. <em>Theory of Recursive Functions and Effective Computability.</em> MIT Press, 1967.</li>
+      <li><strong>Algorithms and Axiomatic Theories database</strong> (Mathematics Processes Database). Public index of mathematical process diagrams: algorithms as flowcharts, axiomatic theories as dependency graphs. <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2" target="_blank" rel="noopener noreferrer">mathematics-database-table.html?v=2</a>. Primary diagrammatic source for the mathematical half of this paper&rsquo;s claims.</li>
+      <li><strong>GLMP Database Table.</strong> Public summary index of GLMP regulatory-process flowcharts (108 <em>E.&nbsp;coli</em> and related circuits). <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" rel="noopener noreferrer">glmp-database-table.html</a>. Companion to the mathematics database for the biological half of this paper. Interactive charts: <a href="https://huggingface.co/spaces/garywelz/programming_framework" target="_blank" rel="noopener noreferrer">Programming Framework</a> (Hugging Face).</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer class="paper-footer">
+  Genome Logic Modeling Project &mdash; Gary Welz &mdash; CUNY Graduate Center / New Media Lab &mdash; Working Paper 2026
+</footer>
+
+<script>
+(function () {
+  var cfg = {
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#1abc9c',
+      primaryTextColor: '#ffffff',
+      primaryBorderColor: '#16a085',
+      lineColor: '#2E75B6',
+      secondaryColor: '#f0f4f8',
+      tertiaryColor: '#faf9f7',
+      edgeLabelBackground: '#ffffff',
+      fontSize: '14px'
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 20,
+      nodeSpacing: 50,
+      rankSpacing: 60
+    }
+  };
+  function renderDiagrams() {
+    if (typeof mermaid === 'undefined' || !mermaid.run) return;
+    try {
+      mermaid.initialize(cfg);
+    } catch (e) {
+      console.warn('Mermaid initialize', e);
+    }
+    mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
+      console.warn('Mermaid run', err);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderDiagrams);
+  } else {
+    renderDiagrams();
+  }
+})();
+</script>
+</body>
+</html>

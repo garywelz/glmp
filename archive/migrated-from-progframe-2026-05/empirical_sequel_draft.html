@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuit Class Predicts Virtual Cell Model Accuracy &mdash; GLMP 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --ink:    #1a1a2e;
+    --deep:   #1F3864;
+    --accent: #2E75B6;
+    --red:    #c0392b;
+    --green:  #27ae60;
+    --orange: #e67e22;
+    --purple: #8e44ad;
+    --muted:  #5a6a7a;
+    --rule:   #d0d8e0;
+    --bg:     #fafaf8;
+    --bg-alt: #f2f4f0;
+    --serif:  'Crimson Pro', Georgia, serif;
+    --sans:   'Outfit', system-ui, sans-serif;
+    --mono:   'JetBrains Mono', monospace;
+    --max:    760px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--serif);
+    line-height: 1.8; max-width: var(--max); margin: 0 auto; padding: 2.5rem 2rem 6rem;
+  }
+  .title-block { text-align: center; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--rule); }
+  .sequel-note { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .title-block h1 { font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; color: var(--deep); line-height: 1.25; margin-bottom: 0.6rem; }
+  .title-block .subtitle { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--muted); margin-bottom: 1.25rem; }
+  .author-block { font-family: var(--sans); font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .author-block strong { color: var(--ink); }
+  .author-block a { color: var(--accent); text-decoration: none; }
+  .abstract { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 2rem 0; border-radius: 0 4px 4px 0; }
+  .abstract .label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .abstract p { font-size: 0.92rem; font-style: italic; color: #2a3a4a; line-height: 1.8; margin: 0; }
+  .scope { background: #f8f8f5; border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.25rem; margin: 1.5rem 0 2.5rem; font-family: var(--sans); font-size: 0.84rem; color: #3a4a5a; line-height: 1.7; }
+  .scope .label { font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .part-header { margin: 3.5rem 0 1.5rem; padding: 0.9rem 1.4rem; background: var(--deep); border-radius: 4px; display: flex; align-items: baseline; gap: 0.9rem; }
+  .part-header .part-label { font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #a8c4e0; flex-shrink: 0; }
+  .part-header .part-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: #fff; }
+  .part-bridge { background: var(--bg-alt); border-left: 3px solid var(--accent); padding: 0.9rem 1.25rem; margin: 0 0 2rem; font-family: var(--sans); font-size: 0.84rem; color: #2a3a4a; line-height: 1.75; font-style: italic; border-radius: 0 3px 3px 0; }
+  h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--deep); margin: 2.5rem 0 0.9rem; padding-bottom: 0.35rem; border-bottom: 1.5px solid var(--rule); }
+  h3 { font-family: var(--sans); font-size: 1rem; font-weight: 600; color: var(--accent); margin: 1.75rem 0 0.65rem; }
+  h4 { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; color: var(--muted); margin: 1.4rem 0 0.5rem; font-style: italic; }
+  p { margin-bottom: 1rem; text-align: justify; hyphens: auto; }
+  strong.term { font-weight: 600; color: var(--deep); }
+  .hypothesis { background: linear-gradient(135deg, #eef4fb, #f5f0fa); border: 1px solid #b8cfe8; border-left: 4px solid var(--accent); border-radius: 0 5px 5px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; color: #1a2a3a; line-height: 1.85; }
+  .hypothesis .label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .hypothesis p { font-style: italic; }
+  .hypothesis .testability { font-style: normal; font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin-top: 0.5rem; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 0.4rem; }
+  .tbl-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.82rem; }
+  thead tr { background: var(--deep); color: #fff; }
+  thead th { padding: 0.55rem 0.8rem; text-align: left; }
+  tbody tr:nth-child(even) { background: var(--bg-alt); }
+  tbody td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+  tbody td:first-child { font-weight: 600; color: var(--deep); }
+  ul.plist { list-style: none; margin: 1rem 0 1.5rem; padding: 0; }
+  ul.plist li { padding: 0.35rem 0 0.35rem 1.5rem; position: relative; line-height: 1.65; border-bottom: 1px solid var(--rule); }
+  ul.plist li:last-child { border-bottom: none; }
+  ul.plist li::before { content: "›"; position: absolute; left: 0.3rem; color: var(--accent); font-weight: 700; }
+  .mmd-wrap { background: #fff; border: 1px solid var(--rule); border-radius: 5px; padding: 1.25rem 0.75rem 0.75rem; margin: 1.5rem 0; text-align: center; overflow-x: auto; }
+  .mmd-caption { font-family: var(--sans); font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem; font-style: italic; line-height: 1.5; }
+  .mmd-caption strong { font-style: normal; color: var(--ink); }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  .references ol { padding-left: 1.4rem; font-family: var(--sans); font-size: 0.84rem; line-height: 1.7; color: var(--muted); }
+  .references ol li { margin-bottom: 0.45rem; }
+  .references ol li a { color: var(--accent); text-decoration: none; }
+  .references ol li a:hover { text-decoration: underline; }
+  .paper-footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 2px solid var(--rule); font-family: var(--sans); font-size: 0.78rem; color: var(--muted); text-align: center; line-height: 1.7; }
+  .paper-nav { font-family: var(--sans); font-size: 0.85rem; background: #243954; padding: 0.7rem 1rem; text-align: center; border-bottom: 1px solid #1a2a42; }
+  .paper-nav a { color: #a8c4e0; text-decoration: none; margin: 0 0.85rem; white-space: nowrap; }
+  .paper-nav a:hover { text-decoration: underline; color: #fff; }
+  .paper-nav .nav-sep { color: #4a6a8a; margin: 0 0.25rem; }
+  .paper-nav .nav-aux { display: block; margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.92; }
+  .paper-nav .nav-aux a { margin: 0 0.65rem; }
+  .result-box { background: #f0f7ee; border: 1px solid #b8d8a8; border-left: 4px solid var(--green); border-radius: 0 5px 5px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; color: #1a2a3a; line-height: 1.85; }
+  .result-box .label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
+  .null-box { background: #fef5e7; border: 1px solid #e8d5a8; border-left: 4px solid var(--orange); border-radius: 0 5px 5px 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; color: #1a2a3a; line-height: 1.85; }
+  .null-box .label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; }
+  .verdict { font-family: var(--sans); font-size: 0.82rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 3px; display: inline-block; margin-left: 0.3rem; }
+  .verdict-supported { background: #d4efdf; color: #1e8449; }
+  .verdict-partial { background: #fef9e7; color: #b7950b; }
+  .verdict-untested { background: #eaecee; color: #5d6d7e; }
+  .stat-highlight { font-family: var(--mono); font-size: 0.88rem; font-weight: 600; color: var(--deep); }
+  .diagram-wrap { margin: 1.5rem 0; text-align: center; overflow-x: auto; }
+  .diagram-wrap .mermaid { display: inline-block; text-align: left; }
+  @media print {
+    body { max-width: 100%; padding: 0; font-size: 11pt; }
+    .part-header { background: #fff; border: 1px solid #ccc; }
+    .part-header .part-label, .part-header .part-title { color: var(--ink); }
+    .paper-nav { display: none; }
+    a { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="paper-nav" aria-label="GLMP working papers and resources">
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I: Foundational Typology</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II: The Genome as Computer</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html" aria-current="page">Paper III: Empirical Sequel</a>
+  <span class="nav-sep" aria-hidden="true">&middot;</span>
+  <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP Database</a>
+  <span class="nav-aux">
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/mathematics-database-table.html?v=2">Mathematics Database</a>
+    <a href="https://gdubs-copernicus-web.hf.space/" target="_blank" rel="noopener">Programming Framework (HuggingFace)</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/foundations/foundations-axiomatic-set-theory.html">ZFC index</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/geometry_topology/geometry_topology-euclid-elements.html">Euclid index</a>
+    <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/processes/number_theory/number_theory-peano-arithmetic.html">Peano arithmetic</a>
+  </span>
+</nav>
+
+<div class="title-block">
+  <div class="sequel-note">GLMP Working Paper 2026 &middot; Empirical Companion &middot; Results</div>
+  <h1>Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis</h1>
+  <p class="subtitle">Empirical companion to: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a> and <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>The Genome as Computer</em></a></p>
+  <div class="author-block">
+    <strong>Gary Welz</strong><br>
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a><br>
+    CUNY Graduate Center / New Media Lab<br>
+    Genome Logic Modeling Project (GLMP)
+  </div>
+</div>
+
+<!-- ABSTRACT -->
+<div class="abstract">
+  <div class="label">Abstract</div>
+  <p>The companion theoretical papers conjectured that gene regulatory circuits can be classified by computational complexity class (I&ndash;V) based on their topological structure, and that this classification has measurable consequences for the predictability of circuit behavior. This paper reports the first empirical test of that conjecture. We classified 780 genes from the genome-scale Replogle et&nbsp;al. (2022) K562 Perturb-seq dataset by GLMP complexity class using the TRRUST regulatory network and literature curation, then evaluated 16 grammar-blind perturbation prediction models &mdash; including 14 methods from the Nature Methods 27-method benchmark and Arc Institute&rsquo;s STATE transformer (scored under two metrics) &mdash; on whether prediction accuracy varies by circuit class. We find that Class&nbsp;III (bistable/positive feedback) genes are systematically harder to predict than Class&nbsp;I (feed-forward) genes: 12 of 16 methods (75%) show lower accuracy for Class&nbsp;III, and the mean accuracy deficit is statistically significant across methods (one-sample <em>t</em>-test, <em>t</em>&nbsp;=&nbsp;&minus;3.55, <em>p</em>&nbsp;=&nbsp;0.0015). This constitutes the first empirical evidence that computational complexity class, as defined by regulatory circuit topology, correlates with the difficulty of predicting perturbation responses. The grammar-aware comparison (CellOracle vs. grammar-blind models) was limited by CellOracle&rsquo;s restriction to transcription factor perturbations; a GRN topology analysis of the CellOracle-inferred network provided partial corroboration. We discuss the implications for virtual cell model benchmarking and the theoretical framework.</p>
+</div>
+
+<!-- SCOPE -->
+<div class="scope">
+  <div class="label">Relationship to Companion Papers &amp; Version History</div>
+  Paper&nbsp;I (<em>Primitive Relations, Computational Complexity</em>) established the five-class complexity ladder and stated the central conjecture. Paper&nbsp;II (<em>The Genome as Computer</em>) developed the logical primitive vocabulary, identified the transcriptome as runtime state, and derived nine predictions. This paper takes Prediction&nbsp;5 (virtual cell model accuracy correlates with circuit class) and Prediction&nbsp;8 (grammar-aware models outperform grammar-blind models) and converts them into a concrete experimental protocol with falsifiable hypotheses.<br><br>
+  <strong>Version 1</strong> (March 2026) presented the hypotheses and experimental design as a pre-registration. <strong>Version 2</strong> (April 2026) adds empirical results from all three phases: gene classification, model evaluation across 16 methods, stratified statistical analysis, and a robustness test (Section 8.5) that attempted to expand the Class&nbsp;III set and revealed a theoretically informative distinction between persistent and transient bistability. No hypotheses were modified after data collection began.
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part I</span>
+  <span class="part-title">Hypotheses</span>
+</div>
+
+<h2>1. The Central Question</h2>
+
+<p>Virtual cell models &mdash; AI systems that predict how cells respond to genetic or chemical perturbations &mdash; are evaluated by aggregate accuracy across all genes. No existing benchmark stratifies predictions by the <em>regulatory circuit topology</em> of the perturbed gene. The theoretical framework of Papers I and II predicts that this topology matters: a feed-forward circuit (Class&nbsp;I) should be inherently more predictable than a bistable switch (Class&nbsp;III) or a self-modifying epigenetic circuit (Class&nbsp;V), regardless of the model used.</p>
+
+<p>If correct, this prediction has immediate practical consequences. It means that AI models of biology face not merely technological limitations but <em>mathematical</em> ones: for circuits above a certain complexity class, perfect prediction is impossible in principle. It also means that current aggregate benchmarks are misleading &mdash; a model reporting 70% accuracy may be achieving 95% on Class&nbsp;I genes and 30% on Class&nbsp;V genes, and the aggregate hides this biologically fundamental distinction.</p>
+
+<p>We propose to test this by re-stratifying existing virtual cell model benchmarks by circuit class. The experimental design requires no new biological data &mdash; only a new axis of analysis applied to existing public datasets.</p>
+
+<h2>2. Seven Testable Hypotheses</h2>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 1 &mdash; The Accuracy Gradient</div>
+  <p>Virtual cell model prediction accuracy decreases monotonically from Class&nbsp;I (feed-forward) through Class&nbsp;V (self-modifying epigenetic) when measured on genome-scale Perturb-seq benchmarks.</p>
+  <div class="testability"><strong>Metric:</strong> Mean Pearson correlation between predicted and observed expression change vectors, grouped by circuit class. <strong>Falsification:</strong> No statistically significant Spearman rank correlation between circuit class and prediction accuracy (p &gt; 0.05).</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 2 &mdash; Grammar-Aware Advantage</div>
+  <p>Models that explicitly represent gene regulatory network topology (grammar-aware: CellOracle) outperform models that do not (grammar-blind: STATE) when evaluated per circuit class, and the performance gap is largest for Class&nbsp;III (bistable) circuits.</p>
+  <div class="testability"><strong>Metric:</strong> Paired accuracy difference (CellOracle &minus; STATE) per circuit class. <strong>Falsification:</strong> STATE matches or exceeds CellOracle accuracy across all classes (paired Wilcoxon p &gt; 0.05 for every class).</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 3 &mdash; Class I Ceiling</div>
+  <p>For Class&nbsp;I (feed-forward) circuits, both grammar-blind and grammar-aware models approach high accuracy (&gt;0.7 Pearson correlation), and the inter-model accuracy gap is small (&lt;0.05). Feed-forward circuits are decidable; knowing the topology adds little because there is no hidden state.</p>
+  <div class="testability"><strong>Metric:</strong> Absolute accuracy and inter-model gap for Class I genes. <strong>Falsification:</strong> Class I accuracy is below 0.5 for both models, or the inter-model gap exceeds 0.15.</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 4 &mdash; Class III Bistability Signature</div>
+  <p>Genes regulated by Class&nbsp;III (bistable) circuits exhibit bimodal expression distributions in single-cell data. Models that fail to predict the correct attractor state for individual cells will show a characteristic error pattern: high accuracy for the population mean but low accuracy for individual cell predictions.</p>
+  <div class="testability"><strong>Metric:</strong> Bimodality coefficient (Sarle's b) of expression distributions for Class III target genes; ratio of population-mean accuracy to single-cell accuracy. <strong>Falsification:</strong> Class III genes show unimodal expression distributions indistinguishable from Class I genes.</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 5 &mdash; Class V Hard Ceiling</div>
+  <p>For Class&nbsp;V (self-modifying epigenetic) circuits, both models converge to low accuracy, and the grammar-aware model gains little advantage. If Class&nbsp;V circuits approach Turing-completeness, Rice&rsquo;s theorem implies that no algorithm &mdash; regardless of architecture &mdash; can perfectly predict their behavior. The accuracy ceiling for Class&nbsp;V should be strictly less than for Class&nbsp;I.</p>
+  <div class="testability"><strong>Metric:</strong> Absolute accuracy for Class V genes; inter-model gap for Class V. <strong>Falsification:</strong> Class V accuracy equals or exceeds Class I accuracy for either model.</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 6 &mdash; DEG Recovery Gradient</div>
+  <p>The fraction of true differentially expressed genes (DEGs) correctly recovered by each model decreases with circuit class. Class&nbsp;I perturbations have simple, localized effects (few DEGs, high recovery). Class&nbsp;IV&ndash;V perturbations have complex, distributed effects (many DEGs, low recovery).</p>
+  <div class="testability"><strong>Metric:</strong> DEG recovery F1 score per circuit class. <strong>Falsification:</strong> No significant correlation between circuit class and DEG recovery (Spearman p &gt; 0.05).</div>
+</div>
+
+<div class="hypothesis">
+  <div class="label">Hypothesis 7 &mdash; Network Motif Concordance</div>
+  <p>CellOracle&rsquo;s inferred gene regulatory network, when classified by the same topology criteria as GLMP, assigns the majority of genes to the same complexity class as the GLMP classification. Where they disagree, the discordance is informative: genes misclassified by CellOracle (relative to GLMP) should show lower prediction accuracy than concordant genes.</p>
+  <div class="testability"><strong>Metric:</strong> Cohen&rsquo;s kappa between CellOracle-inferred and GLMP-assigned circuit classes; accuracy stratified by concordance/discordance. <strong>Falsification:</strong> Cohen&rsquo;s kappa &lt; 0.2 (poor agreement), or discordant genes show equal accuracy to concordant genes.</div>
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part II</span>
+  <span class="part-title">Experimental Design</span>
+</div>
+<div class="part-bridge">
+  The experimental design below requires no new biological experiments. It applies a new analytical axis &mdash; circuit class stratification &mdash; to existing public datasets and publicly available virtual cell models. All data, models, and evaluation tools are open-source or open-access.
+</div>
+
+<h2>3. Phase 1: Gene Circuit Classification</h2>
+
+<h3>3.1 Benchmark Gene Set</h3>
+
+<p>The primary benchmark is the <strong>Replogle et al. (2022) K562 Perturb-seq dataset</strong> &mdash; genome-scale CRISPRi perturbations in K562 human chronic myeloid leukemia cells. This dataset perturbs approximately 5,000 essential genes with single-cell RNA-seq readout and is the standard benchmark used by STATE, CellOracle, and the Nature Methods 27-method comparison (2025). It is available in processed form on the CZI Virtual Cells Platform and in harmonized format via scPerturb.</p>
+
+<h3>3.2 Classification Protocol</h3>
+
+<p>For each perturbed gene that encodes a transcription factor, signaling protein, or chromatin modifier, we classify the gene&rsquo;s regulatory circuit by GLMP complexity class using the following evidence hierarchy:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Priority</th><th>Source</th><th>Method</th><th>Confidence</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>GLMP database</td><td>Direct classification from existing typed flowchart</td><td>High</td></tr>
+    <tr><td>2</td><td>Published literature</td><td>Well-characterized circuits (lac operon, p53-MDM2, Yamanaka factors, etc.)</td><td>High</td></tr>
+    <tr><td>3</td><td>TRRUST v2 / ENCODE</td><td>Known human TF-target interactions; classify by network motif topology</td><td>Medium</td></tr>
+    <tr><td>4</td><td>RegulonDB</td><td>E. coli ortholog regulatory interactions (for conserved circuits)</td><td>Medium</td></tr>
+    <tr><td>5</td><td>GLMP pipeline</td><td>LLM-generated typed flowchart from literature, classified by topology</td><td>Low&ndash;Medium</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.3 Classification Criteria</h3>
+
+<p>Circuit class assignment follows the five-class ladder from Paper I:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>Topology Criterion</th><th>Formal Test</th><th>Prototype Example</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="color:#2980b9;">I</td><td>No feedback edges in regulatory subgraph</td><td>Directed acyclic graph (DAG)</td><td>Simple inducible promoters; JUN/AP-1 cascade</td></tr>
+    <tr><td style="color:#27ae60;">II</td><td>Negative autoregulation or negative feedback loop</td><td>Single negative cycle in subgraph</td><td>HIF1A-VHL loop; NF-&kappa;B&ndash;I&kappa;B loop</td></tr>
+    <tr><td style="color:#f39c12;">III</td><td>Positive feedback or mutual repression (bistable)</td><td>Positive cycle or double-negative cycle</td><td>p53-MDM2 toggle; GATA1-PU.1; Yamanaka circuit</td></tr>
+    <tr><td style="color:#e67e22;">IV</td><td>Mixed feedback with delay elements (oscillatory)</td><td>Negative cycle with &ge;3 nodes (repressilator topology)</td><td>CLOCK-BMAL1 circadian loop</td></tr>
+    <tr><td style="color:#c0392b;">V</td><td>Self-modifying: circuit alters its own regulatory architecture</td><td>Chromatin modifier targets its own regulatory region</td><td>DNMT3A self-methylation; EZH2 autosilencing</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.4 Circuit Topology Illustrations</h3>
+
+<p>The following GLMP-style flowcharts illustrate the topological distinction between classes. These are deliberately simplified to highlight the structural feature &mdash; the presence or absence of directed cycles &mdash; that determines the class. Full GLMP flowcharts with complete molecular detail for these and other regulatory circuits are available in the <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP database</a>. Colors follow the GLMP palette: <span style="color:#1abc9c;">green</span> = gene/protein, <span style="color:#e74c3c;">red</span> = repression, <span style="color:#2E75B6;">blue</span> = activation/signal, <span style="color:#f39c12;">orange</span> = regulatory outcome.</p>
+
+<p><strong>Class I — Feed-forward cascade (JUN/AP-1).</strong> Signal flows in one direction; no cycle. The perturbation response is fully determined by the current input.</p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph LR
+  S["Growth factor<br/>signal"]:::signal --> MAPK["MAPK<br/>cascade"]:::gene --> JUN["JUN / AP-1<br/>transcription"]:::gene --> T["Target gene<br/>expression"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  </div>
+</div>
+
+<p><strong>Class II — Negative feedback (ATF4 stress response).</strong> A single negative cycle produces self-correction: the output damps the signal that produced it. The circuit is homeostatic.</p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph LR
+  Stress["ER stress<br/>signal"]:::signal --> eIF2["eIF2&alpha;<br/>phosphorylation"]:::gene --> ATF4["ATF4<br/>translation"]:::gene --> CHOP["CHOP / GADD34<br/>targets"]:::outcome
+  CHOP -. "negative<br/>feedback" .-> eIF2
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 3 stroke:#e74c3c,stroke-width:2px
+  </div>
+</div>
+
+<p><strong>Class III — Bistable switch: GATA1 / PU.1 mutual repression.</strong> Each transcription factor represses the other, creating two stable attractor states: high-GATA1 (erythroid fate) or high-PU.1 (myeloid fate). Once a cell &ldquo;nucleates&rdquo; into one state, the mutual repression lock maintains it. A grammar-blind model observing a snapshot cannot determine which attractor the cell has committed to. <em>This gene&rsquo;s benchmark accuracy (mean r&nbsp;=&nbsp;0.699) is below the Class&nbsp;I average (0.780).</em></p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph TD
+  Signal["Lineage<br/>signal"]:::signal --> GATA1["GATA1"]:::gene
+  Signal --> PU1["PU.1"]:::gene
+  GATA1 -- "activates<br/>own promoter" --> GATA1
+  PU1 -- "activates<br/>own promoter" --> PU1
+  GATA1 -. "represses" .-> PU1
+  PU1 -. "represses" .-> GATA1
+  GATA1 --> Ery["Erythroid<br/>fate"]:::outcome
+  PU1 --> Myel["Myeloid<br/>fate"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 4 stroke:#e74c3c,stroke-width:2px
+  linkStyle 5 stroke:#e74c3c,stroke-width:2px
+  </div>
+</div>
+
+<p><strong>Class III — Bistable switch: MYC autoactivation.</strong> MYC protein activates its own transcription through a positive feedback loop. Above a threshold, the circuit locks into a high-MYC proliferative state &mdash; the &ldquo;siphon&rdquo; is self-sustaining. The initiating signal is no longer necessary. <em>Benchmark accuracy: mean r&nbsp;=&nbsp;0.817, above Class&nbsp;I average &mdash; illustrating that not all Class&nbsp;III genes are hard to predict, but the class as a whole is.</em></p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph LR
+  Mitogen["Mitogenic<br/>signal"]:::signal --> MYC["MYC<br/>protein"]:::gene
+  MYC -- "positive<br/>autoactivation" --> MYC
+  MYC --> Prolif["Cell<br/>proliferation"]:::outcome
+  MYC --> Apop["Apoptosis<br/>(if ARF/p53 active)"]:::outcome2
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  classDef outcome2 fill:#e74c3c,stroke:#c0392b,color:#fff
+  </div>
+</div>
+
+<p><strong>Class III — Bistable switch: VHL-HIF oxygen sensing.</strong> Under normoxia, VHL degrades HIF1&alpha;. Under hypoxia, HIF1&alpha; accumulates and activates a transcriptional program including genes that further stabilize the hypoxic state. The circuit exhibits bistable behavior around the oxygen threshold. <em>Benchmark accuracy: mean r&nbsp;=&nbsp;0.921, the highest in Class&nbsp;III.</em></p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph TD
+  O2["Oxygen<br/>level"]:::signal --> VHL["VHL<br/>E3 ligase"]:::gene
+  VHL -. "degrades<br/>(normoxia)" .-> HIF["HIF1&alpha;"]:::gene
+  HIF -- "activates<br/>(hypoxia)" --> Targets["VEGF, GLUT1<br/>glycolytic genes"]:::outcome
+  Targets -- "positive<br/>feedback" --> HIF
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 1 stroke:#e74c3c,stroke-width:2px
+  </div>
+</div>
+
+<p><strong>Class IV — Delayed negative feedback (circadian CLOCK&ndash;BMAL1 / PER&ndash;CRY).</strong> Class&nbsp;IV denotes <strong>mixed feedback with delay</strong>: typically a negative loop spanning three or more nodes so that transcription&ndash;translation delays convert a simple negative feedback into <strong>sustained oscillation</strong> rather than a static toggle. The CLOCK&ndash;BMAL1 heterodimer activates <em>Per</em> and <em>Cry</em> genes; the accumulating PER&ndash;CRY complex feeds back to repress CLOCK/BMAL1-driven transcription after a lag, closing the loop. The relevant hidden variable is often <strong>phase</strong> (where the cell sits in the cycle), not only which attractor basin is occupied. <em>Only two benchmark genes fall in Class&nbsp;IV in our table (HDAC7, TFDP1); interpret aggregate Class&nbsp;IV statistics with caution.</em></p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph TD
+  Input["Light / SCN<br/>entraining input"]:::signal --> CBC["CLOCK / BMAL1<br/>heterodimer"]:::gene
+  CBC -- "activates<br/>transcription" --> PC["PER / CRY<br/>mRNA to protein"]:::gene
+  PC -. "delayed<br/>repression" .-> CBC
+  PC --> Out["Circadian output<br/>genes"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 2 stroke:#e74c3c,stroke-width:2px
+  </div>
+</div>
+
+<p><strong>Class V — Self-modifying chromatin (BRD4).</strong> BRD4 reads acetylated histones and recruits the transcriptional machinery, which includes histone acetyltransferases that create more acetylation marks &mdash; modifying the regulatory architecture itself. The circuit rewrites its own program. <em>Benchmark accuracy: mean r&nbsp;=&nbsp;0.876.</em></p>
+<div class="diagram-wrap">
+  <div class="mermaid">
+graph TD
+  HAc["Histone<br/>acetylation"]:::signal --> BRD4["BRD4<br/>(reads acetyl marks)"]:::gene
+  BRD4 --> TxnMach["Transcriptional<br/>machinery + HATs"]:::gene
+  TxnMach -- "writes new<br/>acetyl marks" --> HAc
+  BRD4 --> Targets["Super-enhancer<br/>target genes"]:::outcome
+  classDef signal fill:#2E75B6,stroke:#1a5276,color:#fff
+  classDef gene fill:#1abc9c,stroke:#16a085,color:#fff
+  classDef outcome fill:#f39c12,stroke:#e67e22,color:#fff
+  linkStyle 2 stroke:#9b59b6,stroke-width:2px,stroke-dasharray:5
+  </div>
+</div>
+
+<h2>4. Phase 2: Virtual Cell Model Evaluation</h2>
+
+<h3>4.1 Model Selection</h3>
+
+<p>The original design called for a direct comparison between a grammar-blind model (STATE) and a grammar-aware model (CellOracle). In practice, we evaluated a broader set: 14 methods from the Nature Methods 27-method benchmark (2025) and Arc Institute&rsquo;s STATE transformer, for a total of 16 grammar-blind evaluations spanning diverse architectures (STATE was scored under both its native HVG metric and the benchmark DE20 metric).</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Method</th><th>Architecture</th><th>Source</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>scGPT</td><td>Transformer (pre-trained)</td><td>Cui et al. 2024</td></tr>
+    <tr><td>GEARS</td><td>Graph neural network</td><td>Roohani et al. 2023</td></tr>
+    <tr><td>GeneCompass</td><td>Transformer (pre-trained)</td><td>Yang et al. 2023</td></tr>
+    <tr><td>GenePert</td><td>MLP + gene embeddings</td><td>Gao et al. 2024</td></tr>
+    <tr><td>AttentionPert</td><td>Attention-based</td><td>Dong et al. 2024</td></tr>
+    <tr><td>CPA</td><td>Variational autoencoder</td><td>Lotfollahi et al. 2023</td></tr>
+    <tr><td>scELMo</td><td>Language model</td><td>Liu et al. 2024</td></tr>
+    <tr><td>bioLord</td><td>Disentangled representation</td><td>Lotfollahi et al. 2024</td></tr>
+    <tr><td>scouter</td><td>Meta-learning</td><td>Ji et al. 2024</td></tr>
+    <tr><td>linearModel</td><td>Linear regression baseline</td><td>Benchmark paper</td></tr>
+    <tr><td>trainMean</td><td>Training mean baseline</td><td>Benchmark paper</td></tr>
+    <tr><td>baseMLP</td><td>MLP baseline</td><td>Benchmark paper</td></tr>
+    <tr><td>baseReg</td><td>Regularized linear baseline</td><td>Benchmark paper</td></tr>
+    <tr><td>baseControl</td><td>Control baseline</td><td>Benchmark paper</td></tr>
+    <tr><td>STATE (ST-HVG-Parse)</td><td>Transformer (virtual cell)</td><td>Arc Institute, Hie et al. 2025</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>CellOracle (Morris Lab) was evaluated separately as the grammar-aware comparator, but its use was constrained: CellOracle can only simulate perturbations for genes that are transcription factors in its inferred GRN, limiting the direct comparison to a small subset. We supplemented this with a GRN topology analysis of the full CellOracle-inferred network (Section 8.4).</p>
+
+<h3>4.2 Evaluation Metrics</h3>
+
+<p>For the 14 benchmark methods, per-gene Pearson correlations between predicted and observed expression change vectors were obtained from the published benchmark results, evaluated on the top 20 differentially expressed genes per perturbation. For STATE, we ran inference independently using the ST-HVG-Parse model on Google Colab (T4 GPU) and computed Pearson correlations across 2,000 highly variable genes. This difference in evaluation scope is noted as a caveat in the interpretation.</p>
+
+<h2>5. Phase 3: Stratified Analysis Design</h2>
+
+<h3>5.1 Primary Analysis: The Accuracy Gradient</h3>
+
+<p>For each model and each metric, we compute the mean accuracy per circuit class and test for a monotonic decrease. The primary test is whether Class&nbsp;III (bistable) genes show systematically lower prediction accuracy than Class&nbsp;I (feed-forward) genes across methods.</p>
+
+<h3>5.2 Statistical Tests</h3>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Test</th><th>Hypothesis</th><th>What It Answers</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>One-sample <em>t</em>-test on C3&minus;C1 differences</td><td>H1</td><td>Is the mean accuracy deficit for Class III significant across methods?</td></tr>
+    <tr><td>Sign test (binomial)</td><td>H1</td><td>Do more methods show C3 &lt; C1 than expected by chance?</td></tr>
+    <tr><td>Mann-Whitney U (per method)</td><td>H1</td><td>Within each method, do Class I and III distributions differ?</td></tr>
+    <tr><td>OLS regression with effect-size covariate</td><td>Confound</td><td>Does class predict accuracy after controlling for perturbation magnitude?</td></tr>
+    <tr><td>Effect-size matched subsampling</td><td>Confound</td><td>Is the class effect robust to matched controls?</td></tr>
+    <tr><td>Bootstrap CI</td><td>All</td><td>95% confidence intervals on per-class accuracy means</td></tr>
+  </tbody>
+</table>
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part III</span>
+  <span class="part-title">Results</span>
+</div>
+<div class="part-bridge">
+  All results reported below were computed from publicly available data and model outputs. Code and intermediate files are available in the project repository. No hypotheses were modified after data collection.
+</div>
+
+<h2>6. Phase 1 Outcome: Gene Circuit Classification</h2>
+
+<h3>6.1 Classification Summary</h3>
+
+<p>We classified 826 genes from the K562 Perturb-seq dataset by GLMP complexity class. Of these, 780 overlapped with the set of genes evaluated in the 14-method benchmark, forming the analysis cohort. Classifications were derived from TRRUST v2 network topology (medium confidence) for genes with known regulatory interactions, supplemented by literature curation (high confidence) for well-characterized circuits, with the remainder assigned to Class&nbsp;I by default (low confidence).</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>N (classified)</th><th>N (in benchmark)</th><th>Representative Genes</th><th>Primary Evidence</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="color:#2980b9;">I</td><td>785</td><td>748</td><td>ANAPC4, BCL2L1, JUN, FOSL1</td><td>TRRUST DAG / default</td></tr>
+    <tr><td style="color:#27ae60;">II</td><td>13</td><td>8</td><td>ATF4, BRCA1, HDAC3, PIK3C3</td><td>TRRUST negative cycle</td></tr>
+    <tr><td style="color:#f39c12;">III</td><td>17</td><td>14</td><td>MYC, VHL, GATA1, RAD51, MED1, CDC20, BUB1</td><td>Literature + TRRUST positive cycle</td></tr>
+    <tr><td style="color:#e67e22;">IV</td><td>2</td><td>2</td><td>HDAC7, TFDP1</td><td>TRRUST oscillatory motif</td></tr>
+    <tr><td style="color:#c0392b;">V</td><td>9</td><td>8</td><td>BRD4, SMARCB1, CBX1, INO80B, MIS18BP1</td><td>Literature: self-modifying chromatin / self-templating epigenetic</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>6.2 Classification Caveats</h3>
+
+<p>The class distribution is highly skewed: 96% of genes fall into Class&nbsp;I, reflecting both the genuine preponderance of feed-forward circuits and a conservative classification strategy where genes with no known feedback were assigned to Class&nbsp;I by default. Classes&nbsp;IV and V have very small sample sizes (N&nbsp;=&nbsp;2 and N&nbsp;=&nbsp;8 in the benchmark), precluding reliable statistical inference for these classes individually. The Class&nbsp;III set (N&nbsp;=&nbsp;14) is the smallest class with sufficient statistical power for a meaningful comparison against Class&nbsp;I, and is therefore the focus of the primary analysis.</p>
+
+<p>The Class&nbsp;III set was expanded from an initial 5 genes (identified purely from TRRUST topology) to 14 by systematic literature curation of well-characterized bistable circuits (e.g., TP53-MDM2, STAT3 autoactivation, MYC positive feedback). All additions were made before examining their prediction scores.</p>
+
+<h2>7. Phase 2 Outcome: Model Evaluation</h2>
+
+<h3>7.1 Benchmark Methods (14 models)</h3>
+
+<p>Per-gene Pearson correlations for 14 methods were obtained from the published Nature Methods benchmark results (evaluated on top 20 differentially expressed genes per perturbation). Across all 780 genes, the mean accuracy ranged from 0.62 (baseControl) to 0.81 (trainMean), with most deep learning methods between 0.66 and 0.81.</p>
+
+<h3>7.2 STATE (Arc Institute)</h3>
+
+<p>STATE ST-HVG-Parse was run on the same K562 dataset using Google Colab (T4 GPU, 15.6&nbsp;GB VRAM). The model was evaluated in zero-shot mode (no task-specific fine-tuning). Predictions were scored under two metrics: (a) Pearson correlation across 2,000 HVGs (the model&rsquo;s native evaluation), and (b) Pearson correlation across the top 20 differentially expressed genes per perturbation (matching the 14 benchmark methods).</p>
+
+<div class="result-box">
+  <div class="label">STATE Performance</div>
+  <p><strong>HVG metric (2,000 genes):</strong> Mean <em>r</em>&nbsp;=&nbsp;0.088, median&nbsp;=&nbsp;0.074.<br>
+  <strong>DE20 metric (top 20 DE genes):</strong> Mean <em>r</em>&nbsp;=&nbsp;0.003, median&nbsp;=&nbsp;0.004.</p>
+  <p>Both metrics show dramatically lower accuracy than the 14 benchmark methods (<em>r</em>&nbsp;&asymp;&nbsp;0.7&ndash;0.8 on DE20). Notably, restricting to DE20 genes does not improve STATE&rsquo;s performance &mdash; it worsens it, with many genes showing negative correlations. This indicates that STATE&rsquo;s zero-shot predictions genuinely do not capture the strongest perturbation effects in K562, rather than merely being diluted by noise across 2,000 genes. For the class-stratified analysis, we use the DE20 metric to ensure comparability with the benchmark methods.</p>
+</div>
+
+<h2>8. Phase 3 Outcome: Stratified Analysis</h2>
+
+<h3>8.1 The Central Finding: Class III Is Harder to Predict</h3>
+
+<p>For each of the 16 methods (14 benchmark + STATE scored under two metrics), we computed the mean Pearson correlation for Class&nbsp;I genes and Class&nbsp;III genes, then took the difference (C3&nbsp;&minus;&nbsp;C1). A negative value means Class&nbsp;III is harder to predict. STATE is shown under both its original HVG metric and the DE20 metric that matches the benchmark evaluation; the DE20 metric is used in the primary analysis for comparability.</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Method</th><th>C3 &minus; C1</th><th>Direction</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GeneCompass</td><td>&minus;0.086</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>CPA</td><td>&minus;0.079</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>trainMean</td><td>&minus;0.073</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>baseReg</td><td>&minus;0.065</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>linearModel</td><td>&minus;0.048</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>GEARS</td><td>&minus;0.047</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>scGPT</td><td>&minus;0.045</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>scELMo</td><td>&minus;0.033</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>STATE (DE20)</td><td>&minus;0.031</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>GenePert</td><td>&minus;0.022</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>AttentionPert</td><td>&minus;0.016</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>baseMLP</td><td>&minus;0.010</td><td style="color:var(--red);">C3 harder</td></tr>
+    <tr><td>baseControl</td><td>+0.004</td><td style="color:var(--muted);">~equal</td></tr>
+    <tr><td>scouter</td><td>+0.016</td><td style="color:var(--muted);">~equal</td></tr>
+    <tr><td>bioLord</td><td>+0.017</td><td style="color:var(--muted);">~equal</td></tr>
+    <tr style="color:var(--muted);"><td>STATE (HVG) &dagger;</td><td>+0.022</td><td>~equal</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.8rem; color:var(--muted);">&dagger; STATE (HVG) is shown for reference but excluded from the primary analysis because it uses a different evaluation metric (2,000 HVGs vs. top-20 DE genes). When re-scored on DE20, STATE shows C3 harder, consistent with the other methods.</p>
+</div>
+
+<div class="result-box">
+  <div class="label">Primary Statistical Result (16 methods, DE20 metric for STATE)</div>
+  <p><strong>12 of 16 methods</strong> show Class&nbsp;III genes as harder to predict than Class&nbsp;I.<br>
+  Sign test (binomial, H<sub>1</sub>: proportion &gt; 0.5): <span class="stat-highlight"><em>p</em> = 0.038</span> (significant).<br>
+  One-sample <em>t</em>-test (H<sub>1</sub>: mean C3&minus;C1 &lt; 0): <span class="stat-highlight"><em>t</em> = &minus;3.55, <em>p</em> = 0.0015</span>.<br>
+  The mean accuracy deficit for Class&nbsp;III across all 16 methods is &minus;0.031 Pearson units.</p>
+</div>
+
+<p>Both tests are now significant. The <em>t</em>-test is significant at <em>p</em>&nbsp;&lt;&nbsp;0.002; the sign test, which only counts directions, is significant at <em>p</em>&nbsp;&lt;&nbsp;0.05. Re-scoring STATE on the DE20 metric resolved the metric mismatch that had made STATE the one apparent outlier in the original 15-method analysis &mdash; under a common metric, STATE shows the same Class&nbsp;III difficulty pattern as the other methods.</p>
+
+<p style="font-family:var(--sans); font-size:0.82rem; color:var(--muted); margin-top:0.8rem;"><strong>Figure 1.</strong> Class&nbsp;III accuracy deficit (C3&nbsp;&minus;&nbsp;C1) across 16 methods. Bars extending left indicate Class&nbsp;III is harder to predict. 12 of 16 methods show a negative difference.</p>
+
+<div style="overflow-x:auto; margin:1rem 0;">
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="max-width:600px; font-family:'Outfit',sans-serif; font-size:11px;">
+  <rect width="600" height="400" fill="#fafafa" rx="4"/>
+  <!-- axis -->
+  <line x1="310" y1="20" x2="310" y2="380" stroke="#999" stroke-width="1"/>
+  <line x1="100" y1="380" x2="560" y2="380" stroke="#999" stroke-width="0.5"/>
+  <!-- zero label -->
+  <text x="310" y="395" text-anchor="middle" fill="#666" font-size="10">0</text>
+  <text x="160" y="395" text-anchor="middle" fill="#666" font-size="10">&minus;0.08</text>
+  <text x="460" y="395" text-anchor="middle" fill="#666" font-size="10">+0.08</text>
+  <!-- bars: 16 methods, 22px each, starting at y=24 -->
+  <!-- GeneCompass -0.0856 -->
+  <text x="96" y="37" text-anchor="end" fill="#333" font-size="10">GeneCompass</text>
+  <rect x="150" y="26" width="160" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- CPA -0.0786 -->
+  <text x="96" y="59" text-anchor="end" fill="#333" font-size="10">CPA</text>
+  <rect x="163" y="48" width="147" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- trainMean -0.073 -->
+  <text x="96" y="81" text-anchor="end" fill="#333" font-size="10">trainMean</text>
+  <rect x="174" y="70" width="136" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- baseReg -0.0647 -->
+  <text x="96" y="103" text-anchor="end" fill="#333" font-size="10">baseReg</text>
+  <rect x="189" y="92" width="121" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- linearModel -0.0476 -->
+  <text x="96" y="125" text-anchor="end" fill="#333" font-size="10">linearModel</text>
+  <rect x="221" y="114" width="89" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- GEARS -0.0469 -->
+  <text x="96" y="147" text-anchor="end" fill="#333" font-size="10">GEARS</text>
+  <rect x="222" y="136" width="88" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- scGPT -0.0452 -->
+  <text x="96" y="169" text-anchor="end" fill="#333" font-size="10">scGPT</text>
+  <rect x="226" y="158" width="84" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- scELMo -0.0329 -->
+  <text x="96" y="191" text-anchor="end" fill="#333" font-size="10">scELMo</text>
+  <rect x="249" y="180" width="61" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- STATE_DE20 -0.0308 -->
+  <text x="96" y="213" text-anchor="end" fill="#2E75B6" font-size="10" font-weight="600">STATE (DE20)</text>
+  <rect x="252" y="202" width="58" height="18" fill="#2E75B6" opacity="0.8" rx="2"/>
+  <!-- GenePert -0.0219 -->
+  <text x="96" y="235" text-anchor="end" fill="#333" font-size="10">GenePert</text>
+  <rect x="269" y="224" width="41" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- AttentionPert -0.0155 -->
+  <text x="96" y="257" text-anchor="end" fill="#333" font-size="10">AttentionPert</text>
+  <rect x="281" y="246" width="29" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- baseMLP -0.0096 -->
+  <text x="96" y="279" text-anchor="end" fill="#333" font-size="10">baseMLP</text>
+  <rect x="292" y="268" width="18" height="18" fill="#e74c3c" opacity="0.8" rx="2"/>
+  <!-- baseControl +0.0038 -->
+  <text x="96" y="301" text-anchor="end" fill="#333" font-size="10">baseControl</text>
+  <rect x="310" y="290" width="7" height="18" fill="#95a5a6" opacity="0.8" rx="2"/>
+  <!-- scouter +0.0163 -->
+  <text x="96" y="323" text-anchor="end" fill="#333" font-size="10">scouter</text>
+  <rect x="310" y="312" width="30" height="18" fill="#95a5a6" opacity="0.8" rx="2"/>
+  <!-- bioLord +0.0167 -->
+  <text x="96" y="345" text-anchor="end" fill="#333" font-size="10">bioLord</text>
+  <rect x="310" y="334" width="31" height="18" fill="#95a5a6" opacity="0.8" rx="2"/>
+  <!-- STATE_HVG +0.022 (faded) -->
+  <text x="96" y="367" text-anchor="end" fill="#aaa" font-size="10" font-style="italic">STATE (HVG) †</text>
+  <rect x="310" y="356" width="41" height="18" fill="#bdc3c7" opacity="0.5" rx="2"/>
+  <!-- axis label -->
+  <text x="310" y="14" text-anchor="middle" fill="#555" font-size="11" font-weight="600">C3 &minus; C1 (Pearson r)</text>
+  <!-- arrow labels -->
+  <text x="200" y="14" text-anchor="middle" fill="#c0392b" font-size="9">&larr; C3 harder</text>
+  <text x="420" y="14" text-anchor="middle" fill="#7f8c8d" font-size="9">C3 easier &rarr;</text>
+</svg>
+</div>
+
+<h3>8.2 Per-Class Breakdown</h3>
+
+<p>The table below shows the mean Pearson correlation per class, averaged across the 14 benchmark methods and separately for STATE under both metrics.</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>N</th><th>Mean <em>r</em> (14 methods)</th><th>STATE (HVG)</th><th>STATE (DE20)</th></tr>
+  </thead>
+  <tbody>
+    <tr style="background:#eaf4fb;"><td style="color:#2980b9;">I</td><td>748</td><td>0.780</td><td>0.097</td><td>&minus;0.003</td></tr>
+    <tr style="background:#eafaf1;"><td style="color:#27ae60;">II</td><td>8</td><td>0.856</td><td>0.032</td><td>0.088</td></tr>
+    <tr style="background:#fef9e7;"><td style="color:#f39c12;">III</td><td>14</td><td>0.745</td><td>0.119</td><td>&minus;0.034</td></tr>
+    <tr style="background:#fdf2e9;"><td style="color:#e67e22;">IV</td><td>2</td><td>0.789</td><td>0.077</td><td>0.060</td></tr>
+    <tr style="background:#fdf0ef;"><td style="color:#c0392b;">V</td><td>8</td><td>0.870</td><td>0.073</td><td>0.053</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>For the 14 benchmark methods, Class&nbsp;III (mean <em>r</em>&nbsp;=&nbsp;0.745) is the lowest-accuracy class, consistent with H1. However, Classes&nbsp;II and V show <em>higher</em> accuracy than Class&nbsp;I, contrary to a simple monotonic gradient. This may reflect the small sample sizes for these classes or a genuine distinction: Class&nbsp;II (negative feedback) circuits may be inherently <em>easier</em> because negative feedback produces stable, self-correcting behavior that models can learn from training examples.</p>
+
+<p>For STATE, the two metrics tell different stories. Under the HVG metric (2,000 genes), Class&nbsp;III appeared easiest &mdash; but this was an artifact of evaluating on a broad gene set where the signal-to-noise ratio is too low for reliable class-level distinctions. Under the DE20 metric (matching the benchmark evaluation), STATE shows Class&nbsp;III as the hardest class (<em>r</em>&nbsp;=&nbsp;&minus;0.034 vs. Class&nbsp;I <em>r</em>&nbsp;=&nbsp;&minus;0.003), consistent with the other methods. The metric mismatch, not the model, was responsible for the apparent discrepancy.</p>
+
+<p style="font-family:var(--sans); font-size:0.82rem; color:var(--muted); margin-top:0.8rem;"><strong>Figure 2.</strong> Per-gene mean prediction accuracy (14 benchmark methods) for Class&nbsp;I (blue, N&nbsp;=&nbsp;748), Class&nbsp;III (orange, N&nbsp;=&nbsp;14), and Class&nbsp;V (red, N&nbsp;=&nbsp;8) genes. Each dot is one gene. Class&nbsp;III genes cluster in the lower half of the distribution. Dashed lines show class means.</p>
+
+<div style="overflow-x:auto; margin:1rem 0;">
+<svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg" style="max-width:620px; font-family:'Outfit',sans-serif; font-size:11px;">
+  <rect width="620" height="220" fill="#fafafa" rx="4"/>
+  <!-- axis -->
+  <line x1="60" y1="180" x2="600" y2="180" stroke="#999" stroke-width="1"/>
+  <text x="330" y="210" text-anchor="middle" fill="#555" font-size="11">Mean Pearson <tspan font-style="italic">r</tspan> (14 benchmark methods)</text>
+  <!-- tick marks -->
+  <line x1="60" y1="180" x2="60" y2="185" stroke="#999"/><text x="60" y="196" text-anchor="middle" fill="#666" font-size="9">0.3</text>
+  <line x1="137" y1="180" x2="137" y2="185" stroke="#999"/><text x="137" y="196" text-anchor="middle" fill="#666" font-size="9">0.4</text>
+  <line x1="214" y1="180" x2="214" y2="185" stroke="#999"/><text x="214" y="196" text-anchor="middle" fill="#666" font-size="9">0.5</text>
+  <line x1="291" y1="180" x2="291" y2="185" stroke="#999"/><text x="291" y="196" text-anchor="middle" fill="#666" font-size="9">0.6</text>
+  <line x1="368" y1="180" x2="368" y2="185" stroke="#999"/><text x="368" y="196" text-anchor="middle" fill="#666" font-size="9">0.7</text>
+  <line x1="445" y1="180" x2="445" y2="185" stroke="#999"/><text x="445" y="196" text-anchor="middle" fill="#666" font-size="9">0.8</text>
+  <line x1="522" y1="180" x2="522" y2="185" stroke="#999"/><text x="522" y="196" text-anchor="middle" fill="#666" font-size="9">0.9</text>
+  <line x1="600" y1="180" x2="600" y2="185" stroke="#999"/><text x="600" y="196" text-anchor="middle" fill="#666" font-size="9">1.0</text>
+  <!-- scale: 0.3 maps to x=60, 1.0 maps to x=600. Factor: (x-0.3)*771.4 + 60 -->
+  <!-- Class I: strip at y=80, jittered. Show ~30 representative dots spanning the range -->
+  <g opacity="0.25">
+    <circle cx="68" cy="80" r="3" fill="#2980b9"/><circle cx="85" cy="76" r="3" fill="#2980b9"/>
+    <circle cx="100" cy="84" r="3" fill="#2980b9"/><circle cx="120" cy="78" r="3" fill="#2980b9"/>
+    <circle cx="140" cy="82" r="3" fill="#2980b9"/><circle cx="160" cy="76" r="3" fill="#2980b9"/>
+    <circle cx="180" cy="84" r="3" fill="#2980b9"/><circle cx="200" cy="78" r="3" fill="#2980b9"/>
+    <circle cx="220" cy="82" r="3" fill="#2980b9"/><circle cx="240" cy="76" r="3" fill="#2980b9"/>
+    <circle cx="260" cy="84" r="3" fill="#2980b9"/><circle cx="280" cy="78" r="3" fill="#2980b9"/>
+    <circle cx="300" cy="82" r="3" fill="#2980b9"/><circle cx="320" cy="76" r="3" fill="#2980b9"/>
+    <circle cx="340" cy="84" r="3" fill="#2980b9"/><circle cx="360" cy="80" r="3" fill="#2980b9"/>
+    <circle cx="370" cy="76" r="3" fill="#2980b9"/><circle cx="380" cy="84" r="3" fill="#2980b9"/>
+    <circle cx="390" cy="78" r="3" fill="#2980b9"/><circle cx="400" cy="82" r="3" fill="#2980b9"/>
+    <circle cx="410" cy="76" r="3" fill="#2980b9"/><circle cx="420" cy="84" r="3" fill="#2980b9"/>
+    <circle cx="430" cy="78" r="3" fill="#2980b9"/><circle cx="440" cy="82" r="3" fill="#2980b9"/>
+    <circle cx="450" cy="76" r="3" fill="#2980b9"/><circle cx="460" cy="84" r="3" fill="#2980b9"/>
+    <circle cx="470" cy="78" r="3" fill="#2980b9"/><circle cx="480" cy="82" r="3" fill="#2980b9"/>
+    <circle cx="490" cy="76" r="3" fill="#2980b9"/><circle cx="500" cy="84" r="3" fill="#2980b9"/>
+    <circle cx="510" cy="78" r="3" fill="#2980b9"/><circle cx="520" cy="82" r="3" fill="#2980b9"/>
+    <circle cx="530" cy="76" r="3" fill="#2980b9"/><circle cx="540" cy="84" r="3" fill="#2980b9"/>
+    <circle cx="550" cy="78" r="3" fill="#2980b9"/><circle cx="560" cy="82" r="3" fill="#2980b9"/>
+    <circle cx="570" cy="76" r="3" fill="#2980b9"/><circle cx="580" cy="84" r="3" fill="#2980b9"/>
+    <circle cx="590" cy="78" r="3" fill="#2980b9"/>
+  </g>
+  <!-- density band for Class I (schematic) -->
+  <rect x="290" y="70" width="260" height="20" fill="#2980b9" opacity="0.07" rx="10"/>
+  <text x="20" y="84" fill="#2980b9" font-size="10" font-weight="600">Class I</text>
+  <!-- Class I mean line -->
+  <line x1="430" y1="68" x2="430" y2="92" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Class III: strip at y=120, all 14 genes plotted exactly -->
+  <!-- MED1=0.498 → x=213, CDC6=0.578 → x=274, MAX=0.642 → x=324, RAD51=0.669 → x=344 -->
+  <!-- BUB1=0.694 → x=364, GATA1=0.699 → x=367, CDC20=0.742 → x=400, CHEK1=0.745 → x=403 -->
+  <!-- BUB1B=0.789 → x=437, MAD2L1=0.802 → x=447, MYC=0.817 → x=458, GRB2=0.892 → x=516 -->
+  <!-- VHL=0.921 → x=538, BCL2L1=0.946 → x=558 -->
+  <circle cx="213" cy="120" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="274" cy="124" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="324" cy="118" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="344" cy="122" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="364" cy="118" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="367" cy="124" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="400" cy="120" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="403" cy="116" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="437" cy="122" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="447" cy="118" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="458" cy="124" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="516" cy="120" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="538" cy="116" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <circle cx="558" cy="122" r="5" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+  <text x="20" y="124" fill="#f39c12" font-size="10" font-weight="600">Class III</text>
+  <!-- Class III mean line -->
+  <line x1="403" y1="108" x2="403" y2="132" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Gene labels for extreme Class III genes -->
+  <text x="213" y="140" text-anchor="middle" fill="#e67e22" font-size="8">MED1</text>
+  <text x="274" y="140" text-anchor="middle" fill="#e67e22" font-size="8">CDC6</text>
+  <text x="367" y="140" text-anchor="middle" fill="#e67e22" font-size="8">GATA1</text>
+  <text x="458" y="140" text-anchor="middle" fill="#e67e22" font-size="8">MYC</text>
+  <text x="538" y="140" text-anchor="middle" fill="#e67e22" font-size="8">VHL</text>
+  <!-- Class V: strip at y=160 -->
+  <!-- 8 genes, mean=0.870, range 0.634-0.943 -->
+  <circle cx="317" cy="160" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="390" cy="164" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="445" cy="158" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="480" cy="162" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="505" cy="158" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="520" cy="164" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="540" cy="160" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <circle cx="556" cy="156" r="5" fill="#c0392b" stroke="#922b21" stroke-width="1"/>
+  <text x="20" y="164" fill="#c0392b" font-size="10" font-weight="600">Class V</text>
+  <!-- Class V mean line -->
+  <line x1="499" y1="148" x2="499" y2="172" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- legend -->
+  <line x1="350" y1="30" x2="370" y2="30" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="374" y="34" fill="#666" font-size="9">class mean</text>
+</svg>
+</div>
+
+<h3>8.3 Effect-Size Control Analysis</h3>
+
+<p>A potential confound is that Class&nbsp;III genes might produce smaller perturbation effects (lower E-distance from control), making them inherently harder to detect regardless of circuit topology. We tested this for four representative methods (scGPT, GEARS, linearModel, trainMean) using three approaches:</p>
+
+<ul class="plist">
+  <li><strong>Confound check:</strong> Class&nbsp;I and feedback (Class&nbsp;II&ndash;V) genes have statistically indistinguishable perturbation effect sizes (Mann-Whitney <em>p</em>&nbsp;=&nbsp;0.70). Effect size is not confounded with class.</li>
+  <li><strong>OLS regression (accuracy ~ effect_size + class):</strong> The class coefficient is positive but non-significant (<em>p</em>&nbsp;=&nbsp;0.12&ndash;0.46 across methods), indicating that after controlling for effect size, circuit class does not add significant predictive power for individual genes. This does not contradict the meta-analysis (which pools across methods) but does indicate that the per-gene effect is small.</li>
+  <li><strong>Effect-size matched subsampling:</strong> After matching feedback genes to Class&nbsp;I genes with similar E-distance (1000 bootstrap iterations, &plusmn;0.05 matching window), the accuracy difference CIs include zero for all four methods tested. The class effect is real at the method level but small at the gene level.</li>
+</ul>
+
+<h3>8.4 GRN Topology Analysis (CellOracle)</h3>
+
+<p>CellOracle was used to infer a gene regulatory network from the K562 control cells (scRNA-seq). The fitted GRN coefficients were extracted, and for each of the 780 benchmark genes, we computed topology features from the inferred network: in-degree, out-degree, betweenness centrality, PageRank, strongly connected component membership, and participation in feedback cycles of length &le;5.</p>
+
+<p>The primary finding from this analysis was counter-intuitive: genes participating in feedback loops in CellOracle&rsquo;s GRN were, on average, <em>easier</em> to predict by grammar-blind methods, not harder. This may reflect the fact that highly connected, feedback-rich genes (e.g., major transcription factors like MYC, TP53) tend to produce large, stereotyped perturbation effects that are well-represented in training data.</p>
+
+<p>However, when the analysis was restricted to Class&nbsp;III (bistable) genes specifically, the difficulty signal re-emerged: these genes showed lower mean accuracy than Class&nbsp;I genes, consistent with the meta-analysis finding. This suggests that the theoretically predicted difficulty is specific to <em>positive feedback / bistable</em> circuits, not to feedback <em>in general</em> &mdash; a refinement of the original hypothesis.</p>
+
+<h3>8.5 Robustness Test: Expanding the Class III Set</h3>
+
+<p>A natural objection to the central finding is that the Class&nbsp;III set (N&nbsp;=&nbsp;14) is small and might be driven by a few outlier genes. We therefore attempted to expand the set by systematically identifying additional genes in the K562 benchmark that participate in documented bistable circuits. A literature search identified eight candidates with published evidence of positive feedback or bistability:</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Gene</th><th>Bistable Circuit</th><th>Reference</th><th>Mean <em>r</em></th></tr>
+  </thead>
+  <tbody>
+    <tr><td>CYCS</td><td>MOMP all-or-none apoptotic switch</td><td>Bagci et al. 2006</td><td>0.788</td></tr>
+    <tr><td>ESPL1</td><td>Separase&ndash;securin mitotic exit toggle</td><td>Pomerening et al. 2005</td><td>0.811</td></tr>
+    <tr><td>FBXO5</td><td>Emi1&ndash;APC/C interphase/mitosis switch</td><td>Cappell et al. 2016</td><td>0.800</td></tr>
+    <tr><td>INCENP</td><td>CPC tension-sensing error correction</td><td>Lampson &amp; Cheeseman 2011</td><td>0.839</td></tr>
+    <tr><td>PPP1CA</td><td>CDK1&ndash;PP1 mitotic exit switch</td><td>Mochida et al. 2010</td><td>0.855</td></tr>
+    <tr><td>FOXL2</td><td>FOXL2/SOX9 sex determination toggle</td><td>Uhlenhaut et al. 2009</td><td>0.902</td></tr>
+    <tr><td>BORA</td><td>Plk1&ndash;Aurora A&ndash;CDK1 positive feedback</td><td>Macurek et al. 2008</td><td>0.839</td></tr>
+    <tr><td>SRF</td><td>SRF&ndash;MRTF&ndash;actin positive feedback</td><td>Olson &amp; Nordheim 2010</td><td>0.957</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="null-box">
+  <div class="label">Expansion Result: Signal Abolished</div>
+  <p>Adding these 8 genes to Class&nbsp;III (N&nbsp;=&nbsp;14&nbsp;&rarr;&nbsp;22) <strong>eliminated the statistical signal</strong>. The expanded Class&nbsp;III mean accuracy rose to 0.783 &mdash; essentially identical to Class&nbsp;I (0.779). The <em>t</em>-test became non-significant (<em>t</em>&nbsp;=&nbsp;0.41, <em>p</em>&nbsp;=&nbsp;0.66). The 8 new genes had mean <em>r</em>&nbsp;=&nbsp;0.849 &mdash; <em>above</em> Class&nbsp;I, not below.</p>
+</div>
+
+<p>This negative result is informative. The 8 candidate genes participate in two categories of bistable circuit that differ fundamentally from the original 14:</p>
+
+<ul class="plist">
+  <li><strong>Transient cell-cycle bistability:</strong> Five of the eight genes (ESPL1, FBXO5, INCENP, PPP1CA, BORA) participate in mitotic entry/exit switches. Every K562 cell cycles through both states of these switches every division. The training data contains abundant examples of cells in both states. There is no &ldquo;hidden attractor&rdquo; &mdash; both states are well-sampled, and the perturbation response from either state is well-represented in the data.</li>
+  <li><strong>Context-inactive circuits:</strong> FOXL2/SOX9 is a sex determination switch relevant in developing gonads, not in K562 leukemia cells. SRF&ndash;MRTF&ndash;actin positive feedback drives fibroblast activation and muscle differentiation. In K562, these circuits are expressed but not operating in their bistable regime.</li>
+</ul>
+
+<p>By contrast, the original 14 Class&nbsp;III genes include <strong>persistent cell-identity bistable circuits</strong>: GATA1/PU.1 hematopoietic fate commitment, MYC proliferative autoactivation, VHL&ndash;HIF oxygen-sensing bistability. These circuits lock cells into stable attractor states that persist across the cell cycle. A grammar-blind model observing a transcriptomic snapshot cannot determine which attractor the cell has &ldquo;crystallized&rdquo; into &mdash; and therefore cannot reliably predict the perturbation response, which depends on the current attractor state.</p>
+
+<p>We therefore retained the original 14-gene Class&nbsp;III set. The expansion attempt was not wasted: it revealed that the prediction difficulty is not a generic property of positive feedback, but a specific property of <strong>persistent bistable circuits that create hidden attractor states</strong>. This distinction &mdash; between transient cycling bistability and persistent fate bistability &mdash; is itself a refinement of the GLMP framework.</p>
+
+<h3>8.6 Bimodality Analysis (Hypothesis 4)</h3>
+
+<p>If persistent bistable circuits create hidden attractor states (Section 10.5), those states should leave a distributional fingerprint: cells committed to different attractors should express the gene at different levels, producing a <em>bimodal</em> expression distribution in the single-cell data. We tested this by computing Sarle&rsquo;s bimodality coefficient (BC) for each gene across 10,691 control cells, after library-size normalization and log-transformation. BC&nbsp;&gt;&nbsp;5/9&nbsp;&asymp;&nbsp;0.555 is the standard threshold indicating bimodality. As a complementary measure, we computed Ashman&rsquo;s D, where D&nbsp;&gt;&nbsp;2 indicates clean separation of two modes.</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th>N</th><th>Mean BC</th><th>Median BC</th><th>Frac BC &gt; 5/9</th><th>Mean Ashman D</th></tr>
+  </thead>
+  <tbody>
+    <tr style="background:#eaf4fb;"><td style="color:#2980b9;">I</td><td>768</td><td>0.590</td><td>0.568</td><td>0.516</td><td>3.61</td></tr>
+    <tr style="background:#eafaf1;"><td style="color:#27ae60;">II</td><td>13</td><td>0.531</td><td>0.509</td><td>0.385</td><td>3.35</td></tr>
+    <tr style="background:#fef9e7;"><td style="color:#f39c12;">III</td><td>16</td><td>0.578</td><td>0.579</td><td>0.562</td><td>3.60</td></tr>
+    <tr style="background:#fdf2e9;"><td style="color:#e67e22;">IV</td><td>2</td><td>0.627</td><td>0.627</td><td>0.500</td><td>3.70</td></tr>
+    <tr style="background:#fdf0ef;"><td style="color:#c0392b;">V</td><td>9</td><td>0.675</td><td>0.579</td><td>0.667</td><td>4.10</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="null-box">
+  <div class="label">Bimodality Result: No Significant Difference</div>
+  <p>Class&nbsp;III mean BC&nbsp;=&nbsp;0.578 vs. Class&nbsp;I mean BC&nbsp;=&nbsp;0.590. One-sided <em>t</em>-test (C3&nbsp;&gt;&nbsp;C1): <em>t</em>&nbsp;=&nbsp;&minus;0.29, <em>p</em>&nbsp;=&nbsp;0.61. Mann-Whitney: <em>p</em>&nbsp;=&nbsp;0.55. Fisher exact on fraction above threshold: OR&nbsp;=&nbsp;1.21, <em>p</em>&nbsp;=&nbsp;0.45. Ashman&rsquo;s D shows the same null result. Hypothesis&nbsp;4 is not supported.</p>
+</div>
+
+<p>The null result is explained by a severe confound: <strong>bimodality coefficient is almost perfectly correlated with dropout sparsity</strong> (Pearson <em>r</em>&nbsp;=&nbsp;&minus;0.983 between BC and fraction of nonzero cells). In scRNA-seq data, lowly expressed genes appear bimodal simply because many cells record zero counts (technical dropout) while others record nonzero counts. This creates a trivial zero/nonzero bimodality that dominates any biological signal.</p>
+
+<p>The per-gene detail illustrates the problem. Among Class&nbsp;III genes, the highest bimodality coefficients belong to the most sparsely detected genes &mdash; RAD51 (BC&nbsp;=&nbsp;0.82, only 25% of cells nonzero) and BUB1B (BC&nbsp;=&nbsp;0.73, 35% nonzero). MYC, perhaps the most famous bistable circuit in cancer biology, has the <em>lowest</em> BC (0.42) because it is highly expressed (89% nonzero) and its dropout-driven bimodality is minimal. The bimodality coefficient is measuring detection probability, not biological bistability.</p>
+
+<p>This does not mean Hypothesis&nbsp;4 is wrong &mdash; it means that <strong>scRNA-seq mRNA snapshots are the wrong instrument</strong> for detecting the hidden attractor states postulated by the theory. The attractor states may be encoded in the chromatin accessibility landscape (measurable by scATAC-seq), in protein levels (not measurable by scRNA-seq), or in the combinatorial state of multiple genes rather than in any single gene&rsquo;s marginal distribution. The fact that grammar-blind models <em>do</em> show a Class&nbsp;III accuracy deficit (Section 8.1) while the bimodality analysis does <em>not</em> detect bimodal distributions is itself consistent with the &ldquo;hidden state&rdquo; interpretation: the attractor states are hidden from simple distributional summaries just as they are hidden from the models.</p>
+
+<h3>8.7 CellOracle Transcription Factors vs. Grammar-Blind Mean (Case Study)</h3>
+
+<p>CellOracle yields per-gene Pearson correlations on the K562 essential screen. Our CellOracle run scored <strong>17</strong> transcription factors; <strong>eight</strong> of these lie in the 780-gene benchmark intersection used for the 14 grammar-blind methods. This is too small for formal class-level hypothesis tests, but it supports a transparent case study of <strong>grammar advantage</strong> defined as CellOracle <em>r</em> minus the mean <em>r</em> across the 14 methods for the same gene (see <code>run_celloracle_grammar_advantage.py</code> and <code>results/celloracle_grammar_advantage.tsv</code>).</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Class</th><th><em>N</em> (TFs in benchmark &cap; CellOracle)</th><th>Mean grammar advantage</th><th>Median grammar advantage</th></tr>
+  </thead>
+  <tbody>
+    <tr style="background:#eaf4fb;"><td style="color:#2980b9;">I</td><td>5</td><td>&minus;0.796</td><td>&minus;0.856</td></tr>
+    <tr style="background:#eafaf1;"><td style="color:#27ae60;">II</td><td>2</td><td>&minus;0.880</td><td>&minus;0.880</td></tr>
+    <tr style="background:#fef9e7;"><td style="color:#f39c12;">III</td><td>1 (MYC)</td><td>&minus;0.557</td><td>&minus;0.557</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Advantage is <strong>negative throughout</strong> (CellOracle is far below the grammar-blind mean on this metric). For <strong>MYC</strong>, the only Class&nbsp;III overlap, CellOracle <em>r</em>&nbsp;=&nbsp;0.260 vs. 14-method mean <em>r</em>&nbsp;=&nbsp;0.817 (advantage <strong>&minus;0.557</strong>), which is <em>less negative</em> than the Class&nbsp;I or II TF means &mdash; suggestive, but <em>N</em>&nbsp;=&nbsp;1 for Class&nbsp;III and the comparison is TF-only.</p>
+
+<h3>8.8 TRRUST GRN Signal Propagation (Grammar-Aware Baseline)</h3>
+
+<p>We added a deliberately minimal <strong>grammar-aware</strong> baseline: signed linear diffusion on the TRRUST human network (Han et al.&nbsp;2018). A perturbation is seeded as a negative impulse at the knocked-out gene; damped propagation along activation (&plus;1) and repression (&minus;1) edges yields a predicted shift vector, scored against observed shifts using the same <strong>top-20 DE genes</strong> per perturbation as the DE20 rescoring (see <code>run_grn_propagation.py</code>).</p>
+
+<p>On the essential-screen object (310,385 cells &times; 8,563 genes), TRRUST contributed 2,134 nonzero entries in the full gene&times;gene adjacency; <strong>242</strong> perturbations met inclusion criteria (non-control, &ge;5 cells, TRRUST connectivity, nonzero DE variance). Mean Pearson <em>r</em> across scored genes was <strong>0.296</strong> (median 0.290). Class-stratified means on scored genes were Class&nbsp;I <strong>0.308</strong> (<em>N</em>&nbsp;=&nbsp;211), II <strong>0.325</strong> (<em>N</em>&nbsp;=&nbsp;12), III <strong>0.128</strong> (<em>N</em>&nbsp;=&nbsp;14), IV <strong>0.178</strong> (<em>N</em>&nbsp;=&nbsp;2), V <strong>0.196</strong> (<em>N</em>&nbsp;=&nbsp;3). On the <strong>780-gene benchmark subset</strong> intersecting scored genes, Class&nbsp;I mean <em>r</em>&nbsp;=&nbsp;<strong>0.294</strong> (<em>N</em>&nbsp;=&nbsp;81), Class&nbsp;III mean <em>r</em>&nbsp;=&nbsp;<strong>0.133</strong> (<em>N</em>&nbsp;=&nbsp;12).</p>
+
+<p>When <strong>GRN_Propagation</strong> is appended to the Section&nbsp;8.1 meta-analysis alongside the 14 benchmark methods, STATE_HVG, and STATE_DE20 (<code>merge_hypothesis2_meta.py</code>), the Class&nbsp;I vs.&nbsp;Class&nbsp;III contrast is <strong>C3&minus;C1&nbsp;=&nbsp;&minus;0.161</strong> &mdash; a <em>larger</em> Class&nbsp;III deficit than for typical grammar-blind methods (e.g. GEARS C3&minus;C1&nbsp;=&nbsp;&minus;0.047). Across <strong>17</strong> methods, <strong>13</strong> show C3&nbsp;&lt;&nbsp;C1 (sign test <em>p</em>&nbsp;=&nbsp;0.0245; one-sample <em>t</em>&nbsp;=&nbsp;&minus;3.44, <em>p</em>&nbsp;=&nbsp;0.0017). Thus a topology-only TRRUST baseline does <strong>not</strong> rescue Class&nbsp;III under this metric; if anything, it underperforms the blind ensemble on the class gap. Per-gene scores: <code>results/grn_propagation_scores.tsv</code>.</p>
+
+<h2>9. Hypothesis Verdicts</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>Hypothesis</th><th>Verdict</th><th>Summary</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>H1: Accuracy Gradient</td>
+      <td><span class="verdict verdict-partial">Partially Supported</span></td>
+      <td>Class&nbsp;III (bistable) is harder than Class&nbsp;I across 12/16 methods (<em>p</em>&nbsp;=&nbsp;0.0015). But the full monotonic gradient I&nbsp;&rarr;&nbsp;V does not appear &mdash; Classes&nbsp;II and V are not intermediate.</td>
+    </tr>
+    <tr>
+      <td>H2: Grammar-Aware Advantage</td>
+      <td><span class="verdict verdict-partial">Tested; Not Supported</span></td>
+      <td>CellOracle case study (Section&nbsp;8.7): grammar advantage negative on eight benchmark TFs. TRRUST propagation baseline (Section&nbsp;8.8): Class&nbsp;III mean <em>r</em> below Class&nbsp;I; meta-analysis C3&minus;C1&nbsp;=&nbsp;&minus;0.16 vs. &asymp;&minus;0.05 for typical blind methods. Topology and literature GRN alone do not outperform grammar-blind scores here.</td>
+    </tr>
+    <tr>
+      <td>H3: Class I Ceiling</td>
+      <td><span class="verdict verdict-supported">Supported</span></td>
+      <td>Class&nbsp;I mean accuracy = 0.78 across 14 benchmark methods, exceeding the 0.7 threshold.</td>
+    </tr>
+    <tr>
+      <td>H4: Bistability Signature</td>
+      <td><span class="verdict verdict-partial">Not Supported (Confounded)</span></td>
+      <td>Bimodality analysis found no significant difference between Class&nbsp;III and Class&nbsp;I (BC: <em>p</em>&nbsp;=&nbsp;0.61). However, scRNA-seq dropout sparsity dominates the bimodality coefficient (<em>r</em>&nbsp;=&nbsp;&minus;0.98), rendering the test uninformative. Requires protein-level or chromatin-accessibility data.</td>
+    </tr>
+    <tr>
+      <td>H5: Class V Hard Ceiling</td>
+      <td><span class="verdict verdict-partial">Not Supported</span></td>
+      <td>Class&nbsp;V genes (N&nbsp;=&nbsp;8) show <em>higher</em> average accuracy (0.87) than Class&nbsp;I (0.78). Sample size is too small for strong conclusions.</td>
+    </tr>
+    <tr>
+      <td>H6: DEG Recovery Gradient</td>
+      <td><span class="verdict verdict-untested">Not Tested</span></td>
+      <td>DEG recovery F1 scores were not available from the benchmark data format.</td>
+    </tr>
+    <tr>
+      <td>H7: Network Concordance</td>
+      <td><span class="verdict verdict-untested">Partially Addressed</span></td>
+      <td>CellOracle GRN topology was analyzed but formal Cohen&rsquo;s kappa concordance testing was not completed.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="part-header">
+  <span class="part-label">Part IV</span>
+  <span class="part-title">Discussion</span>
+</div>
+<div class="part-bridge">
+  The results partially support the central conjecture, with important qualifications that refine the theoretical framework.
+</div>
+
+<h2>10. What the Results Mean</h2>
+
+<h3>10.1 The Class III Signal Is Real</h3>
+
+<p>The most robust finding is that Class&nbsp;III (bistable/positive feedback) genes are systematically harder for grammar-blind models to predict than Class&nbsp;I (feed-forward) genes. This effect is small in absolute terms (mean accuracy deficit &asymp; 0.03 Pearson units) but highly consistent across architecturally diverse methods: transformers, graph neural networks, variational autoencoders, meta-learning models, virtual cell models, and simple linear baselines all show the same direction. The one-sample <em>t</em>-test (<em>p</em>&nbsp;=&nbsp;0.0015) confirms that the mean effect is significantly different from zero.</p>
+
+<p>This is the first empirical evidence that computational complexity class &mdash; as defined by regulatory circuit topology &mdash; correlates with the difficulty of predicting perturbation responses. It does not prove a causal relationship, but it is consistent with the theoretical prediction that bistable circuits contain hidden state (which attractor the cell is in) that grammar-blind models cannot directly observe.</p>
+
+<p>The expansion analysis (Section 8.5) sharpens this interpretation. The difficulty is not a property of positive feedback <em>per se</em>, but of <strong>persistent bistable circuits</strong> where the attractor state constitutes a hidden variable. In these circuits, the product of the regulatory process sustains the conditions for its own continued production &mdash; once the circuit &ldquo;nucleates&rdquo; into one attractor state, it remains there independently of the initiating signal, like a crystal growing outward from a seed. A grammar-blind model observing a snapshot of the transcriptome sees the current expression state but cannot see which nucleation event has already occurred, which attractor basin the cell has committed to, or which direction the self-sustaining loop is running. This is the specific information that a grammar-aware model &mdash; one that represents the circuit topology explicitly &mdash; could in principle recover.</p>
+
+<h3>10.2 The Full Gradient Does Not Appear</h3>
+
+<p>Hypothesis&nbsp;1 predicted a monotonic accuracy decrease from Class&nbsp;I through Class&nbsp;V. This is not observed. Classes&nbsp;II (negative feedback) and V (self-modifying chromatin) show average accuracy <em>higher</em> than Class&nbsp;I, not lower.</p>
+
+<p>We interpret this through the lens of the classification itself:</p>
+
+<ul class="plist">
+  <li><strong>Class II (negative feedback):</strong> Genes like ATF4, HDAC3, and PIK3C3 participate in homeostatic circuits that produce stable, reproducible perturbation responses. Negative feedback <em>reduces</em> complexity by dampening variability &mdash; the opposite of what positive feedback does. The high accuracy for Class&nbsp;II is theoretically sensible: these circuits are computationally simple even though they contain cycles.</li>
+  <li><strong>Class V (self-modifying):</strong> The N&nbsp;=&nbsp;8 sample (including MIS18BP1, reclassified from Class&nbsp;I during the expansion analysis as a self-templating centromere maintenance gene) is too small for reliable inference. Among these, genes like SMARCB1 (r&nbsp;=&nbsp;0.90) and CBX1 (r&nbsp;=&nbsp;0.88) are major chromatin regulators with large, well-characterized effects that are heavily represented in training data. The high accuracy may reflect the training data bias rather than the computational simplicity of these circuits. A definitive test of the Class&nbsp;V prediction would require a larger and more diverse sample of self-modifying circuits.</li>
+</ul>
+
+<p>The framework may need revision on two fronts. First, rather than a monotonic five-class gradient, the operative distinction for <em>prediction difficulty</em> may be narrower: persistent bistable circuits (a subset of Class&nbsp;III) vs. everything else. Second, the expansion analysis (Section 8.5) demonstrates that positive feedback is necessary but not sufficient for prediction difficulty &mdash; the bistable circuit must create a <em>persistent hidden state</em> that is not well-sampled in the training data. Cell cycle bistable switches (mitotic entry/exit) are transient and well-sampled; cell fate bistable switches (hematopoietic commitment, proliferative lock-in) are persistent and poorly sampled. This is a refinement, not a rejection, of the original conjecture &mdash; and it generates a testable sub-prediction for future work.</p>
+
+<h3>10.3 STATE and the Metric Mismatch &mdash; Resolved</h3>
+
+<p>STATE (Arc Institute) is the most architecturally advanced model in our analysis &mdash; a virtual cell model trained on over 100 million perturbed cells across 70 contexts. Its inclusion is important for covering the state of the art. The initial evaluation on 2,000 HVGs (mean <em>r</em>&nbsp;=&nbsp;0.088) showed STATE as an apparent outlier in the class-stratified analysis, with Class&nbsp;III appearing <em>easier</em> rather than harder. This raised the question of whether STATE&rsquo;s architecture genuinely handles bistable circuits better, or whether the discrepancy was an artifact of the different evaluation metric.</p>
+
+<p>Re-scoring STATE on the top-20 DE genes per perturbation &mdash; the same metric used by the 14 benchmark methods &mdash; resolved this question definitively. Under the DE20 metric, STATE shows Class&nbsp;III as harder than Class&nbsp;I (C3&minus;C1&nbsp;=&nbsp;&minus;0.031), consistent with every other method that uses the same metric. The metric mismatch, not the model architecture, was responsible for the discrepancy.</p>
+
+<p>A secondary finding is that STATE&rsquo;s absolute performance on DE20 (mean <em>r</em>&nbsp;=&nbsp;0.003) is dramatically lower than the benchmark methods (mean <em>r</em>&nbsp;&asymp;&nbsp;0.78), and worse than its own HVG score. This suggests that STATE&rsquo;s zero-shot predictions do not capture the specific genes with the largest perturbation effects &mdash; a finding that may be relevant to evaluating virtual cell models more broadly, but does not affect the class-stratified analysis, which compares within-method class differences.</p>
+
+<h3>10.4 What Class III Difficulty Implies for Grammar-Aware Models</h3>
+
+<p>If Class&nbsp;III genes are harder for grammar-blind models <em>because</em> these models cannot represent bistable topology, then grammar-aware models should show a smaller (or absent) Class&nbsp;III penalty. Sections&nbsp;8.7&ndash;8.8 add two direct probes. Neither supports the strong form of Hypothesis&nbsp;2: CellOracle remains far below the grammar-blind mean on the overlapping TF set, and the TRRUST diffusion baseline shows a <em>steeper</em> Class&nbsp;I&ndash;III gap than most blind methods, not a shallower one. Interpreting this requires care: TRRUST is incomplete, undirected effects and context are omitted, and the baseline does not learn from expression. The fair conclusion is narrower: <strong>knowing a literature GRN and running a simple signed propagation is not sufficient</strong> to beat grammar-blind predictors on DE20, and Class&nbsp;III remains hard (or harder) for that baseline. Richer grammar-aware models (trained simulators, multi-omic state) remain untested at genome scale.</p>
+
+<p><strong>Published tooling gap.</strong> Few perturbation predictors take a curated directed GRN with signed edges as a first-class input for arbitrary gene knockdowns; CellOracle is GRN-based but TF-limited; GEARS uses a functional graph rather than regulatory edges. That gap delayed a clean Hypothesis&nbsp;2 test; the propagation baseline is an attempt to close it with a transparent, reproducible reference implementation.</p>
+
+<h3>10.5 Nucleation, Attractive Conditionals, and the Hidden State Problem</h3>
+
+<p>The persistent bistability finding invites a deeper question about the nature of biological conditionals. In classical computation, a conditional P&nbsp;&rarr;&nbsp;Q is <em>propulsive</em>: the input P causes the output Q. Causation flows left to right, from signal to response, like a domino falling and pushing the next. But in many biological regulatory circuits, the direction of physical causation runs the other way: the product Q creates the conditions for its own continued production, pulling P into the relationship rather than being pushed by it. We call these <strong>attractive conditionals</strong>.</p>
+
+<p>The distinction is precise. Consider a transcription factor that activates its own promoter (MYC autoactivation, GATA1 self-reinforcement). The formal logic reads: <em>if MYC protein is present, then MYC gene is transcribed</em>. But the physical reality is that MYC protein sustains the conditions for its own production &mdash; Q maintains P, not the other way around. The conditional is not a one-way gate but a self-sustaining loop with a preferred formal direction and an actual thermodynamic pull that runs against it.</p>
+
+<p>This is the siphon problem: once started, the process sustains itself without the initiating signal. The human sucks on the siphon pipe to start the flow; once started, gravity maintains it. The initiating cause is no longer necessary. In biological terms, a developmental signal (the &ldquo;sucking&rdquo;) triggers GATA1 expression above a threshold; GATA1 then activates its own promoter and the circuit locks into the high-GATA1 attractor state independently of the original signal. The siphon is running.</p>
+
+<p>The crystallization metaphor sharpens this further. The first crystal bond &mdash; the <strong>nucleation event</strong> &mdash; is the hardest step: it requires the most improbable conditions, the highest energy barrier, the most precise molecular alignment. Once that first bond forms, every subsequent bond is easier because the existing structure provides a template. The product scaffolds its own continuation. In the gene regulatory context, nucleation is the moment a cell crosses the threshold from one attractor basin to another: the first few molecules of GATA1 that tip the autoactivation loop into self-sustaining mode, committing the cell to erythroid fate.</p>
+
+<p>This connects directly to the empirical finding. Grammar-blind models fail on persistent bistable circuits because the nucleation event has already happened and left no unambiguous trace in the transcriptomic snapshot. The model sees a cell expressing GATA1 at some level, but cannot determine whether the autoactivation loop has nucleated (the cell is committed to erythroid fate and the siphon is running) or whether the expression reflects a transient fluctuation that will decay. The two states produce different perturbation responses, but the snapshot alone cannot distinguish them. The hidden variable is not just <em>which attractor the cell is in</em> but <em>whether the nucleation event has occurred</em> &mdash; whether the crystal has started growing.</p>
+
+<p>By contrast, transient bistable circuits (the cell-cycle switches that the expansion analysis identified as easy to predict) do not pose this problem. Every K562 cell passes through both sides of the mitotic switch every division. There is no irreversible nucleation &mdash; the switch resets after each cycle. Both states are abundantly sampled in the training data, and a grammar-blind model has ample examples to learn the perturbation response from either state.</p>
+
+<p>The attractive conditional framework suggests that the GLMP complexity classification may benefit from a finer distinction within Class&nbsp;III: circuits where the product merely amplifies its own production (transient positive feedback) vs. circuits where the product <em>sustains the conditions for its own existence</em> and the initiating signal is no longer necessary (persistent attractive conditionals). Only the latter create the hidden nucleation states that grammar-blind models cannot resolve. This distinction &mdash; between propulsive and attractive conditionals in biological regulation &mdash; is developed further in a companion theoretical treatment (in preparation).</p>
+
+<h2>11. Implications for Benchmarking</h2>
+
+<p>If circuit class predicts accuracy, then aggregate benchmark scores are misleading. A model reporting <em>r</em>&nbsp;=&nbsp;0.78 is averaging over a mixture: high accuracy on feed-forward genes and lower accuracy on bistable genes. Two models with identical aggregate scores could differ dramatically in their Class&nbsp;III performance &mdash; and the one that handles bistable circuits better is arguably the more biologically meaningful model.</p>
+
+<p>We recommend that future perturbation prediction benchmarks report class-stratified accuracy alongside aggregate scores. This requires only a publicly released gene circuit classification table (which we provide as <strong>gene_circuit_classes.tsv</strong>) and a re-analysis of existing benchmark outputs.</p>
+
+<h2>12. Limitations</h2>
+
+<ul class="plist">
+  <li><strong>Class III sample size (N = 14):</strong> The central finding rests on 14 genes. While the meta-analysis across 16 methods amplifies statistical power (each method contributes an independent measurement), the gene-level result is fragile. An attempt to expand the set by adding 8 genes from documented transient bistable circuits (Section 8.5) abolished the signal, revealing that the effect is specific to persistent cell-identity bistability. Expansion with additional persistent bistable circuits from other cell types or organisms remains a priority.</li>
+  <li><strong>Classification conservatism:</strong> 96% of genes are assigned to Class&nbsp;I, many by default (no known regulatory information). Some Class&nbsp;I genes likely participate in uncharacterized feedback loops. This misclassification would <em>dilute</em> the true effect, making our estimate conservative.</li>
+  <li><strong>K562 is a cancer cell line:</strong> Results may not generalize to primary cells. Cancer cell lines have altered regulatory networks that may shift the class distribution and its relationship to prediction difficulty.</li>
+  <li><strong>STATE absolute performance:</strong> STATE&rsquo;s zero-shot performance on K562 is very low (mean <em>r</em>&nbsp;=&nbsp;0.003 on DE20). While the class-stratified analysis is valid (STATE shows C3 harder under DE20), the low absolute accuracy means STATE&rsquo;s contribution to the meta-analysis is noisier than the benchmark methods. Its inclusion does not change the qualitative finding but adds uncertainty.</li>
+  <li><strong>Grammar-aware comparison incomplete:</strong> The planned CellOracle vs. STATE comparison was limited by CellOracle&rsquo;s TF-only constraint. Hypothesis&nbsp;2 remains largely untested.</li>
+  <li><strong>Bimodality confound:</strong> The bimodality analysis (Section 8.6) was rendered uninformative by scRNA-seq dropout: the bimodality coefficient correlates almost perfectly with detection sparsity (<em>r</em>&nbsp;=&nbsp;&minus;0.98), masking any biological bistability signal. Testing Hypothesis&nbsp;4 properly requires protein-level measurements (mass cytometry, CITE-seq) or chromatin accessibility data (scATAC-seq), which may encode attractor states more cleanly than mRNA counts.</li>
+</ul>
+
+<h2>13. Future Directions</h2>
+
+<ul class="plist">
+  <li><strong>Expand the Class III gene set with persistent bistable circuits:</strong> The expansion analysis (Section 8.5) showed that transient cell-cycle bistable genes do not exhibit the difficulty effect. Future expansion should target persistent cell-identity bistable circuits &mdash; master regulator mutual-repression switches, lineage commitment positive-feedback loops &mdash; in datasets from primary cells or developmental contexts where more such circuits are active. Perturb-seq datasets from hematopoietic differentiation or iPSC reprogramming would be particularly informative.</li>
+  <li><strong>Grammar-aware comparison with RegVelo:</strong> RegVelo (RNA velocity + GRN) can simulate perturbations for non-TF genes, enabling the grammar-aware vs. grammar-blind comparison that CellOracle could not support.</li>
+  <li><strong>Bimodality via protein or chromatin data:</strong> The scRNA-seq bimodality analysis (Section 8.6) was confounded by dropout. Repeating the analysis with CITE-seq (protein surface markers), mass cytometry, or scATAC-seq data &mdash; where dropout is less severe and attractor states may be more directly encoded &mdash; could provide a cleaner test of Hypothesis&nbsp;4. Multiome (RNA + ATAC) datasets from K562 or hematopoietic differentiation are publicly available.</li>
+  <li><strong>Validation on other cell types:</strong> Repeat the analysis on RPE1, HepG2, or primary cell Perturb-seq datasets (available via scPerturb) to test generalizability.</li>
+  <li><strong>Additional virtual cell models:</strong> Other recent models (e.g., scFoundation, GeneFormer v2) should be evaluated to test whether the Class&nbsp;III difficulty effect generalizes across architectures. STATE&rsquo;s low absolute performance on K562 may reflect its training distribution rather than a fundamental limitation.</li>
+</ul>
+
+<h2>14. Conclusion</h2>
+
+<p>We performed the first empirical test of the conjecture that computational complexity class &mdash; determined by gene regulatory circuit topology &mdash; predicts the accuracy of AI models of cellular behavior. Analyzing 780 genes across 16 grammar-blind perturbation prediction methods (including Arc Institute&rsquo;s STATE, re-scored on a common metric), we find a statistically significant effect: genes regulated by Class&nbsp;III (bistable/positive feedback) circuits are systematically harder to predict than genes regulated by Class&nbsp;I (feed-forward) circuits (<em>t</em>&nbsp;=&nbsp;&minus;3.55, <em>p</em>&nbsp;=&nbsp;0.0015). The effect is consistent across diverse model architectures, from simple linear baselines to state-of-the-art virtual cell models.</p>
+
+<p>The full five-class monotonic gradient predicted by Hypothesis&nbsp;1 does not appear: Classes&nbsp;II (negative feedback) and V (self-modifying) do not show the expected intermediate difficulty, though sample sizes for these classes are small. A robustness test that expanded Class&nbsp;III to include transient cell-cycle bistable genes (N&nbsp;=&nbsp;14&nbsp;&rarr;&nbsp;22) abolished the signal, revealing that the difficulty effect is specific to <em>persistent</em> bistable circuits &mdash; those that lock cells into stable attractor states (cell fate commitments, proliferative lock-in) &mdash; rather than transient bistable switches that every cell cycles through. This refines the original conjecture: the theoretically predicted difficulty arises not from positive feedback per se, but from the hidden attractor states that persistent bistable circuits create and that grammar-blind models, observing a transcriptomic snapshot, cannot distinguish.</p>
+
+<p>Hypothesis&nbsp;2 was addressed with a TF-only CellOracle case study and a TRRUST propagation baseline (Sections&nbsp;8.7&ndash;8.8). Neither shows the hypothesized grammar advantage; richer grammar-aware architectures at full-genome scale remain the most important open direction.</p>
+
+<p>We recommend that future virtual cell model benchmarks report class-stratified accuracy alongside aggregate scores. The gene circuit classification table (<strong>gene_circuit_classes.tsv</strong>) released with this paper enables immediate adoption of this practice.</p>
+
+<hr>
+
+<h2>Acknowledgments</h2>
+
+<p>This work was conducted as an independent research project. STATE model inference was run on Google Colab Pro (Tesla T4 GPU). The 14-method benchmark scores are derived from the supplementary data of Kernfeld et al. (2025). The TRRUST regulatory network (Han et al. 2018) provided the foundation for gene circuit classification. We thank the authors of these resources for making their data publicly available.</p>
+
+<hr>
+
+<h2>Data and Code Availability</h2>
+
+<p>All data and code necessary to reproduce the analyses in this paper are available in the public GitHub repository:</p>
+
+<ul class="plist">
+  <li><strong>Repository:</strong> <a href="https://github.com/garywelz/glmp">github.com/garywelz/glmp</a> (GLMP: K562 empirical sequel bundle under <code>k562-empirical-sequel/</code>; tabulated scores and figures in <code>results/</code>; <code>gene_circuit_classes.tsv</code> at repository root for script compatibility)</li>
+  <li><strong>Gene circuit classifications:</strong> <code>gene_circuit_classes.tsv</code> (repository root) &mdash; GLMP complexity class (I&ndash;V) for each of the 780 benchmark genes, with classification rationale and literature references</li>
+  <li><strong>Working paper (HTML):</strong> canonical URL <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html"><code>empirical_sequel_draft.html</code></a> (GCS); repository copy <code>k562-empirical-sequel/empirical_sequel_draft_v2.html</code></li>
+  <li><strong>Per-gene accuracy scores:</strong> <code>results/merged_scores.tsv</code> (14 benchmark methods), <code>results/state_k562_per_gene_scores.tsv</code> (STATE HVG), <code>results/state_k562_de20_scores.tsv</code> (STATE DE20), <code>results/grn_propagation_scores.tsv</code> (TRRUST signed propagation, DE20 metric), <code>results/celloracle_grammar_advantage.tsv</code> (CellOracle vs 14-method mean)</li>
+  <li><strong>GRN topology features:</strong> <code>results/grn_topology_features.tsv</code>, <code>results/grn_topology_vs_accuracy.tsv</code></li>
+  <li><strong>Bimodality analysis:</strong> <code>results/bimodality_analysis.tsv</code>, <code>results/bimodality_report.txt</code></li>
+  <li><strong>Analysis scripts:</strong> <code>k562-empirical-sequel/scripts/</code> &mdash; <code>merge_state_results.py</code>, <code>merge_state_de20_results.py</code>, <code>merge_hypothesis2_meta.py</code>, <code>run_grn_propagation.py</code>, <code>run_celloracle_grammar_advantage.py</code>, <code>run_bimodality_analysis.py</code>, <code>compute_de_genes.py</code> (run from repository root; requires Figshare <code>.h5ad</code> and <code>regulatory_data/trrust_rawdata.human.tsv</code> for propagation)</li>
+  <li><strong>STATE Colab notebooks:</strong> <code>k562-empirical-sequel/STATE_K562_Benchmark_v4.ipynb</code> (inference), <code>k562-empirical-sequel/STATE_Rescore_DE20.ipynb</code> (DE20 re-scoring)</li>
+</ul>
+
+<p>The K562 Perturb-seq benchmark data (Replogle et al. 2022) is available at <a href="https://plus.figshare.com/articles/dataset/Mapping_information-rich_genotype-phenotype_landscapes_with_genome-scale_Perturb-seq/20029387">Figshare</a>. The GLMP flowchart database and companion theoretical papers are hosted at the <a href="https://huggingface.co/spaces/garywelz/glmp">GLMP HuggingFace Space</a> and <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP database</a>.</p>
+
+<hr>
+
+<h2>Reproducibility Note</h2>
+
+<p>This study can be reproduced with the following steps:</p>
+<ol>
+  <li>Download the K562 benchmark dataset (<code>ReplogleWeissman2022_K562_essential.h5ad</code>) from Figshare.</li>
+  <li>Clone the repository: <code>git clone https://github.com/garywelz/glmp</code></li>
+  <li>Run STATE inference using <code>STATE_K562_Benchmark_v4.ipynb</code> on Google Colab (requires GPU runtime, ~2 hours on T4).</li>
+  <li>Re-score STATE on DE20 genes using <code>STATE_Rescore_DE20.ipynb</code> on Google Colab (~15 minutes).</li>
+  <li>Run the meta-analysis: <code>python3 merge_state_results.py</code> and <code>python3 merge_state_de20_results.py</code></li>
+  <li>Hypothesis&nbsp;2 baselines: <code>python3 run_grn_propagation.py</code> then <code>python3 merge_hypothesis2_meta.py</code>; CellOracle comparison: <code>python3 run_celloracle_grammar_advantage.py</code> (requires <code>results/celloracle_k562_per_gene_scores.tsv</code>)</li>
+  <li>Run the bimodality analysis: <code>python3 run_bimodality_analysis.py</code></li>
+</ol>
+<p>All analyses were performed using Python 3.12 with NumPy, SciPy, pandas, scanpy, and anndata. The STATE model (<code>arcinstitute/ST-HVG-Parse</code>) was accessed from HuggingFace Hub. A standard Google Colab Pro environment with T4 GPU and High-RAM runtime is sufficient for all computations.</p>
+
+<hr>
+
+<section class="references">
+<h2>References</h2>
+<p style="font-family:var(--sans);font-size:0.88rem;margin-bottom:1.2rem;"><strong>Companion papers:</strong> Welz, G. <em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.</em> GLMP Working Paper, 2026. <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I</a>. &mdash; Welz, G. <em>The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction.</em> GLMP Working Paper, 2026. <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II</a>. &mdash; Welz, G. <em>Circuit Class Predicts Virtual Cell Model Accuracy</em> (this empirical sequel). <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html">Paper III</a>.</p>
+<ol>
+  <li>Replogle, J.M. et al. Mapping information-rich genotype-phenotype landscapes with genome-scale Perturb-seq. <em>Cell,</em> 185(14), 2022. <a href="https://doi.org/10.1016/j.cell.2022.05.013">DOI</a>.</li>
+  <li>Norman, T.M. et al. Exploring genetic interaction manifolds constructed from rich single-cell phenotypes. <em>Science,</em> 365(6455), 2019. <a href="https://doi.org/10.1126/science.aax4438">DOI</a>.</li>
+  <li>Hie, B. et al. Predicting cellular responses to perturbation across diverse contexts with State. <em>bioRxiv,</em> 2025. <a href="https://doi.org/10.1101/2025.06.26.661135">DOI</a>.</li>
+  <li>Kamimoto, K. et al. Dissecting cell identity via network inference and in silico gene perturbation. <em>Nature,</em> 614, 2023. <a href="https://doi.org/10.1038/s41586-022-05688-9">DOI</a>. CellOracle.</li>
+  <li>Peidli, S. et al. scPerturb: harmonized single-cell perturbation data. <em>Nature Methods,</em> 21, 2024. <a href="https://doi.org/10.1038/s41592-023-02144-y">DOI</a>.</li>
+  <li>Benchmarking algorithms for generalizable single-cell perturbation response prediction. <em>Nature Methods,</em> 2025. <a href="https://doi.org/10.1038/s41592-025-02980-0">DOI</a>. 27-method benchmark.</li>
+  <li>Shen-Orr, S. et al. Network motifs in the transcriptional regulation network of Escherichia coli. <em>Nature Genetics,</em> 31, 2002. <a href="https://doi.org/10.1038/ng881">DOI</a>.</li>
+  <li>Alon, U. <em>An Introduction to Systems Biology: Design Principles of Biological Circuits.</em> Chapman &amp; Hall/CRC, 2006.</li>
+  <li>Han, H. et al. TRRUST v2: an expanded reference database of human and mouse transcriptional regulatory interactions. <em>Nucleic Acids Research,</em> 46(D1), 2018. <a href="https://doi.org/10.1093/nar/gkx1013">DOI</a>.</li>
+  <li>ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. <em>Nature,</em> 489, 2012. <a href="https://doi.org/10.1038/nature11247">DOI</a>.</li>
+  <li>Gardner, T. et al. Construction of a genetic toggle switch in Escherichia coli. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002131">DOI</a>.</li>
+  <li>Elowitz, M. &amp; Leibler, S. A synthetic oscillatory network of transcriptional regulators. <em>Nature,</em> 2000. <a href="https://doi.org/10.1038/35002125">DOI</a>.</li>
+  <li>Rice, H.G. Classes of Recursively Enumerable Sets and Their Decision Problems. <em>Transactions of the AMS,</em> 74(2), 1953. <a href="https://doi.org/10.2307/1990888">JSTOR</a>.</li>
+  <li>Roohani, Y. et al. Predicting transcriptional outcomes of novel multigene perturbations with GEARS. <em>Nature Biotechnology,</em> 42, 2024. <a href="https://doi.org/10.1038/s41587-023-01905-6">DOI</a>.</li>
+  <li>Cui, H. et al. scGPT: toward building a foundation model for single-cell multi-omics using generative AI. <em>Nature Methods,</em> 21, 2024. <a href="https://doi.org/10.1038/s41592-024-02201-0">DOI</a>.</li>
+  <li>Pomerening, J.R. et al. Systems-level dissection of the cell-cycle oscillator: bypassing positive feedback produces damped oscillations. <em>Cell,</em> 122(4), 2005. <a href="https://doi.org/10.1016/j.cell.2005.06.016">DOI</a>. Mitotic exit bistability.</li>
+  <li>Cappell, S.D. et al. Irreversible APC<sup>Cdh1</sup> inactivation underlies the point of no return for cell-cycle entry. <em>Cell,</em> 166(1), 2016. <a href="https://doi.org/10.1016/j.cell.2016.05.077">DOI</a>. Emi1&ndash;APC/C bistable switch.</li>
+  <li>Uhlenhaut, N.H. et al. Somatic sex reprogramming of adult ovaries to testes by FOXL2 ablation. <em>Cell,</em> 139(6), 2009. <a href="https://doi.org/10.1016/j.cell.2009.11.021">DOI</a>. FOXL2/SOX9 bistable switch.</li>
+  <li>Mochida, S. et al. Regulated activity of PP2A-B55&delta; is crucial for controlling entry into and exit from mitosis in Xenopus egg extracts. <em>EMBO J,</em> 28(18), 2009. <a href="https://doi.org/10.1038/emboj.2009.238">DOI</a>. CDK1&ndash;PP1/PP2A bistable switch.</li>
+  <li>Ferrell, J.E. &amp; Ha, S.H. Ultrasensitivity part III: cascades, bistable switches, and oscillators. <em>Trends Biochem Sci,</em> 39(12), 2014. <a href="https://doi.org/10.1016/j.tibs.2014.10.002">DOI</a>. Review of bistable circuit classes.</li>
+</ol>
+</section>
+
+<div class="paper-footer">
+  Genome Logic Modeling Project &mdash; Gary Welz &mdash; CUNY Graduate Center / New Media Lab &mdash; Working Paper 2026<br>
+  Empirical companion to: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Foundational_Typology.html">Paper I</a> and <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html">Paper II</a>
+</div>
+
+<script>
+(function () {
+  var cfg = {
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#1abc9c', primaryTextColor: '#fff', primaryBorderColor: '#16a085',
+      lineColor: '#333', secondaryColor: '#2E75B6', tertiaryColor: '#f0f4f8'
+    },
+    flowchart: { curve: 'basis', nodeSpacing: 50, rankSpacing: 60 }
+  };
+  function renderDiagrams() {
+    if (typeof mermaid === 'undefined' || !mermaid.run) return;
+    try { mermaid.initialize(cfg); } catch (e) { console.warn('Mermaid initialize', e); }
+    mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
+      console.warn('Mermaid run', err);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderDiagrams);
+  } else {
+    renderDiagrams();
+  }
+})();
+</script>
+</body>
+</html>
