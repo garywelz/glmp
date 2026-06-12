@@ -8,7 +8,7 @@ import { loadProcessList, loadProcess, getCurrentProcess, getProcessList, setCur
 import { renderDiagram, updateDetailLevel, getDetailLevel } from './modules/mermaidRenderer.js';
 import { initializeFeedbackPanel } from './modules/feedbackHandler.js';
 import { loadComments } from './modules/commentsManager.js';
-import { renderProcessList, renderProcess, renderColorLegend, renderCitations, renderMetadata, showLoadingSpinner } from './modules/uiRenderer.js?v=20260325';
+import { renderProcessList, renderProcess, renderColorLegend, renderCitations, renderMetadata, showLoadingSpinner } from './modules/uiRenderer.js?v=20260612';
 import { initProcessCiteModal, fillProcessCiteModal } from './modules/processCiteModal.js';
 
 // Initialize Mermaid

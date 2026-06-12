@@ -1,0 +1,116 @@
+{
+  "id": "synthetic_negative_autoregulation",
+  "name": "Negative Autoregulation (NAR motif)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "The simplest homeostatic circuit: a transcription factor X represses the very promoter that produces it. This single negative-feedback loop accelerates the rise-time to steady state and buffers expression noise, and is the most statistically over-represented one-node motif in the E. coli transcription network.",
+  "scientificAccuracy": "Ground-truth circuit. Topology (X ⊣ X) and behaviour (faster response, reduced noise) are established by direct synthetic measurement (Rosenfeld et al. 2002; Becskei & Serrano 2000).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inducer signal]\n    B{Promoter P active?}\n    C[Transcription of gene X]\n    D[Repressor protein X]\n    E[/X represses own promoter P/]\n    F(Fast, noise-buffered steady state)\n\n    A --> B\n    B -->|derepressed| C\n    C --> D\n    D --> E\n    E -->|feedback| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Negative autoregulation speeds the response times of transcription networks",
+      "authors": "Rosenfeld N, Elowitz MB, Alon U",
+      "journal": "Journal of Molecular Biology",
+      "year": 2002,
+      "volume": "323",
+      "pages": "785-793",
+      "pmid": "12417193",
+      "doi": "10.1016/S0022-2836(02)00994-4"
+    },
+    {
+      "title": "Engineering stability in gene networks by autoregulation",
+      "authors": "Becskei A, Serrano L",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "405",
+      "pages": "590-593",
+      "pmid": "10850721",
+      "doi": "10.1038/35014651"
+    }
+  ],
+  "keywords": [
+    "negative autoregulation",
+    "network motif",
+    "negative feedback",
+    "noise reduction",
+    "response time",
+    "NAR",
+    "ground truth"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class II anchor. One repression edge (NOT) forming a single self-loop.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Promoter P (e.g. PLtetO-1)",
+        "boundFactor": "X (e.g. TetR)",
+        "site": "operator overlapping -10/-35",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "TCCCTATCAGTGATAGAGA",
+        "note": "tetO2 palindrome; X occupancy blocks RNAP recruitment"
+      }
+    ],
+    "derivedLogic": "X = NOT X(t-τ)   (self-repression -> homeostatic set-point)"
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "negative_autoregulation",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A transcription factor represses its own promoter — the minimal negative-feedback motif. Speeds the response time and reduces cell-to-cell noise (Rosenfeld, Elowitz & Alon 2002); the single most common network motif in E. coli.",
+  "groundTruth": true
+}

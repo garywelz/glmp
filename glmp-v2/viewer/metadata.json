@@ -1,21 +1,29 @@
 {
   "version": "2.0",
   "generated": "2025-10-15",
-  "totalProcesses": 108,
+  "totalProcesses": 114,
   "lastUpdated": "2026-03-24",
   "description": "GLMP v2: Genome Logic Modeling Project with 100 publication-quality biological processes",
   "organisms": [
     {
       "name": "E. coli",
-      "processCount": 64
+      "processCount": 66
     },
     {
       "name": "S. cerevisiae",
-      "processCount": 33
+      "processCount": 38
     },
     {
       "name": "B. subtilis",
       "processCount": 3
+    },
+    {
+      "name": "Synthetic circuit",
+      "processCount": 6
+    },
+    {
+      "name": "Bacillus subtilis",
+      "processCount": 4
     }
   ],
   "categories": [
@@ -33,7 +41,7 @@
     },
     {
       "name": "Metabolic Pathway",
-      "processCount": 10
+      "processCount": 13
     },
     {
       "name": "Gene Regulation",
@@ -49,7 +57,7 @@
     },
     {
       "name": "Gene Expression",
-      "processCount": 5
+      "processCount": 6
     },
     {
       "name": "Protein Transport",
@@ -57,11 +65,11 @@
     },
     {
       "name": "Developmental Decision",
-      "processCount": 4
+      "processCount": 5
     },
     {
       "name": "DNA Replication",
-      "processCount": 3
+      "processCount": 4
     },
     {
       "name": "Protein Synthesis",
@@ -93,31 +101,39 @@
     },
     {
       "name": "Cell Cycle",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Organelle Biology",
       "processCount": 1
+    },
+    {
+      "name": "Cell Wall Biogenesis",
+      "processCount": 1
+    },
+    {
+      "name": "Synthetic Biology",
+      "processCount": 6
     }
   ],
   "statistics": {
     "totalCitations": 348,
-    "verifiedProcesses": 99,
-    "totalNodes": 7273,
-    "totalLogicGates": 1252,
+    "verifiedProcesses": 105,
+    "totalNodes": 7194,
+    "totalLogicGates": 1261,
     "orGates": 347,
-    "andGates": 435,
+    "andGates": 437,
     "orAndRatio": 0.8,
-    "notGates": 470,
-    "totalConditionals": 6231,
+    "notGates": 477,
+    "totalConditionals": 6235,
     "architecture": "100:125:135:18",
     "loops": 409,
     "loopEdges": 438,
     "circuitClassDistribution": {
-      "I": 51,
-      "II": 41,
-      "III": 12,
-      "IV": 2,
+      "I": 53,
+      "II": 42,
+      "III": 14,
+      "IV": 3,
       "V": 2
     }
   },
@@ -2497,6 +2513,138 @@
       "circuitClass": "I",
       "topologyType": "replication_feed_forward",
       "circuitClassConfidence": "medium"
+    },
+    {
+      "id": "synthetic_coherent_ffl",
+      "name": "Coherent Feed-Forward Loop (type-1, AND)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "not": 0
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 0,
+      "conditionals": 1,
+      "totalNodes": 6,
+      "loops": 0,
+      "circuitClass": "I",
+      "topologyType": "coherent_feed_forward_AND",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_incoherent_ffl",
+      "name": "Incoherent Feed-Forward Loop (type-1, pulse)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 1,
+      "totalNodes": 7,
+      "loops": 0,
+      "circuitClass": "I",
+      "topologyType": "incoherent_feed_forward_pulse",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_negative_autoregulation",
+      "name": "Negative Autoregulation (NAR motif)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 1,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "II",
+      "topologyType": "negative_autoregulation",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_positive_autoregulation",
+      "name": "Positive Autoregulation (PAR motif)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 0
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 0,
+      "conditionals": 1,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_repressilator",
+      "name": "Repressilator (3-repressor ring oscillator)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 3
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 3,
+      "conditionals": 0,
+      "totalNodes": 7,
+      "loops": 1,
+      "circuitClass": "IV",
+      "topologyType": "ring_oscillator_delayed_neg_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_toggle_switch",
+      "name": "Genetic Toggle Switch (Gardner-Collins)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "complexity": "low",
+      "nodes": 10,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 2
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 2,
+      "conditionals": 0,
+      "totalNodes": 10,
+      "loops": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable",
+      "circuitClassConfidence": "high"
     }
   ]
 }

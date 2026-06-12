@@ -1,0 +1,122 @@
+{
+  "id": "synthetic_repressilator",
+  "name": "Repressilator (3-repressor ring oscillator)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A ring of three repressors in which each represses the next: LacI represses TetR, TetR represses λ cI, and cI represses LacI. The odd number of repressions makes the loop a delayed negative-feedback circuit that oscillates, driving a periodic GFP reporter — the first engineered gene-network oscillator.",
+  "scientificAccuracy": "Ground-truth circuit. Topology and oscillatory behaviour demonstrated in E. coli by Elowitz & Leibler (2000).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[LacI]\n    B[/LacI represses TetR/]\n    C[TetR]\n    D[/TetR represses cI/]\n    E[cI]\n    F[/cI represses LacI/]\n    G(Oscillating GFP reporter)\n\n    A --> B\n    B -->|⊣| C\n    C --> D\n    D -->|⊣| E\n    E --> F\n    F -->|⊣| A\n    A --> G\n\n    style A fill:#ffd43b,color:#000\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synthetic oscillatory network of transcriptional regulators",
+      "authors": "Elowitz MB, Leibler S",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "403",
+      "pages": "335-338",
+      "pmid": "10659856",
+      "doi": "10.1038/35002125"
+    }
+  ],
+  "keywords": [
+    "repressilator",
+    "oscillator",
+    "delayed negative feedback",
+    "ring oscillator",
+    "synthetic biology",
+    "ground truth"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IV anchor. Three repressions (3 NOT) around a closed ring -> one feedback loop with delay.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "PLtetO-1",
+        "boundFactor": "TetR",
+        "site": "tetO2",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "TCCCTATCAGTGATAGAGA",
+        "note": "drives next cistron in ring"
+      },
+      {
+        "name": "PLlacO-1",
+        "boundFactor": "LacI",
+        "site": "lacO",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "AATTGTGAGCGGATAACAATT"
+      },
+      {
+        "name": "PR (lambda)",
+        "boundFactor": "cI",
+        "site": "OR1/OR2",
+        "operator": "NOT",
+        "effect": "repression",
+        "sequenceMotif": "TACCTCTGGCGGTGATAA",
+        "note": "lambda right operator consensus"
+      }
+    ],
+    "derivedLogic": "TetR=NOT LacI ; cI=NOT TetR ; LacI=NOT cI  -> odd inversions -> oscillation"
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 3
+  },
+  "notGates": 3,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "ring_oscillator_delayed_neg_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Three repressors in a cyclic chain (LacI ⊣ TetR ⊣ cI ⊣ LacI). The odd number of inversions around the loop gives delayed negative feedback, producing sustained oscillations in protein level — the canonical synthetic oscillator (Elowitz & Leibler 2000).",
+  "groundTruth": true
+}

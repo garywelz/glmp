@@ -472,6 +472,19 @@
         .cite-panel ul.sources-list a {
             color: #2980b9;
         }
+        /* Circuit-class badges + filter bar */
+        .class-filter-bar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:12px; }
+        .class-filter-label { font-weight:600; color:#2c3e50; margin-right:4px; }
+        .class-filter-btn { border:1px solid #cbd5e1; background:#fff; color:#2c3e50; border-radius:6px; padding:5px 12px; cursor:pointer; font-weight:600; font-size:0.9em; line-height:1; }
+        .class-filter-btn:hover { background:#f1f5f9; }
+        .class-filter-btn.active { background:#2c3e50; color:#fff; border-color:#2c3e50; }
+        .class-badge { display:inline-block; min-width:28px; text-align:center; padding:3px 8px; border-radius:6px; font-weight:700; color:#fff; font-size:0.85em; }
+        .class-I   { background:#64748b; }
+        .class-II  { background:#2e86de; }
+        .class-III { background:#e74c3c; }
+        .class-IV  { background:#8e44ad; }
+        .class-V   { background:#27867a; }
+        .class-unknown { background:#bbb; }
     </style>
 </head>
 <body>
@@ -521,6 +534,15 @@
                 <div class="search-input-wrap">
                     <input type="search" id="tableSearch" placeholder="Filter by process name, organism, or category…" autocomplete="off" aria-label="Filter table">
                 </div>
+                <div id="classFilterBar" class="class-filter-bar" role="group" aria-label="Filter by circuit class">
+                    <span class="class-filter-label">Circuit class:</span>
+                    <button type="button" class="class-filter-btn active" data-class="all">All</button>
+                    <button type="button" class="class-filter-btn" data-class="I" title="Feed-forward cascade (no feedback)">I</button>
+                    <button type="button" class="class-filter-btn" data-class="II" title="Negative feedback (homeostatic)">II</button>
+                    <button type="button" class="class-filter-btn" data-class="III" title="Bistable switch / positive feedback">III</button>
+                    <button type="button" class="class-filter-btn" data-class="IV" title="Delayed negative feedback (oscillator)">IV</button>
+                    <button type="button" class="class-filter-btn" data-class="V" title="Self-modifying chromatin / epigenetic">V</button>
+                </div>
             </div>
             <div class="stats-grid" id="statsGrid">
                 <!-- Stats will be populated here -->
@@ -547,6 +569,7 @@
                             <th class="sortable" data-col="7">AND gates 🟣 ↕</th>
                             <th class="sortable" data-col="8">NOT gates 🔴 ↕</th>
                             <th class="sortable" data-col="9" title="Nodes with an edge to an earlier node in the Mermaid source (feedback / upward edges)">Loops ↕</th>
+                            <th class="sortable" data-col="10" title="GLMP five-class complexity ladder (Paper I/III): I feed-forward, II negative feedback, III bistable/positive feedback, IV delayed-feedback oscillator, V self-modifying chromatin">Circuit class ↕</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -596,6 +619,22 @@
         
         let lastLoadedData = null;
         let tableSortState = { column: -1, direction: 1 };
+        let classFilter = 'all';
+
+        const CLASS_NAMES = {
+            'I': 'Feed-forward cascade',
+            'II': 'Negative feedback (homeostatic)',
+            'III': 'Bistable switch / positive feedback',
+            'IV': 'Delayed negative feedback (oscillator)',
+            'V': 'Self-modifying chromatin / epigenetic'
+        };
+
+        function classBadgeHtml(cls) {
+            const c = (cls || '').toString().trim();
+            if (!c) return '<span class="class-badge class-unknown" title="Unclassified">—</span>';
+            const name = CLASS_NAMES[c] || 'Unclassified';
+            return `<span class="class-badge class-${escapeHtml(c)}" title="Class ${escapeHtml(c)} — ${escapeHtml(name)}">${escapeHtml(c)}</span>`;
+        }
         
         async function loadData() {
             // Add aggressive cache-busting to always load fresh data
@@ -676,17 +715,18 @@
                 if (!organismGroups[organism]) organismGroups[organism] = [];
                 organismGroups[organism].push(process);
             });
-            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis'];
+            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis', 'Synthetic circuit'];
             const sortedOrganisms = organismOrder.filter(org => organismGroups[org]);
             let tableHTML = '';
             sortedOrganisms.forEach(organism => {
                 const organismProcesses = organismGroups[organism];
                 const organismDisplayName = organism === 'E. coli' ? 'E. coli'
                     : organism === 'S. cerevisiae' ? 'Yeast'
-                    : organism === 'Bacillus subtilis' ? 'Bacillus' : organism;
+                    : organism === 'Bacillus subtilis' ? 'Bacillus'
+                    : organism === 'Synthetic circuit' ? 'Synthetic biology (ground-truth circuits)' : organism;
                 tableHTML += `
                 <tr class="organism-header">
-                    <td colspan="10" style="background: #f8f9fa; font-weight: bold; font-size: 1.1em; padding: 15px 10px; border-bottom: 2px solid #3498db;">
+                    <td colspan="11" style="background: #f8f9fa; font-weight: bold; font-size: 1.1em; padding: 15px 10px; border-bottom: 2px solid #3498db;">
                         🧬 ${escapeHtml(organismDisplayName)} (${organismProcesses.length} processes)
                     </td>
                 </tr>
@@ -719,6 +759,7 @@
                         <td class="number">🟣 ${andGates}</td>
                         <td class="number">🔴 ${notGates}</td>
                         <td class="number">${loops}</td>
+                        <td>${classBadgeHtml(process.circuitClass)}</td>
                     </tr>
                     `;
                 });
@@ -771,10 +812,14 @@
         }
         
         function filterProcesses(processes, query) {
+            let result = processes;
+            if (classFilter && classFilter !== 'all') {
+                result = result.filter(p => (p.circuitClass || '').toString().trim() === classFilter);
+            }
             const q = (query || '').trim().toLowerCase();
-            if (q.length < 1) return processes;
+            if (q.length < 1) return result;
             const tokens = q.split(/\s+/).filter(Boolean);
-            return processes.filter(p => {
+            return result.filter(p => {
                 const blob = [
                     p.name, p.organism, p.category, p.description, p.id, p.complexity
                 ].filter(Boolean).join(' ').toLowerCase();
@@ -792,8 +837,9 @@
             tableBody.innerHTML = buildProcessTableHTML(filtered);
             const hint = document.getElementById('filterHint');
             if (hint) {
-                hint.textContent = q.trim()
-                    ? `Showing ${filtered.length} of ${all.length} processes`
+                const active = q.trim() || (classFilter && classFilter !== 'all');
+                hint.textContent = active
+                    ? `Showing ${filtered.length} of ${all.length} processes${classFilter !== 'all' ? ` (Class ${classFilter})` : ''}`
                     : '';
             }
             if (tableSortState.column >= 0) {
@@ -806,7 +852,7 @@
             if (!data || !data.processes) return;
             const input = document.getElementById('tableSearch');
             const processes = filterProcesses(data.processes, input ? input.value : '');
-            const headers = ['id', 'name', 'organism', 'category', 'complexity', 'nodes', 'conditionals', 'or_gates', 'and_gates', 'not_gates', 'loops', 'viewer_url'];
+            const headers = ['id', 'name', 'organism', 'category', 'complexity', 'circuit_class', 'topology_type', 'nodes', 'conditionals', 'or_gates', 'and_gates', 'not_gates', 'loops', 'viewer_url'];
             const lines = [headers.join(',')];
             const esc = (v) => {
                 const s = String(v ?? '');
@@ -818,6 +864,7 @@
                 const url = `${VIEWER_BASE}?process=${encodeURIComponent(id)}`;
                 lines.push([
                     esc(id), esc(p.name), esc(p.organism), esc(p.category), esc(p.complexity),
+                    esc(p.circuitClass || ''), esc(p.topologyType || ''),
                     p.nodes || 0, p.conditionals || 0,
                     p.logicGates?.or || 0, p.logicGates?.and || 0, p.notGates || 0,
                     p.loops != null ? p.loops : 0,
@@ -967,17 +1014,30 @@
             const complexityCounts = {};
             const categoryCounts = {};
             const organismCounts = {};
+            const classCounts = {};
             processes.forEach(process => {
                 const complexity = process.complexity || 'Unknown';
                 const category = process.category || 'Unknown';
                 const organism = process.organism || 'Unknown';
+                const cls = (process.circuitClass || 'Unclassified').toString();
                 complexityCounts[complexity] = (complexityCounts[complexity] || 0) + 1;
                 categoryCounts[category] = (categoryCounts[category] || 0) + 1;
                 organismCounts[organism] = (organismCounts[organism] || 0) + 1;
+                classCounts[cls] = (classCounts[cls] || 0) + 1;
             });
+            const classOrder = ['I', 'II', 'III', 'IV', 'V', 'Unclassified'];
             
             const breakdownGrid = document.getElementById('breakdownGrid');
             breakdownGrid.innerHTML = `
+                <div class="breakdown-card">
+                    <h4>🪜 Circuit Class Distribution (Paper I/III ladder)</h4>
+                    ${classOrder.filter(c => classCounts[c]).map(c => `
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">${classBadgeHtml(c === 'Unclassified' ? '' : c)} ${c === 'Unclassified' ? 'Unclassified' : escapeHtml(CLASS_NAMES[c] || c)}</span>
+                            <span class="breakdown-count">${classCounts[c]} processes</span>
+                        </div>
+                    `).join('')}
+                </div>
                 <div class="breakdown-card">
                     <h4>🎯 Complexity Distribution</h4>
                     ${Object.entries(complexityCounts).map(([complexity, count]) => `
@@ -1020,6 +1080,14 @@
             if (searchEl) {
                 searchEl.addEventListener('input', () => refreshTableFromFilter());
             }
+            document.querySelectorAll('#classFilterBar .class-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    classFilter = btn.getAttribute('data-class') || 'all';
+                    document.querySelectorAll('#classFilterBar .class-filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    refreshTableFromFilter();
+                });
+            });
             document.getElementById('exportCsvBtn').addEventListener('click', exportProcessesCsv);
             document.getElementById('openCiteModal').addEventListener('click', () => setCiteModal(true));
             document.getElementById('closeCiteModal').addEventListener('click', () => setCiteModal(false));

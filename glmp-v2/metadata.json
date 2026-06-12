@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 108,
+  "totalProcesses": 114,
   "organisms": [
     {
       "name": "E. coli",
@@ -16,6 +16,10 @@
     {
       "name": "Bacillus subtilis",
       "processCount": 4
+    },
+    {
+      "name": "Synthetic circuit",
+      "processCount": 6
     }
   ],
   "categories": [
@@ -102,21 +106,25 @@
     {
       "name": "Translation Machinery",
       "processCount": 1
+    },
+    {
+      "name": "Synthetic Biology",
+      "processCount": 6
     }
   ],
   "statistics": {
-    "totalNodes": 7273,
-    "totalConditionals": 6231,
+    "totalNodes": 7315,
+    "totalConditionals": 6235,
     "orGates": 347,
-    "andGates": 435,
-    "notGates": 470,
-    "totalLogicGates": 1252,
-    "verifiedProcesses": 99,
+    "andGates": 437,
+    "notGates": 477,
+    "totalLogicGates": 1261,
+    "verifiedProcesses": 105,
     "circuitClassDistribution": {
-      "I": 51,
-      "II": 41,
-      "III": 12,
-      "IV": 2,
+      "I": 53,
+      "II": 42,
+      "III": 14,
+      "IV": 3,
       "V": 2
     }
   },
@@ -2603,6 +2611,144 @@
       "notGates": 2,
       "circuitClass": "III",
       "topologyType": "spo0A_phosphorelay_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_coherent_ffl",
+      "name": "Coherent Feed-Forward Loop (type-1, AND)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "The most common coherent feed-forward loop: X activates Y, and both X and Y are required (AND logic) to activate the output Z. With no feedback edge it is a pure feed-forward cascade, but the AND gate makes Z respond only to a persistent input — a built-in noise filter and persistence detector.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "coherent_feed_forward_AND",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_incoherent_ffl",
+      "name": "Incoherent Feed-Forward Loop (type-1, pulse)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "An incoherent feed-forward loop: X directly activates the output Z and also activates a repressor Y that shuts Z back down. Because Y arrives later, Z first rises then falls — a pulse generator that also speeds the response and gives partial adaptation. Topologically feed-forward (no feedback edge), so Class I, but functionally distinct from a simple cascade.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "incoherent_feed_forward_pulse",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_negative_autoregulation",
+      "name": "Negative Autoregulation (NAR motif)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "The simplest homeostatic circuit: a transcription factor X represses the very promoter that produces it. This single negative-feedback loop accelerates the rise-time to steady state and buffers expression noise, and is the most statistically over-represented one-node motif in the E. coli transcription network.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "negative_autoregulation",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_positive_autoregulation",
+      "name": "Positive Autoregulation (PAR motif)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A transcription factor X that activates its own promoter. Positive feedback creates a threshold: once X passes it, the circuit latches into a self-sustaining ON state that persists after the input is gone — the molecular basis of cellular memory and a building block of bistable switches.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_repressilator",
+      "name": "Repressilator (3-repressor ring oscillator)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A ring of three repressors in which each represses the next: LacI represses TetR, TetR represses λ cI, and cI represses LacI. The odd number of repressions makes the loop a delayed negative-feedback circuit that oscillates, driving a periodic GFP reporter — the first engineered gene-network oscillator.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 3,
+      "circuitClass": "IV",
+      "topologyType": "ring_oscillator_delayed_neg_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_toggle_switch",
+      "name": "Genetic Toggle Switch (Gardner-Collins)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "The first engineered bistable gene circuit: two repressors, each driven by a promoter the other represses. The double-negative loop has two stable states (high-LacI or high-TetR). A transient pulse of IPTG or aTc flips the switch, which then holds its state — a one-bit memory built from transcription.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 10,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable",
       "circuitClassConfidence": "high"
     }
   ]

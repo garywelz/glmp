@@ -1,0 +1,124 @@
+{
+  "id": "synthetic_coherent_ffl",
+  "name": "Coherent Feed-Forward Loop (type-1, AND)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "The most common coherent feed-forward loop: X activates Y, and both X and Y are required (AND logic) to activate the output Z. With no feedback edge it is a pure feed-forward cascade, but the AND gate makes Z respond only to a persistent input — a built-in noise filter and persistence detector.",
+  "scientificAccuracy": "Ground-truth circuit. Topology and sign-sensitive-delay behaviour established by Mangan & Alon (2003) and Mangan, Zaslaver & Alon (2003).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Signal Sx]\n    B[TF X active]\n    C[TF Y expressed]\n    D{X AND Y present?}\n    E[Gene Z expressed]\n    F(Output Z: delayed ON, immediate OFF)\n\n    A --> B\n    B --> C\n    B --> D\n    C --> D\n    D -->|Yes| E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Structure and function of the feed-forward loop network motif",
+      "authors": "Mangan S, Alon U",
+      "journal": "PNAS",
+      "year": 2003,
+      "volume": "100",
+      "pages": "11980-11985",
+      "pmid": "14530388",
+      "doi": "10.1073/pnas.2133841100"
+    },
+    {
+      "title": "The coherent feedforward loop serves as a sign-sensitive delay element in transcription networks",
+      "authors": "Mangan S, Zaslaver A, Alon U",
+      "journal": "Journal of Molecular Biology",
+      "year": 2003,
+      "volume": "334",
+      "pages": "197-204",
+      "pmid": "14607112",
+      "doi": "10.1016/j.jmb.2003.09.049"
+    }
+  ],
+  "keywords": [
+    "feed-forward loop",
+    "coherent FFL",
+    "AND gate",
+    "sign-sensitive delay",
+    "persistence detector",
+    "network motif",
+    "ground truth"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I anchor. Feed-forward (no cycle) with one AND gate.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Promoter of Z",
+        "boundFactor": "X and Y",
+        "site": "two adjacent activator sites",
+        "operator": "AND",
+        "effect": "activation",
+        "sequenceMotif": "(X-site)...(Y-site)",
+        "note": "both sites must be occupied for RNAP recruitment"
+      },
+      {
+        "name": "Promoter of Y",
+        "boundFactor": "X",
+        "site": "activator site",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "(X-site)"
+      }
+    ],
+    "derivedLogic": "Y = X ; Z = X AND Y  -> Z requires sustained X"
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "coherent_feed_forward_AND",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "X activates Y, and X and Y jointly (AND) activate Z. No cycle — a feed-forward cascade. Functions as a sign-sensitive delay / persistence detector: Z turns on only after a sustained input, filtering transient pulses (Mangan & Alon 2003).",
+  "groundTruth": true
+}

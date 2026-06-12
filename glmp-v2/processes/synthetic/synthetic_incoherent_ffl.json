@@ -1,0 +1,123 @@
+{
+  "id": "synthetic_incoherent_ffl",
+  "name": "Incoherent Feed-Forward Loop (type-1, pulse)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "An incoherent feed-forward loop: X directly activates the output Z and also activates a repressor Y that shuts Z back down. Because Y arrives later, Z first rises then falls — a pulse generator that also speeds the response and gives partial adaptation. Topologically feed-forward (no feedback edge), so Class I, but functionally distinct from a simple cascade.",
+  "scientificAccuracy": "Ground-truth circuit. Pulse-generation / response-acceleration behaviour established by Mangan & Alon (2003); synthetic pulse-generator built by Basu et al. (2004).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Signal Sx]\n    B[TF X active]\n    C[Z activated by X]\n    D[Repressor Y expressed]\n    E[/Y represses Z/]\n    F{Z = X AND NOT Y?}\n    G(Output Z: transient pulse / adaptation)\n\n    A --> B\n    B --> C\n    B --> D\n    D --> E\n    C --> F\n    E -->|delayed| F\n    F -->|Yes| G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Structure and function of the feed-forward loop network motif",
+      "authors": "Mangan S, Alon U",
+      "journal": "PNAS",
+      "year": 2003,
+      "volume": "100",
+      "pages": "11980-11985",
+      "pmid": "14530388",
+      "doi": "10.1073/pnas.2133841100"
+    },
+    {
+      "title": "Spatiotemporal control of gene expression with pulse-generating networks",
+      "authors": "Basu S, Mehreja R, Thiberge S, Chen MT, Weiss R",
+      "journal": "PNAS",
+      "year": 2004,
+      "volume": "101",
+      "pages": "6355-6360",
+      "pmid": "15096621",
+      "doi": "10.1073/pnas.0307571101"
+    }
+  ],
+  "keywords": [
+    "incoherent feed-forward loop",
+    "pulse generator",
+    "adaptation",
+    "AND NOT",
+    "network motif",
+    "ground truth"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I anchor (feed-forward topology). Carries one AND and one NOT; functionally a pulse generator (recorded in rationale).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Promoter of Z",
+        "boundFactor": "X (activator) + Y (repressor)",
+        "site": "overlapping activator + operator",
+        "operator": "AND NOT",
+        "effect": "activation gated by repression",
+        "sequenceMotif": "(X-site)+(Y-operator)",
+        "note": "Z on when X present and Y absent"
+      },
+      {
+        "name": "Promoter of Y",
+        "boundFactor": "X",
+        "site": "activator site",
+        "operator": "IF",
+        "effect": "activation",
+        "sequenceMotif": "(X-site)"
+      }
+    ],
+    "derivedLogic": "Y = X ; Z = X AND NOT Y  -> delayed repression -> pulse"
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "incoherent_feed_forward_pulse",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "X activates both Z and a repressor Y, and Y represses Z (Z = X AND NOT Y). No cycle — still a feed-forward cascade — but the delayed repression generates a transient pulse and partial adaptation. Class I by topology; flagged as functionally adaptive (Mangan & Alon 2003; Basu et al. 2004).",
+  "groundTruth": true
+}

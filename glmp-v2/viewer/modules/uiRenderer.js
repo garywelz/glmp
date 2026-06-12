@@ -79,6 +79,8 @@ export function renderProcess(process) {
     if (organismEl) organismEl.textContent = process.organism || 'Unknown';
     if (categoryEl) categoryEl.textContent = process.category || 'Uncategorized';
     if (descEl) descEl.textContent = process.description || '';
+
+    renderCircuitClass(process);
     
     // Render scientific accuracy
     renderScientificAccuracy(process);
@@ -93,6 +95,35 @@ export function renderProcess(process) {
     renderMetadata(process);
     
     renderProcessStatistics(process);
+}
+
+const CIRCUIT_CLASS_NAMES = {
+    'I': 'Feed-forward cascade',
+    'II': 'Negative feedback (homeostatic)',
+    'III': 'Bistable switch / positive feedback',
+    'IV': 'Delayed negative feedback (oscillator)',
+    'V': 'Self-modifying chromatin / epigenetic'
+};
+const CIRCUIT_CLASS_COLORS = {
+    'I': '#64748b', 'II': '#2e86de', 'III': '#e74c3c', 'IV': '#8e44ad', 'V': '#27867a'
+};
+
+/**
+ * Render the GLMP five-class circuit tag (Paper I/III) next to organism/category.
+ */
+function renderCircuitClass(process) {
+    const el = document.getElementById('process-circuit-class');
+    if (!el) return;
+    const cls = (process.circuitClass || '').toString().trim();
+    if (!cls) { el.style.display = 'none'; return; }
+    const name = CIRCUIT_CLASS_NAMES[cls] || 'Unclassified';
+    el.textContent = `Class ${cls} · ${name}`;
+    el.style.backgroundColor = CIRCUIT_CLASS_COLORS[cls] || '#bbb';
+    el.style.color = '#fff';
+    el.title = process.circuitClassRationale
+        ? `${name} — ${process.circuitClassRationale}`
+        : name;
+    el.style.display = '';
 }
 
 /**

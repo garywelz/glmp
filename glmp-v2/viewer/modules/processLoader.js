@@ -74,6 +74,7 @@ export async function loadProcess(processId) {
         const organism = processId.startsWith('ecoli_') ? 'ecoli'
             : processId.startsWith('yeast_') ? 'yeast'
             : processId.startsWith('bacillus_') ? 'bacillus'
+            : processId.startsWith('synthetic_') ? 'synthetic'
             : 'ecoli';
         
         const processUrl = `${CONFIG.processesPath}${organism}/${processId}.json?v=${Date.now()}`;

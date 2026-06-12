@@ -1,0 +1,115 @@
+{
+  "id": "synthetic_positive_autoregulation",
+  "name": "Positive Autoregulation (PAR motif)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A transcription factor X that activates its own promoter. Positive feedback creates a threshold: once X passes it, the circuit latches into a self-sustaining ON state that persists after the input is gone — the molecular basis of cellular memory and a building block of bistable switches.",
+  "scientificAccuracy": "Ground-truth circuit. Positive autoregulation producing bistability/memory is established synthetically (Becskei, Séraphin & Serrano 2001; Maeda & Sano 2006).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inducer signal]\n    B{Promoter P active?}\n    C[Transcription of gene X]\n    D[Activator protein X]\n    E[\\X activates own promoter P/]\n    F(Bistable ON state / memory)\n\n    A --> B\n    B -->|active| C\n    C --> D\n    D --> E\n    E -->|feedback| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Positive feedback in eukaryotic gene networks: cell differentiation by graded to binary response conversion",
+      "authors": "Becskei A, Séraphin B, Serrano L",
+      "journal": "EMBO Journal",
+      "year": 2001,
+      "volume": "20",
+      "pages": "2528-2535",
+      "pmid": "11350942",
+      "doi": "10.1093/emboj/20.10.2528"
+    },
+    {
+      "title": "Regulatory dynamics of synthetic gene networks with positive feedback",
+      "authors": "Maeda YT, Sano M",
+      "journal": "Journal of Molecular Biology",
+      "year": 2006,
+      "volume": "359",
+      "pages": "1107-1124",
+      "pmid": "16701695",
+      "doi": "10.1016/j.jmb.2006.03.064"
+    }
+  ],
+  "keywords": [
+    "positive autoregulation",
+    "bistability",
+    "cellular memory",
+    "positive feedback",
+    "PAR",
+    "ground truth"
+  ],
+  "relatedProcesses": [],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class III anchor. Activating self-loop (no NOT); bistable for sufficient feedback gain.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Promoter P",
+        "boundFactor": "X (activator)",
+        "site": "upstream activating sequence",
+        "operator": "IDENTITY/IF",
+        "effect": "activation",
+        "sequenceMotif": "(activator-specific UAS)",
+        "note": "X occupancy recruits RNAP -> self-amplification"
+      }
+    ],
+    "derivedLogic": "X = IF X(t-τ) > threshold THEN ON  (positive feedback -> latch)"
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_autoregulation",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A transcription factor activates its own promoter — positive feedback that, above a threshold, produces bistability and cellular memory (an ON state that persists after the inducer is removed). Slows response and increases variability relative to NAR.",
+  "groundTruth": true
+}
