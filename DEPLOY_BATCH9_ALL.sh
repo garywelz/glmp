@@ -3,6 +3,11 @@
 set -euo pipefail
 
 export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
+# Windows Git Bash: Google Cloud SDK default install location
+if [[ -d "${LOCALAPPDATA:-}/Google/Cloud SDK/google-cloud-sdk/bin" ]]; then
+  WIN_GCLOUD_BIN="$(cygpath -u "${LOCALAPPDATA}/Google/Cloud SDK/google-cloud-sdk/bin" 2>/dev/null || echo "/c/Users/${USER}/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin")"
+  export PATH="${WIN_GCLOUD_BIN}:${PATH}"
+fi
 
 GCS_BUCKET="regal-scholar-453620-r7-podcast-storage"
 PROJECT_ID="regal-scholar-453620-r7"
