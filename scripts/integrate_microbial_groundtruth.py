@@ -60,6 +60,7 @@ def patch_file(path, targets):
     or_g = sum((p.get("logicGates") or {}).get("or", 0) for p in procs)
     and_g = sum((p.get("logicGates") or {}).get("and", 0) for p in procs)
     not_g = sum(g(p, "notGates") for p in procs)
+    loops_total = sum(g(p, "loops") for p in procs)
     verified_total = sum(1 for p in procs if p.get("verified"))
     dist = Counter(p.get("circuitClass") for p in procs if p.get("circuitClass"))
 
@@ -71,6 +72,7 @@ def patch_file(path, targets):
         st["andGates"] = and_g
         st["notGates"] = not_g
         st["totalLogicGates"] = or_g + and_g + not_g
+        st["loops"] = loops_total
         st["verifiedProcesses"] = verified_total
         st["circuitClassDistribution"] = {k: dist[k] for k in ["I", "II", "III", "IV", "V"] if dist.get(k)}
         data["statistics"] = st
