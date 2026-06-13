@@ -1,0 +1,127 @@
+{
+  "id": "human_p53_apoptosis_decision",
+  "name": "p53 Arrest-vs-Apoptosis Decision Switch",
+  "organism": "Homo sapiens",
+  "category": "DNA Damage Response",
+  "description": "How p53 chooses cell fate. Low or pulsatile p53 favors reversible arrest (p21); strong, sustained p53 induces apoptotic effectors (PUMA, BAX) past a commitment threshold, after which MOMP makes death irreversible. The downstream arrest-vs-death decision is a bistable switch, complementing the upstream p53–MDM2 oscillator already in the collection.",
+  "scientificAccuracy": "Threshold/irreversible commitment from p53 dynamics to apoptosis is established (Purvis et al. 2012; Kracikova et al. 2013).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[DNA damage: p53 active]\n    B{p53 above death threshold?}\n    C[p21: reversible arrest]\n    D[PUMA/BAX induced]\n    E[\\MOMP commits to death/]\n    F(Reversible arrest)\n    G(Irreversible apoptosis)\n\n    A --> B\n    B -->|No / low| C\n    C --> F\n    B -->|Yes / high| D\n    D --> E\n    E -->|+| D\n    E --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "p53 dynamics control cell fate",
+      "authors": "Purvis JE, Karhohs KW, Mock C, et al.",
+      "journal": "Science",
+      "year": 2012,
+      "volume": "336",
+      "pages": "1440-1444",
+      "pmid": "22700930",
+      "doi": "10.1126/science.1218351"
+    },
+    {
+      "title": "A threshold mechanism mediates p53 cell fate decision between growth arrest and apoptosis",
+      "authors": "Kracikova M, Akiri G, George A, Sachidanandam R, Aaronson SA",
+      "journal": "Cell Death & Differentiation",
+      "year": 2013,
+      "volume": "20",
+      "pages": "576-588",
+      "pmid": "23306555",
+      "doi": "10.1038/cdd.2012.155"
+    }
+  ],
+  "keywords": [
+    "p53",
+    "apoptosis",
+    "decision",
+    "threshold",
+    "bistable",
+    "PUMA",
+    "BAX",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_p53_mdm2_oscillator",
+    "human_caspase_apoptosis",
+    "human_bcl2_bax_momp"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III decision switch (arrest vs apoptosis); complements the p53-MDM2 Class IV oscillator.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "p53 response elements (CDKN1A vs BBC3/BAX)",
+        "boundFactor": "p53",
+        "operator": "threshold IF",
+        "effect": "low->p21 arrest, high->PUMA/BAX death",
+        "sequenceMotif": "RRRCWWGYYY x2 (p53 RE)",
+        "note": "promoter affinity + dynamics set the threshold"
+      }
+    ],
+    "derivedLogic": "fate = IF p53>θ THEN apoptosis ELSE arrest (bistable commitment)",
+    "references": [
+      "Purvis et al. 2012",
+      "Kracikova et al. 2013"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "threshold_bistable_decision",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Sustained or high p53 activity crosses a threshold that commits cells from reversible cell-cycle arrest to irreversible apoptosis (PUMA/BAX), an all-or-none, effectively irreversible decision driven by feed-forward and feedback among p53 targets. Class III bistable/threshold switch (distinct from the p53–MDM2 oscillator).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

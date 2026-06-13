@@ -1,0 +1,123 @@
+{
+  "id": "synthetic_optogenetic_toggle",
+  "name": "Optogenetic Bistable Toggle (Light Memory)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A light-controlled memory cell. A mutual-repression toggle (each repressor blocks the other's promoter) is bistable; brief optogenetic input flips it ON or OFF by transiently relieving or driving one arm, and the state then persists in the dark. It marries the synthetic toggle's bistability with optogenetic set/reset addressing.",
+  "scientificAccuracy": "Ground-truth components: the bistable toggle (Gardner, Cantor & Collins 2000) and optogenetic transcriptional control (Yazawa et al. 2009) are each established; the light-switchable toggle composes them.",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Light set/reset input]\n    B[Repressor A]\n    C[Repressor B]\n    D[/A represses B/]\n    E[/B represses A/]\n    F(Bistable light-stored memory)\n\n    A --> B\n    B --> D\n    D -->|⊣| C\n    C --> E\n    E -->|⊣| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Construction of a genetic toggle switch in Escherichia coli",
+      "authors": "Gardner TS, Cantor CR, Collins JJ",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "403",
+      "pages": "339-342",
+      "pmid": "10659857",
+      "doi": "10.1038/35002131"
+    },
+    {
+      "title": "Induction of protein-protein interactions in live cells using light",
+      "authors": "Yazawa M, Sadaghiani AM, Hsueh B, Dolmetsch RE",
+      "journal": "Nature Biotechnology",
+      "year": 2009,
+      "volume": "27",
+      "pages": "941-945",
+      "pmid": "19801976",
+      "doi": "10.1038/nbt.1569"
+    }
+  ],
+  "keywords": [
+    "optogenetics",
+    "toggle",
+    "bistable",
+    "memory",
+    "mutual repression",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch",
+    "synthetic_integrase_memory"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IIIa: light-addressable bistable toggle (mutual repression + optogenetic set/reset).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "toggle promoters PA, PB",
+        "boundFactor": "repressor A / repressor B (light-modulated)",
+        "operator": "double NOT / set-reset",
+        "effect": "bistable state held by mutual repression",
+        "sequenceMotif": "operator pair",
+        "note": "light transiently biases one arm to flip state"
+      }
+    ],
+    "derivedLogic": "A = NOT B ; B = NOT A ; light -> set/reset -> latched state",
+    "references": [
+      "Gardner et al. 2000",
+      "Yazawa et al. 2009"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_repression_bistable_light_switchable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two repressors mutually repress (a toggle); light inputs set or reset the state by transiently inducing one arm, after which mutual repression holds the state — a persistent, light-switchable bistable memory. Class IIIa (Yazawa-style optogenetic control of a Gardner–Collins-type toggle).",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

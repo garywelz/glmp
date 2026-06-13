@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_layered_nor_cascade",
+  "name": "Layered NOR Logic Cascade (Cello)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "The output of a genetic-circuit compiler: an arbitrary combinational function built from a feed-forward cascade of NOR gates, each a repressor-driven promoter. Cello (Nielsen et al. 2016) places and routes these gates from a Verilog specification, demonstrating that layered NOT/NOR logic spans the combinational design space.",
+  "scientificAccuracy": "Ground-truth circuit. Genetic-circuit design automation with layered NOR/NOT gates was demonstrated by Nielsen et al. (2016).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inputs]\n    B[/NOR layer 1/]\n    C[/NOR layer 2/]\n    D[Programmed combinational output]\n    E(Compiled logic function)\n\n    A --> B\n    B -->|⊣| C\n    C -->|⊣| D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Genetic circuit design automation",
+      "authors": "Nielsen AAK, Der BS, Shin J, et al.",
+      "journal": "Science",
+      "year": 2016,
+      "volume": "352",
+      "pages": "aac7341",
+      "pmid": "27034378",
+      "doi": "10.1126/science.aac7341"
+    }
+  ],
+  "keywords": [
+    "NOR",
+    "Cello",
+    "logic cascade",
+    "combinational",
+    "design automation",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_nor_gate",
+    "synthetic_and_gate"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I combinational computation: layered repressor NOR gates, feed-forward (no loop).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "repressor-controlled gate promoters",
+        "boundFactor": "orthogonal TetR-family repressors",
+        "operator": "NOR / NOT (layered)",
+        "effect": "feed-forward combinational logic",
+        "sequenceMotif": "repressor operator array",
+        "note": "any truth table via NOR layers"
+      }
+    ],
+    "derivedLogic": "Output = f(inputs) via layered NOR (combinational)",
+    "references": [
+      "Nielsen et al. 2016"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 4,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "layered_combinational_NOR_logic",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Programmable circuits compiled by Cello are layers of NOR/NOT gates wired by orthogonal repressors; any combinational truth table is realized by a feed-forward cascade with no feedback loop. Class I — Nielsen et al. 2016.",
+  "groundTruth": true
+}

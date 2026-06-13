@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_xor_gate",
+  "name": "Recombinase Boolean XOR Gate",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A genetically encoded XOR gate built from site-specific recombinases. Each input triggers a recombinase that flips a segment of DNA; the register ends in an output-ON orientation only when exactly one of the two inputs is active. The circuit computes a Boolean function of its current inputs — a combinational logic element rather than a stateful counter.",
+  "scientificAccuracy": "Ground-truth circuit. Recombinase-based amplifying Boolean logic gates, including XOR, were built and characterized by Bonnet et al. (2013).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 1,
+      "andGates": 0,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inputs A and B]\n    B[Orthogonal recombinases]\n    C[\\Set DNA register orientation/]\n    D{exactly one input ON?}\n    E[Output expressed]\n    F(XOR output)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|Yes| E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Amplifying genetic logic gates",
+      "authors": "Bonnet J, Yin P, Ortiz ME, Subsoontorn P, Endy D",
+      "journal": "Science",
+      "year": 2013,
+      "volume": "340",
+      "pages": "599-603",
+      "pmid": "23539178",
+      "doi": "10.1126/science.1232758"
+    }
+  ],
+  "keywords": [
+    "XOR",
+    "recombinase",
+    "logic gate",
+    "combinational",
+    "Boolean",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_and_gate",
+    "synthetic_recombinase_counter"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I combinational logic: XOR computed by recombinase register orientation (no feedback).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "invertible output register",
+        "boundFactor": "input-gated recombinases",
+        "operator": "XOR",
+        "effect": "output ON iff one input",
+        "sequenceMotif": "attB/attP flanking output",
+        "note": "combinational, recombinase-implemented"
+      }
+    ],
+    "derivedLogic": "Output = A XOR B",
+    "references": [
+      "Bonnet et al. 2013"
+    ]
+  },
+  "logicGates": {
+    "or": 1,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "recombinase_combinational_logic",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two inputs drive orthogonal recombinases that set the orientation of a DNA register so that output is ON only when exactly one input is present; the device computes the combinational function XOR with no feedback loop. Class I (a logic function, not a memory loop) — Bonnet et al. 2013.",
+  "groundTruth": true
+}

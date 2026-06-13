@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 174,
+  "totalProcesses": 183,
   "organisms": [
     {
       "name": "E. coli",
@@ -19,11 +19,11 @@
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 27
+      "processCount": 30
     },
     {
       "name": "Homo sapiens",
-      "processCount": 35
+      "processCount": 41
     },
     {
       "name": "Bacteriophage lambda",
@@ -117,7 +117,7 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 27
+      "processCount": 30
     },
     {
       "name": "Hematopoiesis",
@@ -153,7 +153,7 @@
     },
     {
       "name": "Inflammatory Signaling",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Developmental Patterning",
@@ -173,7 +173,7 @@
     },
     {
       "name": "Metabolic Signaling",
-      "processCount": 3
+      "processCount": 4
     },
     {
       "name": "Growth Control Signaling",
@@ -218,20 +218,36 @@
     {
       "name": "Immune Checkpoint",
       "processCount": 1
+    },
+    {
+      "name": "GPCR Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Endocrine Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Metal Homeostasis",
+      "processCount": 1
+    },
+    {
+      "name": "DNA Damage Response",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7721,
-    "totalConditionals": 6250,
-    "orGates": 349,
+    "totalNodes": 7776,
+    "totalConditionals": 6252,
+    "orGates": 350,
     "andGates": 442,
-    "notGates": 541,
-    "totalLogicGates": 1332,
-    "verifiedProcesses": 165,
+    "notGates": 552,
+    "totalLogicGates": 1344,
+    "verifiedProcesses": 174,
     "circuitClassDistribution": {
-      "I": 59,
-      "II": 64,
-      "III": 33,
+      "I": 61,
+      "II": 68,
+      "III": 36,
       "IV": 13,
       "V": 5
     }
@@ -3067,6 +3083,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_layered_nor_cascade",
+      "name": "Layered NOR Logic Cascade (Cello)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "The output of a genetic-circuit compiler: an arbitrary combinational function built from a feed-forward cascade of NOR gates, each a repressor-driven promoter. Cello (Nielsen et al. 2016) places and routes these gates from a Verilog specification, demonstrating that layered NOT/NOR logic spans the combinational design space.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "I",
+      "topologyType": "layered_combinational_NOR_logic",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_light_sensor",
       "name": "Light Sensor (Bacterial Photography)",
       "organism": "Synthetic circuit",
@@ -3156,6 +3195,29 @@
       "notGates": 1,
       "circuitClass": "I",
       "topologyType": "transcriptional_NOR_gate",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_optogenetic_toggle",
+      "name": "Optogenetic Bistable Toggle (Light Memory)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A light-controlled memory cell. A mutual-repression toggle (each repressor blocks the other's promoter) is bistable; brief optogenetic input flips it ON or OFF by transiently relieving or driving one arm, and the state then persists in the dark. It marries the synthetic toggle's bistability with optogenetic set/reset addressing.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable_light_switchable",
       "circuitClassConfidence": "high"
     },
     {
@@ -3435,6 +3497,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_xor_gate",
+      "name": "Recombinase Boolean XOR Gate",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A genetically encoded XOR gate built from site-specific recombinases. Each input triggers a recombinase that flips a segment of DNA; the register ends in an output-ON orientation only when exactly one of the two inputs is active. The circuit computes a Boolean function of its current inputs — a combinational logic element rather than a stateful counter.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 1,
+        "and": 0,
+        "total": 1
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "recombinase_combinational_logic",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_akt_foxo_insulin",
       "name": "Insulin–AKT–FOXO Metabolic Homeostat",
       "organism": "Homo sapiens",
@@ -3455,6 +3540,29 @@
       "notGates": 2,
       "circuitClass": "II",
       "topologyType": "foxo_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_ampk_energy_homeostat",
+      "name": "AMPK Energy-Charge Homeostat",
+      "organism": "Homo sapiens",
+      "category": "Metabolic Signaling",
+      "description": "The cell's fuel gauge. A falling ATP:AMP ratio activates AMPK, which promotes ATP-producing catabolism and shuts down ATP-consuming anabolism; as ATP is restored, AMP/ADP fall and AMPK switches off — classic negative feedback that stabilizes energy charge.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "energy_negative_feedback_homeostat",
       "circuitClassConfidence": "high"
     },
     {
@@ -3524,6 +3632,29 @@
       "notGates": 1,
       "circuitClass": "IV",
       "topologyType": "cicr_pos_neg_feedback_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_camp_pka_desensitization",
+      "name": "cAMP/PKA GPCR Desensitization",
+      "organism": "Homo sapiens",
+      "category": "GPCR Signaling",
+      "description": "GPCR signaling adapts to sustained stimulation. Agonist binding activates Gαs and adenylyl cyclase, raising cAMP and activating PKA; PKA and GPCR kinases phosphorylate the receptor, recruiting β-arrestin to uncouple it, while phosphodiesterases degrade cAMP. The combined negative feedback desensitizes the pathway.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "receptor_desensitization_negative_feedback",
       "circuitClassConfidence": "high"
     },
     {
@@ -3665,6 +3796,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_glucocorticoid_hpa_axis",
+      "name": "Glucocorticoid HPA-Axis Feedback",
+      "organism": "Homo sapiens",
+      "category": "Endocrine Signaling",
+      "description": "The hypothalamic-pituitary-adrenal stress axis. Hypothalamic CRH stimulates pituitary ACTH, which drives adrenal cortisol; cortisol binds the glucocorticoid receptor in the pituitary and hypothalamus to inhibit CRH and ACTH — long-loop negative feedback that stabilizes cortisol and terminates the stress response.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "endocrine_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_hes1_oscillator",
       "name": "HES1 Ultradian Oscillator",
       "organism": "Homo sapiens",
@@ -3734,6 +3888,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_il6_stat3_inflammation",
+      "name": "IL-6/STAT3 Inflammatory Positive-Feedback Switch",
+      "organism": "Homo sapiens",
+      "category": "Inflammatory Signaling",
+      "description": "A self-amplifying inflammatory loop. IL-6 signals through JAK to activate STAT3; STAT3 cooperates with NF-κB to induce IL-6 itself, so transient stimulation can lock cells into a persistent inflammatory program. The positive feedback gives bistable, hysteretic behavior linked to chronic inflammation and tumor promotion.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_bistable_inflammation",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_ire1_xbp1_upr",
       "name": "IRE1–XBP1 Unfolded Protein Response",
       "organism": "Homo sapiens",
@@ -3777,6 +3954,29 @@
       "notGates": 0,
       "circuitClass": "III",
       "topologyType": "positive_feedback_antiviral_switch",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_iron_irp_ire",
+      "name": "IRP/IRE Iron Homeostat",
+      "organism": "Homo sapiens",
+      "category": "Metal Homeostasis",
+      "description": "Cellular iron is held constant by RNA-binding feedback. Under iron scarcity, IRP1/2 bind iron-responsive elements: at the transferrin-receptor mRNA they block degradation (boosting uptake), at ferritin/ferroportin mRNAs they block translation (cutting storage/export). Iron repletion converts IRP1 to aconitase and degrades IRP2, releasing the IREs — negative feedback on iron.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "post_transcriptional_negative_feedback",
       "circuitClassConfidence": "high"
     },
     {
@@ -4007,6 +4207,29 @@
       "notGates": 2,
       "circuitClass": "III",
       "topologyType": "positive_feedback_irreversible_senescence",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_p53_apoptosis_decision",
+      "name": "p53 Arrest-vs-Apoptosis Decision Switch",
+      "organism": "Homo sapiens",
+      "category": "DNA Damage Response",
+      "description": "How p53 chooses cell fate. Low or pulsatile p53 favors reversible arrest (p21); strong, sustained p53 induces apoptotic effectors (PUMA, BAX) past a commitment threshold, after which MOMP makes death irreversible. The downstream arrest-vs-death decision is a bistable switch, complementing the upstream p53–MDM2 oscillator already in the collection.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "threshold_bistable_decision",
       "circuitClassConfidence": "high"
     },
     {

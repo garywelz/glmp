@@ -1,0 +1,113 @@
+{
+  "id": "human_glucocorticoid_hpa_axis",
+  "name": "Glucocorticoid HPA-Axis Feedback",
+  "organism": "Homo sapiens",
+  "category": "Endocrine Signaling",
+  "description": "The hypothalamic-pituitary-adrenal stress axis. Hypothalamic CRH stimulates pituitary ACTH, which drives adrenal cortisol; cortisol binds the glucocorticoid receptor in the pituitary and hypothalamus to inhibit CRH and ACTH — long-loop negative feedback that stabilizes cortisol and terminates the stress response.",
+  "scientificAccuracy": "Glucocorticoid negative feedback on the HPA axis is a textbook endocrine homeostat (Herman et al. 2016).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Stress]\n    B[Hypothalamus: CRH]\n    C[Pituitary: ACTH]\n    D[Adrenal: cortisol]\n    E[/Cortisol-GR suppresses CRH + ACTH/]\n    F(Cortisol set-point restored)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| B\n    E -->|⊣| C\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Regulation of the hypothalamic-pituitary-adrenocortical stress response",
+      "authors": "Herman JP, McKlveen JM, Ghosal S, et al.",
+      "journal": "Comprehensive Physiology",
+      "year": 2016,
+      "volume": "6",
+      "pages": "603-621",
+      "pmid": "27065163",
+      "doi": "10.1002/cphy.c150015"
+    }
+  ],
+  "keywords": [
+    "HPA axis",
+    "cortisol",
+    "glucocorticoid receptor",
+    "CRH",
+    "ACTH",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_insulin_akt_foxo"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II endocrine homeostat: glucocorticoid long-loop negative feedback on the HPA axis.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "CRH / POMC promoters (nGRE)",
+        "boundFactor": "glucocorticoid receptor (cortisol)",
+        "operator": "NOT",
+        "effect": "transcriptional repression of CRH/ACTH",
+        "sequenceMotif": "negative GRE",
+        "note": "closes the long-loop feedback"
+      }
+    ],
+    "derivedLogic": "cortisol -| (CRH, ACTH) -> cortisol set-point (negative feedback)",
+    "references": [
+      "Herman et al. 2016"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "endocrine_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Stress drives CRH→ACTH→cortisol; cortisol acts back on the pituitary and hypothalamus through the glucocorticoid receptor to suppress CRH/ACTH — the textbook endocrine negative-feedback homeostat that sets circulating cortisol. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

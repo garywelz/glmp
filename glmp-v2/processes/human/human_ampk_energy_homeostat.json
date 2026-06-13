@@ -1,0 +1,113 @@
+{
+  "id": "human_ampk_energy_homeostat",
+  "name": "AMPK Energy-Charge Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Metabolic Signaling",
+  "description": "The cell's fuel gauge. A falling ATP:AMP ratio activates AMPK, which promotes ATP-producing catabolism and shuts down ATP-consuming anabolism; as ATP is restored, AMP/ADP fall and AMPK switches off — classic negative feedback that stabilizes energy charge.",
+  "scientificAccuracy": "AMPK activation by AMP/ADP and its restoration of energy charge are established (Hardie, Ross & Hawley 2012).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Low energy: high AMP/ADP]\n    B[AMPK activated]\n    C[Catabolism up, anabolism down]\n    D[ATP regenerated]\n    E[/Rising ATP inactivates AMPK/]\n    F(Stable energy charge)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "AMPK: a nutrient and energy sensor that maintains energy homeostasis",
+      "authors": "Hardie DG, Ross FA, Hawley SA",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2012,
+      "volume": "13",
+      "pages": "251-262",
+      "pmid": "22436748",
+      "doi": "10.1038/nrm3311"
+    }
+  ],
+  "keywords": [
+    "AMPK",
+    "energy charge",
+    "ATP",
+    "metabolism",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_mtor_ulk1_autophagy",
+    "human_mtorc1_nutrient"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II energy homeostat: AMPK senses AMP/ADP and feeds back via restored ATP.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "AMPK targets (metabolic enzymes)",
+        "boundFactor": "AMPK (AMP/ADP-activated)",
+        "operator": "IF low-energy",
+        "effect": "phosphorylation toggles catabolism/anabolism",
+        "sequenceMotif": "(allosteric/phospho, not cis-DNA)",
+        "note": "ATP output feeds back to switch AMPK off"
+      }
+    ],
+    "derivedLogic": "AMPK = IF (AMP/ADP high) ; AMPK -> ATP -| AMPK (negative feedback)",
+    "references": [
+      "Hardie et al. 2012"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "energy_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Rising AMP/ADP (low energy) activates AMPK, which switches on catabolism and off anabolism to regenerate ATP; restored ATP then inactivates AMPK — a negative-feedback homeostat that holds cellular energy charge. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

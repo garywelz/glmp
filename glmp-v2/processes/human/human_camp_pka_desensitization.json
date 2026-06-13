@@ -1,0 +1,113 @@
+{
+  "id": "human_camp_pka_desensitization",
+  "name": "cAMP/PKA GPCR Desensitization",
+  "organism": "Homo sapiens",
+  "category": "GPCR Signaling",
+  "description": "GPCR signaling adapts to sustained stimulation. Agonist binding activates Gαs and adenylyl cyclase, raising cAMP and activating PKA; PKA and GPCR kinases phosphorylate the receptor, recruiting β-arrestin to uncouple it, while phosphodiesterases degrade cAMP. The combined negative feedback desensitizes the pathway.",
+  "scientificAccuracy": "GPCR desensitization by GRK/β-arrestin and PDE-mediated cAMP turnover are established (Lefkowitz 2004).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Agonist binds GPCR]\n    B[cAMP rises, PKA active]\n    C[Cellular response]\n    D[/GRK + β-arrestin desensitize receptor/]\n    E[/PDE degrades cAMP/]\n    F(Adapted GPCR response)\n\n    A --> B\n    B --> C\n    B --> D\n    D -->|⊣ feedback| A\n    B --> E\n    E -->|⊣| B\n    C --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Historical review: a brief history and personal retrospective of seven-transmembrane receptors",
+      "authors": "Lefkowitz RJ",
+      "journal": "Trends in Pharmacological Sciences",
+      "year": 2004,
+      "volume": "25",
+      "pages": "413-422",
+      "pmid": "15276710",
+      "doi": "10.1016/j.tips.2004.06.006"
+    }
+  ],
+  "keywords": [
+    "GPCR",
+    "cAMP",
+    "PKA",
+    "beta-arrestin",
+    "desensitization",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_insulin_akt_foxo"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II adaptation homeostat: GPCR desensitization + cAMP degradation feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "receptor C-tail (GRK/PKA sites)",
+        "boundFactor": "GRK / β-arrestin",
+        "operator": "NOT",
+        "effect": "phospho-desensitization",
+        "sequenceMotif": "(protein-level)",
+        "note": "PDE turnover of cAMP adds second negative arm"
+      }
+    ],
+    "derivedLogic": "response = agonist AND NOT desensitized ; PDE -| cAMP (negative feedback)",
+    "references": [
+      "Lefkowitz 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "receptor_desensitization_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Agonist-bound GPCR raises cAMP and activates PKA; PKA and GRK-driven β-arrestin recruitment phosphorylate and desensitize the receptor while PDEs degrade cAMP — negative feedback that adapts the response. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

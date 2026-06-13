@@ -1,0 +1,114 @@
+{
+  "id": "human_iron_irp_ire",
+  "name": "IRP/IRE Iron Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Metal Homeostasis",
+  "description": "Cellular iron is held constant by RNA-binding feedback. Under iron scarcity, IRP1/2 bind iron-responsive elements: at the transferrin-receptor mRNA they block degradation (boosting uptake), at ferritin/ferroportin mRNAs they block translation (cutting storage/export). Iron repletion converts IRP1 to aconitase and degrades IRP2, releasing the IREs — negative feedback on iron.",
+  "scientificAccuracy": "IRP/IRE post-transcriptional control of iron homeostasis is established (Hentze, Muckenthaler & Andrews 2010).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Low cellular iron]\n    B[IRP1/2 bind IRE elements]\n    C[Transferrin-receptor mRNA stabilized]\n    D[/Ferritin translation blocked/]\n    E[Iron uptake rises]\n    F[/Rising iron inactivates IRPs/]\n    G(Iron homeostasis)\n\n    A --> B\n    B --> C\n    B --> D\n    C --> E\n    E --> F\n    F -->|⊣ feedback| B\n    E --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Two to tango: regulation of mammalian iron metabolism",
+      "authors": "Hentze MW, Muckenthaler MU, Galy B, Camaschella C",
+      "journal": "Cell",
+      "year": 2010,
+      "volume": "142",
+      "pages": "24-38",
+      "pmid": "20603012",
+      "doi": "10.1016/j.cell.2010.06.028"
+    }
+  ],
+  "keywords": [
+    "IRP",
+    "IRE",
+    "iron",
+    "ferritin",
+    "transferrin receptor",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_nrf2_keap1",
+    "human_vhl_hif"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II post-transcriptional homeostat (iron); IRP-IRE binding tuned by iron level.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "IREs (TfR1 3'UTR, ferritin 5'UTR)",
+        "boundFactor": "IRP1/IRP2",
+        "operator": "IF low-iron",
+        "effect": "stabilize uptake mRNA, block storage mRNA",
+        "sequenceMotif": "CAGUGH stem-loop (IRE)",
+        "note": "iron level sets IRP RNA-binding -> feedback"
+      }
+    ],
+    "derivedLogic": "IRP-bound = NOT iron ; uptake up & storage down -> iron restored -| IRP",
+    "references": [
+      "Hentze et al. 2010"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "post_transcriptional_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "When iron is low, iron-regulatory proteins (IRP1/2) bind IRE stem-loops to stabilize transferrin-receptor mRNA (more uptake) and block ferritin translation (less storage); rising iron inactivates the IRPs — a post-transcriptional negative-feedback homeostat for cellular iron. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}
