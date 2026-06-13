@@ -40,28 +40,30 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 
 ## Live Flowchart Collection (updated 2026-06-12)
 
-The interactive collection is the empirical companion to the papers. It now holds **199 process flowcharts**, each tagged with its position on the five-class complexity ladder (Paper I/III) and, increasingly, a **sequence → logic** annotation that maps cis-regulatory binding sites to the Boolean operator they implement — the core training pair of the Big Picture goal.
+The interactive collection is the empirical companion to the papers. It now holds **206 process flowcharts**, each tagged with its position on the five-class complexity ladder (Paper I/III) and, increasingly, a **sequence → logic** annotation that maps cis-regulatory binding sites to the Boolean operator they implement — the core training pair of the Big Picture goal.
 
 - **Browse / query:** [database table](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html) — sortable **Circuit class** column, class filter buttons (I–V), class-distribution panel, and CSV export (now including `circuit_class` and `topology_type`).
 - **Per-process viewer:** each diagram page shows a colored **Class I–V badge** and, where curated, a **Sequence → Logic** table.
 
-**Collection composition (199 total):**
+**Collection composition (206 total, 8 organisms):**
 
 | Group | Count | Notes |
 |---|---|---|
 | E. coli | 68 | microbial regulatory + execution circuits (incl. ground-truth SOS, flagellar cascade) |
 | Homo sapiens | 47 | **Batches 2–8** — curated human circuits (see breakdown below) |
 | S. cerevisiae | 41 | yeast circuits (incl. ground-truth GAL, Whi5–SBF Start, Sup35 prion) |
-| Synthetic circuit | 33 | **Batches 1–7** — ground-truth synthetic biology (see breakdown below) |
+| Synthetic circuit | 36 | **Batches 1–8** — ground-truth synthetic biology (see breakdown below) |
 | Bacillus subtilis | 6 | developmental switches (incl. ground-truth ComK competence, Spo0A sporulation) |
 | Arabidopsis thaliana | 3 | **plant ground-truth** — circadian clock, FLC vernalization memory, ABA guard-cell homeostat |
+| Drosophila melanogaster | 2 | **developmental ground-truth** — gap-gene network, wg/en/hh segment-polarity module |
+| Caenorhabditis elegans | 2 | **developmental ground-truth** — dauer decision, lin-4/let-7 heterochronic timing |
 | Bacteriophage λ | 1 | ground-truth CI/Cro lysis–lysogeny switch |
 
-**Circuit-class distribution:** Class I 64 · Class II 72 · Class III 42 · Class IV 15 · Class V 6.
+**Circuit-class distribution:** Class I 66 · Class II 73 · Class III 45 · Class IV 15 · Class V 7.
 
-**Feedback topology:** across the 199 charts the collection now carries a per-chart **loop count** (back-edges in the diagram) — **508 feedback nodes total, ~2.6 per process, 160 charts with at least one loop** — surfaced in the database table's *Loops* column and Σ/avg panel.
+**Feedback topology:** across the 206 charts the collection carries a per-chart **loop count** (back-edges in the diagram) — **513 feedback nodes total, ~2.5 per process, 164 charts with at least one loop** — surfaced in the database table's *Loops* column and Σ/avg panel.
 
-**Classification confidence:** of the 108 heuristically-classified microbial charts, **103 are high-confidence** (curated from literature) and **5 remain flagged `needs_review`** for expert validation — down from 61 after the 2026-06 curation pass. The five open items (`ecoli_cell_division`, `ecoli_mal_regulon`, `ecoli_sigma_factor_competition`, `ecoli_transcription_regulation`, `yeast_yeast_glycolysis_regulation`) are genuinely ambiguous and are the priority validation worklist. All 91 synthetic, human, plant, and ground-truth microbial/phage charts carry authored classes (not heuristic), and each has a `sequenceAnnotation` block.
+**Classification confidence:** of the 108 heuristically-classified microbial charts, **103 are high-confidence** (curated from literature) and **5 remain flagged `needs_review`** for expert validation — down from 61 after the 2026-06 curation pass. The five open items (`ecoli_cell_division`, `ecoli_mal_regulon`, `ecoli_sigma_factor_competition`, `ecoli_transcription_regulation`, `yeast_yeast_glycolysis_regulation`) are genuinely ambiguous and are the priority validation worklist. All 98 synthetic, human, plant, animal-developmental, and ground-truth microbial/phage charts carry authored classes (not heuristic), and each has a `sequenceAnnotation` block.
 
 **Ground-truth microbial/phage circuits (4)** anchor the ladder in classic organisms: the **GAL galactose** bistable switch and the **Whi5–SBF Start** switch (both Class IIIa, hysteretic cell-fate memory), the **phage λ CI/Cro** lysis–lysogeny switch (Class IIIa, the archetypal natural genetic switch), and the **[PSI+] Sup35 prion** — a genuine biological **Class V** self-modifying/epigenetic memory carried by protein conformation rather than DNA.
 
@@ -77,7 +79,9 @@ The interactive collection is the empirical companion to the papers. It now hold
 
 **Ground-truth plant circuits (Arabidopsis thaliana)** extend the collection to a new kingdom: the CCA1/LHY–TOC1 circadian oscillator (Class IV), the FLC Polycomb **vernalization memory** (Class V — a heritable, self-maintaining chromatin switch that records winter), and the ABA guard-cell stomatal homeostat (Class II).
 
-Reproducibility — the collection is regenerated by committed scripts: `scripts/classify_flowchart_circuits.py` (class assignment), `scripts/apply_circuit_classes.py` (write classes into JSON + metadata), `scripts/annotate_microbial_sequences.py` (sequence → logic on microbial circuits), `scripts/build_synthetic_batch1.py`…`_batch7`, `scripts/build_human_batch2.py`…`_batch8`, `scripts/build_microbial_groundtruth.py`/`_groundtruth2.py`, and `scripts/build_plant_groundtruth.py` (ground-truth batches), with `scripts/integrate_synthetic_batch1.py`, `scripts/integrate_microbial_groundtruth.py`/`_groundtruth2.py`, and `scripts/integrate_plant_groundtruth.py` (metadata integration), plus `scripts/backfill_loops.py` (per-chart feedback-loop counts).
+**Ground-truth animal-developmental circuits** add two classic model organisms: from *Drosophila*, the gap-gene cross-repression patterning network and the wg/en/hh segment-polarity module (both Class III); from *C. elegans*, the insulin/TGF-β **dauer** developmental decision (Class III) and the lin-4/let-7 **heterochronic** microRNA timing cascade (Class I).
+
+Reproducibility — the collection is regenerated by committed scripts: `scripts/classify_flowchart_circuits.py` (class assignment), `scripts/apply_circuit_classes.py` (write classes into JSON + metadata), `scripts/annotate_microbial_sequences.py` (sequence → logic on microbial circuits), `scripts/build_synthetic_batch1.py`…`_batch8`, `scripts/build_human_batch2.py`…`_batch8`, `scripts/build_microbial_groundtruth.py`/`_groundtruth2.py`, `scripts/build_plant_groundtruth.py`, and `scripts/build_developmental_groundtruth.py` (ground-truth batches), with `scripts/integrate_synthetic_batch1.py`, `scripts/integrate_microbial_groundtruth.py`/`_groundtruth2.py`, `scripts/integrate_plant_groundtruth.py`, and `scripts/integrate_developmental_groundtruth.py` (metadata integration), plus `scripts/backfill_loops.py` (per-chart feedback-loop counts).
 
 ---
 

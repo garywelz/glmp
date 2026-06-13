@@ -1,0 +1,125 @@
+{
+  "id": "drosophila_gap_gene_network",
+  "name": "Drosophila Gap-Gene Patterning Network",
+  "organism": "Drosophila melanogaster",
+  "category": "Developmental Patterning",
+  "description": "Anterior-posterior pre-patterning of the fly embryo. Maternal morphogen gradients (Bicoid, Caudal) provide graded positional input that activates the zygotic gap genes; the gap proteins then mutually repress one another, and that cross-repression converts smooth gradients into sharply bounded, mutually exclusive expression domains — a multistable spatial switch that sets up the downstream stripes.",
+  "scientificAccuracy": "Gap-gene cross-repression and boundary sharpening are established (Jaeger 2011; Clyde et al. 2003).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Bicoid + Caudal gradients]\n    B[Gap genes: hb, Kr, gt, kni]\n    C[\\Gap genes cross-repress/]\n    D[Sharp gap-domain boundaries]\n    E[Positional information for stripes]\n    F(Multistable AP gap pattern)\n\n    A --> B\n    B --> C\n    C -->|⊣ mutual| B\n    B --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The gap gene network",
+      "authors": "Jaeger J",
+      "journal": "Cellular and Molecular Life Sciences",
+      "year": 2011,
+      "volume": "68",
+      "pages": "243-274",
+      "pmid": "20927566",
+      "doi": "10.1007/s00018-010-0536-y"
+    },
+    {
+      "title": "A self-organizing system of repressor gradients establishes segmental complexity in Drosophila",
+      "authors": "Clyde DE, Corado MSG, Wu X, et al.",
+      "journal": "Nature",
+      "year": 2003,
+      "volume": "426",
+      "pages": "849-853",
+      "pmid": "14685241",
+      "doi": "10.1038/nature02189"
+    }
+  ],
+  "keywords": [
+    "gap genes",
+    "Bicoid",
+    "hunchback",
+    "Kruppel",
+    "cross-repression",
+    "Drosophila",
+    "patterning",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "drosophila_segment_polarity",
+    "human_gata1_pu1_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth Drosophila Class III multistable patterning: morphogen input + gap-gene cross-repression.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "gap-gene CRMs (e.g., eve, hb enhancers)",
+        "boundFactor": "Bicoid (activator) + gap repressors",
+        "operator": "IF (Bcd) AND NOT (other gap)",
+        "effect": "graded activation + mutual repression",
+        "sequenceMotif": "TAATCC (Bicoid); gap-repressor sites",
+        "note": "cross-repression sets domain boundaries"
+      }
+    ],
+    "derivedLogic": "gap_i = Bcd AND NOT gap_j (mutual) -> discrete multistable domains",
+    "references": [
+      "Jaeger 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "cross_repression_multistable_patterning",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "The maternal Bicoid/Caudal gradients switch on the gap genes (hunchback, Krüppel, giant, knirps), which mutually cross-repress; the mutual repression sharpens broad inputs into discrete, multistable expression domains with precise boundaries. Class III (positive-feedback/multistable patterning).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

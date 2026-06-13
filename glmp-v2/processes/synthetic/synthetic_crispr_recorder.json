@@ -1,0 +1,123 @@
+{
+  "id": "synthetic_crispr_recorder",
+  "name": "CRISPR DNA Event Recorder",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A genomic ticker-tape. A signal-controlled DNA writer continuously edits a defined genomic locus, accumulating mutations in proportion to signal strength and duration; sequencing later reconstructs the history of stimuli a cell population experienced. Because the device records by rewriting its own DNA, it is a self-modifying memory.",
+  "scientificAccuracy": "Ground-truth circuit. In-vivo DNA recorders (SCRIBE, DOMINO/CAMERA) were built and characterized (Farzadfard & Lu 2014; Farzadfard et al. 2019).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Signal over time]\n    B[Writer: editor/recombinase]\n    C[\\Writes edits into genomic DNA/]\n    D[DNA accumulates an event record]\n    E[Sequencing reads out history]\n    F(Heritable molecular ticker-tape)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Genomically encoded analog memory with precise in vivo DNA writing in living cell populations",
+      "authors": "Farzadfard F, Lu TK",
+      "journal": "Science",
+      "year": 2014,
+      "volume": "346",
+      "pages": "1256272",
+      "pmid": "25395541",
+      "doi": "10.1126/science.1256272"
+    },
+    {
+      "title": "Single-nucleotide-resolution computing and memory in living cells (DOMINO)",
+      "authors": "Farzadfard F, Gharaei N, Higashikuni Y, et al.",
+      "journal": "Molecular Cell",
+      "year": 2019,
+      "volume": "75",
+      "pages": "769-780",
+      "pmid": "31302002",
+      "doi": "10.1016/j.molcel.2019.07.011"
+    }
+  ],
+  "keywords": [
+    "recorder",
+    "SCRIBE",
+    "DOMINO",
+    "base editing",
+    "self-modifying DNA",
+    "memory",
+    "Class V",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_recombinase_counter",
+    "synthetic_integrase_memory"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class V: signal-driven DNA writing records history into the genome (self-modifying).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "recorder locus",
+        "boundFactor": "signal-gated DNA writer",
+        "operator": "SELF-MODIFY (analog)",
+        "effect": "accumulates mutations encoding signal history",
+        "sequenceMotif": "target locus + ssDNA donor / editing window",
+        "note": "heritable, read by sequencing"
+      }
+    ],
+    "derivedLogic": "DNA_state := write(signal, time) -> analog genomic record",
+    "references": [
+      "Farzadfard & Lu 2014",
+      "Farzadfard et al. 2019"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "V",
+  "circuitClassName": "Self-modifying chromatin / epigenetic",
+  "topologyType": "self_modifying_dna_recorder",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A stimulus drives a writer (recombinase/retron-SCRIBE or base/prime editor) that introduces stimulus- and time-dependent mutations into genomic DNA, so the genome accumulates an analog record of past events read out by sequencing — a self-modifying-DNA memory. Class V (Farzadfard & Lu 2014; Farzadfard et al. 2019).",
+  "groundTruth": true
+}

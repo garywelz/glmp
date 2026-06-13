@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 199,
+  "totalProcesses": 206,
   "organisms": [
     {
       "name": "E. coli",
@@ -19,7 +19,7 @@
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 33
+      "processCount": 36
     },
     {
       "name": "Homo sapiens",
@@ -32,6 +32,14 @@
     {
       "name": "Arabidopsis thaliana",
       "processCount": 3
+    },
+    {
+      "name": "Drosophila melanogaster",
+      "processCount": 2
+    },
+    {
+      "name": "Caenorhabditis elegans",
+      "processCount": 2
     }
   ],
   "categories": [
@@ -69,7 +77,7 @@
     },
     {
       "name": "Developmental Decision",
-      "processCount": 5
+      "processCount": 6
     },
     {
       "name": "DNA Replication",
@@ -121,7 +129,7 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 33
+      "processCount": 36
     },
     {
       "name": "Hematopoiesis",
@@ -161,7 +169,7 @@
     },
     {
       "name": "Developmental Patterning",
-      "processCount": 1
+      "processCount": 3
     },
     {
       "name": "Stem Cell / Pluripotency",
@@ -274,24 +282,28 @@
     {
       "name": "Hormone Signaling / Water Balance",
       "processCount": 1
+    },
+    {
+      "name": "Developmental Timing",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7875,
-    "totalConditionals": 6255,
+    "totalNodes": 7918,
+    "totalConditionals": 6256,
     "orGates": 350,
     "andGates": 442,
-    "notGates": 566,
-    "totalLogicGates": 1358,
-    "verifiedProcesses": 190,
+    "notGates": 573,
+    "totalLogicGates": 1365,
+    "verifiedProcesses": 197,
     "circuitClassDistribution": {
-      "I": 64,
-      "II": 72,
-      "III": 42,
+      "I": 66,
+      "II": 73,
+      "III": 45,
       "IV": 15,
-      "V": 6
+      "V": 7
     },
-    "loops": 508
+    "loops": 513
   },
   "processes": [
     {
@@ -3079,6 +3091,78 @@
       "loops": 0
     },
     {
+      "id": "arabidopsis_circadian_clock",
+      "name": "Arabidopsis Circadian Clock (CCA1/LHY–TOC1)",
+      "organism": "Arabidopsis thaliana",
+      "category": "Circadian Rhythm",
+      "description": "The plant circadian clock. At dawn, light induces the morning Myb factors CCA1 and LHY, which repress evening genes including TOC1; as CCA1/LHY decay through the day, the evening complex (TOC1/PRRs) accumulates and represses CCA1/LHY. The mutual, time-delayed repression sustains a self-running ~24 h rhythm.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "IV",
+      "topologyType": "delayed_negative_feedback_oscillator",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "arabidopsis_flc_vernalization",
+      "name": "FLC Vernalization Epigenetic Memory",
+      "organism": "Arabidopsis thaliana",
+      "category": "Epigenetic Inheritance / Flowering",
+      "description": "How plants remember winter. The floral repressor FLC blocks flowering; prolonged cold induces VIN3 and the Polycomb PRC2 complex to nucleate and spread the repressive mark H3K27me3 over the FLC locus. The silenced state is then self-propagated through cell division so that, after winter, FLC stays off and the plant can flower — a heritable, chromatin-encoded epigenetic switch.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_maintaining_polycomb_chromatin_memory",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "arabidopsis_aba_guard_cell",
+      "name": "ABA Guard-Cell Stomatal Homeostat",
+      "organism": "Arabidopsis thaliana",
+      "category": "Hormone Signaling / Water Balance",
+      "description": "Plants conserve water through ABA-driven stomatal closure. Drought-elevated ABA is bound by PYR/PYL receptors that inhibit clade-A PP2C phosphatases, releasing SnRK2 kinases; SnRK2 activates SLAC1 anion channels and inhibits inward K+ channels, so guard cells lose turgor and stomata close. Lower transpiration rehydrates the plant, ABA falls, and stomata reopen.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "hormonal_negative_feedback_homeostat",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "synthetic_5node_repressilator",
       "name": "Five-Repressor Ring Oscillator",
       "organism": "Synthetic circuit",
@@ -3199,6 +3283,30 @@
       "loops": 0
     },
     {
+      "id": "synthetic_burden_feedback_controller",
+      "name": "Capacity/Burden Feedback Controller",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "Engineered circuits impose a metabolic burden that destabilizes them. A burden-responsive feedback controller uses a capacity monitor (e.g., a stress-promoter sensor driving a dCas9/sgRNA brake) to detect overload and downregulate the heterologous gene; lower burden then releases the brake, dynamically balancing expression against host health.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "burden_negative_feedback_homeostat",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "synthetic_coherent_ffl",
       "name": "Coherent Feed-Forward Loop (type-1, AND)",
       "organism": "Synthetic circuit",
@@ -3247,6 +3355,30 @@
       "loops": 0
     },
     {
+      "id": "synthetic_crispr_recorder",
+      "name": "CRISPR DNA Event Recorder",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A genomic ticker-tape. A signal-controlled DNA writer continuously edits a defined genomic locus, accumulating mutations in proportion to signal strength and duration; sequencing later reconstructs the history of stimuli a cell population experienced. Because the device records by rewriting its own DNA, it is a self-modifying memory.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_modifying_dna_recorder",
+      "circuitClassConfidence": "high",
+      "loops": 0
+    },
+    {
       "id": "synthetic_crispri_toggle",
       "name": "CRISPRi Mutual-Repression Toggle",
       "organism": "Synthetic circuit",
@@ -3269,6 +3401,30 @@
       "topologyType": "mutual_repression_bistable_crispri",
       "circuitClassConfidence": "high",
       "loops": 2
+    },
+    {
+      "id": "synthetic_dcas9_logic",
+      "name": "CRISPR-dCas9 Programmable Logic",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "Logic built entirely from CRISPR interference. A single catalytically-dead dCas9 paired with input-controlled guide RNAs represses target promoters; because any gRNA can be designed against any promoter, layers of these NOR/NOT gates implement large combinational circuits in one cell. The computation is feed-forward.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "crispr_layered_combinational_logic",
+      "circuitClassConfidence": "high",
+      "loops": 0
     },
     {
       "id": "synthetic_edge_detector",
@@ -4999,35 +5155,11 @@
       "loops": 1
     },
     {
-      "id": "arabidopsis_circadian_clock",
-      "name": "Arabidopsis Circadian Clock (CCA1/LHY–TOC1)",
-      "organism": "Arabidopsis thaliana",
-      "category": "Circadian Rhythm",
-      "description": "The plant circadian clock. At dawn, light induces the morning Myb factors CCA1 and LHY, which repress evening genes including TOC1; as CCA1/LHY decay through the day, the evening complex (TOC1/PRRs) accumulates and represses CCA1/LHY. The mutual, time-delayed repression sustains a self-running ~24 h rhythm.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 1,
-      "complexity": "low",
-      "nodes": 6,
-      "conditionals": 0,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 2,
-      "circuitClass": "IV",
-      "topologyType": "delayed_negative_feedback_oscillator",
-      "circuitClassConfidence": "high",
-      "loops": 1
-    },
-    {
-      "id": "arabidopsis_flc_vernalization",
-      "name": "FLC Vernalization Epigenetic Memory",
-      "organism": "Arabidopsis thaliana",
-      "category": "Epigenetic Inheritance / Flowering",
-      "description": "How plants remember winter. The floral repressor FLC blocks flowering; prolonged cold induces VIN3 and the Polycomb PRC2 complex to nucleate and spread the repressive mark H3K27me3 over the FLC locus. The silenced state is then self-propagated through cell division so that, after winter, FLC stays off and the plant can flower — a heritable, chromatin-encoded epigenetic switch.",
+      "id": "drosophila_gap_gene_network",
+      "name": "Drosophila Gap-Gene Patterning Network",
+      "organism": "Drosophila melanogaster",
+      "category": "Developmental Patterning",
+      "description": "Anterior-posterior pre-patterning of the fly embryo. Maternal morphogen gradients (Bicoid, Caudal) provide graded positional input that activates the zygotic gap genes; the gap proteins then mutually repress one another, and that cross-repression converts smooth gradients into sharply bounded, mutually exclusive expression domains — a multistable spatial switch that sets up the downstream stripes.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
@@ -5040,18 +5172,66 @@
         "and": 0,
         "total": 0
       },
-      "notGates": 0,
-      "circuitClass": "V",
-      "topologyType": "self_maintaining_polycomb_chromatin_memory",
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "cross_repression_multistable_patterning",
       "circuitClassConfidence": "high",
       "loops": 1
     },
     {
-      "id": "arabidopsis_aba_guard_cell",
-      "name": "ABA Guard-Cell Stomatal Homeostat",
-      "organism": "Arabidopsis thaliana",
-      "category": "Hormone Signaling / Water Balance",
-      "description": "Plants conserve water through ABA-driven stomatal closure. Drought-elevated ABA is bound by PYR/PYL receptors that inhibit clade-A PP2C phosphatases, releasing SnRK2 kinases; SnRK2 activates SLAC1 anion channels and inhibits inward K+ channels, so guard cells lose turgor and stomata close. Lower transpiration rehydrates the plant, ABA falls, and stomata reopen.",
+      "id": "drosophila_segment_polarity",
+      "name": "Segment-Polarity Network (wg/en/hh)",
+      "organism": "Drosophila melanogaster",
+      "category": "Developmental Patterning",
+      "description": "Maintenance of segment boundaries after the pair-rule prepattern fades. Engrailed/Hedgehog-expressing cells and adjacent Wingless-expressing cells form a reciprocal signaling loop: Wingless maintains engrailed/hedgehog in neighbors, and Hedgehog maintains wingless, so the boundary becomes a bistable, self-stabilizing module famously robust to parameter changes.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "intercellular_positive_feedback_bistable_module",
+      "circuitClassConfidence": "high",
+      "loops": 2
+    },
+    {
+      "id": "celegans_dauer_decision",
+      "name": "C. elegans Dauer Developmental Switch",
+      "organism": "Caenorhabditis elegans",
+      "category": "Developmental Decision",
+      "description": "A larva-stage life-or-death bet. Crowding, scarce food, and dauer pheromone are integrated through insulin/IGF (DAF-2) and TGF-β (DAF-7) pathways: high signaling promotes reproductive growth; low signaling releases the FOXO factor DAF-16 and DAF-3 to commit to the stress-resistant, non-aging dauer larva. Reinforcing feedback makes the commitment switch-like.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "signal_integrated_bistable_decision",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "celegans_heterochronic_clock",
+      "name": "Heterochronic microRNA Timing Cascade",
+      "organism": "Caenorhabditis elegans",
+      "category": "Developmental Timing",
+      "description": "The worm's developmental stopwatch. Heterochronic microRNAs are expressed in sequence: lin-4 accumulates to switch off lin-14 (ending the L1 program), and later let-7 accumulates to switch off lin-41 (enabling the adult program). Each microRNA gates the next stage, producing the correct temporal order of cell fates as a feed-forward cascade.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
@@ -5065,10 +5245,10 @@
         "total": 0
       },
       "notGates": 2,
-      "circuitClass": "II",
-      "topologyType": "hormonal_negative_feedback_homeostat",
+      "circuitClass": "I",
+      "topologyType": "feed_forward_temporal_cascade",
       "circuitClassConfidence": "high",
-      "loops": 1
+      "loops": 0
     }
   ]
 }

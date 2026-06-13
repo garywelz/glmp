@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_dcas9_logic",
+  "name": "CRISPR-dCas9 Programmable Logic",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "Logic built entirely from CRISPR interference. A single catalytically-dead dCas9 paired with input-controlled guide RNAs represses target promoters; because any gRNA can be designed against any promoter, layers of these NOR/NOT gates implement large combinational circuits in one cell. The computation is feed-forward.",
+  "scientificAccuracy": "Ground-truth circuit. dCas9-based NOR gates and layered digital logic were built by Gander et al. (2017).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inputs drive guide RNAs]\n    B[dCas9 + guide RNAs]\n    C[/gRNA-dCas9 represses promoters/]\n    D[Layered NOR/NOT logic]\n    E(Programmable CRISPR logic output)\n\n    A --> B\n    B --> C\n    C -->|⊣| D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Digital logic circuits in yeast with CRISPR-dCas9 NOR gates",
+      "authors": "Gander MW, Vrana JD, Voje WE, Carothers JM, Klavins E",
+      "journal": "Nature Communications",
+      "year": 2017,
+      "volume": "8",
+      "pages": "15459",
+      "pmid": "28526819",
+      "doi": "10.1038/ncomms15459"
+    }
+  ],
+  "keywords": [
+    "CRISPR",
+    "dCas9",
+    "NOR",
+    "logic",
+    "combinational",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_layered_nor_cascade",
+    "synthetic_crispri_toggle"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I CRISPR combinational logic (dCas9 NOR layers, feed-forward).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "gRNA-targeted promoters",
+        "boundFactor": "dCas9-gRNA",
+        "operator": "NOR / NOT (programmable)",
+        "effect": "guide-directed repression",
+        "sequenceMotif": "20-nt protospacer + PAM",
+        "note": "any promoter targetable -> scalable logic"
+      }
+    ],
+    "derivedLogic": "Output = f(inputs) via layered dCas9 NOR (combinational)",
+    "references": [
+      "Gander et al. 2017"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 4,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "crispr_layered_combinational_logic",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Inputs drive guide RNAs that target dCas9 to repress output promoters; layering these CRISPR NOR/NOT gates realizes arbitrary combinational logic with a single programmable protein and no feedback loop. Class I (Gander et al. 2017).",
+  "groundTruth": true
+}

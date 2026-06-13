@@ -1,0 +1,115 @@
+{
+  "id": "drosophila_segment_polarity",
+  "name": "Segment-Polarity Network (wg/en/hh)",
+  "organism": "Drosophila melanogaster",
+  "category": "Developmental Patterning",
+  "description": "Maintenance of segment boundaries after the pair-rule prepattern fades. Engrailed/Hedgehog-expressing cells and adjacent Wingless-expressing cells form a reciprocal signaling loop: Wingless maintains engrailed/hedgehog in neighbors, and Hedgehog maintains wingless, so the boundary becomes a bistable, self-stabilizing module famously robust to parameter changes.",
+  "scientificAccuracy": "The robust, self-maintaining segment-polarity module was demonstrated computationally and experimentally (von Dassow et al. 2000).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Pair-rule prepattern]\n    B[engrailed + hedgehog cells]\n    C[wingless in neighbor cells]\n    D[\\Wg sustains en/hh/]\n    E[\\Hh sustains wg/]\n    F(Bistable self-maintaining boundary)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| C\n    C --> E\n    E -->|+| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The segment polarity network is a robust developmental module",
+      "authors": "von Dassow G, Meir E, Munro EM, Odell GM",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "406",
+      "pages": "188-192",
+      "pmid": "10910359",
+      "doi": "10.1038/35018085"
+    }
+  ],
+  "keywords": [
+    "segment polarity",
+    "wingless",
+    "engrailed",
+    "hedgehog",
+    "positive feedback",
+    "bistable",
+    "Drosophila",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "drosophila_gap_gene_network",
+    "human_notch_delta"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth Drosophila Class III intercellular bistable module (wg/en/hh boundary maintenance).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "en / wg enhancers",
+        "boundFactor": "Ci (Hh pathway) / TCF (Wg pathway)",
+        "operator": "IF / reciprocal positive feedback",
+        "effect": "cross-maintenance of en/hh and wg",
+        "sequenceMotif": "Ci sites; TCF/HMG sites",
+        "note": "intercellular positive feedback -> bistable boundary"
+      }
+    ],
+    "derivedLogic": "en/hh = IF Wg ; wg = IF Hh (reciprocal positive) -> stable boundary",
+    "references": [
+      "von Dassow et al. 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "intercellular_positive_feedback_bistable_module",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Adjacent cells expressing engrailed/hedgehog and wingless reinforce each other across the boundary — Wg sustains en/hh and Hh sustains wg — an intercellular positive-feedback loop that locks in a stable, self-maintaining segment boundary robust to perturbation. Class III (von Dassow et al. 2000).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

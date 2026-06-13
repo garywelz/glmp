@@ -1,0 +1,126 @@
+{
+  "id": "celegans_dauer_decision",
+  "name": "C. elegans Dauer Developmental Switch",
+  "organism": "Caenorhabditis elegans",
+  "category": "Developmental Decision",
+  "description": "A larva-stage life-or-death bet. Crowding, scarce food, and dauer pheromone are integrated through insulin/IGF (DAF-2) and TGF-β (DAF-7) pathways: high signaling promotes reproductive growth; low signaling releases the FOXO factor DAF-16 and DAF-3 to commit to the stress-resistant, non-aging dauer larva. Reinforcing feedback makes the commitment switch-like.",
+  "scientificAccuracy": "Integration of insulin/TGF-β signaling into the dauer decision is established (Hu 2007; Golden & Riddle 1984).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Crowding / low food / pheromone]\n    B{favorable conditions?}\n    C[DAF-2 insulin + DAF-7 TGF-β high]\n    D(Reproductive development)\n    E[/Low signaling: DAF-16 + DAF-3 active/]\n    F[\\Commit to dauer larva/]\n    G(Dauer arrest, stress-resistant)\n\n    A --> B\n    B -->|Yes| C\n    C --> D\n    B -->|No| E\n    E --> F\n    F -->|+ commit| E\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#b197fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Dauer",
+      "authors": "Hu PJ",
+      "journal": "WormBook",
+      "year": 2007,
+      "volume": "",
+      "pages": "1-19",
+      "pmid": "17988075",
+      "doi": "10.1895/wormbook.1.144.1"
+    },
+    {
+      "title": "A pheromone influences larval development in the nematode Caenorhabditis elegans",
+      "authors": "Golden JW, Riddle DL",
+      "journal": "Science",
+      "year": 1982,
+      "volume": "218",
+      "pages": "578-580",
+      "pmid": "6896933",
+      "doi": "10.1126/science.6896933"
+    }
+  ],
+  "keywords": [
+    "dauer",
+    "DAF-2",
+    "DAF-7",
+    "DAF-16",
+    "insulin",
+    "TGF-beta",
+    "decision",
+    "C. elegans",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_insulin_akt_foxo",
+    "bacillus_spo0a_sporulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth C. elegans Class III developmental decision (dauer vs reproductive), signal-integrated and switch-like.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "DAF-16/FOXO targets (dauer + longevity genes)",
+        "boundFactor": "DAF-16 (gated by DAF-2/AKT)",
+        "operator": "IF / NOT(insulin)",
+        "effect": "activation of dauer/stress program when signaling low",
+        "sequenceMotif": "TTGTTTAC (DAF-16 binding element)",
+        "note": "TGF-β (DAF-7) input integrated in parallel"
+      }
+    ],
+    "derivedLogic": "dauer = NOT (DAF-2 AND DAF-7) ; commitment feedback -> bistable",
+    "references": [
+      "Hu 2007"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "signal_integrated_bistable_decision",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Favorable conditions keep insulin (DAF-2) and TGF-β (DAF-7) signaling high, driving reproductive development; adversity lowers them, freeing DAF-16/DAF-3 to commit to the dauer larva, a decision reinforced by feedback into an all-or-none, long-lived arrested state. Class III bistable decision (Hu 2007).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

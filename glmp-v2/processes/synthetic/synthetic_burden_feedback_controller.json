@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_burden_feedback_controller",
+  "name": "Capacity/Burden Feedback Controller",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "Engineered circuits impose a metabolic burden that destabilizes them. A burden-responsive feedback controller uses a capacity monitor (e.g., a stress-promoter sensor driving a dCas9/sgRNA brake) to detect overload and downregulate the heterologous gene; lower burden then releases the brake, dynamically balancing expression against host health.",
+  "scientificAccuracy": "Ground-truth circuit. Burden-driven feedback regulation that stabilizes synthetic expression was built by Ceroni et al. (2018).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Heterologous expression burden]\n    B[Capacity monitor senses stress]\n    C[/Feedback throttles synthetic gene/]\n    D[Restored growth capacity]\n    E[/Lower burden relaxes throttle/]\n    F(Stable expression, healthy growth)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| A\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Burden-driven feedback control of gene expression",
+      "authors": "Ceroni F, Boo A, Furini S, et al.",
+      "journal": "Nature Methods",
+      "year": 2018,
+      "volume": "15",
+      "pages": "387-393",
+      "pmid": "29578536",
+      "doi": "10.1038/nmeth.4635"
+    }
+  ],
+  "keywords": [
+    "burden",
+    "capacity",
+    "feedback control",
+    "homeostasis",
+    "robustness",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_antithetic_controller",
+    "synthetic_negative_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class II homeostat: burden-sensing negative feedback stabilizes heterologous expression.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "capacity-monitor stress promoter",
+        "boundFactor": "stress regulator -> dCas9 brake",
+        "operator": "NOT (burden-gated)",
+        "effect": "throttles synthetic gene under load",
+        "sequenceMotif": "htrA/groSL-type stress promoter",
+        "note": "closes a burden negative-feedback loop"
+      }
+    ],
+    "derivedLogic": "synthetic-gene = NOT burden ; burden -| output (negative feedback)",
+    "references": [
+      "Ceroni et al. 2018"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "burden_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A cellular-capacity monitor senses the stress imposed by heterologous expression and throttles the synthetic gene; as burden falls, the throttle relaxes — a negative-feedback homeostat that stabilizes output and protects growth. Class II (Ceroni et al. 2018).",
+  "groundTruth": true
+}

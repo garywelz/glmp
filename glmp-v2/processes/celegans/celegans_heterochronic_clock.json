@@ -1,0 +1,128 @@
+{
+  "id": "celegans_heterochronic_clock",
+  "name": "Heterochronic microRNA Timing Cascade",
+  "organism": "Caenorhabditis elegans",
+  "category": "Developmental Timing",
+  "description": "The worm's developmental stopwatch. Heterochronic microRNAs are expressed in sequence: lin-4 accumulates to switch off lin-14 (ending the L1 program), and later let-7 accumulates to switch off lin-41 (enabling the adult program). Each microRNA gates the next stage, producing the correct temporal order of cell fates as a feed-forward cascade.",
+  "scientificAccuracy": "The lin-4/lin-14 and let-7/lin-41 heterochronic relay is established (Lee et al. 1993; Reinhart et al. 2000; Ambros 2011).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Developmental time cues]\n    B[lin-4 microRNA rises]\n    C[/Represses lin-14/]\n    D[let-7 microRNA rises later]\n    E[/Represses lin-41/]\n    F[Stage fates: L1 to adult]\n    G(Ordered temporal patterning)\n\n    A --> B\n    B -->|⊣ lin-14| C\n    C --> D\n    D -->|⊣ lin-41| E\n    E --> F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The C. elegans heterochronic gene lin-4 encodes small RNAs with antisense complementarity to lin-14",
+      "authors": "Lee RC, Feinbaum RL, Ambros V",
+      "journal": "Cell",
+      "year": 1993,
+      "volume": "75",
+      "pages": "843-854",
+      "pmid": "8252621",
+      "doi": "10.1016/0092-8674(93)90529-Y"
+    },
+    {
+      "title": "The 21-nucleotide let-7 RNA regulates developmental timing in Caenorhabditis elegans",
+      "authors": "Reinhart BJ, Slack FJ, Basson M, et al.",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "403",
+      "pages": "901-906",
+      "pmid": "10706289",
+      "doi": "10.1038/35002607"
+    }
+  ],
+  "keywords": [
+    "heterochronic",
+    "lin-4",
+    "let-7",
+    "lin-14",
+    "lin-41",
+    "microRNA",
+    "timing",
+    "feed-forward",
+    "C. elegans",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "ecoli_flhdc_flagellar",
+    "human_circadian_clock"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth C. elegans Class I temporal cascade (lin-4 -> let-7 microRNA relay), feed-forward.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "lin-14 / lin-41 3'UTRs",
+        "boundFactor": "lin-4 / let-7 microRNAs",
+        "operator": "NOT (sequential)",
+        "effect": "stage-specific translational repression",
+        "sequenceMotif": "miRNA seed-complementary sites in 3'UTR",
+        "note": "ordered relay times the stages"
+      }
+    ],
+    "derivedLogic": "lin-14 = NOT lin-4 ; lin-41 = NOT let-7 (later) -> staged timing",
+    "references": [
+      "Lee et al. 1993",
+      "Reinhart et al. 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "feed_forward_temporal_cascade",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Stage-specific microRNAs act in an ordered relay — lin-4 rises to repress lin-14, then let-7 rises to repress lin-41 — driving each larval-to-adult transition; the sequential repression is a feed-forward temporal cascade with no feedback loop. Class I (Ambros 2011; Reinhart et al. 2000).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}
