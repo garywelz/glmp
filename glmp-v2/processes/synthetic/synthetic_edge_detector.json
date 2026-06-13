@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_edge_detector",
+  "name": "Multicellular Edge Detector",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A community computation: cells detect the boundary between light and dark. Lit cells secrete a diffusible signal; a cell produces pigment only if it is itself in the dark AND close enough to lit neighbors to receive the signal. The AND of 'dark' and 'neighbor-lit' is true only at edges, so the colony outlines the projected image.",
+  "scientificAccuracy": "Ground-truth circuit. The genetic edge-detection program was built and characterized by Tabor et al. (2009).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Projected light pattern]\n    B[Dark-sensing branch active]\n    C[Lit neighbors secrete AHL]\n    D{dark AND neighbor-lit?}\n    E[Pigment produced at boundary]\n    F(Edge-detected image)\n\n    A --> B\n    A --> C\n    B --> D\n    C --> D\n    D -->|Yes| E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synthetic genetic edge detection program",
+      "authors": "Tabor JJ, Salis HM, Simpson ZB, et al.",
+      "journal": "Cell",
+      "year": 2009,
+      "volume": "137",
+      "pages": "1272-1281",
+      "pmid": "19563759",
+      "doi": "10.1016/j.cell.2009.04.048"
+    }
+  ],
+  "keywords": [
+    "edge detection",
+    "multicellular",
+    "quorum sensing",
+    "AND gate",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_light_sensor",
+    "synthetic_band_detector"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I image-processing circuit: AND of light sensing and quorum sensing, no feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "edge-output promoter",
+        "boundFactor": "dark-state regulator + LuxR-AHL",
+        "operator": "AND",
+        "effect": "pigment only where dark and near light",
+        "sequenceMotif": "(dark-responsive + lux box)",
+        "note": "computes spatial edges"
+      }
+    ],
+    "derivedLogic": "Output = dark AND neighbor-lit -> edges",
+    "references": [
+      "Tabor et al. 2009"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "feed_forward_AND_edge_detection",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Combines the light sensor with quorum sensing so a cell makes pigment only where it is dark AND adjacent to light (a diffusible signal from lit cells): output = dark AND neighbor-lit. Feed-forward with one AND — Class I — that computes image edges (Tabor et al. 2009).",
+  "groundTruth": true
+}

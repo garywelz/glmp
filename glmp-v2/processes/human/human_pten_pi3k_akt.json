@@ -1,0 +1,114 @@
+{
+  "id": "human_pten_pi3k_akt",
+  "name": "PTEN–PI3K–AKT Tumor-Suppressor Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Growth Factor Signaling",
+  "description": "The PI3K-AKT growth/survival axis is held in check by PTEN. Growth-factor-activated PI3K makes PIP3, recruiting and activating AKT; PTEN hydrolyzes PIP3 back to PIP2, directly opposing PI3K. Downstream signaling feeds back on PTEN level/activity, setting a homeostatic balance whose loss (PTEN mutation) drives cancer.",
+  "scientificAccuracy": "PTEN antagonism of PI3K-AKT and its tumor-suppressor feedback role are established (Song, Salmena & Pandolfi 2012).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Growth factor: PI3K active]\n    B[PIP3]\n    C[/PTEN dephosphorylates PIP3/]\n    D[AKT activated]\n    E[Survival / growth targets]\n    F[/Feedback regulates PTEN/]\n    G(Tumor-suppressive set-point)\n\n    A --> B\n    B --> D\n    C -->|⊣| B\n    D --> E\n    E --> F\n    F -->|+ feedback| C\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The functions and regulation of the PTEN tumour suppressor",
+      "authors": "Song MS, Salmena L, Pandolfi PP",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2012,
+      "volume": "13",
+      "pages": "283-296",
+      "pmid": "22473468",
+      "doi": "10.1038/nrm3330"
+    }
+  ],
+  "keywords": [
+    "PTEN",
+    "PI3K",
+    "AKT",
+    "PIP3",
+    "tumor suppressor",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_akt_foxo_insulin",
+    "human_mtorc1_nutrient"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II homeostat: PTEN opposes PI3K-AKT with downstream feedback on PTEN.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "PTEN regulation (p53/feedback at PTEN promoter)",
+        "boundFactor": "p53 / EGR1 (context)",
+        "operator": "IF",
+        "effect": "induces PTEN to oppose PI3K",
+        "sequenceMotif": "p53 RE in PTEN promoter",
+        "note": "lipid-phosphatase feedback sets the AKT set-point"
+      }
+    ],
+    "derivedLogic": "AKT = PI3K AND NOT PTEN ; feedback on PTEN -> homeostat",
+    "references": [
+      "Song et al. 2012"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "pten_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "PI3K produces PIP3 to activate AKT; the tumor suppressor PTEN dephosphorylates PIP3, opposing the pathway, and downstream feedback regulates PTEN — a negative-feedback set-point for growth/survival signaling. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

@@ -1,0 +1,113 @@
+{
+  "id": "human_estrogen_receptor_switch",
+  "name": "Estrogen-Receptor Positive-Autoregulation Switch",
+  "organism": "Homo sapiens",
+  "category": "Hormone Signaling",
+  "description": "In luminal breast epithelium, estrogen-activated ERα binds estrogen-response elements at proliferative target genes and at the ESR1 locus itself, reinforcing its own expression. The positive autoregulation can latch cells into a self-sustaining ER+ state — the molecular logic behind hormone-dependent identity and endocrine-therapy resistance.",
+  "scientificAccuracy": "ERα genome-wide target binding and autoregulation of ESR1 are established (Carroll et al. 2006); positive feedback supports bistable interpretation.",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Estrogen]\n    B[ERα activated]\n    C[\\ERα activates ESR1 gene/]\n    D[Proliferative ERE target genes]\n    E(Bistable ER+ luminal state)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Genome-wide analysis of estrogen receptor binding sites",
+      "authors": "Carroll JS, Meyer CA, Song J, et al.",
+      "journal": "Nature Genetics",
+      "year": 2006,
+      "volume": "38",
+      "pages": "1289-1297",
+      "pmid": "17013392",
+      "doi": "10.1038/ng1901"
+    }
+  ],
+  "keywords": [
+    "estrogen receptor",
+    "ESR1",
+    "positive autoregulation",
+    "bistable",
+    "breast cancer",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_positive_autoregulation",
+    "human_myod_myogenesis"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa hormone-receptor switch via ERα positive autoregulation.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ERE (incl. ESR1 enhancer)",
+        "boundFactor": "ERα (estrogen-bound)",
+        "operator": "IF / positive feedback",
+        "effect": "activation of targets and own gene",
+        "sequenceMotif": "AGGTCAnnnTGACCT (ERE palindrome)",
+        "note": "autoregulation supports bistable ER+ state"
+      }
+    ],
+    "derivedLogic": "ERα = IF estrogen AND ERα(t-τ) (positive feedback) -> latched ER+ state",
+    "references": [
+      "Carroll et al. 2006"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 5,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_autoregulation_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Estrogen-bound ERα activates the ESR1 gene (positive autoregulation) and proliferative targets; the positive feedback supports a bistable, self-sustaining luminal/ER+ identity — a persistent (IIIa) switch relevant to breast-cancer cell state (Carroll et al. 2006).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

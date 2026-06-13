@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_synchronized_qs_oscillator",
+  "name": "Synchronized Quorum-of-Clocks Oscillator",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A synthetic oscillator that synchronizes across a colony. In every cell, LuxR-AHL activates luxI (positive feedback, making more AHL) and aiiA (which degrades AHL with delay, negative feedback). Because AHL diffuses between cells, the autoinducer couples the individual clocks into coherent, population-wide oscillations.",
+  "scientificAccuracy": "Ground-truth circuit. Synchronized quorum-sensing oscillations were built and imaged in microfluidics by Danino et al. (2010).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cell population]\n    B[LuxI makes AHL]\n    C[AHL diffuses + synchronizes]\n    D[\\LuxR-AHL activates luxI/]\n    E[/aiiA degrades AHL, delayed/]\n    F(Synchronized population oscillation)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| B\n    C --> E\n    E -->|⊣ delayed| C\n    C --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A synchronized quorum of genetic clocks",
+      "authors": "Danino T, Mondragón-Palomino O, Tsimring L, Hasty J",
+      "journal": "Nature",
+      "year": 2010,
+      "volume": "463",
+      "pages": "326-330",
+      "pmid": "20090747",
+      "doi": "10.1038/nature08753"
+    }
+  ],
+  "keywords": [
+    "synchronized oscillator",
+    "quorum sensing",
+    "LuxI",
+    "aiiA",
+    "population coupling",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_repressilator",
+    "synthetic_population_control"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IV population oscillator: positive (luxI) + delayed negative (aiiA) feedback, coupled by diffusible AHL.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Plux (drives luxI and aiiA)",
+        "boundFactor": "LuxR-AHL",
+        "operator": "IF / delayed NOT",
+        "effect": "activates synthesis (luxI) and degradation (aiiA) of AHL",
+        "sequenceMotif": "ACCTGTAGGATCGTACAGGT (lux box)",
+        "note": "AHL diffusion couples cells"
+      }
+    ],
+    "derivedLogic": "luxI = +AHL ; aiiA = -AHL(delayed) -> synchronized oscillation",
+    "references": [
+      "Danino et al. 2010"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "quorum_coupled_delayed_neg_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Each cell runs a LuxI/AHL positive arm and a delayed aiiA-degradation negative arm; the diffusible AHL couples and synchronizes thousands of cellular oscillators into a population-wide rhythm (Danino, Mondragón-Palomino, Tsimring & Hasty 2010). Delayed negative feedback with oscillation — Class IV.",
+  "groundTruth": true
+}

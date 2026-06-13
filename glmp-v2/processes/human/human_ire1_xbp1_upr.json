@@ -1,0 +1,122 @@
+{
+  "id": "human_ire1_xbp1_upr",
+  "name": "IRE1–XBP1 Unfolded Protein Response",
+  "organism": "Homo sapiens",
+  "category": "Proteostasis",
+  "description": "The most conserved arm of the unfolded-protein response. Accumulated misfolded proteins activate the ER kinase/endonuclease IRE1, which excises an intron from XBP1 mRNA; the resulting XBP1s transcription factor induces chaperones and ER-associated degradation that restore folding capacity and shut IRE1 back off — negative feedback on ER stress.",
+  "scientificAccuracy": "IRE1-mediated XBP1 splicing and the UPR negative-feedback homeostat are established (Walter & Ron 2011).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[ER stress: unfolded proteins]\n    B[IRE1 activated]\n    C[\\Splices XBP1 mRNA/]\n    D[XBP1s transcription factor]\n    E[Chaperones + ERAD genes]\n    F[/Restores folding, lowers stress/]\n    G(ER proteostasis restored)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|⊣ feedback| A\n    E --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The unfolded protein response: from stress pathway to homeostatic regulation",
+      "authors": "Walter P, Ron D",
+      "journal": "Science",
+      "year": 2011,
+      "volume": "334",
+      "pages": "1081-1086",
+      "pmid": "22116877",
+      "doi": "10.1126/science.1209038"
+    }
+  ],
+  "keywords": [
+    "IRE1",
+    "XBP1",
+    "UPR",
+    "ER stress",
+    "proteostasis",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_hsf1_heat_shock",
+    "human_nrf2_keap1"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II proteostasis homeostat (UPR); XBP1s output relieves the stress that triggered it.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "UPRE / ERSE (chaperone, ERAD promoters)",
+        "boundFactor": "XBP1s",
+        "operator": "IF",
+        "effect": "activation of folding/degradation capacity",
+        "sequenceMotif": "TGACGTGG (UPRE)",
+        "note": "output reduces unfolded-protein load -> negative feedback"
+      },
+      {
+        "name": "XBP1 mRNA stem-loop",
+        "boundFactor": "IRE1 endonuclease",
+        "operator": "IF (splice)",
+        "effect": "non-canonical splicing to XBP1s",
+        "sequenceMotif": "dual stem-loops (26-nt intron)",
+        "note": "RNA-level activation step"
+      }
+    ],
+    "derivedLogic": "XBP1s = IRE1(ER-stress) ; chaperones -| ER-stress (negative feedback)",
+    "references": [
+      "Walter & Ron 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "upr_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "ER stress activates IRE1, which splices XBP1 mRNA to make XBP1s; XBP1s induces chaperones and ERAD that reduce the unfolded-protein load, relieving IRE1 — a negative-feedback proteostasis homeostat. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

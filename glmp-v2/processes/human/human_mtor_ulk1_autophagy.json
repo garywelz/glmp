@@ -1,0 +1,113 @@
+{
+  "id": "human_mtor_ulk1_autophagy",
+  "name": "mTOR–ULK1 Autophagy Homeostat",
+  "organism": "Homo sapiens",
+  "category": "Metabolic Signaling",
+  "description": "Autophagy is governed by a nutrient-sensing feedback loop. Active mTORC1 phosphorylates ULK1 to suppress autophagosome formation; on starvation mTORC1 is inhibited, ULK1 fires, and autophagy degrades cellular material to regenerate nutrients — which reactivates mTORC1, closing a homeostatic negative-feedback loop.",
+  "scientificAccuracy": "mTORC1 inhibition of ULK1 and autophagy-mediated nutrient feedback are established (Kim et al. 2011; Rabinowitz & White 2010).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Nutrient / energy status]\n    B{Nutrients high?}\n    C[mTORC1 active]\n    D[/mTORC1 inhibits ULK1/]\n    E[ULK1 active: autophagy]\n    F[Autophagy recycles nutrients]\n    G[/Restored nutrients reactivate mTORC1/]\n    H(Metabolic homeostasis)\n\n    A --> B\n    B -->|Yes| C\n    C --> D\n    D -->|⊣| E\n    B -->|No: starvation| E\n    E --> F\n    F --> H\n    F --> G\n    G -->|+ feedback| C\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#74c0fc,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "AMPK and mTOR regulate autophagy through direct phosphorylation of Ulk1",
+      "authors": "Kim J, Kundu M, Viollet B, Guan KL",
+      "journal": "Nature Cell Biology",
+      "year": 2011,
+      "volume": "13",
+      "pages": "132-141",
+      "pmid": "21258367",
+      "doi": "10.1038/ncb2152"
+    }
+  ],
+  "keywords": [
+    "mTOR",
+    "ULK1",
+    "autophagy",
+    "nutrient sensing",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_mtorc1_nutrient",
+    "human_akt_foxo_insulin"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II autophagy homeostat: mTORC1-ULK1 with nutrient-recycling feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ULK1 regulation (post-translational)",
+        "boundFactor": "mTORC1 (Ser757)",
+        "operator": "NOT",
+        "effect": "inhibitory phosphorylation of ULK1",
+        "sequenceMotif": "(protein-level)",
+        "note": "autophagy feedback realized in metabolite/phospho state"
+      }
+    ],
+    "derivedLogic": "autophagy = NOT mTORC1(nutrients) ; autophagy -> nutrients -> mTORC1",
+    "references": [
+      "Kim et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 8,
+  "edges": 9,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "autophagy_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "When nutrients are high, mTORC1 phosphorylates and inhibits ULK1, blocking autophagy; starvation releases ULK1 to drive autophagy, which recycles nutrients and reactivates mTORC1 — a negative-feedback metabolic homeostat. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

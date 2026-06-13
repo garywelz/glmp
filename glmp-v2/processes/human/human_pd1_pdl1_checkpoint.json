@@ -1,0 +1,113 @@
+{
+  "id": "human_pd1_pdl1_checkpoint",
+  "name": "PD-1/PD-L1 Immune Checkpoint",
+  "organism": "Homo sapiens",
+  "category": "Immune Checkpoint",
+  "description": "The adaptive immune brake exploited in cancer. Activated T cells secrete IFN-γ, which induces PD-L1 on tumor/antigen-presenting cells; PD-L1 binding PD-1 recruits the SHP-2 phosphatase that dephosphorylates TCR signaling components, feeding back to suppress T-cell activation. Checkpoint-blockade antibodies cut this negative loop.",
+  "scientificAccuracy": "IFN-γ-induced PD-L1 and PD-1/SHP-2 inhibition of TCR signaling are established (Sharpe & Pauken 2018).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[T-cell activation: TCR + IFN-γ]\n    B[Target cell induces PD-L1]\n    C[PD-L1 engages PD-1]\n    D[/SHP-2 dephosphorylates TCR signaling/]\n    E[/Dampens T-cell activation/]\n    F(T-cell tolerance / exhaustion)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| A\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The diverse functions of the PD1 inhibitory pathway",
+      "authors": "Sharpe AH, Pauken KE",
+      "journal": "Nature Reviews Immunology",
+      "year": 2018,
+      "volume": "18",
+      "pages": "153-167",
+      "pmid": "28990585",
+      "doi": "10.1038/nri.2017.108"
+    }
+  ],
+  "keywords": [
+    "PD-1",
+    "PD-L1",
+    "checkpoint",
+    "SHP-2",
+    "negative feedback",
+    "immunotherapy",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_jak_stat_socs"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II inhibitory feedback (immune checkpoint); target of checkpoint-blockade therapy.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "CD274/PD-L1 promoter (IRF1/GAS)",
+        "boundFactor": "IRF1 / STAT1 (IFN-γ)",
+        "operator": "IF",
+        "effect": "IFN-γ-induced PD-L1",
+        "sequenceMotif": "GAS / IRF-E",
+        "note": "links T-cell activity to its own brake"
+      }
+    ],
+    "derivedLogic": "PD-L1 = IFN-γ ; TCR-signal = NOT PD-1 (negative feedback)",
+    "references": [
+      "Sharpe & Pauken 2018"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "inhibitory_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "T-cell activation and IFN-γ induce PD-L1 on target cells; PD-L1 engages PD-1, recruiting SHP-2 to dephosphorylate TCR-proximal signaling — a negative-feedback loop that dampens the response (and is hijacked by tumors). Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

@@ -1,0 +1,110 @@
+{
+  "id": "synthetic_light_sensor",
+  "name": "Light Sensor (Bacterial Photography)",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "The bacterial 'camera'. The Cph8 fusion couples a cyanobacterial phytochrome to the EnvZ histidine kinase: red light switches its kinase activity, controlling the ompC promoter so that pigment is produced only in the dark. A lawn of these cells reproduces a projected image — a feed-forward sensor with no regulatory loop.",
+  "scientificAccuracy": "Ground-truth circuit. The Cph8 light sensor and bacterial photography were built by Levskaya et al. (2005).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Red light pattern]\n    B[Cph8 phytochrome senses light]\n    C[/Light represses ompC promoter/]\n    D[Pigment produced in dark only]\n    E(Bacterial photograph)\n\n    A --> B\n    B --> C\n    C -->|⊣| D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Synthetic biology: engineering Escherichia coli to see light",
+      "authors": "Levskaya A, Chevalier AA, Tabor JJ, et al.",
+      "journal": "Nature",
+      "year": 2005,
+      "volume": "438",
+      "pages": "441-442",
+      "pmid": "16306980",
+      "doi": "10.1038/nature04405"
+    }
+  ],
+  "keywords": [
+    "light sensor",
+    "optogenetics",
+    "Cph8",
+    "phytochrome",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_edge_detector"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I sensor (feed-forward; one repression, no feedback loop).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ompC promoter",
+        "boundFactor": "OmpR~P (set by Cph8/EnvZ light state)",
+        "operator": "NOT(light)",
+        "effect": "repression in light",
+        "sequenceMotif": "OmpR boxes",
+        "note": "light state transduced via two-component phosphorelay"
+      }
+    ],
+    "derivedLogic": "Output = NOT light (per-pixel sensor)",
+    "references": [
+      "Levskaya et al. 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 4,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "photoreceptor_feed_forward_sensor",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A chimeric red-light photoreceptor (Cph8 = phytochrome fused to the EnvZ kinase) represses an output promoter in the light, so a bacterial lawn prints a high-resolution image. A pure feed-forward light-to-output sensor. Class I.",
+  "groundTruth": true
+}

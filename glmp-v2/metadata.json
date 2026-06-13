@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 164,
+  "totalProcesses": 174,
   "organisms": [
     {
       "name": "E. coli",
@@ -19,11 +19,11 @@
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 23
+      "processCount": 27
     },
     {
       "name": "Homo sapiens",
-      "processCount": 29
+      "processCount": 35
     },
     {
       "name": "Bacteriophage lambda",
@@ -117,7 +117,7 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 23
+      "processCount": 27
     },
     {
       "name": "Hematopoiesis",
@@ -145,7 +145,7 @@
     },
     {
       "name": "Growth Factor Signaling",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Myogenesis",
@@ -173,7 +173,7 @@
     },
     {
       "name": "Metabolic Signaling",
-      "processCount": 2
+      "processCount": 3
     },
     {
       "name": "Growth Control Signaling",
@@ -202,22 +202,38 @@
     {
       "name": "Epigenetic Inheritance",
       "processCount": 1
+    },
+    {
+      "name": "Calcium Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Hormone Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Proteostasis",
+      "processCount": 1
+    },
+    {
+      "name": "Immune Checkpoint",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7659,
-    "totalConditionals": 6248,
+    "totalNodes": 7721,
+    "totalConditionals": 6250,
     "orGates": 349,
-    "andGates": 441,
-    "notGates": 533,
-    "totalLogicGates": 1323,
-    "verifiedProcesses": 155,
+    "andGates": 442,
+    "notGates": 541,
+    "totalLogicGates": 1332,
+    "verifiedProcesses": 165,
     "circuitClassDistribution": {
-      "I": 57,
-      "II": 60,
-      "III": 32,
-      "IV": 11,
-      "V": 4
+      "I": 59,
+      "II": 64,
+      "III": 33,
+      "IV": 13,
+      "V": 5
     }
   },
   "processes": [
@@ -2706,6 +2722,98 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "yeast_gal_bistable_switch",
+      "name": "Galactose Network Bistable Switch (GAL)",
+      "organism": "S. cerevisiae",
+      "category": "Carbon Metabolism / Bistability",
+      "description": "The yeast galactose-utilization network behaves as a bistable switch. Galactose-bound Gal3p sequesters the repressor Gal80p, releasing the activator Gal4p; Gal4p then induces GAL3 and the galactose permease GAL2, positive feedback that produces history-dependent (hysteretic) ON/OFF states across a population.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_bistable_hysteresis",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_whi5_sbf_start",
+      "name": "Whi5–SBF Start Commitment Switch",
+      "organism": "S. cerevisiae",
+      "category": "Cell Cycle",
+      "description": "The budding-yeast Start transition, the functional analogue of the mammalian restriction point. Cln3-Cdk1 begins phosphorylating the SBF inhibitor Whi5; once SBF fires, CLN1/2-Cdk1 hyperphosphorylates Whi5 and exports it from the nucleus, a positive-feedback loop that converts gradual growth into a rapid, all-or-none, irreversible commitment to division.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "double_negative_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_lambda_switch",
+      "name": "Bacteriophage λ CI/Cro Lysis–Lysogeny Switch",
+      "organism": "Bacteriophage lambda",
+      "category": "Phage Developmental Switch",
+      "description": "The decision between lysogeny and lysis in phage λ. The CI repressor and Cro protein bind the same OR operator region and repress each other's promoters, while CI also activates its own promoter PRM. The double-negative-plus-autoactivation topology is bistable: CI-high lysogeny is stably maintained until DNA damage triggers CI cleavage and a switch to Cro-high lysis.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable_genetic_switch",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_sup35_prion",
+      "name": "[PSI+] Sup35 Prion Epigenetic Memory",
+      "organism": "S. cerevisiae",
+      "category": "Epigenetic Inheritance",
+      "description": "A protein-based epigenetic switch. The translation-termination factor Sup35 can convert from a soluble functional form into a self-propagating amyloid ([PSI+]). The prion conformation templates conversion of newly synthesized Sup35, causing nonsense readthrough; the state is inherited through cell division without any DNA change — heredity carried by protein conformation.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_templating_conformational_memory",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_5node_repressilator",
       "name": "Five-Repressor Ring Oscillator",
       "organism": "Synthetic circuit",
@@ -2867,6 +2975,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_edge_detector",
+      "name": "Multicellular Edge Detector",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A community computation: cells detect the boundary between light and dark. Lit cells secrete a diffusible signal; a cell produces pigment only if it is itself in the dark AND close enough to lit neighbors to receive the signal. The AND of 'dark' and 'neighbor-lit' is true only at edges, so the colony outlines the projected image.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "feed_forward_AND_edge_detection",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_fold_change_detector",
       "name": "Incoherent-FFL Fold-Change Detector",
       "organism": "Synthetic circuit",
@@ -2933,6 +3064,29 @@
       "notGates": 0,
       "circuitClass": "V",
       "topologyType": "self_modifying_dna_recombinase_memory",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_light_sensor",
+      "name": "Light Sensor (Bacterial Photography)",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "The bacterial 'camera'. The Cph8 fusion couples a cyanobacterial phytochrome to the EnvZ histidine kinase: red light switches its kinase activity, controlling the ompC promoter so that pigment is produced only in the dark. A lawn of these cells reproduces a projected image — a feed-forward sensor with no regulatory loop.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "photoreceptor_feed_forward_sensor",
       "circuitClassConfidence": "high"
     },
     {
@@ -3074,6 +3228,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_recombinase_counter",
+      "name": "Recombinase DNA Counter / State Machine",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A genetically encoded counter. Successive input pulses drive recombinases that sequentially invert DNA registers, so the cell's DNA records how many pulses have occurred. Because the state is stored in the DNA sequence itself (and is heritable), the device is a self-modifying state machine rather than an expression-level circuit.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_modifying_dna_state_machine",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_repressilator",
       "name": "Repressilator (3-repressor ring oscillator)",
       "organism": "Synthetic circuit",
@@ -3140,6 +3317,29 @@
       "notGates": 1,
       "circuitClass": "IV",
       "topologyType": "dual_feedback_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_synchronized_qs_oscillator",
+      "name": "Synchronized Quorum-of-Clocks Oscillator",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A synthetic oscillator that synchronizes across a colony. In every cell, LuxR-AHL activates luxI (positive feedback, making more AHL) and aiiA (which degrades AHL with delay, negative feedback). Because AHL diffuses between cells, the autoinducer couples the individual clocks into coherent, population-wide oscillations.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "IV",
+      "topologyType": "quorum_coupled_delayed_neg_feedback_oscillator",
       "circuitClassConfidence": "high"
     },
     {
@@ -3304,6 +3504,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_calcium_oscillator",
+      "name": "IP3/Ca²⁺ Oscillator (CICR)",
+      "organism": "Homo sapiens",
+      "category": "Calcium Signaling",
+      "description": "Calcium signaling is encoded in oscillation frequency. Receptor-generated IP3 opens IP3 receptors to release ER Ca²⁺; released Ca²⁺ first amplifies its own release (calcium-induced calcium release) then, with delay, inactivates the receptor while pumps refill the store. The coupled fast-positive / slow-negative feedback gives repetitive Ca²⁺ spikes that transcription factors such as NFAT decode.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "IV",
+      "topologyType": "cicr_pos_neg_feedback_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_cdk1_mitotic_switch",
       "name": "Cdk1–Cdc25–Wee1 Mitotic Trigger",
       "organism": "Homo sapiens",
@@ -3393,6 +3616,29 @@
       "notGates": 0,
       "circuitClass": "III",
       "topologyType": "ultrasensitive_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_estrogen_receptor_switch",
+      "name": "Estrogen-Receptor Positive-Autoregulation Switch",
+      "organism": "Homo sapiens",
+      "category": "Hormone Signaling",
+      "description": "In luminal breast epithelium, estrogen-activated ERα binds estrogen-response elements at proliferative target genes and at the ESR1 locus itself, reinforcing its own expression. The positive autoregulation can latch cells into a self-sustaining ER+ state — the molecular logic behind hormone-dependent identity and endocrine-therapy resistance.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation_bistable",
       "circuitClassConfidence": "high"
     },
     {
@@ -3488,6 +3734,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_ire1_xbp1_upr",
+      "name": "IRE1–XBP1 Unfolded Protein Response",
+      "organism": "Homo sapiens",
+      "category": "Proteostasis",
+      "description": "The most conserved arm of the unfolded-protein response. Accumulated misfolded proteins activate the ER kinase/endonuclease IRE1, which excises an intron from XBP1 mRNA; the resulting XBP1s transcription factor induces chaperones and ER-associated degradation that restore folding capacity and shut IRE1 back off — negative feedback on ER stress.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "upr_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_irf7_interferon_amplifier",
       "name": "IRF7 Type-I Interferon Amplification Switch",
       "organism": "Homo sapiens",
@@ -3531,6 +3800,29 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "socs_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_mtor_ulk1_autophagy",
+      "name": "mTOR–ULK1 Autophagy Homeostat",
+      "organism": "Homo sapiens",
+      "category": "Metabolic Signaling",
+      "description": "Autophagy is governed by a nutrient-sensing feedback loop. Active mTORC1 phosphorylates ULK1 to suppress autophagosome formation; on starvation mTORC1 is inhibited, ULK1 fires, and autophagy degrades cellular material to regenerate nutrients — which reactivates mTORC1, closing a homeostatic negative-feedback loop.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "autophagy_negative_feedback_homeostat",
       "circuitClassConfidence": "high"
     },
     {
@@ -3741,6 +4033,52 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_pd1_pdl1_checkpoint",
+      "name": "PD-1/PD-L1 Immune Checkpoint",
+      "organism": "Homo sapiens",
+      "category": "Immune Checkpoint",
+      "description": "The adaptive immune brake exploited in cancer. Activated T cells secrete IFN-γ, which induces PD-L1 on tumor/antigen-presenting cells; PD-L1 binding PD-1 recruits the SHP-2 phosphatase that dephosphorylates TCR signaling components, feeding back to suppress T-cell activation. Checkpoint-blockade antibodies cut this negative loop.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "inhibitory_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_pten_pi3k_akt",
+      "name": "PTEN–PI3K–AKT Tumor-Suppressor Homeostat",
+      "organism": "Homo sapiens",
+      "category": "Growth Factor Signaling",
+      "description": "The PI3K-AKT growth/survival axis is held in check by PTEN. Growth-factor-activated PI3K makes PIP3, recruiting and activating AKT; PTEN hydrolyzes PIP3 back to PIP2, directly opposing PI3K. Downstream signaling feeds back on PTEN level/activity, setting a homeostatic balance whose loss (PTEN mutation) drives cancer.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "pten_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_rb_e2f_restriction_point",
       "name": "Rb–E2F Restriction-Point Switch",
       "organism": "Homo sapiens",
@@ -3899,98 +4237,6 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "destruction_complex_negative_feedback",
-      "circuitClassConfidence": "high"
-    },
-    {
-      "id": "yeast_gal_bistable_switch",
-      "name": "Galactose Network Bistable Switch (GAL)",
-      "organism": "S. cerevisiae",
-      "category": "Carbon Metabolism / Bistability",
-      "description": "The yeast galactose-utilization network behaves as a bistable switch. Galactose-bound Gal3p sequesters the repressor Gal80p, releasing the activator Gal4p; Gal4p then induces GAL3 and the galactose permease GAL2, positive feedback that produces history-dependent (hysteretic) ON/OFF states across a population.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 1,
-      "complexity": "low",
-      "nodes": 7,
-      "conditionals": 0,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 1,
-      "circuitClass": "III",
-      "topologyType": "positive_feedback_bistable_hysteresis",
-      "circuitClassConfidence": "high"
-    },
-    {
-      "id": "yeast_whi5_sbf_start",
-      "name": "Whi5–SBF Start Commitment Switch",
-      "organism": "S. cerevisiae",
-      "category": "Cell Cycle",
-      "description": "The budding-yeast Start transition, the functional analogue of the mammalian restriction point. Cln3-Cdk1 begins phosphorylating the SBF inhibitor Whi5; once SBF fires, CLN1/2-Cdk1 hyperphosphorylates Whi5 and exports it from the nucleus, a positive-feedback loop that converts gradual growth into a rapid, all-or-none, irreversible commitment to division.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 1,
-      "complexity": "low",
-      "nodes": 7,
-      "conditionals": 0,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 1,
-      "circuitClass": "III",
-      "topologyType": "double_negative_positive_feedback_bistable",
-      "circuitClassConfidence": "high"
-    },
-    {
-      "id": "ecoli_lambda_switch",
-      "name": "Bacteriophage λ CI/Cro Lysis–Lysogeny Switch",
-      "organism": "Bacteriophage lambda",
-      "category": "Phage Developmental Switch",
-      "description": "The decision between lysogeny and lysis in phage λ. The CI repressor and Cro protein bind the same OR operator region and repress each other's promoters, while CI also activates its own promoter PRM. The double-negative-plus-autoactivation topology is bistable: CI-high lysogeny is stably maintained until DNA damage triggers CI cleavage and a switch to Cro-high lysis.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 2,
-      "complexity": "low",
-      "nodes": 8,
-      "conditionals": 0,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 2,
-      "circuitClass": "III",
-      "topologyType": "mutual_repression_bistable_genetic_switch",
-      "circuitClassConfidence": "high"
-    },
-    {
-      "id": "yeast_sup35_prion",
-      "name": "[PSI+] Sup35 Prion Epigenetic Memory",
-      "organism": "S. cerevisiae",
-      "category": "Epigenetic Inheritance",
-      "description": "A protein-based epigenetic switch. The translation-termination factor Sup35 can convert from a soluble functional form into a self-propagating amyloid ([PSI+]). The prion conformation templates conversion of newly synthesized Sup35, causing nonsense readthrough; the state is inherited through cell division without any DNA change — heredity carried by protein conformation.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 2,
-      "complexity": "low",
-      "nodes": 6,
-      "conditionals": 0,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 0,
-      "circuitClass": "V",
-      "topologyType": "self_templating_conformational_memory",
       "circuitClassConfidence": "high"
     }
   ]

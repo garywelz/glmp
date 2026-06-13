@@ -1,0 +1,121 @@
+{
+  "id": "synthetic_recombinase_counter",
+  "name": "Recombinase DNA Counter / State Machine",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A genetically encoded counter. Successive input pulses drive recombinases that sequentially invert DNA registers, so the cell's DNA records how many pulses have occurred. Because the state is stored in the DNA sequence itself (and is heritable), the device is a self-modifying state machine rather than an expression-level circuit.",
+  "scientificAccuracy": "Ground-truth circuit. DNA-based counters and recombinase state machines were built and characterized (Friedland et al. 2009; Roquet et al. 2016).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input pulses]\n    B[Recombinase per pulse]\n    C[\\Each pulse inverts a DNA register/]\n    D[DNA-encoded count state advances]\n    E[Output reflects pulse count]\n    F(Heritable counter / state machine)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Synthetic gene networks that count",
+      "authors": "Friedland AE, Lu TK, Wang X, Shi D, Church G, Collins JJ",
+      "journal": "Science",
+      "year": 2009,
+      "volume": "324",
+      "pages": "1199-1202",
+      "pmid": "19478183",
+      "doi": "10.1126/science.1172005"
+    },
+    {
+      "title": "Synthetic recombinase-based state machines in living cells",
+      "authors": "Roquet N, Soleimany AP, Ferris AC, Aaronson S, Lu TK",
+      "journal": "Science",
+      "year": 2016,
+      "volume": "353",
+      "pages": "aad8559",
+      "pmid": "27463678",
+      "doi": "10.1126/science.aad8559"
+    }
+  ],
+  "keywords": [
+    "counter",
+    "recombinase",
+    "state machine",
+    "self-modifying DNA",
+    "memory",
+    "Class V",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_integrase_memory",
+    "yeast_sup35_prion"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class V: DNA-rewriting state machine (self-modifying genetic state).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ordered recombination registers",
+        "boundFactor": "orthogonal recombinases",
+        "operator": "SELF-MODIFY (sequential)",
+        "effect": "irreversible DNA inversions encode a count",
+        "sequenceMotif": "attB/attP register array",
+        "note": "state stored in DNA, heritable"
+      }
+    ],
+    "derivedLogic": "DNA_state := advance(DNA_state) per pulse -> DNA-encoded count",
+    "references": [
+      "Roquet et al. 2016"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 5,
+  "loops": 0,
+  "circuitClass": "V",
+  "circuitClassName": "Self-modifying chromatin / epigenetic",
+  "topologyType": "self_modifying_dna_state_machine",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Each input pulse expresses a recombinase that flips a DNA register, advancing a permanently DNA-encoded count; the circuit rewrites its own genome to store state, the defining feature of the self-modifying (Class V) rung (Friedland et al. 2009; Roquet et al. 2016).",
+  "groundTruth": true
+}

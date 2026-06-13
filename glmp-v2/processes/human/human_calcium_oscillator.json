@@ -1,0 +1,114 @@
+{
+  "id": "human_calcium_oscillator",
+  "name": "IP3/Ca²⁺ Oscillator (CICR)",
+  "organism": "Homo sapiens",
+  "category": "Calcium Signaling",
+  "description": "Calcium signaling is encoded in oscillation frequency. Receptor-generated IP3 opens IP3 receptors to release ER Ca²⁺; released Ca²⁺ first amplifies its own release (calcium-induced calcium release) then, with delay, inactivates the receptor while pumps refill the store. The coupled fast-positive / slow-negative feedback gives repetitive Ca²⁺ spikes that transcription factors such as NFAT decode.",
+  "scientificAccuracy": "CICR-based Ca²⁺ oscillations and frequency decoding are established (Berridge, Lipp & Bootman 2000; Dolmetsch et al. 1998).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Receptor: IP3 produced]\n    B[IP3R releases Ca²⁺]\n    C[\\Ca²⁺ amplifies release CICR/]\n    D[Cytosolic Ca²⁺ rise]\n    E[/Ca²⁺ inactivates IP3R + pump uptake/]\n    F(Ca²⁺ oscillations; NFAT decoding)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| C\n    D --> E\n    E -->|⊣ delayed| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The versatility and universality of calcium signalling",
+      "authors": "Berridge MJ, Lipp P, Bootman MD",
+      "journal": "Nature Reviews Molecular Cell Biology",
+      "year": 2000,
+      "volume": "1",
+      "pages": "11-21",
+      "pmid": "11413485",
+      "doi": "10.1038/35036035"
+    }
+  ],
+  "keywords": [
+    "calcium",
+    "IP3",
+    "CICR",
+    "oscillator",
+    "NFAT",
+    "frequency decoding",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_hes1_oscillator",
+    "synthetic_metabolator"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IV oscillator: fast CICR positive feedback + delayed negative feedback on the IP3 receptor.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "IP3R Ca²⁺ regulation (channel-level)",
+        "boundFactor": "Ca²⁺ (biphasic on IP3R)",
+        "operator": "positive then delayed NOT",
+        "effect": "fast activation, slow inactivation",
+        "sequenceMotif": "(channel-level, not cis-DNA)",
+        "note": "frequency read out downstream by NFAT at NFAT sites GGAAA"
+      }
+    ],
+    "derivedLogic": "Ca²⁺ = +CICR AND delayed NOT(IP3R) -> oscillation; NFAT decodes frequency",
+    "references": [
+      "Berridge et al. 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "cicr_pos_neg_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "IP3 opens IP3 receptors to release Ca²⁺; cytosolic Ca²⁺ both potentiates further release (CICR positive feedback) and, at higher levels with a delay, inhibits the receptor and is pumped back — the combination produces Ca²⁺ oscillations whose frequency is decoded by NFAT. Class IV.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}
