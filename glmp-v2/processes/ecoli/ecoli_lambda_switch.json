@@ -1,0 +1,134 @@
+{
+  "id": "ecoli_lambda_switch",
+  "name": "Bacteriophage λ CI/Cro Lysis–Lysogeny Switch",
+  "organism": "Bacteriophage lambda",
+  "category": "Phage Developmental Switch",
+  "description": "The decision between lysogeny and lysis in phage λ. The CI repressor and Cro protein bind the same OR operator region and repress each other's promoters, while CI also activates its own promoter PRM. The double-negative-plus-autoactivation topology is bistable: CI-high lysogeny is stably maintained until DNA damage triggers CI cleavage and a switch to Cro-high lysis.",
+  "scientificAccuracy": "The CI/Cro bistable switch is the textbook natural genetic switch (Ptashne 2004; Arkin, Ross & McAdams 1998).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Infection / UV stress]\n    B[CI repressor]\n    C[Cro repressor]\n    D[\\CI activates own PRM/]\n    E[/CI represses PR Cro/]\n    F[/Cro represses PRM CI/]\n    G(Lysogeny: CI high)\n    H(Lysis: Cro high)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| B\n    B --> E\n    E -->|⊣| C\n    C --> F\n    F -->|⊣| B\n    B --> G\n    C --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A Genetic Switch: Phage Lambda Revisited (3rd ed.)",
+      "authors": "Ptashne M",
+      "journal": "Cold Spring Harbor Laboratory Press",
+      "year": 2004,
+      "volume": "",
+      "pages": "",
+      "pmid": "",
+      "doi": ""
+    },
+    {
+      "title": "Stochastic kinetic analysis of developmental pathway bifurcation in phage lambda-infected Escherichia coli cells",
+      "authors": "Arkin A, Ross J, McAdams HH",
+      "journal": "Genetics",
+      "year": 1998,
+      "volume": "149",
+      "pages": "1633-1648",
+      "pmid": "9691025",
+      "doi": "10.1093/genetics/149.4.1633"
+    }
+  ],
+  "keywords": [
+    "lambda",
+    "CI",
+    "Cro",
+    "lysogeny",
+    "lysis",
+    "bistable",
+    "genetic switch",
+    "mutual repression",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch",
+    "human_gata1_pu1_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth Class IIIa natural genetic switch (phage λ); two cross-repressions + CI autoactivation. Loads from the ecoli/ directory (host context).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "OR1/OR2 (PRM)",
+        "boundFactor": "CI dimer",
+        "operator": "IF (self) / NOT (Cro)",
+        "effect": "CI autoactivation; represses PR",
+        "sequenceMotif": "TACCTCTGGCGGTGATAA",
+        "note": "lambda right operator consensus half-site"
+      },
+      {
+        "name": "OR3 (PR)",
+        "boundFactor": "Cro",
+        "operator": "NOT",
+        "effect": "represses PRM (CI)",
+        "sequenceMotif": "TATCACCGCCAGAGGTA",
+        "note": "Cro preference for OR3"
+      }
+    ],
+    "derivedLogic": "CI = CI AND NOT Cro ; Cro = NOT CI -> bistable lysogeny/lysis",
+    "references": [
+      "Ptashne 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 8,
+  "edges": 10,
+  "loops": 3,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_repression_bistable_genetic_switch",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "CI and Cro repress each other's promoters at the OR operator (CI also activates its own PRM); mutual repression yields two stable states — lysogeny (CI high) and lysis (Cro high) — the archetypal natural bistable genetic switch (Ptashne, A Genetic Switch).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

@@ -1,7 +1,7 @@
 {
   "version": "2.0",
   "generated": "2025-10-15",
-  "totalProcesses": 160,
+  "totalProcesses": 164,
   "lastUpdated": "2026-03-24",
   "description": "GLMP v2: Genome Logic Modeling Project with 100 publication-quality biological processes",
   "organisms": [
@@ -11,7 +11,7 @@
     },
     {
       "name": "S. cerevisiae",
-      "processCount": 38
+      "processCount": 41
     },
     {
       "name": "B. subtilis",
@@ -28,6 +28,10 @@
     {
       "name": "Homo sapiens",
       "processCount": 29
+    },
+    {
+      "name": "Bacteriophage lambda",
+      "processCount": 1
     }
   ],
   "categories": [
@@ -105,7 +109,7 @@
     },
     {
       "name": "Cell Cycle",
-      "processCount": 4
+      "processCount": 5
     },
     {
       "name": "Organelle Biology",
@@ -190,17 +194,29 @@
     {
       "name": "EMT / Cancer",
       "processCount": 2
+    },
+    {
+      "name": "Carbon Metabolism / Bistability",
+      "processCount": 1
+    },
+    {
+      "name": "Phage Developmental Switch",
+      "processCount": 1
+    },
+    {
+      "name": "Epigenetic Inheritance",
+      "processCount": 1
     }
   ],
   "statistics": {
     "totalCitations": 348,
-    "verifiedProcesses": 151,
-    "totalNodes": 7510,
-    "totalLogicGates": 1319,
+    "verifiedProcesses": 155,
+    "totalNodes": 7538,
+    "totalLogicGates": 1323,
     "orGates": 349,
     "andGates": 441,
     "orAndRatio": 0.8,
-    "notGates": 529,
+    "notGates": 533,
     "totalConditionals": 6248,
     "architecture": "100:125:135:18",
     "loops": 409,
@@ -208,9 +224,9 @@
     "circuitClassDistribution": {
       "I": 57,
       "II": 60,
-      "III": 29,
+      "III": 32,
       "IV": 11,
-      "V": 3
+      "V": 4
     }
   },
   "processes": [
@@ -3732,6 +3748,94 @@
       "loops": 1,
       "circuitClass": "II",
       "topologyType": "destruction_complex_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_gal_bistable_switch",
+      "name": "Galactose Network Bistable Switch (GAL)",
+      "organism": "S. cerevisiae",
+      "category": "Carbon Metabolism / Bistability",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 7,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_bistable_hysteresis",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_whi5_sbf_start",
+      "name": "Whi5–SBF Start Commitment Switch",
+      "organism": "S. cerevisiae",
+      "category": "Cell Cycle",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 7,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "double_negative_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_lambda_switch",
+      "name": "Bacteriophage λ CI/Cro Lysis–Lysogeny Switch",
+      "organism": "Bacteriophage lambda",
+      "category": "Phage Developmental Switch",
+      "complexity": "low",
+      "nodes": 8,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 2
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 2,
+      "conditionals": 0,
+      "totalNodes": 8,
+      "loops": 3,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable_genetic_switch",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_sup35_prion",
+      "name": "[PSI+] Sup35 Prion Epigenetic Memory",
+      "organism": "S. cerevisiae",
+      "category": "Epigenetic Inheritance",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 0
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 0,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "V",
+      "topologyType": "self_templating_conformational_memory",
       "circuitClassConfidence": "high"
     }
   ]

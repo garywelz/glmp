@@ -1,0 +1,124 @@
+{
+  "id": "yeast_sup35_prion",
+  "name": "[PSI+] Sup35 Prion Epigenetic Memory",
+  "organism": "S. cerevisiae",
+  "category": "Epigenetic Inheritance",
+  "description": "A protein-based epigenetic switch. The translation-termination factor Sup35 can convert from a soluble functional form into a self-propagating amyloid ([PSI+]). The prion conformation templates conversion of newly synthesized Sup35, causing nonsense readthrough; the state is inherited through cell division without any DNA change — heredity carried by protein conformation.",
+  "scientificAccuracy": "Self-templating prion conversion and cytoplasmic, protein-based inheritance of [PSI+] are established (Shorter & Lindquist 2005; True & Lindquist 2000).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Stress / stochastic nucleation]\n    B[Sup35 soluble, functional]\n    C[\\Prion seed templates conversion/]\n    D[Sup35 amyloid, PSI+]\n    E[Nonsense readthrough phenotype]\n    F(Heritable epigenetic state PSI+)\n\n    A --> C\n    B --> C\n    C --> D\n    D -->|+ self-template| C\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Prions as adaptive conduits of memory and inheritance",
+      "authors": "Shorter J, Lindquist S",
+      "journal": "Nature Reviews Genetics",
+      "year": 2005,
+      "volume": "6",
+      "pages": "435-450",
+      "pmid": "15931169",
+      "doi": "10.1038/nrg1616"
+    },
+    {
+      "title": "A yeast prion provides a mechanism for genetic variation and phenotypic diversity",
+      "authors": "True HL, Lindquist SL",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "407",
+      "pages": "477-483",
+      "pmid": "11028992",
+      "doi": "10.1038/35035005"
+    }
+  ],
+  "keywords": [
+    "prion",
+    "Sup35",
+    "PSI+",
+    "epigenetic",
+    "self-templating",
+    "protein inheritance",
+    "Class V",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_integrase_memory",
+    "yeast_chromatin_silencing"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth biological Class V: conformation-based, self-modifying epigenetic memory (no cis-DNA change).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Sup35 N-domain (prion-forming)",
+        "boundFactor": "Sup35 prion conformer",
+        "operator": "SELF-MODIFY",
+        "effect": "self-templating conformational conversion",
+        "sequenceMotif": "QN-rich PrD (oligopeptide repeats)",
+        "note": "protein-level state change; inherited cytoplasmically, not via DNA"
+      }
+    ],
+    "derivedLogic": "Sup35_state := template(Sup35_state) -> heritable [PSI+]/[psi-] (self-modifying)",
+    "references": [
+      "Shorter & Lindquist 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "V",
+  "circuitClassName": "Self-modifying chromatin / epigenetic",
+  "topologyType": "self_templating_conformational_memory",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Sup35 can adopt a self-templating amyloid conformation ([PSI+]) that converts newly made soluble Sup35 to the same prion state; the heritable, protein-only, conformation-based change of state is a genuine biological Class V self-modifying / epigenetic memory (Shorter & Lindquist 2005).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

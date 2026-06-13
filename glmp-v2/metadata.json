@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 160,
+  "totalProcesses": 164,
   "organisms": [
     {
       "name": "E. coli",
@@ -11,7 +11,7 @@
     },
     {
       "name": "S. cerevisiae",
-      "processCount": 38
+      "processCount": 41
     },
     {
       "name": "Bacillus subtilis",
@@ -24,6 +24,10 @@
     {
       "name": "Homo sapiens",
       "processCount": 29
+    },
+    {
+      "name": "Bacteriophage lambda",
+      "processCount": 1
     }
   ],
   "categories": [
@@ -77,7 +81,7 @@
     },
     {
       "name": "Cell Cycle",
-      "processCount": 4
+      "processCount": 5
     },
     {
       "name": "Protein Quality Control",
@@ -186,22 +190,34 @@
     {
       "name": "EMT / Cancer",
       "processCount": 2
+    },
+    {
+      "name": "Carbon Metabolism / Bistability",
+      "processCount": 1
+    },
+    {
+      "name": "Phage Developmental Switch",
+      "processCount": 1
+    },
+    {
+      "name": "Epigenetic Inheritance",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7631,
+    "totalNodes": 7659,
     "totalConditionals": 6248,
     "orGates": 349,
     "andGates": 441,
-    "notGates": 529,
-    "totalLogicGates": 1319,
-    "verifiedProcesses": 151,
+    "notGates": 533,
+    "totalLogicGates": 1323,
+    "verifiedProcesses": 155,
     "circuitClassDistribution": {
       "I": 57,
       "II": 60,
-      "III": 29,
+      "III": 32,
       "IV": 11,
-      "V": 3
+      "V": 4
     }
   },
   "processes": [
@@ -3883,6 +3899,98 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "destruction_complex_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_gal_bistable_switch",
+      "name": "Galactose Network Bistable Switch (GAL)",
+      "organism": "S. cerevisiae",
+      "category": "Carbon Metabolism / Bistability",
+      "description": "The yeast galactose-utilization network behaves as a bistable switch. Galactose-bound Gal3p sequesters the repressor Gal80p, releasing the activator Gal4p; Gal4p then induces GAL3 and the galactose permease GAL2, positive feedback that produces history-dependent (hysteretic) ON/OFF states across a population.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_bistable_hysteresis",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_whi5_sbf_start",
+      "name": "Whi5–SBF Start Commitment Switch",
+      "organism": "S. cerevisiae",
+      "category": "Cell Cycle",
+      "description": "The budding-yeast Start transition, the functional analogue of the mammalian restriction point. Cln3-Cdk1 begins phosphorylating the SBF inhibitor Whi5; once SBF fires, CLN1/2-Cdk1 hyperphosphorylates Whi5 and exports it from the nucleus, a positive-feedback loop that converts gradual growth into a rapid, all-or-none, irreversible commitment to division.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "double_negative_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_lambda_switch",
+      "name": "Bacteriophage λ CI/Cro Lysis–Lysogeny Switch",
+      "organism": "Bacteriophage lambda",
+      "category": "Phage Developmental Switch",
+      "description": "The decision between lysogeny and lysis in phage λ. The CI repressor and Cro protein bind the same OR operator region and repress each other's promoters, while CI also activates its own promoter PRM. The double-negative-plus-autoactivation topology is bistable: CI-high lysogeny is stably maintained until DNA damage triggers CI cleavage and a switch to Cro-high lysis.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "mutual_repression_bistable_genetic_switch",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "yeast_sup35_prion",
+      "name": "[PSI+] Sup35 Prion Epigenetic Memory",
+      "organism": "S. cerevisiae",
+      "category": "Epigenetic Inheritance",
+      "description": "A protein-based epigenetic switch. The translation-termination factor Sup35 can convert from a soluble functional form into a self-propagating amyloid ([PSI+]). The prion conformation templates conversion of newly synthesized Sup35, causing nonsense readthrough; the state is inherited through cell division without any DNA change — heredity carried by protein conformation.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_templating_conformational_memory",
       "circuitClassConfidence": "high"
     }
   ]

@@ -1,0 +1,116 @@
+{
+  "id": "yeast_gal_bistable_switch",
+  "name": "Galactose Network Bistable Switch (GAL)",
+  "organism": "S. cerevisiae",
+  "category": "Carbon Metabolism / Bistability",
+  "description": "The yeast galactose-utilization network behaves as a bistable switch. Galactose-bound Gal3p sequesters the repressor Gal80p, releasing the activator Gal4p; Gal4p then induces GAL3 and the galactose permease GAL2, positive feedback that produces history-dependent (hysteretic) ON/OFF states across a population.",
+  "scientificAccuracy": "Bistability and hysteresis of the GAL network were demonstrated quantitatively in single cells (Acar, Becskei & van Oudenaarden 2005).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Galactose]\n    B[Gal3p activated]\n    C[/Sequesters Gal80p repressor/]\n    D[Gal4p activator freed]\n    E[GAL gene transcription]\n    F[\\Induces GAL3 + GAL2 feedback/]\n    G(Bistable GAL-ON state, hysteresis)\n\n    A --> B\n    B --> C\n    C -->|⊣ Gal80| D\n    D --> E\n    E --> F\n    F -->|+| B\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Enhancement of cellular memory by reducing stochastic transitions",
+      "authors": "Acar M, Becskei A, van Oudenaarden A",
+      "journal": "Nature",
+      "year": 2005,
+      "volume": "435",
+      "pages": "228-232",
+      "pmid": "15889097",
+      "doi": "10.1038/nature03524"
+    }
+  ],
+  "keywords": [
+    "GAL",
+    "galactose",
+    "Gal4",
+    "Gal80",
+    "Gal3",
+    "bistable",
+    "hysteresis",
+    "positive feedback",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "yeast_gal_regulation",
+    "synthetic_positive_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth yeast Class IIIa bistable switch (galactose memory); positive feedback via GAL3/GAL2.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "UAS_GAL",
+        "boundFactor": "Gal4p (gated by Gal80p)",
+        "operator": "IF / NOT(Gal80)",
+        "effect": "activation when galactose present",
+        "sequenceMotif": "CGGN11CCG (Gal4 UAS)",
+        "note": "Gal3p-galactose sequesters Gal80p to free Gal4p; GAL3/GAL2 induction closes the positive loop"
+      }
+    ],
+    "derivedLogic": "GAL genes = Gal4 AND NOT Gal80 ; Gal3/Gal2 feedback -> bistable",
+    "references": [
+      "Acar et al. 2005"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_feedback_bistable_hysteresis",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Galactose activates Gal3p, which sequesters the repressor Gal80p and frees the activator Gal4p; Gal4p induces GAL3 and the transporter GAL2, a positive-feedback loop that makes GAL induction bistable and hysteretic — a persistent (IIIa) switch with memory of past galactose exposure (Acar, Becskei & van Oudenaarden 2005).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

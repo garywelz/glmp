@@ -1,0 +1,115 @@
+{
+  "id": "yeast_whi5_sbf_start",
+  "name": "Whi5–SBF Start Commitment Switch",
+  "organism": "S. cerevisiae",
+  "category": "Cell Cycle",
+  "description": "The budding-yeast Start transition, the functional analogue of the mammalian restriction point. Cln3-Cdk1 begins phosphorylating the SBF inhibitor Whi5; once SBF fires, CLN1/2-Cdk1 hyperphosphorylates Whi5 and exports it from the nucleus, a positive-feedback loop that converts gradual growth into a rapid, all-or-none, irreversible commitment to division.",
+  "scientificAccuracy": "Coherent feedback and bistable, switch-like Start activation were demonstrated by Skotheim, Di Talia, Siggia & Cross (2008).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cell growth: Cln3-Cdk1]\n    B[/Phosphorylates Whi5/]\n    C[Whi5 exits nucleus]\n    D[SBF active]\n    E[CLN1/2 transcription]\n    F[\\Cln1/2-Cdk1 hyperphosphorylates Whi5/]\n    G(Irreversible Start commitment)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|+| B\n    D --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Positive feedback of G1 cyclins ensures coherent cell cycle entry",
+      "authors": "Skotheim JM, Di Talia S, Siggia ED, Cross FR",
+      "journal": "Nature",
+      "year": 2008,
+      "volume": "454",
+      "pages": "291-296",
+      "pmid": "18633409",
+      "doi": "10.1038/nature07118"
+    }
+  ],
+  "keywords": [
+    "Whi5",
+    "SBF",
+    "Cln3",
+    "CLN1/2",
+    "Start",
+    "bistable",
+    "positive feedback",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_rb_e2f_restriction_point",
+    "yeast_cell_cycle_control"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth yeast Class IIIa Start switch (the yeast counterpart of human Rb-E2F).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "SCB / MCB elements (CLN1/2, CLN2 promoter)",
+        "boundFactor": "SBF (Swi4-Swi6), gated by Whi5",
+        "operator": "IF / NOT(Whi5)",
+        "effect": "activation when Whi5 phosphorylated out",
+        "sequenceMotif": "CACGAAA (SCB)",
+        "note": "CLN1/2 feedback hyperphosphorylates Whi5"
+      }
+    ],
+    "derivedLogic": "CLN1/2 = SBF AND NOT Whi5 ; CLN1/2 -| Whi5 (positive feedback) -> bistable Start",
+    "references": [
+      "Skotheim et al. 2008"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "double_negative_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Cln3-Cdk1 phosphorylates the inhibitor Whi5 to activate SBF; SBF drives CLN1/2, whose Cdk1 complexes further phosphorylate Whi5 — positive feedback (through a double-negative) that makes passage through Start a bistable, irreversible commitment (Skotheim et al. 2008). Persistent (IIIa).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}
