@@ -3,11 +3,11 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 183,
+  "totalProcesses": 190,
   "organisms": [
     {
       "name": "E. coli",
-      "processCount": 66
+      "processCount": 68
     },
     {
       "name": "S. cerevisiae",
@@ -15,11 +15,11 @@
     },
     {
       "name": "Bacillus subtilis",
-      "processCount": 4
+      "processCount": 6
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 30
+      "processCount": 33
     },
     {
       "name": "Homo sapiens",
@@ -117,7 +117,7 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 30
+      "processCount": 33
     },
     {
       "name": "Hematopoiesis",
@@ -233,21 +233,33 @@
     },
     {
       "name": "DNA Damage Response",
+      "processCount": 2
+    },
+    {
+      "name": "Developmental Switch / Competence",
+      "processCount": 1
+    },
+    {
+      "name": "Developmental Switch / Sporulation",
+      "processCount": 1
+    },
+    {
+      "name": "Motility / Transcriptional Cascade",
       "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7776,
-    "totalConditionals": 6252,
+    "totalNodes": 7819,
+    "totalConditionals": 6254,
     "orGates": 350,
     "andGates": 442,
-    "notGates": 552,
-    "totalLogicGates": 1344,
-    "verifiedProcesses": 174,
+    "notGates": 558,
+    "totalLogicGates": 1350,
+    "verifiedProcesses": 181,
     "circuitClassDistribution": {
-      "I": 61,
-      "II": 68,
-      "III": 36,
+      "I": 64,
+      "II": 69,
+      "III": 39,
       "IV": 13,
       "V": 5
     }
@@ -2968,6 +2980,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_consortium_logic",
+      "name": "Distributed Multicellular Consortium Logic",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "Rather than cram a whole circuit into one cell, logic is spread across a microbial consortium: each strain implements a simple NOR gate and communicates via quorum-sensing molecules, so that wiring colonies in space computes more complex functions. The network is a feed-forward combinational program realized at the community level.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "distributed_combinational_logic",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_crispri_toggle",
       "name": "CRISPRi Mutual-Repression Toggle",
       "organism": "Synthetic circuit",
@@ -3152,6 +3187,29 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "synthetic_mutual_activation_bistable",
+      "name": "Double-Positive Mutual-Activation Switch",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "A bistable switch built from mutual activation instead of mutual repression. Activator X turns on Y and Y turns on X, so a transient input that raises either one can lock both high, while the absence of input keeps both low. The double-positive feedback gives a hysteretic, memory-holding switch — the activator-based counterpart of the Gardner–Collins toggle.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "double_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_negative_autoregulation",
       "name": "Negative Autoregulation (NAR motif)",
       "organism": "Synthetic circuit",
@@ -3333,6 +3391,29 @@
       "notGates": 3,
       "circuitClass": "IV",
       "topologyType": "ring_oscillator_delayed_neg_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "synthetic_rna_attenuator",
+      "name": "RNA Transcriptional Attenuator Logic",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "Logic implemented purely in RNA. A cis attenuator in an mRNA's 5' leader folds into a terminator hairpin by default; a trans antisense RNA binds and refolds it to permit read-through. Chaining orthogonal attenuators builds RNA-only AND/cascade logic — a fast, protein-free, feed-forward regulatory layer.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "rna_cis_antisense_feed_forward",
       "circuitClassConfidence": "high"
     },
     {
@@ -4460,6 +4541,98 @@
       "notGates": 1,
       "circuitClass": "II",
       "topologyType": "destruction_complex_negative_feedback",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "bacillus_comk_competence",
+      "name": "ComK Competence Bistable Switch",
+      "organism": "Bacillus subtilis",
+      "category": "Developmental Switch / Competence",
+      "description": "Bacillus subtilis stochastically enters the competence state via the master regulator ComK. ComK activates its own gene (positive autoregulation), and ComS competitively protects ComK from MecA/ClpCP proteolysis. The positive feedback creates bistability: cells that cross a noise-set threshold latch into the competent state, while the rest stay vegetative.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "bacillus_spo0a_sporulation",
+      "name": "Spo0A Phosphorelay Sporulation Commitment",
+      "organism": "Bacillus subtilis",
+      "category": "Developmental Switch / Sporulation",
+      "description": "Starvation drives a phosphorelay that progressively phosphorylates the master regulator Spo0A. Spo0A~P accumulation is gradual until it crosses a threshold, at which point it activates the sporulation sigma-factor cascade and reinforces its own activation — converting a graded starvation signal into a discrete, irreversible commitment to form a spore.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "threshold_positive_feedback_bistable_commitment",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_sos_lexa",
+      "name": "SOS DNA-Damage Response (LexA/RecA)",
+      "organism": "E. coli",
+      "category": "DNA Damage Response",
+      "description": "The bacterial DNA-damage response. Single-stranded DNA at lesions nucleates RecA filaments (RecA*) that act as a co-protease stimulating LexA self-cleavage; loss of the LexA repressor switches on SOS repair genes. As repair eliminates the ssDNA, RecA* falls, LexA re-accumulates, and the regulon is repressed again — a self-limiting negative-feedback loop.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "derepression_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_flhdc_flagellar",
+      "name": "Flagellar Gene Feed-Forward Cascade (FlhDC)",
+      "organism": "E. coli",
+      "category": "Motility / Transcriptional Cascade",
+      "description": "Assembly of the flagellum is timed by a transcriptional cascade. FlhDC (class 1) turns on class-2 genes (basal body and the sigma factor FliA); the anti-sigma FlgM holds FliA inactive until the hook-basal-body is complete and FlgM is secreted out, after which FliA fires class-3 flagellin genes. The just-in-time logic is feed-forward.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "transcriptional_feed_forward_cascade",
       "circuitClassConfidence": "high"
     }
   ]

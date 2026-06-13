@@ -1,0 +1,114 @@
+{
+  "id": "ecoli_sos_lexa",
+  "name": "SOS DNA-Damage Response (LexA/RecA)",
+  "organism": "E. coli",
+  "category": "DNA Damage Response",
+  "description": "The bacterial DNA-damage response. Single-stranded DNA at lesions nucleates RecA filaments (RecA*) that act as a co-protease stimulating LexA self-cleavage; loss of the LexA repressor switches on SOS repair genes. As repair eliminates the ssDNA, RecA* falls, LexA re-accumulates, and the regulon is repressed again — a self-limiting negative-feedback loop.",
+  "scientificAccuracy": "RecA-stimulated LexA autocleavage and the self-limiting SOS regulon are textbook (Little & Mount 1982; Friedberg et al.).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[DNA damage: ssDNA]\n    B[RecA* filament]\n    C[/Stimulates LexA autocleavage/]\n    D[SOS repair genes derepressed]\n    E[/Repair removes ssDNA signal/]\n    F(Damage cleared, LexA re-represses)\n\n    A --> B\n    B --> C\n    C -->|⊣ LexA off| D\n    D --> E\n    E -->|⊣ feedback| A\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The SOS regulatory system of Escherichia coli",
+      "authors": "Little JW, Mount DW",
+      "journal": "Cell",
+      "year": 1982,
+      "volume": "29",
+      "pages": "11-22",
+      "pmid": "7053433",
+      "doi": "10.1016/0092-8674(82)90085-X"
+    }
+  ],
+  "keywords": [
+    "SOS",
+    "LexA",
+    "RecA",
+    "DNA repair",
+    "derepression",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_p53_apoptosis_decision",
+    "ecoli_dna_repair"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth E. coli Class II damage homeostat: RecA-stimulated LexA cleavage, self-limited by repair.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "SOS boxes (recA, lexA, sulA, umuDC promoters)",
+        "boundFactor": "LexA repressor",
+        "operator": "NOT (relieved by RecA*)",
+        "effect": "derepression on damage",
+        "sequenceMotif": "CTGT-N8-ACAG (SOS box)",
+        "note": "repair removes signal -> LexA re-represses"
+      }
+    ],
+    "derivedLogic": "SOS genes = NOT LexA ; LexA cleaved by RecA*(damage); repair -| damage (negative feedback)",
+    "references": [
+      "Little & Mount 1982"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "derepression_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "DNA damage generates RecA-ssDNA filaments that stimulate LexA autocleavage, derepressing SOS repair genes; successful repair removes the ssDNA signal so LexA re-accumulates and represses the regulon — a negative-feedback homeostat that turns the response off once damage is fixed. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

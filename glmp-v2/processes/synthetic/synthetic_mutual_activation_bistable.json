@@ -1,0 +1,112 @@
+{
+  "id": "synthetic_mutual_activation_bistable",
+  "name": "Double-Positive Mutual-Activation Switch",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "A bistable switch built from mutual activation instead of mutual repression. Activator X turns on Y and Y turns on X, so a transient input that raises either one can lock both high, while the absence of input keeps both low. The double-positive feedback gives a hysteretic, memory-holding switch — the activator-based counterpart of the Gardner–Collins toggle.",
+  "scientificAccuracy": "Bistability from double-positive feedback is a well-characterized synthetic motif (e.g., mutual-activation switches engineered following Gardner et al. 2000 design principles).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Inducer pulse]\n    B[Activator X]\n    C[Activator Y]\n    D[\\X activates Y/]\n    E[\\Y activates X/]\n    F(Bistable high/high state)\n\n    A --> B\n    B --> D\n    D -->|+| C\n    C --> E\n    E -->|+| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Construction of a genetic toggle switch in Escherichia coli",
+      "authors": "Gardner TS, Cantor CR, Collins JJ",
+      "journal": "Nature",
+      "year": 2000,
+      "volume": "403",
+      "pages": "339-342",
+      "pmid": "10659857",
+      "doi": "10.1038/35002131"
+    }
+  ],
+  "keywords": [
+    "mutual activation",
+    "double positive",
+    "bistable",
+    "memory",
+    "toggle",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toggle_switch",
+    "human_gata1_pu1_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class IIIa bistable switch via double-positive feedback (mutual activation).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "PX, PY activator-driven promoters",
+        "boundFactor": "activator X / activator Y",
+        "operator": "double IF / positive feedback",
+        "effect": "mutual activation latches state",
+        "sequenceMotif": "activator operator pair",
+        "note": "high/high and low/low stable states"
+      }
+    ],
+    "derivedLogic": "X = IF Y ; Y = IF X (double positive) -> bistable",
+    "references": [
+      "Gardner et al. 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "double_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two activators each drive the other's expression (a double-positive loop); like mutual repression this yields bistability, latching the system into a high/high or low/low state — a persistent (IIIa) memory switch with a topology distinct from the repressor toggle.",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

@@ -1,0 +1,125 @@
+{
+  "id": "bacillus_spo0a_sporulation",
+  "name": "Spo0A Phosphorelay Sporulation Commitment",
+  "organism": "Bacillus subtilis",
+  "category": "Developmental Switch / Sporulation",
+  "description": "Starvation drives a phosphorelay that progressively phosphorylates the master regulator Spo0A. Spo0A~P accumulation is gradual until it crosses a threshold, at which point it activates the sporulation sigma-factor cascade and reinforces its own activation — converting a graded starvation signal into a discrete, irreversible commitment to form a spore.",
+  "scientificAccuracy": "The Spo0A phosphorelay and threshold/bistable sporulation commitment are established (Burbulys, Trach & Hoch 1991; Hilbert & Piggot 2004).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Starvation]\n    B[KinA phosphorelay]\n    C[Spo0A~P rises]\n    D{Spo0A~P above threshold?}\n    E[\\Activates sporulation sigma factors/]\n    F[Positive feedback raises Spo0A~P]\n    G(Irreversible sporulation commitment)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|Yes| E\n    E --> F\n    F -->|+| C\n    E --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Initiation of sporulation in B. subtilis is controlled by a multicomponent phosphorelay",
+      "authors": "Burbulys D, Trach KA, Hoch JA",
+      "journal": "Cell",
+      "year": 1991,
+      "volume": "64",
+      "pages": "545-552",
+      "pmid": "1846779",
+      "doi": "10.1016/0092-8674(91)90238-T"
+    },
+    {
+      "title": "Compartmentalization of gene expression during Bacillus subtilis spore formation",
+      "authors": "Hilbert DW, Piggot PJ",
+      "journal": "Microbiology and Molecular Biology Reviews",
+      "year": 2004,
+      "volume": "68",
+      "pages": "234-262",
+      "pmid": "15187183",
+      "doi": "10.1128/MMBR.68.2.234-262.2004"
+    }
+  ],
+  "keywords": [
+    "Spo0A",
+    "sporulation",
+    "phosphorelay",
+    "threshold",
+    "commitment",
+    "Bacillus",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "bacillus_comk_competence",
+    "bacillus_sporulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth Bacillus Class III commitment switch (sporulation); phosphorelay + threshold positive feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Spo0A boxes (sporulation promoters)",
+        "boundFactor": "Spo0A~P",
+        "operator": "threshold IF",
+        "effect": "activates sigma-F/sigma-E cascade above threshold",
+        "sequenceMotif": "TGTCGAA (0A box)",
+        "note": "phosphorelay sets Spo0A~P; feedback amplifies"
+      }
+    ],
+    "derivedLogic": "sporulation = IF Spo0A~P>θ (threshold commitment)",
+    "references": [
+      "Burbulys et al. 1991",
+      "Hilbert & Piggot 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "threshold_positive_feedback_bistable_commitment",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A multi-kinase phosphorelay (KinA→Spo0F→Spo0B→Spo0A) raises Spo0A~P; once Spo0A~P crosses a threshold it activates sporulation sigma factors and feeds back to amplify the relay, producing an essentially irreversible, switch-like commitment to sporulation. Class III.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

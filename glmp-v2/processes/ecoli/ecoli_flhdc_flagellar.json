@@ -1,0 +1,124 @@
+{
+  "id": "ecoli_flhdc_flagellar",
+  "name": "Flagellar Gene Feed-Forward Cascade (FlhDC)",
+  "organism": "E. coli",
+  "category": "Motility / Transcriptional Cascade",
+  "description": "Assembly of the flagellum is timed by a transcriptional cascade. FlhDC (class 1) turns on class-2 genes (basal body and the sigma factor FliA); the anti-sigma FlgM holds FliA inactive until the hook-basal-body is complete and FlgM is secreted out, after which FliA fires class-3 flagellin genes. The just-in-time logic is feed-forward.",
+  "scientificAccuracy": "The class 1→2→3 flagellar cascade and FlgM/FliA checkpoint are established (Kalir et al. 2001; Chevance & Hughes 2008).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[FlhDC master regulator]\n    B[Class 2: basal body + FliA]\n    C[/FlgM holds FliA until body built/]\n    D[FliA sigma-28 activated]\n    E[Class 3: flagellin genes]\n    F(Assembled motile flagellum)\n\n    A --> B\n    B --> C\n    B --> D\n    C -->|⊣ FlgM| D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Ordering genes in a flagella pathway by analysis of expression kinetics from living bacteria",
+      "authors": "Kalir S, McClure J, Pabbaraju K, et al.",
+      "journal": "Science",
+      "year": 2001,
+      "volume": "292",
+      "pages": "2080-2083",
+      "pmid": "11408658",
+      "doi": "10.1126/science.1058758"
+    },
+    {
+      "title": "Coordinating assembly of a bacterial macromolecular machine",
+      "authors": "Chevance FFV, Hughes KT",
+      "journal": "Nature Reviews Microbiology",
+      "year": 2008,
+      "volume": "6",
+      "pages": "455-465",
+      "pmid": "18483484",
+      "doi": "10.1038/nrmicro1887"
+    }
+  ],
+  "keywords": [
+    "flagella",
+    "FlhDC",
+    "FliA",
+    "FlgM",
+    "feed-forward",
+    "transcriptional cascade",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "ecoli_chemotaxis",
+    "synthetic_layered_nor_cascade"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth E. coli Class I feed-forward cascade (flagellar biogenesis); FlgM/FliA timing checkpoint, no feedback loop.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "class-3 promoters (fliC etc.)",
+        "boundFactor": "sigma-28 FliA (gated by FlgM)",
+        "operator": "IF / NOT(FlgM)",
+        "effect": "late flagellin expression",
+        "sequenceMotif": "sigma-28 consensus (TAAAGTTT / GCCGATAA)",
+        "note": "feed-forward timing, no loop"
+      }
+    ],
+    "derivedLogic": "class3 = FliA AND NOT FlgM ; FlhDC -> FliA -> class3 (cascade)",
+    "references": [
+      "Kalir et al. 2001"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "transcriptional_feed_forward_cascade",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Flagellar biogenesis is a temporally ordered feed-forward cascade: master regulator FlhDC (class 1) activates class-2 genes including the sigma factor FliA, which activates class-3 flagellin genes; an FlgM checkpoint delays FliA until the basal body is built. Pure feed-forward, no regulatory loop. Class I.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

@@ -1,0 +1,112 @@
+{
+  "id": "synthetic_rna_attenuator",
+  "name": "RNA Transcriptional Attenuator Logic",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "Logic implemented purely in RNA. A cis attenuator in an mRNA's 5' leader folds into a terminator hairpin by default; a trans antisense RNA binds and refolds it to permit read-through. Chaining orthogonal attenuators builds RNA-only AND/cascade logic — a fast, protein-free, feed-forward regulatory layer.",
+  "scientificAccuracy": "Ground-truth circuit. Engineered pT181-derived transcriptional attenuators and their composition were demonstrated by Lucks et al. (2011).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Antisense RNA input]\n    B[/Refolds attenuator hairpin/]\n    C{terminate or read-through?}\n    D[Downstream gene expressed]\n    E(RNA-only logic output)\n\n    A --> B\n    B --> C\n    C -->|read-through| D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Versatile RNA-sensing transcriptional regulators for engineering genetic networks",
+      "authors": "Lucks JB, Qi L, Mutalik VK, Wang D, Arkin AP",
+      "journal": "PNAS",
+      "year": 2011,
+      "volume": "108",
+      "pages": "8617-8622",
+      "pmid": "21555549",
+      "doi": "10.1073/pnas.1015741108"
+    }
+  ],
+  "keywords": [
+    "RNA",
+    "attenuator",
+    "antisense",
+    "pT181",
+    "riboregulator",
+    "feed-forward",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_toehold_riboregulator",
+    "synthetic_riboswitch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I RNA-only regulation (transcriptional attenuator); cis/antisense, no feedback.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "attenuator leader hairpin",
+        "boundFactor": "trans antisense RNA",
+        "operator": "IF (refold) / NOT(terminate)",
+        "effect": "switches termination vs read-through",
+        "sequenceMotif": "pT181 antisense/sense hairpin",
+        "note": "RNA-level, composable into AND/cascade"
+      }
+    ],
+    "derivedLogic": "Output = IF antisense bound (read-through) ELSE terminate",
+    "references": [
+      "Lucks et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 5,
+  "edges": 4,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "rna_cis_antisense_feed_forward",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "An antisense RNA reconfigures an attenuator hairpin in a target mRNA leader to switch transcription between termination and read-through; the regulation is RNA-only, fast, and feed-forward, with no protein feedback loop. Class I (Lucks et al. 2011 pT181-based attenuators).",
+  "groundTruth": true
+}

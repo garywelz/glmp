@@ -1,0 +1,125 @@
+{
+  "id": "bacillus_comk_competence",
+  "name": "ComK Competence Bistable Switch",
+  "organism": "Bacillus subtilis",
+  "category": "Developmental Switch / Competence",
+  "description": "Bacillus subtilis stochastically enters the competence state via the master regulator ComK. ComK activates its own gene (positive autoregulation), and ComS competitively protects ComK from MecA/ClpCP proteolysis. The positive feedback creates bistability: cells that cross a noise-set threshold latch into the competent state, while the rest stay vegetative.",
+  "scientificAccuracy": "ComK positive autoregulation, ComS-controlled proteolysis, and the resulting bistable competence are established (Maamar & Dubnau 2005; Süel et al. 2006).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Stationary phase / quorum signal]\n    B[ComS produced]\n    C[/ComS blocks MecA degradation of ComK/]\n    D[ComK accumulates]\n    E[\\ComK activates its own promoter/]\n    F[Competence genes ON]\n    G(Bistable competent subpopulation)\n\n    A --> B\n    B -->|⊣ MecA| C\n    C --> D\n    D --> E\n    E -->|+| D\n    D --> F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Bistability in the Bacillus subtilis K-state (competence) system requires a positive feedback loop",
+      "authors": "Maamar H, Dubnau D",
+      "journal": "Molecular Microbiology",
+      "year": 2005,
+      "volume": "56",
+      "pages": "615-624",
+      "pmid": "15819619",
+      "doi": "10.1111/j.1365-2958.2005.04592.x"
+    },
+    {
+      "title": "An excitable gene regulatory circuit induces transient cellular differentiation",
+      "authors": "Süel GM, Garcia-Ojalvo J, Liberman LM, Elowitz MB",
+      "journal": "Nature",
+      "year": 2006,
+      "volume": "440",
+      "pages": "545-550",
+      "pmid": "16554821",
+      "doi": "10.1038/nature04588"
+    }
+  ],
+  "keywords": [
+    "ComK",
+    "ComS",
+    "competence",
+    "bistable",
+    "positive autoregulation",
+    "Bacillus",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "bacillus_sporulation",
+    "synthetic_positive_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth Bacillus Class IIIa bistable switch (competence); ComK positive autoregulation + ComS-gated proteolysis.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "comK promoter (K-boxes)",
+        "boundFactor": "ComK (cooperative)",
+        "operator": "IF / positive feedback",
+        "effect": "autoactivation of comK",
+        "sequenceMotif": "AAAA-N5-TTTT (K-box)",
+        "note": "ComS protects ComK from MecA/ClpCP -> bistable"
+      }
+    ],
+    "derivedLogic": "ComK = IF ComK(t-τ) AND NOT degraded(MecA) -> bistable competence",
+    "references": [
+      "Maamar & Dubnau 2005",
+      "Süel et al. 2006"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "positive_autoregulation_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "ComK activates its own promoter (positive autoregulation) while ComS shields ComK from MecA/ClpCP degradation; the positive feedback makes entry into competence a bistable, noise-driven switch so that only a subpopulation becomes competent — a persistent (IIIa) state.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}
