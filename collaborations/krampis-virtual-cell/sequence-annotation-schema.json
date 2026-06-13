@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/garywelz/glmp/collaborations/krampis-virtual-cell/sequence-annotation-schema.json",
+  "title": "GLMP sequenceAnnotation schema",
+  "description": "Field definitions for linking flowchart nodes to cis-regulatory DNA sequence and logical operators. Version 0.2 extends v0.1 blocks already present in ground-truth process JSON.",
+  "type": "object",
+  "schemaVersion": "0.2",
+  "required": ["schemaVersion", "regulatoryRegions"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.2",
+      "description": "Schema version for this annotation block."
+    },
+    "regulatoryRegions": {
+      "type": "array",
+      "description": "Binding sites and regulatory elements that implement logic in the diagram.",
+      "items": {
+        "type": "object",
+        "required": ["name", "operator", "effect"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Human-readable label (e.g. lacO1 operator, GATA1 promoter)."
+          },
+          "nodeId": {
+            "type": "string",
+            "description": "Optional Mermaid node id this region annotates."
+          },
+          "boundFactor": {
+            "type": "string",
+            "description": "Transcription factor, repressor, or complex that binds the site."
+          },
+          "operator": {
+            "type": "string",
+            "description": "Logical primitive at this site: NOT, AND, OR, IF, XOR, etc."
+          },
+          "effect": {
+            "type": "string",
+            "description": "Molecular outcome: repression, activation, cooperative binding, etc."
+          },
+          "dnaSequence": {
+            "type": "string",
+            "pattern": "^[ACGTNacgtn.-]*$",
+            "description": "Observed or consensus binding-site sequence (5'→3')."
+          },
+          "sequenceMotif": {
+            "type": "string",
+            "description": "Short motif label or IUPAC consensus when full sequence is unknown."
+          },
+          "pwmSource": {
+            "type": "string",
+            "enum": ["JASPAR", "HOCOMOCO", "MEME", "literature", "synthetic", "other"],
+            "description": "Database or method used for motif definition."
+          },
+          "pwmId": {
+            "type": "string",
+            "description": "External PWM/motif identifier (e.g. MA0001.1)."
+          },
+          "genomicCoordinates": {
+            "type": "object",
+            "properties": {
+              "assembly": { "type": "string", "description": "Reference genome build (e.g. GRCh38, GRCm39, U00096.3)." },
+              "chromosome": { "type": "string" },
+              "start": { "type": "integer" },
+              "end": { "type": "integer" },
+              "strand": { "type": "string", "enum": ["+", "-", "."] }
+            }
+          },
+          "spacingBp": {
+            "type": "integer",
+            "description": "Distance in bp to the next annotated site (encodes AND/OR geometry)."
+          },
+          "orientation": {
+            "type": "string",
+            "enum": ["direct", "inverted", "unknown"],
+            "description": "Relative orientation to partner site for cooperative logic."
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["experimental", "curated", "predicted", "synthetic"],
+            "description": "Evidence level for this annotation."
+          },
+          "sourceDoi": {
+            "type": "string",
+            "description": "DOI of the paper supporting this site-level annotation."
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "derivedLogic": {
+      "type": "string",
+      "description": "Boolean formula summarizing how annotated sites compose circuit logic."
+    },
+    "references": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Short citations for the annotation set."
+    }
+  },
+  "copernicusIntegration": {
+    "description": "Optional top-level process fields linking the chart to CopernicusAI (not part of sequenceAnnotation).",
+    "properties": {
+      "canonicalSourceDoi": {
+        "type": "string",
+        "description": "Primary source paper DOI from flowchart-source-papers.tsv."
+      },
+      "canonicalSourcePmid": {
+        "type": "string"
+      },
+      "copernicusPaperId": {
+        "type": "string",
+        "description": "Firestore document id when the source paper is in the Copernicus corpus (e.g. pubmed_13718526, crossref_10.1016_...)."
+      },
+      "manifestStatus": {
+        "type": "string",
+        "enum": ["ok", "needs_doi"]
+      },
+      "corpusCoverage": {
+        "type": "string",
+        "enum": ["in_corpus", "missing_ingest"]
+      }
+    }
+  },
+  "changelog": [
+    {
+      "version": "0.1",
+      "date": "2026-06",
+      "notes": "Initial regulatoryRegions blocks on ground-truth synthetic, human, plant, and microbial charts."
+    },
+    {
+      "version": "0.2",
+      "date": "2026-06-13",
+      "notes": "Added pwmSource/pwmId, genomicCoordinates, spacingBp, orientation, confidence, sourceDoi, nodeId; documented copernicusIntegration process-level fields for CopernicusAI linking."
+    }
+  ]
+}
