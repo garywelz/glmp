@@ -6,7 +6,7 @@
   "description": "The innate inflammatory amplifier. Lipopolysaccharide engages TLR4/MyD88, activating NF-κB and MAPK pathways. Induced cytokines and secondary signals feed back to sustain adaptor phosphorylation and NF-κB nuclear accumulation, producing a switch-like inflammatory response distinct from the NF-κB/IκB oscillator already in the collection.",
   "scientificAccuracy": "TLR4-driven NF-κB amplification and switch-like cytokine induction are established (Covert et al. 2005; Werner et al. 2005).",
   "complexity": {
-    "nodes": 6,
+    "nodes": 9,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[LPS binds TLR4]\n    B[MyD88 / TRIF signaling]\n    C[NF-κB + AP-1 activated]\n    D[Pro-inflammatory cytokines]\n    E[\\Cytokines amplify TLR signaling/]\n    F(High inflammatory state)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|+ amplify| B\n    C --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[LPS + CD14]\n    B[TLR4–MD2 receptor]\n    C[MyD88 / TRAF6 / IRAK]\n    D[/IκBα degraded/]\n    E[NF-κB p65 nuclear]\n    F[TNF-α + IL-1β + IL-6]\n    G[\\Cytokines amplify adaptor signaling/]\n    H[MAPK → AP-1 arm]\n    I(High inflammatory state)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    C --> H\n    E --> F\n    F --> G\n    G -->|+ amplify| C\n    E --> I\n    F --> I\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Achieving stability of lipopolysaccharide-induced NF-κB activation",
@@ -81,10 +81,10 @@
     "human_rig_i_mavs_antiviral"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class III inflammatory amplifier: TLR4/LPS positive-feedback switch (distinct from NF-κB oscillator).",
+  "notes": "Human Class III inflammatory amplifier — expanded with IκBα, adaptor complex, and cytokine feedback arm.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -105,12 +105,12 @@
   "logicGates": {
     "or": 0,
     "and": 0,
-    "not": 0
+    "not": 1
   },
-  "notGates": 0,
+  "notGates": 1,
   "conditionals": 0,
-  "totalNodes": 6,
-  "edges": 6,
+  "totalNodes": 9,
+  "edges": 10,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -130,5 +130,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

@@ -6,7 +6,7 @@
   "description": "A self-amplifying inflammatory loop. IL-6 signals through JAK to activate STAT3; STAT3 cooperates with NF-κB to induce IL-6 itself, so transient stimulation can lock cells into a persistent inflammatory program. The positive feedback gives bistable, hysteretic behavior linked to chronic inflammation and tumor promotion.",
   "scientificAccuracy": "The IL-6/STAT3/NF-κB positive-feedback loop and its bistable inflammatory/transformation role are established (Iliopoulos, Hirsch & Struhl 2009; Grivennikov & Karin 2010).",
   "complexity": {
-    "nodes": 6,
+    "nodes": 8,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Inflammatory trigger]\n    B[IL-6]\n    C[JAK-STAT3 active]\n    D[\\STAT3 + NF-κB induce IL-6/]\n    E[Inflammatory gene program]\n    F(Self-sustaining inflammation)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| B\n    C --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Inflammatory trigger]\n    B[IL-6 secreted]\n    C[IL-6R + gp130 → JAK]\n    D[STAT3 phosphorylated]\n    E[NF-κB crosstalk]\n    F[\\STAT3 + NF-κB induce IL-6/]\n    G[Inflammatory gene program]\n    H(Self-sustaining inflammation)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    D --> F\n    E --> F\n    F -->|+| B\n    D --> G\n    G --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "An epigenetic switch involving NF-κB, Lin28, let-7 and IL6 links inflammation to transformation",
@@ -81,10 +81,10 @@
     "human_nfkb_oscillator"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class IIIa inflammatory switch: IL-6/STAT3/NF-κB positive feedback latches an inflammatory state.",
+  "notes": "Human Class IIIa IL-6/STAT3 switch — expanded with receptor complex and NF-κB crosstalk.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -109,8 +109,8 @@
   },
   "notGates": 0,
   "conditionals": 0,
-  "totalNodes": 6,
-  "edges": 6,
+  "totalNodes": 8,
+  "edges": 9,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -130,5 +130,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

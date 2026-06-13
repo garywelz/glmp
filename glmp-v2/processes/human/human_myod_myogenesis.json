@@ -6,7 +6,7 @@
   "description": "MyoD is a master myogenic bHLH factor that activates its own gene and the muscle differentiation program through E-box (CANNTG) sites. Positive autoregulation makes myogenic commitment a latching switch: once MyoD passes threshold, the muscle fate is maintained even without the initiating signal.",
   "scientificAccuracy": "MyoD positive autoregulation and E-box-driven myogenic determination are established (Thayer et al. 1989; Weintraub 1993).",
   "complexity": {
-    "nodes": 5,
+    "nodes": 6,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Myogenic signal]\n    B[MyoD]\n    C[\\MyoD positive autoregulation/]\n    D[E-box target activation: muscle genes]\n    E(Committed myoblast / differentiation)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Wnt / Shh myogenic cue]\n    B[MyoD bHLH]\n    C[\\MyoD autoactivation/]\n    D[MEF2 cooperation at E-box]\n    E[p21 → cell-cycle exit]\n    F(Committed myoblast)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Positive autoregulation of the myogenic determination gene MyoD1",
@@ -70,10 +70,10 @@
     "synthetic_positive_autoregulation"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class IIIa determination switch via positive autoregulation (the human analogue of synthetic PAR).",
+  "notes": "Human Class IIIa MyoD switch — expanded with MEF2 cooperation and p21 cell-cycle exit.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -98,8 +98,8 @@
   },
   "notGates": 0,
   "conditionals": 0,
-  "totalNodes": 5,
-  "edges": 5,
+  "totalNodes": 6,
+  "edges": 6,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -119,5 +119,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

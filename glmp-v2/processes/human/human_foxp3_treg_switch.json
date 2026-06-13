@@ -6,7 +6,7 @@
   "description": "How regulatory T cells lock in their identity. Antigen receptor and cytokine cues transiently induce Foxp3, which binds conserved non-coding sequences (especially CNS2) to autoactivate and drive the Treg transcriptional program. The positive feedback makes the suppressor state heritable across cell division.",
   "scientificAccuracy": "Foxp3 autoregulation via CNS2 and Treg lineage commitment are established (Zheng et al. 2010; Josefowicz et al. 2012).",
   "complexity": {
-    "nodes": 5,
+    "nodes": 7,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[TCR + IL-2 signals]\n    B[Foxp3 induced]\n    C[\\Foxp3 autoactivation via CNS2/]\n    D[Treg gene program]\n    E(Stable regulatory T cell)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[TCR antigen signal]\n    B[IL-2 → STAT5]\n    C[Foxp3 induced]\n    D[\\Foxp3 CNS2 autoactivation/]\n    E[SMAD3 + TGF-β cooperation]\n    F[Treg program: CTLA-4, CD25]\n    G(Stable regulatory T cell)\n\n    A --> C\n    B --> C\n    C --> D\n    D -->|+| C\n    C --> E\n    E --> F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Role of conserved non-coding DNA elements in the Foxp3 gene in regulatory T-cell commitment",
@@ -80,10 +80,10 @@
     "human_pd1_pdl1_checkpoint"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class IIIa Treg switch: Foxp3 CNS2 autoactivation maintains suppressor identity.",
+  "notes": "Human Class IIIa Foxp3 switch — expanded with IL-2/STAT5 and TGF-β/SMAD3 inputs.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -108,8 +108,8 @@
   },
   "notGates": 0,
   "conditionals": 0,
-  "totalNodes": 5,
-  "edges": 5,
+  "totalNodes": 7,
+  "edges": 7,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -129,5 +129,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

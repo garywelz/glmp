@@ -6,7 +6,7 @@
   "description": "In luminal breast epithelium, estrogen-activated ERα binds estrogen-response elements at proliferative target genes and at the ESR1 locus itself, reinforcing its own expression. The positive autoregulation can latch cells into a self-sustaining ER+ state — the molecular logic behind hormone-dependent identity and endocrine-therapy resistance.",
   "scientificAccuracy": "ERα genome-wide target binding and autoregulation of ESR1 are established (Carroll et al. 2006); positive feedback supports bistable interpretation.",
   "complexity": {
-    "nodes": 5,
+    "nodes": 6,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Estrogen]\n    B[ERα activated]\n    C[\\ERα activates ESR1 gene/]\n    D[Proliferative ERE target genes]\n    E(Bistable ER+ luminal state)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Estrogen ligand]\n    B[ERα + SRC coactivator]\n    C[\\ERα activates ESR1/]\n    D[Cyclin D1 / MYC targets]\n    E[Proliferative ERE program]\n    F(Bistable ER+ luminal state)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Genome-wide analysis of estrogen receptor binding sites",
@@ -70,10 +70,10 @@
     "human_myod_myogenesis"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class IIIa hormone-receptor switch via ERα positive autoregulation.",
+  "notes": "Human Class IIIa ERα switch — expanded with coactivator and proliferative targets.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -98,8 +98,8 @@
   },
   "notGates": 0,
   "conditionals": 0,
-  "totalNodes": 5,
-  "edges": 5,
+  "totalNodes": 6,
+  "edges": 6,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -119,5 +119,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

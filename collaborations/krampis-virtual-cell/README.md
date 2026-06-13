@@ -40,7 +40,8 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `copernicus-corpus-gap-report.tsv` | Per-process coverage vs local Copernicus JSON corpus; 216/217 source papers need curated ingest. |
 | `curated-doi-ingest-priority.txt` | De-duplicated DOI list (192) for Copernicus curated-ingest mode. |
 | `glmp-relevant-corpus-preview.tsv` | Dry-run `glmp_relevant` / `sequence_logic_content` flags on local paper corpus (no Firestore writes). |
-| `sequence-annotation-schema.json` | v0.2 schema for `sequenceAnnotation` blocks and `copernicusIntegration` process fields. |
+| `flowchart-quality-audit.tsv` | Per-chart quality tier (A_OK / B_REVIEW / C_EXPAND) for the 109-chart ground-truth expansion batch. |
+| `flowchart-quality-audit-summary.md` | Audit summary — recent median 6 nodes vs legacy 64; 13 thin charts expanded. |
 
 ---
 

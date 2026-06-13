@@ -6,7 +6,7 @@
   "description": "Anterior-posterior pre-patterning of the fly embryo. Maternal morphogen gradients (Bicoid, Caudal) provide graded positional input that activates the zygotic gap genes; the gap proteins then mutually repress one another, and that cross-repression converts smooth gradients into sharply bounded, mutually exclusive expression domains — a multistable spatial switch that sets up the downstream stripes.",
   "scientificAccuracy": "Gap-gene cross-repression and boundary sharpening are established (Jaeger 2011; Clyde et al. 2003).",
   "complexity": {
-    "nodes": 6,
+    "nodes": 8,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Bicoid + Caudal gradients]\n    B[Gap genes: hb, Kr, gt, kni]\n    C[\\Gap genes cross-repress/]\n    D[Sharp gap-domain boundaries]\n    E[Positional information for stripes]\n    F(Multistable AP gap pattern)\n\n    A --> B\n    B --> C\n    C -->|⊣ mutual| B\n    B --> D\n    D --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Bicoid + Caudal gradients]\n    B[hunchback (hb)]\n    C[Krüppel (Kr)]\n    D[giant (gt)]\n    E[knirps (kni)]\n    F[\\Gap genes mutual repression/]\n    G[Sharp domain boundaries]\n    H(Multistable AP gap pattern)\n\n    A --> B\n    A --> C\n    A --> D\n    A --> E\n    B --> F\n    C --> F\n    D --> F\n    E --> F\n    F -->|⊣| B\n    F -->|⊣| C\n    F -->|⊣| D\n    F -->|⊣| E\n    B --> G\n    G --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "The gap gene network",
@@ -82,10 +82,10 @@
     "human_gata1_pu1_switch"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
-  "notes": "Ground-truth Drosophila Class III multistable patterning: morphogen input + gap-gene cross-repression.",
+  "notes": "Ground-truth Drosophila gap-gene network — expanded with named gap genes and mutual repression.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -110,8 +110,8 @@
   },
   "notGates": 1,
   "conditionals": 0,
-  "totalNodes": 6,
-  "edges": 6,
+  "totalNodes": 8,
+  "edges": 14,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -131,5 +131,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

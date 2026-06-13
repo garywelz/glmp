@@ -6,7 +6,7 @@
   "description": "Detection of viral nucleic acids activates IRF3/IRF7 to produce type-I interferon. Secreted IFN acts back through the JAK-STAT-ISGF3 pathway to induce more IRF7, a positive-feedback loop that sharply amplifies the response and commits the cell (and its neighbors) to an all-or-none antiviral state.",
   "scientificAccuracy": "IRF7 positive-feedback amplification of the type-I interferon response is established (Honda et al. 2005; Ivashkiv & Donlin 2014).",
   "complexity": {
-    "nodes": 7,
+    "nodes": 8,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Viral RNA / PAMP]\n    B[IRF3 / IRF7 activated]\n    C[IFN-β secreted]\n    D[JAK-STAT-ISGF3]\n    E[\\Induces more IRF7/]\n    F[Antiviral ISG program]\n    G(All-or-none antiviral state)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|+| B\n    D --> F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Viral RNA / TLR7/9]\n    B[IRF3 / IRF7 activated]\n    C[IFN-β secreted]\n    D[IFNAR → JAK1/TYK2]\n    E[STAT1-STAT2-ISGF3]\n    F[\\Induces more IRF7/]\n    G[Antiviral ISG program]\n    H(All-or-none antiviral state)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|+| B\n    E --> G\n    G --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "IRF-7 is the master regulator of type-I interferon-dependent immune responses",
@@ -79,10 +79,10 @@
     "human_jak_stat_socs"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class III antiviral commitment switch via IRF7 positive feedback (counterbalanced in vivo by SOCS/USP18).",
+  "notes": "Human Class III IRF7 amplifier — expanded with IFNAR/JAK and ISGF3 complex.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -107,8 +107,8 @@
   },
   "notGates": 0,
   "conditionals": 0,
-  "totalNodes": 7,
-  "edges": 7,
+  "totalNodes": 8,
+  "edges": 8,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -128,5 +128,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

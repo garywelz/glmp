@@ -6,7 +6,7 @@
   "description": "The myeloid lineage lock. C/EBPα induces granulocyte/monocyte genes and reinforces its own expression. Once the autoregulatory loop crosses threshold, the cell is committed to the myeloid program — a textbook persistent positive-feedback fate switch complementary to the GATA1/PU.1 mutual-repression switch.",
   "scientificAccuracy": "C/EBPα autoregulation and myeloid master-regulator function are established (Ye et al. 1997; Zhang et al. 2004).",
   "complexity": {
-    "nodes": 5,
+    "nodes": 6,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Myeloid-biased progenitor]\n    B[C/EBPα]\n    C[\\C/EBPα autoactivation/]\n    D[Myeloid gene program]\n    E(Committed myeloid cell)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[G-CSF / myeloid cue]\n    B[C/EBPα]\n    C[\\C/EBPα autoactivation/]\n    D[/Antagonizes PU.1 alternative fate/]\n    E[Myeloid genes: Mpo, Elane]\n    F(Committed myeloid cell)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    B --> E\n    E --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Granulocyte colony-stimulating factor induces C/EBPα and C/EBPβ expression in myeloid progenitors",
@@ -78,10 +78,10 @@
     "human_scl_tal1_hematopoietic_switch"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class IIIa myeloid commitment: C/EBPα positive autoregulation.",
+  "notes": "Human Class IIIa C/EBPα switch — expanded with G-CSF cue and PU.1 antagonism.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -102,12 +102,12 @@
   "logicGates": {
     "or": 0,
     "and": 0,
-    "not": 0
+    "not": 1
   },
-  "notGates": 0,
+  "notGates": 1,
   "conditionals": 0,
-  "totalNodes": 5,
-  "edges": 5,
+  "totalNodes": 6,
+  "edges": 6,
   "loops": 1,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
@@ -127,5 +127,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }

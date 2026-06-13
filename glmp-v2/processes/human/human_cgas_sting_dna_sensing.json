@@ -6,7 +6,7 @@
   "description": "Detection of mislocalized DNA. cGAS binds cytosolic dsDNA and synthesizes the second messenger 2'3'-cGAMP, which activates STING at the ER; STING recruits TBK1 to phosphorylate IRF3, inducing interferon. STING is subsequently degraded after trafficking to lysosomes, and IFN-induced regulators feed back to terminate the response.",
   "scientificAccuracy": "cGAS-cGAMP-STING-TBK1-IRF3 signaling and STING-degradation-based termination are established (Sun et al. 2013; Ishikawa & Barber 2008).",
   "complexity": {
-    "nodes": 6,
+    "nodes": 8,
     "uniqueIdentifiers": true,
     "colorCoded": true,
     "detailLevel": "curated",
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Cytosolic dsDNA]\n    B[cGAS makes cGAMP]\n    C[STING-TBK1 activate IRF3]\n    D[Type-I interferon induced]\n    E[/STING degraded; feedback terminates/]\n    F(Resolved antiviral response)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| C\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Cytosolic dsDNA]\n    B[cGAS binds DNA]\n    C[2'3'-cGAMP synthesized]\n    D[STING activated at ER]\n    E[TBK1 phosphorylates IRF3]\n    F[Type-I interferon induced]\n    G[/STING trafficked + degraded/]\n    H(Resolved antiviral response)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n    G -->|⊣ feedback| E\n    F --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Cyclic GMP-AMP synthase is a cytosolic DNA sensor that activates the type I interferon pathway",
@@ -81,10 +81,10 @@
     "human_irf7_interferon"
   ],
   "created": "2026-06-12",
-  "lastUpdated": "2026-06-12",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary human regulatory-biology literature",
-  "notes": "Human Class II inducible antiviral response (cGAS-STING) with STING-degradation/IFN feedback termination.",
+  "notes": "Human Class II cGAS-STING — expanded with cGAMP messenger and STING trafficking.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -109,8 +109,8 @@
   },
   "notGates": 1,
   "conditionals": 0,
-  "totalNodes": 6,
-  "edges": 6,
+  "totalNodes": 8,
+  "edges": 8,
   "loops": 1,
   "circuitClass": "II",
   "circuitClassName": "Negative feedback (homeostatic)",
@@ -130,5 +130,10 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "qualityAudit": {
+    "expanded": true,
+    "expansionDate": "2026-06-13",
+    "reason": "thin pathway schematic"
   }
 }
