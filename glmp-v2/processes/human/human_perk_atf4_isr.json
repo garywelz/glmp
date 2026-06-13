@@ -1,0 +1,114 @@
+{
+  "id": "human_perk_atf4_isr",
+  "name": "PERK–ATF4 Integrated Stress Response",
+  "organism": "Homo sapiens",
+  "category": "Proteostasis / Stress",
+  "description": "A branch of the integrated stress response. ER or other stress activates the kinase PERK, which phosphorylates eIF2α to suppress global translation while selectively translating ATF4. ATF4 induces GADD34 (PP1 targeting subunit) that dephosphorylates eIF2α, restoring translation — negative feedback that resolves the stress program.",
+  "scientificAccuracy": "PERK-eIF2α-ATF4-GADD34 negative feedback in the ISR is established (Harding et al. 2003; Walter & Ron 2011).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Stress: ER / amino-acid / heme]\n    B[PERK phosphorylates eIF2α]\n    C[Bulk translation down; ATF4 up]\n    D[ATF4 induces GADD34]\n    E[/GADD34 dephosphorylates eIF2α/]\n    F(Translation restored, adapted)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| B\n    C --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "An integrated stress response regulates amino acid metabolism and resistance to oxidative stress",
+      "authors": "Harding HP, Zhang Y, Zeng H, et al.",
+      "journal": "Molecular Cell",
+      "year": 2003,
+      "volume": "11",
+      "pages": "619-633",
+      "pmid": "12667446",
+      "doi": "10.1016/S1097-2765(03)00105-9"
+    }
+  ],
+  "keywords": [
+    "PERK",
+    "eIF2alpha",
+    "ATF4",
+    "GADD34",
+    "integrated stress response",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_ire1_xbp1_upr",
+    "human_hsf1_heat_shock"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II translational homeostat (ISR): ATF4-GADD34 feedback restores eIF2α/translation.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ATF4 uORFs (5'UTR) + CARE/AARE targets",
+        "boundFactor": "ATF4 (translationally controlled)",
+        "operator": "IF p-eIF2α",
+        "effect": "selective ATF4 translation then GADD34 feedback",
+        "sequenceMotif": "uORF1/uORF2; C/EBP-ATF (CARE)",
+        "note": "GADD34-PP1 dephosphorylates eIF2α"
+      }
+    ],
+    "derivedLogic": "ATF4 = IF p-eIF2α(stress) ; ATF4->GADD34 -| p-eIF2α (negative feedback)",
+    "references": [
+      "Harding et al. 2003"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "translational_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Stress activates PERK to phosphorylate eIF2α, halting bulk translation while inducing ATF4; ATF4 drives GADD34, which dephosphorylates eIF2α to restore translation — a negative-feedback homeostat that adapts to stress. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

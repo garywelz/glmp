@@ -1,0 +1,116 @@
+{
+  "id": "human_tnf_survival_death_decision",
+  "name": "TNF Survival-vs-Death Decision Switch",
+  "organism": "Homo sapiens",
+  "category": "Cell-Fate Signaling",
+  "description": "One ligand, two fates. TNF binding first nucleates complex I that activates NF-κB and pro-survival genes (cFLIP, cIAPs); if NF-κB output is too low or delayed, the receptor complex converts to the cytosolic death-inducing complex II that triggers caspase-8 apoptosis or RIPK3/MLKL necroptosis. The opposing arms make the outcome a switch-like decision.",
+  "scientificAccuracy": "The NF-κB-survival vs complex-II-death checkpoint downstream of TNF is established (Micheau & Tschopp 2003).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[TNF binds TNFR1]\n    B[Complex I: NF-κB survival]\n    C{survival genes sufficient?}\n    D[Pro-survival cFLIP/cIAP]\n    E[Complex II: caspase-8 / RIPK3]\n    F(Survival)\n    G(Apoptosis / necroptosis)\n\n    A --> B\n    B --> C\n    C -->|Yes| D\n    D --> F\n    D -->|⊣| E\n    C -->|No| E\n    E --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Induction of TNF receptor I-mediated apoptosis via two sequential signaling complexes",
+      "authors": "Micheau O, Tschopp J",
+      "journal": "Cell",
+      "year": 2003,
+      "volume": "114",
+      "pages": "181-190",
+      "pmid": "12887920",
+      "doi": "10.1016/S0092-8674(03)00521-X"
+    }
+  ],
+  "keywords": [
+    "TNF",
+    "NF-κB",
+    "complex II",
+    "apoptosis",
+    "necroptosis",
+    "decision",
+    "bistable",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_caspase_apoptosis",
+    "human_nfkb_oscillator",
+    "human_p53_apoptosis_decision"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III life-or-death decision: NF-κB survival arm vs complex-II death arm downstream of TNF.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "NF-κB survival targets (CFLAR, BIRC)",
+        "boundFactor": "NF-κB",
+        "operator": "IF / NOT(death)",
+        "effect": "cFLIP/cIAP suppress complex II",
+        "sequenceMotif": "κB sites GGGRNNYYCC",
+        "note": "insufficient survival output -> death arm wins"
+      }
+    ],
+    "derivedLogic": "fate = IF NF-κB-survival>θ THEN live ELSE die (bistable)",
+    "references": [
+      "Micheau & Tschopp 2003"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 0,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "bistable_competing_outputs_decision",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "TNF engages a complex that both activates pro-survival NF-κB (complex I) and, if NF-κB-induced survival genes are insufficient, assembles a death complex (complex II) driving apoptosis/necroptosis; the competition between the two arms is a bistable life-or-death decision. Class III.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

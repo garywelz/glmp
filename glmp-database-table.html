@@ -715,8 +715,10 @@
                 if (!organismGroups[organism]) organismGroups[organism] = [];
                 organismGroups[organism].push(process);
             });
-            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis', 'Bacteriophage lambda', 'Homo sapiens', 'Synthetic circuit'];
-            const sortedOrganisms = organismOrder.filter(org => organismGroups[org]);
+            const organismOrder = ['E. coli', 'S. cerevisiae', 'Bacillus subtilis', 'Bacteriophage lambda', 'Arabidopsis thaliana', 'Homo sapiens', 'Synthetic circuit'];
+            // Known organisms first (in ladder order), then any other organisms so nothing is dropped.
+            const extraOrganisms = Object.keys(organismGroups).filter(org => !organismOrder.includes(org)).sort();
+            const sortedOrganisms = [...organismOrder.filter(org => organismGroups[org]), ...extraOrganisms];
             let tableHTML = '';
             sortedOrganisms.forEach(organism => {
                 const organismProcesses = organismGroups[organism];
@@ -724,6 +726,7 @@
                     : organism === 'S. cerevisiae' ? 'Yeast'
                     : organism === 'Bacillus subtilis' ? 'Bacillus'
                     : organism === 'Bacteriophage lambda' ? 'Bacteriophage λ (ground-truth switch)'
+                    : organism === 'Arabidopsis thaliana' ? 'Arabidopsis (plant ground-truth circuits)'
                     : organism === 'Homo sapiens' ? 'Human (curated regulatory circuits)'
                     : organism === 'Synthetic circuit' ? 'Synthetic biology (ground-truth circuits)' : organism;
                 tableHTML += `

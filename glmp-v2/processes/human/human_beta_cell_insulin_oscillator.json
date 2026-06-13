@@ -1,0 +1,114 @@
+{
+  "id": "human_beta_cell_insulin_oscillator",
+  "name": "Pancreatic β-Cell Glucose–Insulin Oscillator",
+  "organism": "Homo sapiens",
+  "category": "Endocrine / Metabolic Signaling",
+  "description": "Pulsatile insulin secretion arises from β-cell oscillations. Glucose raises the ATP/ADP ratio, closing K-ATP channels and depolarizing the membrane; voltage-gated Ca²⁺ entry triggers insulin exocytosis. Ca²⁺- and metabolism-dependent currents then repolarize the cell, and the interplay of fast electrical and slower metabolic feedback produces robust bursting and oscillatory insulin output.",
+  "scientificAccuracy": "Bursting Ca²⁺/insulin oscillations from coupled electrical-metabolic feedback are established (Bertram, Sherman & Satin 2007; Tornheim 1997).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Glucose: ATP/ADP up]\n    B[K-ATP closes; depolarization]\n    C[\\Ca²⁺ influx triggers insulin/]\n    D[Cytosolic Ca²⁺ rise]\n    E[/K-Ca + metabolic feedback repolarize/]\n    F(Bursting Ca²⁺ / pulsatile insulin)\n\n    A --> B\n    B --> C\n    C --> D\n    D -->|+| C\n    D --> E\n    E -->|⊣ delayed| B\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Metabolic and electrical oscillations: partners in controlling pulsatile insulin secretion",
+      "authors": "Bertram R, Sherman A, Satin LS",
+      "journal": "American Journal of Physiology - Endocrinology and Metabolism",
+      "year": 2007,
+      "volume": "293",
+      "pages": "E890-E900",
+      "pmid": "17666486",
+      "doi": "10.1152/ajpendo.00359.2007"
+    }
+  ],
+  "keywords": [
+    "beta cell",
+    "insulin",
+    "calcium oscillation",
+    "K-ATP",
+    "bursting",
+    "oscillator",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_calcium_oscillator",
+    "human_insulin_akt_foxo"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IV oscillator: coupled fast-electrical (Ca²⁺) and slow-metabolic feedback drive pulsatile insulin.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "(electro-metabolic, not cis-DNA)",
+        "boundFactor": "ATP/ADP, Ca²⁺ on channels",
+        "operator": "positive then delayed NOT",
+        "effect": "depolarize/secrete then repolarize",
+        "sequenceMotif": "(channel/metabolite level)",
+        "note": "insulin granule exocytosis is the oscillatory output"
+      }
+    ],
+    "derivedLogic": "depol = +ATP ; Ca²⁺ +trigger AND delayed NOT(K-Ca) -> bursting insulin",
+    "references": [
+      "Bertram et al. 2007"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 7,
+  "loops": 2,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "metabolic_electrical_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Glucose metabolism raises ATP/ADP, closing K-ATP channels and depolarizing the β-cell; Ca²⁺ influx triggers insulin release but also activates K-Ca/metabolic negative feedback that repolarizes — the coupled fast-electrical and slow-metabolic feedback generates bursting Ca²⁺/insulin oscillations. Class IV.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

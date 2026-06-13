@@ -1,0 +1,114 @@
+{
+  "id": "arabidopsis_circadian_clock",
+  "name": "Arabidopsis Circadian Clock (CCA1/LHY–TOC1)",
+  "organism": "Arabidopsis thaliana",
+  "category": "Circadian Rhythm",
+  "description": "The plant circadian clock. At dawn, light induces the morning Myb factors CCA1 and LHY, which repress evening genes including TOC1; as CCA1/LHY decay through the day, the evening complex (TOC1/PRRs) accumulates and represses CCA1/LHY. The mutual, time-delayed repression sustains a self-running ~24 h rhythm.",
+  "scientificAccuracy": "The reciprocal CCA1/LHY–TOC1 regulation underlying the ~24 h clock is established (Alabadí et al. 2001).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Dawn light]\n    B[CCA1/LHY morning factors]\n    C[/Repress evening gene TOC1/]\n    D[TOC1 / evening complex]\n    E[/Represses CCA1/LHY/]\n    F(~24 h circadian oscillation)\n\n    A --> B\n    B --> C\n    C -->|⊣| D\n    D --> E\n    E -->|⊣ delayed| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Reciprocal regulation between TOC1 and LHY/CCA1 within the Arabidopsis circadian clock",
+      "authors": "Alabadí D, Oyama T, Yanovsky MJ, Harmon FG, Más P, Kay SA",
+      "journal": "Science",
+      "year": 2001,
+      "volume": "293",
+      "pages": "880-883",
+      "pmid": "11486091",
+      "doi": "10.1126/science.1061320"
+    }
+  ],
+  "keywords": [
+    "circadian",
+    "CCA1",
+    "LHY",
+    "TOC1",
+    "oscillator",
+    "Arabidopsis",
+    "Class IV",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_circadian_clock",
+    "synthetic_repressilator"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth plant Class IV oscillator: interlocked CCA1/LHY–TOC1 delayed repression.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Evening Element (TOC1 promoter)",
+        "boundFactor": "CCA1/LHY",
+        "operator": "NOT",
+        "effect": "morning repression of TOC1",
+        "sequenceMotif": "AAAATATCT (Evening Element)",
+        "note": "TOC1/PRRs reciprocally repress CCA1/LHY -> oscillation"
+      }
+    ],
+    "derivedLogic": "TOC1 = NOT CCA1/LHY ; CCA1/LHY = NOT evening-complex (delayed) -> ~24h cycle",
+    "references": [
+      "Alabadí et al. 2001"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "delayed_negative_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Morning factors CCA1/LHY repress the evening gene TOC1, and the evening complex in turn represses CCA1/LHY; the interlocked delayed repression generates a ~24 h transcriptional oscillation entrained by light. Class IV oscillator.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

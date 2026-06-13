@@ -1,0 +1,124 @@
+{
+  "id": "human_cgas_sting_dna_sensing",
+  "name": "cGAS–STING Cytosolic DNA Sensing",
+  "organism": "Homo sapiens",
+  "category": "Innate Immunity",
+  "description": "Detection of mislocalized DNA. cGAS binds cytosolic dsDNA and synthesizes the second messenger 2'3'-cGAMP, which activates STING at the ER; STING recruits TBK1 to phosphorylate IRF3, inducing interferon. STING is subsequently degraded after trafficking to lysosomes, and IFN-induced regulators feed back to terminate the response.",
+  "scientificAccuracy": "cGAS-cGAMP-STING-TBK1-IRF3 signaling and STING-degradation-based termination are established (Sun et al. 2013; Ishikawa & Barber 2008).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Cytosolic dsDNA]\n    B[cGAS makes cGAMP]\n    C[STING-TBK1 activate IRF3]\n    D[Type-I interferon induced]\n    E[/STING degraded; feedback terminates/]\n    F(Resolved antiviral response)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|⊣ feedback| C\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Cyclic GMP-AMP synthase is a cytosolic DNA sensor that activates the type I interferon pathway",
+      "authors": "Sun L, Wu J, Du F, Chen X, Chen ZJ",
+      "journal": "Science",
+      "year": 2013,
+      "volume": "339",
+      "pages": "786-791",
+      "pmid": "23258413",
+      "doi": "10.1126/science.1232458"
+    },
+    {
+      "title": "STING is an endoplasmic reticulum adaptor that facilitates innate immune signalling",
+      "authors": "Ishikawa H, Barber GN",
+      "journal": "Nature",
+      "year": 2008,
+      "volume": "455",
+      "pages": "674-678",
+      "pmid": "18724357",
+      "doi": "10.1038/nature07317"
+    }
+  ],
+  "keywords": [
+    "cGAS",
+    "STING",
+    "cGAMP",
+    "interferon",
+    "DNA sensing",
+    "negative feedback",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_rig_i_mavs_antiviral",
+    "human_irf7_interferon"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class II inducible antiviral response (cGAS-STING) with STING-degradation/IFN feedback termination.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "IFN/ISG promoters (ISRE)",
+        "boundFactor": "IRF3 (via STING-TBK1)",
+        "operator": "IF",
+        "effect": "interferon induction by cytosolic DNA",
+        "sequenceMotif": "ISRE (A/G NGAAANNGAAACT)",
+        "note": "STING turnover provides negative feedback"
+      }
+    ],
+    "derivedLogic": "IFN = IF cytosolic-DNA (cGAS->STING->IRF3) ; STING degradation -| signal",
+    "references": [
+      "Sun et al. 2013"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "induction_with_negative_feedback",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Cytosolic DNA activates cGAS to make cGAMP, which activates STING→TBK1→IRF3 to induce type-I interferon; STING is then trafficked and degraded and negative regulators (e.g., induced by IFN) terminate signaling — an inducible response with negative feedback that resolves. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

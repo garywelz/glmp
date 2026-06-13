@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 190,
+  "totalProcesses": 199,
   "organisms": [
     {
       "name": "E. coli",
@@ -23,11 +23,15 @@
     },
     {
       "name": "Homo sapiens",
-      "processCount": 41
+      "processCount": 47
     },
     {
       "name": "Bacteriophage lambda",
       "processCount": 1
+    },
+    {
+      "name": "Arabidopsis thaliana",
+      "processCount": 3
     }
   ],
   "categories": [
@@ -101,7 +105,7 @@
     },
     {
       "name": "Innate Immunity",
-      "processCount": 2
+      "processCount": 4
     },
     {
       "name": "Nutrient Transport",
@@ -141,7 +145,7 @@
     },
     {
       "name": "Circadian Rhythm",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Growth Factor Signaling",
@@ -246,24 +250,48 @@
     {
       "name": "Motility / Transcriptional Cascade",
       "processCount": 1
+    },
+    {
+      "name": "Endocrine / Metabolic Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Innate Immunity / Inflammation",
+      "processCount": 1
+    },
+    {
+      "name": "Proteostasis / Stress",
+      "processCount": 1
+    },
+    {
+      "name": "Cell-Fate Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Epigenetic Inheritance / Flowering",
+      "processCount": 1
+    },
+    {
+      "name": "Hormone Signaling / Water Balance",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7819,
-    "totalConditionals": 6254,
+    "totalNodes": 7875,
+    "totalConditionals": 6255,
     "orGates": 350,
     "andGates": 442,
-    "notGates": 558,
-    "totalLogicGates": 1350,
-    "verifiedProcesses": 181,
+    "notGates": 566,
+    "totalLogicGates": 1358,
+    "verifiedProcesses": 190,
     "circuitClassDistribution": {
       "I": 64,
-      "II": 69,
-      "III": 39,
-      "IV": 13,
-      "V": 5
+      "II": 72,
+      "III": 42,
+      "IV": 15,
+      "V": 6
     },
-    "loops": 499
+    "loops": 508
   },
   "processes": [
     {
@@ -2955,6 +2983,102 @@
       "loops": 1
     },
     {
+      "id": "bacillus_comk_competence",
+      "name": "ComK Competence Bistable Switch",
+      "organism": "Bacillus subtilis",
+      "category": "Developmental Switch / Competence",
+      "description": "Bacillus subtilis stochastically enters the competence state via the master regulator ComK. ComK activates its own gene (positive autoregulation), and ComS competitively protects ComK from MecA/ClpCP proteolysis. The positive feedback creates bistability: cells that cross a noise-set threshold latch into the competent state, while the rest stay vegetative.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation_bistable",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "bacillus_spo0a_sporulation",
+      "name": "Spo0A Phosphorelay Sporulation Commitment",
+      "organism": "Bacillus subtilis",
+      "category": "Developmental Switch / Sporulation",
+      "description": "Starvation drives a phosphorelay that progressively phosphorylates the master regulator Spo0A. Spo0A~P accumulation is gradual until it crosses a threshold, at which point it activates the sporulation sigma-factor cascade and reinforces its own activation — converting a graded starvation signal into a discrete, irreversible commitment to form a spore.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "threshold_positive_feedback_bistable_commitment",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "ecoli_sos_lexa",
+      "name": "SOS DNA-Damage Response (LexA/RecA)",
+      "organism": "E. coli",
+      "category": "DNA Damage Response",
+      "description": "The bacterial DNA-damage response. Single-stranded DNA at lesions nucleates RecA filaments (RecA*) that act as a co-protease stimulating LexA self-cleavage; loss of the LexA repressor switches on SOS repair genes. As repair eliminates the ssDNA, RecA* falls, LexA re-accumulates, and the regulon is repressed again — a self-limiting negative-feedback loop.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "derepression_negative_feedback_homeostat",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "ecoli_flhdc_flagellar",
+      "name": "Flagellar Gene Feed-Forward Cascade (FlhDC)",
+      "organism": "E. coli",
+      "category": "Motility / Transcriptional Cascade",
+      "description": "Assembly of the flagellum is timed by a transcriptional cascade. FlhDC (class 1) turns on class-2 genes (basal body and the sigma factor FliA); the anti-sigma FlgM holds FliA inactive until the hook-basal-body is complete and FlgM is secreted out, after which FliA fires class-3 flagellin genes. The just-in-time logic is feed-forward.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "transcriptional_feed_forward_cascade",
+      "circuitClassConfidence": "high",
+      "loops": 0
+    },
+    {
       "id": "synthetic_5node_repressilator",
       "name": "Five-Repressor Ring Oscillator",
       "organism": "Synthetic circuit",
@@ -3843,6 +3967,30 @@
       "loops": 1
     },
     {
+      "id": "human_beta_cell_insulin_oscillator",
+      "name": "Pancreatic β-Cell Glucose–Insulin Oscillator",
+      "organism": "Homo sapiens",
+      "category": "Endocrine / Metabolic Signaling",
+      "description": "Pulsatile insulin secretion arises from β-cell oscillations. Glucose raises the ATP/ADP ratio, closing K-ATP channels and depolarizing the membrane; voltage-gated Ca²⁺ entry triggers insulin exocytosis. Ca²⁺- and metabolism-dependent currents then repolarize the cell, and the interplay of fast electrical and slower metabolic feedback produces robust bursting and oscillatory insulin output.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "IV",
+      "topologyType": "metabolic_electrical_oscillator",
+      "circuitClassConfidence": "high",
+      "loops": 2
+    },
+    {
       "id": "human_calcium_oscillator",
       "name": "IP3/Ca²⁺ Oscillator (CICR)",
       "organism": "Homo sapiens",
@@ -3913,6 +4061,30 @@
       "topologyType": "interlocked_feedback_bistable_trigger",
       "circuitClassConfidence": "high",
       "loops": 2
+    },
+    {
+      "id": "human_cgas_sting_dna_sensing",
+      "name": "cGAS–STING Cytosolic DNA Sensing",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity",
+      "description": "Detection of mislocalized DNA. cGAS binds cytosolic dsDNA and synthesizes the second messenger 2'3'-cGAMP, which activates STING at the ER; STING recruits TBK1 to phosphorylate IRF3, inducing interferon. STING is subsequently degraded after trafficking to lysosomes, and IFN-induced regulators feed back to terminate the response.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "induction_with_negative_feedback",
+      "circuitClassConfidence": "high",
+      "loops": 1
     },
     {
       "id": "human_circadian_clock",
@@ -4371,6 +4543,30 @@
       "loops": 1
     },
     {
+      "id": "human_nlrp3_inflammasome",
+      "name": "NLRP3 Inflammasome All-or-None Switch",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity / Inflammation",
+      "description": "The inflammasome converts danger signals into an all-or-none death/inflammation response. Priming (NF-κB) raises NLRP3 and pro-IL-1β; a second signal (K+ efflux, crystals, ATP) activates NLRP3 to seed ASC into one micron-scale speck whose self-templating polymerization recruits and activates caspase-1, driving IL-1β maturation and pyroptosis in a switch-like, single-cell manner.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "nucleation_cooperative_all_or_none_switch",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "human_notch_delta_lateral_inhibition",
       "name": "Notch–Delta Lateral Inhibition Switch",
       "organism": "Homo sapiens",
@@ -4539,6 +4735,30 @@
       "loops": 1
     },
     {
+      "id": "human_perk_atf4_isr",
+      "name": "PERK–ATF4 Integrated Stress Response",
+      "organism": "Homo sapiens",
+      "category": "Proteostasis / Stress",
+      "description": "A branch of the integrated stress response. ER or other stress activates the kinase PERK, which phosphorylates eIF2α to suppress global translation while selectively translating ATF4. ATF4 induces GADD34 (PP1 targeting subunit) that dephosphorylates eIF2α, restoring translation — negative feedback that resolves the stress program.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "II",
+      "topologyType": "translational_negative_feedback_homeostat",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "human_pten_pi3k_akt",
       "name": "PTEN–PI3K–AKT Tumor-Suppressor Homeostat",
       "organism": "Homo sapiens",
@@ -4585,6 +4805,30 @@
       "topologyType": "double_negative_positive_feedback_bistable",
       "circuitClassConfidence": "high",
       "loops": 2
+    },
+    {
+      "id": "human_rig_i_mavs_antiviral",
+      "name": "RIG-I/MAVS Antiviral Switch",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity",
+      "description": "Cytosolic sensing of viral RNA. RIG-I binds short 5'-triphosphate dsRNA and oligomerizes on the adaptor MAVS, which forms self-templating aggregates on mitochondria; this digital amplification drives IRF3 and NF-κB to induce type-I interferon, converting a few sensed RNA molecules into a switch-like antiviral state.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "feedback_amplified_all_or_none_switch",
+      "circuitClassConfidence": "high",
+      "loops": 1
     },
     {
       "id": "human_shh_gli",
@@ -4683,6 +4927,30 @@
       "loops": 1
     },
     {
+      "id": "human_tnf_survival_death_decision",
+      "name": "TNF Survival-vs-Death Decision Switch",
+      "organism": "Homo sapiens",
+      "category": "Cell-Fate Signaling",
+      "description": "One ligand, two fates. TNF binding first nucleates complex I that activates NF-κB and pro-survival genes (cFLIP, cIAPs); if NF-κB output is too low or delayed, the receptor complex converts to the cytosolic death-inducing complex II that triggers caspase-8 apoptosis or RIPK3/MLKL necroptosis. The opposing arms make the outcome a switch-like decision.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "bistable_competing_outputs_decision",
+      "circuitClassConfidence": "high",
+      "loops": 0
+    },
+    {
       "id": "human_vhl_hif_oxygen_sensing",
       "name": "VHL–HIF Oxygen-Sensing Homeostat",
       "organism": "Homo sapiens",
@@ -4731,59 +4999,11 @@
       "loops": 1
     },
     {
-      "id": "bacillus_comk_competence",
-      "name": "ComK Competence Bistable Switch",
-      "organism": "Bacillus subtilis",
-      "category": "Developmental Switch / Competence",
-      "description": "Bacillus subtilis stochastically enters the competence state via the master regulator ComK. ComK activates its own gene (positive autoregulation), and ComS competitively protects ComK from MecA/ClpCP proteolysis. The positive feedback creates bistability: cells that cross a noise-set threshold latch into the competent state, while the rest stay vegetative.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 2,
-      "complexity": "low",
-      "nodes": 7,
-      "conditionals": 0,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 1,
-      "circuitClass": "III",
-      "topologyType": "positive_autoregulation_bistable",
-      "circuitClassConfidence": "high",
-      "loops": 1
-    },
-    {
-      "id": "bacillus_spo0a_sporulation",
-      "name": "Spo0A Phosphorelay Sporulation Commitment",
-      "organism": "Bacillus subtilis",
-      "category": "Developmental Switch / Sporulation",
-      "description": "Starvation drives a phosphorelay that progressively phosphorylates the master regulator Spo0A. Spo0A~P accumulation is gradual until it crosses a threshold, at which point it activates the sporulation sigma-factor cascade and reinforces its own activation — converting a graded starvation signal into a discrete, irreversible commitment to form a spore.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 2,
-      "complexity": "low",
-      "nodes": 7,
-      "conditionals": 1,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 0,
-      "circuitClass": "III",
-      "topologyType": "threshold_positive_feedback_bistable_commitment",
-      "circuitClassConfidence": "high",
-      "loops": 1
-    },
-    {
-      "id": "ecoli_sos_lexa",
-      "name": "SOS DNA-Damage Response (LexA/RecA)",
-      "organism": "E. coli",
-      "category": "DNA Damage Response",
-      "description": "The bacterial DNA-damage response. Single-stranded DNA at lesions nucleates RecA filaments (RecA*) that act as a co-protease stimulating LexA self-cleavage; loss of the LexA repressor switches on SOS repair genes. As repair eliminates the ssDNA, RecA* falls, LexA re-accumulates, and the regulon is repressed again — a self-limiting negative-feedback loop.",
+      "id": "arabidopsis_circadian_clock",
+      "name": "Arabidopsis Circadian Clock (CCA1/LHY–TOC1)",
+      "organism": "Arabidopsis thaliana",
+      "category": "Circadian Rhythm",
+      "description": "The plant circadian clock. At dawn, light induces the morning Myb factors CCA1 and LHY, which repress evening genes including TOC1; as CCA1/LHY decay through the day, the evening complex (TOC1/PRRs) accumulates and represses CCA1/LHY. The mutual, time-delayed repression sustains a self-running ~24 h rhythm.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
@@ -4797,17 +5017,17 @@
         "total": 0
       },
       "notGates": 2,
-      "circuitClass": "II",
-      "topologyType": "derepression_negative_feedback_homeostat",
+      "circuitClass": "IV",
+      "topologyType": "delayed_negative_feedback_oscillator",
       "circuitClassConfidence": "high",
       "loops": 1
     },
     {
-      "id": "ecoli_flhdc_flagellar",
-      "name": "Flagellar Gene Feed-Forward Cascade (FlhDC)",
-      "organism": "E. coli",
-      "category": "Motility / Transcriptional Cascade",
-      "description": "Assembly of the flagellum is timed by a transcriptional cascade. FlhDC (class 1) turns on class-2 genes (basal body and the sigma factor FliA); the anti-sigma FlgM holds FliA inactive until the hook-basal-body is complete and FlgM is secreted out, after which FliA fires class-3 flagellin genes. The just-in-time logic is feed-forward.",
+      "id": "arabidopsis_flc_vernalization",
+      "name": "FLC Vernalization Epigenetic Memory",
+      "organism": "Arabidopsis thaliana",
+      "category": "Epigenetic Inheritance / Flowering",
+      "description": "How plants remember winter. The floral repressor FLC blocks flowering; prolonged cold induces VIN3 and the Polycomb PRC2 complex to nucleate and spread the repressive mark H3K27me3 over the FLC locus. The silenced state is then self-propagated through cell division so that, after winter, FLC stays off and the plant can flower — a heritable, chromatin-encoded epigenetic switch.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
@@ -4820,11 +5040,35 @@
         "and": 0,
         "total": 0
       },
-      "notGates": 1,
-      "circuitClass": "I",
-      "topologyType": "transcriptional_feed_forward_cascade",
+      "notGates": 0,
+      "circuitClass": "V",
+      "topologyType": "self_maintaining_polycomb_chromatin_memory",
       "circuitClassConfidence": "high",
-      "loops": 0
+      "loops": 1
+    },
+    {
+      "id": "arabidopsis_aba_guard_cell",
+      "name": "ABA Guard-Cell Stomatal Homeostat",
+      "organism": "Arabidopsis thaliana",
+      "category": "Hormone Signaling / Water Balance",
+      "description": "Plants conserve water through ABA-driven stomatal closure. Drought-elevated ABA is bound by PYR/PYL receptors that inhibit clade-A PP2C phosphatases, releasing SnRK2 kinases; SnRK2 activates SLAC1 anion channels and inhibits inward K+ channels, so guard cells lose turgor and stomata close. Lower transpiration rehydrates the plant, ABA falls, and stomata reopen.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "II",
+      "topologyType": "hormonal_negative_feedback_homeostat",
+      "circuitClassConfidence": "high",
+      "loops": 1
     }
   ]
 }

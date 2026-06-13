@@ -1,0 +1,127 @@
+{
+  "id": "arabidopsis_aba_guard_cell",
+  "name": "ABA Guard-Cell Stomatal Homeostat",
+  "organism": "Arabidopsis thaliana",
+  "category": "Hormone Signaling / Water Balance",
+  "description": "Plants conserve water through ABA-driven stomatal closure. Drought-elevated ABA is bound by PYR/PYL receptors that inhibit clade-A PP2C phosphatases, releasing SnRK2 kinases; SnRK2 activates SLAC1 anion channels and inhibits inward K+ channels, so guard cells lose turgor and stomata close. Lower transpiration rehydrates the plant, ABA falls, and stomata reopen.",
+  "scientificAccuracy": "The PYR/PYL–PP2C–SnRK2 ABA core signaling module and stomatal water feedback are established (Ma et al. 2009; Park et al. 2009; Cutler et al. 2010).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Drought: ABA rises]\n    B[/PYR/PYL inhibit PP2C/]\n    C[SnRK2 kinases active]\n    D[Open SLAC1 anion channels; stomata close]\n    E[Transpiration drops; water restored]\n    F[/Rehydration lowers ABA/]\n    G(Water-status homeostasis)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|⊣ feedback| A\n    E --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Regulators of PP2C phosphatase activity function as receptors for abscisic acid",
+      "authors": "Ma Y, Szostkiewicz I, Korte A, et al.",
+      "journal": "Science",
+      "year": 2009,
+      "volume": "324",
+      "pages": "1064-1068",
+      "pmid": "19407143",
+      "doi": "10.1126/science.1172408"
+    },
+    {
+      "title": "Abscisic acid: emergence of a core signaling network",
+      "authors": "Cutler SR, Rodriguez PL, Finkelstein RR, Abrams SR",
+      "journal": "Annual Review of Plant Biology",
+      "year": 2010,
+      "volume": "61",
+      "pages": "651-679",
+      "pmid": "20192755",
+      "doi": "10.1146/annurev-arplant-042809-112122"
+    }
+  ],
+  "keywords": [
+    "ABA",
+    "guard cell",
+    "stomata",
+    "PYR/PYL",
+    "PP2C",
+    "SnRK2",
+    "negative feedback",
+    "Arabidopsis",
+    "Class II",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_glucocorticoid_hpa_axis",
+    "ecoli_e._coli_osmotic_stress_response"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth plant Class II homeostat: ABA core module closes stomata; rehydration feedback lowers ABA.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "ABRE (ABA-responsive elements)",
+        "boundFactor": "ABF/AREB bZIP (SnRK2-activated)",
+        "operator": "IF ABA / NOT(PP2C)",
+        "effect": "ABA-responsive gene + channel activation",
+        "sequenceMotif": "ACGTGGC (ABRE)",
+        "note": "water feedback lowers ABA -> closes the loop"
+      }
+    ],
+    "derivedLogic": "stomatal-close = ABA AND NOT PP2C ; water restored -| ABA (negative feedback)",
+    "references": [
+      "Ma et al. 2009",
+      "Cutler et al. 2010"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 7,
+  "loops": 1,
+  "circuitClass": "II",
+  "circuitClassName": "Negative feedback (homeostatic)",
+  "topologyType": "hormonal_negative_feedback_homeostat",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Drought raises ABA; PYR/PYL receptors bind ABA and inhibit PP2C phosphatases, freeing SnRK2 kinases that open anion channels to close stomata; reduced transpiration restores water status, lowering ABA — a negative-feedback homeostat for plant water balance. Class II.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

@@ -1,0 +1,125 @@
+{
+  "id": "arabidopsis_flc_vernalization",
+  "name": "FLC Vernalization Epigenetic Memory",
+  "organism": "Arabidopsis thaliana",
+  "category": "Epigenetic Inheritance / Flowering",
+  "description": "How plants remember winter. The floral repressor FLC blocks flowering; prolonged cold induces VIN3 and the Polycomb PRC2 complex to nucleate and spread the repressive mark H3K27me3 over the FLC locus. The silenced state is then self-propagated through cell division so that, after winter, FLC stays off and the plant can flower — a heritable, chromatin-encoded epigenetic switch.",
+  "scientificAccuracy": "Cold-induced, PRC2/H3K27me3-based heritable silencing of FLC is established (Bastow et al. 2004; Angel et al. 2011).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Prolonged cold winter]\n    B[VIN3 induced]\n    C[\\PRC2 deposits H3K27me3 at FLC/]\n    D[FLC epigenetically silenced]\n    E[Silenced state mitotically inherited]\n    F(Heritable vernalized state, flowering enabled)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E -->|+ self-maintain| C\n    D --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#51cf66,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Vernalization requires epigenetic silencing of FLC by histone methylation",
+      "authors": "Bastow R, Mylne JS, Lister C, Lippman Z, Martienssen RA, Dean C",
+      "journal": "Nature",
+      "year": 2004,
+      "volume": "427",
+      "pages": "164-167",
+      "pmid": "14712277",
+      "doi": "10.1038/nature02269"
+    },
+    {
+      "title": "A Polycomb-based switch underlying quantitative epigenetic memory",
+      "authors": "Angel A, Song J, Dean C, Howard M",
+      "journal": "Nature",
+      "year": 2011,
+      "volume": "476",
+      "pages": "105-108",
+      "pmid": "21785438",
+      "doi": "10.1038/nature10241"
+    }
+  ],
+  "keywords": [
+    "FLC",
+    "vernalization",
+    "Polycomb",
+    "H3K27me3",
+    "epigenetic memory",
+    "Arabidopsis",
+    "Class V",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "yeast_sup35_prion",
+    "synthetic_integrase_memory"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Ground-truth plant Class V: self-maintaining Polycomb chromatin memory (epigenetic winter memory).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "FLC nucleation region",
+        "boundFactor": "PRC2 (VRN2/CLF) -> H3K27me3",
+        "operator": "SELF-MODIFY (chromatin)",
+        "effect": "heritable silencing of FLC",
+        "sequenceMotif": "FLC intron-1 nucleation element",
+        "note": "read-write H3K27me3 spreading is mitotically inherited"
+      }
+    ],
+    "derivedLogic": "FLC_state := silence(FLC) by H3K27me3 ; self-maintained -> heritable memory",
+    "references": [
+      "Bastow et al. 2004",
+      "Angel et al. 2011"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "V",
+  "circuitClassName": "Self-modifying chromatin / epigenetic",
+  "topologyType": "self_maintaining_polycomb_chromatin_memory",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Prolonged cold induces VIN3 and PRC2 to deposit H3K27me3 across the floral repressor FLC, switching it to a silenced chromatin state that is self-maintained and mitotically heritable after cold ends — a cis-acting, self-modifying chromatin memory of winter. Class V.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

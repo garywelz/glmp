@@ -1,7 +1,7 @@
 {
   "version": "2.0",
   "generated": "2025-10-15",
-  "totalProcesses": 190,
+  "totalProcesses": 199,
   "lastUpdated": "2026-03-24",
   "description": "GLMP v2: Genome Logic Modeling Project with 100 publication-quality biological processes",
   "organisms": [
@@ -27,11 +27,15 @@
     },
     {
       "name": "Homo sapiens",
-      "processCount": 41
+      "processCount": 47
     },
     {
       "name": "Bacteriophage lambda",
       "processCount": 1
+    },
+    {
+      "name": "Arabidopsis thaliana",
+      "processCount": 3
     }
   ],
   "categories": [
@@ -97,7 +101,7 @@
     },
     {
       "name": "Innate Immunity",
-      "processCount": 2
+      "processCount": 4
     },
     {
       "name": "Nutrient Transport",
@@ -145,7 +149,7 @@
     },
     {
       "name": "Circadian Rhythm",
-      "processCount": 1
+      "processCount": 2
     },
     {
       "name": "Growth Factor Signaling",
@@ -250,27 +254,51 @@
     {
       "name": "Motility / Transcriptional Cascade",
       "processCount": 1
+    },
+    {
+      "name": "Endocrine / Metabolic Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Innate Immunity / Inflammation",
+      "processCount": 1
+    },
+    {
+      "name": "Proteostasis / Stress",
+      "processCount": 1
+    },
+    {
+      "name": "Cell-Fate Signaling",
+      "processCount": 1
+    },
+    {
+      "name": "Epigenetic Inheritance / Flowering",
+      "processCount": 1
+    },
+    {
+      "name": "Hormone Signaling / Water Balance",
+      "processCount": 1
     }
   ],
   "statistics": {
     "totalCitations": 348,
-    "verifiedProcesses": 181,
-    "totalNodes": 7698,
-    "totalLogicGates": 1350,
+    "verifiedProcesses": 190,
+    "totalNodes": 7754,
+    "totalLogicGates": 1358,
     "orGates": 350,
     "andGates": 442,
     "orAndRatio": 0.8,
-    "notGates": 558,
-    "totalConditionals": 6254,
+    "notGates": 566,
+    "totalConditionals": 6255,
     "architecture": "100:125:135:18",
-    "loops": 499,
+    "loops": 508,
     "loopEdges": 438,
     "circuitClassDistribution": {
       "I": 64,
-      "II": 69,
-      "III": 39,
-      "IV": 13,
-      "V": 5
+      "II": 72,
+      "III": 42,
+      "IV": 15,
+      "V": 6
     }
   },
   "processes": [
@@ -2739,6 +2767,94 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "bacillus_comk_competence",
+      "name": "ComK Competence Bistable Switch",
+      "organism": "Bacillus subtilis",
+      "category": "Developmental Switch / Competence",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 7,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "positive_autoregulation_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "bacillus_spo0a_sporulation",
+      "name": "Spo0A Phosphorelay Sporulation Commitment",
+      "organism": "Bacillus subtilis",
+      "category": "Developmental Switch / Sporulation",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 0
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 0,
+      "conditionals": 1,
+      "totalNodes": 7,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "threshold_positive_feedback_bistable_commitment",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_sos_lexa",
+      "name": "SOS DNA-Damage Response (LexA/RecA)",
+      "organism": "E. coli",
+      "category": "DNA Damage Response",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 2
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 2,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "II",
+      "topologyType": "derepression_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "ecoli_flhdc_flagellar",
+      "name": "Flagellar Gene Feed-Forward Cascade (FlhDC)",
+      "organism": "E. coli",
+      "category": "Motility / Transcriptional Cascade",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 0,
+      "circuitClass": "I",
+      "topologyType": "transcriptional_feed_forward_cascade",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "synthetic_5node_repressilator",
       "name": "Five-Repressor Ring Oscillator",
       "organism": "Synthetic circuit",
@@ -3553,6 +3669,28 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_beta_cell_insulin_oscillator",
+      "name": "Pancreatic β-Cell Glucose–Insulin Oscillator",
+      "organism": "Homo sapiens",
+      "category": "Endocrine / Metabolic Signaling",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 2,
+      "circuitClass": "IV",
+      "topologyType": "metabolic_electrical_oscillator",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_calcium_oscillator",
       "name": "IP3/Ca²⁺ Oscillator (CICR)",
       "organism": "Homo sapiens",
@@ -3616,6 +3754,28 @@
       "loops": 2,
       "circuitClass": "III",
       "topologyType": "interlocked_feedback_bistable_trigger",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_cgas_sting_dna_sensing",
+      "name": "cGAS–STING Cytosolic DNA Sensing",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "II",
+      "topologyType": "induction_with_negative_feedback",
       "circuitClassConfidence": "high"
     },
     {
@@ -4037,6 +4197,28 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_nlrp3_inflammasome",
+      "name": "NLRP3 Inflammasome All-or-None Switch",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity / Inflammation",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 0
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 0,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "nucleation_cooperative_all_or_none_switch",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_notch_delta_lateral_inhibition",
       "name": "Notch–Delta Lateral Inhibition Switch",
       "organism": "Homo sapiens",
@@ -4191,6 +4373,28 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_perk_atf4_isr",
+      "name": "PERK–ATF4 Integrated Stress Response",
+      "organism": "Homo sapiens",
+      "category": "Proteostasis / Stress",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "II",
+      "topologyType": "translational_negative_feedback_homeostat",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_pten_pi3k_akt",
       "name": "PTEN–PI3K–AKT Tumor-Suppressor Homeostat",
       "organism": "Homo sapiens",
@@ -4232,6 +4436,28 @@
       "loops": 2,
       "circuitClass": "III",
       "topologyType": "double_negative_positive_feedback_bistable",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "human_rig_i_mavs_antiviral",
+      "name": "RIG-I/MAVS Antiviral Switch",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity",
+      "complexity": "low",
+      "nodes": 6,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 0
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 0,
+      "conditionals": 0,
+      "totalNodes": 6,
+      "loops": 1,
+      "circuitClass": "III",
+      "topologyType": "feedback_amplified_all_or_none_switch",
       "circuitClassConfidence": "high"
     },
     {
@@ -4323,6 +4549,28 @@
       "circuitClassConfidence": "high"
     },
     {
+      "id": "human_tnf_survival_death_decision",
+      "name": "TNF Survival-vs-Death Decision Switch",
+      "organism": "Homo sapiens",
+      "category": "Cell-Fate Signaling",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 1
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 1,
+      "conditionals": 1,
+      "totalNodes": 7,
+      "loops": 0,
+      "circuitClass": "III",
+      "topologyType": "bistable_competing_outputs_decision",
+      "circuitClassConfidence": "high"
+    },
+    {
       "id": "human_vhl_hif_oxygen_sensing",
       "name": "VHL–HIF Oxygen-Sensing Homeostat",
       "organism": "Homo sapiens",
@@ -4367,54 +4615,10 @@
       "circuitClassConfidence": "high"
     },
     {
-      "id": "bacillus_comk_competence",
-      "name": "ComK Competence Bistable Switch",
-      "organism": "Bacillus subtilis",
-      "category": "Developmental Switch / Competence",
-      "complexity": "low",
-      "nodes": 7,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "not": 1
-      },
-      "verified": true,
-      "created": "2026-06-12",
-      "notGates": 1,
-      "conditionals": 0,
-      "totalNodes": 7,
-      "loops": 1,
-      "circuitClass": "III",
-      "topologyType": "positive_autoregulation_bistable",
-      "circuitClassConfidence": "high"
-    },
-    {
-      "id": "bacillus_spo0a_sporulation",
-      "name": "Spo0A Phosphorelay Sporulation Commitment",
-      "organism": "Bacillus subtilis",
-      "category": "Developmental Switch / Sporulation",
-      "complexity": "low",
-      "nodes": 7,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "not": 0
-      },
-      "verified": true,
-      "created": "2026-06-12",
-      "notGates": 0,
-      "conditionals": 1,
-      "totalNodes": 7,
-      "loops": 1,
-      "circuitClass": "III",
-      "topologyType": "threshold_positive_feedback_bistable_commitment",
-      "circuitClassConfidence": "high"
-    },
-    {
-      "id": "ecoli_sos_lexa",
-      "name": "SOS DNA-Damage Response (LexA/RecA)",
-      "organism": "E. coli",
-      "category": "DNA Damage Response",
+      "id": "arabidopsis_circadian_clock",
+      "name": "Arabidopsis Circadian Clock (CCA1/LHY–TOC1)",
+      "organism": "Arabidopsis thaliana",
+      "category": "Circadian Rhythm",
       "complexity": "low",
       "nodes": 6,
       "logicGates": {
@@ -4428,30 +4632,52 @@
       "conditionals": 0,
       "totalNodes": 6,
       "loops": 1,
-      "circuitClass": "II",
-      "topologyType": "derepression_negative_feedback_homeostat",
+      "circuitClass": "IV",
+      "topologyType": "delayed_negative_feedback_oscillator",
       "circuitClassConfidence": "high"
     },
     {
-      "id": "ecoli_flhdc_flagellar",
-      "name": "Flagellar Gene Feed-Forward Cascade (FlhDC)",
-      "organism": "E. coli",
-      "category": "Motility / Transcriptional Cascade",
+      "id": "arabidopsis_flc_vernalization",
+      "name": "FLC Vernalization Epigenetic Memory",
+      "organism": "Arabidopsis thaliana",
+      "category": "Epigenetic Inheritance / Flowering",
       "complexity": "low",
       "nodes": 6,
       "logicGates": {
         "or": 0,
         "and": 0,
-        "not": 1
+        "not": 0
       },
       "verified": true,
       "created": "2026-06-12",
-      "notGates": 1,
+      "notGates": 0,
       "conditionals": 0,
       "totalNodes": 6,
-      "loops": 0,
-      "circuitClass": "I",
-      "topologyType": "transcriptional_feed_forward_cascade",
+      "loops": 1,
+      "circuitClass": "V",
+      "topologyType": "self_maintaining_polycomb_chromatin_memory",
+      "circuitClassConfidence": "high"
+    },
+    {
+      "id": "arabidopsis_aba_guard_cell",
+      "name": "ABA Guard-Cell Stomatal Homeostat",
+      "organism": "Arabidopsis thaliana",
+      "category": "Hormone Signaling / Water Balance",
+      "complexity": "low",
+      "nodes": 7,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "not": 2
+      },
+      "verified": true,
+      "created": "2026-06-12",
+      "notGates": 2,
+      "conditionals": 0,
+      "totalNodes": 7,
+      "loops": 1,
+      "circuitClass": "II",
+      "topologyType": "hormonal_negative_feedback_homeostat",
       "circuitClassConfidence": "high"
     }
   ]
