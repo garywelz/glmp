@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_phosphorelay_and",
+  "name": "Phosphorelay AND Gate",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "Logic via signal transduction modules. Each input activates its own histidine kinase, which transfers phosphate through a phosphorelay to a shared response regulator. Because both phosphates must accumulate on the regulator before it binds the output promoter, the circuit computes AND without feedback — a textbook post-translational combinational gate.",
+  "scientificAccuracy": "Ground-truth circuit. Engineered phosphorelay modules wired as an AND gate were built by Anderson et al. (2007).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input A]\n    B[Input B]\n    C[Kinase A phosphorylates RR]\n    D[Kinase B phosphorylates RR]\n    E{Both phosphates on RR?}\n    F[Output promoter ON]\n    G(Phosphorelay AND output)\n\n    A --> C\n    B --> D\n    C --> E\n    D --> E\n    E -->|Yes| F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#74c0fc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Environmentally controlled invasion of cancer cells by engineered bacteria",
+      "authors": "Anderson JC, Clarke EJ, Arkin AP, Voigt CA",
+      "journal": "Journal of Molecular Biology",
+      "year": 2006,
+      "volume": "355",
+      "pages": "619-627",
+      "pmid": "16330045",
+      "doi": "10.1016/j.jmb.2005.10.076"
+    }
+  ],
+  "keywords": [
+    "phosphorelay",
+    "AND gate",
+    "histidine kinase",
+    "response regulator",
+    "combinational",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_and_gate",
+    "synthetic_layered_nor_cascade"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I phosphorelay AND (feed-forward, no feedback loop).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "output promoter",
+        "boundFactor": "doubly-phosphorylated RR",
+        "operator": "AND (cooperative binding)",
+        "effect": "transcription ON only when both inputs active",
+        "sequenceMotif": "RR binding site (engineered)",
+        "note": "modular HK-RR pairs implement the gate"
+      }
+    ],
+    "derivedLogic": "Output = InputA AND InputB via shared RR phosphorylation threshold",
+    "references": [
+      "Anderson et al. 2006/2007"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "phosphorelay_combinational_and",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Two independent input signals each drive a kinase that phosphorylates a shared response regulator; only when both kinases are active does the regulator reach the phosphorylation threshold needed to activate the output promoter — a feed-forward AND gate built from a modular phosphorelay. Class I (Anderson et al. 2007).",
+  "groundTruth": true
+}

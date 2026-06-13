@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "created": "2026-01-14",
   "lastUpdated": "2026-01-14",
-  "totalProcesses": 206,
+  "totalProcesses": 217,
   "organisms": [
     {
       "name": "E. coli",
@@ -19,11 +19,11 @@
     },
     {
       "name": "Synthetic circuit",
-      "processCount": 36
+      "processCount": 39
     },
     {
       "name": "Homo sapiens",
-      "processCount": 47
+      "processCount": 52
     },
     {
       "name": "Bacteriophage lambda",
@@ -40,6 +40,10 @@
     {
       "name": "Caenorhabditis elegans",
       "processCount": 2
+    },
+    {
+      "name": "Mus musculus",
+      "processCount": 3
     }
   ],
   "categories": [
@@ -113,7 +117,7 @@
     },
     {
       "name": "Innate Immunity",
-      "processCount": 4
+      "processCount": 5
     },
     {
       "name": "Nutrient Transport",
@@ -129,11 +133,11 @@
     },
     {
       "name": "Synthetic Biology",
-      "processCount": 36
+      "processCount": 39
     },
     {
       "name": "Hematopoiesis",
-      "processCount": 1
+      "processCount": 4
     },
     {
       "name": "Oncogene Signaling",
@@ -245,7 +249,7 @@
     },
     {
       "name": "DNA Damage Response",
-      "processCount": 2
+      "processCount": 3
     },
     {
       "name": "Developmental Switch / Competence",
@@ -286,24 +290,36 @@
     {
       "name": "Developmental Timing",
       "processCount": 1
+    },
+    {
+      "name": "Adaptive Immunity",
+      "processCount": 1
+    },
+    {
+      "name": "Immune Regulation",
+      "processCount": 1
+    },
+    {
+      "name": "Pluripotency",
+      "processCount": 1
     }
   ],
   "statistics": {
-    "totalNodes": 7918,
-    "totalConditionals": 6256,
+    "totalNodes": 7988,
+    "totalConditionals": 6258,
     "orGates": 350,
-    "andGates": 442,
-    "notGates": 573,
-    "totalLogicGates": 1365,
-    "verifiedProcesses": 197,
+    "andGates": 444,
+    "notGates": 579,
+    "totalLogicGates": 1373,
+    "verifiedProcesses": 208,
     "circuitClassDistribution": {
-      "I": 66,
+      "I": 69,
       "II": 73,
-      "III": 45,
-      "IV": 15,
+      "III": 52,
+      "IV": 16,
       "V": 7
     },
-    "loops": 513
+    "loops": 525
   },
   "processes": [
     {
@@ -3163,6 +3179,102 @@
       "loops": 1
     },
     {
+      "id": "drosophila_gap_gene_network",
+      "name": "Drosophila Gap-Gene Patterning Network",
+      "organism": "Drosophila melanogaster",
+      "category": "Developmental Patterning",
+      "description": "Anterior-posterior pre-patterning of the fly embryo. Maternal morphogen gradients (Bicoid, Caudal) provide graded positional input that activates the zygotic gap genes; the gap proteins then mutually repress one another, and that cross-repression converts smooth gradients into sharply bounded, mutually exclusive expression domains — a multistable spatial switch that sets up the downstream stripes.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "cross_repression_multistable_patterning",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "drosophila_segment_polarity",
+      "name": "Segment-Polarity Network (wg/en/hh)",
+      "organism": "Drosophila melanogaster",
+      "category": "Developmental Patterning",
+      "description": "Maintenance of segment boundaries after the pair-rule prepattern fades. Engrailed/Hedgehog-expressing cells and adjacent Wingless-expressing cells form a reciprocal signaling loop: Wingless maintains engrailed/hedgehog in neighbors, and Hedgehog maintains wingless, so the boundary becomes a bistable, self-stabilizing module famously robust to parameter changes.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "intercellular_positive_feedback_bistable_module",
+      "circuitClassConfidence": "high",
+      "loops": 2
+    },
+    {
+      "id": "celegans_dauer_decision",
+      "name": "C. elegans Dauer Developmental Switch",
+      "organism": "Caenorhabditis elegans",
+      "category": "Developmental Decision",
+      "description": "A larva-stage life-or-death bet. Crowding, scarce food, and dauer pheromone are integrated through insulin/IGF (DAF-2) and TGF-β (DAF-7) pathways: high signaling promotes reproductive growth; low signaling releases the FOXO factor DAF-16 and DAF-3 to commit to the stress-resistant, non-aging dauer larva. Reinforcing feedback makes the commitment switch-like.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "III",
+      "topologyType": "signal_integrated_bistable_decision",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "celegans_heterochronic_clock",
+      "name": "Heterochronic microRNA Timing Cascade",
+      "organism": "Caenorhabditis elegans",
+      "category": "Developmental Timing",
+      "description": "The worm's developmental stopwatch. Heterochronic microRNAs are expressed in sequence: lin-4 accumulates to switch off lin-14 (ending the L1 program), and later let-7 accumulates to switch off lin-41 (enabling the adult program). Each microRNA gates the next stage, producing the correct temporal order of cell fates as a feed-forward cascade.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "I",
+      "topologyType": "feed_forward_temporal_cascade",
+      "circuitClassConfidence": "high",
+      "loops": 0
+    },
+    {
       "id": "synthetic_5node_repressilator",
       "name": "Five-Repressor Ring Oscillator",
       "organism": "Synthetic circuit",
@@ -3375,6 +3487,30 @@
       "notGates": 0,
       "circuitClass": "V",
       "topologyType": "self_modifying_dna_recorder",
+      "circuitClassConfidence": "high",
+      "loops": 0
+    },
+    {
+      "id": "synthetic_crispra_layered_logic",
+      "name": "CRISPRa Layered Activation Logic",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "Activation logic with CRISPR. Instead of repressing promoters (CRISPRi), dCas9 activators (SAM/VPR) are guided to upstream activation sequences to turn genes ON. Stacking orthogonal gRNA-target pairs creates layered NOR/NOT modules that compose into larger feed-forward logic circuits in one cell.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 1,
+      "circuitClass": "I",
+      "topologyType": "crispra_layered_combinational_logic",
       "circuitClassConfidence": "high",
       "loops": 0
     },
@@ -3715,6 +3851,30 @@
       "loops": 0
     },
     {
+      "id": "synthetic_phosphorelay_and",
+      "name": "Phosphorelay AND Gate",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "Logic via signal transduction modules. Each input activates its own histidine kinase, which transfers phosphate through a phosphorelay to a shared response regulator. Because both phosphates must accumulate on the regulator before it binds the output promoter, the circuit computes AND without feedback — a textbook post-translational combinational gate.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "phosphorelay_combinational_and",
+      "circuitClassConfidence": "high",
+      "loops": 0
+    },
+    {
       "id": "synthetic_population_control",
       "name": "Quorum-Sensing Population Control (You 2004)",
       "organism": "Synthetic circuit",
@@ -3761,6 +3921,30 @@
       "topologyType": "positive_autoregulation",
       "circuitClassConfidence": "high",
       "loops": 1
+    },
+    {
+      "id": "synthetic_protease_and_gate",
+      "name": "Protease-Based Post-Translational AND Gate",
+      "organism": "Synthetic circuit",
+      "category": "Synthetic Biology",
+      "description": "AND logic after translation. The output transcription factor is physically split and each piece is masked behind a protease-specific cleavage site. Input protease A frees the N-fragment; input protease B frees the C-fragment; functional TF appears only when both cleavages occur, gating expression of the reporter — fast post-translational combinational logic.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 1,
+      "complexity": "low",
+      "nodes": 7,
+      "conditionals": 1,
+      "logicGates": {
+        "or": 0,
+        "and": 1,
+        "total": 1
+      },
+      "notGates": 0,
+      "circuitClass": "I",
+      "topologyType": "protease_combinational_and",
+      "circuitClassConfidence": "high",
+      "loops": 0
     },
     {
       "id": "synthetic_recombinase_counter",
@@ -4123,6 +4307,30 @@
       "loops": 1
     },
     {
+      "id": "human_bcl6_gc_fate_switch",
+      "name": "BCL6 Germinal-Center Fate Switch",
+      "organism": "Homo sapiens",
+      "category": "Adaptive Immunity",
+      "description": "The germinal-center versus plasma-cell decision. Activated B cells upregulate BCL6, which silences Blimp-1 targets and maintains the dark-zone/light-zone GC program. Blimp-1 in turn antagonizes BCL6. The double-negative topology yields two stable fates — GC B cell or antibody-secreting plasma cell.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 8,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 2,
+      "circuitClass": "III",
+      "topologyType": "bistable_fate_commitment_switch",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "human_beta_cell_insulin_oscillator",
       "name": "Pancreatic β-Cell Glucose–Insulin Oscillator",
       "organism": "Homo sapiens",
@@ -4217,6 +4425,30 @@
       "topologyType": "interlocked_feedback_bistable_trigger",
       "circuitClassConfidence": "high",
       "loops": 2
+    },
+    {
+      "id": "human_cebpa_myeloid_commitment",
+      "name": "C/EBPα Myeloid Commitment Switch",
+      "organism": "Homo sapiens",
+      "category": "Hematopoiesis",
+      "description": "The myeloid lineage lock. C/EBPα induces granulocyte/monocyte genes and reinforces its own expression. Once the autoregulatory loop crosses threshold, the cell is committed to the myeloid program — a textbook persistent positive-feedback fate switch complementary to the GATA1/PU.1 mutual-repression switch.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "master_regulator_positive_feedback_bistable",
+      "circuitClassConfidence": "high",
+      "loops": 1
     },
     {
       "id": "human_cgas_sting_dna_sensing",
@@ -4335,6 +4567,30 @@
       "notGates": 0,
       "circuitClass": "III",
       "topologyType": "positive_autoregulation_bistable",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
+      "id": "human_foxp3_treg_switch",
+      "name": "Foxp3 Regulatory T-Cell Switch",
+      "organism": "Homo sapiens",
+      "category": "Immune Regulation",
+      "description": "How regulatory T cells lock in their identity. Antigen receptor and cytokine cues transiently induce Foxp3, which binds conserved non-coding sequences (especially CNS2) to autoactivate and drive the Treg transcriptional program. The positive feedback makes the suppressor state heritable across cell division.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "master_regulator_positive_feedback_bistable",
       "circuitClassConfidence": "high",
       "loops": 1
     },
@@ -4987,6 +5243,30 @@
       "loops": 1
     },
     {
+      "id": "human_scl_tal1_hematopoietic_switch",
+      "name": "SCL/TAL1 Hematopoietic Master Switch",
+      "organism": "Homo sapiens",
+      "category": "Hematopoiesis",
+      "description": "The hematopoietic master regulator. SCL/TAL1 binds its own regulatory elements and cooperates with LMO2 and GATA factors to sustain its expression. The positive autoregulation plus cooperative assembly gives a switch-like commitment to the blood lineage, making SCL/TAL1 one of the earliest persistent fate locks in hematopoiesis.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 5,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "master_regulator_positive_feedback_bistable",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "human_shh_gli",
       "name": "Sonic Hedgehog–GLI Morphogen Pathway",
       "organism": "Homo sapiens",
@@ -5083,6 +5363,30 @@
       "loops": 1
     },
     {
+      "id": "human_tlr4_lps_amplification",
+      "name": "TLR4/LPS Inflammatory Amplifier",
+      "organism": "Homo sapiens",
+      "category": "Innate Immunity",
+      "description": "The innate inflammatory amplifier. Lipopolysaccharide engages TLR4/MyD88, activating NF-κB and MAPK pathways. Induced cytokines and secondary signals feed back to sustain adaptor phosphorylation and NF-κB nuclear accumulation, producing a switch-like inflammatory response distinct from the NF-κB/IκB oscillator already in the collection.",
+      "verified": true,
+      "created": "2026-06-12",
+      "lastUpdated": "2026-06-12",
+      "citations": 2,
+      "complexity": "low",
+      "nodes": 6,
+      "conditionals": 0,
+      "logicGates": {
+        "or": 0,
+        "and": 0,
+        "total": 0
+      },
+      "notGates": 0,
+      "circuitClass": "III",
+      "topologyType": "positive_feedback_amplifier_switch",
+      "circuitClassConfidence": "high",
+      "loops": 1
+    },
+    {
       "id": "human_tnf_survival_death_decision",
       "name": "TNF Survival-vs-Death Decision Switch",
       "organism": "Homo sapiens",
@@ -5155,41 +5459,41 @@
       "loops": 1
     },
     {
-      "id": "drosophila_gap_gene_network",
-      "name": "Drosophila Gap-Gene Patterning Network",
-      "organism": "Drosophila melanogaster",
-      "category": "Developmental Patterning",
-      "description": "Anterior-posterior pre-patterning of the fly embryo. Maternal morphogen gradients (Bicoid, Caudal) provide graded positional input that activates the zygotic gap genes; the gap proteins then mutually repress one another, and that cross-repression converts smooth gradients into sharply bounded, mutually exclusive expression domains — a multistable spatial switch that sets up the downstream stripes.",
+      "id": "mouse_gata1_spi1_switch",
+      "name": "Mouse GATA1–SPI1 Hematopoietic Switch",
+      "organism": "Mus musculus",
+      "category": "Hematopoiesis",
+      "description": "The mouse hematopoietic master switch. Gata1 and Spi1 antagonize each other while reinforcing their own expression, locking multipotent progenitors into either the erythroid/megakaryocyte or myeloid program. Topology is conserved with human GATA1/PU.1 despite different binding motifs.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
       "citations": 2,
       "complexity": "low",
-      "nodes": 6,
+      "nodes": 9,
       "conditionals": 0,
       "logicGates": {
         "or": 0,
         "and": 0,
         "total": 0
       },
-      "notGates": 1,
+      "notGates": 2,
       "circuitClass": "III",
-      "topologyType": "cross_repression_multistable_patterning",
+      "topologyType": "mutual_repression_dual_autoactivation_bistable",
       "circuitClassConfidence": "high",
-      "loops": 1
+      "loops": 4
     },
     {
-      "id": "drosophila_segment_polarity",
-      "name": "Segment-Polarity Network (wg/en/hh)",
-      "organism": "Drosophila melanogaster",
-      "category": "Developmental Patterning",
-      "description": "Maintenance of segment boundaries after the pair-rule prepattern fades. Engrailed/Hedgehog-expressing cells and adjacent Wingless-expressing cells form a reciprocal signaling loop: Wingless maintains engrailed/hedgehog in neighbors, and Hedgehog maintains wingless, so the boundary becomes a bistable, self-stabilizing module famously robust to parameter changes.",
+      "id": "mouse_sox2_oct4_pluripotency",
+      "name": "Mouse Sox2–Oct4 Pluripotency Switch",
+      "organism": "Mus musculus",
+      "category": "Pluripotency",
+      "description": "The mouse pluripotency lock. Sox2 and Oct4 bind composite Sox-Oct motifs to cross-activate their own regulatory elements and Nanog, maintaining the embryonic-stem-cell state. The mutual positive feedback is the archetypal persistent Class IIIa attractor tested in mouse reprogramming experiments.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
-      "citations": 1,
+      "citations": 2,
       "complexity": "low",
-      "nodes": 6,
+      "nodes": 7,
       "conditionals": 0,
       "logicGates": {
         "or": 0,
@@ -5198,57 +5502,33 @@
       },
       "notGates": 0,
       "circuitClass": "III",
-      "topologyType": "intercellular_positive_feedback_bistable_module",
+      "topologyType": "mutual_activation_positive_feedback_bistable",
       "circuitClassConfidence": "high",
       "loops": 2
     },
     {
-      "id": "celegans_dauer_decision",
-      "name": "C. elegans Dauer Developmental Switch",
-      "organism": "Caenorhabditis elegans",
-      "category": "Developmental Decision",
-      "description": "A larva-stage life-or-death bet. Crowding, scarce food, and dauer pheromone are integrated through insulin/IGF (DAF-2) and TGF-β (DAF-7) pathways: high signaling promotes reproductive growth; low signaling releases the FOXO factor DAF-16 and DAF-3 to commit to the stress-resistant, non-aging dauer larva. Reinforcing feedback makes the commitment switch-like.",
+      "id": "mouse_p53_mdm2_oscillator",
+      "name": "Mouse p53–Mdm2 Oscillator",
+      "organism": "Mus musculus",
+      "category": "DNA Damage Response",
+      "description": "The mouse DNA-damage oscillator. Stress stabilizes Trp53 (p53), which induces Mdm2; after a transcription/translation delay Mdm2 tags p53 for degradation, terminating the pulse. The interlocked delayed repression generates the stereotyped p53 pulses observed in single MEF cells after γ-irradiation.",
       "verified": true,
       "created": "2026-06-12",
       "lastUpdated": "2026-06-12",
       "citations": 2,
       "complexity": "low",
-      "nodes": 7,
-      "conditionals": 1,
-      "logicGates": {
-        "or": 0,
-        "and": 0,
-        "total": 0
-      },
-      "notGates": 1,
-      "circuitClass": "III",
-      "topologyType": "signal_integrated_bistable_decision",
-      "circuitClassConfidence": "high",
-      "loops": 1
-    },
-    {
-      "id": "celegans_heterochronic_clock",
-      "name": "Heterochronic microRNA Timing Cascade",
-      "organism": "Caenorhabditis elegans",
-      "category": "Developmental Timing",
-      "description": "The worm's developmental stopwatch. Heterochronic microRNAs are expressed in sequence: lin-4 accumulates to switch off lin-14 (ending the L1 program), and later let-7 accumulates to switch off lin-41 (enabling the adult program). Each microRNA gates the next stage, producing the correct temporal order of cell fates as a feed-forward cascade.",
-      "verified": true,
-      "created": "2026-06-12",
-      "lastUpdated": "2026-06-12",
-      "citations": 2,
-      "complexity": "low",
-      "nodes": 7,
+      "nodes": 6,
       "conditionals": 0,
       "logicGates": {
         "or": 0,
         "and": 0,
         "total": 0
       },
-      "notGates": 2,
-      "circuitClass": "I",
-      "topologyType": "feed_forward_temporal_cascade",
+      "notGates": 1,
+      "circuitClass": "IV",
+      "topologyType": "delayed_negative_feedback_oscillator",
       "circuitClassConfidence": "high",
-      "loops": 0
+      "loops": 1
     }
   ]
 }

@@ -1,0 +1,124 @@
+{
+  "id": "mouse_p53_mdm2_oscillator",
+  "name": "Mouse p53–Mdm2 Oscillator",
+  "organism": "Mus musculus",
+  "category": "DNA Damage Response",
+  "description": "The mouse DNA-damage oscillator. Stress stabilizes Trp53 (p53), which induces Mdm2; after a transcription/translation delay Mdm2 tags p53 for degradation, terminating the pulse. The interlocked delayed repression generates the stereotyped p53 pulses observed in single MEF cells after γ-irradiation.",
+  "scientificAccuracy": "p53–Mdm2 delayed negative feedback and pulsatile dynamics in mouse cells are established (Lahav et al. 2004; Geva-Zatorsky et al. 2006).",
+  "complexity": {
+    "nodes": 6,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[DNA damage / stress]\n    B[p53 stabilized]\n    C[Mdm2 transcribed]\n    D[Mdm2 protein accumulates]\n    E[/Mdm2 degrades p53/]\n    F(p53 pulse / oscillation)\n\n    A --> B\n    B --> C\n    C -->|delay| D\n    D --> E\n    E -->|⊣| B\n    B --> F\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#74c0fc,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Dynamics of the p53-Mdm2 feedback loop in individual cells",
+      "authors": "Lahav G, Rosenfeld N, Sigal A, et al.",
+      "journal": "Nature Genetics",
+      "year": 2004,
+      "volume": "36",
+      "pages": "147-150",
+      "pmid": "14730303",
+      "doi": "10.1038/ng1293"
+    },
+    {
+      "title": "Oscillations and variability in the p53 system",
+      "authors": "Geva-Zatorsky N, Rosenfeld N, Itzkovitz S, et al.",
+      "journal": "Molecular Systems Biology",
+      "year": 2006,
+      "volume": "2",
+      "pages": "2006.0033",
+      "pmid": "16773083",
+      "doi": "10.1038/msb4100068"
+    }
+  ],
+  "keywords": [
+    "p53",
+    "Mdm2",
+    "Trp53",
+    "oscillator",
+    "mouse",
+    "Class IV",
+    "ground truth",
+    "ortholog"
+  ],
+  "relatedProcesses": [
+    "human_p53_mdm2",
+    "human_p53_apoptosis_decision"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Mouse Class IV ortholog of human p53–MDM2 oscillator (delayed negative feedback).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Mdm2 promoter (p53-responsive)",
+        "boundFactor": "p53",
+        "operator": "IF damage (conditional induction)",
+        "effect": "Mdm2 transcription",
+        "sequenceMotif": "RRRCWWGYYY (p53 RE)",
+        "note": "Mdm2 protein feeds back to degrade p53 -> pulse"
+      }
+    ],
+    "derivedLogic": "Mdm2 = IF p53 ; Mdm2 -| p53 (delayed) -> oscillation",
+    "references": [
+      "Lahav et al. 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 6,
+  "edges": 6,
+  "loops": 1,
+  "circuitClass": "IV",
+  "circuitClassName": "Delayed negative feedback (oscillator)",
+  "topologyType": "delayed_negative_feedback_oscillator",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "DNA damage stabilizes mouse p53, which transcribes Mdm2; Mdm2 protein accumulates with delay, ubiquitinates p53 and exports it, lowering p53 — a delayed negative-feedback loop that produces damped p53 pulses. Class IV — mouse ortholog of the human p53–MDM2 oscillator (Lahav et al. 2004).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

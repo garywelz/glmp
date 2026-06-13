@@ -1,0 +1,133 @@
+{
+  "id": "mouse_sox2_oct4_pluripotency",
+  "name": "Mouse Sox2–Oct4 Pluripotency Switch",
+  "organism": "Mus musculus",
+  "category": "Pluripotency",
+  "description": "The mouse pluripotency lock. Sox2 and Oct4 bind composite Sox-Oct motifs to cross-activate their own regulatory elements and Nanog, maintaining the embryonic-stem-cell state. The mutual positive feedback is the archetypal persistent Class IIIa attractor tested in mouse reprogramming experiments.",
+  "scientificAccuracy": "Oct4-Sox2 mutual activation and pluripotency maintenance in mouse ES cells are established (Masui et al. 2007; Niwa et al. 2000).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Differentiation cues absent]\n    B[Oct4 / Pou5f1]\n    C[Sox2]\n    D[\\Oct4-Sox2 activate Oct4 enhancer/]\n    E[\\Oct4-Sox2 activate Sox2 enhancer/]\n    F[Nanog sustained]\n    G(Pluripotent ES cell state)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| B\n    C --> E\n    E -->|+| C\n    B --> F\n    C --> F\n    F --> G\n    B --> G\n    C --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Pluripotency governed by Sox2 via regulation of Oct3/4 expression in mouse embryonic stem cells",
+      "authors": "Masui S, Nakatake Y, Toyooka Y, et al.",
+      "journal": "Genes & Development",
+      "year": 2007,
+      "volume": "21",
+      "pages": "2754-2769",
+      "pmid": "17908933",
+      "doi": "10.1101/gad.1583407"
+    },
+    {
+      "title": "Quantitative expression of Oct-3/4 defines differentiation, dedifferentiation or self-renewal of ES cells",
+      "authors": "Niwa H, Miyazaki J, Smith AG",
+      "journal": "Nature Genetics",
+      "year": 2000,
+      "volume": "24",
+      "pages": "372-376",
+      "pmid": "10742100",
+      "doi": "10.1038/74199"
+    }
+  ],
+  "keywords": [
+    "Sox2",
+    "Oct4",
+    "Pou5f1",
+    "Nanog",
+    "pluripotency",
+    "mouse",
+    "Class IIIa",
+    "ground truth",
+    "ortholog"
+  ],
+  "relatedProcesses": [
+    "human_oct4_sox2_nanog_pluripotency",
+    "mouse_gata1_spi1_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Mouse Class IIIa pluripotency attractor — ortholog of human OCT4/SOX2/NANOG network.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Oct4 distal enhancer (DE)",
+        "boundFactor": "Oct4 + Sox2",
+        "operator": "AND (cooperative)",
+        "effect": "sustains Pou5f1",
+        "sequenceMotif": "Sox-Oct composite motif",
+        "note": "mouse ES-cell ground truth"
+      },
+      {
+        "name": "Sox2 enhancer (SRR2)",
+        "boundFactor": "Oct4 + Sox2",
+        "operator": "AND (cooperative)",
+        "effect": "sustains Sox2",
+        "sequenceMotif": "Sox-Oct composite motif",
+        "note": "mutual activation loop"
+      }
+    ],
+    "derivedLogic": "Pluripotency = Oct4 AND Sox2 (mutual activation) -> Nanog",
+    "references": [
+      "Masui et al. 2007"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 7,
+  "edges": 11,
+  "loops": 2,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_activation_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Oct4 (Pou5f1) and Sox2 co-bind and activate each other's enhancers plus Nanog, forming a self-sustaining pluripotency network; the cooperative positive feedback creates a persistent stem-cell attractor. Class IIIa — mouse ortholog of the human OCT4/SOX2/NANOG circuit.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

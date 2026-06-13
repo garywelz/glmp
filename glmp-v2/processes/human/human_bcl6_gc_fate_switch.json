@@ -1,0 +1,123 @@
+{
+  "id": "human_bcl6_gc_fate_switch",
+  "name": "BCL6 Germinal-Center Fate Switch",
+  "organism": "Homo sapiens",
+  "category": "Adaptive Immunity",
+  "description": "The germinal-center versus plasma-cell decision. Activated B cells upregulate BCL6, which silences Blimp-1 targets and maintains the dark-zone/light-zone GC program. Blimp-1 in turn antagonizes BCL6. The double-negative topology yields two stable fates — GC B cell or antibody-secreting plasma cell.",
+  "scientificAccuracy": "BCL6–Blimp-1 mutual antagonism governing the GC/plasma-cell bifurcation is established (Shaffer et al. 2000; Calame 2008).",
+  "complexity": {
+    "nodes": 8,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[BCR + CD40 activation]\n    B[BCL6 induced]\n    C[/BCL6 represses Blimp-1/PRDM1/]\n    D[GC transcriptional program]\n    E[Blimp-1 (plasma-cell driver)]\n    F[/Blimp-1 represses BCL6/]\n    G(Germinal-center B cell)\n    H(Plasma cell)\n\n    A --> B\n    B --> C\n    C -->|⊣| E\n    B --> D\n    D --> G\n    E --> F\n    F -->|⊣| B\n    E --> H\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff\n    style H fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "BCL-6 represses genes required for plasma cell differentiation",
+      "authors": "Shaffer AL, Yu X, He Y, et al.",
+      "journal": "Immunity",
+      "year": 2000,
+      "volume": "13",
+      "pages": "199-208",
+      "pmid": "10947831",
+      "doi": "10.1016/S1074-7613(00)00020-4"
+    },
+    {
+      "title": "Transcription factors that regulate memory in humoral responses",
+      "authors": "Calame KL",
+      "journal": "Current Opinion in Immunology",
+      "year": 2008,
+      "volume": "20",
+      "pages": "259-264",
+      "pmid": "18434124",
+      "doi": "10.1016/j.coi.2008.03.016"
+    }
+  ],
+  "keywords": [
+    "BCL6",
+    "Blimp-1",
+    "germinal center",
+    "plasma cell",
+    "bistable",
+    "Class III",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_notch_delta_lateral_inhibition",
+    "human_pd1_pdl1_checkpoint"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class III GC/plasma bistable switch: BCL6 <-> Blimp-1 mutual antagonism.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "PRDM1 (Blimp-1) promoter",
+        "boundFactor": "BCL6",
+        "operator": "NOT (repression)",
+        "effect": "blocks plasma-cell program",
+        "sequenceMotif": "BCL6 binding sites",
+        "note": "Blimp-1 reciprocally represses BCL6 -> bistability"
+      }
+    ],
+    "derivedLogic": "GC fate = BCL6 AND NOT Blimp-1 ; Plasma = Blimp-1 AND NOT BCL6",
+    "references": [
+      "Shaffer et al. 2000"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 8,
+  "edges": 8,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "bistable_fate_commitment_switch",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "BCL6 is induced by BCR and CD40 signals in activated B cells and then represses Blimp-1/PRDM1 and other plasma-cell drivers while sustaining the germinal-center (GC) transcriptional program; the mutual antagonism with the plasma-cell fate creates a bistable GC-vs-plasma decision. Class III.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": null
+}

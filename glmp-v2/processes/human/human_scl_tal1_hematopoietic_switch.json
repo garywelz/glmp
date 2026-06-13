@@ -1,0 +1,123 @@
+{
+  "id": "human_scl_tal1_hematopoietic_switch",
+  "name": "SCL/TAL1 Hematopoietic Master Switch",
+  "organism": "Homo sapiens",
+  "category": "Hematopoiesis",
+  "description": "The hematopoietic master regulator. SCL/TAL1 binds its own regulatory elements and cooperates with LMO2 and GATA factors to sustain its expression. The positive autoregulation plus cooperative assembly gives a switch-like commitment to the blood lineage, making SCL/TAL1 one of the earliest persistent fate locks in hematopoiesis.",
+  "scientificAccuracy": "SCL/TAL1 autoregulation and master-regulator role in hematopoietic commitment are established (Porcher et al. 1996; Lacombe et al. 2010).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Hemogenic mesoderm / early progenitor]\n    B[SCL/TAL1]\n    C[\\SCL/TAL1 autoactivation/]\n    D[Hematopoietic TF network nucleated]\n    E(Committed hematopoietic progenitor)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "The T cell leukemia gene SCL/tal-1 is essential for generation of hematopoietic lineages",
+      "authors": "Porcher C, Swat W, Rockwell K, Fujiwara Y, Alt FW, Orkin SH",
+      "journal": "Cell",
+      "year": 1996,
+      "volume": "86",
+      "pages": "47-57",
+      "pmid": "8689686",
+      "doi": "10.1016/S0092-8674(00)80077-7"
+    },
+    {
+      "title": "SCL/TAL1 is a major nuclear effector of the Notch/RBPJ pathway in thymocyte development",
+      "authors": "Lacombe MJ, Del Blanco B, Anguita E, et al.",
+      "journal": "PLoS ONE",
+      "year": 2010,
+      "volume": "5",
+      "pages": "e15123",
+      "pmid": "21152004",
+      "doi": "10.1371/journal.pone.0015123"
+    }
+  ],
+  "keywords": [
+    "SCL",
+    "TAL1",
+    "hematopoiesis",
+    "master regulator",
+    "autoactivation",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_gata1_pu1_switch",
+    "human_myc_autoregulation"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa persistent switch: SCL/TAL1 positive autoregulation locks hematopoietic fate.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "SCL/TAL1 autoregulatory enhancer",
+        "boundFactor": "SCL/TAL1 + LMO2 complex",
+        "operator": "positive autoregulation (IIIa)",
+        "effect": "sustains TAL1 expression after initiation",
+        "sequenceMotif": "E-box (CANNTG) + GATA motifs",
+        "note": "cooperative assembly sharpens the switch"
+      }
+    ],
+    "derivedLogic": "TAL1 = TAL1 (autoactivation) -> committed hematopoietic state",
+    "references": [
+      "Porcher et al. 1996"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 5,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "master_regulator_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "SCL/TAL1 (encoded by TAL1) autoactivates its own enhancer and nucleates a hematopoietic transcription-factor network; once above threshold the self-reinforcing loop locks in the blood-lineage program — a persistent Class IIIa bistable master switch upstream of GATA1/PU.1.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

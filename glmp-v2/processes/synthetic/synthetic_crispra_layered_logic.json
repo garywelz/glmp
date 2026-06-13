@@ -1,0 +1,122 @@
+{
+  "id": "synthetic_crispra_layered_logic",
+  "name": "CRISPRa Layered Activation Logic",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "Activation logic with CRISPR. Instead of repressing promoters (CRISPRi), dCas9 activators (SAM/VPR) are guided to upstream activation sequences to turn genes ON. Stacking orthogonal gRNA-target pairs creates layered NOR/NOT modules that compose into larger feed-forward logic circuits in one cell.",
+  "scientificAccuracy": "Ground-truth circuit. Multiplexed CRISPR activation and layered logic were demonstrated by Chavez et al. (2016) and Gilbert et al. (2013).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Input guide RNAs]\n    B[dCas9-activator (SAM/VPR)]\n    C[/gRNA targets upstream activation sequence/]\n    D[Layered NOR/NOT activation modules]\n    E(CRISPRa combinational output)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Highly efficient Cas9-mediated transcriptional programming",
+      "authors": "Chavez A, Scheiman J, Vora S, Pruitt BW, Tuttle M, E PRI E, Lin S, Kiani S, Guzman CD, Wiegand DJ, Ter-Ovanesyan D, Braff JL, Davidsohn N, Housden BE, Perrimon N, Weiss R, Aach J, Collins JJ, Church GM",
+      "journal": "Nature Methods",
+      "year": 2015,
+      "volume": "12",
+      "pages": "326-328",
+      "pmid": "25730490",
+      "doi": "10.1038/nmeth.3312"
+    },
+    {
+      "title": "CRISPR-mediated modular RNA-guided regulation of transcription in eukaryotes",
+      "authors": "Gilbert LA, Larson MH, Morsut L, Liu Z, Brar GA, Torres SE, Stern-Ginossar N, Brandman O, Whitehead EH, Doudna JA, Lim WA, Weissman JS, Qi LS",
+      "journal": "Cell",
+      "year": 2013,
+      "volume": "154",
+      "pages": "442-451",
+      "pmid": "23890179",
+      "doi": "10.1016/j.cell.2013.06.044"
+    }
+  ],
+  "keywords": [
+    "CRISPRa",
+    "SAM",
+    "activation",
+    "layered logic",
+    "combinational",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_dcas9_logic",
+    "synthetic_layered_nor_cascade"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I CRISPR activation combinational logic (feed-forward).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "upstream activation sequence (UAS)",
+        "boundFactor": "dCas9-VP64/SAM",
+        "operator": "NOT/NOR layers (programmable)",
+        "effect": "activation when gRNA present",
+        "sequenceMotif": "20-nt protospacer + PAM",
+        "note": "orthogonal gRNA-UAS pairs compose the function"
+      }
+    ],
+    "derivedLogic": "Output = f(inputs) via layered CRISPRa NOR/NOT (combinational)",
+    "references": [
+      "Chavez et al. 2015",
+      "Gilbert et al. 2013"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 1
+  },
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 4,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "crispra_layered_combinational_logic",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "dCas9 fused to activation domains (e.g. VP64, VPR) is targeted by guide RNAs to upstream activation sequences; layering orthogonal gRNA-promoter pairs implements NOT and NOR layers whose outputs feed forward to drive a reporter — combinational logic without feedback. Class I (Chavez et al. 2016 SAM system).",
+  "groundTruth": true
+}

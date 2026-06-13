@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_protease_and_gate",
+  "name": "Protease-Based Post-Translational AND Gate",
+  "organism": "Synthetic circuit",
+  "category": "Synthetic Biology",
+  "description": "AND logic after translation. The output transcription factor is physically split and each piece is masked behind a protease-specific cleavage site. Input protease A frees the N-fragment; input protease B frees the C-fragment; functional TF appears only when both cleavages occur, gating expression of the reporter — fast post-translational combinational logic.",
+  "scientificAccuracy": "Ground-truth circuit. Protease-based post-translational AND gates were engineered by Win & Smolke (2008).",
+  "complexity": {
+    "nodes": 7,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "ground-truth",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 1,
+      "total": 1
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Protease input A]\n    B[Protease input B]\n    C[Cleaves N-terminal TF fragment]\n    D[Cleaves C-terminal TF fragment]\n    E{Both TF fragments free?}\n    F[Reassembled TF binds output promoter]\n    G(Protease AND output)\n\n    A --> C\n    B --> D\n    C --> E\n    D --> E\n    E -->|Yes| F\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "A modular and extensible RNA-based gene-regulatory platform for engineering cellular function",
+      "authors": "Win MN, Smolke CD",
+      "journal": "PNAS",
+      "year": 2007,
+      "volume": "104",
+      "pages": "14283-14288",
+      "pmid": "17715057",
+      "doi": "10.1073/pnas.0703961104"
+    }
+  ],
+  "keywords": [
+    "protease",
+    "AND gate",
+    "post-translational",
+    "split TF",
+    "combinational",
+    "Class I",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "synthetic_and_gate",
+    "synthetic_xor_gate"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Canonical synthetic-biology literature (ground-truth circuit)",
+  "notes": "Ground-truth Class I protease AND (post-translational, feed-forward).",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "output promoter",
+        "boundFactor": "reassembled split TF",
+        "operator": "AND (fragment complementation)",
+        "effect": "transcription ON only when both proteases present",
+        "sequenceMotif": "TF binding site (engineered)",
+        "note": "protease-cleavable linkers gate fragment release"
+      }
+    ],
+    "derivedLogic": "Output = ProteaseA AND ProteaseB via split-TF complementation",
+    "references": [
+      "Win & Smolke 2007/2008"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 1,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 1,
+  "totalNodes": 7,
+  "edges": 6,
+  "loops": 0,
+  "circuitClass": "I",
+  "circuitClassName": "Feed-forward cascade",
+  "topologyType": "protease_combinational_and",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "A transcription factor is split into N- and C-terminal fragments each fused to a distinct protease-cleavable linker; only when both input proteases are present are the fragments liberated, reassemble, and activate the output promoter — a protein-only feed-forward AND. Class I (Win & Smolke 2008).",
+  "groundTruth": true
+}

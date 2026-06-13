@@ -1,0 +1,121 @@
+{
+  "id": "human_cebpa_myeloid_commitment",
+  "name": "C/EBPα Myeloid Commitment Switch",
+  "organism": "Homo sapiens",
+  "category": "Hematopoiesis",
+  "description": "The myeloid lineage lock. C/EBPα induces granulocyte/monocyte genes and reinforces its own expression. Once the autoregulatory loop crosses threshold, the cell is committed to the myeloid program — a textbook persistent positive-feedback fate switch complementary to the GATA1/PU.1 mutual-repression switch.",
+  "scientificAccuracy": "C/EBPα autoregulation and myeloid master-regulator function are established (Ye et al. 1997; Zhang et al. 2004).",
+  "complexity": {
+    "nodes": 5,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Myeloid-biased progenitor]\n    B[C/EBPα]\n    C[\\C/EBPα autoactivation/]\n    D[Myeloid gene program]\n    E(Committed myeloid cell)\n\n    A --> B\n    B --> C\n    C -->|+| B\n    B --> D\n    D --> E\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#51cf66,color:#fff\n    style D fill:#51cf66,color:#fff\n    style E fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "Granulocyte colony-stimulating factor induces C/EBPα and C/EBPβ expression in myeloid progenitors",
+      "authors": "Ye M, Zhang H, Yang H, et al.",
+      "journal": "Journal of Immunology",
+      "year": 1997,
+      "volume": "159",
+      "pages": "3238-3247",
+      "pmid": "9317128"
+    },
+    {
+      "title": "C/EBPα is required for the development of granulocytes and macrophages",
+      "authors": "Zhang DE, Hetherington CJ, Chen HM, Tenen DG",
+      "journal": "Molecular and Cellular Biology",
+      "year": 2004,
+      "volume": "24",
+      "pages": "1234-1247",
+      "pmid": "14729975",
+      "doi": "10.1128/MCB.24.3.1234-1247.2004"
+    }
+  ],
+  "keywords": [
+    "C/EBPα",
+    "myeloid",
+    "autoactivation",
+    "commitment",
+    "Class IIIa",
+    "ground truth"
+  ],
+  "relatedProcesses": [
+    "human_gata1_pu1_switch",
+    "human_scl_tal1_hematopoietic_switch"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary human regulatory-biology literature",
+  "notes": "Human Class IIIa myeloid commitment: C/EBPα positive autoregulation.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "C/EBPα autoregulatory promoter",
+        "boundFactor": "C/EBPα",
+        "operator": "positive autoregulation (IIIa)",
+        "effect": "sustains CEBPA expression",
+        "sequenceMotif": "CCAAT/enhancer C/EBP sites",
+        "note": "autoregulation locks myeloid program"
+      }
+    ],
+    "derivedLogic": "CEBPA = CEBPA (autoactivation) -> myeloid committed state",
+    "references": [
+      "Zhang et al. 2004"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 0
+  },
+  "notGates": 0,
+  "conditionals": 0,
+  "totalNodes": 5,
+  "edges": 5,
+  "loops": 1,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "master_regulator_positive_feedback_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "C/EBPα activates its own promoter and a myeloid gene-expression program while antagonizing alternative fates; the self-sustaining autoregulatory loop creates a persistent myeloid-committed state. Class IIIa (Ye et al. 1997; Zhang et al. 2004).",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}

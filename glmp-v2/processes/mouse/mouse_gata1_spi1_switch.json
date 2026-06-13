@@ -1,0 +1,133 @@
+{
+  "id": "mouse_gata1_spi1_switch",
+  "name": "Mouse GATA1–SPI1 Hematopoietic Switch",
+  "organism": "Mus musculus",
+  "category": "Hematopoiesis",
+  "description": "The mouse hematopoietic master switch. Gata1 and Spi1 antagonize each other while reinforcing their own expression, locking multipotent progenitors into either the erythroid/megakaryocyte or myeloid program. Topology is conserved with human GATA1/PU.1 despite different binding motifs.",
+  "scientificAccuracy": "Mutual Gata1/Spi1 antagonism and bistable lineage choice in mouse are established (Nerlov & Graf 2007; Huang et al. 2007).",
+  "complexity": {
+    "nodes": 9,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "curated",
+    "logicGates": {
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
+    }
+  },
+  "colorScheme": {
+    "red": {
+      "hex": "#ff6b6b",
+      "category": "Triggers & Inputs",
+      "description": "Inducers, signals, environmental inputs"
+    },
+    "yellow": {
+      "hex": "#ffd43b",
+      "category": "Structures & Objects",
+      "description": "Transcription factors, repressors, regulatory proteins"
+    },
+    "green": {
+      "hex": "#51cf66",
+      "category": "Processing & Operations",
+      "description": "Transcription, translation, regulatory action"
+    },
+    "blue": {
+      "hex": "#74c0fc",
+      "category": "Intermediates & States",
+      "description": "Promoter states, circuit states, attractors"
+    },
+    "violet": {
+      "hex": "#b197fc",
+      "category": "Products & Outputs",
+      "description": "Reporter output, circuit behaviour"
+    }
+  },
+  "mermaid": "graph TD\n    A[Mouse CMP / progenitor]\n    B[Gata1]\n    C[Spi1 / PU.1]\n    D[\\Gata1 autoactivation/]\n    E[\\Spi1 autoactivation/]\n    F[/Gata1 represses Spi1/]\n    G[/Spi1 represses Gata1/]\n    H(Erythroid / megakaryocyte)\n    I(Myeloid fate)\n\n    A --> B\n    A --> C\n    B --> D\n    D -->|+| B\n    C --> E\n    E -->|+| C\n    B --> F\n    F -->|⊣| C\n    C --> G\n    G -->|⊣| B\n    B --> H\n    C --> I\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#b197fc,color:#fff\n    style I fill:#b197fc,color:#fff",
+  "sources": [
+    {
+      "title": "PU.1 induces the commitment of multipotent progenitors to the myeloid lineage",
+      "authors": "Nerlov C, Graf T",
+      "journal": "Genes & Development",
+      "year": 2007,
+      "volume": "21",
+      "pages": "1313-1326",
+      "pmid": "17510284",
+      "doi": "10.1101/gad.1522707"
+    },
+    {
+      "title": "Bifurcation dynamics in lineage-commitment in bipotent progenitor cells",
+      "authors": "Huang S, Guo YP, May G, Enver T",
+      "journal": "Developmental Biology",
+      "year": 2007,
+      "volume": "305",
+      "pages": "695-713",
+      "pmid": "17412320",
+      "doi": "10.1016/j.ydbio.2007.02.036"
+    }
+  ],
+  "keywords": [
+    "Gata1",
+    "Spi1",
+    "PU.1",
+    "mouse",
+    "hematopoiesis",
+    "bistable",
+    "Class IIIa",
+    "ground truth",
+    "ortholog"
+  ],
+  "relatedProcesses": [
+    "human_gata1_pu1_switch",
+    "mouse_sox2_oct4_pluripotency"
+  ],
+  "created": "2026-06-12",
+  "lastUpdated": "2026-06-12",
+  "verified": true,
+  "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
+  "notes": "Mouse Class IIIa ortholog of human GATA1/PU.1 switch — conserved bistable topology.",
+  "sequenceAnnotation": {
+    "schemaVersion": "0.1",
+    "regulatoryRegions": [
+      {
+        "name": "Gata1 autoregulatory enhancer (G1HE)",
+        "boundFactor": "Gata1",
+        "operator": "positive autoregulation",
+        "effect": "sustains Gata1",
+        "sequenceMotif": "WGATAR (GATA motif)",
+        "note": "mouse motifs differ from human but topology conserved"
+      },
+      {
+        "name": "Spi1 autoregulatory upstream element",
+        "boundFactor": "Spi1",
+        "operator": "positive autoregulation",
+        "effect": "sustains Spi1",
+        "sequenceMotif": "GGAA (ETS motif)",
+        "note": "cross-repression with Gata1"
+      }
+    ],
+    "derivedLogic": "Erythroid = Gata1 AND NOT Spi1 ; Myeloid = Spi1 AND NOT Gata1",
+    "references": [
+      "Nerlov & Graf 2007"
+    ]
+  },
+  "logicGates": {
+    "or": 0,
+    "and": 0,
+    "not": 2
+  },
+  "notGates": 2,
+  "conditionals": 0,
+  "totalNodes": 9,
+  "edges": 12,
+  "loops": 4,
+  "circuitClass": "III",
+  "circuitClassName": "Bistable switch / positive feedback",
+  "topologyType": "mutual_repression_dual_autoactivation_bistable",
+  "circuitClassConfidence": "high",
+  "circuitClassNeedsReview": false,
+  "circuitClassRationale": "Mouse Gata1 and Spi1 (PU.1) cross-repress and each autoactivates, giving the same persistent bistable erythroid/megakaryocyte vs. myeloid switch topology as the human ortholog — a cross-organism anchor for the universal grammar hypothesis. Class IIIa.",
+  "circuitClassEvidence": "curated_literature",
+  "groundTruth": true,
+  "circuitSubclass": "IIIa"
+}
