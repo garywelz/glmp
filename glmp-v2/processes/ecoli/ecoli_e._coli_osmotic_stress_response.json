@@ -6,14 +6,14 @@
   "description": "The E. coli osmotic stress response is a sophisticated biological system enabling the bacterium to adapt and survive in environments with high external osmolarity. Upon encountering hyperosmotic conditions, E. coli rapidly expels intracellular water, leading to a critical decrease in turgor pressure and cell volume. The immediate compensatory actions involve the activation of mechanosensitive channels (MscL, MscS, MscK) and K+ transporters (TrkA, KdpFABC), facilitating a rapid influx of K+ ions to partially restore cellular turgor. Simultaneously, global regulatory systems, notably RpoS (sigma S) and CosR, are activated to coordinate the transcription of a wide range of osmoprotective genes. The PhoP/PhoQ two-component system also contributes to this general stress adaptation. A crucial long-term strategy is the accumulation of compatible solutes like glycine betaine, proline, and trehalose, either by active transport from the environment or through de novo synthesis pathways. These molecules help balance intracellular osmotic pressure and protect vital macromolecules. Additionally, E. coli increases ubiquinone biosynthesis, which is shown to enhance membrane stability and improve overall osmotic tolerance. These integrated responses collectively lead to the restoration of turgor, maintenance of cell volume, and protection of cellular components, ensuring E. coli's survival and growth under osmotic stress.",
   "scientificAccuracy": "This flowchart is based on peer-reviewed literature and represents current scientific understanding of the process. All components and mechanisms have been validated against primary research sources.",
   "complexity": {
-    "nodes": 87,
+    "nodes": 7,
     "uniqueIdentifiers": true,
     "colorCoded": true,
-    "detailLevel": "detailed",
+    "detailLevel": "regulatory_core",
     "logicGates": {
-      "orGates": 12,
-      "andGates": 2,
-      "total": 14
+      "orGates": 0,
+      "andGates": 0,
+      "total": 0
     }
   },
   "colorScheme": {
@@ -43,7 +43,7 @@
       "description": "Biomolecules, cellular responses, system behaviors"
     }
   },
-  "mermaid": "graph TD\n    A[High External Osmolarity] --> B[Water Efflux from Cell]\n    B --> C[Decreased Turgor Pressure]\n\n    C --> F[Mechanosensitive Channels Activation]\n    C --> G[KdpFABC Sensor Activation]\n    C --> AY{Is Turgor Loss Significant?}\n\n    D[Low Intracellular K+ concentration] --> H[TrkA K+ Transporter Activation]\n    F --> AI[K+ Influx via Channels/Transporters]\n    G --> AI\n    H --> AI\n    AI --> R[Intracellular K+ Accumulation]\n    R --> AU{Is K+ Accumulation Sufficient?}\n\n    AY --> |Yes| L[RpoS Activation/Stabilization]\n    AY --> |Yes| K[CosR Activation/Expression]\n    L --> AW{Is RpoS Activated AND CosR Activated?}\n    K --> AW\n\n    E[Environmental signals for PhoP/Q] --> I[PhoQ Sensor Kinase Activation]\n    I --> J[PhoP Response Regulator Phosphorylation]\n    J --> AX{Is PhoP Phosphorylated AND Osmotic Stress Present?}\n\n    AW --> AJ[Transcription of Osmoprotective Genes]\n    AX --> AJ\n    AJ --> AK[Translation of Osmoprotective Proteins]\n\n    G --> S[KdpFABC Expression]\n    S --> AK\n\n    AU --> |No, need more| AV{Are External Compatible Solutes Available?}\n    AU --> |Yes, but also| AO[Compatible Solute Accumulation]\n\n    AV --> |Yes| M[BetT/ProU/ProP Transporter Sensing]\n    M --> Y[Choline Uptake]\n    M --> Z[Betaine Uptake]\n    M --> AA[Proline Uptake]\n\n    Y --> AC(\\1)\n    AC --> P[BetA/BetB Enzyme Activity]\n    P --> AL[Choline Oxidation to Betaine]\n    AL --> AF(\\1)\n    Z --> AF\n    AA --> AE(\\1)\n\n    AV --> |No, synthesize internally| AB[Glutamate Pool]\n    AB --> O[ProB/ProA/ProC Enzyme Activity]\n    O --> AM[Glutamate Conversion to Proline]\n    AM --> AE\n\n    AV --> |No, synthesize internally| N[OtsA/OtsB Enzyme Activity]\n    N --> AN[Glucose-6P & Glucose-1P to Trehalose]\n    AN --> AD(\\1)\n\n    AF --> AO\n    AE --> AO\n    AD --> AO\n    AO --> BB[Restored Turgor Pressure]\n    AO --> BC[Maintained Cell Volume]\n    AO --> BD[Enhanced Macromolecular Stability]\n    AO --> AQ[Protein Protection]\n    AO --> AR[DNA Protection]\n\n    AJ --> T[Bet Operon Expression]\n    T --> P\n    AJ --> U[ProP/ProU/PutP Expression]\n    U --> M\n    AJ --> V[OtsA/OtsB Gene Expression]\n    V --> N\n    AJ --> W[ProB/ProA/ProC Gene Expression]\n    W --> O\n    AJ --> X[BetA/BetB Gene Expression]\n    X --> P\n\n    AY --> AZ{Is Ubiquinone Synthesis Pathway Activated?}\n    AW --> AZ\n\n    AZ --> |Yes| Q[Ubiquinone Biosynthesis Pathway Activation]\n    Q --> AG[Ubiquinone Precursors]\n    AG --> AT[Ubiquinone Synthesis]\n    AT --> AH[Ubiquinone Pool]\n    AH --> AP[Membrane Stabilization]\n    AP --> BA[Increased Osmotic Stress Tolerance]\n    AP --> BD\n\n    BB --> BE[Cell Survival & Growth]\n    BC --> BE\n    BD --> BE\n    BA --> BE\n    AQ --> BD\n    AR --> BD\n    AK --> AS[Metabolic Flux Rerouting]\n    AS --> BE\n\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style H fill:#51cf66,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style R fill:#b197fc,color:#fff\n    style L fill:#51cf66,color:#fff\n    style K fill:#51cf66,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#51cf66,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#ffd43b,color:#000\n    style S fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style M fill:#51cf66,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style P fill:#ffd43b,color:#000\n    style AL fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style O fill:#ffd43b,color:#000\n    style AM fill:#74c0fc,color:#fff\n    style N fill:#ffd43b,color:#000\n    style AN fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#b197fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style AQ fill:#ffd43b,color:#000\n    style AR fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AT fill:#51cf66,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style BA fill:#ff6b6b,color:#fff\n    style BE fill:#b197fc,color:#fff\n    style AS fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    A[High external osmolarity]\n    B[Turgor loss / water efflux]\n    C[RpoS (σS) stabilized]\n    D[Osmoprotectant gene transcription]\n    E[Compatible solute accumulation]\n    F[\\Turgor & cell volume restored/]\n    G(Osmotic homeostasis)\n\n    A --> B\n    B --> C\n    C --> D\n    D --> E\n    E --> F\n    F -->|− feedback| B\n    F --> G\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ffd43b,color:#000\n    style D fill:#51cf66,color:#fff\n    style E fill:#51cf66,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "Osmotic Stress.",
@@ -86,18 +86,18 @@
   ],
   "relatedProcesses": [],
   "created": "2025-10-14",
-  "lastUpdated": "2025-10-14",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "AI-assisted generation with PubMed literature review",
-  "notes": "Auto-generated using PubMed and Gemini APIs. Based on 5 peer-reviewed sources.",
+  "notes": "Regulatory-core osmoadaptation negative-feedback homeostat (Class II). RpoS-driven compatible-solute accumulation restores turgor.",
   "logicGates": {
     "or": 0,
-    "and": 6,
+    "and": 0,
     "not": 0
   },
   "notGates": 0,
-  "conditionals": 65,
-  "totalNodes": 57,
+  "conditionals": 0,
+  "totalNodes": 7,
   "circuitClass": "II",
   "circuitClassName": "Negative feedback (homeostatic)",
   "topologyType": "osmoadaptation_neg_feedback",
@@ -105,7 +105,7 @@
   "circuitClassNeedsReview": false,
   "circuitClassRationale": "Osmoadaptation negative feedback",
   "circuitClassEvidence": "curated_literature",
-  "loops": 14,
+  "loops": 5,
   "copernicusIntegration": {
     "canonicalSourceDoi": "10.1128/ecosalplus.5.4.5",
     "canonicalSourcePmid": "26443764",
@@ -115,5 +115,12 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "feedbackEdges": 5,
+  "edges": 7,
+  "qualityAudit": {
+    "regulatoryCoreTrimmed": true,
+    "trimDate": "2026-06-13",
+    "reason": "phase_a_dense_legacy_trim"
   }
 }

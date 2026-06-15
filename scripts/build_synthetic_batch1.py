@@ -20,7 +20,10 @@ circuit because they are semantic, not syntactic.
 """
 
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 OUT_DIR = Path("glmp-v2/processes/synthetic")
 
@@ -62,16 +65,15 @@ def build_mermaid(nodes, edges):
 
 
 def compute_stats(nodes, edges):
-    order = {nid: i for i, (nid, _, _) in enumerate(nodes)}
-    loop_sources = set()
-    for src, dst, _ in edges:
-        if src in order and dst in order and order[dst] < order[src]:
-            loop_sources.add(src)
+    from mermaid_graph import cycle_nodes_from_edges
+
+    edge_pairs = [(src, dst) for src, dst, _ in edges]
+    cyc = cycle_nodes_from_edges(edge_pairs)
     conditionals = sum(1 for _, shape, _ in nodes if "{" in shape)
     return {
         "nodes": len(nodes),
         "edges": len(edges),
-        "loops": len(loop_sources),
+        "loops": len(cyc),
         "conditionals": conditionals,
     }
 

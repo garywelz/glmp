@@ -6,14 +6,14 @@
   "description": "Antibiotic efflux pumps represent a critical defense mechanism employed by *Escherichia coli* against a broad spectrum of antimicrobial agents, significantly contributing to intrinsic and acquired antibiotic resistance. These sophisticated bacterial systems actively extrude antibiotics from the cell, thereby reducing their intracellular concentration below therapeutic levels. Key efflux pump families in *E. coli* include Resistance-Nodulation-Division (RND), Major Facilitator Superfamily (MFS), Small Multidrug Resistance (SMR), and Multidrug and Toxic Compound Extrusion (MATE). The most well-characterized RND pump, AcrAB-TolC, is a tripartite complex spanning both inner and outer membranes, capable of expelling diverse substrates such as fluoroquinolones and tigecycline.",
   "scientificAccuracy": "This flowchart is based on peer-reviewed literature and represents current scientific understanding of the process. All components and mechanisms have been validated against primary research sources.",
   "complexity": {
-    "nodes": 79,
+    "nodes": 11,
     "uniqueIdentifiers": true,
     "colorCoded": true,
-    "detailLevel": "detailed",
+    "detailLevel": "regulatory_core",
     "logicGates": {
-      "orGates": 5,
+      "orGates": 0,
       "andGates": 1,
-      "total": 6
+      "total": 1
     }
   },
   "colorScheme": {
@@ -43,7 +43,7 @@
       "description": "Biomolecules, cellular responses, system behaviors"
     }
   },
-  "mermaid": "graph TD\n    A[\"Start: Bacterial Exposure to Antibiotics\"] --> B[Antibiotic Molecules Enter Periplasm]\n    A --> D[\"Inducers Present (e.g., Salicylate, Tetracycline, Bile Salts)\"]\n    A --> E[\"Genetic Acquisition (e.g., Plasmid-encoded efflux genes)\"]\n    A --> F[Increased Oxidative Stress Signal]\n\n    B --> C[Antibiotic Molecules Enter Cytoplasm]\n    C --> AT[Antibiotic Substrate Binds to Efflux Pump]\n    B --> AT\n\n    D --> M[/MarR Repressor Inactivation/Degradation/]\n    D --> O[Inducer Binding to Rob]\n    F --> N[\"SoxR Activation (e.g., by redox change)\"]\n    E --> V[Plasmid-encoded Efflux Gene Transcription]\n\n    M --> P[MarA Transcriptional Activator]\n    N --> Q[SoxS Transcriptional Activator]\n    O --> K[Rob Transcriptional Regulator]\n    F --> J[SoxR Sensor Protein]\n    J --> Q\n\n    P --> R{Is Efflux Gene Expression Upregulated?}\n    Q --> R\n    K --> R\n    L[/AcrR Repressor Protein/] -- \"Repression Lifted\" --> R\n\n    R -- \"Yes\" --> S[MarA Binds acrAB & other Efflux Promoters]\n    R -- \"Yes\" --> T[SoxS Binds acrAB & other Efflux Promoters]\n    R -- \"Yes\" --> U[Rob Binds acrAB & other Efflux Promoters]\n    R -- \"Yes\" --> W[Chromosomal Efflux Gene Transcription]\n\n    S --> X[mRNA Synthesis for Efflux Pumps]\n    T --> X\n    U --> X\n    V --> X\n    W --> X\n\n    X --> Y[Ribosomal Translation of Efflux Pump mRNA]\n    Y --> Z[Chaperone-mediated Protein Folding]\n    Z --> AA[Insertion of Inner Membrane Components]\n    AA --> AB[Periplasmic Protein Translocation]\n    AB --> AC[Outer Membrane Protein Insertion]\n\n    AC --> AD[\"RND Efflux Pump (e.g., AcrAB-TolC)\"]\n    AC --> AE[\"MFS Efflux Pump (e.g., MdfA, TetA)\"]\n    AC --> AF[\"SMR Efflux Pump (e.g., EmrE)\"]\n    AC --> AG[\"MATE Efflux Pump (e.g., NorM)\"]\n    AC --> AH[\"Plasmid-Encoded RND Pump (e.g., from Lv L paper)\"]\n\n    AD --> AI[\"AcrA (Periplasmic Adaptor Protein)\"]\n    AD --> AJ[\"AcrB (Inner Membrane Transporter)\"]\n    AD --> AK[\"TolC (Outer Membrane Channel)\"]\n\n    AI --> AL[AcrA-AcrB Complex Formation]\n    AJ --> AL\n    AL --> AM[TolC Docking with AcrA-AcrB]\n    AK --> AM\n    AM --> AN[Functional Tripartite Efflux Channel Formed]\n\n    AN --> AT\n    AE --> AT\n    AF --> AT\n    AG --> AT\n    AH --> AT\n\n    AT --> AW{Antibiotic Bound AND Energy Source Available?}\n    AU[\"Proton Motive Force (PMF) Available\"] --> AW\n    AV[ATP Available] --> AW\n\n    AW -- \"Yes\" --> AX[Conformational Change of Efflux Pump]\n    AX --> AY[Translocation of Antibiotic Across Membrane]\n    AY --> AZ[Expulsion of Antibiotic from Cell]\n\n    AZ --> BA[Reduced Intracellular Antibiotic Concentration]\n    BA --> BB[/Antibiotic Below Minimum Inhibitory Concentration MIC/]\n    BB --> BC[Increased Antibiotic Resistance]\n    BC --> BD[/Multidrug Resistance Phenotype/]\n    BD --> BE[Treatment Failure Potential]\n    BE --> BF[Enhanced Bacterial Survival]\n\n    AO[Tigecycline Molecules] --> AT\n    AP[Fluoroquinolone Molecules] --> AT\n    AQ[Tetracycline Molecules] --> AT\n    AR[\"Beta-lactam Molecules (e.g., Sulopenem)\"] --> AT\n    AS[Other Hydrophobic Cations & Amphiphiles] --> AT\n\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#74c0fc,color:#fff\n    style F fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style O fill:#51cf66,color:#fff\n    style N fill:#51cf66,color:#fff\n    style V fill:#51cf66,color:#fff\n    style P fill:#ffd43b,color:#000\n    style Q fill:#ffd43b,color:#000\n    style K fill:#51cf66,color:#fff\n    style J fill:#ffd43b,color:#000\n    style L fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#ffd43b,color:#000\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#ffd43b,color:#000\n    style AC fill:#ffd43b,color:#000\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#ffd43b,color:#000\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#b197fc,color:#fff\n    style BA fill:#b197fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#b197fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff",
+  "mermaid": "graph TD\n    A[Antibiotic exposure]\n    B[Inducers (salicylate, bile, tetracycline)]\n    C[/MarR repressor on mar/]\n    D[MarA / SoxS / Rob activators]\n    E{Efflux promoters derepressed?}\n    F[acrAB & RND pump transcription]\n    G[AcrAB-TolC tripartite assembly]\n    H[Antibiotic substrate at pump]\n    I{PMF or ATP available?}\n    J[Active antibiotic efflux]\n    K[Reduced intracellular drug]\n\n    A --> B\n    B -->|derepress| C\n    C --> D\n    D --> E\n    E --> F\n    F --> G\n    A --> H\n    G --> H\n    H --> I\n    I --> J\n    J --> K\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ffd43b,color:#000\n    style E fill:#74c0fc,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#ffd43b,color:#000\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "A review of the mechanisms that confer antibiotic resistance in pathotypes of E. coli.",
@@ -85,18 +85,18 @@
   ],
   "relatedProcesses": [],
   "created": "2025-10-14",
-  "lastUpdated": "2025-10-14",
+  "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "AI-assisted generation with PubMed literature review",
-  "notes": "Auto-generated using PubMed and Gemini APIs. Based on 5 peer-reviewed sources.",
+  "notes": "Regulatory-core efflux execution schematic (Class I). Replaces dense LLM chart; MarR/SoxS/MarA induction and AcrAB-TolC export only.",
   "logicGates": {
-    "or": 1,
+    "or": 0,
     "and": 1,
-    "not": 4
+    "not": 1
   },
-  "notGates": 4,
-  "conditionals": 73,
-  "totalNodes": 55,
+  "notGates": 1,
+  "conditionals": 0,
+  "totalNodes": 11,
   "circuitClass": "I",
   "circuitClassName": "Feed-forward cascade",
   "topologyType": "efflux_execution",
@@ -104,7 +104,7 @@
   "circuitClassNeedsReview": false,
   "circuitClassRationale": "Antibiotic efflux-pump export execution",
   "circuitClassEvidence": "curated_literature",
-  "loops": 15,
+  "loops": 0,
   "copernicusIntegration": {
     "canonicalSourceDoi": "10.3389/fcimb.2024.1387497",
     "canonicalSourcePmid": "38638826",
@@ -114,5 +114,12 @@
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
     "needsKrampisReview": false
+  },
+  "feedbackEdges": 0,
+  "edges": 11,
+  "qualityAudit": {
+    "regulatoryCoreTrimmed": true,
+    "trimDate": "2026-06-13",
+    "reason": "phase_a_dense_legacy_trim"
   }
 }

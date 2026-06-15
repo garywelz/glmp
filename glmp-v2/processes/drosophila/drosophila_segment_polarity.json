@@ -9,7 +9,7 @@
     "nodes": 9,
     "uniqueIdentifiers": true,
     "colorCoded": true,
-    "detailLevel": "curated",
+    "detailLevel": "regulatory_core",
     "logicGates": {
       "orGates": 0,
       "andGates": 0,
@@ -43,7 +43,7 @@
       "description": "Reporter output, circuit behaviour"
     }
   },
-  "mermaid": "graph TD\n    A[Pair-rule prepattern]\n    B[engrailed (en)]\n    C[hedgehog (hh)]\n    D[patched (ptc) in neighbors]\n    E[wingless (wg)]\n    F[Ci activator in receiving cell]\n    G[\\Wg maintains en/hh/]\n    H[\\Hh sustains wg via Ci/]\n    I(Bistable segment boundary)\n\n    A --> B\n    A --> E\n    B --> C\n    B --> G\n    G -->|+| E\n    C --> H\n    H --> F\n    F -->|+| E\n    E --> D\n    B --> I\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#b197fc,color:#fff",
+  "mermaid": "graph TD\n    A[Pair-rule prepattern]\n    B[engrailed (en)]\n    C[hedgehog (hh)]\n    D[patched (ptc) in neighbors]\n    E[wingless (wg)]\n    F[Ci activator in receiving cell]\n    G[\\Wg maintains en/hh/]\n    H[\\Hh sustains wg via Ci/]\n    I(Bistable segment boundary)\n\n    A --> B\n    A --> E\n    B --> C\n    B --> G\n    G -->|+| E\n    E -->|+ maintain en| B\n    C --> H\n    H --> F\n    F -->|+| E\n    E --> D\n    B --> I\n\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ffd43b,color:#000\n    style C fill:#ffd43b,color:#000\n    style D fill:#ffd43b,color:#000\n    style E fill:#ffd43b,color:#000\n    style F fill:#51cf66,color:#fff\n    style G fill:#51cf66,color:#fff\n    style H fill:#51cf66,color:#fff\n    style I fill:#b197fc,color:#fff",
   "sources": [
     {
       "title": "The segment polarity network is a robust developmental module",
@@ -75,7 +75,7 @@
   "lastUpdated": "2026-06-13",
   "verified": true,
   "verifiedBy": "Curated from primary literature (textbook ground-truth circuit)",
-  "notes": "Ground-truth Drosophila segment-polarity module — expanded with en/hh/wg/ptc/Ci nodes.",
+  "notes": "Restored wg↔en/hh intercellular feedback cycle (Class III) lost in prior expansion.",
   "sequenceAnnotation": {
     "schemaVersion": "0.1",
     "regulatoryRegions": [
@@ -101,8 +101,8 @@
   "notGates": 0,
   "conditionals": 0,
   "totalNodes": 9,
-  "edges": 10,
-  "loops": 4,
+  "edges": 11,
+  "loops": 6,
   "circuitClass": "III",
   "circuitClassName": "Bistable switch / positive feedback",
   "topologyType": "intercellular_positive_feedback_bistable_module",
@@ -123,8 +123,9 @@
     "needsKrampisReview": false
   },
   "qualityAudit": {
-    "expanded": true,
-    "expansionDate": "2026-06-13",
-    "reason": "thin pathway schematic"
-  }
+    "regulatoryCoreTrimmed": true,
+    "trimDate": "2026-06-13",
+    "reason": "segment_polarity_cycle_restore"
+  },
+  "feedbackEdges": 7
 }
