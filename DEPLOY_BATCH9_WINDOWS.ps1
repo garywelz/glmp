@@ -39,16 +39,8 @@ Write-Host "Authenticating..."
 & gcloud auth activate-service-account --key-file=$KeyFile
 & gcloud config set project $Project
 
-Write-Host "Deploying..."
-# Git Bash runs the bash deploy script reliably on Windows
-$bash = Get-Command bash -ErrorAction SilentlyContinue
-if ($bash) {
-    & bash ./DEPLOY_BATCH9_ALL.sh
-} else {
-    Write-Host "Git Bash not found. Install Git for Windows, then re-run."
-    Read-Host "Press Enter to exit"
-    exit 1
-}
+Write-Host "Deploying (PowerShell native — avoids Git Bash gcloud/Python issue)..."
+& powershell -ExecutionPolicy Bypass -File .\DEPLOY_BATCH9_POWERSHELL.ps1
 
 Write-Host "`n=== DONE ==="
 Write-Host "Viewer: https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html"
