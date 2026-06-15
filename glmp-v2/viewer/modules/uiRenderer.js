@@ -180,8 +180,9 @@ export function renderProcessStatistics(process) {
     if (!box) return;
     
     const summary = process._metaSummary || {};
-    const nodes = summary.nodes
+    const nodes = process.totalNodes
         ?? process.complexity?.nodes
+        ?? summary.nodes
         ?? estimateMermaidNodeCount(process.mermaid);
     const edges = process.edges
         ?? countMermaidEdges(process.mermaid);
@@ -190,14 +191,16 @@ export function renderProcessStatistics(process) {
     const edgesStr = edges != null ? String(edges) : '—';
     
     const frontier = getArxivFrontier(process);
-    const loopsVal = summary.loops != null ? String(summary.loops) : '—';
+    const loopsVal = process.loops != null
+        ? String(process.loops)
+        : (summary.loops != null ? String(summary.loops) : '—');
     
     box.innerHTML = `
         <h3 class="process-statistics-title">Process statistics</h3>
         <dl class="process-statistics-grid">
             <dt>Nodes</dt><dd>${escapeHtml(nodesStr)}</dd>
             <dt>Edges</dt><dd>${escapeHtml(edgesStr)}</dd>
-            <dt title="Count of nodes that have an outgoing edge to a node defined earlier in the Mermaid source (text order). Many edges to one early hub (e.g. regulation) count as separate loop nodes—not the same as counting obvious visual cycles on the canvas.">Loop nodes</dt>
+            <dt title="Nodes on at least one directed regulatory cycle (Paper I / III definition).">Loop nodes</dt>
             <dd>${escapeHtml(loopsVal)}</dd>
             <dt>Frontier</dt>
             <dd>

@@ -20,6 +20,7 @@ circuit because they are semantic, not syntactic.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -46,11 +47,37 @@ CLASS_NAME = {
 }
 
 
+def sanitize_node_shape(shape: str) -> str:
+    """Quote labels containing characters that break the Mermaid parser."""
+    if '["' in shape or shape.startswith("[('"):
+        return shape
+
+    def _quote(inner: str, open_ch: str, close_ch: str) -> str:
+        if re.search(r'[(),&#;]', inner):
+            safe = inner.replace('"', "#quot;")
+            return f'{open_ch}"{safe}"{close_ch}'
+        return f"{open_ch}{inner}{close_ch}"
+
+    m = re.match(r"^(\[)([^\[\]]+)(\])$", shape)
+    if m:
+        return _quote(m.group(2), "[", "]")
+    m = re.match(r"^(\{)([^{}]+)(\})$", shape)
+    if m:
+        return _quote(m.group(2), "{", "}")
+    m = re.match(r"^(\()([^()]+)(\))$", shape)
+    if m:
+        return _quote(m.group(2), "(", ")")
+    m = re.match(r"^(\[/?)(.+?)(/?\])$", shape)
+    if m:
+        return _quote(m.group(2), m.group(1), m.group(3))
+    return shape
+
+
 def build_mermaid(nodes, edges):
     """nodes: list of (id, label_with_shape, color). edges: list of (src, dst, edge_label)."""
     lines = ["graph TD"]
     for nid, shape, _ in nodes:
-        lines.append(f"    {nid}{shape}")
+        lines.append(f"    {nid}{sanitize_node_shape(shape)}")
     lines.append("")
     for src, dst, lbl in edges:
         if lbl:
