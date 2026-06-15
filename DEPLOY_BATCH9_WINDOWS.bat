@@ -6,7 +6,7 @@ setlocal EnableDelayedExpansion
 set KEY_FILE=%USERPROFILE%\Downloads\regal-scholar-453620-r7-b66204f047cc.json
 set REPO_DIR=%USERPROFILE%\glmp
 set PROJECT=regal-scholar-453620-r7
-set BRANCH=cursor/batch-9-ground-truth-c7ff
+set BRANCH=main
 
 echo.
 echo === GLMP Batch 9 Deploy (Windows) ===
@@ -45,12 +45,19 @@ echo Authenticating...
 gcloud auth activate-service-account --key-file="%KEY_FILE%"
 gcloud config set project %PROJECT%
 
-echo Running deploy...
-call DEPLOY_BATCH9_ALL.sh
+echo Running deploy via Git Bash...
+where bash >nul 2>&1
+if errorlevel 1 (
+    echo ERROR: Git Bash not found. Install Git for Windows, then re-run.
+    pause
+    exit /b 1
+)
+bash DEPLOY_BATCH9_ALL.sh
 if errorlevel 1 (
     echo.
-    echo If DEPLOY_BATCH9_ALL.sh failed on Windows, run from Git Bash:
-    echo   cd %%USERPROFILE%%\glmp
+    echo Deploy failed. Try manually from Git Bash:
+    echo   cd /c/Users/garyw/glmp
+    echo   git checkout main
     echo   bash DEPLOY_BATCH9_ALL.sh
     pause
     exit /b 1

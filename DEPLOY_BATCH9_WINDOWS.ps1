@@ -5,7 +5,7 @@ $ErrorActionPreference = "Stop"
 $KeyFile  = "$env:USERPROFILE\Downloads\regal-scholar-453620-r7-b66204f047cc.json"
 $RepoDir  = "$env:USERPROFILE\glmp"
 $Project  = "regal-scholar-453620-r7"
-$Branch   = "cursor/batch-9-ground-truth-c7ff"
+$Branch   = "main"
 
 Write-Host "`n=== GLMP Batch 9 Deploy (Windows) ===`n"
 
