@@ -67,11 +67,11 @@ The interactive collection is the empirical companion to the papers. It now hold
 | Caenorhabditis elegans | 2 | **developmental ground-truth** — dauer decision, lin-4/let-7 heterochronic timing |
 | Bacteriophage λ | 1 | ground-truth CI/Cro lysis–lysogeny switch |
 
-**Circuit-class distribution:** Class I 69 · Class II 73 · Class III 52 · Class IV 16 · Class V 7.
+**Circuit-class distribution:** Class I 70 · Class II 72 · Class III 52 · Class IV 16 · Class V 7.
 
-**Feedback topology:** across the 206 charts the collection carries a per-chart **loop count** (back-edges in the diagram) — **513 feedback nodes total, ~2.5 per process, 164 charts with at least one loop** — surfaced in the database table's *Loops* column and Σ/avg panel.
+**Feedback topology:** across the 217 charts the collection carries a per-chart **loop count** (back-edges in the diagram) — **527 feedback nodes total, ~2.4 per process, 180 charts with at least one loop** — surfaced in the database table's *Loops* column and Σ/avg panel.
 
-**Classification confidence:** of the 108 heuristically-classified microbial charts, **103 are high-confidence** (curated from literature) and **5 remain flagged `needs_review`** for expert validation — down from 61 after the 2026-06 curation pass. The five open items (`ecoli_cell_division`, `ecoli_mal_regulon`, `ecoli_sigma_factor_competition`, `ecoli_transcription_regulation`, `yeast_yeast_glycolysis_regulation`) are genuinely ambiguous and are the priority validation worklist. All 98 synthetic, human, plant, animal-developmental, and ground-truth microbial/phage charts carry authored classes (not heuristic), and each has a `sequenceAnnotation` block.
+**Classification confidence:** of the 108 heuristically-classified microbial charts, **98 are high-confidence** (curated from literature) and **10 remain flagged `needs_review`** for expert validation after the 2026-06 QA pass. The open heuristic items are `ecoli_amino_acid_biosynthesis`, `ecoli_cell_division`, `ecoli_lac_operon`, `ecoli_mal_regulon`, `ecoli_sigma_factor_competition`, `ecoli_starvation_response`, `ecoli_transcription_regulation`, `yeast_cell_wall_integrity`, `yeast_yeast_cell_polarity`, and `yeast_yeast_glycolysis_regulation`. One authored human chart (`human_tnf_survival_death_decision`) is also flagged for topology/class review. The collection currently includes **121 charts with `sequenceAnnotation` blocks**; remaining legacy charts require sequence-level curation before being treated as training data.
 
 **Ground-truth microbial/phage circuits (4)** anchor the ladder in classic organisms: the **GAL galactose** bistable switch and the **Whi5–SBF Start** switch (both Class IIIa, hysteretic cell-fate memory), the **phage λ CI/Cro** lysis–lysogeny switch (Class IIIa, the archetypal natural genetic switch), and the **[PSI+] Sup35 prion** — a genuine biological **Class V** self-modifying/epigenetic memory carried by protein conformation rather than DNA.
 
