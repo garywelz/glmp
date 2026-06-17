@@ -33,6 +33,9 @@ def build_entry(template_keys, proc):
     """Build a metadata process entry whose keys match an existing entry (template_keys)."""
     nodes = proc["totalNodes"]
     lg = proc["logicGates"]
+    complexity = proc.get("complexity", "unknown")
+    if isinstance(complexity, dict):
+        complexity = complexity.get("detailLevel") or "unknown"
     resolvers = {
         "id": proc["id"],
         "name": proc["name"],
@@ -44,7 +47,7 @@ def build_entry(template_keys, proc):
         "lastUpdated": proc["lastUpdated"],
         "generated": proc.get("created", ""),
         "citations": len(proc.get("sources", [])),
-        "complexity": "low",
+        "complexity": complexity,
         "nodes": nodes,
         "totalNodes": nodes,
         "conditionals": proc["conditionals"],

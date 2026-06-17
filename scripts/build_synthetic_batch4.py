@@ -5,8 +5,8 @@ Adds canonical oscillators, a fold-change detector, multi-input logic, and an RN
 post-transcriptional regulator.
 
 Coverage:
-  Class I  : 3-input AND gate, toggle-RNA riboregulator (translational activation)
-  Class II : incoherent-FFL fold-change detector (FCD)
+  Class I  : 3-input AND gate, toggle-RNA riboregulator (translational activation),
+             incoherent-FFL fold-change detector (FCD)
   Class IV : Atkinson relaxation oscillator, Stricker fast dual-feedback oscillator
 
 Reuses Batch 1 helpers so schema/stats stay identical.
@@ -93,13 +93,13 @@ SPECS = [
             "references": ["Green et al. 2014"],
         },
     },
-    # ----------------------------------------------------------------- Class II
+    # ----------------------------------------------------------------- Class I
     {
         "id": "synthetic_fold_change_detector",
         "name": "Incoherent-FFL Fold-Change Detector",
-        "circuitClass": "II",
+        "circuitClass": "I",
         "topologyType": "incoherent_ffl_fold_change_detection",
-        "rationale": "An incoherent feed-forward loop with the right (e.g. division-like) interaction responds to the fold-change of the input rather than its absolute level — a form of exact adaptation. The internal repression branch acts as a negative regulator of the output, so it is grouped with the adaptive/homeostatic Class II circuits (Goentoro et al. 2009).",
+        "rationale": "An incoherent feed-forward loop with the right (e.g. division-like) interaction responds to the fold-change of the input rather than its absolute level. The circuit has two feed-forward arms from the input to the output — one activating and one delayed/proportional repressive arm — but no feedback edge from output or downstream state back to an earlier node, so it belongs in Class I rather than the feedback/homeostatic Class II group (Goentoro et al. 2009).",
         "description": "A fold-change detector built on an incoherent feed-forward loop: the input activates the output and, through an intermediate, also represses it in proportion to input level. The output then depends only on the relative (fold) change of the input, not its absolute value — the synthetic realization of fold-change detection / exact adaptation.",
         "scientificAccuracy": "Ground-truth design. The IFFL fold-change-detection property was derived and demonstrated (Goentoro, Shoval, Kirschner & Alon 2009).",
         "nodes": [
@@ -114,13 +114,13 @@ SPECS = [
             ("A", "B", ""), ("A", "C", ""), ("C", "D", ""),
             ("B", "E", ""), ("D", "E", "⊣"), ("E", "F", "Yes"),
         ],
-        "gates": (0, 0, 1),
+        "gates": (0, 1, 1),
         "sources": [
             {"title": "The incoherent feedforward loop can provide fold-change detection in gene regulation", "authors": "Goentoro L, Shoval O, Kirschner MW, Alon U", "journal": "Molecular Cell", "year": 2009, "volume": "36", "pages": "894-899", "pmid": "20005851", "doi": "10.1016/j.molcel.2009.11.018"},
         ],
-        "keywords": ["fold-change detection", "incoherent feed-forward", "exact adaptation", "scale invariance", "Class II", "ground truth"],
+        "keywords": ["fold-change detection", "incoherent feed-forward", "exact adaptation", "scale invariance", "Class I", "ground truth"],
         "relatedProcesses": ["synthetic_incoherent_ffl"],
-        "notes": "Ground-truth circuit grouped in Class II (adaptive negative regulation); functionally a fold-change detector.",
+        "notes": "Ground-truth Class I incoherent feed-forward loop: adaptive fold-change response without a feedback edge.",
         "sequenceAnnotation": {
             "schemaVersion": "0.1",
             "regulatoryRegions": [
