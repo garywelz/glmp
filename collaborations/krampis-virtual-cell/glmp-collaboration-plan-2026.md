@@ -60,12 +60,6 @@ Paper I introduces the five-class computational complexity ladder and the core c
 
 ---
 
-## File Renaming — Complete
-
-Working paper filenames have already been updated in the repository to match the short names and GCS navigation labels used in this document. No further renaming is required.
-
----
-
 ## Near-Term Empirical Priorities
 
 ### Priority 1 — RPE1 Replication (~1–2 months)
@@ -448,12 +442,13 @@ None of these exist yet. All are new work arising from the collaboration.
 8. Begin DNA Decoder prototype — prokaryotic circuits (Batch 2), FIMO/MEME evaluation
 
 **Krampis — begins immediately:**
-9. Co-lead QA/correction pass on existing GLMP flowchart collection — validate class assignments, loop topology, and complexity metadata; flag errors for correction before lac operon is used as worked example
-10. Review lac operon sequence annotation section draft for biological accuracy (once QA pass is complete and Welz draft is ready)
-11. Contribute to sequence annotation schema definition — field validation for human circuits beyond prokaryotes
-12. Identify RegVelo configuration for K562 GRN
-13. Review and extend `flowchart-source-papers.tsv` manifest — validate DOIs and fill gaps for hematopoietic and virtual cell circuits
-14. Validate DNA Decoder output on Batch 2 prokaryotic circuits (Month 1 milestone)
+
+1. Co-lead QA/correction pass on existing GLMP flowchart collection — validate class assignments, loop topology, and complexity metadata; flag errors for correction before lac operon is used as worked example
+2. Review lac operon sequence annotation section draft for biological accuracy (once QA pass is complete and Welz draft is ready)
+3. Contribute to sequence annotation schema definition — field validation for human circuits beyond prokaryotes
+4. Identify RegVelo configuration for K562 GRN
+5. Review and extend `flowchart-source-papers.tsv` manifest — validate DOIs and fill gaps for hematopoietic and virtual cell circuits
+6. Validate DNA Decoder output on Batch 2 prokaryotic circuits (Month 1 milestone)
 
 **Joint — first coordinated deliverable (~3–4 months):**
 - Methods paper revised draft → internal review → bioRxiv posting
@@ -464,4 +459,4 @@ None of these exist yet. All are new work arising from the collaboration.
 
 *Gary Welz · CUNY Graduate Center / New Media Lab · Genome Logic Modeling Project*
 *gwelz@gc.cuny.edu · ORCID 0009-0005-7806-0892*
-*Last updated: June 17, 2026*
+*Last updated: June 18, 2026*
