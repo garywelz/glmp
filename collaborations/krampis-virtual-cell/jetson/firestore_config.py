@@ -34,6 +34,7 @@ HUGGINGFACE_SPACE_DIR = LEGACY_REPO_SYMLINK / "huggingface-space"
 VENV_PYTHON = Path("/media/sdcard/copernicus-worker/venv/bin/python3.8")
 DECODER_ROOT = Path("/media/sdcard/decoder")
 SCHEDULER_DEPLOY_ROOT = Path("/media/sdcard/scheduler")
+SCOUT_DEPLOY_ROOT = SCHEDULER_DEPLOY_ROOT / "scout"
 LOGS_ROOT = Path("/media/sdcard/logs")
 
 # Live cron (crontab -l, America/New_York)

@@ -50,6 +50,8 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `jetson/` | Jetson Nano ingest worker bootstrap script and setup handoff (CopernicusAI daily scout). |
 | `jetson/scheduler/status_writer.py` | Phase 1 — Firestore job heartbeats (`scheduler_status` collection). |
 | `jetson/setup_firestore_collections.py` | Phase 1 — Firestore bootstrap (dry-run by default; `--apply` for schema seeds). |
+| `jetson/scout/scout_pubmed.py` | Phase 2 — split PubMed scout (+ GLMP query supplement). |
+| `jetson/scout/README.md` | Phase 2 deploy and test instructions. |
 | `three-machine-workflow-handoff.md` | Machine roles, SSH, credentials, and workflow rules for Yoga 730 / Yoga 9i / Jetson. |
 
 ---
