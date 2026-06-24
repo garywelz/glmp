@@ -45,6 +45,7 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `flowchart-quality-audit.tsv` | Per-chart quality tier (A_OK / B_REVIEW / C_EXPAND) for the 109-chart ground-truth expansion batch. |
 | `flowchart-quality-audit-summary.md` | Audit summary — recent median 6 nodes vs legacy 64; 13 thin charts expanded. |
 | `lac-operon-annotation-review.md` | **Expert review request** — three lac operon binding-site annotations (lacO1 NOT gate, CRP AND input, *lacI* source node) for biological validation. |
+| `dna-decoder/CURSOR_BRIEFING_DECODER_AUTOMATION.md` | Implementation brief: manifest-driven decoder batch runner, scout split (AM/PM), Firestore `glmp_circuits` + `scheduler_status`. |
 | `dna-decoder/` | **DNA Decoder prototype** — Stage 3 logic parser (`glmp_logic_parser.py`) and lac operon technical report (FIMO + grammar rules, Jetson-validated). |
 | `jetson/` | Jetson Nano ingest worker bootstrap script and setup handoff (CopernicusAI daily scout). |
 | `three-machine-workflow-handoff.md` | Machine roles, SSH, credentials, and workflow rules for Yoga 730 / Yoga 9i / Jetson. |
