@@ -53,6 +53,7 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `jetson/scout/scout_pubmed.py` | Phase 2 — split PubMed scout (+ GLMP query supplement). |
 | `jetson/scout/README.md` | Phase 2 deploy and test instructions. |
 | `three-machine-workflow-handoff.md` | Machine roles, SSH, credentials, and workflow rules for Yoga 730 / Yoga 9i / Jetson. |
+| `JETSON_DECODER_HANDOFF_2026-06-24.md` | **Latest Jetson handoff** — SD migration, decoder (lac/ara/trp), scheduler, split scouts, next steps. |
 
 ---
 
