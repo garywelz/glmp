@@ -1,5 +1,3 @@
-**Draft for bioRxiv / methods submission.** Not peer-reviewed. Text and figures may change before posting.
-
 # Mermaid flowcharts for perturbation design: diagrams-as-code, curated databases, and the *E. coli* lac operon as a worked example
 
 A methods-oriented primer for investigators combining large language models, RegulonDB-class resources, and logic-style process charts

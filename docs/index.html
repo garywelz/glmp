@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genome Logic Modeling Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0b0f14;
+      --surface:   #111820;
+      --border:    #1e2a38;
+      --accent:    #4fc3a1;
+      --accent2:   #2a7a62;
+      --text:      #d4dde8;
+      --muted:     #6b7f94;
+      --white:     #eaf0f8;
+      --seq:       #1a2a20;
+      --seq-text:  #6ee7b7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11,15,20,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+    }
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 1.6rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-lead {
+      font-size: 1.08rem;
+      color: var(--text);
+      max-width: 640px;
+      margin-bottom: 2.4rem;
+    }
+
+    /* ── SEQUENCE DISPLAY — the signature element ── */
+    .seq-block {
+      background: var(--seq);
+      border: 1px solid var(--accent2);
+      border-radius: 6px;
+      padding: 1.2rem 1.6rem;
+      margin-bottom: 2.8rem;
+      overflow-x: auto;
+    }
+    .seq-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .seq-line {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      color: var(--seq-text);
+      letter-spacing: 0.12em;
+      white-space: pre;
+    }
+    .seq-line .not-gate  { color: #f87171; font-weight: 500; }
+    .seq-line .gap       { color: var(--muted); }
+    .seq-line .and-gate  { color: #60a5fa; font-weight: 500; }
+    .seq-annotation {
+      display: flex;
+      gap: 2rem;
+      margin-top: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .seq-ann-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .seq-ann-item span { color: var(--seq-text); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem;
+    }
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.7rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    /* ── PAPER LIST ── */
+    .paper-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+    .paper-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem 1.4rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 0.5rem;
+      transition: border-color 0.2s;
+    }
+    .paper-item:hover { border-color: var(--accent2); }
+    .paper-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      background: rgba(79,195,161,0.08);
+      border: 1px solid var(--accent2);
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+    }
+    .paper-content {}
+    .paper-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+    .paper-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .paper-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .paper-link:hover { opacity: 1; }
+    .paper-link.pending { color: var(--muted); cursor: default; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 1.6rem;
+    }
+    .stat-cell {
+      background: var(--surface);
+      padding: 1.2rem 1.4rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── INFRA GRID ── */
+    .infra-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.5rem;
+    }
+    .infra-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.2rem 1.4rem;
+    }
+    .infra-card-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.06em;
+    }
+    .infra-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .infra-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .contact-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .contact-value {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .contact-value a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .paper-item { grid-template-columns: 1fr; }
+      .paper-link { justify-self: start; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">GLMP</span>
+  <ul class="nav-links">
+    <li><a href="#papers">Papers</a></li>
+    <li><a href="#corpus">Corpus</a></li>
+    <li><a href="#infrastructure">Infrastructure</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Genome Logic Modeling Project</p>
+  <h1>Reading regulatory logic<br><em>from sequence</em></h1>
+  <p class="hero-lead">
+    The control layer of the genome is written in a logical grammar. Transcription factor binding motifs are its alphabet; their spatial arrangement in promoter and enhancer sequences encodes AND, OR, NOT, and feedback. GLMP is a systematic program to decode that grammar — to build the corpus, infrastructure, and framework needed to read any regulatory sequence as a logical formula.
+  </p>
+
+  <!-- THE SIGNATURE ELEMENT: an annotated DNA sequence -->
+  <div class="seq-block">
+    <p class="seq-label">E. coli lac operon — origin circuit · lacO1 operator (NOT gate) + CRP site (AND input)</p>
+    <div class="seq-line">5'–<span class="not-gate">AATTGTGAGCGGATAACAATT</span><span class="gap">···~60 bp···</span><span class="and-gate">TGTGANNNNNNTCACA</span>–3'</div>
+    <div class="seq-annotation">
+      <div class="seq-ann-item"><span>RED</span> &nbsp;lacO1 · NOT gate · LacI repressor binding · 21 bp</div>
+      <div class="seq-ann-item"><span>BLUE</span> &nbsp;CRP site · AND input · catabolite activation · ~22 bp</div>
+      <div class="seq-ann-item"><span>~60 bp</span> &nbsp;inter-site distance → OR-independent geometry → AND circuit logic</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PAPERS -->
+<section id="papers">
+  <p class="section-label">Paper series</p>
+  <h2>The GLMP series</h2>
+  <p style="margin-bottom:1.8rem; color:var(--muted); font-size:0.92rem;">Five working papers form the foundation. The methods paper introduces the unit of representation. Papers I–II develop the grammar. Paper III delivers the first empirical test.</p>
+
+  <ul class="paper-list">
+
+    <li class="paper-item">
+      <span class="paper-badge">Methods</span>
+      <div class="paper-content">
+        <p class="paper-title">Reading Regulatory Logic from Sequence: Typed Flowcharts as the Unit of Representation</p>
+        <p class="paper-desc">Introduces typed Mermaid flowcharts as the representational unit of the grammar-decoding program. Demonstrates three encodings of the lac operon and the sequence annotation schema that transforms flowchart nodes into training data.</p>
+      </div>
+      <a class="paper-link pending" href="#">bioRxiv · forthcoming</a>
+    </li>
+
+    <li class="paper-item">
+      <span class="paper-badge">Paper I</span>
+      <div class="paper-content">
+        <p class="paper-title">Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</p>
+        <p class="paper-desc">Introduces the five-class computational complexity ladder and the core conjecture: gene regulatory circuits can be located on this ladder by topology, with measurable consequences for biological behavior.</p>
+      </div>
+      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md" target="_blank">GitHub →</a>
+    </li>
+
+    <li class="paper-item">
+      <span class="paper-badge">Paper II</span>
+      <div class="paper-content">
+        <p class="paper-title">The Genome as Computer: Logical Primitives, Runtime States, and the Limits of Biological Prediction</p>
+        <p class="paper-desc">Develops the full 22-primitive logical vocabulary, treats the transcriptome as a runtime state, and generates nine falsifiable predictions — including the grammar-aware sequence model that is the long-horizon goal.</p>
+      </div>
+      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md" target="_blank">GitHub →</a>
+    </li>
+
+    <li class="paper-item">
+      <span class="paper-badge">Paper III</span>
+      <div class="paper-content">
+        <p class="paper-title">Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Class Conjecture</p>
+        <p class="paper-desc">780 genes classified by circuit topology, evaluated against 16 virtual cell models on K562 Perturb-seq data. Class III genes are systematically harder to predict (<em>t</em> = −3.55, <em>p</em> = 0.0015).</p>
+      </div>
+      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-III-empirical-sequel.md" target="_blank">GitHub →</a>
+    </li>
+
+    <li class="paper-item">
+      <span class="paper-badge">Synthesis</span>
+      <div class="paper-content">
+        <p class="paper-title">Genomic Regulatory Complexity and the Limits of Perturbation Prediction</p>
+        <p class="paper-desc">Translates the full argument for a general biology audience. The most accessible entry point into the GLMP program for biologists arriving from bioRxiv or journal citations.</p>
+      </div>
+      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/synthesis-biorxiv.md" target="_blank">GitHub →</a>
+    </li>
+
+  </ul>
+</section>
+
+<hr class="divider">
+
+<!-- CORPUS -->
+<section id="corpus">
+  <p class="section-label">Flowchart corpus</p>
+  <h2>217 circuits. 8 organisms.</h2>
+
+  <div class="stats-row">
+    <div class="stat-cell">
+      <div class="stat-number">217</div>
+      <div class="stat-label">Typed flowcharts</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Organisms</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">527</div>
+      <div class="stat-label">Feedback loops</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Complexity classes</div>
+    </div>
+  </div>
+
+  <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.2rem;">
+    Each flowchart encodes the logical structure of a regulatory circuit — AND gates, NOT gates, feedback topology, and complexity class. The corpus is the training data construction phase of the grammar-decoding program. A sequence annotation layer is in progress, linking each binding-event node to its DNA sequence and position weight matrix.
+  </p>
+  <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" style="color:var(--accent); font-size:0.9rem; text-decoration:none;">Browse the corpus on HuggingFace →</a>
+</section>
+
+<hr class="divider">
+
+<!-- INFRASTRUCTURE -->
+<section id="infrastructure">
+  <p class="section-label">Infrastructure</p>
+  <h2>CopernicusAI &amp; the DNA Decoder</h2>
+
+  <div class="infra-grid">
+    <div class="infra-card">
+      <p class="infra-card-title">CopernicusAI</p>
+      <p>~59,700 indexed research papers from PubMed, bioRxiv, and arXiv. Dense retrieval with OpenAI text-embedding-3-small (nDCG@10 = 0.828). Daily ingest pipeline running on a Jetson Nano edge compute node.</p>
+      <a href="https://huggingface.co/spaces/garywelz/copernicusai" target="_blank">Browse on HuggingFace →</a>
+    </div>
+    <div class="infra-card">
+      <p class="infra-card-title">DNA Decoder — prototype</p>
+      <p>A five-stage pipeline: sequence in → motif scanning (FIMO/JASPAR) → GLMP grammar rule parsing → protein annotation → Biolink-compliant property graph out. Prototype in development on prokaryotic ground-truth circuits.</p>
+    </div>
+    <div class="infra-card">
+      <p class="infra-card-title">GitHub Repository</p>
+      <p>Working papers, flowchart source files, sequence annotation schema, and collaboration infrastructure for the Welz &amp; Krampis collaboration.</p>
+      <a href="https://github.com/garywelz/glmp" target="_blank">github.com/garywelz/glmp →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Contact &amp; affiliation</p>
+  <h2>Gary Welz</h2>
+  <div class="contact-block">
+    <div class="contact-item">
+      <span class="contact-label">Affiliation</span>
+      <span class="contact-value">New Media Lab, CUNY Graduate Center</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <span class="contact-value"><a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">ORCID</span>
+      <span class="contact-value"><a href="https://orcid.org/0009-0005-7806-0892" target="_blank">0009-0005-7806-0892</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">GitHub</span>
+      <span class="contact-value"><a href="https://github.com/garywelz/glmp" target="_blank">garywelz/glmp</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">HuggingFace</span>
+      <span class="contact-value"><a href="https://huggingface.co/garywelz" target="_blank">huggingface.co/garywelz</a></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Genome Logic Modeling Project · Gary Welz · CUNY Graduate Center</p>
+  <p><a href="https://github.com/garywelz/glmp">github.com/garywelz/glmp</a></p>
+</footer>
+
+</body>
+</html>
