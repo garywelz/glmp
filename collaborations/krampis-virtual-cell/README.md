@@ -48,6 +48,8 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `dna-decoder/CURSOR_BRIEFING_DECODER_AUTOMATION.md` | Implementation brief: manifest-driven decoder batch runner, scout split (AM/PM), Firestore `glmp_circuits` + `scheduler_status`. |
 | `dna-decoder/` | **DNA Decoder prototype** — Stage 3 logic parser (`glmp_logic_parser.py`) and lac operon technical report (FIMO + grammar rules, Jetson-validated). |
 | `jetson/` | Jetson Nano ingest worker bootstrap script and setup handoff (CopernicusAI daily scout). |
+| `jetson/scheduler/status_writer.py` | Phase 1 — Firestore job heartbeats (`scheduler_status` collection). |
+| `jetson/setup_firestore_collections.py` | Phase 1 — Firestore bootstrap (dry-run by default; `--apply` for schema seeds). |
 | `three-machine-workflow-handoff.md` | Machine roles, SSH, credentials, and workflow rules for Yoga 730 / Yoga 9i / Jetson. |
 
 ---
