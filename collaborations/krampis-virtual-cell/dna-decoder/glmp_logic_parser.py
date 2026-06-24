@@ -31,6 +31,8 @@ import os
 import sys
 from datetime import datetime
 
+__version__ = "0.2.0"
+
 
 # ── GLMP Grammar Rule Constants ──────────────────────────────────────────────
 
@@ -133,10 +135,11 @@ class LogicalRelationship:
 
 # ── FIMO Parser ───────────────────────────────────────────────────────────────
 
-def load_fimo_tsv(filepath, min_pvalue=0.05, min_qvalue=0.5):
+def load_fimo_tsv(filepath, min_pvalue=0.05):
     """
     Load FIMO TSV output and return list of BindingSite objects.
-    Filters out weak hits by default.
+    Filters by p-value only; q-value filtering happens downstream
+    with separate thresholds for repressors vs activators.
     """
     sites = []
 
@@ -154,24 +157,27 @@ def load_fimo_tsv(filepath, min_pvalue=0.05, min_qvalue=0.5):
             if len(parts) < 9:
                 continue
 
+            # Skip TSV header row
+            if parts[0] == 'motif_id':
+                continue
+
             # FIMO TSV columns:
             # motif_id, motif_alt_id, sequence_name, start, stop,
             # strand, score, p-value, q-value, matched_sequence
             try:
                 site = BindingSite(
-                    motif_id     = parts[0],
-                    motif_alt    = parts[1],
+                    motif_id      = parts[0],
+                    motif_alt     = parts[1],
                     sequence_name = parts[2],
-                    start        = parts[3],
-                    stop         = parts[4],
-                    strand       = parts[5],
-                    score        = parts[6],
-                    pvalue       = parts[7],
-                    qvalue       = parts[8] if len(parts) > 8 else '.',
-                    matched_seq  = parts[9] if len(parts) > 9 else ''
+                    start         = parts[3],
+                    stop          = parts[4],
+                    strand        = parts[5],
+                    score         = parts[6],
+                    pvalue        = parts[7],
+                    qvalue        = parts[8] if len(parts) > 8 else '.',
+                    matched_seq   = parts[9] if len(parts) > 9 else ''
                 )
 
-                # Filter weak hits
                 if site.pvalue <= min_pvalue:
                     sites.append(site)
 
@@ -315,7 +321,7 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
         "circuit_name":    circuit_name,
         "organism":        organism,
         "decoded_at":      datetime.now().isoformat(),
-        "decoder_version": "0.1.0-prototype",
+        "decoder_version": "0.2.0",
         "glmp_version":    "2026-06",
         "binding_sites": [s.to_dict() for s in sites],
         "relationships": [r.to_dict() for r in relationships],
@@ -370,11 +376,20 @@ def main():
     )
     parser.add_argument(
         "--qvalue-threshold", type=float, default=0.1,
-        help="Maximum q-value for FIMO hits to include (default: 0.1)"
+        help="Maximum q-value for non-repressor FIMO hits (default: 0.1)"
+    )
+    parser.add_argument(
+        "--repressor-qvalue-threshold", type=float, default=None,
+        help="Maximum q-value for repressor FIMO hits, applied separately "
+             "before the max-sites cap so repressors are always included. "
+             "Defaults to --qvalue-threshold if not set. Use 0.9 or 1.0 "
+             "for prokaryotic repressors underrepresented in JASPAR."
     )
     parser.add_argument(
         "--max-sites", type=int, default=100,
-        help="Maximum sites after filtering, sorted by p-value (default: 100)"
+        help="Maximum non-repressor sites after filtering, sorted by p-value "
+             "(default: 100). Repressor sites passing --repressor-qvalue-threshold "
+             "are always included on top of this cap."
     )
     parser.add_argument(
         "--verbose", action="store_true",
@@ -383,9 +398,16 @@ def main():
 
     args = parser.parse_args()
 
-    print(f"\nGLMP DNA Decoder — Stage 3 Logic Parser")
+    # Resolve repressor q-value threshold (defaults to general threshold)
+    rep_q_thresh = (args.repressor_qvalue_threshold
+                    if args.repressor_qvalue_threshold is not None
+                    else args.qvalue_threshold)
+
+    print(f"\nGLMP DNA Decoder — Stage 3 Logic Parser v{__version__}")
     print(f"Circuit:  {args.circuit}")
     print(f"Organism: {args.organism}")
+    print(f"  q-threshold (non-repressors): {args.qvalue_threshold}")
+    print(f"  q-threshold (repressors):     {rep_q_thresh}")
     print(f"─" * 50)
 
     # Load all FIMO hit files
@@ -402,16 +424,35 @@ def main():
 
     print(f"\nTotal sites loaded: {len(all_sites)}")
 
-    # Apply q-value filter
-    before = len(all_sites)
-    all_sites = [s for s in all_sites if s.qvalue <= args.qvalue_threshold]
-    print(f"After q-value filter (q<={args.qvalue_threshold}): {len(all_sites)} sites (removed {before - len(all_sites)})")
+    # ── Split into repressors and non-repressors, apply separate q-thresholds
+    repressor_sites    = [s for s in all_sites if s.is_repressor()]
+    nonrepressor_sites = [s for s in all_sites if not s.is_repressor()]
 
-    # Apply max-sites cap — keep top hits by p-value
-    if len(all_sites) > args.max_sites:
-        all_sites.sort(key=lambda s: s.pvalue)
-        all_sites = all_sites[:args.max_sites]
-        print(f"Capped at top {args.max_sites} sites by p-value")
+    # Filter repressors by their (looser) threshold
+    rep_before = len(repressor_sites)
+    repressor_sites = [s for s in repressor_sites if s.qvalue <= rep_q_thresh]
+    print(f"Repressor sites (q<={rep_q_thresh}): {len(repressor_sites)} "
+          f"(removed {rep_before - len(repressor_sites)})")
+
+    # Filter non-repressors by the standard threshold
+    nonrep_before = len(nonrepressor_sites)
+    nonrepressor_sites = [s for s in nonrepressor_sites
+                          if s.qvalue <= args.qvalue_threshold]
+    print(f"Non-repressor sites (q<={args.qvalue_threshold}): "
+          f"{len(nonrepressor_sites)} "
+          f"(removed {nonrep_before - len(nonrepressor_sites)})")
+
+    # ── Apply max-sites cap to non-repressors only; repressors always included
+    if len(nonrepressor_sites) > args.max_sites:
+        nonrepressor_sites.sort(key=lambda s: s.pvalue)
+        nonrepressor_sites = nonrepressor_sites[:args.max_sites]
+        print(f"Non-repressor sites capped at top {args.max_sites} by p-value")
+
+    # Combine: repressors first (guaranteed), then non-repressors
+    all_sites = repressor_sites + nonrepressor_sites
+    print(f"Total sites for grammar evaluation: {len(all_sites)} "
+          f"({len(repressor_sites)} repressors + "
+          f"{len(nonrepressor_sites)} non-repressors)")
 
     # Sort sites by position for relationship evaluation
     all_sites.sort(key=lambda s: s.start)
