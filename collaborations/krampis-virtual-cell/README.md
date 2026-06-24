@@ -42,6 +42,9 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `glmp-relevant-corpus-preview.tsv` | Dry-run `glmp_relevant` / `sequence_logic_content` flags on local paper corpus (no Firestore writes). |
 | `flowchart-quality-audit.tsv` | Per-chart quality tier (A_OK / B_REVIEW / C_EXPAND) for the 109-chart ground-truth expansion batch. |
 | `flowchart-quality-audit-summary.md` | Audit summary — recent median 6 nodes vs legacy 64; 13 thin charts expanded. |
+| `dna-decoder/` | **DNA Decoder prototype** — Stage 3 logic parser (`glmp_logic_parser.py`) and lac operon technical report (FIMO + grammar rules, Jetson-validated). |
+| `jetson/` | Jetson Nano ingest worker bootstrap script and setup handoff (CopernicusAI daily scout). |
+| `three-machine-workflow-handoff.md` | Machine roles, SSH, credentials, and workflow rules for Yoga 730 / Yoga 9i / Jetson. |
 
 ---
 
