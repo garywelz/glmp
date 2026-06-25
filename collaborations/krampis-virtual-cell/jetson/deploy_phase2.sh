@@ -12,6 +12,7 @@ ssh "${JETSON}" "mkdir -p ${REMOTE}/scout ${REMOTE}/scheduler /media/sdcard/logs
 
 scp "${SCRIPT_DIR}/firestore_config.py" \
     "${SCRIPT_DIR}/setup_firestore_collections.py" \
+    "${SCRIPT_DIR}/check_scout_status.py" \
     "${JETSON}:${REMOTE}/"
 
 scp "${SCRIPT_DIR}/scheduler/status_writer.py" \
