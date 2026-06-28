@@ -24,6 +24,8 @@ Planning genetic, pharmacological, or nutritional perturbations is easier when t
 
 The *lac* operon remains the canonical bacterial example of integrating environmental signals, transcription factors, and promoter logic.<sup>[1](#r1)</sup> Contemporary laboratories rarely study it in isolation, but it is ideal as a *tutorial system*: many curated representations exist, so **source choice** becomes visible as scientific information rather than as an invisible preprocessing step.
 
+The idea that regulatory DNA encodes logical operations is not new to synthetic biology: Voigt et al. (2016) demonstrated that human-readable logic programs can be compiled directly into novel DNA sequences that execute gate-level circuits inside living bacterial cells.<sup>[11](#r11)</sup> GLMP addresses the complementary problem — reading and decoding the logical structure already encoded in natural regulatory DNA, using the same grammar of AND, OR, and NOT gates that synthetic circuits are built from.
+
 Meanwhile, perturbation-forward workflows—CRISPR screens, chemical genetics, single-cell readouts, virtual-cell-style predictors—benefit from an explicit, criticizable sketch of **inputs, branch points, feedback, and candidate measurements** before budget is committed. A flowchart is not a mechanistic ordinary differential equation model and not a trained deep network; it is a **hypothesis artifact** suitable for group review, supplementary files, and teaching.
 
 **Mermaid** is a widely supported markdown-adjacent language for flowcharts and related diagrams; source text diffs cleanly in Git and renders in browsers, notebooks, and static site generators.<sup>[2](#r2)</sup> Modern LLMs can emit fenced `mermaid` blocks from natural language, which accelerates first drafts but *increases* the obligation to validate against authoritative resources: prompt and model choice change topology and node identity.
@@ -234,5 +236,6 @@ Public GLMP process JSON and viewers reside on Google Cloud Storage; the lac ope
 8.  <span id="r8">Szklarczyk D, et al. The STRING database in 2025. *Nucleic Acids Res*. 2025;53(D1):D638–D646.</span>
 9.  <span id="r9">Escorcia-Rodríguez JM, Tauch A, Freyre-González JA. Abasy Atlas v2.2. *Comput Struct Biotechnol J*. 2020;18:1228–1237.</span>
 10. <span id="r10">Barrett T, et al. NCBI GEO: archive for functional genomics data—updated. *Nucleic Acids Res*. 2013;41(D1):D991–D995.</span>
+11. <span id="r11">Nielsen AJ, Der BS, Shin J, Vaidyanathan P, Densmore D, Paralanov V, Strychalski EA, Ross D, Voigt CA. Genetic circuit design automation. *Science*. 2016;352(6281):aac7341. <https://doi.org/10.1126/science.aac7341></span>
 
-**Suggested bioRxiv category:** Methods / Systems biology.  \|  Correspondence: <gwelz@gc.cuny.edu>
+**Suggested bioRxiv category:** Methods / Systems biology / Synthetic biology.  \|  Correspondence: <gwelz@gc.cuny.edu>

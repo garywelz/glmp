@@ -23,6 +23,15 @@ The GLMP program began as an effort to visualize biochemical and gene-regulatory
 
 Papers I and II propose naming five recurrent **topology classes** (I–V) and treating them as a ladder of increasing dynamical and inferential difficulty. The names deliberately echo discourse from computability theory, but **this synthesis does not assert that cells implement Peano arithmetic or Turing machines in any literal sense.** The mathematics papers use formal foundations as a *suggestive vocabulary*: if primitive choices change what a logical theory can express, perhaps the presence or absence of feedback primitives changes what can be inferred from observational omics alone. The only claim that must stand on its own for biologists is empirical: **does stratifying benchmark genes by coarse circuit topology reveal systematic differences in how well existing predictors perform?** Paper III answers yes for one large human dataset and a family of contemporary models. The present document summarizes that evidence, states limitations plainly, and outlines how independent groups could falsify or extend the pattern without adopting any particular formal metaphor.
 
+The idea that regulatory DNA encodes logical operations has strong precedent in
+synthetic biology: Voigt et al. (2016) showed that logic programs written in a
+Verilog-inspired language can be compiled into novel DNA sequences that execute
+gate-level circuits inside living E. coli cells — using AND, OR, and NOT gates
+encoded directly in bacterial regulatory DNA. GLMP addresses the complementary
+problem: given a natural regulatory sequence, decode the logical structure already
+written there by evolution. The two approaches share a grammar; they differ in
+direction — one writes circuits, the other reads them.
+
 The timing of that question is practical. Over the past three years, foundation-style models trained on enormous compendia of single-cell profiles have moved from imputation to *counterfactual* prediction: given a genetic or chemical intervention never seen in training, what expression vector should we expect? Commercial and academic “virtual cell” initiatives now advertise zero-shot generalization across cell types and species. Community benchmarks rightly emphasize held-out perturbations, leakage control, and calibration. What they still omit—because no standard reporting template exists—is **whether accuracy is homogeneous across regulatory contexts**. A model can look excellent on mean Pearson correlation while systematically failing on the subset of genes whose control logic requires history-dependence. Those genes are not obscure corner cases; they include master regulators of proliferation, stress adaptation, and differentiation that dominate cancer pharmacology.
 
 GLMP does not compete with virtual-cell architectures. It supplies an orthogonal axis: **mechanistic topology inferred from prior knowledge graphs and literature**, coarse enough to assign hundreds of genes automatically yet fine enough to separate acyclic cascades from feedback-rich neighborhoods. The empirical sequel then asks whether existing predictors, treated as black boxes, already “know” that distinction implicitly. The fact that many do not—that accuracy drops where positive cycles appear in TRRUST—suggests either insufficient inductive bias or insufficient state variables in the training setup, or both. Either interpretation is actionable: it points toward richer latent-state models *and* toward better documentation of which perturbations should never be interpreted through bulk accuracy alone.
@@ -306,6 +315,13 @@ Virtual-cell models are evaluated as if all genes posed the same statistical lea
 6.  Welz G. *The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction* (GLMP Working Paper II, 2026). [HTML](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/genome-as-computer.md)
 7.  Welz G. *Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis* (GLMP Working Paper III, 2026). [HTML](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/circuit-class-predicts-virtual-cell-model-accuracy.md)
 8.  Istrate A-M *et al.* rbio-1: training scientific reasoning LLMs with biological world models as soft verifiers. *bioRxiv* (2025). [DOI](https://doi.org/10.1101/2025.08.18.670981).
+
+## Further reading
+
+- Nielsen AJ, Der BS, Shin J, Vaidyanathan P, Densmore D, Paralanov V,
+  Strychalski EA, Ross D, Voigt CA. Genetic circuit design automation.
+  *Science.* 2016;352(6281):aac7341.
+  https://doi.org/10.1126/science.aac7341
 
 Draft synthesis for bioRxiv posting · not peer-reviewed · April 2026  
 Suggested bioRxiv category: Systems biology / Computational biology  
