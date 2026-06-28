@@ -34,7 +34,7 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `synthesis-biorxiv.md` | **Synthesis** — *Genomic Regulatory Complexity and the Limits of Perturbation Prediction.* Biology-facing bioRxiv draft for a general biology audience. |
 | `methods-mermaid-perturbation-design.md` | **Methods paper** — *Mermaid Flowcharts for Smarter Perturbation Design.* Flowchart pipeline; under active revision to add sequence annotation layer and Big Picture framing. |
 | `mermaid-perturbation-design-zenodo.md` | **Posted Zenodo preprint (Markdown)** — *Mermaid flowcharts for perturbation design: diagrams-as-code, curated databases, and the E. coli lac operon as a worked example.* DOI: https://doi.org/10.5281/zenodo.20831781. |
-| `mermaid-perturbation-design-zenodo.pdf` | **Posted Zenodo preprint (PDF)** — version 1.3, June 28, 2026; Voigt framing; figures embedded as PNG in PDF and Markdown. |
+| `mermaid-perturbation-design-zenodo.pdf` | **Posted Zenodo preprint (PDF)** — version 1.5, June 28, 2026; self-contained PDF and Markdown with embedded figures; Voigt framing included. |
 | `teaching-deck-krampis-biochemical-process-modeling.md` | Proposal slide deck — GLMP overview oriented toward the Krampis collaboration and biochemical process modeling context. |
 | `flowchart-circuit-classes.tsv` | Machine-readable circuit-class assignment for every microbial flowchart: class (I–V), topology type, rationale, evidence source, confidence, and `needs_review` flag. **The `needs_review = yes` rows are the validation worklist for Prof. Krampis.** |
 | `COPERNICUS_GLMP_INTEGRATION.md` | **CopernicusAI ↔ GLMP integration status** — manifest, corpus gap analysis, classifier preview, scripts, and Firestore backfill checklist. |
