@@ -8,7 +8,7 @@ A methods-oriented primer for investigators combining large language models, Reg
 Researcher, New Media Lab, CUNY Graduate Center  
 Email: gwelz@gc.cuny.edu  
 ORCID: https://orcid.org/0009-0005-7806-0892  
-Version 1.2 · June 28, 2026  
+Version 1.3 · June 28, 2026  
 Zenodo DOI: https://doi.org/10.5281/zenodo.20831781
 
 ---
@@ -80,23 +80,11 @@ Built from textbook-style reasoning, this encoding foregrounds **explicit AND-st
 
 **Figure A.** Literature-first logic. Purple diamonds = explicit Boolean-style questions. Green = strong transcription outcome. Red dashed box (top right) = what this encoding leaves implicit: no biosynthesis path for LacI protein.
 
-```mermaid
-graph TD
-  lacI_MISSING["NOT SHOWN: lacI gene → mRNA → LacI protein"]
-  L{Lactose/allolactose\nrelieves LacI?}
-  L -->|No| RepOn[Repressor bound at operator]
-  L -->|Yes| OpFree[Operator accessible]
-  RepOn --> Blocked[Transcription blocked or basal]
-  G{Glucose low → high cAMP?}
-  G -->|Yes| CAP[cAMP-CAP productive at promoter]
-  G -->|No| NoCAP[Weak CAP activation]
-  OpFree --> AND{Operator free AND strong CAP assist?}
-  CAP --> AND
-  NoCAP --> AND
-  AND -->|Yes| ON[Strong lacZYA expression]
-  AND -->|No| WEAK[Weak or delayed expression]
-  L -. repressor appears with no prior step .-> lacI_MISSING
-```
+
+
+![Figure A. Literature-first logic diagram.](figure_A_literature_first.png)
+
+
 
 Read Figure A against Figure C: the red dashed annotation has no counterpart in the main flow - the hybrid instead inserts a real chain of orange nodes for *lacI* expression before any "repressor off operator?" decision.
 
@@ -106,18 +94,11 @@ A chart faithful to how **RegulonDB** (and similar TF to target resources) repre
 
 **Figure B.** Regulatory wiring emphasis. Orange = *lacI* gene to protein (RegulonDB first-class entities). No AND-gate diamonds; combinatorial logic is left to the reader.
 
-```mermaid
-graph LR
-  lacIgene[lacI gene] --> LacI[LacI repressor protein]
-  allo[Allolactose / inducer] -. antagonizes .-> LacI
-  LacI -. repression .-> lacOp[lac promoter / operon]
-  crp[CRP-cAMP] -. activation .-> lacOp
-  lacOp --> lacZ[lacZ]
-  lacOp --> lacY[lacY]
-  lacOp --> lacA[lacA]
-  Glc[High glucose / low cAMP] -. reduces .-> crp
-  lacZ --> products[Lactose utilization products]
-```
+
+
+![Figure B. RegulonDB-emphasis regulatory wiring.](figure_B_regulondb_wiring.png)
+
+
 
 ### 5.3 Hybrid diagram (literature logic + RegulonDB entity completeness)
 
@@ -127,20 +108,11 @@ The **hybrid** merges interpretive structure from reviews and LLM drafts with **
 
 **Figure C.** Hybrid. Orange = explicit *lacI* gene to protein (RegulonDB-style completeness). Purple diamonds = Boolean AND gates (same convention as Figure A). Green = strong lacZYA transcription output.
 
-```mermaid
-graph TD
-  lacI_tx["lacI gene → transcription → LacI protein"]
-  lacI_tx --> LacI[LacI repressor at operator]
-  Lact[Lactose / inducer signal] --> IndR{Repressor off operator?}
-  LacI --> IndR
-  IndR -->|No| Blocked[Operon blocked]
-  IndR -->|Yes| OpOK[Operator accessible]
-  Glc[Glucose / cAMP state] --> CAPs{cAMP-CAP assists promoter?}
-  CAPs --> AND{Operator free AND CAP assist?}
-  OpOK --> AND
-  AND -->|Yes| Strong[Strong lacZYA transcription]
-  AND -->|No| Weak[Weak / basal transcription]
-```
+
+
+![Figure C. Hybrid diagram.](figure_C_hybrid.png)
+
+
 
 ### 5.4 At-a-glance: literature-first vs. hybrid
 
