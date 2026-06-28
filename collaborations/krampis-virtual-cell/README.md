@@ -33,8 +33,8 @@ The full collaboration plan, including paper trajectory, infrastructure expansio
 | `paper-III-empirical-sequel.md` | **Paper III** — *Circuit Class Predicts Virtual Cell Model Accuracy.* Empirical test: 780 genes, K562 Perturb-seq, 16 virtual cell models; Class III persistent bistable genes systematically harder to predict (*t* = −3.55, *p* = 0.0015). |
 | `synthesis-biorxiv.md` | **Synthesis** — *Genomic Regulatory Complexity and the Limits of Perturbation Prediction.* Biology-facing bioRxiv draft for a general biology audience. |
 | `methods-mermaid-perturbation-design.md` | **Methods paper** — *Mermaid Flowcharts for Smarter Perturbation Design.* Flowchart pipeline; under active revision to add sequence annotation layer and Big Picture framing. |
-| `mermaid-perturbation-design-zenodo.md` | **Posted Zenodo preprint (Markdown)** — *Mermaid flowcharts for perturbation design: diagrams-as-code, curated databases, and the E. coli lac operon as a worked example.* DOI: https://doi.org/10.5281/zenodo.20831781. |
-| `mermaid-perturbation-design-zenodo.pdf` | **Posted Zenodo preprint (PDF)** — version 1.5, June 28, 2026; self-contained PDF and Markdown with embedded figures; Voigt framing included. |
+| `mermaid-perturbation-design-zenodo.pdf` | **Posted Zenodo preprint (PDF)** — version 1.6, June 28, 2026; PDF-only on Zenodo (figures embedded); Voigt framing included. DOI: https://doi.org/10.5281/zenodo.20831781. |
+| `mermaid-perturbation-design-zenodo.md` | **GitHub archive Markdown** — same content as Zenodo PDF; not uploaded to Zenodo (source lives here with figure PNG links). |
 | `teaching-deck-krampis-biochemical-process-modeling.md` | Proposal slide deck — GLMP overview oriented toward the Krampis collaboration and biochemical process modeling context. |
 | `flowchart-circuit-classes.tsv` | Machine-readable circuit-class assignment for every microbial flowchart: class (I–V), topology type, rationale, evidence source, confidence, and `needs_review` flag. **The `needs_review = yes` rows are the validation worklist for Prof. Krampis.** |
 | `COPERNICUS_GLMP_INTEGRATION.md` | **CopernicusAI ↔ GLMP integration status** — manifest, corpus gap analysis, classifier preview, scripts, and Firestore backfill checklist. |
@@ -138,4 +138,4 @@ These documents are working drafts and collaboration materials, not final peer-r
 
 - Mermaid diagrams are fenced as `mermaid` code blocks and render directly in GitHub Markdown preview.
 - The HTML-to-Markdown conversion was automated with pandoc and lightly cleaned; some inline HTML may remain where source documents used styled links or custom layout.
-- The posted Zenodo methods preprint is archived as `mermaid-perturbation-design-zenodo.md` and `mermaid-perturbation-design-zenodo.pdf`; the editable working draft remains `methods-mermaid-perturbation-design.md`.
+- The posted Zenodo methods preprint is `mermaid-perturbation-design-zenodo.pdf` (v1.6, PDF-only on Zenodo); the Markdown archive and editable working draft are `mermaid-perturbation-design-zenodo.md` and `methods-mermaid-perturbation-design.md` on GitHub.

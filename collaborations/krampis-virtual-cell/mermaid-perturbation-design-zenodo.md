@@ -8,7 +8,7 @@ A methods-oriented primer for investigators combining large language models, Reg
 Researcher, New Media Lab, CUNY Graduate Center  
 Email: gwelz@gc.cuny.edu  
 ORCID: https://orcid.org/0009-0005-7806-0892  
-Version 1.5 · June 28, 2026  
+Version 1.6 · June 28, 2026 · **Zenodo archive is PDF-only**; this Markdown copy is for GitHub.  
 Zenodo DOI: https://doi.org/10.5281/zenodo.20831781
 
 ---
