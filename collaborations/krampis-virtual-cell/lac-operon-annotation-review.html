@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLMP — E. coli Operon Annotation Review · Lac · Ara · Trp</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg:       #f7f6f2;
+    --surface:  #ffffff;
+    --border:   #e2dfd8;
+    --text:     #1a1a1a;
+    --muted:    #6b6560;
+    --accent:   #2d5a8e;
+    --not-bg:   #fdf0ec;
+    --not-text: #8e4a2d;
+    --and-bg:   #edf5f0;
+    --and-text: #4a7c59;
+    --src-bg:   #fef6ec;
+    --src-text: #7a5a2d;
+    --bis-bg:   #f0ebf8;
+    --bis-text: #5a2d8e;
+    --prov-bg:  #f0f4ff;
+    --prov-bd:  #b0c0e8;
+    --ask-bg:   #fffbea;
+    --ask-bd:   #d4a017;
+    --cls-bg:   #f4f8f4;
+    --cls-bd:   #a0c8a0;
+    --font-h:   'Georgia','Times New Roman',serif;
+    --font-b:   'Inter','Helvetica Neue',Arial,sans-serif;
+    --font-m:   'Courier New',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:15px;line-height:1.7;}
+
+  .hdr{background:var(--accent);color:#fff;padding:2.5rem 2rem 2rem;border-bottom:4px solid #1a3d62;}
+  .hdr .eye{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:.5rem;}
+  .hdr h1{font-family:var(--font-h);font-size:1.9rem;font-weight:normal;line-height:1.25;margin-bottom:.75rem;}
+  .hdr .meta{font-size:.82rem;opacity:.8;}
+  .hdr .meta a{color:#a8c8f0;}
+
+  .wrap{max-width:920px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+
+  .sec{background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:2rem;overflow:hidden;}
+  .sec-hd{background:#f0ede8;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;}
+  .sec-hd h2{font-family:var(--font-h);font-size:1.15rem;font-weight:normal;color:var(--accent);}
+  .badge{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .6rem;border-radius:3px;background:#e8f0f8;color:var(--accent);}
+  .sec-bd{padding:1.5rem;}
+
+  .ask-box{background:var(--ask-bg);border:2px solid var(--ask-bd);border-radius:5px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
+  .ask-box h3{font-family:var(--font-h);font-size:1rem;color:#7a5a00;margin-bottom:.5rem;}
+  .ask-box ol{margin-left:1.4rem;font-size:.9rem;line-height:2;}
+
+  .purpose{background:#edf2f8;border-left:4px solid var(--accent);padding:1rem 1.25rem;margin-bottom:1.5rem;border-radius:0 4px 4px 0;font-size:.9rem;}
+  .purpose p+p{margin-top:.5rem;}
+
+  .key{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+  .ki{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--muted);}
+  .ks{width:14px;height:14px;border-radius:2px;border:1px solid rgba(0,0,0,.15);flex-shrink:0;}
+
+  /* Circuit class primer */
+  .cls-primer{background:var(--cls-bg);border:1px solid var(--cls-bd);border-radius:5px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;}
+  .cls-primer h3{font-family:var(--font-h);font-size:1rem;color:#2d6e2d;margin-bottom:.75rem;}
+  .cls-primer p{font-size:.88rem;margin-bottom:.75rem;}
+  .cls-primer table{width:100%;font-size:.83rem;border-collapse:collapse;margin-bottom:1rem;}
+  .cls-primer th{background:#d4ecd4;padding:.4rem .65rem;text-align:left;font-size:.76rem;letter-spacing:.04em;border-bottom:2px solid #a0c8a0;}
+  .cls-primer td{padding:.4rem .65rem;border-bottom:1px solid #c8e0c8;vertical-align:top;}
+  .cls-primer tr:last-child td{border-bottom:none;}
+  .cls-primer .hi{background:#e8f4e8;font-weight:600;}
+  .cls-diagrams{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;}
+  .cls-diagram{background:#fff;border:1px solid #c8e0c8;border-radius:4px;padding:.75rem;text-align:center;}
+  .cls-diagram .dlbl{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#2d6e2d;margin-bottom:.5rem;}
+  @media(max-width:640px){.cls-diagrams{grid-template-columns:1fr;}}
+
+  .prov{background:var(--prov-bg);border:1px solid var(--prov-bd);border-radius:4px;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.82rem;color:#3a4a6a;}
+  .prov b{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;}
+
+  .chart{background:#fafaf8;border:1px solid var(--border);border-radius:5px;padding:1.5rem 1rem;margin-bottom:1.5rem;overflow-x:auto;text-align:center;}
+  .chart-lbl{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
+
+  .entry{border:1px solid var(--border);border-radius:5px;margin-bottom:1.25rem;overflow:hidden;}
+  .e-hd{padding:.65rem 1rem;display:flex;align-items:center;gap:.75rem;font-size:.85rem;font-weight:600;}
+  .e-hd.not{background:var(--not-bg);color:var(--not-text);}
+  .e-hd.and{background:var(--and-bg);color:var(--and-text);}
+  .e-hd.src{background:var(--src-bg);color:var(--src-text);}
+  .e-hd.bis{background:var(--bis-bg);color:var(--bis-text);}
+  .e-bd{padding:1rem;font-size:.88rem;}
+  .e-bd p+p{margin-top:.6rem;}
+
+  .gtag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;border-radius:3px;}
+  .gtag.not{background:var(--not-text);color:#fff;}
+  .gtag.and{background:var(--and-text);color:#fff;}
+  .gtag.src{background:var(--src-text);color:#fff;}
+  .gtag.bis{background:var(--bis-text);color:#fff;}
+
+  .seq{font-family:var(--font-m);font-size:.82rem;background:#f5f3f0;border:1px solid var(--border);border-radius:3px;padding:.35rem .65rem;margin:.3rem 0;display:inline-block;letter-spacing:.04em;}
+
+  .rq{background:var(--ask-bg);border-left:3px solid var(--ask-bd);padding:.75rem 1rem;margin-top:.85rem;font-size:.85rem;border-radius:0 3px 3px 0;}
+  .rq strong{color:#7a5a00;}
+
+  .cls-note{background:var(--bis-bg);border:1px solid #c8b0e8;border-radius:4px;padding:.85rem 1rem;font-size:.85rem;margin-top:.5rem;margin-bottom:1rem;}
+  .cls-note strong{color:var(--bis-text);}
+
+  table.main{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:.5rem;}
+  table.main th{background:#f0ede8;text-align:left;padding:.5rem .75rem;font-weight:600;font-size:.78rem;letter-spacing:.04em;border-bottom:2px solid var(--border);}
+  table.main td{padding:.5rem .75rem;border-bottom:1px solid var(--border);vertical-align:top;}
+  table.main tr:last-child td{border-bottom:none;}
+
+  .refs{font-size:.82rem;color:var(--muted);}
+  .refs li{margin-bottom:.3rem;}
+
+  .footer{text-align:center;font-size:.78rem;color:var(--muted);padding-top:2rem;border-top:1px solid var(--border);}
+  a{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="eye">Genome Logic Modeling Project · Expert Review Request · June 2026</div>
+  <h1>E. coli Operon Annotation Review<br>Lac · Ara · Trp</h1>
+  <div class="meta">
+    Gary Welz ·
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a> ·
+    CUNY Graduate Center / New Media Lab ·
+    ORCID: 0009-0005-7806-0892 ·
+    <a href="https://github.com/garywelz/glmp">github.com/garywelz/glmp</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ── Purpose and Ask ── -->
+  <div class="sec">
+    <div class="sec-hd"><h2>What we are asking and why</h2></div>
+    <div class="sec-bd">
+
+      <div class="purpose">
+        <p>The Genome Logic Modeling Project (GLMP) proposes that the spatial arrangement of
+        transcription factor binding sites in regulatory DNA encodes logical operations —
+        AND, OR, NOT — analogous to gates in a circuit. We are building a corpus of
+        annotated regulatory sequences in which each binding site is assigned a gate type
+        and circuit complexity class, with coordinates and sequences drawn from primary
+        literature and curated databases.</p>
+        <p>The three operons in this document — lac, ara, and trp — are the first
+        ground-truth entries in that corpus. Before these annotations are used to train
+        or validate the GLMP decoder, we need expert biological review to confirm that
+        the gate assignments and circuit classifications accurately reflect the molecular
+        biology. Your combined expertise in gene regulation, bioinformatics, and microbial
+        biology makes you exactly the right team to do this.</p>
+      </div>
+
+      <div class="ask-box">
+        <h3>Specific ask — for each of the five annotation entries below:</h3>
+        <ol>
+          <li><strong>Sequence</strong> — is the binding site sequence correct for E. coli K-12 MG1655?</li>
+          <li><strong>Coordinates</strong> — are the genomic positions in the right range (GenBank U00096.3)?</li>
+          <li><strong>Gate assignment</strong> — does the GLMP logical type (NOT, AND, source node, bistable switch) accurately reflect the molecular biology?</li>
+          <li><strong>Circuit class</strong> — for the lac operon specifically, is Class II or Class III the more accurate designation? (defined in the primer below)</li>
+          <li><strong>Sources</strong> — if you use a different primary reference for any value, please note it so we can reconcile</li>
+          <li><strong>Omissions</strong> — anything about the regulatory logic that the annotation misrepresents or leaves out</li>
+        </ol>
+        <p style="margin-top:.75rem;font-size:.85rem;color:var(--muted);">
+          Responses welcome in any format — annotated PDF, email, or comments in the
+          <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/lac-operon-annotation-review.md">GitHub document</a>.
+          If possible, we would appreciate responses by end of August 2026 to inform
+          the next revision of the GLMP methods paper.
+        </p>
+      </div>
+
+      <p style="font-size:.82rem;font-weight:600;margin-bottom:.5rem;color:var(--muted);">HOW TO READ THESE DIAGRAMS</p>
+      <div class="key">
+        <div class="ki"><div class="ks" style="background:#ffb74d;border-color:#e65100;"></div>Orange — gene expression source node (gene → protein)</div>
+        <div class="ki"><div class="ks" style="background:#e1bee7;border-color:#4a148c;"></div>Purple diamond — logic gate decision (AND, OR, NOT)</div>
+        <div class="ki"><div class="ks" style="background:#c8e6c9;border-color:#1b5e20;"></div>Green — active transcription or biosynthesis output</div>
+        <div class="ki"><div class="ks" style="background:#ffccbc;border-color:#bf360c;"></div>Red / pink — repression or NOT gate outcome</div>
+        <div class="ki"><div class="ks" style="background:#fff9c4;border-color:#f57f17;"></div>Yellow — intermediate state</div>
+        <div class="ki"><div class="ks" style="background:#b3e5fc;border-color:#01579b;"></div>Blue — environmental or metabolic input</div>
+      </div>
+
+      <!-- ── Circuit class primer ── -->
+      <div class="cls-primer">
+        <h3>GLMP Circuit Complexity Classes — a brief primer</h3>
+        <p>GLMP assigns every regulatory circuit to one of five topology classes based
+        on the presence or absence of feedback cycles in the regulatory subgraph. The
+        class determines how dynamically complex the circuit is and — as shown empirically
+        in the companion paper — how hard it is for AI perturbation models to predict
+        accurately. Class III circuits were systematically harder to predict than Class I
+        circuits across 16 published methods on the K562 Perturb-seq benchmark
+        (<em>t</em> = −3.55, <em>p</em> = 0.0015).
+        <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/synthesis-biorxiv.md">Full biological primer →</a></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Topology</th>
+              <th>Biological examples</th>
+              <th>Relevant here</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>I</strong></td>
+              <td>Acyclic feed-forward — no feedback</td>
+              <td>JUN/AP-1 MAP kinase cascade; simple inducible promoters</td>
+              <td>—</td>
+            </tr>
+            <tr class="hi">
+              <td><strong>II</strong></td>
+              <td>Single negative feedback cycle — homeostatic</td>
+              <td>NF-κB–IκB buffering; HIF1A-VHL loop; trp operon (TrpR end-product repression)</td>
+              <td>✓ Trp operon · possible Lac</td>
+            </tr>
+            <tr class="hi">
+              <td><strong>III</strong></td>
+              <td>Positive feedback or mutual repression — bistable</td>
+              <td>GATA1/PU.1 lineage switch; MYC autoactivation; ara operon (AraC positive autoregulation)</td>
+              <td>✓ Ara operon · possible Lac</td>
+            </tr>
+            <tr>
+              <td><strong>IV</strong></td>
+              <td>Delayed negative feedback — oscillatory</td>
+              <td>CLOCK/BMAL1 circadian loop</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>V</strong></td>
+              <td>Self-modifying — circuit alters own regulatory architecture</td>
+              <td>DNMT3A self-methylation; EZH2 autosilencing</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:.83rem;margin-bottom:.6rem;">The three diagrams below show the topological signature of Classes I, II, and III —
+        the classes represented in this document. Each is a simplified schematic; full
+        GLMP flowcharts with complete molecular detail are in the
+        <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html">GLMP database</a>.</p>
+
+        <div class="cls-diagrams">
+          <div class="cls-diagram">
+            <div class="dlbl">Class I — Feed-forward</div>
+            <div class="mermaid">
+graph TD
+  S["Signal input"]:::sig --> A["Regulator A"]:::gene --> B["Target gene"]:::out
+  classDef sig fill:#b3e5fc,stroke:#01579b,color:#000
+  classDef gene fill:#c8e6c9,stroke:#2e7d32,color:#000
+  classDef out fill:#fff9c4,stroke:#f57f17,color:#000
+            </div>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">No cycles — outcome determined by current input alone</p>
+          </div>
+          <div class="cls-diagram">
+            <div class="dlbl">Class II — Negative feedback</div>
+            <div class="mermaid">
+graph TD
+  S["Signal input"]:::sig --> A["Regulator A"]:::gene --> T["Target gene"]:::out
+  T -. "represses" .-> A
+  classDef sig fill:#b3e5fc,stroke:#01579b,color:#000
+  classDef gene fill:#c8e6c9,stroke:#2e7d32,color:#000
+  classDef out fill:#fff9c4,stroke:#f57f17,color:#000
+            </div>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Single negative cycle — homeostatic, self-correcting</p>
+          </div>
+          <div class="cls-diagram">
+            <div class="dlbl">Class III — Bistable switch</div>
+            <div class="mermaid">
+graph TD
+  A["Regulator A"]:::geneA -- "activates" --> T["Target / output"]:::out
+  A -- "activates" --> A
+  B["Regulator B"]:::geneB -. "represses" .-> A
+  A -. "represses" .-> B
+  classDef geneA fill:#c8e6c9,stroke:#2e7d32,color:#000
+  classDef geneB fill:#ffccbc,stroke:#bf360c,color:#000
+  classDef out fill:#fff9c4,stroke:#f57f17,color:#000
+            </div>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.4rem;">Positive feedback or mutual repression — all-or-nothing switching</p>
+          </div>
+        </div>
+
+        <p style="font-size:.83rem;margin-top:.85rem;">
+          <strong>The lac operon classification question</strong> in this document concerns
+          whether the CRP-cAMP positive autoregulation loop — when lactose is metabolized,
+          cAMP rises, reinforcing CRP activation and sustaining the ON state — is strong
+          enough to place the lac operon in <strong>Class III</strong> rather than
+          <strong>Class II</strong>. The GLMP database currently assigns it Class II;
+          the DNA decoder assigns it Class III. We are asking the review team to weigh in.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       LAC OPERON
+  ══════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hd">
+      <h2>1. Lac Operon — Lactose Regulation</h2>
+      <span class="badge">Circuit Class II or III — see reviewer question</span>
+    </div>
+    <div class="sec-bd">
+
+      <div class="prov">
+        <b>Sources:</b> Binding sites and coordinates from RegulonDB v12.0 and GenBank
+        U00096.3. Gate assignments from Gilbert &amp; Maxam (1973), Busby &amp; Ebright
+        (1999), Benoff et al. (2002), and Oehler et al. (1990). Flowchart encoding from
+        Welz (2026) bioRxiv methods draft.
+      </div>
+
+      <div class="chart">
+        <div class="chart-lbl">Lac operon — two-input control of lacZYA transcription</div>
+        <div class="mermaid">
+graph TD
+    lacI_tx["lacI gene → transcription → LacI protein"]
+    lacI_tx --> LacI[LacI repressor]
+    Lact[Lactose / allolactose signal]
+    Lact --> IndR{Repressor off operator?}
+    LacI --> IndR
+    IndR -->|No| Blocked[Operon blocked]
+    IndR -->|Yes| OpOK[Operator accessible]
+    Glc[Glucose / cAMP state]
+    Glc --> CAPs{cAMP-CAP assists promoter?}
+    CAPs --> AND{Operator free AND CAP assist?}
+    OpOK --> AND
+    AND -->|Yes| Strong[Strong lacZYA transcription]
+    AND -->|No| Weak[Weak / basal transcription]
+    style lacI_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+    style LacI fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000
+    style IndR fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style CAPs fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style Strong fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style Weak fill:#e8f5e9,stroke:#33691e,color:#000
+    style OpOK fill:#fff9c4,stroke:#f57f17,color:#000
+    style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+    style Lact fill:#fff9c4,stroke:#f9a825,color:#000
+    style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="e-hd not"><span class="gtag not">NOT gate</span>Entry 1 — lacO1 Operator · LacI repressor</div>
+        <div class="e-bd">
+          <p><strong>Logical interpretation:</strong> LacI binding at lacO1 blocks RNA
+          polymerase access to the lac promoter — the archetypal NOT gate. Repressor
+          binding produces absence of transcription.</p>
+          <p><strong>Binding site sequence:</strong>
+          <span class="seq">5'-AATTGTGAGCGGATAACAATT-3'</span>
+          21 bp · palindromic · LacI binds as dimer
+          <em>(Gilbert &amp; Maxam 1973; co-crystal structure: Lewis et al. 1996)</em></p>
+          <p><strong>Coordinates (U00096.3):</strong> 365,906–365,926 · strand − ·
+          overlaps lac promoter between −10 element and +1
+          <em>(RegulonDB v12.0)</em></p>
+          <p><strong>Note on circuit-level logic:</strong> The ~60 bp center-to-center
+          distance between lacO1 and the CRP site exceeds the GLMP cooperative threshold
+          (~50 bp), so they are OR-independent at the sequence geometry level. However,
+          the promoter requires both inputs simultaneously for strong transcription —
+          AND logic at the circuit level. This two-level interpretation is one of the
+          points we ask reviewers to assess.</p>
+          <div class="rq">
+            <strong>Reviewer question:</strong> Is the lacO1 sequence and position correct
+            for K-12 MG1655? Is the NOT gate assignment accurately stated? Does the
+            two-level interpretation — OR-independent geometry producing AND circuit logic
+            — accurately reflect the LacI / CRP relationship?
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="e-hd and"><span class="gtag and">AND input</span>Entry 2 — CRP Binding Site · catabolite activation</div>
+        <div class="e-bd">
+          <p><strong>Logical interpretation:</strong> The CRP-cAMP complex contacts the
+          RNA polymerase α-subunit C-terminal domain, stimulating open complex formation.
+          Strong lacZYA transcription requires both operator unoccupied (Entry 1) and CRP
+          productively engaged — the AND gate of the lac operon.</p>
+          <p><strong>Consensus:</strong>
+          <span class="seq">5'-TGTGA-N6-TCACA-3'</span>
+          <em>(JASPAR CORE 2024, matrix MA0334)</em></p>
+          <p><strong>Lac CRP site (approximate):</strong>
+          <span class="seq">5'-TGTGTGGAATTGTGAGC-3'</span> (~22 bp)
+          <em>(RegulonDB v12.0 — reviewer asked to confirm)</em></p>
+          <p><strong>Coordinates:</strong> Center ~365,966 · −61 relative to +1
+          <em>(RegulonDB v12.0)</em></p>
+          <p><strong>Evidence:</strong> Busby &amp; Ebright 1999; Benoff et al. 2002</p>
+          <div class="rq">
+            <strong>Reviewer question:</strong> Is the CRP site sequence and position correct?
+            Is CRP as AND input — required but not sufficient, acting independently of LacI
+            at the sequence level — accurately stated?
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="e-hd src"><span class="gtag src">Source node</span>Entry 3 — lacI Gene Locus · repressor origin</div>
+        <div class="e-bd">
+          <p><strong>Logical interpretation:</strong> The <em>lacI</em> gene is transcribed
+          constitutively from Plac I producing approximately 10 LacI monomers per cell.
+          LacI assembles as a tetramer capable of bridging lacO1 and an auxiliary operator
+          to form a repression loop. This node is included for perturbation-completeness:
+          CRISPRi targeting <em>lacI</em>, repressor copy number titration, and promoter
+          replacement are experimental levers invisible in a diagram where the repressor
+          simply "exists."</p>
+          <p><strong>Locus:</strong> b0345 · complement(365,163..366,305) · strand −
+          <em>(EcoCyc, U00096.3)</em></p>
+          <p><strong>Expression level:</strong> ~10 monomers/cell constitutive
+          <em>(Müller-Hill et al. 1968)</em></p>
+          <p><strong>Loop formation:</strong> LacI tetramer bridges lacO1 and lacO2 or lacO3
+          <em>(Oehler et al. 1990)</em></p>
+          <div class="rq">
+            <strong>Reviewer question:</strong> Is ~10 monomers/cell the current best estimate?
+            Is Plac I largely insensitive to catabolite repression as stated?
+          </div>
+        </div>
+      </div>
+
+      <div class="cls-note">
+        <strong>Circuit classification question:</strong> The GLMP database currently assigns
+        the lac operon <strong>Class II</strong> (single negative feedback — LacI end-product
+        repression loop). The GLMP DNA decoder assigns it <strong>Class III</strong> (bistable)
+        based on the CRP positive autoregulation loop: when lac products are metabolized, cAMP
+        levels rise, further activating CRP, reinforcing the ON state. Does this positive
+        reinforcement constitute Class III bistability, or does Class II better describe
+        the dominant regulatory logic? We would value the team's judgment.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ARA OPERON
+  ══════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hd">
+      <h2>2. Ara Operon — Arabinose Regulation</h2>
+      <span class="badge">Class III — Bistable switch / positive feedback</span>
+    </div>
+    <div class="sec-bd">
+
+      <div class="prov">
+        <b>Sources:</b> AraC binding site topology from Johnson et al. (1988 PNAS) and
+        Lobell &amp; Schleif (1990 Science). AraC conformational change from Soisson et al.
+        (1997). CRP role from Miyada et al. (1984). Coordinates from RegulonDB v12.0 and
+        EcoCyc. Note: AraC is absent from JASPAR CORE 2024 (eukaryote-focused); binding
+        sites were not recovered by the FIMO decoder — expected, and a motivation for the
+        RegulonDB cross-validation work planned as the next step.
+      </div>
+
+      <div class="chart">
+        <div class="chart-lbl">Ara operon — AraC dual-function switch with CRP AND input</div>
+        <div class="mermaid">
+graph TD
+    araC_tx["araC gene → transcription → AraC protein"]
+    araC_tx --> AraC[AraC protein]
+    Ara[L-arabinose availability]
+    Ara --> AraSwitch{Arabinose binds AraC?}
+    AraC --> AraSwitch
+
+    AraSwitch -->|No — arabinose absent| Loop["AraC forms araI1-araO2 loop — PBAD blocked"]
+    AraSwitch -->|Yes — arabinose present| ActForm[AraC activator conformation]
+
+    Loop --> LoopBlock[PBAD promoter blocked — NOT gate]
+    Loop --> PcRep[araC promoter also repressed]
+
+    ActForm --> I1I2[AraC-arabinose binds araI1 and araI2]
+    ActForm --> AutoOn[araC promoter active — positive autoregulation]
+    AutoOn --> araC_tx
+
+    Glc[Glucose / cAMP state]
+    Glc --> CRPcheck{cAMP-CAP active?}
+    CRPcheck -->|No| Weak[Weak araBAD even with AraC active]
+    CRPcheck -->|Yes| CRPhelp[CRP assists loop opening and PBAD activation]
+
+    I1I2 --> FullAND{AraC at araI1-araI2 AND CRP?}
+    CRPhelp --> FullAND
+    FullAND -->|Yes| Strong[Strong araBAD transcription]
+    FullAND -->|No| Low[Low / no araBAD transcription]
+
+    style araC_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+    style AraC fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000
+    style AraSwitch fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style CRPcheck fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style FullAND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style Loop fill:#ffccbc,stroke:#bf360c,color:#000
+    style LoopBlock fill:#ffccbc,stroke:#bf360c,color:#000
+    style PcRep fill:#ffccbc,stroke:#bf360c,color:#000
+    style ActForm fill:#fff9c4,stroke:#f57f17,color:#000
+    style I1I2 fill:#fff9c4,stroke:#f57f17,color:#000
+    style AutoOn fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000
+    style CRPhelp fill:#b3e5fc,stroke:#01579b,color:#000
+    style Weak fill:#ffe0b2,stroke:#e65100,color:#000
+    style Strong fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style Low fill:#e8f5e9,stroke:#33691e,color:#000
+    style Ara fill:#b3e5fc,stroke:#01579b,color:#000
+    style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="e-hd bis"><span class="gtag bis">Bistable switch</span>Entry 4 — AraC Binding Sites · dual-function NOT→AND</div>
+        <div class="e-bd">
+          <p><strong>Logical interpretation:</strong> AraC performs both repressor and
+          activator functions from a single protein depending on arabinose binding state.
+          In the absence of arabinose, AraC forms a DNA loop between araI1 and araO2,
+          blocking PBAD. When arabinose binds, AraC undergoes a conformational change,
+          releases the loop, and binds araI1-araI2 to activate PBAD. AraC also activates
+          its own transcription (positive autoregulation) — the basis for Class III
+          bistable classification.</p>
+          <p><strong>Binding sites and approximate positions:</strong><br>
+          araO2 — single half-site, −270 relative to araBAD TSS
+          <em>(Schleif 1992)</em><br>
+          araO1 (O1L, O1R) — two direct-repeat half-sites overlapping araC promoter
+          <em>(Johnson et al. 1988)</em><br>
+          araI1, araI2 — direct repeats separated by 4 bp; araI2 overlaps −35 of PBAD
+          <em>(Lee et al. 1987)</em><br>
+          CRP site — between araI1 and araO1
+          <em>(Miyada et al. 1984)</em></p>
+          <p><strong>Repression loop:</strong> araI1-araO2 (~210 bp) confirmed in vivo
+          <em>(Lobell &amp; Schleif 1990)</em></p>
+          <p><strong>Note on FIMO decoder:</strong> AraC is absent from JASPAR CORE 2024
+          and was not recovered by the FIMO scan — expected. Validation requires RegulonDB
+          PWMs for AraC, planned as Phase 1 of the validation work.</p>
+          <div class="rq">
+            <strong>Reviewer question:</strong> Is the araI1-araO2 loop topology correct?
+            Does positive autoregulation at the araC promoter warrant Class III, or is
+            Class II with an activator switch more accurate? Are the binding site positions
+            consistent with your preferred reference for K-12 MG1655?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TRP OPERON
+  ══════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hd">
+      <h2>3. Trp Operon — Tryptophan Biosynthesis</h2>
+      <span class="badge">Class II — Negative feedback (homeostatic)</span>
+    </div>
+    <div class="sec-bd">
+
+      <div class="prov">
+        <b>Sources:</b> TrpR repression fold (300-fold) and attenuation mechanism from
+        EcoCyc trpLEDCBA operon entry (accessed June 2026). TrpR gene and autoregulation
+        from Gunsalus &amp; Yanofsky (1980). TrpR-operator crystal structure from
+        Otwinowski et al. (1988). Attenuation from Yanofsky (1981), Landick &amp; Yanofsky
+        (1987), and Oxender et al. (1979). Operon locus (~1,316–1,323 kb, U00096.3) from
+        standard K-12 MG1655 reference. The trpO sequence given below is approximate —
+        reviewer asked to verify against RegulonDB v12.0 or EcoCyc.
+      </div>
+
+      <div class="chart">
+        <div class="chart-lbl">Trp operon — TrpR corepression NOT gate with translational attenuation layer</div>
+        <div class="mermaid">
+graph TD
+    trpR_tx["trpR gene → transcription → TrpR aporepressor"]
+    trpR_tx --> TrpR[TrpR aporepressor]
+
+    Trp[Intracellular tryptophan level]
+    Trp --> CoRep{Tryptophan binds TrpR?}
+    TrpR --> CoRep
+
+    CoRep -->|No — low trp| ApoR[ApoTrpR inactive — cannot bind trpO]
+    CoRep -->|Yes — high trp| HoloR[TrpR-Trp holorepressor]
+
+    ApoR --> OpFree[trpO operator accessible]
+    HoloR --> RepBind{TrpR-Trp binds trpO?}
+    RepBind -->|Yes| Blocked["Transcription blocked — NOT gate (~300-fold)"]
+    RepBind -->|No| OpFree
+
+    OpFree --> Atten{Ribosome reads trpL leader?}
+    Atten -->|High trp — charged tRNA-Trp abundant| Term[Terminator hairpin forms — early stop]
+    Atten -->|Low trp — ribosome stalls at Trp codons| Read[Anti-terminator forms — read-through]
+
+    Read --> Enz[trpE trpD trpC trpB trpA translated]
+    Enz --> Synth[Tryptophan biosynthesis]
+    Synth --> Trp
+
+    Blocked --> Off[trpEDCBA transcription off]
+    Term --> Low[trpEDCBA transcription minimal]
+
+    style trpR_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+    style TrpR fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000
+    style CoRep fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style RepBind fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style Atten fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+    style Off fill:#ffccbc,stroke:#bf360c,color:#000
+    style ApoR fill:#fff9c4,stroke:#f57f17,color:#000
+    style HoloR fill:#ffccbc,stroke:#bf360c,stroke-width:2px,color:#000
+    style OpFree fill:#fff9c4,stroke:#f57f17,color:#000
+    style Term fill:#ffccbc,stroke:#bf360c,color:#000
+    style Low fill:#ffe0b2,stroke:#e65100,color:#000
+    style Read fill:#c8e6c9,stroke:#1b5e20,color:#000
+    style Enz fill:#c8e6c9,stroke:#1b5e20,color:#000
+    style Synth fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style Trp fill:#b3e5fc,stroke:#01579b,color:#000
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="e-hd not"><span class="gtag not">NOT gate</span>Entry 5 — TrpR Binding Site + Translational Attenuation</div>
+        <div class="e-bd">
+          <p><strong>Logical interpretation:</strong> TrpR alone (aporepressor) cannot bind
+          the trp operator — only the TrpR-tryptophan holorepressor binds trpO and blocks
+          RNAP (~300-fold repression). A second independent mechanism, translational
+          attenuation, provides approximately 8-fold additional regulation: when
+          tryptophan-charged tRNA is abundant, ribosomes translate the 162-nucleotide trpL
+          leader rapidly, a terminator hairpin forms in the nascent RNA, and transcription
+          halts before the structural genes. When tryptophan is scarce, ribosomes stall at
+          two consecutive Trp codons (UGG-UGG), an anti-terminator hairpin forms instead,
+          and RNA polymerase reads through.</p>
+          <p><strong>Operator consensus:</strong>
+          <span class="seq">5'-CTAG(N4)CTAG-3'</span>
+          <em>(Otwinowski et al. 1988)</em></p>
+          <p><strong>trpO (approximate — please verify):</strong>
+          <span class="seq">5'-TGTACTAGTTAACTAGTACG-3'</span>
+          approximately −23 to −3 relative to trpEDCBA TSS
+          <em>(reviewer asked to confirm against RegulonDB v12.0 or EcoCyc)</em></p>
+          <p><strong>Locus:</strong> ~1,316–1,323 kb in U00096.3 (trpE region)</p>
+          <p><strong>TrpR repression:</strong> ~300-fold
+          <em>(EcoCyc trpLEDCBA, accessed June 2026)</em></p>
+          <p><strong>Attenuation:</strong> ~8-fold additional; alternate RNA hairpin
+          structures depend on ribosome position at UGG-UGG codons in trpL
+          <em>(Yanofsky 1981; Oxender et al. 1979; Landick &amp; Yanofsky 1987)</em></p>
+          <p><strong>trpR autoregulation:</strong> TrpR-Trp also represses its own gene —
+          trpR operator and promoter overlap
+          <em>(Gunsalus &amp; Yanofsky 1980)</em></p>
+          <div class="rq">
+            <strong>Reviewer question:</strong> Is the trpO sequence and position correct
+            for K-12 MG1655? Is 300-fold the right figure for TrpR repression?
+            Is attenuation correctly characterized as a second independent regulatory layer
+            rather than part of the same NOT gate? Should attenuation be represented as a
+            distinct element in the GLMP circuit class schema?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Summary ── -->
+  <div class="sec">
+    <div class="sec-hd"><h2>Summary</h2></div>
+    <div class="sec-bd">
+      <table class="main">
+        <thead>
+          <tr>
+            <th>Entry</th><th>Operon</th><th>Node</th><th>Logical type</th>
+            <th>Confidence</th><th>Key sources</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Lac</td><td>lacO1 operator</td><td>NOT gate</td><td>High</td><td>Gilbert &amp; Maxam 1973; Lewis et al. 1996; RegulonDB v12.0</td></tr>
+          <tr><td>2</td><td>Lac</td><td>CRP binding site</td><td>AND input</td><td>High</td><td>Busby &amp; Ebright 1999; Benoff et al. 2002; RegulonDB v12.0</td></tr>
+          <tr><td>3</td><td>Lac</td><td>lacI gene locus</td><td>Source node</td><td>High</td><td>Müller-Hill et al. 1968; Oehler et al. 1990; EcoCyc</td></tr>
+          <tr><td>4</td><td>Ara</td><td>AraC binding sites</td><td>Bistable NOT→AND switch</td><td>High</td><td>Johnson et al. 1988; Lobell &amp; Schleif 1990; Soisson et al. 1997</td></tr>
+          <tr><td>5</td><td>Trp</td><td>TrpR at trpO + attenuation</td><td>NOT gate + attenuation</td><td>Medium — trpO needs verification</td><td>Otwinowski et al. 1988; Yanofsky 1981; EcoCyc</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── References ── -->
+  <div class="sec">
+    <div class="sec-hd"><h2>References</h2></div>
+    <div class="sec-bd">
+      <ol class="refs">
+        <li>Benoff B, et al. Structural basis of transcription activation: the CAP-αCTD-DNA complex. <em>Science.</em> 2002;297:1562–1566.</li>
+        <li>Busby S, Ebright RH. Transcription activation by catabolite activator protein (CAP). <em>J Mol Biol.</em> 1999;293:199–213.</li>
+        <li>EcoCyc / BioCyc. trpLEDCBA operon entry, E. coli K-12 MG1655. biocyc.org, accessed June 2026.</li>
+        <li>Gilbert W, Maxam A. The nucleotide sequence of the lac operator. <em>PNAS.</em> 1973;70:3581–3584.</li>
+        <li>Gunsalus RP, Yanofsky C. Nucleotide sequence and expression of <em>E. coli</em> trpR. <em>PNAS.</em> 1980;77:7117–7121.</li>
+        <li>Johnson ML, et al. Three binding sites for AraC protein are required for autoregulation of araC. <em>PNAS.</em> 1988;85:1749–1753.</li>
+        <li>Landick R, Yanofsky C. Transcription attenuation. In: Neidhardt FC et al., eds. <em>Escherichia coli and Salmonella.</em> 1987.</li>
+        <li>Lee N, Francklyn C, Hamilton EP. Arabinose-induced binding of AraC protein to araI2. <em>PNAS.</em> 1987;84:8814–8818.</li>
+        <li>Lewis M, et al. Crystal structure of the lactose operon repressor. <em>Science.</em> 1996;271:1247–1254.</li>
+        <li>Lobell RB, Schleif RF. DNA looping and unlooping by AraC protein. <em>Science.</em> 1990;250:528–532.</li>
+        <li>Miyada CG, et al. Regulation of the araC gene of <em>E. coli.</em> <em>PNAS.</em> 1984;81:4120–4124.</li>
+        <li>Müller-Hill B, Crapo L, Gilbert W. Mutants that make more lac repressor. <em>PNAS.</em> 1968;59:1259–1264.</li>
+        <li>Oehler S, et al. The three operators of the lac operon cooperate in repression. <em>EMBO J.</em> 1990;9:973–979.</li>
+        <li>Otwinowski Z, et al. Crystal structure of trp repressor/operator complex. <em>Nature.</em> 1988;335:321–329.</li>
+        <li>Oxender DL, Zurawski G, Yanofsky C. Attenuation in the <em>E. coli</em> tryptophan operon. <em>PNAS.</em> 1979;76:5524–5528.</li>
+        <li>RegulonDB v12.0. LacI, CRP, AraC binding site collections. regulondb.ccg.unam.mx, accessed June 2026.</li>
+        <li>Schleif R. DNA looping. <em>Annu Rev Biochem.</em> 1992;61:199–223.</li>
+        <li>Soisson SM, et al. Structural basis for ligand-regulated oligomerization of AraC. <em>Science.</em> 1997;276:421–425.</li>
+        <li>Welz G. Mermaid flowcharts for perturbation design. bioRxiv draft, April 2026.</li>
+        <li>Welz G. Genomic regulatory complexity and the limits of perturbation prediction: a synthesis for biologists. GLMP working paper, 2026. <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/synthesis-biorxiv.md">github.com/garywelz/glmp</a></li>
+        <li>Yanofsky C. Attenuation in the control of expression of bacterial operons. <em>Nature.</em> 1981;289:751–758.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    Gary Welz · CUNY Graduate Center / New Media Lab · Genome Logic Modeling Project<br>
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a> ·
+    ORCID: 0009-0005-7806-0892 · June 2026
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#fff9c4',
+      primaryTextColor: '#1a1a1a',
+      primaryBorderColor: '#f57f17',
+      lineColor: '#555',
+      secondaryColor: '#e1bee7',
+      tertiaryColor: '#c8e6c9',
+      background: '#fafaf8',
+      fontSize: '13px'
+    },
+    flowchart: { curve: 'basis', padding: 20 }
+  });
+</script>
+</body>
+</html>
