@@ -8,7 +8,7 @@ A methods-oriented primer for investigators combining large language models, Reg
 Researcher, New Media Lab, CUNY Graduate Center  
 Email: gwelz@gc.cuny.edu  
 ORCID: https://orcid.org/0009-0005-7806-0892  
-Draft date: April 2026  
+Version 1.2 · June 28, 2026  
 Zenodo DOI: https://doi.org/10.5281/zenodo.20831781
 
 ---
@@ -32,6 +32,8 @@ Planning genetic, pharmacological, or nutritional perturbations is easier when t
 ## 1. Introduction
 
 The *lac* operon remains the canonical bacterial example of integrating environmental signals, transcription factors, and promoter logic.<sup>1</sup> Contemporary laboratories rarely study it in isolation, but it is ideal as a *tutorial system*: many curated representations exist, so **source choice** becomes visible as scientific information rather than as an invisible preprocessing step.
+
+The idea that regulatory DNA encodes logical operations is not new to synthetic biology: Voigt et al. (2016) demonstrated that human-readable logic programs can be compiled directly into novel DNA sequences that execute gate-level circuits inside living bacterial cells.<sup>11</sup> GLMP addresses the complementary problem — reading and decoding the logical structure already encoded in natural regulatory DNA, using the same grammar of AND, OR, and NOT gates that synthetic circuits are built from.
 
 Meanwhile, perturbation-forward workflows - CRISPR screens, chemical genetics, single-cell readouts, virtual-cell-style predictors - benefit from an explicit, criticizable sketch of **inputs, branch points, feedback, and candidate measurements** before budget is committed. A flowchart is not a mechanistic ODE model and not a trained deep network; it is a **hypothesis artifact** suitable for group review, supplementary files, and teaching.
 
@@ -235,9 +237,10 @@ Figures A-C in this submission were rendered programmatically for publication us
 8. Szklarczyk D, et al. The STRING database in 2025. *Nucleic Acids Res.* 2025;53(D1):D638-D646.
 9. Escorcia-Rodriguez JM, Tauch A, Freyre-Gonzalez JA. Abasy Atlas v2.2. *Comput Struct Biotechnol J.* 2020;18:1228-1237.
 10. Barrett T, et al. NCBI GEO: archive for functional genomics data - updated. *Nucleic Acids Res.* 2013;41(D1):D991-D995.
+11. Nielsen AJ, Der BS, Shin J, Vaidyanathan P, Densmore D, Paralanov V, Strychalski EA, Ross D, Voigt CA. Genetic circuit design automation. *Science.* 2016;352(6281):aac7341. https://doi.org/10.1126/science.aac7341
 
 ---
 
 **Zenodo DOI:** https://doi.org/10.5281/zenodo.20831781  
-**Suggested category:** Methods / Systems biology  
+**Suggested category:** Methods / Systems biology / Synthetic biology  
 **Correspondence:** gwelz@gc.cuny.edu
