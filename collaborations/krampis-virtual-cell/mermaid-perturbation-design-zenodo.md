@@ -9,7 +9,7 @@ Researcher, New Media Lab, CUNY Graduate Center
 Email: gwelz@gc.cuny.edu  
 ORCID: https://orcid.org/0009-0005-7806-0892  
 Version 1.6 · June 28, 2026 · **Zenodo archive is PDF-only**; this Markdown copy is for GitHub.  
-Zenodo DOI: https://doi.org/10.5281/zenodo.20831781
+Zenodo DOI: https://doi.org/10.5281/zenodo.20831780
 
 ---
 
@@ -213,6 +213,6 @@ Figures A-C in this submission were rendered programmatically for publication us
 
 ---
 
-**Zenodo DOI:** https://doi.org/10.5281/zenodo.20831781  
+**Zenodo DOI:** https://doi.org/10.5281/zenodo.20831780  
 **Suggested category:** Methods / Systems biology / Synthetic biology  
 **Correspondence:** gwelz@gc.cuny.edu

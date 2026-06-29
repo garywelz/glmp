@@ -44,7 +44,7 @@ The hypothesis that DNA sequence encodes a readable logical grammar is substanti
 | **Paper II** | *The Genome as Computer: Logical Primitives, Runtime States, and the Limits of Biological Prediction* | `paper-II-genome-as-computer.md` | [HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/genome_as_computer_v2.html) |
 | **Paper III** | *Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Class Conjecture* | `paper-III-empirical-sequel.md` | [HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/empirical_sequel_draft.html) |
 | **Synthesis** | *Genomic Regulatory Complexity and the Limits of Perturbation Prediction* | `synthesis-biorxiv.md` | [HTML](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/mathematics-processes-database/GLMP_Genomic_Complexity_Synthesis_bioRxiv.html) |
-| **Methods paper** | *Reading Regulatory Logic from Sequence: Typed Flowcharts as the Unit of Representation* | `methods-mermaid-perturbation-design.md` | Zenodo: https://doi.org/10.5281/zenodo.20831781 |
+| **Methods paper** | *Reading Regulatory Logic from Sequence: Typed Flowcharts as the Unit of Representation* | `methods-mermaid-perturbation-design.md` | Zenodo: https://doi.org/10.5281/zenodo.20831780 |
 
 Paper III delivers the first empirical test: 780 genes classified by circuit topology, evaluated against 16 virtual cell models (14 supporting the DE20 metric) on K562 Perturb-seq data. The central finding — Class III genes are systematically harder to predict (*t* = −3.55, *p* = 0.0015) — is the load-bearing empirical result that this collaboration extends.
 
@@ -105,7 +105,7 @@ The Synthesis paper is a GitHub working draft; not yet posted to bioRxiv.
 
 ### Methods Paper — Parallel Track — Welz lead
 
-The methods paper (*Reading Regulatory Logic from Sequence*) is on Zenodo (DOI: 10.5281/zenodo.20831781) and will be submitted to a peer-reviewed journal. bioRxiv will be the right venue for the replication paper once RPE1 data is included.
+The methods paper (*Reading Regulatory Logic from Sequence*) is on Zenodo (DOI: 10.5281/zenodo.20831780) and will be submitted to a peer-reviewed journal. bioRxiv will be the right venue for the replication paper once RPE1 data is included.
 
 ---
 
@@ -174,7 +174,7 @@ The DNA Decoder is a five-stage pipeline that takes raw DNA sequences as input a
 | **Paper II** | Draft complete |
 | **Paper III** | Draft complete; RPE1 replication is Priority 1 |
 | **Synthesis** | GitHub working draft; not yet posted to bioRxiv |
-| **Methods paper** | On Zenodo (DOI: 10.5281/zenodo.20831781); journal submission pending |
+| **Methods paper** | On Zenodo (DOI: 10.5281/zenodo.20831780); journal submission pending |
 
 ### New papers — planned output of this collaboration
 
