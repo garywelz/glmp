@@ -31,7 +31,10 @@ import os
 import sys
 from datetime import datetime
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
+
+# Q-value threshold for confident gate evidence (matches production FIMO filter)
+CONFIDENCE_Q_THRESHOLD = 0.05
 
 
 # ── GLMP Grammar Rule Constants ──────────────────────────────────────────────
@@ -45,17 +48,52 @@ NOT_OVERLAP = 5     # repressor within this many bp of RNAP site = NOT gate
 # These are approximate; will be refined when real genomic coords are used
 RNAP_BINDING_REGION = (-35, -10)   # -35 and -10 elements relative to TSS
 
-# Known repressor TFs — these are candidates for NOT gate assignment
+# Known repressor TFs — prokaryotic defaults for NOT gate assignment
 REPRESSOR_TFS = {
     "LacI", "LacI_lacO1", "TrpR", "AraC_repressor",
-    "LexA", "MetJ", "PurR", "CytR"
+    "LexA", "MetJ", "PurR", "CytR",
 }
 
-# Known activator TFs — these are candidates for AND/OR input assignment
+# Known activator TFs — prokaryotic defaults for AND/OR input assignment
 ACTIVATOR_TFS = {
     "CRP", "crp", "MA2303.1", "CAP", "AraC_activator",
-    "NtrC", "OmpR", "PhoB"
+    "NtrC", "OmpR", "PhoB",
 }
+
+ORGANISM_TF_EXTENSIONS = {
+    "s_cerevisiae": {
+        "repressors": {"MIG1", "MA0337.2"},
+        "activators": {"GAL4", "MA0299.1"},
+    },
+}
+
+# Supported --organism values (RNAP geometry intentionally shared for raw decode)
+SUPPORTED_ORGANISMS = {
+    "ecoli_k12": {
+        "display_name": "Escherichia coli K-12",
+        "domain": "prokaryote",
+    },
+    "s_cerevisiae": {
+        "display_name": "Saccharomyces cerevisiae S288C",
+        "domain": "eukaryote",
+        "decode_warning": (
+            "RNAP_BINDING_REGION still uses prokaryotic -35/-10 geometry; "
+            "yeast TATA/Inr not modeled (intentional raw decode)"
+        ),
+    },
+}
+
+
+def repressor_tfs_for_organism(organism):
+    tfs = set(REPRESSOR_TFS)
+    tfs.update(ORGANISM_TF_EXTENSIONS.get(organism, {}).get("repressors", set()))
+    return tfs
+
+
+def activator_tfs_for_organism(organism):
+    tfs = set(ACTIVATOR_TFS)
+    tfs.update(ORGANISM_TF_EXTENSIONS.get(organism, {}).get("activators", set()))
+    return tfs
 
 
 # ── Data Classes ─────────────────────────────────────────────────────────────
@@ -77,16 +115,19 @@ class BindingSite:
         self.matched_seq  = matched_seq
         self.center       = (self.start + self.stop) / 2
         self.length       = self.stop - self.start + 1
+        self.organism     = "unknown_organism"
 
-    def is_repressor(self):
+    def is_repressor(self, organism=None):
+        tfs = repressor_tfs_for_organism(organism or self.organism)
         return any(r.lower() in self.motif_id.lower() or
                    r.lower() in self.motif_alt.lower()
-                   for r in REPRESSOR_TFS)
+                   for r in tfs)
 
-    def is_activator(self):
+    def is_activator(self, organism=None):
+        tfs = activator_tfs_for_organism(organism or self.organism)
         return any(a.lower() in self.motif_id.lower() or
                    a.lower() in self.motif_alt.lower()
-                   for a in ACTIVATOR_TFS)
+                   for a in tfs)
 
     def to_dict(self):
         return {
@@ -288,6 +329,131 @@ def apply_grammar_rules(sites):
     return relationships
 
 
+def _max_site_qvalue(site_a, site_b):
+    return max(site_a.qvalue, site_b.qvalue)
+
+
+def _repressor_site(rel):
+    if rel.site_a.is_repressor():
+        return rel.site_a
+    if rel.site_b.is_repressor():
+        return rel.site_b
+    return None
+
+
+def _relationship_involves_known_tf(rel):
+    return (
+        rel.site_a.is_repressor() or rel.site_a.is_activator()
+        or rel.site_b.is_repressor() or rel.site_b.is_activator()
+    )
+
+
+def _relationship_eligible_for_classification(rel, q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """Exclude weak repressor-distance NOT hits from classification support."""
+    if rel.logic_type == "NOT":
+        repressor = _repressor_site(rel)
+        if repressor and repressor.qvalue > q_threshold:
+            return False
+    return _relationship_involves_known_tf(rel)
+
+
+def _relationship_is_confident(rel, q_threshold=CONFIDENCE_Q_THRESHOLD):
+    if rel.logic_type == "NOT":
+        repressor = _repressor_site(rel)
+        if repressor:
+            return repressor.qvalue <= q_threshold
+        return _max_site_qvalue(rel.site_a, rel.site_b) <= q_threshold
+    if rel.logic_type == "AND":
+        known = [
+            s for s in (rel.site_a, rel.site_b)
+            if s.is_repressor() or s.is_activator()
+        ]
+        if known:
+            return all(s.qvalue <= q_threshold for s in known)
+    return _max_site_qvalue(rel.site_a, rel.site_b) <= q_threshold
+
+
+def _proposed_topology_class(has_not, has_and):
+    """Map detected gate types to a proposed GLMP circuit class label."""
+    if has_not and has_and:
+        return "II", ["NOT", "AND"]
+    if has_not:
+        return "I/II", ["NOT"]
+    if has_and:
+        return "I", ["AND"]
+    return None, []
+
+
+def assess_classification_confidence(relationships, has_not, has_and, organism,
+                                     q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """
+    Check whether gate evidence supports a non-trivial circuit class claim.
+    Returns (circuit_class, circuit_class_note, confidence_stats).
+    """
+    proposed_class, supporting_types = _proposed_topology_class(has_not, has_and)
+    stats = {
+        "proposed_class": proposed_class,
+        "supporting_gate_types": supporting_types,
+        "supporting_gates_total": 0,
+        "supporting_gates_confident": 0,
+        "supporting_gates_weak": 0,
+        "q_threshold": q_threshold,
+    }
+
+    if not proposed_class:
+        return None, None, stats
+
+    supporting = [
+        r for r in relationships
+        if r.logic_type in supporting_types
+        and _relationship_eligible_for_classification(r, q_threshold)
+    ]
+    stats["supporting_gates_total"] = len(supporting)
+    if not supporting:
+        note = (
+            "No supporting gates with q-value <= "
+            f"{q_threshold} for known transcription factors."
+        )
+        return "INSUFFICIENT_EVIDENCE", note, stats
+
+    confident = [r for r in supporting if _relationship_is_confident(r, q_threshold)]
+    weak = len(supporting) - len(confident)
+    stats["supporting_gates_confident"] = len(confident)
+    stats["supporting_gates_weak"] = weak
+
+    geometry_warning = geometry_warning_for_organism(organism)
+    if geometry_warning and proposed_class in ("II", "III", "IV", "V"):
+        confident_not = [r for r in confident if r.logic_type == "NOT"]
+        if not confident_not:
+            note = (
+                f"{weak} of {len(supporting)} supporting gates have q-value > "
+                f"{q_threshold}. DNA-level evidence insufficient for confident "
+                "classification. Manual review recommended."
+            )
+            return "INSUFFICIENT_EVIDENCE", note, stats
+
+    if weak > len(confident):
+        note = (
+            f"{weak} of {len(supporting)} supporting gates have q-value > "
+            f"{q_threshold}. DNA-level evidence insufficient for confident "
+            "classification. Manual review recommended."
+        )
+        return "INSUFFICIENT_EVIDENCE", note, stats
+
+    return proposed_class, None, stats
+
+
+def geometry_warning_for_organism(organism):
+    """Return a warning when promoter geometry assumptions mismatch organism."""
+    if organism != "s_cerevisiae":
+        return None
+    return (
+        "RNAP binding region geometry is prokaryotic (-35/-10) but organism is "
+        "s_cerevisiae. NOT-gate promoter-overlap logic may not apply. "
+        "Treat circuit_class with caution."
+    )
+
+
 # ── Circuit Summary Builder ────────────────────────────────────────────────────
 
 def build_circuit_summary(sites, relationships, circuit_name, organism):
@@ -295,6 +461,8 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
     Build a structured circuit summary from sites and relationships.
     This is the Stage 3 output — a logical formula for the circuit.
     """
+
+    org_profile = SUPPORTED_ORGANISMS.get(organism, {})
 
     # Count logical types
     logic_counts = {}
@@ -317,12 +485,20 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
     else:
         topology_hint = "Indeterminate — insufficient topology signal"
 
+    circuit_class, circuit_class_note, confidence_stats = assess_classification_confidence(
+        relationships, has_not, has_and, organism
+    )
+    if circuit_class is None:
+        circuit_class = "INDETERMINATE"
+    geometry_warning = geometry_warning_for_organism(organism)
+
     summary = {
         "circuit_name":    circuit_name,
         "organism":        organism,
         "decoded_at":      datetime.now().isoformat(),
-        "decoder_version": "0.2.0",
+        "decoder_version": __version__,
         "glmp_version":    "2026-06",
+        "circuit_class":   circuit_class,
         "binding_sites": [s.to_dict() for s in sites],
         "relationships": [r.to_dict() for r in relationships],
         "logic_summary": {
@@ -332,17 +508,24 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
             "has_not_gate":       has_not,
             "has_and_gate":       has_and,
             "has_or_logic":       has_or,
-            "topology_hint":      topology_hint
+            "topology_hint":      topology_hint,
+            "circuit_class":      circuit_class,
+            "classification_confidence": confidence_stats,
         },
-        "notes": [
-            "Stage 3 prototype — rule-based logic assignment from spacing geometry",
-            "Inter-site distances measured from FIMO hit centers in test sequence",
-            "Full genomic coordinates required for precise distance validation",
-            "NOT gate confidence requires overlap with RNAP binding site confirmation",
-            "Biological validation by molecular biology expert required before"
-            " use as training data"
-        ]
     }
+    if circuit_class_note:
+        summary["circuit_class_note"] = circuit_class_note
+    if geometry_warning:
+        summary["geometry_warning"] = geometry_warning
+
+    summary["notes"] = [
+        "Stage 3 prototype — rule-based logic assignment from spacing geometry",
+        "Inter-site distances measured from FIMO hit centers in test sequence",
+        "Full genomic coordinates required for precise distance validation",
+        "NOT gate confidence requires overlap with RNAP binding site confirmation",
+        "Biological validation by molecular biology expert required before"
+        " use as training data",
+    ] + ([org_profile["decode_warning"]] if org_profile.get("decode_warning") else [])
 
     return summary
 
@@ -364,7 +547,8 @@ def main():
     )
     parser.add_argument(
         "--organism", default="unknown_organism",
-        help="Organism identifier (e.g. ecoli_k12)"
+        choices=list(SUPPORTED_ORGANISMS.keys()) + ["unknown_organism"],
+        help="Organism identifier: ecoli_k12 or s_cerevisiae"
     )
     parser.add_argument(
         "--output", default=None,
@@ -406,6 +590,12 @@ def main():
     print(f"\nGLMP DNA Decoder — Stage 3 Logic Parser v{__version__}")
     print(f"Circuit:  {args.circuit}")
     print(f"Organism: {args.organism}")
+    org_profile = SUPPORTED_ORGANISMS.get(args.organism)
+    if org_profile:
+        print(f"  Domain: {org_profile['domain']}")
+        warning = org_profile.get("decode_warning")
+        if warning:
+            print(f"  WARNING: {warning}")
     print(f"  q-threshold (non-repressors): {args.qvalue_threshold}")
     print(f"  q-threshold (repressors):     {rep_q_thresh}")
     print(f"─" * 50)
@@ -415,6 +605,8 @@ def main():
     for hit_file in args.hits:
         print(f"\nLoading: {hit_file}")
         sites = load_fimo_tsv(hit_file, min_pvalue=args.pvalue_threshold)
+        for site in sites:
+            site.organism = args.organism
         all_sites.extend(sites)
 
     if not all_sites:
@@ -494,6 +686,11 @@ def main():
     print(f"  AND gates:        {'YES' if ls['has_and_gate'] else 'no'}")
     print(f"  OR logic:         {'YES' if ls['has_or_logic'] else 'no'}")
     print(f"  Topology hint:    {ls['topology_hint']}")
+    print(f"  Circuit class:    {summary.get('circuit_class', ls.get('circuit_class'))}")
+    if summary.get("circuit_class_note"):
+        print(f"  Class note:       {summary['circuit_class_note']}")
+    if summary.get("geometry_warning"):
+        print(f"  Geometry warning: {summary['geometry_warning']}")
     print(f"\n  Logic type counts:")
     for ltype, count in ls['logic_type_counts'].items():
         print(f"    {ltype:20s}: {count}")
