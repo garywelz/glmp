@@ -1,0 +1,41 @@
+# Custom PWM Registry — GLMP Decoder
+# Tracks transcription factors requiring custom PWM files
+# (absent from JASPAR CORE 2024 or eukaryote-weighted)
+# Updated: June 30, 2026
+
+tfs:
+  - name: LacI
+    motif_id: LacI_lacO1
+    organism: ecoli_k12
+    jaspar_id: null
+    source_paper: "Lewis et al. 1996 Science 271:1247; Gilbert & Maxam 1973 PNAS 70:3581"
+    consensus: "AATTGTGAGCGGATAACAATT"
+    pwm_file: laci_motif.meme
+    status: active
+    validated_circuits:
+      - ecoli_lac_operon
+
+  - name: TrpR
+    motif_id: TrpR_trpO
+    organism: ecoli_k12
+    jaspar_id: null
+    source_paper: "Otwinowski et al. 1988 Nature 335:321"
+    consensus: "CTAGNNNNCTAN"
+    pwm_file: laci_motif.meme
+    status: active
+    validated_circuits:
+      - ecoli_trp_operon
+
+  - name: AraC
+    motif_id: AraC_araI
+    organism: ecoli_k12
+    jaspar_id: null
+    source_paper: "Lobell & Schleif 1990 Science 250:528; Lee et al. 1987 PNAS 84:8814"
+    consensus: "TGTGA(N6)TCACA"
+    pwm_file: TO_BE_BUILT
+    status: pending
+    notes: >
+      AraC has distinct repressor (araI1-araO2 loop) and activator
+      (araI1-araI2) binding modes. A single PWM may not capture both.
+      Consider separate repressor and activator PWMs.
+    validated_circuits: []
