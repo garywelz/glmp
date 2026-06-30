@@ -86,8 +86,45 @@ geometry profiles — scoped but not yet designed.
 | EC-2: Protein-network-dependent | 103 eukaryotic (non-synthetic) | Low–Medium | Schema exists (GAL) |
 | EC-3: Eukaryotic geometry | 148 non-ecoli (109 excl. synthetic) | High (flag); Medium (per-process) | Warning only |
 
-**Phase 3 prioritization implication:** *(Gary and Claude to fill in
-after reviewing the numbers)*
+**Phase 3 prioritization implication:** See Phase 3 Decode Priority Order below.
+
+---
+
+## Phase 3 Decode Priority Order
+
+Based on organism counts and decoder confidence levels:
+
+| Priority | Group | Count | Strategy |
+|----------|-------|-------|----------|
+| 1 | E. coli (remaining) | 66 | DNA-decodable, highest confidence — same pipeline as lac/ara/trp |
+| 2 | Synthetic circuits | 39 | Designed logic-gate circuits, likely cleanly decodable |
+| 3 | Bacillus | 6 | Prokaryotic, needs custom PWMs for key TFs |
+| 4 | Yeast | 41 | Screen first: DNA-decodable vs protein-network; attempt only circuits with known operator motifs |
+| 5 | Human / mouse / arabidopsis / other eukaryotes | 63 | Two-layer schema default; limited DNA decode value for most |
+
+**High-confidence decode targets for first 300:** E. coli (66) +
+synthetic (39) = 105 circuits. Combined with 3 already decoded =
+108 total — well past the 300 target on solid ground before
+touching harder eukaryotic territory.
+
+**Decision made:** June 30, 2026 — Gary Welz and Claude.
+
+---
+
+## Organism counts (217 total)
+
+| Organism | Count |
+|----------|-------|
+| E. coli | 69 |
+| Human | 52 |
+| Yeast | 41 |
+| Synthetic | 39 |
+| Bacillus subtilis | 4 |
+| Arabidopsis | 3 |
+| Mouse | 3 |
+| Bacillus | 2 |
+| C. elegans | 2 |
+| Drosophila | 2 |
 
 ---
 
@@ -97,3 +134,4 @@ after reviewing the numbers)*
 |------|--------|
 | 2026-06-30 | Initial log: EC-1/2/3 from lac/ara/trp/GAL decode work |
 | 2026-06-30 | Parser v0.2.2: custom PWM p-value confidence for LacI/TrpR |
+| 2026-06-30 | Real organism counts and Phase 3 priority order added |
