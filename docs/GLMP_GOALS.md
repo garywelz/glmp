@@ -1,6 +1,10 @@
 # GLMP Goals Statement
-## Version: 1.0 — June 30, 2026
+## Version: 1.1 — June 30, 2026
 ## Shared reference for Gary Welz, Claude (claude.ai), and Cursor
+
+**v1.1 changes:** Align operon class examples with `glmp-v2` catalog JSON;
+add two-field decoder schema (`dna_topology_class` vs `glmp_biological_class`);
+soften “3 validated decodes” to match current Firestore/decoder status.
 
 This document establishes shared goal alignment across the three-way
 working relationship. It should be read by Cursor at the start of any
@@ -27,10 +31,12 @@ DNA by evolution. The two share a grammar; they differ in direction.
 
 ## What we are building
 
-A corpus of decoded regulatory circuits — starting with three validated
-E. coli operons (lac, ara, trp) and expanding toward 300 then 1,000+
-decoded processes — linked to their source papers, rendered as Mermaid
-logic-gate flowcharts, and stored in a Firestore-backed knowledge engine.
+A corpus of decoded regulatory circuits — starting with three E. coli
+operons (lac, ara, trp) plus the yeast GAL bistable switch as a
+two-layer reference case — expanding toward 300 then 1,000+ decoded
+processes. Each process is linked to source papers, rendered as a Mermaid
+logic-gate flowchart, and stored in a Firestore-backed knowledge engine.
+Ground-truth decoder outputs live in `dna-decoder/results/` (v0.2.2).
 
 The target user experience: a researcher queries a biological process
 and receives a logic-gate flowchart, source papers, DNA decoding, and
@@ -40,13 +46,22 @@ eventually a podcast and knowledge graph — in one query.
 
 ## What the DNA decoder does and doesn't do
 
-**Can decode:** circuits whose regulatory logic is geometrically encoded
-in DNA — primarily prokaryotic repressor/operator systems where a
-repressor physically occupies a sequence overlapping the RNAP binding
-region. Examples: lac operon (Class III), ara operon (Class III),
-trp operon (Class II).
+**Can decode (DNA topology):** circuits whose regulatory logic is
+geometrically encoded in DNA — primarily prokaryotic repressor/operator
+systems where a repressor physically occupies a sequence overlapping the
+RNAP binding region. Current pipeline status (parser v0.2.2):
 
-**Cannot decode:** circuits whose logic depends on protein-protein
+| Process | DNA topology (`dna_topology_class`) | Curated biological class (`glmp_biological_class`, from catalog) |
+|---|---|---|
+| trp operon | I/II (high confidence) | II |
+| lac operon | II (high confidence) | II |
+| ara operon | INSUFFICIENT_EVIDENCE (no AraC PWM yet) | III |
+| GAL bistable switch | I (partial — activator sites only) | III / IIIa |
+
+Biological class always comes from the YAML manifest / `glmp-v2` catalog —
+never inferred from FIMO. See **Two-field circuit classification** below.
+
+**Cannot decode (full mechanism):** circuits whose logic depends on protein-protein
 interactions with no DNA sequence signature — e.g. the yeast GAL
 bistable switch, where Gal80 represses Gal4 by binding its activation
 domain, and Gal3 sequesters Gal80 in the cytoplasm. These circuits
@@ -59,13 +74,28 @@ claims and strengthens the methods paper.
 
 ## Circuit complexity classes
 
-| Class | Structure | Biological example |
+These are **biological** complexity classes (I–V), as assigned in the
+`glmp-v2` process catalog (`circuitClass` → Firestore `glmp_biological_class`).
+They are distinct from **DNA topology class**, which the decoder infers
+from FIMO binding-site geometry and may differ (e.g. GAL: biological IIIa,
+DNA topology I).
+
+| Class | Structure | Catalog example (`glmp-v2`) |
 |---|---|---|
 | I | Feed-forward, no feedback | Simple inducible promoter |
-| II | Single negative feedback | trp operon |
-| III | Bistable / positive feedback | lac operon, ara operon |
+| II | Single negative feedback | trp operon; lac operon* |
+| III | Bistable / positive feedback | ara operon |
 | IV | Oscillatory | Circadian clock |
 | V | Self-modifying | DNMT3A self-methylation |
+
+\* **lac operon:** catalog assigns Class II (Jacob–Monod negative feedback);
+`circuitClassNeedsReview: true` — Mermaid topology currently shows `loops: 0`
+despite Class II. Resolve in catalog QA before using lac as the primary
+worked example in papers.
+
+**Authoritative source:** `glmp-v2/processes/{organism}/{process_id}.json`.
+If this goals doc and the catalog disagree, the catalog wins until Gary
+updates one or the other deliberately.
 
 Class III circuits are empirically harder for AI perturbation models
 to predict — a finding with direct implications for the RegVelo and
@@ -73,9 +103,37 @@ K562 collaboration work.
 
 ---
 
+## Two-field circuit classification (decoder schema)
+
+As of parser v0.2.2 (June 2026), every decode distinguishes:
+
+| Field | Source | Meaning |
+|---|---|---|
+| `dna_topology_class` | Parser (FIMO + grammar rules) | What binding-site geometry supports (I, I/II, II, `INSUFFICIENT_EVIDENCE`, etc.) |
+| `dna_topology_confidence` | Parser | `high` / `medium` / `partial` / `insufficient` |
+| `dna_topology_note` | Parser | Human-readable caveat when evidence is weak |
+| `glmp_biological_class` | YAML manifest / catalog only | Curated GLMP complexity class (I–V) |
+| `glmp_biological_subclass` | Manifest / catalog | e.g. `IIIa` for GAL |
+| `glmp_biological_class_source` | Fixed | `curated_catalog` when manifest supplied |
+| `circuit_class` | Deprecated mirror | Same value as `dna_topology_class` (Jetson JSON backward compat) |
+
+Manifests live in `dna-decoder/manifests/`. Custom PWMs for TFs absent
+from JASPAR are tracked in `dna-decoder/motifs/custom_pwm_registry.yaml`
+(LacI and TrpR active; AraC pending).
+
+For protein-network-dependent circuits, Firestore also carries nested
+`dna_decodable_layer` + `protein_network_layer` objects (established on
+`yeast_gal_bistable_switch`).
+
+---
+
 ## Scale and timeline
 
-- **Now:** 3 decoded circuits (lac, ara, trp) — validated, in Firestore
+- **Now:** 3 E. coli operons with decoder runs + Firestore entries (lac/trp:
+  confident DNA topology; ara: DNA-level insufficient pending AraC PWM);
+  GAL two-layer reference decode in Firestore. Catalog QA and Layer 1–3
+  biological validation still in progress — decoder outputs are ground truth
+  for the pipeline, not yet publication-validated annotations
 - **~1 month:** 300 decoded circuits — primarily remaining prokaryotic
   and bacterial circuits, which are the highest-confidence decode targets
 - **~3 months:** 1,000+ decoded circuits — expanding to eukaryotic
@@ -92,11 +150,13 @@ proactive protein-network screening before running the decoder.
 ## Current priorities in order
 
 **Priority 1 — Decoder automation**
-Scale from 3 to 300 decoded circuits via YAML manifest-driven batch
-runner (run_batch.py, not yet built). Prioritize prokaryotic/bacterial
-circuits before eukaryotic ones. Each decoded circuit writes to both
-glmp_circuits (granular binding-site data) and updates glmp_processes
-(registry entry with two-layer schema where applicable).
+Scale from 4 reference decodes (lac, ara, trp, GAL) to 300 via YAML
+manifest-driven batch runner (`run_batch.py`, not yet built). Prioritize
+prokaryotic/bacterial circuits before eukaryotic ones. Each decode uses
+`--manifest` for biological class; writes update `glmp_processes` with the
+two-field flat schema (and nested two-layer objects where applicable).
+Granular binding-site collection (`glmp_circuits`) is planned but not
+yet wired.
 
 **Priority 2 — Research papers corpus**
 Grow to 100,000+ high-relevance biology papers. Scout query redesign
