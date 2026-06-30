@@ -406,11 +406,25 @@ def _proposed_topology_class(has_not, has_and):
     return None, []
 
 
+def _derive_dna_topology_confidence(dna_topology_class, stats, geometry_warning):
+    """Map gate evidence to high/medium/partial/insufficient confidence."""
+    if dna_topology_class in ("INSUFFICIENT_EVIDENCE", "INDETERMINATE", None):
+        return "insufficient"
+    if geometry_warning:
+        return "partial"
+    confident = stats.get("supporting_gates_confident", 0)
+    if confident >= 2:
+        return "high"
+    if confident >= 1:
+        return "medium"
+    return "partial"
+
+
 def assess_classification_confidence(relationships, has_not, has_and, organism,
                                      q_threshold=CONFIDENCE_Q_THRESHOLD):
     """
     Check whether gate evidence supports a non-trivial circuit class claim.
-    Returns (circuit_class, circuit_class_note, confidence_stats).
+    Returns (dna_topology_class, dna_topology_note, dna_topology_confidence, stats).
     """
     proposed_class, supporting_types = _proposed_topology_class(has_not, has_and)
     stats = {
@@ -423,7 +437,7 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
     }
 
     if not proposed_class:
-        return None, None, stats
+        return None, None, "insufficient", stats
 
     supporting = [
         r for r in relationships
@@ -437,7 +451,7 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
             f"transcription factors (JASPAR q<={q_threshold}; custom PWM "
             f"p<={q_threshold})."
         )
-        return "INSUFFICIENT_EVIDENCE", note, stats
+        return "INSUFFICIENT_EVIDENCE", note, "insufficient", stats
 
     confident = [r for r in supporting if _relationship_is_confident(r, q_threshold)]
     weak = len(supporting) - len(confident)
@@ -453,7 +467,7 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
                 f"{q_threshold}. DNA-level evidence insufficient for confident "
                 "classification. Manual review recommended."
             )
-            return "INSUFFICIENT_EVIDENCE", note, stats
+            return "INSUFFICIENT_EVIDENCE", note, "insufficient", stats
 
     if weak > len(confident):
         note = (
@@ -461,9 +475,12 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
             f"{q_threshold}. DNA-level evidence insufficient for confident "
             "classification. Manual review recommended."
         )
-        return "INSUFFICIENT_EVIDENCE", note, stats
+        return "INSUFFICIENT_EVIDENCE", note, "insufficient", stats
 
-    return proposed_class, None, stats
+    topology_confidence = _derive_dna_topology_confidence(
+        proposed_class, stats, geometry_warning
+    )
+    return proposed_class, None, topology_confidence, stats
 
 
 def geometry_warning_for_organism(organism):
@@ -477,9 +494,41 @@ def geometry_warning_for_organism(organism):
     )
 
 
+# ── Manifest loader ───────────────────────────────────────────────────────────
+
+def load_manifest(manifest_path):
+    """Load YAML manifest with curated biological class metadata."""
+    try:
+        import yaml
+    except ImportError:
+        print("ERROR: PyYAML is required for --manifest. Install with: pip install pyyaml",
+              file=sys.stderr)
+        sys.exit(1)
+    with open(manifest_path, encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+def _biological_class_fields(manifest_data):
+    """Extract glmp_biological_class* fields from manifest (never from FIMO)."""
+    if not manifest_data or not manifest_data.get("glmp_biological_class"):
+        return {
+            "glmp_biological_class": None,
+            "glmp_biological_subclass": None,
+            "glmp_biological_class_source": None,
+            "glmp_biological_class_note": None,
+        }
+    return {
+        "glmp_biological_class": manifest_data.get("glmp_biological_class"),
+        "glmp_biological_subclass": manifest_data.get("glmp_biological_subclass"),
+        "glmp_biological_class_source": "curated_catalog",
+        "glmp_biological_class_note": manifest_data.get("glmp_biological_class_note"),
+    }
+
+
 # ── Circuit Summary Builder ────────────────────────────────────────────────────
 
-def build_circuit_summary(sites, relationships, circuit_name, organism):
+def build_circuit_summary(sites, relationships, circuit_name, organism,
+                          manifest_data=None):
     """
     Build a structured circuit summary from sites and relationships.
     This is the Stage 3 output — a logical formula for the circuit.
@@ -508,12 +557,13 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
     else:
         topology_hint = "Indeterminate — insufficient topology signal"
 
-    circuit_class, circuit_class_note, confidence_stats = assess_classification_confidence(
-        relationships, has_not, has_and, organism
+    dna_topology_class, dna_topology_note, dna_topology_confidence, confidence_stats = (
+        assess_classification_confidence(relationships, has_not, has_and, organism)
     )
-    if circuit_class is None:
-        circuit_class = "INDETERMINATE"
+    if dna_topology_class is None:
+        dna_topology_class = "INDETERMINATE"
     geometry_warning = geometry_warning_for_organism(organism)
+    bio_fields = _biological_class_fields(manifest_data)
 
     summary = {
         "circuit_name":    circuit_name,
@@ -521,7 +571,11 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
         "decoded_at":      datetime.now().isoformat(),
         "decoder_version": __version__,
         "glmp_version":    "2026-06",
-        "circuit_class":   circuit_class,
+        "dna_topology_class": dna_topology_class,
+        "dna_topology_note": dna_topology_note,
+        "dna_topology_confidence": dna_topology_confidence,
+        **bio_fields,
+        "circuit_class":   dna_topology_class,
         "binding_sites": [s.to_dict() for s in sites],
         "relationships": [r.to_dict() for r in relationships],
         "logic_summary": {
@@ -532,12 +586,12 @@ def build_circuit_summary(sites, relationships, circuit_name, organism):
             "has_and_gate":       has_and,
             "has_or_logic":       has_or,
             "topology_hint":      topology_hint,
-            "circuit_class":      circuit_class,
+            "dna_topology_class": dna_topology_class,
+            "dna_topology_note": dna_topology_note,
+            "dna_topology_confidence": dna_topology_confidence,
             "classification_confidence": confidence_stats,
         },
     }
-    if circuit_class_note:
-        summary["circuit_class_note"] = circuit_class_note
     if geometry_warning:
         summary["geometry_warning"] = geometry_warning
 
@@ -599,11 +653,20 @@ def main():
              "are always included on top of this cap."
     )
     parser.add_argument(
+        "--manifest", default=None,
+        help="YAML manifest with curated glmp_biological_class metadata"
+    )
+    parser.add_argument(
         "--verbose", action="store_true",
         help="Print detailed output"
     )
 
     args = parser.parse_args()
+
+    manifest_data = None
+    if args.manifest:
+        print(f"Manifest: {args.manifest}")
+        manifest_data = load_manifest(args.manifest)
 
     # Resolve repressor q-value threshold (defaults to general threshold)
     rep_q_thresh = (args.repressor_qvalue_threshold
@@ -695,7 +758,7 @@ def main():
 
     # Build circuit summary
     summary = build_circuit_summary(
-        all_sites, relationships, args.circuit, args.organism
+        all_sites, relationships, args.circuit, args.organism, manifest_data
     )
 
     # Print logic summary
@@ -709,9 +772,14 @@ def main():
     print(f"  AND gates:        {'YES' if ls['has_and_gate'] else 'no'}")
     print(f"  OR logic:         {'YES' if ls['has_or_logic'] else 'no'}")
     print(f"  Topology hint:    {ls['topology_hint']}")
-    print(f"  Circuit class:    {summary.get('circuit_class', ls.get('circuit_class'))}")
-    if summary.get("circuit_class_note"):
-        print(f"  Class note:       {summary['circuit_class_note']}")
+    print(f"  DNA topology:     {summary.get('dna_topology_class', ls.get('dna_topology_class'))}")
+    print(f"  Topology conf.:   {summary.get('dna_topology_confidence', ls.get('dna_topology_confidence'))}")
+    if summary.get("glmp_biological_class"):
+        sub = summary.get("glmp_biological_subclass")
+        bio = summary["glmp_biological_class"]
+        print(f"  Biological class: {bio}{(' / ' + sub) if sub else ''} (curated_catalog)")
+    if summary.get("dna_topology_note"):
+        print(f"  Topology note:    {summary['dna_topology_note']}")
     if summary.get("geometry_warning"):
         print(f"  Geometry warning: {summary['geometry_warning']}")
     print(f"\n  Logic type counts:")
