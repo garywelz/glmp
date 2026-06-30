@@ -31,10 +31,18 @@ import os
 import sys
 from datetime import datetime
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 # Q-value threshold for confident gate evidence (matches production FIMO filter)
 CONFIDENCE_Q_THRESHOLD = 0.05
+
+# Custom PWM motifs from motifs/laci_motif.meme (not in JASPAR CORE).
+# FIMO q-values are unreliable for small custom motif sets (pi0 ~ 1);
+# use p-value <= CONFIDENCE_Q_THRESHOLD for confidence on these instead.
+CUSTOM_PWM_MOTIF_IDS = {
+    "LacI_lacO1",
+    "TrpR_trpO",
+}
 
 
 # ── GLMP Grammar Rule Constants ──────────────────────────────────────────────
@@ -143,7 +151,8 @@ class BindingSite:
             "center":        self.center,
             "length":        self.length,
             "is_repressor":  self.is_repressor(),
-            "is_activator":  self.is_activator()
+            "is_activator":  self.is_activator(),
+            "is_custom_pwm": is_custom_pwm_site(self),
         }
 
 
@@ -329,8 +338,15 @@ def apply_grammar_rules(sites):
     return relationships
 
 
-def _max_site_qvalue(site_a, site_b):
-    return max(site_a.qvalue, site_b.qvalue)
+def is_custom_pwm_site(site):
+    return site.motif_id in CUSTOM_PWM_MOTIF_IDS
+
+
+def _site_passes_confidence_threshold(site, threshold=CONFIDENCE_Q_THRESHOLD):
+    """JASPAR hits use q-value; custom PWM hits use p-value at same cutoff."""
+    if is_custom_pwm_site(site):
+        return site.pvalue <= threshold
+    return site.qvalue <= threshold
 
 
 def _repressor_site(rel):
@@ -352,7 +368,7 @@ def _relationship_eligible_for_classification(rel, q_threshold=CONFIDENCE_Q_THRE
     """Exclude weak repressor-distance NOT hits from classification support."""
     if rel.logic_type == "NOT":
         repressor = _repressor_site(rel)
-        if repressor and repressor.qvalue > q_threshold:
+        if repressor and not _site_passes_confidence_threshold(repressor, q_threshold):
             return False
     return _relationship_involves_known_tf(rel)
 
@@ -361,16 +377,22 @@ def _relationship_is_confident(rel, q_threshold=CONFIDENCE_Q_THRESHOLD):
     if rel.logic_type == "NOT":
         repressor = _repressor_site(rel)
         if repressor:
-            return repressor.qvalue <= q_threshold
-        return _max_site_qvalue(rel.site_a, rel.site_b) <= q_threshold
+            return _site_passes_confidence_threshold(repressor, q_threshold)
+        return (
+            _site_passes_confidence_threshold(rel.site_a, q_threshold)
+            and _site_passes_confidence_threshold(rel.site_b, q_threshold)
+        )
     if rel.logic_type == "AND":
         known = [
             s for s in (rel.site_a, rel.site_b)
             if s.is_repressor() or s.is_activator()
         ]
         if known:
-            return all(s.qvalue <= q_threshold for s in known)
-    return _max_site_qvalue(rel.site_a, rel.site_b) <= q_threshold
+            return all(_site_passes_confidence_threshold(s, q_threshold) for s in known)
+    return (
+        _site_passes_confidence_threshold(rel.site_a, q_threshold)
+        and _site_passes_confidence_threshold(rel.site_b, q_threshold)
+    )
 
 
 def _proposed_topology_class(has_not, has_and):
@@ -411,8 +433,9 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
     stats["supporting_gates_total"] = len(supporting)
     if not supporting:
         note = (
-            "No supporting gates with q-value <= "
-            f"{q_threshold} for known transcription factors."
+            "No supporting gates with confident evidence for known "
+            f"transcription factors (JASPAR q<={q_threshold}; custom PWM "
+            f"p<={q_threshold})."
         )
         return "INSUFFICIENT_EVIDENCE", note, stats
 
