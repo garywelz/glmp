@@ -39,6 +39,18 @@ SEQUENCES_DIR = Path(os.environ.get("GLMP_SEQUENCES_DIR", DECODER_DIR / "sequenc
 RESULTS_DIR = DECODER_DIR / "results"
 PARSER = DECODER_DIR / "glmp_logic_parser.py"
 
+def _fimo_bin() -> str:
+    env = os.environ.get("FIMO_BIN")
+    if env and Path(env).exists():
+        return env
+    sibling = Path(sys.executable).parent / "fimo"
+    if sibling.exists():
+        return str(sibling)
+    found = shutil.which("fimo")
+    if found:
+        return found
+    return "fimo"
+
 LOG_DIR = Path(os.environ.get("GLMP_LOG_DIR", "/media/sdcard/logs"))
 if sys.platform == "win32" and not LOG_DIR.exists():
     LOG_DIR = DECODER_DIR / "logs"
@@ -118,8 +130,9 @@ def run_fimo(manifest: dict, seq_file: Path, dry_run: bool = False):
     jaspar_db = resolve_path(manifest.get("jaspar_db", "motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt"))
     qval = manifest.get("qvalue_threshold", 0.05)
 
+    fimo = _fimo_bin()
     cmd = [
-        "fimo",
+        fimo,
         "--thresh",
         str(qval),
         "--oc",
@@ -149,7 +162,7 @@ def run_fimo(manifest: dict, seq_file: Path, dry_run: bool = False):
             continue
         prok_dir = RESULTS_DIR / f"{circuit_id}_prok_{pwm_path.stem}"
         prok_cmd = [
-            "fimo",
+            fimo,
             "--thresh",
             "0.01",
             "--oc",
