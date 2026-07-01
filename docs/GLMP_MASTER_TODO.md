@@ -25,21 +25,26 @@
 
 The schema is clean, the catalog is fully synced at 217 processes,
 four reference decodes are in Firestore (lac, ara, trp, GAL).
-Phase 3 batch runner built July 1, 2026 — cron pending Gary approval.
+Phase 3 batch runner **live** July 1, 2026 — cron at 2 AM ET on Jetson.
 
 - [x] Design batch runner architecture — `select_batch.py` + `queue/` + `run_batch.py`
 - [x] Build `select_batch.py` — ranks glmp_processes, writes manifests from glmp-v2 catalog
-      (`circuitClass` mapping, `--yes` for cron, fixed `_status` check)
+      (`circuitClass` mapping, `--yes` for cron, fixed `_status` check, tie-break: class then alpha)
 - [x] Build `run_batch.py` — manifest queue processor, NCBI fetch, FIMO, parser, Firestore
+      (FIMO path resolves meme-env bin on Jetson)
 - [x] Queue directory structure — pending/running/completed/failed under `dna-decoder/queue/`
 - [x] First batch manifests queued (4) with RegulonDB/literature coordinates:
       `ecoli_flhdc_flagellar`, `ecoli_sos_reca`, `ecoli_sos_lexa`, `ecoli_lambda_switch`
 - [x] Fetch + commit first-batch `.fa` sequences to `dna-decoder/sequences/`
-- [x] GLMP repo cloned on Jetson at `/media/sdcard/glmp/`
-- [x] Dry runs passed (select_batch top 20 + run_batch 4 manifests)
-- [ ] **Cron 2 AM ET** — proposed, not yet installed (awaiting Gary approval after dry run)
-- [ ] Build LexA custom PWM (`lexA_sos.meme`) — pending; required for SOS FIMO hits
-- [ ] Build λ CI/Cro custom PWMs — pending; flagged in lambda manifest
+- [x] GLMP repo on Jetson at `/media/sdcard/glmp/`; motifs symlink → `/media/sdcard/decoder/motifs`
+- [x] `run_batch_cron.sh` wrapper + PyYAML/Firestore in meme-env
+- [x] **Cron 2 AM ET** — installed via `run_batch_cron.sh` (limit 10/night)
+- [x] **First live test (July 1):** `ecoli_flhdc_flagellar` — pipeline COMPLETE end-to-end;
+      `glmp_circuits/ecoli_flhdc_flagellar` written; `dna_topology_class=INSUFFICIENT_EVIDENCE`
+      (JASPAR eukaryote-weighted hits only — no σ70/CAP prokaryotic PWM match yet);
+      `glmp_biological_class=I` from manifest/catalog preserved correctly
+- [ ] Build LexA custom PWM (`lexA_sos.meme`) — pending; SOS runs → INSUFFICIENT_EVIDENCE until built
+- [ ] Build λ CI/Cro custom PWMs (`lambda_ci_or.meme`, `lambda_cro_or.meme`) — two separate matrices
 - [ ] Build AraC custom PWM — two separate matrices:
       AraC_repressor (araI1-araO2 loop binding geometry)
       AraC_activator (araI1-araI2 binding geometry)
@@ -212,7 +217,7 @@ For context — do not redo any of these:
 - ✅ Parser v0.2.2 — two-field circuit class schema
 - ✅ First Firestore decoder entries: lac, ara, trp, GAL
 - ✅ Custom PWM registry scaffold (+ LexA, λ CI/Cro pending entries July 1)
-- ✅ Phase 3 batch runner — select_batch.py + run_batch.py + queue/ (July 1)
+- ✅ Phase 3 batch runner live — cron 2 AM ET, first live decode flhDC July 1
 - ✅ DECODER_EDGE_CASES.md with real organism counts
 - ✅ GLMP_GOALS.md v1.1 committed and catalog-aligned
 - ✅ Krampis email sent with GLMP From Square One PDF
