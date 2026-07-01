@@ -59,9 +59,10 @@ production run should be tonight (10:15 PM ET) or tomorrow AM.
 
 - [x] Verify Jul 1 AM scout run — **done:** v2 working, 500/run, GLMP biology
       titles verified; low Firestore delta = dedup + ingest skip rate
-- [ ] Wire `PUBMED_API_KEY` into cron env (secret `pubmed-api-key` exists;
-      code currently looks up wrong secret name `PUBMED_API_KEY`)
-- [ ] Improve acquire logging: fetched vs new JSON files (see proposal)
+- [x] Wire `PUBMED_API_KEY` into cron env (`pubmed-api-key` secret)
+- [x] Improve acquire logging: fetched vs new vs updated JSON in logs
+- [ ] Design targeted ingest — scout writes manifest of new JSON paths;
+      ingest processes manifest only, not full 50k-file tree
 - [ ] Re-run corpus audit in ~1 week to measure quality improvement
       from 2% GLMP-relevant baseline (Grade D) toward target 40%+
 - [ ] Design and build ingest_queue Firestore collection —
