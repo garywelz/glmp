@@ -1,0 +1,47 @@
+process_id: biology:process:ecoli-flhdc-flagellar
+circuit_id: ecoli_flhdc_flagellar
+organism: ecoli_k12
+
+ncbi_accession: NC_000913.3
+genomic_region:
+  start: 1978195
+  end: 1979395
+  strand: "-"
+  tss: 1978395
+  coordinates_source: "RegulonDB flhDp TSS; Soutourina et al. 1998 J Bacteriol (G at +1, 198 bp upstream of flhD ATG)"
+promoter_region:
+  gene: flhDC
+  tss_offset_upstream: 1000
+  tss_offset_downstream: 200
+  strand: "-"
+sequence_file: sequences/ecoli_flhdc_flagellar.fa
+
+jaspar_db: motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt
+custom_pwm_files: []
+pending_custom_pwms: []
+qvalue_threshold: 0.05
+repressor_qvalue_threshold: 1.0
+max_sites: 50
+
+glmp_biological_class: "I"
+glmp_biological_subclass: null
+glmp_biological_class_note: "FlhDC master operon feed-forward cascade; σ70 flhDp; CAP/H-NS regulated"
+glmp_biological_class_source: curated_catalog
+
+source_paper_ids:
+  - pubmed_11408658
+  - pubmed_18483484
+
+transcription_factors:
+  - name: RpoD
+    role: sigma70
+    source: jaspar
+  - name: CAP
+    role: activator
+    source: jaspar
+  - name: H-NS
+    role: repressor
+    source: jaspar
+
+_selection_score: 100
+_status: ready

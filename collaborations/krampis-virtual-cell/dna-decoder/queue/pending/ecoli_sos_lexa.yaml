@@ -1,0 +1,48 @@
+process_id: biology:process:ecoli-sos-lexa
+circuit_id: ecoli_sos_lexa
+organism: ecoli_k12
+
+ncbi_accession: NC_000913.3
+genomic_region:
+  start: 4256087
+  end: 4257287
+  strand: "+"
+  tss: 4257087
+  coordinates_source: "RegulonDB lexAp NC_000913.3; exact 80 bp promoter sequence match; two LexA SOS boxes at 4257068-4257108"
+promoter_region:
+  gene: lexA
+  tss_offset_upstream: 1000
+  tss_offset_downstream: 200
+  strand: "+"
+sequence_file: sequences/ecoli_sos_lexa.fa
+
+jaspar_db: motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt
+custom_pwm_files: []
+pending_custom_pwms:
+  - name: LexA
+    motif_id: LexA_SOS_box
+    consensus: "CTGT-N8-ACAG"
+    status: pending
+    notes: "LexA autoregulatory lexAp; custom PWM required — not in JASPAR or laci_motif.meme"
+qvalue_threshold: 0.05
+repressor_qvalue_threshold: 1.0
+max_sites: 50
+
+glmp_biological_class: "II"
+glmp_biological_subclass: null
+glmp_biological_class_note: "lexAp autoregulation; LexA self-repression at SOS boxes"
+glmp_biological_class_source: curated_catalog
+
+source_paper_ids:
+  - pubmed_7053433
+
+transcription_factors:
+  - name: LexA
+    role: repressor
+    source: custom_pending
+  - name: RpoD
+    role: sigma70
+    source: jaspar
+
+_selection_score: 100
+_status: ready

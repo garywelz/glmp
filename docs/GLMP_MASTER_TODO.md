@@ -25,12 +25,21 @@
 
 The schema is clean, the catalog is fully synced at 217 processes,
 four reference decodes are in Firestore (lac, ara, trp, GAL).
-The next session should design the batch runner.
+Phase 3 batch runner built July 1, 2026 — cron pending Gary approval.
 
-- [ ] Design and build `run_batch.py` — manifest-driven batch decoder
-      that processes a queue of YAML manifests, runs FIMO on Jetson,
-      calls glmp_logic_parser.py, writes results to glmp_circuits +
-      updates glmp_processes
+- [x] Design batch runner architecture — `select_batch.py` + `queue/` + `run_batch.py`
+- [x] Build `select_batch.py` — ranks glmp_processes, writes manifests from glmp-v2 catalog
+      (`circuitClass` mapping, `--yes` for cron, fixed `_status` check)
+- [x] Build `run_batch.py` — manifest queue processor, NCBI fetch, FIMO, parser, Firestore
+- [x] Queue directory structure — pending/running/completed/failed under `dna-decoder/queue/`
+- [x] First batch manifests queued (4) with RegulonDB/literature coordinates:
+      `ecoli_flhdc_flagellar`, `ecoli_sos_reca`, `ecoli_sos_lexa`, `ecoli_lambda_switch`
+- [x] Fetch + commit first-batch `.fa` sequences to `dna-decoder/sequences/`
+- [x] GLMP repo cloned on Jetson at `/media/sdcard/glmp/`
+- [x] Dry runs passed (select_batch top 20 + run_batch 4 manifests)
+- [ ] **Cron 2 AM ET** — proposed, not yet installed (awaiting Gary approval after dry run)
+- [ ] Build LexA custom PWM (`lexA_sos.meme`) — pending; required for SOS FIMO hits
+- [ ] Build λ CI/Cro custom PWMs — pending; flagged in lambda manifest
 - [ ] Build AraC custom PWM — two separate matrices:
       AraC_repressor (araI1-araO2 loop binding geometry)
       AraC_activator (araI1-araI2 binding geometry)
@@ -44,6 +53,7 @@ The next session should design the batch runner.
       granular binding-site-level data separate from the process
       registry (glmp_processes holds summary; glmp_circuits holds
       full binding site coordinates, q-values, FIMO details)
+      **Status:** collection exists (`_schema` placeholder); run_batch wired to write per-decode docs
 - [ ] Add source_paper_ids to decoded circuit documents in
       glmp_processes — linking layer connecting circuits to papers
 - [ ] Scale to 300 decoded circuits (target: ~1 month),
@@ -201,7 +211,8 @@ For context — do not redo any of these:
 - ✅ Two-layer schema (dna_decodable + protein_network) established
 - ✅ Parser v0.2.2 — two-field circuit class schema
 - ✅ First Firestore decoder entries: lac, ara, trp, GAL
-- ✅ Custom PWM registry scaffold
+- ✅ Custom PWM registry scaffold (+ LexA, λ CI/Cro pending entries July 1)
+- ✅ Phase 3 batch runner — select_batch.py + run_batch.py + queue/ (July 1)
 - ✅ DECODER_EDGE_CASES.md with real organism counts
 - ✅ GLMP_GOALS.md v1.1 committed and catalog-aligned
 - ✅ Krampis email sent with GLMP From Square One PDF
