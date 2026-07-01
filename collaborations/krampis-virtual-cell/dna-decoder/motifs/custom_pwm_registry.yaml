@@ -1,7 +1,7 @@
 # Custom PWM Registry — GLMP Decoder
 # Tracks transcription factors requiring custom PWM files
 # (absent from JASPAR CORE 2024 or eukaryote-weighted)
-# Updated: June 30, 2026
+# Updated: July 1, 2026
 
 tfs:
   - name: LacI
@@ -46,11 +46,12 @@ tfs:
     jaspar_id: null
     source_paper: "Little & Mount 1982 Cell; Fernandez de Henestrosa et al. 2000 Mol Microbiol"
     consensus: "CTGT-N8-ACAG (SOS box)"
-    pwm_file: TO_BE_BUILT
+    pwm_file: lexA_sos.meme
     status: pending
     notes: >
-      Not in laci_motif.meme (LacI/TrpR only). Required for ecoli_sos_reca and
-      ecoli_sos_lexa batch manifests. Build lexA_sos.meme before expecting LexA FIMO hits.
+      Not in laci_motif.meme (LacI/TrpR only). Planned file: lexA_sos.meme.
+      ecoli_sos_reca and ecoli_sos_lexa first batch runs will produce
+      INSUFFICIENT_EVIDENCE at DNA level until this PWM is built.
     validated_circuits: []
 
   - name: lambda_CI
@@ -59,44 +60,12 @@ tfs:
     jaspar_id: null
     source_paper: "Meyer et al. 1980 J Mol Biol; Ptashne A Genetic Switch"
     consensus: "TACCTCTGGCGGTGATAA"
-    pwm_file: TO_BE_BUILT
-    status: pending
-    notes: "λ CI dimer OR1/OR2 binding; not in JASPAR CORE"
-    validated_circuits: []
-
-  - name: lambda_Cro
-    motif_id: lambda_Cro_OR
-    organism: phage_lambda
-    jaspar_id: null
-    source_paper: "Meyer et al. 1980 J Mol Biol; Ptashne A Genetic Switch"
-    consensus: "TATCACCGCCAGAGGTA"
-    pwm_file: TO_BE_BUILT
-    status: pending
-    notes: "λ Cro OR3 preference; not in JASPAR CORE"
-    validated_circuits: []
-
-  - name: LexA
-    motif_id: LexA_SOS_box
-    organism: ecoli_k12
-    jaspar_id: null
-    source_paper: "Little & Mount 1982 Cell; Fernandez de Henestrosa et al. 2000 Mol Microbiol"
-    consensus: "CTGT-N8-ACAG (SOS box)"
-    pwm_file: TO_BE_BUILT
+    pwm_file: lambda_ci_or.meme
     status: pending
     notes: >
-      Not in laci_motif.meme (LacI/TrpR only). Required for ecoli_sos_reca and
-      ecoli_sos_lexa batch manifests. Build lexA_sos.meme before expecting LexA FIMO hits.
-    validated_circuits: []
-
-  - name: lambda_CI
-    motif_id: lambda_CI_OR
-    organism: phage_lambda
-    jaspar_id: null
-    source_paper: "Meyer et al. 1980 J Mol Biol; Ptashne A Genetic Switch"
-    consensus: "TACCTCTGGCGGTGATAA"
-    pwm_file: TO_BE_BUILT
-    status: pending
-    notes: "λ CI dimer OR1/OR2 binding; not in JASPAR CORE"
+      λ CI dimer OR1/OR2 binding; not in JASPAR CORE. Separate matrix from Cro
+      (two planned PWMs for lambda switch). ecoli_lambda_switch first run will
+      produce INSUFFICIENT_EVIDENCE until lambda_ci_or.meme is built.
     validated_circuits: []
 
   - name: lambda_Cro
@@ -105,7 +74,10 @@ tfs:
     jaspar_id: null
     source_paper: "Meyer et al. 1980 J Mol Biol; Ptashne A Genetic Switch"
     consensus: "TATCACCGCCAGAGGTA"
-    pwm_file: TO_BE_BUILT
+    pwm_file: lambda_cro_or.meme
     status: pending
-    notes: "λ Cro OR3 preference; not in JASPAR CORE"
+    notes: >
+      λ Cro OR3 preference; not in JASPAR CORE. Separate matrix from CI
+      (two planned PWMs for lambda switch). ecoli_lambda_switch first run will
+      produce INSUFFICIENT_EVIDENCE until lambda_cro_or.meme is built.
     validated_circuits: []

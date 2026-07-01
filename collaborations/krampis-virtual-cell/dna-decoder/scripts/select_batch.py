@@ -229,7 +229,12 @@ def main():
         score = score_circuit(doc.id, data)
         candidates.append((score, doc.id, data))
 
-    candidates.sort(key=lambda x: -x[0])
+    def sort_key(item):
+        score, circuit_id, _data = item
+        has_class = 1 if catalog_class_fields(circuit_id).get("glmp_biological_class") else 0
+        return (-score, -has_class, circuit_id)
+
+    candidates.sort(key=sort_key)
 
     print(f"\nSkipped: {skipped_decoded} already decoded, {skipped_queued} already queued")
     print(f"Candidates to queue: {len(candidates)}")
