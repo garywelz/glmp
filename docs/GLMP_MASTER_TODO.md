@@ -1,7 +1,23 @@
 # GLMP + CopernicusAI — Master To-Do List
-## Date: June 30, 2026
+## Last updated: July 1, 2026 (morning diagnostic)
+## Paper count (API): **62,173** (was 62,119 PM June 30 — **+54** overnight)
 ## For: Cursor (shared from Gary + Claude, Cross Platform Workflow session)
-## Read alongside: docs/GLMP_GOALS.md (committed to glmp repo, 0f74ec7)
+## Read alongside: docs/GLMP_GOALS.md (v1.1, commit 0f74ec7)
+
+### July 1 morning scout diagnostic (recon only — no fixes)
+
+| Scout | Fired? | Firestore doc_delta | config v2.0? |
+|-------|--------|---------------------|--------------|
+| pubmed_pm (Jun 30 ~8 PM ET) | ✅ | +37 | started `config_queries=yes`, **no completion logged** |
+| pubmed_am (Jul 1 ~10:15 AM ET) | ✅ | +2 | started `config_queries=yes`, **no completion logged** |
+| biorxiv_pm | ✅ | +0 | — |
+| biorxiv_am | ✅ | +13 | — |
+| arxiv_pm / am | ✅ | +0 each | arxiv_am started v2 run, no completion logged |
+
+- `daily_scout_config.json` version **2.0** confirmed on Jetson
+- Crontab: PM scouts `0 20 * * *`, AM scouts `15/20/25 10 * * *` (ET)
+- Sample recent PubMed titles (API): 3/5 GLMP-relevant biology (TF/regulation); 2/5 `Untitled` stubs
+- **Open issue:** v2 `target=500 config_queries=yes` runs appear to start but not log `success doc_delta` — investigate next session
 
 ---
 
@@ -41,10 +57,12 @@ Scout query redesign is live as of June 29 but the split scheduler
 on Jetson had a config mismatch that was fixed June 30. First clean
 production run should be tonight (10:15 PM ET) or tomorrow AM.
 
-- [ ] Verify tonight/tomorrow's cron run uses GLMP query redesign
-      correctly — check /media/sdcard/logs/scout_pubmed_am.log
-      after 10:15 AM ET. Sample 5 paper titles to confirm biology
-      relevance vs old math arXiv intake
+- [x] Verify Jul 1 AM scout run — **partial:** cron fired, v2 config
+      loaded (`config_queries=yes`), but full 500-target runs did not
+      log completion; see daily status above. Titles sampled via API:
+      mostly biology-relevant, some Untitled stubs remain
+- [ ] Investigate v2 scout runs that start with `config_queries=yes`
+      but never log `success doc_delta` (PM Jun 30 + AM Jul 1)
 - [ ] Re-run corpus audit in ~1 week to measure quality improvement
       from 2% GLMP-relevant baseline (Grade D) toward target 40%+
 - [ ] Design and build ingest_queue Firestore collection —
