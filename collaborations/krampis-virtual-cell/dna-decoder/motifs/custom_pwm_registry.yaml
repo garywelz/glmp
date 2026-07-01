@@ -44,15 +44,18 @@ tfs:
     motif_id: LexA_SOS_box
     organism: ecoli_k12
     jaspar_id: null
-    source_paper: "Little & Mount 1982 Cell; Fernandez de Henestrosa et al. 2000 Mol Microbiol"
-    consensus: "CTGT-N8-ACAG (SOS box)"
+    source_paper: "Fernandez de Henestrosa et al. 2000 (Mol Microbiol 38:167); Luo et al. 2001 (Nature 408:695)"
+    consensus: "CTGT-N8-ACAG (16 bp)"
     pwm_file: lexA_sos.meme
-    status: pending
+    status: active
+    n_training_sites: 21
     notes: >
-      Not in laci_motif.meme (LacI/TrpR only). Planned file: lexA_sos.meme.
-      ecoli_sos_reca and ecoli_sos_lexa first batch runs will produce
-      INSUFFICIENT_EVIDENCE at DNA level until this PWM is built.
-    validated_circuits: []
+      SOS box repressor. AT-rich spacer at positions 5-12 is degenerate;
+      CTGT and ACAG halves are highly conserved. Separate file from
+      laci_motif.meme (LacI/TrpR only).
+    validated_circuits:
+      - ecoli_sos_lexa
+      - ecoli_sos_reca
 
   - name: lambda_CI
     motif_id: lambda_CI_OR

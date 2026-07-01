@@ -42,6 +42,7 @@ CONFIDENCE_Q_THRESHOLD = 0.05
 CUSTOM_PWM_MOTIF_IDS = {
     "LacI_lacO1",
     "TrpR_trpO",
+    "LexA_SOS_box",
 }
 
 
