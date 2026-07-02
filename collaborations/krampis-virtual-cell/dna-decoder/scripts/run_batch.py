@@ -238,6 +238,9 @@ def write_to_firestore(manifest: dict, parse_result: dict, status: str, error_lo
     circuit_id = manifest["circuit_id"]
     now = datetime.now(timezone.utc).isoformat()
 
+    # SOS regulon: two promoter-level glmp_circuits docs (ecoli_sos_reca,
+    # ecoli_sos_lexa) share one glmp_processes entry (ecoli_sos_lexa).
+    # Both manifests use process_id biology:process:ecoli-sos-lexa.
     process_doc_id = circuit_id
     if circuit_id == "ecoli_sos_reca":
         process_doc_id = "ecoli_sos_lexa"

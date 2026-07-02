@@ -11,6 +11,7 @@ Usage:
   python3 select_batch.py --all           # queue everything unprocessed
   python3 select_batch.py --dry-run       # show ranking without writing
   python3 select_batch.py --top 10 --yes  # non-interactive (cron-safe)
+  python3 select_batch.py --circuits ecoli_lac_operon ecoli_trp_operon --yes
 """
 
 import argparse
@@ -54,7 +55,20 @@ ORGANISM_SCORES = {
 
 DEPRIORITIZE = {"human", "mouse", "arabidopsis", "celegans", "drosophila"}
 
+# Firestore organism field is often "ecoli"; manifests and CLI use "ecoli_k12".
+ECOLI_ORGANISM_ALIASES = frozenset({"ecoli", "ecoli_k12", "e_coli", "e._coli"})
+
 _catalog_cache = None
+
+
+def organism_matches_filter(filter_arg: str, doc_id: str, organism: str) -> bool:
+    """Return True if a process matches --organism (ecoli ≡ ecoli_k12)."""
+    filter_norm = filter_arg.lower().replace(" ", "_").replace(".", "")
+    org_norm = organism.lower().replace(" ", "_").replace(".", "")
+    if filter_norm in ECOLI_ORGANISM_ALIASES:
+        return doc_id.startswith("ecoli") or org_norm in ECOLI_ORGANISM_ALIASES
+    haystack = doc_id + org_norm
+    return filter_norm in haystack or org_norm == filter_norm
 
 
 def load_catalog():
@@ -190,6 +204,12 @@ def main():
     parser = argparse.ArgumentParser(description="Select circuits for batch decode")
     parser.add_argument("--top", type=int, help="Queue top N circuits by priority score")
     parser.add_argument("--organism", help="Queue all circuits for this organism")
+    parser.add_argument(
+        "--circuits",
+        nargs="+",
+        metavar="CIRCUIT_ID",
+        help="Queue specific circuit IDs only (order preserved)",
+    )
     parser.add_argument("--all", action="store_true", help="Queue all unprocessed circuits")
     parser.add_argument("--dry-run", action="store_true", help="Show ranking without writing")
     parser.add_argument(
@@ -197,7 +217,7 @@ def main():
     )
     args = parser.parse_args()
 
-    if not any([args.top, args.organism, args.all, args.dry_run]):
+    if not any([args.top, args.organism, args.all, args.dry_run, args.circuits]):
         parser.print_help()
         sys.exit(1)
 
@@ -211,42 +231,69 @@ def main():
     print(f"Found {len(docs)} processes in glmp_processes")
     print(f"Catalog entries loaded: {len(load_catalog())} from {CATALOG_DIR}")
 
-    candidates = []
-    skipped_decoded = 0
-    skipped_queued = 0
+    doc_by_id = {doc.id: (doc.to_dict() or {}) for doc in docs}
 
-    for doc in docs:
-        data = doc.to_dict() or {}
-        if already_decoded(data):
-            skipped_decoded += 1
-            continue
-        if already_queued(doc.id):
-            skipped_queued += 1
-            continue
-        organism = normalize_organism(data.get("organism"), doc.id)
-        if args.organism and args.organism not in (doc.id + organism):
-            continue
-        score = score_circuit(doc.id, data)
-        candidates.append((score, doc.id, data))
+    if args.circuits:
+        candidates = []
+        skipped_decoded = 0
+        skipped_queued = 0
+        missing = []
+        for circuit_id in args.circuits:
+            data = doc_by_id.get(circuit_id)
+            if data is None:
+                missing.append(circuit_id)
+                continue
+            if already_decoded(data):
+                skipped_decoded += 1
+                print(f"  Skip {circuit_id}: already decoded")
+                continue
+            if already_queued(circuit_id):
+                skipped_queued += 1
+                print(f"  Skip {circuit_id}: already queued")
+                continue
+            score = score_circuit(circuit_id, data)
+            candidates.append((score, circuit_id, data))
+        if missing:
+            print(f"ERROR: not in glmp_processes: {', '.join(missing)}", file=sys.stderr)
+            sys.exit(1)
+    else:
+        candidates = []
+        skipped_decoded = 0
+        skipped_queued = 0
 
-    def sort_key(item):
-        score, circuit_id, _data = item
-        has_class = 1 if catalog_class_fields(circuit_id).get("glmp_biological_class") else 0
-        return (-score, -has_class, circuit_id)
+        for doc in docs:
+            data = doc.to_dict() or {}
+            if already_decoded(data):
+                skipped_decoded += 1
+                continue
+            if already_queued(doc.id):
+                skipped_queued += 1
+                continue
+            organism = normalize_organism(data.get("organism"), doc.id)
+            if args.organism and not organism_matches_filter(args.organism, doc.id, organism):
+                continue
+            score = score_circuit(doc.id, data)
+            candidates.append((score, doc.id, data))
 
-    candidates.sort(key=sort_key)
+        def sort_key(item):
+            score, circuit_id, _data = item
+            has_class = 1 if catalog_class_fields(circuit_id).get("glmp_biological_class") else 0
+            return (-score, -has_class, circuit_id)
+
+        candidates.sort(key=sort_key)
+
+        if args.top:
+            candidates = candidates[: args.top]
 
     print(f"\nSkipped: {skipped_decoded} already decoded, {skipped_queued} already queued")
     print(f"Candidates to queue: {len(candidates)}")
 
-    if args.top:
-        candidates = candidates[: args.top]
-
-    print(f"\nTop {len(candidates)} circuits by priority score:")
+    print(f"\nCircuits to queue ({len(candidates)}):")
     for score, circuit_id, _data in candidates:
         cat = catalog_class_fields(circuit_id)
         cls = cat.get("glmp_biological_class") or "?"
-        print(f"  [{score:3d}] {circuit_id}  (catalog class {cls})")
+        organism = normalize_organism(_data.get("organism"), circuit_id)
+        print(f"  [{score:3d}] {circuit_id}  org={organism}  (catalog class {cls})")
 
     if args.dry_run:
         print("\nDry run — no manifests written.")
