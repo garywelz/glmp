@@ -90,6 +90,14 @@ SUPPORTED_ORGANISMS = {
             "yeast TATA/Inr not modeled (intentional raw decode)"
         ),
     },
+    "phage_lambda": {
+        "display_name": "Bacteriophage lambda",
+        "domain": "bacteriophage",
+        "decode_warning": (
+            "RNAP_BINDING_REGION uses generic prokaryotic -35/-10 geometry; "
+            "lambda PR/PRM and operator-centric windows may not match E. coli sigma70 spacing"
+        ),
+    },
 }
 
 
@@ -486,13 +494,20 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
 
 def geometry_warning_for_organism(organism):
     """Return a warning when promoter geometry assumptions mismatch organism."""
-    if organism != "s_cerevisiae":
-        return None
-    return (
-        "RNAP binding region geometry is prokaryotic (-35/-10) but organism is "
-        "s_cerevisiae. NOT-gate promoter-overlap logic may not apply. "
-        "Treat circuit_class with caution."
-    )
+    if organism == "s_cerevisiae":
+        return (
+            "RNAP binding region geometry is prokaryotic (-35/-10) but organism is "
+            "s_cerevisiae. NOT-gate promoter-overlap logic may not apply. "
+            "Treat circuit_class with caution."
+        )
+    if organism == "phage_lambda":
+        return (
+            "RNAP binding region geometry uses prokaryotic (-35/-10) assumptions but "
+            "organism is phage_lambda. Lambda PR/PRM promoter spacing and CI/Cro "
+            "operator geometry may not match E. coli sigma70 models. "
+            "Treat circuit_class with caution."
+        )
+    return None
 
 
 # ── Manifest loader ───────────────────────────────────────────────────────────
@@ -626,7 +641,7 @@ def main():
     parser.add_argument(
         "--organism", default="unknown_organism",
         choices=list(SUPPORTED_ORGANISMS.keys()) + ["unknown_organism"],
-        help="Organism identifier: ecoli_k12 or s_cerevisiae"
+        help="Organism identifier: ecoli_k12, s_cerevisiae, or phage_lambda"
     )
     parser.add_argument(
         "--output", default=None,
