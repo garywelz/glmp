@@ -191,6 +191,9 @@ collaborator responses.
   not blocking anything
 - Lac biological class: circuitClassNeedsReview: true in
   catalog — catalog wins until validation team resolves it
+- Monitor arXiv API reliability — add retry logic if 500 errors
+  persist across 3+ consecutive scout runs (Jul 2 AM: transient
+  export.arxiv.org 500s on all 4 v2 queries; PM scout will retry)
 
 ---
 
