@@ -1,5 +1,5 @@
 # GLMP + CopernicusAI — Master To-Do List
-## Last updated: July 1, 2026 (scout diagnostic corrected)
+## Last updated: July 2, 2026 (SOS Class II decodes + batch queue expansion)
 ## Paper count (API): **62,173** (was 62,119 PM June 30 — **+54** overnight)
 ## For: Cursor (shared from Gary + Claude, Cross Platform Workflow session)
 ## Read alongside: docs/GLMP_GOALS.md (v1.1, commit 0f74ec7)
@@ -43,10 +43,16 @@ Phase 3 batch runner **live** July 1, 2026 — cron at 2 AM ET on Jetson.
       `glmp_circuits/ecoli_flhdc_flagellar` written; `dna_topology_class=INSUFFICIENT_EVIDENCE`
       (JASPAR eukaryote-weighted hits only — no σ70/CAP prokaryotic PWM match yet);
       `glmp_biological_class=I` from manifest/catalog preserved correctly
-- [x] Build LexA custom PWM (`lexA_sos.meme`, 16 bp) — **done July 1**; 21 SOS box sites,
-      FIMO validated on recA promoter (p=1.22e-06, exact CTGTATGAGCATACAG match);
-      `LexA_SOS_box` in `CUSTOM_PWM_MOTIF_IDS`; sos_reca/sos_lexa manifests wired;
-      Jetson PWM + manifests synced — **2 AM ET cron tonight = first live SOS decode attempt**
+- [x] Build LexA custom PWM (`lexA_sos.meme`, 16 bp) — **done July 1**; FIMO validated on recA promoter;
+      **July 2 cron:** `ecoli_sos_reca` + `ecoli_sos_lexa` both `dna_topology_class: II` in
+      `glmp_circuits` — LexA PWM production-validated
+- [x] Fix `phage_lambda` parser organism enum + geometry warning — **July 2**; `ecoli_lambda_switch`
+      re-queued for cron (expect `INSUFFICIENT_EVIDENCE` until CI/Cro PWMs built)
+- [x] Fix `select_batch.py` `--organism ecoli_k12` filter (`ecoli` ≡ `ecoli_k12`); add `--circuits`
+- [x] Queue second E. coli batch (10 manifests, `_status: coordinates_needed`) — **July 2**;
+      Gary-approved list: catabolite_repression, amino_acid/arginine biosynthesis,
+      anaerobic/aerobic respiration, dna_damage_checkpoint, cold_shock, antibiotic_efflux,
+      base_excision_repair, osmotic_stress — **11 pending on Jetson** (+ lambda_switch)
 - [ ] Build λ CI/Cro custom PWMs (`lambda_ci_or.meme`, `lambda_cro_or.meme`) — two separate matrices
 - [ ] Build AraC custom PWM — two separate matrices:
       AraC_repressor (araI1-araO2 loop binding geometry)
@@ -226,3 +232,5 @@ For context — do not redo any of these:
 - ✅ Krampis email sent with GLMP From Square One PDF
 - ✅ LexA SOS box custom PWM (`lexA_sos.meme`, 16 bp, 21 sites) — FIMO-validated on recA;
       sos_reca/sos_lexa manifests wired; Jetson synced for 2 AM cron SOS decode
+- ✅ **July 2 batch:** SOS decodes Class II (`glmp_circuits`); LexA PWM production-validated;
+      lambda organism enum fixed; 10 E. coli manifests queued (`coordinates_needed` baseline)
