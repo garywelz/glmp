@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLMP — From Square One</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --border: #e2dfd8;
+    --text: #1a1a1a;
+    --muted: #6b6560;
+    --accent: #2d5a8e;
+    --green: #4a7c59;
+    --font-h: 'Georgia','Times New Roman',serif;
+    --font-b: 'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-b);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .hdr {
+    background: var(--accent);
+    color: #fff;
+    padding: 2.5rem 2rem 2rem;
+    border-bottom: 4px solid #1a3d62;
+  }
+  .hdr .eye {
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .75;
+    margin-bottom: .5rem;
+  }
+  .hdr h1 {
+    font-family: var(--font-h);
+    font-size: 2rem;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: .75rem;
+  }
+  .hdr .meta { font-size: .82rem; opacity: .8; }
+  .hdr a { color: #a8c8f0; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  .sec {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .sec-hd {
+    background: #f0ede8;
+    border-bottom: 1px solid var(--border);
+    padding: .9rem 1.5rem;
+  }
+  .sec-hd h2 {
+    font-family: var(--font-h);
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: var(--accent);
+  }
+  .sec-bd { padding: 1.5rem; }
+  .sec-bd p { margin-bottom: 1rem; }
+  .sec-bd p:last-child { margin-bottom: 0; }
+
+  /* Five step list */
+  .steps { list-style: none; counter-reset: step-counter; }
+  .steps li {
+    counter-increment: step-counter;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .step-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 700;
+    margin-top: .1rem;
+  }
+  .step-num.pivot { background: #8e2d2d; }
+  .step-num.active { background: var(--green); }
+  .step-body strong { display: block; margin-bottom: .25rem; }
+  .pivot-note {
+    background: #fff0f0;
+    border-left: 3px solid #8e2d2d;
+    padding: .6rem .9rem;
+    margin-top: .5rem;
+    font-size: .85rem;
+    border-radius: 0 3px 3px 0;
+    color: #5a1a1a;
+  }
+  .active-note {
+    background: #f0f8f0;
+    border-left: 3px solid var(--green);
+    padding: .6rem .9rem;
+    margin-top: .5rem;
+    font-size: .85rem;
+    border-radius: 0 3px 3px 0;
+    color: #1a4a1a;
+  }
+
+  /* Chart */
+  .chart-wrap {
+    background: #fafaf8;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    text-align: center;
+  }
+  .chart-label {
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .75rem;
+  }
+
+  /* Color key */
+  .key { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0; }
+  .ki { display: flex; align-items: center; gap: .35rem; font-size: .8rem; color: var(--muted); }
+  .ks { width: 13px; height: 13px; border-radius: 2px; border: 1px solid rgba(0,0,0,.15); flex-shrink: 0; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; margin-top: .5rem; }
+  th { background: #f0ede8; text-align: left; padding: .45rem .75rem; font-size: .78rem; letter-spacing: .04em; border-bottom: 2px solid var(--border); }
+  td { padding: .45rem .75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .tag {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .15rem .45rem;
+    border-radius: 3px;
+  }
+  .tag-done { background: #d4edd4; color: #1a4a1a; }
+  .tag-now  { background: #d4e4f0; color: #1a2a4a; }
+  .tag-soon { background: #f0edd4; color: #4a3a1a; }
+
+  /* Infrastructure */
+  .infra { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .75rem; }
+  @media(max-width:560px){ .infra { grid-template-columns: 1fr; } }
+  .infra-item {
+    background: #f5f3f0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: .65rem .85rem;
+    font-size: .83rem;
+  }
+  .infra-item strong { display: block; font-size: .78rem; color: var(--muted); margin-bottom: .2rem; }
+
+  .footer {
+    text-align: center;
+    font-size: .78rem;
+    color: var(--muted);
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="eye">Genome Logic Modeling Project · Collaborator Briefing</div>
+  <h1>GLMP — From Square One</h1>
+  <div class="meta">
+    Gary Welz · <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a> ·
+    CUNY Graduate Center / New Media Lab ·
+    ORCID: 0009-0005-7806-0892 ·
+    <a href="https://doi.org/10.5281/zenodo.20831780">Methods paper (Zenodo)</a> ·
+    <a href="https://github.com/garywelz/glmp">github.com/garywelz/glmp</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Core idea -->
+  <div class="sec">
+    <div class="sec-hd"><h2>The core idea in one sentence</h2></div>
+    <div class="sec-bd">
+      <p>The DNA that controls when genes turn on and off can be read like a computer
+      program — the spatial arrangement of protein binding sites encodes logical
+      operations (AND, OR, NOT) that we can extract and formalize computationally.</p>
+      <p>This approach is the inverse of synthetic biology work by Voigt et al.
+      (Science 2016), which compiles human-readable logic programs <em>into</em> novel
+      DNA sequences. GLMP reads the logic that evolution has already written
+      <em>into</em> natural regulatory DNA. The two share a grammar; they differ
+      in direction.</p>
+    </div>
+  </div>
+
+  <!-- What a flowchart looks like -->
+  <div class="sec">
+    <div class="sec-hd"><h2>What a GLMP flowchart looks like</h2></div>
+    <div class="sec-bd">
+      <p>The project began with a picture. Before any decoder, any database, any
+      classification system — a flowchart representing a molecular regulatory process
+      as a logical circuit. The flowchart below shows the <em>lac</em> operon in
+      <em>E. coli</em>: the first worked example and the anchor for everything that
+      follows.</p>
+
+      <div class="key">
+        <div class="ki"><div class="ks" style="background:#ffb74d;border-color:#e65100;"></div>Orange — gene expression source</div>
+        <div class="ki"><div class="ks" style="background:#e1bee7;border-color:#4a148c;"></div>Purple — logic gate decision</div>
+        <div class="ki"><div class="ks" style="background:#c8e6c9;border-color:#1b5e20;"></div>Green — active transcription</div>
+        <div class="ki"><div class="ks" style="background:#ffccbc;border-color:#bf360c;"></div>Red — repression / NOT gate</div>
+        <div class="ki"><div class="ks" style="background:#b3e5fc;border-color:#01579b;"></div>Blue — environmental input</div>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="chart-label">Lac operon — two-input control of lacZYA transcription · E. coli K-12</div>
+        <div class="mermaid">
+graph TD
+    lacI_tx["lacI gene → transcription → LacI protein"]
+    lacI_tx --> LacI[LacI repressor]
+    Lact[Lactose / allolactose signal]
+    Lact --> IndR{Repressor off operator?}
+    LacI --> IndR
+    IndR -->|No| Blocked[Operon blocked]
+    IndR -->|Yes| OpOK[Operator accessible]
+    Glc[Glucose / cAMP state]
+    Glc --> CAPs{cAMP-CAP assists promoter?}
+    CAPs --> AND{Operator free AND CAP assist?}
+    OpOK --> AND
+    AND -->|Yes| Strong[Strong lacZYA transcription]
+    AND -->|No| Weak[Weak / basal transcription]
+    style lacI_tx fill:#ffb74d,stroke:#e65100,stroke-width:3px,color:#000
+    style LacI fill:#ffb74d,stroke:#e65100,stroke-width:2px,color:#000
+    style IndR fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style CAPs fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style AND fill:#e1bee7,stroke:#4a148c,stroke-width:2px,color:#000
+    style Strong fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px,color:#000
+    style Weak fill:#e8f5e9,stroke:#33691e,color:#000
+    style OpOK fill:#fff9c4,stroke:#f57f17,color:#000
+    style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+    style Lact fill:#fff9c4,stroke:#f9a825,color:#000
+    style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+        </div>
+      </div>
+
+      <p style="font-size:.88rem;color:var(--muted);">
+        The purple diamonds are decision points — logic gates. The orange node at the
+        top is the source of the repressor protein. The green node is the output:
+        active transcription. The entire regulatory logic of the lac operon — one of
+        the most studied systems in molecular biology — is captured in this diagram.
+        This is what GLMP is formalizing at scale.
+      </p>
+    </div>
+  </div>
+
+  <!-- Five-step research process -->
+  <div class="sec">
+    <div class="sec-hd"><h2>The research process — five steps</h2></div>
+    <div class="sec-bd">
+      <p style="margin-bottom:1.25rem;">GLMP proceeds in five steps. Steps 3 through 5
+      are contingent on step 2 being answered in the affirmative. That is not a
+      weakness — it is how science works.</p>
+
+      <ol class="steps">
+        <li>
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Have LLMs generate flowcharts of molecular processes</strong>
+            We use large language models to produce Mermaid logic-gate flowcharts
+            for regulatory circuits across multiple organisms and disciplines.
+            Each flowchart assigns gate types (AND, OR, NOT) to transcription factor
+            binding relationships and classifies the circuit by complexity class (I–V).
+            We currently have 217 processes in a structured catalog and are actively
+            scaling toward a target of 1,000+ circuits. Batch flowchart generation
+            runs automatically overnight on dedicated compute hardware, adding new
+            circuits continuously. In parallel, a curated collection of embedded
+            research papers is being built to ground each circuit in the primary
+            literature.
+            <div class="active-note">Status: active and scaling — 217 circuits today, targeting 1,000+.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-num pivot">2</div>
+          <div class="step-body">
+            <strong>Have human biologists validate the faithfulness of these charts</strong>
+            A subject matter expert reviews the flowcharts and annotations against
+            the primary literature and curated databases, confirming that the logic
+            gate assignments accurately reflect observed molecular behavior.
+            This is what we still have not accomplished — and it is what we are
+            asking you and your student to help us do. All of our current and planned
+            work in steps 3–5 rests on this assumption being answered in the affirmative.
+            <div class="pivot-note">
+              ⚑ Pivotal step — this is the open question. Your contribution here
+              is the foundation everything else rests on.
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-num active">3</div>
+          <div class="step-body">
+            <strong>Apply computer-assisted methods to extract the circuit logic from DNA</strong>
+            Assuming the flowcharts are valid representations of real biology, we
+            undertake computational methods for verifying, extracting, and teasing out
+            the logical structure directly from DNA sequences — using motif scanning
+            (FIMO/JASPAR), custom binding site matrices, and a logic parser that
+            classifies circuits by their DNA-level topology.
+            This is what Gary, Krampis, and our AI collaborators are engaged in now.
+            <div class="active-note">Status: active — pipeline built, first circuits decoded.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <strong>Publish results and scale to advanced validation methods</strong>
+            If step 2 confirms the flowcharts are biologically faithful, and step 3
+            produces credible and publishable results, we will write up our findings
+            and advance to higher-level validation — including cross-validation against
+            foundation models trained on genomic sequences (such as Evo 2 from the
+            Arc Institute) and integration with single-cell regulatory inference tools
+            such as RegVelo.
+            <div class="active-note">Status: methods paper in preparation.</div>
+          </div>
+        </li>
+        <li>
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <strong>If accomplished at scale — proceed to the Big Picture Goals</strong>
+            If steps 1 through 4 are completed at scale across hundreds or thousands
+            of regulatory circuits, we can consider the core theory plausibly correct
+            and proceed with confidence to the Big Picture Goals — which we will
+            describe in a future conversation once the foundation is established.
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Current decoder status -->
+  <div class="sec">
+    <div class="sec-hd"><h2>Where the decoder stands today</h2></div>
+    <div class="sec-bd">
+      <p>The GLMP DNA Decoder uses FIMO motif scanning against the JASPAR 2024
+      database to identify transcription factor binding sites in promoter sequences,
+      then infers logical relationships from their spatial arrangement. It has been
+      tested on three <em>E. coli</em> regulatory circuits and one yeast circuit
+      as an exploratory first eukaryotic attempt.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Circuit</th>
+            <th>Organism</th>
+            <th>DNA topology (computational)</th>
+            <th>Biological class (catalog)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lac operon</td>
+            <td>E. coli</td>
+            <td>Class II</td>
+            <td>Class II*</td>
+            <td><span class="tag tag-now">Pending validation</span></td>
+          </tr>
+          <tr>
+            <td>ara operon</td>
+            <td>E. coli</td>
+            <td>Insufficient evidence†</td>
+            <td>Class III</td>
+            <td><span class="tag tag-now">Pending validation</span></td>
+          </tr>
+          <tr>
+            <td>trp operon</td>
+            <td>E. coli</td>
+            <td>Class I/II</td>
+            <td>Class II</td>
+            <td><span class="tag tag-now">Pending validation</span></td>
+          </tr>
+          <tr>
+            <td>GAL system</td>
+            <td>Yeast</td>
+            <td>Partial (Gal4 sites only)</td>
+            <td>Class III/IIIa</td>
+            <td><span class="tag tag-soon">Two-layer — protein network</span></td>
+          </tr>
+          <tr>
+            <td>SOS regulon (recA)</td>
+            <td>E. coli</td>
+            <td>Class II</td>
+            <td>Class II</td>
+            <td><span class="tag tag-now">Pending validation</span></td>
+          </tr>
+          <tr>
+            <td>SOS regulon (lexA)</td>
+            <td>E. coli</td>
+            <td>Class II</td>
+            <td>Class II</td>
+            <td><span class="tag tag-now">Pending validation</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:.75rem;">
+        * lac operon biological class is under review — Class II vs III is an open
+        question the validation team is specifically asked to weigh in on.<br>
+        † AraC is absent from JASPAR (prokaryote-specific TF); custom PWM in development.
+      </p>
+    </div>
+  </div>
+
+  <!-- What we need -->
+  <div class="sec">
+    <div class="sec-hd"><h2>What we are asking from the collaboration</h2></div>
+    <div class="sec-bd">
+      <p>The collaboration has two tracks depending on the student's background:</p>
+
+      <table>
+        <thead>
+          <tr><th>Track</th><th>Task</th><th>Deliverable</th><th>Timeline</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Biology</strong></td>
+            <td>Review lac/ara/trp flowchart annotations against primary literature
+            and curated databases; confirm or flag each logic gate assignment</td>
+            <td>Structured validation report</td>
+            <td>~3 weeks</td>
+          </tr>
+          <tr>
+            <td><strong>Computation</strong></td>
+            <td>Cross-reference FIMO-predicted binding sites against RegulonDB
+            gold-standard data; produce overlap statistics and discrepancy report</td>
+            <td>Analysis script + validation report</td>
+            <td>~3 weeks</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:1rem;">A self-contained validation package — including
+      all data files, the annotation review document, and a detailed task brief —
+      is available for download. No credentials or database access required.</p>
+
+      <p>Contributions will be acknowledged in the methods paper currently in
+      preparation. Co-authorship is on the table depending on the significance
+      of the contribution.</p>
+
+      <p>Expert biological reviewers are also being engaged for independent
+      validation of the flowchart annotations. The student's work and the
+      expert review are complementary layers, not redundant.</p>
+    </div>
+  </div>
+
+  <!-- Infrastructure -->
+  <div class="sec">
+    <div class="sec-hd"><h2>Infrastructure and resources</h2></div>
+    <div class="sec-bd">
+      <div class="infra">
+        <div class="infra-item">
+          <strong>Methods paper</strong>
+          Zenodo DOI: 10.5281/zenodo.20831780
+        </div>
+        <div class="infra-item">
+          <strong>GitHub</strong>
+          github.com/garywelz/glmp
+        </div>
+        <div class="infra-item">
+          <strong>GLMP catalog</strong>
+          217 processes, Firestore + GCS
+        </div>
+        <div class="infra-item">
+          <strong>Research papers</strong>
+          62,000+ indexed, growing daily
+        </div>
+        <div class="infra-item">
+          <strong>Decoder pipeline</strong>
+          FIMO/JASPAR + custom PWMs, Jetson Nano
+        </div>
+        <div class="infra-item">
+          <strong>Decoded circuits</strong>
+          6 circuits in Firestore (glmp_circuits)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Gary Welz · CUNY Graduate Center / New Media Lab · Genome Logic Modeling Project<br>
+    <a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a> ·
+    ORCID: 0009-0005-7806-0892 · July 2026
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#fff9c4',
+      primaryTextColor: '#1a1a1a',
+      primaryBorderColor: '#f57f17',
+      lineColor: '#555',
+      secondaryColor: '#e1bee7',
+      tertiaryColor: '#c8e6c9',
+      background: '#fafaf8',
+      fontSize: '13px'
+    },
+    flowchart: { curve: 'basis', padding: 20 }
+  });
+</script>
+</body>
+</html>
