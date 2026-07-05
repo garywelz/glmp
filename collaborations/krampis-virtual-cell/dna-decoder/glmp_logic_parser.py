@@ -404,6 +404,72 @@ def _relationship_is_confident(rel, q_threshold=CONFIDENCE_Q_THRESHOLD):
     )
 
 
+def _eligible_relationships(relationships, q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """Relationships with identified-regulator evidence eligible for classification."""
+    return [
+        r for r in relationships
+        if _relationship_eligible_for_classification(r, q_threshold)
+    ]
+
+
+def _topology_gate_flags(relationships, q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """Derive has_not/has_and from identified-regulator gates eligible for classification."""
+    eligible = _eligible_relationships(relationships, q_threshold)
+    has_not = any(r.logic_type == "NOT" for r in eligible)
+    has_and = any(r.logic_type == "AND" for r in eligible)
+    return has_not, has_and
+
+
+_OTHER_CLASSIFICATION_LOGIC_TYPES = frozenset({
+    "OR_INDEPENDENT", "XOR", "OR", "FEEDBACK",
+})
+
+
+def _derive_topology_class_label(relationships, has_not, has_and,
+                                 q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """
+    Sequence-derived topology class from eligible identified-regulator gates.
+    Does not use manifest metadata or pending_custom_pwms annotations.
+    Returns (class_label, supporting_types, note).
+    """
+    eligible = _eligible_relationships(relationships, q_threshold)
+    confident_eligible = [
+        r for r in eligible if _relationship_is_confident(r, q_threshold)
+    ]
+
+    if has_not and has_and:
+        return "II", ["NOT", "AND"], None
+    if has_not and not has_and:
+        return "I/II", ["NOT"], None
+    if not has_not and has_and:
+        return "I", ["AND"], None
+
+    other_confident = [
+        r for r in confident_eligible
+        if r.logic_type in _OTHER_CLASSIFICATION_LOGIC_TYPES
+    ]
+    if other_confident:
+        note = (
+            "Confident identified-regulator gates present ("
+            f"{other_confident[0].logic_type}) but logic does not resolve "
+            "to a GLMP topology class (no eligible NOT or AND gates)."
+        )
+        return "INDETERMINATE", [], note
+
+    if not confident_eligible:
+        note = (
+            "No confident identified-regulator gate evidence "
+            f"(JASPAR q<={q_threshold}; custom PWM p<={q_threshold})."
+        )
+        return "INSUFFICIENT_EVIDENCE", [], note
+
+    note = (
+        "Identified-regulator gates present but below confidence threshold; "
+        "logic does not resolve to a GLMP topology class."
+    )
+    return "INSUFFICIENT_EVIDENCE", [], note
+
+
 def _proposed_topology_class(has_not, has_and):
     """Map detected gate types to a proposed GLMP circuit class label."""
     if has_not and has_and:
@@ -435,24 +501,35 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
     Check whether gate evidence supports a non-trivial circuit class claim.
     Returns (dna_topology_class, dna_topology_note, dna_topology_confidence, stats).
     """
-    proposed_class, supporting_types = _proposed_topology_class(has_not, has_and)
+    class_label, supporting_types, early_note = _derive_topology_class_label(
+        relationships, has_not, has_and, q_threshold
+    )
+    eligible = _eligible_relationships(relationships, q_threshold)
+    confident_eligible = [
+        r for r in eligible if _relationship_is_confident(r, q_threshold)
+    ]
     stats = {
-        "proposed_class": proposed_class,
+        "proposed_class": (
+            class_label
+            if class_label not in ("INSUFFICIENT_EVIDENCE", "INDETERMINATE")
+            else None
+        ),
         "supporting_gate_types": supporting_types,
-        "supporting_gates_total": 0,
-        "supporting_gates_confident": 0,
-        "supporting_gates_weak": 0,
+        "supporting_gates_total": len(eligible),
+        "supporting_gates_confident": len(confident_eligible),
+        "supporting_gates_weak": len(eligible) - len(confident_eligible),
         "q_threshold": q_threshold,
     }
 
-    if not proposed_class:
-        return None, None, "insufficient", stats
+    if class_label in ("INSUFFICIENT_EVIDENCE", "INDETERMINATE"):
+        return class_label, early_note, "insufficient", stats
 
     supporting = [
         r for r in relationships
         if r.logic_type in supporting_types
         and _relationship_eligible_for_classification(r, q_threshold)
     ]
+    stats["supporting_gate_types"] = supporting_types
     stats["supporting_gates_total"] = len(supporting)
     if not supporting:
         note = (
@@ -468,7 +545,7 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
     stats["supporting_gates_weak"] = weak
 
     geometry_warning = geometry_warning_for_organism(organism)
-    if geometry_warning and proposed_class in ("II", "III", "IV", "V"):
+    if geometry_warning and class_label in ("II", "III", "IV", "V"):
         confident_not = [r for r in confident if r.logic_type == "NOT"]
         if not confident_not:
             note = (
@@ -487,9 +564,9 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
         return "INSUFFICIENT_EVIDENCE", note, "insufficient", stats
 
     topology_confidence = _derive_dna_topology_confidence(
-        proposed_class, stats, geometry_warning
+        class_label, stats, geometry_warning
     )
-    return proposed_class, None, topology_confidence, stats
+    return class_label, None, topology_confidence, stats
 
 
 def geometry_warning_for_organism(organism):
@@ -552,15 +629,15 @@ def build_circuit_summary(sites, relationships, circuit_name, organism,
 
     org_profile = SUPPORTED_ORGANISMS.get(organism, {})
 
-    # Count logical types
+    # Count logical types (all pairs — diagnostic only)
     logic_counts = {}
     for rel in relationships:
         logic_counts[rel.logic_type] = logic_counts.get(rel.logic_type, 0) + 1
 
-    # Identify the dominant logic pattern
-    has_not  = "NOT" in logic_counts
-    has_and  = "AND" in logic_counts
-    has_or   = "OR_INDEPENDENT" in logic_counts
+    has_or = "OR_INDEPENDENT" in logic_counts
+
+    # Class flags: eligible identified-regulator set (same filter as supporting_gates_total)
+    has_not, has_and = _topology_gate_flags(relationships)
 
     # Build circuit class hint based on topology
     # (Full class assignment requires loop detection — simplified here)
@@ -576,8 +653,6 @@ def build_circuit_summary(sites, relationships, circuit_name, organism,
     dna_topology_class, dna_topology_note, dna_topology_confidence, confidence_stats = (
         assess_classification_confidence(relationships, has_not, has_and, organism)
     )
-    if dna_topology_class is None:
-        dna_topology_class = "INDETERMINATE"
     geometry_warning = geometry_warning_for_organism(organism)
     bio_fields = _biological_class_fields(manifest_data)
 
