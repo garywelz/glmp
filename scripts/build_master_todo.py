@@ -8,6 +8,7 @@ canonical CURATED block via ``git fetch`` + ``git show origin/main:...`` only.
 from __future__ import annotations
 
 import argparse
+import html as html_module
 import json
 import re
 import subprocess
@@ -28,9 +29,16 @@ except ImportError:
 GLMP_REPO = Path("/media/sdcard/glmp")
 GIT_PATH = "docs/GLMP_MASTER_TODO.md"
 SA_KEY = Path("/home/gary/.config/copernicus/gcp-sa.json")
-GCS_BUCKET = "regal-scholar-453620-r7-podcast-storage"
-GCS_OBJECT = "GLMP_MASTER_TODO.md"
+# Option B two-bucket split (2026-07-06): private TODO md, public status HTML + corpus JSON.
+GCS_PUBLIC_BUCKET = "regal-scholar-453620-r7-podcast-storage"
+GCS_PRIVATE_BUCKET = "regal-scholar-453620-r7-internal"
+GCS_TODO_OBJECT = "GLMP_MASTER_TODO.md"
+GCS_HTML_OBJECT = "GLMP_STATUS.html"
+PUBLIC_STATUS_URL = (
+    f"https://storage.googleapis.com/{GCS_PUBLIC_BUCKET}/{GCS_HTML_OBJECT}"
+)
 LOCAL_DEBUG = Path("/media/sdcard/status/GLMP_MASTER_TODO.md")
+LOCAL_DEBUG_HTML = Path("/media/sdcard/status/GLMP_STATUS.html")
 CRON_LOG = Path("/media/sdcard/logs/master_todo_cron.log")
 
 DECODER_RESULTS = (
@@ -63,6 +71,29 @@ REGRESSION_CIRCUITS = [
 
 CURATED_START = "<!-- CURATED:START -->"
 CURATED_END = "<!-- CURATED:END -->"
+AUTO_STATUS_HEADING = "## AUTO-STATUS"
+
+# Must never appear on the public HTML status page.
+HTML_FORBIDDEN_STRINGS = (
+    "CURATED:START",
+    "CURATED:END",
+    "<!-- CURATED",
+    "Nathan Lents",
+    "copernicusai-tts",
+    "ElevenLabs",
+    "YouTube",
+    "Zenodo",
+    "NASA-ADS",
+    "Descript API",
+    "IAM too broad",
+    "deferred free-key",
+    "Krampis's students",
+    "Security + consolidation",
+    "GitHub-PAT",
+    "Top priorities (next)",
+    "Parked / backlog",
+    "Reminder to self",
+)
 
 HEADER = """# GLMP + CopernicusAI — Master To-Do
 
@@ -85,10 +116,10 @@ class RunState:
     last_good: Dict[str, Any] = field(default_factory=dict)
 
 
-def log_line(status: str, stale: List[str]) -> str:
+def log_line(status: str, stale: List[str], html: str = "n/a") -> str:
     ts = datetime.now(ET).strftime("%Y-%m-%d %H:%M:%S %Z")
     stale_part = ",".join(stale) if stale else "none"
-    return f"{ts} status={status} stale={stale_part}"
+    return f"{ts} status={status} stale={stale_part} html={html}"
 
 
 def append_cron_log(line: str) -> None:
@@ -106,7 +137,7 @@ def gcs_client():
 def download_gcs_todo() -> Optional[str]:
     try:
         client = gcs_client()
-        blob = client.bucket(GCS_BUCKET).blob(GCS_OBJECT)
+        blob = client.bucket(GCS_PRIVATE_BUCKET).blob(GCS_TODO_OBJECT)
         if not blob.exists():
             return None
         return blob.download_as_text(encoding="utf-8")
@@ -211,7 +242,7 @@ def read_corpus_status() -> SourceResult:
     try:
         client = gcs_client()
         text = (
-            client.bucket(GCS_BUCKET)
+            client.bucket(GCS_PUBLIC_BUCKET)
             .blob(STATUS_JSON_BLOB)
             .download_as_text(encoding="utf-8")
         )
@@ -563,22 +594,141 @@ def validate_document(text: str) -> Tuple[bool, str]:
         return False, "document too short or empty"
     if CURATED_START not in text or CURATED_END not in text:
         return False, "CURATED markers missing"
-    if "## AUTO-STATUS" not in text:
+    if AUTO_STATUS_HEADING not in text:
         return False, "AUTO-STATUS section missing"
     if "AUTO-GENERATED" not in text:
         return False, "AUTO-GENERATED header missing"
     return True, "ok"
 
 
-def publish_gcs(content: str) -> None:
+def extract_auto_status_section(document: str) -> Optional[str]:
+    if AUTO_STATUS_HEADING not in document:
+        return None
+    start = document.index(AUTO_STATUS_HEADING)
+    return document[start:].strip()
+
+
+def _inline_md(text: str) -> str:
+    """Minimal inline markdown: **bold**, `code`, plain escape."""
+    text = html_module.escape(text)
+    text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    return text
+
+
+def render_auto_status_html(auto_status_md: str) -> str:
+    """Render AUTO-STATUS markdown subset to self-contained HTML."""
+    body_parts: List[str] = []
+    table_rows: List[List[str]] = []
+    in_table = False
+
+    def flush_table() -> None:
+        nonlocal in_table, table_rows
+        if not table_rows:
+            in_table = False
+            return
+        html_rows = []
+        for i, row in enumerate(table_rows):
+            tag = "th" if i == 0 else "td"
+            cells = "".join(f"<{tag}>{_inline_md(c)}</{tag}>" for c in row)
+            html_rows.append(f"<tr>{cells}</tr>")
+        body_parts.append("<table>" + "".join(html_rows) + "</table>")
+        table_rows = []
+        in_table = False
+
+    for raw in auto_status_md.splitlines():
+        line = raw.rstrip()
+        if not line.strip():
+            flush_table()
+            continue
+        if line.startswith("|") and line.endswith("|"):
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if all(set(c) <= {"-", ":", " "} for c in cells):
+                continue
+            table_rows.append(cells)
+            in_table = True
+            continue
+        flush_table()
+        if line.startswith("### "):
+            body_parts.append(f"<h3>{_inline_md(line[4:])}</h3>")
+        elif line.startswith("## "):
+            body_parts.append(f"<h2>{_inline_md(line[3:])}</h2>")
+        elif line.startswith("---"):
+            continue
+        else:
+            body_parts.append(f"<p>{_inline_md(line)}</p>")
+
+    flush_table()
+
+    generated = ""
+    for part in body_parts:
+        if part.startswith("<p>AUTO-GENERATED"):
+            generated = part
+            break
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLMP / CopernicusAI — Live Status</title>
+<style>
+body {{ font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 2rem; line-height: 1.5; color: #1a1a1a; max-width: 960px; }}
+h1 {{ font-size: 1.5rem; margin-bottom: 0.25rem; }}
+.subtitle {{ color: #555; margin-bottom: 1.5rem; }}
+h2 {{ font-size: 1.15rem; margin-top: 1.75rem; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }}
+h3 {{ font-size: 1rem; margin-top: 1.25rem; }}
+table {{ border-collapse: collapse; width: 100%; margin: 0.75rem 0 1rem; font-size: 0.92rem; }}
+th, td {{ border: 1px solid #ccc; padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }}
+th {{ background: #f4f4f4; }}
+code {{ background: #f6f6f6; padding: 0.1em 0.35em; border-radius: 3px; font-size: 0.9em; }}
+strong {{ font-weight: 600; }}
+</style>
+</head>
+<body>
+<h1>GLMP / CopernicusAI — Live Status</h1>
+<p class="subtitle">Non-sensitive operational snapshot (AUTO-STATUS only). Updated by Jetson cron.</p>
+{generated}
+{"".join(p for p in body_parts if p != generated)}
+</body>
+</html>
+"""
+
+
+def validate_html_safe(html: str) -> Tuple[bool, str]:
+    if not html or len(html.strip()) < 300:
+        return False, "html too short or empty"
+    if "AUTO-GENERATED" not in html or "CopernicusAI corpus" not in html:
+        return False, "AUTO-STATUS content missing from html"
+    lower = html.lower()
+    for forbidden in HTML_FORBIDDEN_STRINGS:
+        if forbidden.lower() in lower:
+            return False, f"forbidden string present: {forbidden!r}"
+    return True, "ok"
+
+
+def publish_private_todo(content: str) -> None:
     client = gcs_client()
-    blob = client.bucket(GCS_BUCKET).blob(GCS_OBJECT)
+    blob = client.bucket(GCS_PRIVATE_BUCKET).blob(GCS_TODO_OBJECT)
     blob.upload_from_string(content, content_type="text/markdown")
+
+
+def publish_public_html(html: str) -> None:
+    client = gcs_client()
+    blob = client.bucket(GCS_PUBLIC_BUCKET).blob(GCS_HTML_OBJECT)
+    blob.upload_from_string(html, content_type="text/html; charset=utf-8")
+    blob.acl.all().grant_read()
+    blob.acl.save()
 
 
 def write_local_debug(content: str) -> None:
     LOCAL_DEBUG.parent.mkdir(parents=True, exist_ok=True)
     LOCAL_DEBUG.write_text(content, encoding="utf-8")
+
+
+def write_local_debug_html(content: str) -> None:
+    LOCAL_DEBUG_HTML.parent.mkdir(parents=True, exist_ok=True)
+    LOCAL_DEBUG_HTML.write_text(content, encoding="utf-8")
 
 
 def run(dry_run: bool = False) -> int:
@@ -593,7 +743,7 @@ def run(dry_run: bool = False) -> int:
         curated_block = state.last_good["curated_block"]
         state.stale_sources.append("curated.git")
     else:
-        append_cron_log(log_line("failed", ["curated"]))
+        append_cron_log(log_line("failed", ["curated"], "aborted"))
         print("ERROR: CURATED fetch failed and no GCS fallback", file=sys.stderr)
         return 1
 
@@ -610,30 +760,74 @@ def run(dry_run: bool = False) -> int:
     document = assemble_document(curated_block, auto_status)
     ok, reason = validate_document(document)
     if not ok:
-        append_cron_log(log_line("validation_failed", state.stale_sources + [reason]))
+        append_cron_log(
+            log_line("validation_failed", state.stale_sources + [reason], "aborted")
+        )
         print(f"ERROR: validation failed: {reason}", file=sys.stderr)
         return 1
 
+    auto_section = extract_auto_status_section(document)
+    html_status = "skipped"
+    html_content = None
+    if auto_section:
+        try:
+            html_content = render_auto_status_html(auto_section)
+            html_ok, html_reason = validate_html_safe(html_content)
+            if not html_ok:
+                print(f"ERROR: HTML guard failed: {html_reason}", file=sys.stderr)
+                html_status = "aborted"
+                html_content = None
+        except Exception as exc:
+            print(f"ERROR: HTML render failed: {exc}", file=sys.stderr)
+            html_status = "aborted"
+            html_content = None
+    else:
+        html_status = "aborted"
+
     write_local_debug(document)
+    if html_content:
+        write_local_debug_html(html_content)
+
     overall = "fresh" if not state.stale_sources else "degraded"
-    line = log_line(overall, sorted(set(state.stale_sources)))
 
     if dry_run:
+        line = log_line(overall, sorted(set(state.stale_sources)), "skipped")
         print(line)
-        print(f"dry-run: wrote {LOCAL_DEBUG} ({len(document)} bytes), skipped GCS upload")
+        print(
+            f"dry-run: wrote {LOCAL_DEBUG} ({len(document)} bytes), "
+            f"html debug {LOCAL_DEBUG_HTML if html_content else 'n/a'}, skipped GCS upload"
+        )
+        if html_content:
+            hits = [s for s in HTML_FORBIDDEN_STRINGS if s.lower() in html_content.lower()]
+            print(f"html guard grep: {len(hits)} forbidden hits ({'PASS' if not hits else 'FAIL'})")
         append_cron_log(line + " mode=dry-run")
         return 0
 
     try:
-        publish_gcs(document)
+        publish_private_todo(document)
     except Exception as exc:
-        append_cron_log(log_line("upload_failed", state.stale_sources + [str(exc)]))
-        print(f"ERROR: GCS upload failed: {exc}", file=sys.stderr)
+        append_cron_log(
+            log_line("upload_failed", state.stale_sources + [str(exc)], html_status)
+        )
+        print(f"ERROR: private TODO upload failed: {exc}", file=sys.stderr)
         return 1
 
+    if html_content:
+        try:
+            publish_public_html(html_content)
+            html_status = "published"
+        except Exception as exc:
+            print(f"ERROR: HTML upload failed (TODO ok): {exc}", file=sys.stderr)
+            html_status = "aborted"
+
+    line = log_line(overall, sorted(set(state.stale_sources)), html_status)
     append_cron_log(line)
     print(line)
-    print(f"published gs://{GCS_BUCKET}/{GCS_OBJECT} ({len(document)} bytes)")
+    print(
+        f"published gs://{GCS_PRIVATE_BUCKET}/{GCS_TODO_OBJECT} ({len(document)} bytes)"
+    )
+    if html_status == "published":
+        print(f"published {PUBLIC_STATUS_URL} ({len(html_content)} bytes)")
     return 0
 
 
