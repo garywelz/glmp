@@ -790,7 +790,6 @@ def run(dry_run: bool = False) -> int:
 
     if dry_run:
         line = log_line(overall, sorted(set(state.stale_sources)), "skipped")
-        print(line)
         print(
             f"dry-run: wrote {LOCAL_DEBUG} ({len(document)} bytes), "
             f"html debug {LOCAL_DEBUG_HTML if html_content else 'n/a'}, skipped GCS upload"
@@ -820,7 +819,6 @@ def run(dry_run: bool = False) -> int:
 
     line = log_line(overall, sorted(set(state.stale_sources)), html_status)
     append_cron_log(line)
-    print(line)
     print(
         f"published gs://{GCS_PRIVATE_BUCKET}/{GCS_TODO_OBJECT} ({len(document)} bytes)"
     )
