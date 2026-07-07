@@ -175,8 +175,7 @@ def parse_last_good(existing: Optional[str]) -> Dict[str, Any]:
         ("status_last_updated", "Status JSON `last_updated`"),
         ("embedding_coverage", "Embedding coverage"),
         ("glmp_v2_processes", "GLMP v2 processes (metadata)"),
-        ("scout_status_json", "Last scout run (status JSON)"),
-        ("scout_jetson_logs", "Last scout run (Jetson logs)"),
+        ("scout_last_run", "Last scout run"),
         ("class_ii_reachable", "Class II reachable on any circuit"),
         ("regression_summary", "Last regression summary"),
         ("queue_pending", "Queue pending"),
@@ -456,8 +455,6 @@ def build_auto_status(
         state.stale_sources.append("corpus.glmp_v2")
         glmp_v2_cell = "⚠️ unavailable"
 
-    scout_json_cell = "⚠️ not published in `knowledge-engine-status.json`"
-
     pubmed_line = sdata.get("pubmed_success")
     ingest_mt = sdata.get("ingest_mtime")
     if pubmed_line or ingest_mt:
@@ -466,13 +463,15 @@ def build_auto_status(
             parts.append(f"pubmed_am success **{pubmed_line}**")
         if ingest_mt:
             parts.append(f"ingest log **{ingest_mt}**")
-        scout_logs_cell = "; ".join(parts)
-    elif lg.get("scout_jetson_logs"):
-        state.stale_sources.append("scout")
-        scout_logs_cell = f"⚠️ stale — last good: {lg['scout_jetson_logs']}"
+        scout_cell = "; ".join(parts)
     else:
-        state.stale_sources.append("scout")
-        scout_logs_cell = "⚠️ unavailable"
+        prev = lg.get("scout_last_run") or lg.get("scout_jetson_logs")
+        if prev:
+            state.stale_sources.append("scout")
+            scout_cell = f"⚠️ stale — last good: {prev}"
+        else:
+            state.stale_sources.append("scout")
+            scout_cell = "⚠️ unavailable"
 
     circuits = ddata.get("circuits") if ddata else None
     decoder_stale = not decoder.ok
@@ -560,8 +559,7 @@ def build_auto_status(
         f"| Status JSON `last_updated` | {last_upd_cell} |",
         f"| Embedding coverage | {emb_cell} |",
         f"| GLMP v2 processes (metadata) | {glmp_v2_cell} |",
-        f"| Last scout run (status JSON) | {scout_json_cell} |",
-        f"| Last scout run (Jetson logs) | {scout_logs_cell} |",
+        f"| Last scout run | {scout_cell} |",
         "",
         f"### GLMP decoder (8 known circuits — {decode_date} re-decode)",
         "",
