@@ -118,8 +118,12 @@ Split scouts prefer this venv’s `python3` when present.
 | Circuit | Sequence | Topology (parser) | Biology |
 |---------|----------|-------------------|---------|
 | lac operon | `lac_operon_region.fa` (350 bp curated) | Class II (NOT+AND) | LacI + CRP ✅ |
-| ara operon | `ara_operon_region.fa` (601 bp NC_000913.3) | Class I (AND only) | AraC not in JASPAR ⚠️ |
+| ara operon | `ara_operon_region.fa` (601 bp NC_000913.3) | **INSUFFICIENT_EVIDENCE** (v0.2.2) | AraC not in JASPAR ⚠️ |
 | trp operon | `trp_operon_region_v3.fa` (700 bp) | Class II (NOT+AND) | TrpR + CRP ✅ |
+
+**v0.2.2 ground-truth regression targets:** see [`dna-decoder/GROUND_TRUTH_REFERENCE.md`](dna-decoder/GROUND_TRUTH_REFERENCE.md).
+The ara row above supersedes the v0.2.0 prototype topology hint ("Class I — AND only");
+that hint came from parser v0.1.0 before the confidence gate and pending AraC PWM.
 
 ### Parser v0.2.0 (in git)
 
