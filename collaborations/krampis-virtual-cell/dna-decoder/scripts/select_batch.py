@@ -102,6 +102,8 @@ def catalog_class_fields(circuit_id: str) -> dict:
 
 def normalize_organism(raw: str, doc_id: str) -> str:
     organism = (raw or "").lower().replace(" ", "_").replace(".", "")
+    if organism in ECOLI_ORGANISM_ALIASES or (not organism and doc_id.startswith("ecoli")):
+        return "ecoli_k12"
     if organism:
         return organism
     for prefix in ORGANISM_SCORES:
