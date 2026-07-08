@@ -1,0 +1,230 @@
+stage: 1
+status: internally_validated_pending_biologist_signoff
+motif_id: LacI_lacO
+pwm_file: laci_lacO.meme
+legacy_pwm_archive: laci_motif_nsites1_legacy.meme
+regulondb_release: 14.5.0
+build_method: 21bp GTG/CAC-family aligned cores; RegulonDB Confirmed|Strong LacI rows
+  + curated literature Osym/O2 supplements; count matrix + 0.1 pseudocount; E. coli
+  background
+n_training_sites: 3
+consensus: GGTTGTGAGCGGATCACAATT
+palindrome_shape_check:
+  consensus: GGTTGTGAGCGGATCACAATT
+  left_half_checked: GTGAG
+  right_half_checked: ATCAC
+  pass: false
+locked_fimo_pvalue_threshold: 1.0e-05
+threshold_calibration:
+  locked_fimo_pvalue_threshold: 1.0e-05
+  threshold_sweep:
+  - thresh: 1.0e-06
+    known_operator_hits: 4
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 0
+    negative_rate: 0.0
+  - thresh: 5.0e-06
+    known_operator_hits: 4
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 0
+    negative_rate: 0.0
+  - thresh: 1.0e-05
+    known_operator_hits: 4
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 0
+    negative_rate: 0.0
+  - thresh: 5.0e-05
+    known_operator_hits: 4
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 2
+    negative_rate: 0.0741
+  - thresh: 0.0001
+    known_operator_hits: 5
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 2
+    negative_rate: 0.0741
+  - thresh: 0.0005
+    known_operator_hits: 6
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 6
+    negative_rate: 0.2222
+  - thresh: 0.001
+    known_operator_hits: 7
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 18
+    negative_rate: 0.6667
+  - thresh: 0.005
+    known_operator_hits: 8
+    lac_window_hits: 7
+    lacO1_recovered: true
+    negative_hits: 91
+    negative_rate: 3.3704
+  - thresh: 0.01
+    known_operator_hits: 9
+    lac_window_hits: 7
+    lacO1_recovered: true
+    negative_hits: 180
+    negative_rate: 6.6667
+  locked_at:
+    thresh: 1.0e-05
+    known_operator_hits: 4
+    lac_window_hits: 5
+    lacO1_recovered: true
+    negative_hits: 0
+    negative_rate: 0.0
+  selection_rationale: Recover lacO1 + >=3 known operators with negative FPR <= 5%;
+    else rank by lacO1 then known hits then FPR.
+recon_verdict:
+  regulondb_laci_confirmed_strong: 3
+  literature_supplement_added: 2
+  total_training_candidates: 5
+  all_in_lac_operon: true
+  crp_style_holdout_feasible: false
+  holdout_verdict: NO — RegulonDB lists only three LacI binding sites, all at lacZp1
+    / lacZ scope (operators O1/O2/O3). There is no independent LacI site pool to train
+    on while holding out the natural lac operators. Validation uses leave-one-out
+    among operators, known-operator recovery in the lac promoter, specificity on non-lac
+    promoters, and the 420 eligible-NOT collapse vs legacy nsites=1 PWM.
+  validation_approach: specificity_and_known_operator_based_with_loo
+  external_sources:
+  - source: RegulonDB v14.5 TF-RISet
+    access: GCS validation/regulondb-v14/TF-RISet.tsv
+    laci_rows_confirmed_strong: 3
+    notes: Primary source; filled at runtime.
+  - source: CollecTF
+    access: https://collectf.umbc.edu/
+    laci_rows_confirmed_strong: 0
+    notes: No E. coli LacI operator PWM ingested in this pipeline; site count not
+      exported.
+  - source: PRODORIC
+    access: https://www.prodoric.de/
+    laci_rows_confirmed_strong: 0
+    notes: LacI operator matrices exist in literature but not staged in GCS for this
+      build.
+  - source: Spec-seq / SELEX variant collections
+    access: Kinney et al.; E-GEOD-61223; Bellomy thermodynamics
+    laci_rows_confirmed_strong: 1000s (variants)
+    notes: Rich variant data exist in publications but are not machine-readable in
+      repo. Supplement limited curated Osym-family sequences only.
+leave_one_out_validation:
+- held_out: lacO2_genomic
+  held_out_ri_id: RDBECOLIRIC04258
+  train_n: 2
+  recovered: false
+  best_pvalue: null
+  hits: 0
+- held_out: lacO3
+  held_out_ri_id: RDBECOLIRIC04259
+  train_n: 2
+  recovered: false
+  best_pvalue: null
+  hits: 0
+- held_out: lacO1
+  held_out_ri_id: RDBECOLIRIC04260
+  train_n: 2
+  recovered: true
+  best_pvalue: 3.62e-06
+  hits: 2
+known_operator_panel:
+- operator: lacO1
+  sequence: AATTGTGAGCGGATAACAATT
+  expected_rank: 1
+  source: Gilbert_Maxam_1973; RegulonDB RDBECOLIRIC04260
+  recovered_at_thresh: true
+  best_pvalue: 1.54e-10
+  best_score: 27.145
+  n_hits: 2
+  observed_p_rank: 1
+- operator: lacO2_genomic
+  sequence: GGTTGTTACTCGCTCACATTT
+  expected_rank: 2
+  source: RegulonDB RDBECOLIRIC04258 (genomic O2 annotation)
+  recovered_at_thresh: true
+  best_pvalue: 1.64e-09
+  best_score: 24.945
+  n_hits: 1
+  observed_p_rank: 3
+- operator: lacO2_classic
+  sequence: AAATTGTGAGCGCTCACAATT
+  expected_rank: 2
+  source: textbook_classic_O2 (not in RegulonDB TF-RISet)
+  recovered_at_thresh: false
+  best_pvalue: null
+  best_score: null
+  n_hits: 0
+- operator: lacO3
+  sequence: GGCAGTGAGCGCAACGCAATT
+  expected_rank: 3
+  source: RegulonDB RDBECOLIRIC04259
+  recovered_at_thresh: true
+  best_pvalue: 3.04e-10
+  best_score: 26.7
+  n_hits: 1
+  observed_p_rank: 2
+specificity:
+  negative_sequences: 27
+  negative_hits_at_locked: 0
+  negative_rate: 0.0
+  lac_window_hits_at_locked: 5
+not_gate_420_check:
+  at_locked_threshold:
+    legacy_meme:
+      total_not_gates: 50
+      laci_not_gates: 50
+      laci_overlap_not_gates: 0
+      custom_laci_binding_sites: 1
+      custom_fimo_thresh: 1.0e-05
+      motif_id_in_meme: laci_motif.meme
+    new_meme:
+      total_not_gates: 260
+      laci_not_gates: 260
+      laci_overlap_not_gates: 2
+      custom_laci_binding_sites: 5
+      custom_fimo_thresh: 1.0e-05
+      motif_id_in_meme: laci_lacO.meme
+  at_loose_fimo_0p01_diagnostic:
+    legacy_meme:
+      total_not_gates: 791
+      laci_not_gates: 420
+      laci_overlap_not_gates: 10
+      custom_laci_binding_sites: 7
+      custom_fimo_thresh: 0.01
+      motif_id_in_meme: laci_motif.meme
+    new_meme:
+      total_not_gates: 371
+      laci_not_gates: 371
+      laci_overlap_not_gates: 16
+      custom_laci_binding_sites: 7
+      custom_fimo_thresh: 0.01
+      motif_id_in_meme: laci_lacO.meme
+  collapse_ratio_locked: 5.2
+honest_validation_statement:
+  non_circular_holdout_equivalent_to_crp: false
+  reason: NO — RegulonDB lists only three LacI binding sites, all at lacZp1 / lacZ
+    scope (operators O1/O2/O3). There is no independent LacI site pool to train on
+    while holding out the natural lac operators. Validation uses leave-one-out among
+    operators, known-operator recovery in the lac promoter, specificity on non-lac
+    promoters, and the 420 eligible-NOT collapse vs legacy nsites=1 PWM.
+  guarantees_achieved:
+  - Multi-site PWM (nsites>1) from RegulonDB + curated literature supplements
+  - Locked FIMO threshold p<=1e-05 from controls before any re-decode
+  - Known-operator recovery panel (lacO1/O2/O3)
+  - Leave-one-out recovery among the three RegulonDB operators (within-operon only)
+  - 'Specificity scan: 27 non-lac sequences, 0 hits at locked threshold'
+  - '420 collapse check at locked threshold: legacy 50 → new 260 eligible LacI NOT
+    gates'
+  - Consensus palindrome shape check
+  guarantees_not_achieved:
+  - CRP-style out-of-sample holdout of lac operators while training on independent
+    LacI sites
+  - Large-scale SELEX/Spec-seq variant training (data not ingested)
+  lac_class_ii_implication: Stage 2 integration NOT performed. Replacing the crude
+    LacI PWM may change lac dna_topology_class; biologist must re-evaluate after Stage
+    2 re-decode.

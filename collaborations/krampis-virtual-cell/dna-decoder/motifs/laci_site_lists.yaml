@@ -1,0 +1,63 @@
+regulondb_release: 14.5.0
+source: TF-RISet.tsv + curated literature supplements
+filter: tfName=LacI, confidenceLevel in (Confirmed, Strong) for RegulonDB rows
+training_sites:
+- site_id: RDBECOLIRIC04258
+  sequence: gaatccgacgGGTTGTTACTCGCTCACATTTaatgttgatg
+  core: GGTTGTTACTCGCTCACATTT
+  source: regulondb
+  evidence: COMP-HINF-SIMILAR-TO-CONSENSUS:W|EXP-HTP-HDA-NUC-ACID-BINDING-GSELEX-CHIP:W|EXP-IMP-SITE-MUTATION:S
+  operator_name: lacO2_genomic
+  ri_id: RDBECOLIRIC04258
+  left: 365922
+  right: 365942
+  strand: reverse
+  confidence: S
+  promoter: lacZp1
+  in_lac_operon: true
+  holdout_role: training
+- site_id: RDBECOLIRIC04259
+  sequence: ctggaaagcgGGCAGTGAGCGCAACGCAATTaatgtgagtt
+  core: GGCAGTGAGCGCAACGCAATT
+  source: regulondb
+  evidence: COMP-HINF-SIMILAR-TO-CONSENSUS:W|EXP-HTP-HDA-NUC-ACID-BINDING-GSELEX-CHIP:W|EXP-IMP-SITE-MUTATION:S
+  operator_name: lacO3
+  ri_id: RDBECOLIRIC04259
+  left: 366415
+  right: 366435
+  strand: reverse
+  confidence: S
+  promoter: lacZp1
+  in_lac_operon: true
+  holdout_role: training
+- site_id: RDBECOLIRIC04260
+  sequence: tgttgtgtggAATTGTGAGCGGATAACAATTtcacacagga
+  core: AATTGTGAGCGGATAACAATT
+  source: regulondb
+  evidence: COMP-HINF-SIMILAR-TO-CONSENSUS:W|EXP-HTP-HDA-NUC-ACID-BINDING-GSELEX-CHIP:W|EXP-IDA-BINDING-OF-PURIFIED-PROTEINS:S|EXP-IMP-SITE-MUTATION:S
+  operator_name: lacO1
+  ri_id: RDBECOLIRIC04260
+  left: 366323
+  right: 366343
+  strand: reverse
+  confidence: C
+  promoter: lacZp1
+  in_lac_operon: true
+  holdout_role: training
+known_operator_panel_sequences:
+  lacO1:
+    sequence: AATTGTGAGCGGATAACAATT
+    expected_rank: 1
+    source: Gilbert_Maxam_1973; RegulonDB RDBECOLIRIC04260
+  lacO2_genomic:
+    sequence: GGTTGTTACTCGCTCACATTT
+    expected_rank: 2
+    source: RegulonDB RDBECOLIRIC04258 (genomic O2 annotation)
+  lacO2_classic:
+    sequence: AAATTGTGAGCGCTCACAATT
+    expected_rank: 2
+    source: textbook_classic_O2 (not in RegulonDB TF-RISet)
+  lacO3:
+    sequence: GGCAGTGAGCGCAACGCAATT
+    expected_rank: 3
+    source: RegulonDB RDBECOLIRIC04259

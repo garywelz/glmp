@@ -1,0 +1,30 @@
+regulondb_laci_confirmed_strong: 3
+literature_supplement_added: 2
+total_training_candidates: 5
+all_in_lac_operon: true
+crp_style_holdout_feasible: false
+holdout_verdict: NO — RegulonDB lists only three LacI binding sites, all at lacZp1
+  / lacZ scope (operators O1/O2/O3). There is no independent LacI site pool to train
+  on while holding out the natural lac operators. Validation uses leave-one-out among
+  operators, known-operator recovery in the lac promoter, specificity on non-lac promoters,
+  and the 420 eligible-NOT collapse vs legacy nsites=1 PWM.
+validation_approach: specificity_and_known_operator_based_with_loo
+external_sources:
+- source: RegulonDB v14.5 TF-RISet
+  access: GCS validation/regulondb-v14/TF-RISet.tsv
+  laci_rows_confirmed_strong: 3
+  notes: Primary source; filled at runtime.
+- source: CollecTF
+  access: https://collectf.umbc.edu/
+  laci_rows_confirmed_strong: 0
+  notes: No E. coli LacI operator PWM ingested in this pipeline; site count not exported.
+- source: PRODORIC
+  access: https://www.prodoric.de/
+  laci_rows_confirmed_strong: 0
+  notes: LacI operator matrices exist in literature but not staged in GCS for this
+    build.
+- source: Spec-seq / SELEX variant collections
+  access: Kinney et al.; E-GEOD-61223; Bellomy thermodynamics
+  laci_rows_confirmed_strong: 1000s (variants)
+  notes: Rich variant data exist in publications but are not machine-readable in repo.
+    Supplement limited curated Osym-family sequences only.
