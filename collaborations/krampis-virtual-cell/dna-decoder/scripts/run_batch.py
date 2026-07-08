@@ -71,6 +71,23 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
+# E. coli decodes use custom prokaryotic PWMs only; eukaryotic JASPAR CORE is noise.
+JASPAR_DEFAULT_OFF_ORGANISMS = frozenset({"ecoli_k12"})
+
+
+def jaspar_enabled(manifest: dict) -> bool:
+    """Return True when the JASPAR CORE scan should run for this manifest."""
+    if manifest.get("use_jaspar") is True:
+        return True
+    if manifest.get("use_jaspar") is False:
+        return False
+    organism = manifest.get("organism", "ecoli_k12")
+    if organism in JASPAR_DEFAULT_OFF_ORGANISMS:
+        return False
+    jaspar_db = manifest.get("jaspar_db")
+    return bool(jaspar_db)
+
+
 def resolve_path(manifest_key: str) -> Path:
     path = DECODER_DIR / manifest_key
     if manifest_key.startswith("sequences/"):
@@ -145,34 +162,41 @@ def fetch_sequence(
 def run_fimo(manifest: dict, seq_file: Path, dry_run: bool = False):
     """Run FIMO motif scanner on the sequence."""
     circuit_id = manifest["circuit_id"]
-    results_dir = RESULTS_DIR / f"{circuit_id}_jaspar"
+    jaspar_hits_path = None
 
-    jaspar_db = resolve_path(manifest.get("jaspar_db", "motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt"))
-    qval = manifest.get("qvalue_threshold", 0.05)
-
-    fimo = _fimo_bin()
-    cmd = [
-        fimo,
-        "--thresh",
-        str(qval),
-        "--oc",
-        str(results_dir),
-        str(jaspar_db),
-        str(seq_file),
-    ]
-
-    log.info("  Running FIMO: %s", " ".join(cmd))
-
-    if dry_run:
-        log.info("  DRY RUN — would write to %s", results_dir)
-        return results_dir / "fimo.tsv", []
-
-    if not jaspar_db.exists():
-        raise FileNotFoundError(f"JASPAR database not found: {jaspar_db}")
-
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"FIMO failed: {result.stderr}")
+    if jaspar_enabled(manifest):
+        results_dir = RESULTS_DIR / f"{circuit_id}_jaspar"
+        jaspar_db = resolve_path(
+            manifest.get("jaspar_db", "motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt")
+        )
+        qval = manifest.get("qvalue_threshold", 0.05)
+        fimo = _fimo_bin()
+        cmd = [
+            fimo,
+            "--thresh",
+            str(qval),
+            "--oc",
+            str(results_dir),
+            str(jaspar_db),
+            str(seq_file),
+        ]
+        log.info("  Running FIMO (JASPAR): %s", " ".join(cmd))
+        if dry_run:
+            log.info("  DRY RUN — would write to %s", results_dir)
+            jaspar_hits_path = results_dir / "fimo.tsv"
+        else:
+            if not jaspar_db.exists():
+                raise FileNotFoundError(f"JASPAR database not found: {jaspar_db}")
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode != 0:
+                raise RuntimeError(f"FIMO failed: {result.stderr}")
+            jaspar_hits_path = results_dir / "fimo.tsv"
+    else:
+        log.info(
+            "  JASPAR disabled for %s (%s) — custom prokaryotic PWMs only",
+            circuit_id,
+            manifest.get("organism", "ecoli_k12"),
+        )
 
     prok_hits = []
     for pwm_file in manifest.get("custom_pwm_files", []):
@@ -204,16 +228,25 @@ def run_fimo(manifest: dict, seq_file: Path, dry_run: bool = False):
             "  Pending custom PWMs (may yield INSUFFICIENT_EVIDENCE): %s", names
         )
 
-    return results_dir / "fimo.tsv", prok_hits
+    if not jaspar_hits_path and not prok_hits and not dry_run:
+        log.warning(
+            "  No motif sources for %s (JASPAR off, no custom_pwm_files) — "
+            "parser will emit INSUFFICIENT_EVIDENCE",
+            circuit_id,
+        )
+
+    return jaspar_hits_path, prok_hits
 
 
-def run_parser(manifest: dict, fimo_hits: Path, prok_hits: list, dry_run: bool = False) -> dict:
+def run_parser(manifest: dict, fimo_hits, prok_hits: list, dry_run: bool = False) -> dict:
     """Run glmp_logic_parser.py and return the result JSON."""
     circuit_id = manifest["circuit_id"]
     manifest_path = QUEUE / "running" / f"{circuit_id}.yaml"
     output_path = RESULTS_DIR / f"{circuit_id}_logic_{datetime.now(timezone.utc).strftime('%Y%m%d')}.json"
 
-    hits_args = [str(fimo_hits)] + prok_hits
+    hits_args = ([str(fimo_hits)] if fimo_hits else []) + list(prok_hits)
+    if not hits_args:
+        hits_args = [str(DECODER_DIR / "motifs" / "empty_fimo.tsv")]
     cmd = [
         sys.executable,
         str(PARSER),

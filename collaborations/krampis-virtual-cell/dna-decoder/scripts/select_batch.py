@@ -181,6 +181,7 @@ def write_manifest(circuit_id: str, data: dict, score: int) -> Path:
         },
         "sequence_file": f"sequences/{circuit_id}.fa",
         "jaspar_db": "motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt",
+        "use_jaspar": False,
         "custom_pwm_files": [],
         "pending_custom_pwms": [],
         "qvalue_threshold": 0.05,

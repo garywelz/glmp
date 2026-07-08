@@ -31,7 +31,7 @@ import os
 import sys
 from datetime import datetime
 
-__version__ = "0.2.4"
+__version__ = "0.2.5"
 
 # Q-value threshold for confident gate evidence (matches production FIMO filter)
 CONFIDENCE_Q_THRESHOLD = 0.05
@@ -72,9 +72,10 @@ REPRESSOR_TFS = {
     "LexA", "MetJ", "PurR", "CytR",
 }
 
-# Known activator TFs — prokaryotic defaults for AND/OR input assignment
+# Known activator TFs — prokaryotic names / custom PWM ids only (no JASPAR matrix ids).
+# MA2303.1 removed 2026-07-08: JASPAR labels it "crp" but it is Drosophila melanogaster.
 ACTIVATOR_TFS = {
-    "CRP", "crp", "MA2303.1", "CAP", "AraC_activator",
+    "CRP", "crp", "CAP", "CRP_CAP", "AraC_activator",
     "NtrC", "OmpR", "PhoB",
 }
 
@@ -859,9 +860,18 @@ def main():
         all_sites.extend(sites)
 
     if not all_sites:
-        print("\nERROR: No binding sites loaded. Check FIMO output files.",
-              file=sys.stderr)
-        sys.exit(1)
+        print("\nWARNING: No binding sites loaded — INSUFFICIENT_EVIDENCE decode.")
+        relationships = []
+        summary = build_circuit_summary(
+            [], relationships, args.circuit, args.organism, manifest_data
+        )
+        output_path = args.output or f"{args.circuit}_logic.json"
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2)
+        print(f"Output written to: {output_path}")
+        print(f"  DNA topology: {summary.get('dna_topology_class')}")
+        print("Done.\n")
+        return
 
     print(f"\nTotal sites loaded: {len(all_sites)}")
 
