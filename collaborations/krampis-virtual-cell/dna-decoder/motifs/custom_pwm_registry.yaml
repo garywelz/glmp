@@ -5,22 +5,21 @@
 
 tfs:
   - name: LacI
-    motif_id: LacI_lacO1
+    motif_id: LacI_lacO
     organism: ecoli_k12
     jaspar_id: null
-    source_paper: "Lewis et al. 1996 Science 271:1247; Gilbert & Maxam 1973 PNAS 70:3581"
+    source_paper: "Lewis et al. 1996 Science 271:1247; Gilbert & Maxam 1973 PNAS 70:3581; RegulonDB v14.5"
     consensus: "AATTGTGAGCGGATAACAATT"
-    pwm_file: laci_motif.meme
+    pwm_file: laci_lacO.meme
     status: active
+    n_training_sites: 3
+    locked_fimo_pvalue_threshold: 1.0e-5
     notes: >
-      Parser still uses crude nsites=1 matrix in laci_motif.meme (active). Stage 1
-      replacement candidate: laci_lacO.meme (nsites=3 RegulonDB, motif_id LacI_lacO);
-      legacy archived as laci_motif_nsites1_legacy.meme. Stage 2 integration NOT done.
-      See motifs/laci_pwm_validation.yaml and docs/LACI_PWM_BIOLOGIST_REVIEW.md.
+      Stage 2 integrated 2026-07-08. nsites=3 RegulonDB lacO1/O2/O3 PWM; locked p<=1e-5
+      from operator-recovery + specificity controls (NOT lac class tuning). Crude nsites=1
+      archived as laci_motif_nsites1_legacy.meme. lac Class II PROVISIONAL pending biologist
+      sign-off. CRP-vs-LacI validation asymmetry: LacI cannot be hold out non-circularly.
     legacy_pwm_file: laci_motif_nsites1_legacy.meme
-    stage1_candidate_pwm_file: laci_lacO.meme
-    stage1_candidate_motif_id: LacI_lacO
-    stage1_locked_fimo_pvalue_threshold: 1.0e-5
     validated_circuits:
       - ecoli_lac_operon
 
@@ -30,8 +29,14 @@ tfs:
     jaspar_id: null
     source_paper: "Otwinowski et al. 1988 Nature 335:321"
     consensus: "CTAGNNNNCTAN"
-    pwm_file: laci_motif.meme
+    pwm_file: trpr_motif.meme
     status: active
+    n_training_sites: 5
+    locked_fimo_pvalue_threshold: 0.05
+    notes: >
+      Split from legacy combined laci_motif.meme (2026-07-08 Stage 2). nsites=5 matrix
+      unchanged; uses default custom-PWM confidence p<=0.05 (no stricter lock required).
+    legacy_pwm_file: laci_motif_nsites1_legacy.meme
     validated_circuits:
       - ecoli_trp_operon
 

@@ -31,29 +31,27 @@ import os
 import sys
 from datetime import datetime
 
-__version__ = "0.2.3"
+__version__ = "0.2.4"
 
 # Q-value threshold for confident gate evidence (matches production FIMO filter)
 CONFIDENCE_Q_THRESHOLD = 0.05
 
-# Custom PWM motifs from motifs/laci_motif.meme (not in JASPAR CORE).
-# FIMO q-values are unreliable for small custom motif sets (pi0 ~ 1);
-# use p-value <= CONFIDENCE_Q_THRESHOLD for confidence on these instead.
+# Custom PWM motifs (not in JASPAR CORE). FIMO q-values are unreliable for small
+# custom motif sets (pi0 ~ 1); use p-value thresholds below for confidence instead.
 CUSTOM_PWM_MOTIF_IDS = {
-    "LacI_lacO1",
+    "LacI_lacO1",  # legacy nsites=1 (archived; kept for backward-compatible FIMO TSV)
+    "LacI_lacO",    # nsites=3 RegulonDB operator PWM (Stage 2 active)
     "TrpR_trpO",
     "LexA_SOS_box",
     "CRP_CAP",
 }
 
 # Per-motif locked FIMO p-value thresholds for custom PWMs. When a motif has an
-# entry here, a hit only counts as confident/eligible evidence at that (usually
-# stricter) p-value instead of the general CONFIDENCE_Q_THRESHOLD. CRP_CAP was
-# locked at p<=1e-4 in Stage 1 (2026-07-07): the canonical lacZp1 CAP site is
-# recovered out-of-sample (p~7e-6) while the sub-threshold lacO-overlap CAP site
-# (p~3e-4) must NOT count as evidence.
+# entry here, a hit only counts as confident/eligible evidence at that p-value
+# instead of the general CONFIDENCE_Q_THRESHOLD (0.05).
 CUSTOM_PWM_PVALUE_THRESHOLDS = {
-    "CRP_CAP": 1e-4,
+    "CRP_CAP": 1e-4,   # Stage 1 locked 2026-07-07
+    "LacI_lacO": 1e-5,  # Stage 2 locked 2026-07-08 from operator/specificity controls
 }
 
 
@@ -70,7 +68,7 @@ RNAP_BINDING_REGION = (-35, -10)   # -35 and -10 elements relative to TSS
 
 # Known repressor TFs — prokaryotic defaults for NOT gate assignment
 REPRESSOR_TFS = {
-    "LacI", "LacI_lacO1", "TrpR", "AraC_repressor",
+    "LacI", "LacI_lacO1", "LacI_lacO", "TrpR", "AraC_repressor",
     "LexA", "MetJ", "PurR", "CytR",
 }
 
