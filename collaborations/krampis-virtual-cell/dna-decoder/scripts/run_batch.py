@@ -163,6 +163,7 @@ def run_fimo(manifest: dict, seq_file: Path, dry_run: bool = False):
     """Run FIMO motif scanner on the sequence."""
     circuit_id = manifest["circuit_id"]
     jaspar_hits_path = None
+    fimo = _fimo_bin()
 
     if jaspar_enabled(manifest):
         results_dir = RESULTS_DIR / f"{circuit_id}_jaspar"
@@ -170,7 +171,6 @@ def run_fimo(manifest: dict, seq_file: Path, dry_run: bool = False):
             manifest.get("jaspar_db", "motifs/JASPAR2024_CORE_non-redundant_pfms_meme.txt")
         )
         qval = manifest.get("qvalue_threshold", 0.05)
-        fimo = _fimo_bin()
         cmd = [
             fimo,
             "--thresh",
