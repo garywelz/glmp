@@ -91,3 +91,29 @@ are imperfect inverted repeats; manual review welcome).
 - [ ] Locked threshold p ≤ 1×10⁻⁵ accepted
 - [ ] 420-check outcome reviewed (modest improvement, not full collapse)
 - [ ] Approve or reject Stage 2 parser integration
+
+---
+
+## Stage 2 integration update (2026-07-08, parser v0.2.4)
+
+**Integrated.** `laci_lacO.meme` active on lac manifest; `trpr_motif.meme` split active on trp.
+Locked `LacI_lacO` p≤1e-5 in parser (`CUSTOM_PWM_PVALUE_THRESHOLDS`).
+
+### Five-hit disambiguation (confirmed at integration)
+
+All 5 hits at p≤1e-5 map to real operator sequence identity (0 spurious). Effective loci:
+**lacO1 ×2, lacO3 ×1**, plus 2 weaker O1-like variants (76% identity, p≈3.8e-8) at O1 positions.
+**lacO2_genomic not in the 350 bp decode window.**
+
+### Post-integration re-decode
+
+| Check | Result |
+|-------|--------|
+| lac class | **II** (unchanged) |
+| trp class | **I/II** (unchanged; split did not break TrpR) |
+| LacI NOT accounting | 420 → **371** |
+| trp LacI contamination | 1080 spurious → **0** |
+| Other 6 circuits | Unchanged |
+| All bio_class | Unchanged |
+
+lac remains **Class II PROVISIONAL**.

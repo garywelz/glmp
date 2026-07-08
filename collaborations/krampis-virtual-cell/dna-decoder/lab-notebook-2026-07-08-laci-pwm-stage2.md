@@ -3,7 +3,7 @@
 **Status:** Integrated `laci_lacO.meme` + split `trpr_motif.meme`; re-decoded 8 circuits.
 **lac Class II remains PROVISIONAL.** No external claim.
 
-Parser v0.2.4. Commit: _(filled after push)_.
+Parser v0.2.4. Commit: `e6ace42` (+ notebook follow-up).
 
 ## Objective
 
@@ -55,15 +55,35 @@ TrpR threshold: **p ≤ 0.05** (default custom-PWM confidence; nsites=5 matrix u
 BEFORE = CRP Stage 2 decode (2026-07-08, `laci_motif.meme` crude LacI + combined TrpR).
 AFTER = this Stage 2 (parser v0.2.4, `laci_lacO.meme` + `trpr_motif.meme`).
 
-| circuit | BEFORE | AFTER | Δ | bio_class |
-|---------|--------|-------|---|-----------|
-| _(filled from regression run)_ | | | | |
+| circuit | BEFORE (CRP S2 + crude LacI) | AFTER (LacI S2) | Δ | bio_class |
+|---------|-------------------------------|-----------------|---|-----------|
+| **ecoli_lac_operon** | **II** | **II** | — | II |
+| ecoli_ara_operon | INSUFFICIENT_EVIDENCE | INSUFFICIENT_EVIDENCE | — | III |
+| **ecoli_trp_operon** | **I/II** | **I/II** | — | II |
+| ecoli_sos_lexa | I/II | I/II | — | II |
+| ecoli_sos_reca | I/II | I/II | — | II |
+| ecoli_flhdc_flagellar | INDETERMINATE | INDETERMINATE | — | I |
+| ecoli_lambda_switch | INSUFFICIENT_EVIDENCE | INSUFFICIENT_EVIDENCE | — | III |
+| ecoli_dna_damage_checkpoint | I/II | I/II | — | II |
+
+**All 8 `glmp_biological_class` values unchanged.**
 
 ### lac NOT accounting (eligible LacI NOT gates)
 
-| Condition | BEFORE (crude LacI_lacO1) | AFTER (LacI_lacO locked) |
-|-----------|---------------------------|--------------------------|
-| _(filled from regression run)_ | | |
+| Metric | BEFORE (`LacI_lacO1` nsites=1) | AFTER (`LacI_lacO` locked p≤1e-5) |
+|--------|--------------------------------|-------------------------------------|
+| Eligible LacI NOT gates | **420** | **371** (−12%) |
+| Total NOT gates | 791 | 371 |
+| Custom LacI binding sites in parser | 7 (loose load) | 5 at locked FIMO; parser uses locked confidence |
+| TrpR spurious on lac | 420 pairs (combined file artifact) | **0** |
+
+### trp split safety check
+
+| Metric | BEFORE (combined `laci_motif.meme`) | AFTER (`trpr_motif.meme` only) |
+|--------|--------------------------------------|--------------------------------|
+| Class | I/II | **I/II** ✓ |
+| TrpR NOT gates | 705 | **545** |
+| Spurious LacI NOT on trp | **1080** | **0** ✓ |
 
 ## Permanent CRP-vs-LacI validation asymmetry
 
