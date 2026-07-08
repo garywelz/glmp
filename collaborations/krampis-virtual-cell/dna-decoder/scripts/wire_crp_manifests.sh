@@ -24,7 +24,9 @@ inserted = False
 for line in lines:
     if line.startswith("custom_pwm_files:"):
         in_custom = True
-        out.append(line)
+        # Normalize an inline empty list ("custom_pwm_files: []") to a block
+        # header so the appended "  - ..." item is valid YAML.
+        out.append("custom_pwm_files:\n")
         continue
     if in_custom and not inserted:
         if line.startswith("  - "):
