@@ -49,7 +49,7 @@ def load_old_class(path: Path) -> str:
         return json.load(f).get("dna_topology_class", "?")
 
 
-def redecode_one(circuit_id: str) -> dict:
+def redecode_one(circuit_id: str, force_refetch: bool = False) -> dict:
     manifest_path = QUEUE / "completed" / f"{circuit_id}.yaml"
     if not manifest_path.exists():
         raise FileNotFoundError(manifest_path)
@@ -62,7 +62,7 @@ def redecode_one(circuit_id: str) -> dict:
     shutil.copy(manifest_path, running_path)
 
     log.info("Re-decoding %s", circuit_id)
-    seq_file = fetch_sequence(manifest, dry_run=False)
+    seq_file = fetch_sequence(manifest, dry_run=False, force_refetch=force_refetch)
     fimo_hits, prok_hits = run_fimo(manifest, seq_file, dry_run=False)
     result = run_parser(manifest, fimo_hits, prok_hits, dry_run=False)
 
@@ -101,13 +101,18 @@ def main():
         "--circuits", nargs="*", default=REGRESSION_CIRCUITS,
         help="Circuit IDs (default: all 8 regression targets)",
     )
+    parser.add_argument(
+        "--force-refetch",
+        action="store_true",
+        help="Re-fetch sequence from NCBI before decode (bypasses on-disk cache)",
+    )
     args = parser.parse_args()
 
     rows = []
     for circuit_id in args.circuits:
         old_path = OLD_REFERENCE.get(circuit_id)
         old_class = load_old_class(old_path) if old_path and old_path.exists() else "?"
-        result = redecode_one(circuit_id)
+        result = redecode_one(circuit_id, force_refetch=args.force_refetch)
         new_class = result.get("dna_topology_class")
         rows.append({
             "circuit_id": circuit_id,

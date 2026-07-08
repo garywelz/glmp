@@ -80,13 +80,26 @@ def resolve_path(manifest_key: str) -> Path:
     return path
 
 
-def fetch_sequence(manifest: dict, dry_run: bool = False) -> Path:
-    """Fetch promoter sequence from NCBI if not already on disk."""
+def fetch_sequence(
+    manifest: dict,
+    dry_run: bool = False,
+    force_refetch: bool = False,
+) -> Path:
+    """Fetch promoter sequence from NCBI, or validate existing file against manifest."""
+    from sequence_guard import load_fasta, sha256_sequence, validate_sequence_against_manifest
+
     seq_file = resolve_path(manifest["sequence_file"])
 
-    if seq_file.exists():
-        log.info("  Sequence already on disk: %s", seq_file)
+    if seq_file.exists() and not force_refetch:
+        if dry_run:
+            log.info("  DRY RUN — would validate existing sequence: %s", seq_file)
+            return seq_file
+        validate_sequence_against_manifest(manifest, seq_file)
+        log.info("  Sequence validated against manifest: %s", seq_file)
         return seq_file
+
+    if force_refetch and seq_file.exists():
+        log.info("  --force-refetch: replacing %s", seq_file)
 
     region = manifest.get("genomic_region") or {}
     accession = manifest.get("ncbi_accession", "")
@@ -118,7 +131,14 @@ def fetch_sequence(manifest: dict, dry_run: bool = False) -> Path:
         return seq_file
 
     fetch_from_manifest(manifest, seq_file)
-    log.info("  Wrote sequence %s (%d bp)", seq_file, len(seq_file.read_text().splitlines()[1:]))
+    _, seq = load_fasta(seq_file)
+    manifest["sequence_sha256"] = sha256_sequence(seq)
+    log.info(
+        "  Wrote sequence %s (%d bp, sha256=%s…)",
+        seq_file,
+        len(seq),
+        manifest["sequence_sha256"][:12],
+    )
     return seq_file
 
 
