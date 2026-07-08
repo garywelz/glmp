@@ -31,7 +31,7 @@ import os
 import sys
 from datetime import datetime
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 # Q-value threshold for confident gate evidence (matches production FIMO filter)
 CONFIDENCE_Q_THRESHOLD = 0.05
@@ -43,6 +43,17 @@ CUSTOM_PWM_MOTIF_IDS = {
     "LacI_lacO1",
     "TrpR_trpO",
     "LexA_SOS_box",
+    "CRP_CAP",
+}
+
+# Per-motif locked FIMO p-value thresholds for custom PWMs. When a motif has an
+# entry here, a hit only counts as confident/eligible evidence at that (usually
+# stricter) p-value instead of the general CONFIDENCE_Q_THRESHOLD. CRP_CAP was
+# locked at p<=1e-4 in Stage 1 (2026-07-07): the canonical lacZp1 CAP site is
+# recovered out-of-sample (p~7e-6) while the sub-threshold lacO-overlap CAP site
+# (p~3e-4) must NOT count as evidence.
+CUSTOM_PWM_PVALUE_THRESHOLDS = {
+    "CRP_CAP": 1e-4,
 }
 
 
@@ -351,10 +362,19 @@ def is_custom_pwm_site(site):
     return site.motif_id in CUSTOM_PWM_MOTIF_IDS
 
 
+def _custom_pwm_threshold(site, default_threshold):
+    """Locked per-motif p-value threshold for a custom PWM, else the default."""
+    return CUSTOM_PWM_PVALUE_THRESHOLDS.get(site.motif_id, default_threshold)
+
+
 def _site_passes_confidence_threshold(site, threshold=CONFIDENCE_Q_THRESHOLD):
-    """JASPAR hits use q-value; custom PWM hits use p-value at same cutoff."""
+    """JASPAR hits use q-value; custom PWM hits use p-value.
+
+    Custom PWMs with a locked per-motif threshold (e.g. CRP_CAP p<=1e-4) are
+    held to that threshold rather than the general cutoff.
+    """
     if is_custom_pwm_site(site):
-        return site.pvalue <= threshold
+        return site.pvalue <= _custom_pwm_threshold(site, threshold)
     return site.qvalue <= threshold
 
 
@@ -425,6 +445,44 @@ _OTHER_CLASSIFICATION_LOGIC_TYPES = frozenset({
 })
 
 
+def _confident_and_gates(relationships, q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """Eligible AND gates whose identified-regulator sites pass confidence."""
+    return [
+        r for r in _eligible_relationships(relationships, q_threshold)
+        if r.logic_type == "AND" and _relationship_is_confident(r, q_threshold)
+    ]
+
+
+def _lone_activator_and_motifs(relationships, q_threshold=CONFIDENCE_Q_THRESHOLD):
+    """Return the set of identified-regulator motif ids underlying confident AND
+    gates when — and only when — that evidence is a *single* activator paired
+    with non-regulator sites (no AND gate joins two identified regulators).
+
+    Returns an empty set when the AND evidence is genuinely combinatorial
+    (>=2 distinct identified regulators, or a regulator-regulator pair), so a
+    real Class I is not suppressed. A non-empty return signals that a confident
+    Class I would over-claim: the cooperating / primary regulator is not
+    detected in-sequence.
+    """
+    and_gates = _confident_and_gates(relationships, q_threshold)
+    if not and_gates:
+        return set()
+
+    regulator_motifs = set()
+    for rel in and_gates:
+        reg_sites = [
+            s for s in (rel.site_a, rel.site_b)
+            if s.is_repressor() or s.is_activator()
+        ]
+        if len(reg_sites) >= 2:
+            return set()  # regulator-regulator AND — genuinely combinatorial
+        regulator_motifs.update(s.motif_id for s in reg_sites)
+
+    if len(regulator_motifs) >= 2:
+        return set()  # two distinct regulators cooperating across gates
+    return regulator_motifs
+
+
 def _derive_topology_class_label(relationships, has_not, has_and,
                                  q_threshold=CONFIDENCE_Q_THRESHOLD):
     """
@@ -442,6 +500,17 @@ def _derive_topology_class_label(relationships, has_not, has_and,
     if has_not and not has_and:
         return "I/II", ["NOT"], None
     if not has_not and has_and:
+        lone = _lone_activator_and_motifs(relationships, q_threshold)
+        if lone:
+            names = ", ".join(sorted(lone)) or "a single activator"
+            note = (
+                f"Single activator ({names}) forms AND-gate spacing only with "
+                "non-regulator sites; no cooperating or primary regulator is "
+                "detected in-sequence. A confident Class I would over-claim "
+                "combinatorial activation, so the DNA-level evidence is reported "
+                "as insufficient (primary regulator unmodeled)."
+            )
+            return "INSUFFICIENT_EVIDENCE", [], note
         return "I", ["AND"], None
 
     other_confident = [
@@ -508,11 +577,16 @@ def assess_classification_confidence(relationships, has_not, has_and, organism,
     confident_eligible = [
         r for r in eligible if _relationship_is_confident(r, q_threshold)
     ]
+    gate_flag_class, _ = _proposed_topology_class(has_not, has_and)
     stats = {
         "proposed_class": (
             class_label
             if class_label not in ("INSUFFICIENT_EVIDENCE", "INDETERMINATE")
             else None
+        ),
+        "gate_flag_class": gate_flag_class,
+        "gate_flag_downgraded": (
+            gate_flag_class is not None and gate_flag_class != class_label
         ),
         "supporting_gate_types": supporting_types,
         "supporting_gates_total": len(eligible),
@@ -803,12 +877,17 @@ def main():
     print(f"Repressor sites (q<={rep_q_thresh}): {len(repressor_sites)} "
           f"(removed {rep_before - len(repressor_sites)})")
 
-    # Filter non-repressors by the standard threshold
+    # Filter non-repressors by the standard threshold. Custom-PWM activators
+    # (e.g. CRP_CAP) have unreliable q-values on tiny motif sets, so they are
+    # kept by their locked p-value threshold instead (see
+    # _site_passes_confidence_threshold); JASPAR non-repressors still use q.
     nonrep_before = len(nonrepressor_sites)
-    nonrepressor_sites = [s for s in nonrepressor_sites
-                          if s.qvalue <= args.qvalue_threshold]
-    print(f"Non-repressor sites (q<={args.qvalue_threshold}): "
-          f"{len(nonrepressor_sites)} "
+    nonrepressor_sites = [
+        s for s in nonrepressor_sites
+        if _site_passes_confidence_threshold(s, args.qvalue_threshold)
+    ]
+    print(f"Non-repressor sites (q<={args.qvalue_threshold}; "
+          f"custom-PWM p-locked): {len(nonrepressor_sites)} "
           f"(removed {nonrep_before - len(nonrepressor_sites)})")
 
     # ── Apply max-sites cap to non-repressors only; repressors always included
