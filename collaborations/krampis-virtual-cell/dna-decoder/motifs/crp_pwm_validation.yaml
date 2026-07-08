@@ -1,0 +1,191 @@
+stage: 1
+status: internally_validated_pending_biologist_signoff
+regulondb_release: 14.5.0
+regulondb_source: TF-RISet.tsv (CRP, confidence Confirmed|Strong)
+build_method: TGTGA-aligned 22bp cores from TF-RISet; count matrix + 0.1 pseudocount;
+  E. coli background; lacO-confounded RegulonDB rows excluded from training
+n_training_sites: 54
+n_held_out_sites: 4
+consensus_shape_check: &id001
+  consensus: ATTTGTGATCCGAATCACATTT
+  left_half_checked: TTGTG
+  right_half_checked: CACAT
+  spacer_len: 8
+  left_tgtga_match: false
+  right_tcaca_match: false
+  pass: false
+locked_fimo_pvalue_threshold: 0.0001
+threshold_calibration:
+  locked_fimo_pvalue_threshold: 0.0001
+  selection_rationale: Maximize holdout + positive recovery with negative FPR <= 5%;
+    if none, rank by holdout hits then positive hits then FPR.
+  threshold_sweep:
+  - thresh: 0.0001
+    holdout_hits: 7
+    holdout_total: 4
+    positive_hits: 5
+    positive_total: 4
+    negative_hits: 0
+    negative_total: 20
+    negative_rate: 0.0
+  - thresh: 0.0005
+    holdout_hits: 17
+    holdout_total: 4
+    positive_hits: 6
+    positive_total: 4
+    negative_hits: 4
+    negative_total: 20
+    negative_rate: 0.2
+  - thresh: 0.001
+    holdout_hits: 18
+    holdout_total: 4
+    positive_hits: 6
+    positive_total: 4
+    negative_hits: 8
+    negative_total: 20
+    negative_rate: 0.4
+  - thresh: 0.005
+    holdout_hits: 38
+    holdout_total: 4
+    positive_hits: 9
+    positive_total: 4
+    negative_hits: 33
+    negative_total: 20
+    negative_rate: 1.65
+  - thresh: 0.01
+    holdout_hits: 49
+    holdout_total: 4
+    positive_hits: 11
+    positive_total: 4
+    negative_hits: 61
+    negative_total: 20
+    negative_rate: 3.05
+  - thresh: 0.05
+    holdout_hits: 140
+    holdout_total: 4
+    positive_hits: 17
+    positive_total: 4
+    negative_hits: 256
+    negative_total: 20
+    negative_rate: 12.8
+  locked_at:
+    thresh: 0.0001
+    holdout_hits: 7
+    holdout_total: 4
+    positive_hits: 5
+    positive_total: 4
+    negative_hits: 0
+    negative_total: 20
+    negative_rate: 0.0
+validation_a_consensus: *id001
+validation_b_holdout_fimo:
+- motif_id: CRP_CAP
+  sequence_name: ecoli_flhdc_flagellar_flhDp_RDBECOLIRIC05099
+  start: '11'
+  stop: '32'
+  strand: +
+  score: '17.018'
+  p-value: '3.11e-07'
+  q-value: '0.000821'
+  matched_sequence: TTGTGTGATCTGCATCACGCAT
+- motif_id: CRP_CAP
+  sequence_name: ecoli_lac_operon_lacZp1_RDBECOLIRIC04251
+  start: '11'
+  stop: '32'
+  strand: +
+  score: '13.8288'
+  p-value: '7.34e-06'
+  q-value: '0.00484'
+  matched_sequence: TAATGTGAGTTAGCTCACTCAT
+- motif_id: CRP_CAP
+  sequence_name: ecoli_lac_operon_circuit_window
+  start: '252'
+  stop: '273'
+  strand: '-'
+  score: '13.8288'
+  p-value: '7.34e-06'
+  q-value: '0.00484'
+  matched_sequence: TAATGTGAGTTAGCTCACTCAT
+- motif_id: CRP_CAP
+  sequence_name: ecoli_lac_operon_circuit_window
+  start: '252'
+  stop: '273'
+  strand: '-'
+  score: '13.8288'
+  p-value: '7.34e-06'
+  q-value: '0.00484'
+  matched_sequence: TAATGTGAGTTAGCTCACTCAT
+- motif_id: CRP_CAP
+  sequence_name: ecoli_ara_operon_araBp_RDBECOLIRIC04296
+  start: '11'
+  stop: '32'
+  strand: '-'
+  score: '11.964'
+  p-value: '3.21e-05'
+  q-value: '0.0141'
+  matched_sequence: AAGTGTGACGCCGTGCAAATAA
+- motif_id: CRP_CAP
+  sequence_name: ecoli_ara_operon_circuit_window
+  start: '359'
+  stop: '380'
+  strand: +
+  score: '11.964'
+  p-value: '3.21e-05'
+  q-value: '0.0141'
+  matched_sequence: AAGTGTGACGCCGTGCAAATAA
+- motif_id: CRP_CAP
+  sequence_name: ecoli_flhdc_flagellar_flhDp_RDBECOLIRIC05099
+  start: '11'
+  stop: '32'
+  strand: '-'
+  score: '10.4775'
+  p-value: '9.05e-05'
+  q-value: '0.0341'
+  matched_sequence: ATGCGTGATGCAGATCACACAA
+validation_c_positive_fimo:
+- motif_id: CRP_CAP
+  sequence_name: galPp_galP
+  start: '11'
+  stop: '32'
+  strand: '-'
+  score: '17.2162'
+  p-value: '2.47e-07'
+  q-value: '2.96e-05'
+  matched_sequence: AGATGTGAAGCAAATCACATCA
+- motif_id: CRP_CAP
+  sequence_name: galPp_galP
+  start: '11'
+  stop: '32'
+  strand: +
+  score: '16.5405'
+  p-value: '5.33e-07'
+  q-value: '3.18e-05'
+  matched_sequence: TGATGTGATTTGCTTCACATCT
+- motif_id: CRP_CAP
+  sequence_name: fadLp_fadL
+  start: '11'
+  stop: '32'
+  strand: '-'
+  score: '16.1712'
+  p-value: '7.94e-07'
+  q-value: '3.18e-05'
+  matched_sequence: AAGTGTGATTTCGGTCACTTAT
+- motif_id: CRP_CAP
+  sequence_name: ptsHp_ptsH
+  start: '11'
+  stop: '32'
+  strand: '-'
+  score: '12.6937'
+  p-value: '1.85e-05'
+  q-value: '0.000555'
+  matched_sequence: AAGTTTGAAGCAGGCCACAAAA
+- motif_id: CRP_CAP
+  sequence_name: ptsHp_ptsH
+  start: '11'
+  stop: '32'
+  strand: +
+  score: '11.6126'
+  p-value: '4.15e-05'
+  q-value: '0.000996'
+  matched_sequence: TTTTGTGGCCTGCTTCAAACTT
+validation_d_negative_fimo: []
