@@ -72,6 +72,9 @@
   .sec-bd { padding: 1.5rem; }
   .sec-bd p { margin-bottom: 1rem; }
   .sec-bd p:last-child { margin-bottom: 0; }
+  .sec-bd ul, .sec-bd ol.plain { margin: 0 0 1rem 1.25rem; }
+  .sec-bd ul:last-child, .sec-bd ol.plain:last-child { margin-bottom: 0; }
+  .sec-bd li { margin-bottom: .5rem; }
 
   /* Five step list */
   .steps { list-style: none; counter-reset: step-counter; }
@@ -162,6 +165,11 @@
   .tag-now  { background: #d4e4f0; color: #1a2a4a; }
   .tag-soon { background: #f0edd4; color: #4a3a1a; }
 
+  /* Five-class framework */
+  .cls-list { list-style: none; margin: 0 0 1rem 0; }
+  .cls-list li { margin-bottom: .75rem; padding-left: 1.5rem; position: relative; }
+  .cls-list li strong { color: var(--accent); }
+
   /* Infrastructure */
   .infra { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .75rem; }
   @media(max-width:560px){ .infra { grid-template-columns: 1fr; } }
@@ -182,6 +190,14 @@
     border-top: 1px solid var(--border);
   }
   a { color: var(--accent); }
+  h3.subhd {
+    font-family: var(--font-h);
+    font-size: .95rem;
+    font-weight: normal;
+    color: var(--accent);
+    margin: 1.25rem 0 .5rem;
+  }
+  h3.subhd:first-child { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -200,30 +216,71 @@
 
 <div class="wrap">
 
-  <!-- Core idea -->
+  <!-- What this project is / why it matters / where it stands / where you come in -->
   <div class="sec">
-    <div class="sec-hd"><h2>The core idea in one sentence</h2></div>
+    <div class="sec-hd"><h2>What this project is</h2></div>
     <div class="sec-bd">
-      <p>The DNA that controls when genes turn on and off can be read like a computer
-      program — the spatial arrangement of protein binding sites encodes logical
-      operations (AND, OR, NOT) that we can extract and formalize computationally.</p>
-      <p>This approach is the inverse of synthetic biology work by Voigt et al.
-      (Science 2016), which compiles human-readable logic programs <em>into</em> novel
-      DNA sequences. GLMP reads the logic that evolution has already written
-      <em>into</em> natural regulatory DNA. The two share a grammar; they differ
-      in direction.</p>
+      <p>We call DNA "the code of life," but usually just as a metaphor. GLMP takes the
+      metaphor seriously and asks a concrete question: can the logic of a gene — the
+      rules that decide when it turns on and off — be read directly from the DNA
+      sequence, the way you'd read a few lines of a program?</p>
+      <p>Genes don't fire at random. A stretch of regulatory DNA behaves like a tiny
+      circuit: <em>make this protein when a nutrient is present AND a second signal is
+      absent.</em> Those are real logic gates — AND, OR, NOT — built out of molecules.
+      GLMP reads those gates straight from the genome, draws each gene circuit as a
+      flowchart, and then checks that reading against what biologists have actually
+      established.</p>
+      <p>This is the <em>inverse</em> of synthetic biology. Work like Voigt et al.
+      (Science 2016) compiles human-written logic <em>into</em> new DNA; GLMP reads
+      the logic evolution has already written <em>into</em> natural regulatory DNA.
+      Same grammar, opposite direction.</p>
+
+      <h3 class="subhd">Why it matters</h3>
+      <p>The logic of gene regulation is how a cell makes decisions — how one
+      fertilized egg becomes a nerve cell or a muscle cell, and how those decisions go
+      wrong in disease. If we can reliably read and verify that logic at scale, we
+      build a foundation for understanding how the instructions inside our cells work,
+      and eventually for seeing where they break. It sits exactly where computer
+      science meets biology and medicine.</p>
+
+      <h3 class="subhd">Where it stands</h3>
+      <p>This is a working research program, not a proposal. It already draws
+      logic-flowchart models for hundreds of gene circuits across organisms, runs a
+      computational decoder that reads regulatory logic directly from DNA sequence,
+      and is backed by a growing research knowledge base. Today the decoder reliably
+      reads the most fundamental piece of that logic — the <strong>"off switch,"</strong>
+      where a protein blocks a gene — in bacteria, checked against gold-standard
+      reference data. It is deliberately careful: it claims only what the sequence
+      actually supports, and treats a clearly marked limit as a finding rather than
+      something to hide. The frontier from here — reading the <strong>"on
+      switches,"</strong> handling more complex logic, and extending from bacteria
+      toward human cells — is wide open.</p>
+
+      <h3 class="subhd">Where you come in</h3>
+      <p>The project needs exactly the mix of skills in this room, and there is real
+      work to own. There are two tracks:</p>
+      <ul>
+        <li><strong>Computational validation</strong> — check the decoder's readings
+        against curated biological databases. A concrete, self-contained job that
+        turns programming skill into scientific evidence.</li>
+        <li><strong>Biological judgment</strong> — connect what the code says to what
+        molecular biology knows. Neither current lead is a molecular biologist (Gary
+        is a logician, Konstantinos a bioinformatician), so there is a genuine open
+        seat for biological expertise.</li>
+      </ul>
+      <p>The detailed asks are at the end of this briefing. Everything in between is
+      how the project actually works.</p>
     </div>
   </div>
 
   <!-- What a flowchart looks like -->
   <div class="sec">
-    <div class="sec-hd"><h2>What a GLMP flowchart looks like</h2></div>
+    <div class="sec-hd"><h2>The core idea, and the first flowchart</h2></div>
     <div class="sec-bd">
-      <p>The project began with a picture. Before any decoder, any database, any
-      classification system — a flowchart representing a molecular regulatory process
-      as a logical circuit. The flowchart below shows the <em>lac</em> operon in
-      <em>E. coli</em>: the first worked example and the anchor for everything that
-      follows.</p>
+      <p>The project began with a picture: a molecular regulatory process drawn as a
+      logical circuit, before any decoder or database. The anchor example is the
+      <em>lac</em> operon in <em>E. coli</em> — one of the most studied systems in
+      molecular biology, and the worked example for everything that follows.</p>
 
       <div class="key">
         <div class="ki"><div class="ks" style="background:#ffb74d;border-color:#e65100;"></div>Orange — gene expression source</div>
@@ -265,11 +322,13 @@ graph TD
       </div>
 
       <p style="font-size:.88rem;color:var(--muted);">
-        The purple diamonds are decision points — logic gates. The orange node at the
-        top is the source of the repressor protein. The green node is the output:
-        active transcription. The entire regulatory logic of the lac operon — one of
-        the most studied systems in molecular biology — is captured in this diagram.
-        This is what GLMP is formalizing at scale.
+        The purple diamonds are logic gates; the orange node is the source of the
+        repressor protein; the green node is the output. The whole regulatory logic
+        of the lac operon is captured in one diagram — and this is what GLMP
+        formalizes at scale. Note the flowchart is the <em>biology</em>: the cell
+        really does compute "operator free AND CAP assist." What the decoder can read
+        from <em>sequence alone</em> is a separate question, and an honest one —
+        see "Where the decoder stands," below.
       </p>
     </div>
   </div>
@@ -278,9 +337,9 @@ graph TD
   <div class="sec">
     <div class="sec-hd"><h2>The research process — five steps</h2></div>
     <div class="sec-bd">
-      <p style="margin-bottom:1.25rem;">GLMP proceeds in five steps. Steps 3 through 5
-      are contingent on step 2 being answered in the affirmative. That is not a
-      weakness — it is how science works.</p>
+      <p style="margin-bottom:1.25rem;">Steps 3 through 5 are contingent on step 2
+      being answered in the affirmative. That is not a weakness — it is how science
+      works.</p>
 
       <ol class="steps">
         <li>
@@ -360,6 +419,54 @@ graph TD
     </div>
   </div>
 
+  <!-- Five-class framework -->
+  <div class="sec">
+    <div class="sec-hd"><h2>The five-class framework</h2></div>
+    <div class="sec-bd">
+      <p>The flowcharts don't just record <em>which</em> logic gates a circuit uses;
+      they place each circuit on a ladder of increasing regulatory complexity. The
+      intent is a five-class scheme, from the simplest computable logic to the most
+      open-ended:</p>
+
+      <ul class="cls-list">
+        <li><strong>Class I — Feed-forward logic.</strong> Input flows to output
+        through logic gates (NOT, AND, OR) with no loops. Fully determined by its
+        inputs, and in principle fully predictable. Most classic bacterial operons
+        live here.</li>
+        <li><strong>Class II — Self-regulation / negative feedback.</strong> A
+        damping loop that holds a system near a set point — homeostasis and noise
+        buffering.</li>
+        <li><strong>Class III — Bistable switches.</strong> Positive feedback or
+        mutual repression creates two stable states; the circuit stays flipped after
+        the signal is gone. The basis of cell-fate decisions.</li>
+        <li><strong>Class IV — Oscillators.</strong> Feedback with a built-in delay
+        produces sustained rhythms rather than a fixed state — circadian clocks are
+        the classic case.</li>
+        <li><strong>Class V — Self-modifying circuits.</strong> The circuit rewrites
+        its own regulatory architecture, for instance through chromatin change. The
+        most expressive tier, and the least predictable.</li>
+      </ul>
+
+      <p>We are direct about the status of this scheme: <strong>defining the class
+      boundaries precisely — and settling how the logic we read from sequence relates
+      to the biological complexity of the whole circuit — is active work, and one of
+      the near-term tasks for this collaboration.</strong> That is why the table
+      below carries two separate columns, and why some entries read "I/II": they mark
+      circuits whose classification sits on a boundary we are still drawing.</p>
+
+      <p>The <em>lac</em> operon is the sharp case. At the sequence level it reads as
+      Class I feed-forward logic — a repressor (NOT) and, when present, an activator.
+      Yet biologically it runs <em>dual control</em>: activation by CAP together with
+      de-repression of LacI. Whether dual control of that kind should define its own
+      place on the ladder — and how to decide such questions in general — is not a
+      detail we mean to smooth over. It is close to the central research question,
+      and we would rather state our tentative reads and work them out than reach for
+      the tidier label. The full formal treatment is in Papers I–III (see "Papers and
+      further reading," below); the practical outcome is what this collaboration is
+      here to help establish.</p>
+    </div>
+  </div>
+
   <!-- Current decoder status -->
   <div class="sec">
     <div class="sec-hd"><h2>Where the decoder stands today</h2></div>
@@ -375,8 +482,8 @@ graph TD
           <tr>
             <th>Circuit</th>
             <th>Organism</th>
-            <th>DNA topology (computational)</th>
-            <th>Biological class (catalog)</th>
+            <th>DNA topology (from sequence)</th>
+            <th>Biological class (working)</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -426,14 +533,19 @@ graph TD
         </tbody>
       </table>
       <p style="font-size:.8rem;color:var(--muted);margin-top:.75rem;">
-        The decoder reads repression (NOT) reliably but cannot confirm a cooperative
-        CAP activation (AND) from sequence alone. For single-activator promoters like
-        <em>lac</em>, spacing-based TF–TF AND detection is structurally unreliable, so
-        the honest DNA-topology label is <strong>I/II</strong>. Biological class II —
-        CAP-dependent activation plus repression, the textbook logic shown in the
-        flowchart above — remains the biological ground truth the validation team is
-        asked to confirm.<br>
-        † AraC is absent from JASPAR (prokaryote-specific TF); custom PWM in development.
+        The decoder reads repression (NOT) reliably but cannot yet confirm a
+        cooperative activation (AND) from sequence alone; for single-activator
+        promoters like <em>lac</em>, spacing-based AND detection is structurally
+        unreliable, so the honest DNA-topology label is <strong>I/II</strong>.
+        Biological class II — CAP-dependent activation plus repression, the logic
+        shown in the flowchart above — remains the biological ground truth the
+        validation team is asked to confirm. Across all circuits the decoder
+        currently makes <strong>zero</strong> AND calls, and says so rather than
+        inventing one.<br>
+        * lac biological class is under review — Class II vs III is an open
+        question the validation team is asked to weigh in on.<br>
+        † AraC is absent from JASPAR (a prokaryote-specific TF); a custom matrix is
+        in development.
       </p>
     </div>
   </div>
@@ -442,44 +554,73 @@ graph TD
   <div class="sec">
     <div class="sec-hd"><h2>What we are asking from the collaboration</h2></div>
     <div class="sec-bd">
-      <p>The collaboration has two tracks depending on the student's background:</p>
+      <p>Two tracks, matched to background:</p>
 
       <table>
         <thead>
-          <tr><th>Track</th><th>Task</th><th>Deliverable</th><th>Timeline</th></tr>
+          <tr><th>Track</th><th>Task</th><th>Deliverable</th></tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Computation</strong></td>
-            <td>Cross-reference FIMO-predicted binding sites against RegulonDB
-            gold-standard data; produce overlap statistics and discrepancy report</td>
+            <td>Cross-reference the decoder's predicted binding sites against
+            RegulonDB gold-standard data; produce overlap statistics and a
+            discrepancy report</td>
             <td>Analysis script + validation report</td>
-            <td>~3 weeks</td>
           </tr>
           <tr>
             <td><strong>Biology</strong></td>
-            <td>Review lac/ara/trp flowchart annotations against primary literature
-            and curated databases; confirm or flag each logic gate assignment</td>
+            <td>Review the lac / ara / trp flowchart annotations against the
+            primary literature and curated databases; confirm or flag each
+            logic-gate assignment</td>
             <td>Structured draft review, for a molecular biologist's sign-off</td>
-            <td>~3 weeks</td>
           </tr>
         </tbody>
       </table>
 
-      <p style="margin-top:1rem;">A self-contained validation package — including
-      all data files, the annotation review document, and a detailed task brief —
-      is available for download. No credentials or database access required.</p>
+      <p style="margin-top:1rem;">Both tracks work from a single self-contained
+      package — data files, decode outputs, RegulonDB reference data, a per-track
+      task brief, and a shared report template — available for download with no
+      credentials or database access required:</p>
+
+      <ul>
+        <li>Computation task brief: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/validation/task-brief-computation.md" target="_blank" rel="noopener">task-brief-computation.md</a></li>
+        <li>Biology task materials: <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/lac-operon-annotation-review.md" target="_blank" rel="noopener">lac operon annotation review</a></li>
+        <li>Full validation package: <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/validation/README.md" target="_blank" rel="noopener">README</a></li>
+      </ul>
 
       <p>Contributions will be acknowledged in the methods paper currently in
       preparation. Co-authorship is on the table depending on the significance
       of the contribution.</p>
 
       <p>An external molecular biologist's judgment is required here, not optional:
-      neither Gary (a logician) nor Prof. Krampis (a bioinformatician) is a
-      molecular biologist, so the definitive call on each logic-gate assignment
-      has to come from outside the two of us — potentially sourced through the
-      John Jay–Hunter network. The student's draft review is a valuable first
-      pass and a learning exercise, not a substitute for that outside sign-off.</p>
+      because neither Gary nor Prof. Krampis is a molecular biologist, the
+      definitive call on each logic-gate assignment comes from outside the two of
+      us — potentially sourced through the John Jay–Hunter network. A student's
+      draft review is a valuable first pass and a learning exercise, complementary
+      to that outside sign-off, not a substitute for it.</p>
+    </div>
+  </div>
+
+  <!-- Papers and further reading -->
+  <div class="sec">
+    <div class="sec-hd"><h2>Papers and further reading</h2></div>
+    <div class="sec-bd">
+      <h3 class="subhd">Start here (written for biologists)</h3>
+      <p><a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/synthesis-biorxiv.md" target="_blank" rel="noopener">Synthesis paper</a> — the framework brought together in one accessible overview.</p>
+
+      <h3 class="subhd">Methods (published)</h3>
+      <p><a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/methods-mermaid-perturbation-design.md" target="_blank" rel="noopener">Methods paper</a> — LLM-generated Mermaid flowcharts, curated databases, and the <em>lac</em> operon as a worked example. Zenodo: <a href="https://doi.org/10.5281/zenodo.20831780" target="_blank" rel="noopener">10.5281/zenodo.20831780</a>.</p>
+
+      <h3 class="subhd">Full technical papers (reference only)</h3>
+      <p><a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md" target="_blank" rel="noopener">Paper I — Foundational typology</a> — the typed-logic foundations and the circuit-class typology.</p>
+      <p><a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md" target="_blank" rel="noopener">Paper II — Genome as computer</a> — Boolean primitives mapped to molecular mechanisms, and the five-class complexity ladder.</p>
+      <p><a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-III-empirical-sequel.md" target="_blank" rel="noopener">Paper III — Empirical sequel</a> — applying the framework to real circuits and data.</p>
+
+      <h3 class="subhd">Background (accessible)</h3>
+      <p><a href="https://medium.com/@garywelz_47126/from-inspiration-to-ai-biology-as-visual-programming-520ee523029a" target="_blank" rel="noopener">From Inspiration to AI: Biology as Visual Programming</a> — Medium</p>
+      <p><a href="https://www.researchgate.net/profile/Gary-Welz-2/publication/394255600_Is_the_Genome_Like_a_Computer_Program/links/688f898858199117bcaa10a3/Is-the-Genome-Like-a-Computer-Program.pdf" target="_blank" rel="noopener">Is the Genome Like a Computer Program?</a> — ResearchGate</p>
+      <p><a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=3wTcI6EAAAAJ" target="_blank" rel="noopener">Gary Welz — Google Scholar profile</a></p>
     </div>
   </div>
 
@@ -513,17 +654,11 @@ graph TD
           <strong>Decoded circuits</strong>
           6 circuits in Firestore (glmp_circuits)
         </div>
+        <div class="infra-item">
+          <strong>Live status</strong>
+          <a href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/GLMP_STATUS.html" target="_blank" rel="noopener">GLMP_STATUS.html</a>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Papers and links -->
-  <div class="sec">
-    <div class="sec-hd"><h2>Papers and links</h2></div>
-    <div class="sec-bd">
-      <p><a href="https://medium.com/@garywelz_47126/from-inspiration-to-ai-biology-as-visual-programming-520ee523029a" target="_blank" rel="noopener">From Inspiration to AI: Biology as Visual Programming</a> — Medium</p>
-      <p><a href="https://www.researchgate.net/profile/Gary-Welz-2/publication/394255600_Is_the_Genome_Like_a_Computer_Program/links/688f898858199117bcaa10a3/Is-the-Genome-Like-a-Computer-Program.pdf" target="_blank" rel="noopener">Is the Genome Like a Computer Program?</a> — ResearchGate</p>
-      <p><a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=3wTcI6EAAAAJ" target="_blank" rel="noopener">Gary Welz — Google Scholar profile</a></p>
     </div>
   </div>
 
