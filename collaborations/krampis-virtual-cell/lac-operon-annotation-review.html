@@ -117,7 +117,7 @@
 <body>
 
 <div class="hdr">
-  <div class="eye">Genome Logic Modeling Project · Expert Review Request · June 2026</div>
+  <div class="eye">Genome Logic Modeling Project · Expert Review Request · Revised July 2026 (decoder-honesty correction)</div>
   <h1>E. coli Operon Annotation Review<br>Lac · Ara · Trp</h1>
   <div class="meta">
     Gary Welz ·
@@ -162,8 +162,8 @@
         <ol>
           <li><strong>Sequence</strong> — is the binding site sequence correct for E. coli K-12 MG1655?</li>
           <li><strong>Coordinates</strong> — are the genomic positions in the right range (GenBank U00096.3)?</li>
-          <li><strong>Gate assignment</strong> — does the GLMP logical type (NOT, AND, source node, bistable switch) accurately reflect the molecular biology?</li>
-          <li><strong>Circuit class</strong> — for the lac operon specifically, is Class II or Class III the more accurate designation? (defined in the primer below)</li>
+          <li><strong>Gate assignment</strong> — does the GLMP logical type (NOT, biological activator, source node) accurately reflect the molecular biology?</li>
+          <li><strong>Circuit class</strong> — for the lac operon specifically: the sequence decoder's honest read is Class I/II (repression confirmed, cooperative activation not sequence-confirmable); the curated biological class is II. Does a confident activator plus a confident repressor, without cooperative spacing, warrant typing the circuit as Class II? (defined in the primer below)</li>
           <li><strong>Sources</strong> — if you use a different primary reference for any value, please note it so we can reconcile</li>
           <li><strong>Omissions</strong> — anything about the regulatory logic that the annotation misrepresents or leaves out</li>
         </ol>
@@ -286,12 +286,17 @@ graph TD
         </div>
 
         <p style="font-size:.83rem;margin-top:.85rem;">
-          <strong>The lac operon classification question</strong> in this document concerns
-          whether the CRP-cAMP positive autoregulation loop — when lactose is metabolized,
-          cAMP rises, reinforcing CRP activation and sustaining the ON state — is strong
-          enough to place the lac operon in <strong>Class III</strong> rather than
-          <strong>Class II</strong>. The GLMP database currently assigns it Class II;
-          the DNA decoder assigns it Class III. We are asking the review team to weigh in.
+          <strong>The lac operon classification question</strong> in this document is not
+          Class II vs. Class III — it is what the sequence decoder can and cannot confirm.
+          The decoder reads repression (LacI at lacO1) reliably: Class I on its own. It
+          cannot confirm the cooperative activation (CRP) side of the circuit from sequence
+          spacing alone, so its honest combined read is <strong>Class I/II</strong>. The
+          curated biological class — CRP-dependent activation plus LacI repression, the
+          textbook dual-control logic — remains <strong>Class II</strong>. That gap (I/II
+          vs. II) is the honest statement of what sequence-decoding can and cannot yet
+          resolve, not a contradiction to paper over. We are asking the review team to
+          weigh in on whether a confident activator plus a confident repressor, absent
+          cooperative spacing, should be enough to type a circuit as Class II.
         </p>
       </div>
 
@@ -304,7 +309,7 @@ graph TD
   <div class="sec">
     <div class="sec-hd">
       <h2>1. Lac Operon — Lactose Regulation</h2>
-      <span class="badge">Circuit Class II or III — see reviewer question</span>
+      <span class="badge">Sequence-decoded Class I/II · Curated biology Class II — see reviewer question</span>
     </div>
     <div class="sec-bd">
 
@@ -361,26 +366,31 @@ graph TD
           <em>(RegulonDB v12.0)</em></p>
           <p><strong>Note on circuit-level logic:</strong> The ~60 bp center-to-center
           distance between lacO1 and the CRP site exceeds the GLMP cooperative threshold
-          (~50 bp), so they are OR-independent at the sequence geometry level. However,
-          the promoter requires both inputs simultaneously for strong transcription —
-          AND logic at the circuit level. This two-level interpretation is one of the
-          points we ask reviewers to assess.</p>
+          (~50 bp), so the decoder cannot type a cooperative AND between them from sequence
+          alone — this repression call stands on its own as Class I. Biologically, the
+          promoter requires both inputs simultaneously for strong transcription (Class II,
+          curated from literature), but that combination is not something spacing-based
+          sequence analysis can confirm. See Entry 2.</p>
           <div class="rq">
             <strong>Reviewer question:</strong> Is the lacO1 sequence and position correct
-            for K-12 MG1655? Is the NOT gate assignment accurately stated? Does the
-            two-level interpretation — OR-independent geometry producing AND circuit logic
-            — accurately reflect the LacI / CRP relationship?
+            for K-12 MG1655? Is the NOT gate assignment accurately stated? Is it accurate
+            that spacing alone cannot confirm the LacI / CRP cooperative relationship, and
+            that the biological AND-relationship shown in the flowchart above is curated
+            biology rather than a sequence-decoder finding?
           </div>
         </div>
       </div>
 
       <div class="entry">
-        <div class="e-hd and"><span class="gtag and">AND input</span>Entry 2 — CRP Binding Site · catabolite activation</div>
+        <div class="e-hd and"><span class="gtag and">Biological activator — not sequence-confirmed AND</span>Entry 2 — CRP Binding Site · catabolite activation</div>
         <div class="e-bd">
           <p><strong>Logical interpretation:</strong> The CRP-cAMP complex contacts the
           RNA polymerase α-subunit C-terminal domain, stimulating open complex formation.
-          Strong lacZYA transcription requires both operator unoccupied (Entry 1) and CRP
-          productively engaged — the AND gate of the lac operon.</p>
+          Biologically, strong lacZYA transcription requires both operator unoccupied
+          (Entry 1) and CRP productively engaged — the textbook Class II logic of the lac
+          operon. This is well-established biology, not a decoder finding: CRP is a lone
+          activator with no second site to cooperate with, so spacing-based AND detection
+          cannot type this logic from sequence. Honest decoder read: Class I/II.</p>
           <p><strong>Consensus:</strong>
           <span class="seq">5'-TGTGA-N6-TCACA-3'</span>
           <em>(JASPAR CORE 2024, matrix MA0334)</em></p>
@@ -392,8 +402,10 @@ graph TD
           <p><strong>Evidence:</strong> Busby &amp; Ebright 1999; Benoff et al. 2002</p>
           <div class="rq">
             <strong>Reviewer question:</strong> Is the CRP site sequence and position correct?
-            Is CRP as AND input — required but not sufficient, acting independently of LacI
-            at the sequence level — accurately stated?
+            Is CRP's biological role — required but not sufficient, acting independently of
+            LacI at the sequence level — accurately stated? Separately: does a confident
+            activator plus a confident repressor, without cooperative spacing, warrant
+            typing this circuit as Class II?
           </div>
         </div>
       </div>
@@ -422,13 +434,17 @@ graph TD
       </div>
 
       <div class="cls-note">
-        <strong>Circuit classification question:</strong> The GLMP database currently assigns
-        the lac operon <strong>Class II</strong> (single negative feedback — LacI end-product
-        repression loop). The GLMP DNA decoder assigns it <strong>Class III</strong> (bistable)
-        based on the CRP positive autoregulation loop: when lac products are metabolized, cAMP
-        levels rise, further activating CRP, reinforcing the ON state. Does this positive
-        reinforcement constitute Class III bistability, or does Class II better describe
-        the dominant regulatory logic? We would value the team's judgment.
+        <strong>Circuit classification question:</strong> The GLMP sequence decoder's honest
+        read for the lac operon is <strong>Class I/II</strong> — it recovers LacI repression
+        reliably (Class I) but cannot confirm the CRP cooperative-activation side from
+        sequence spacing alone (single-activator promoters have no second site to pair
+        with). The curated biological class, based on the literature, is <strong>Class
+        II</strong> (CRP-dependent activation plus LacI repression). This I/II vs. II gap
+        is the honest statement of what sequence-decoding can and cannot yet resolve. The
+        open question for the team: should a promoter be typed as Class II when it carries
+        a confident activator and a confident repressor, even absent cooperative spacing?
+        That may be more principled than the spacing heuristic — but we would rather reason
+        it through with you than adopt it just to recover a nicer label.
       </div>
 
     </div>
@@ -440,7 +456,7 @@ graph TD
   <div class="sec">
     <div class="sec-hd">
       <h2>2. Ara Operon — Arabinose Regulation</h2>
-      <span class="badge">Class III — Bistable switch / positive feedback</span>
+      <span class="badge">Sequence decoder: insufficient evidence (AraC PWM in development) · Curated biology: Class III bistable</span>
     </div>
     <div class="sec-bd">
 
@@ -504,15 +520,20 @@ graph TD
       </div>
 
       <div class="entry">
-        <div class="e-hd bis"><span class="gtag bis">Bistable switch</span>Entry 4 — AraC Binding Sites · dual-function NOT→AND</div>
+        <div class="e-hd bis"><span class="gtag bis">Curated: bistable switch · Decoder: insufficient evidence</span>Entry 4 — AraC Binding Sites · dual-function NOT→AND</div>
         <div class="e-bd">
-          <p><strong>Logical interpretation:</strong> AraC performs both repressor and
-          activator functions from a single protein depending on arabinose binding state.
-          In the absence of arabinose, AraC forms a DNA loop between araI1 and araO2,
-          blocking PBAD. When arabinose binds, AraC undergoes a conformational change,
-          releases the loop, and binds araI1-araI2 to activate PBAD. AraC also activates
-          its own transcription (positive autoregulation) — the basis for Class III
-          bistable classification.</p>
+          <p><strong>Logical interpretation (curated biology, not decoder output):</strong>
+          AraC performs both repressor and activator functions from a single protein
+          depending on arabinose binding state. In the absence of arabinose, AraC forms a
+          DNA loop between araI1 and araO2, blocking PBAD. When arabinose binds, AraC
+          undergoes a conformational change, releases the loop, and binds araI1-araI2 to
+          activate PBAD. AraC also activates its own transcription (positive autoregulation)
+          — the basis for Class III bistable classification in the curated catalog. <strong>The
+          GLMP sequence decoder currently reports this circuit as insufficient evidence</strong>,
+          not Class III: AraC is a prokaryote-specific factor absent from JASPAR, so there
+          is no validated motif for the decoder to score against. A RegulonDB-trained AraC
+          matrix is in development; until it exists, the decoder makes no class call here at
+          all, honest or otherwise.</p>
           <p><strong>Binding sites and approximate positions:</strong><br>
           araO2 — single half-site, −270 relative to araBAD TSS
           <em>(Schleif 1992)</em><br>
@@ -525,13 +546,16 @@ graph TD
           <p><strong>Repression loop:</strong> araI1-araO2 (~210 bp) confirmed in vivo
           <em>(Lobell &amp; Schleif 1990)</em></p>
           <p><strong>Note on FIMO decoder:</strong> AraC is absent from JASPAR CORE 2024
-          and was not recovered by the FIMO scan — expected. Validation requires RegulonDB
-          PWMs for AraC, planned as Phase 1 of the validation work.</p>
+          and was not recovered by the FIMO scan — expected, and the reason the decoder
+          reports insufficient evidence rather than a class call. Validation requires
+          RegulonDB PWMs for AraC, planned as Phase 1 of the validation work.</p>
           <div class="rq">
             <strong>Reviewer question:</strong> Is the araI1-araO2 loop topology correct?
-            Does positive autoregulation at the araC promoter warrant Class III, or is
-            Class II with an activator switch more accurate? Are the binding site positions
-            consistent with your preferred reference for K-12 MG1655?
+            Does positive autoregulation at the araC promoter warrant Class III in the
+            curated catalog, or is Class II with an activator switch more accurate? Are the
+            binding site positions consistent with your preferred reference for K-12
+            MG1655? (This is a question about the curated biological classification —
+            the decoder itself does not yet make a call here.)
           </div>
         </div>
       </div>
@@ -660,9 +684,9 @@ graph TD
         </thead>
         <tbody>
           <tr><td>1</td><td>Lac</td><td>lacO1 operator</td><td>NOT gate</td><td>High</td><td>Gilbert &amp; Maxam 1973; Lewis et al. 1996; RegulonDB v12.0</td></tr>
-          <tr><td>2</td><td>Lac</td><td>CRP binding site</td><td>AND input</td><td>High</td><td>Busby &amp; Ebright 1999; Benoff et al. 2002; RegulonDB v12.0</td></tr>
+          <tr><td>2</td><td>Lac</td><td>CRP binding site</td><td>Activator (curated) — not sequence-confirmed as AND</td><td>High (biology); not sequence-confirmable</td><td>Busby &amp; Ebright 1999; Benoff et al. 2002; RegulonDB v12.0</td></tr>
           <tr><td>3</td><td>Lac</td><td>lacI gene locus</td><td>Source node</td><td>High</td><td>Müller-Hill et al. 1968; Oehler et al. 1990; EcoCyc</td></tr>
-          <tr><td>4</td><td>Ara</td><td>AraC binding sites</td><td>Bistable NOT→AND switch</td><td>High</td><td>Johnson et al. 1988; Lobell &amp; Schleif 1990; Soisson et al. 1997</td></tr>
+          <tr><td>4</td><td>Ara</td><td>AraC binding sites</td><td>Bistable NOT→AND switch (curated) — decoder: insufficient evidence</td><td>High (biology); AraC PWM in development</td><td>Johnson et al. 1988; Lobell &amp; Schleif 1990; Soisson et al. 1997</td></tr>
           <tr><td>5</td><td>Trp</td><td>TrpR at trpO + attenuation</td><td>NOT gate + attenuation</td><td>Medium — trpO needs verification</td><td>Otwinowski et al. 1988; Yanofsky 1981; EcoCyc</td></tr>
         </tbody>
       </table>

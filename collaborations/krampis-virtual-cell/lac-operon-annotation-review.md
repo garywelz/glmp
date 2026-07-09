@@ -1,7 +1,7 @@
 # Lac Operon Binding Site Annotations — Expert Review Request
 **Genome Logic Modeling Project (GLMP)**
 **Gary Welz · gwelz@gc.cuny.edu · ORCID: 0009-0005-7806-0892**
-**Version: June 2026 · Status: Awaiting biological validation**
+**Version: July 2026 (revised — decoder-honesty correction) · Status: Awaiting biological validation**
 
 ---
 
@@ -51,19 +51,19 @@ Strand: Non-template strand shown; LacI binds as a dimer recognizing this palind
 - Distance from lacO1 to lacO3 (auxiliary operator, not annotated here): approximately 92 bp upstream
 
 **Notes for reviewer:**
-The GLMP grammar assigns NOT based on the spatial relationship between the repressor binding site and the RNAP binding site. The ~60 bp distance between lacO1 and the CRP site is classified as OR-independent (>50 bp threshold) — meaning CRP activation and LacI repression act on the promoter through separate, non-cooperative mechanisms. Their logical combination (full induction requires BOTH relief of repression AND CRP activation) is an AND gate at the promoter architecture level, not at the sequence geometry level. Does this two-level interpretation (OR-independent geometry → AND gate at the circuit level) accurately reflect the molecular biology?
+The GLMP grammar assigns NOT based on the spatial relationship between the repressor binding site and the RNAP binding site — this call is sequence-confirmed and not in question. The ~60 bp distance between lacO1 and the CRP site exceeds the ~50 bp cooperative-spacing threshold, so the decoder cannot type a cooperative AND relationship between them from geometry alone. **Honest decoder read for this circuit: Class I/II** — repression confirmed, activation not sequence-confirmable. Biologically, full induction requires both relief of repression and CRP activation (Class II, the textbook logic), but that is a curated/literature determination, not something the current spacing-based method can confirm from sequence. See Entry 2 for the open question this raises.
 
 **Reviewer validation question:**
 Is the lacO1 sequence correct? Are the coordinates accurate for K-12 MG1655? Is the NOT gate assignment — repressor binding blocks RNAP — correctly stated? Is the ~60 bp distance to the CRP site the right figure for the center-to-center measurement?
 
 ---
 
-## Annotation Entry 2 — CRP Binding Site (AND input)
+## Annotation Entry 2 — CRP Binding Site (biological activator; not sequence-confirmed as AND)
 
 **Node name in GLMP flowchart:** `cAMP-CAP assists promoter?` (decision diamond)
 
-**Logical type:** AND input (positive activator, required for strong transcription)
-**Logical interpretation:** The CRP-cAMP complex (catabolite activator protein bound to cyclic AMP) binds upstream of the lac promoter and makes direct protein-protein contact with the C-terminal domain of the RNA polymerase alpha subunit (αCTD), stimulating open complex formation. Under high glucose conditions, cAMP levels are low and CRP does not productively engage the promoter — transcription is weak even when LacI is off the operator. Strong induction therefore requires BOTH conditions: operator unoccupied (Entry 1) AND CRP productively engaged (this entry). This is the AND gate of the lac operon.
+**Logical type:** Biological activator (curated) — **not** decoder-confirmed as a sequence-level AND gate
+**Logical interpretation:** The CRP-cAMP complex (catabolite activator protein bound to cyclic AMP) binds upstream of the lac promoter and makes direct protein-protein contact with the C-terminal domain of the RNA polymerase alpha subunit (αCTD), stimulating open complex formation. Under high glucose conditions, cAMP levels are low and CRP does not productively engage the promoter — transcription is weak even when LacI is off the operator. Biologically, strong induction requires both conditions: operator unoccupied (Entry 1) and CRP productively engaged (this entry) — the textbook Class II logic of the lac operon. **This is well-established biology, not a decoder finding.** The GLMP sequence decoder cannot confirm this AND relationship from spacing alone: *lac* has a single activator (CRP) with no second site to cooperate with, and spacing-based AND detection is structurally unable to type single-activator promoters — it either misses the logic or, as an earlier decoder build did, fabricates an AND call from motif noise (see the honest-status brief for detail). The decoder's honest sequence-level read for this circuit is Class I/II: repression confirmed, activation not sequence-confirmable.
 
 **Binding site sequence (CRP consensus):**
 ```
@@ -83,17 +83,17 @@ Length: ~22 bp (CRP binds as a dimer to a pseudopalindromic sequence)
 
 **Evidence class:** High — CRP-lac promoter interaction characterized biochemically by Busby and Ebright (1999); structural contacts between CRP and αCTD resolved by Benoff et al. (2002).
 
-**GLMP grammar rule applied:** AND input — CRP activation is required for strong output but operates independently of LacI repression (inter-site distance ~60 bp, exceeding the ~50 bp cooperative threshold). The AND logic emerges from the promoter architecture (both inputs required for RNAP to form a productive open complex) rather than from direct protein-protein cooperation between CRP and LacI.
+**GLMP grammar rule applied:** No AND call is made from sequence for this site. Inter-site distance (~60 bp, exceeding the ~50 bp cooperative-spacing threshold) rules out a sequence-detectable cooperative AND between CRP and LacI. The biological AND (both inputs required for RNAP to form a productive open complex) is asserted from curated literature, not derived from the decoder's spatial-geometry rule.
 
 **Inter-site distances:**
-- Distance from CRP site to lacO1: approximately 60 bp (center-to-center); classified as OR-independent geometry in isolation, but producing AND circuit logic at the promoter level
+- Distance from CRP site to lacO1: approximately 60 bp (center-to-center); exceeds the cooperative-spacing threshold, so no sequence-level AND is typed
 - Distance from CRP site to −35 element: approximately 22 bp upstream contact point for CRP-αCTD interaction
 
 **Notes for reviewer:**
-The specific lac promoter CRP site sequence shown above is approximate — the exact sequence depends on the reference strain and numbering convention used. The reviewer is asked to confirm or correct this sequence and the coordinate given. The key logical claim — that CRP activation and LacI repression are spatially independent (>50 bp) but logically conjunctive (both required for full induction) — is the assertion that most needs biological validation.
+The specific lac promoter CRP site sequence shown above is approximate — the exact sequence depends on the reference strain and numbering convention used. The reviewer is asked to confirm or correct this sequence and the coordinate given. Separately, there is an open modeling question worth the team's judgment: should a promoter be typed as Class II when it carries a confident activator and a confident repressor, even absent cooperative spacing? That may be more principled than the spacing heuristic — but it should be reasoned through with the review team, not adopted just to recover a nicer label.
 
 **Reviewer validation question:**
-Is the CRP binding site sequence correct for K-12 MG1655? Is the ~61 bp distance from the transcription start site correct? Is the characterization of CRP as an AND input — required but not sufficient, and independent of LacI — accurate? Is there anything about the CRP-αCTD contact mechanism that the GLMP logical framing misrepresents?
+Is the CRP binding site sequence correct for K-12 MG1655? Is the ~61 bp distance from the transcription start site correct? Is the biological description of CRP's role — required but not sufficient for strong transcription, and mechanistically independent of LacI — accurate? Separately: does a confident activator plus a confident repressor, without cooperative spacing, warrant a Class II call?
 
 ---
 
@@ -132,8 +132,10 @@ Is the *lacI* constitutive expression level (~10 monomers per cell) the right fi
 | Entry | Node | Logical type | Key sequence | Confidence | Primary source |
 |---|---|---|---|---|---|
 | 1 | lacO1 operator | NOT gate | AATTGTGAGCGGATAACAATT | High | Gilbert & Maxam 1973; Lewis et al. 1996 |
-| 2 | CRP binding site | AND input | TGTGA-N6-TCACA | High | Busby & Ebright 1999; Benoff et al. 2002 |
+| 2 | CRP binding site | Activator (curated) — not sequence-confirmed as AND | TGTGA-N6-TCACA | High (biology); not sequence-confirmable (AND) | Busby & Ebright 1999; Benoff et al. 2002 |
 | 3 | lacI gene locus | Source node | b0345 (locus tag) | High | Müller-Hill et al. 1968; Oehler et al. 1990 |
+
+**Decoder honest read for this circuit: Class I/II** (repression confirmed, cooperative activation not sequence-confirmable). Curated biological class: II. This gap is the open question posed to the review team — not a contradiction to paper over.
 
 ---
 
@@ -155,7 +157,7 @@ For each of the three entries above, please indicate:
 
 1. **Sequence correct / incorrect** — is the binding site sequence accurate for E. coli K-12 MG1655?
 2. **Coordinates correct / incorrect** — are the genomic coordinates in the right range?
-3. **Logical interpretation correct / incorrect** — does the GLMP logical type assignment (NOT, AND input, source node) accurately reflect the molecular biology?
+3. **Logical interpretation correct / incorrect** — does the GLMP logical type assignment (NOT, biological activator, source node) accurately reflect the molecular biology?
 4. **Any material omissions** — is there something about the binding event or its regulatory context that the annotation misrepresents or leaves out that would affect the logical interpretation?
 
 Corrections and comments in any format are welcome — annotated PDF, email, or comments in the GitHub repo (https://github.com/garywelz/glmp).
