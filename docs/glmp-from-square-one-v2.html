@@ -303,13 +303,16 @@ graph TD
         <li>
           <div class="step-num pivot">2</div>
           <div class="step-body">
-            <strong>Have human biologists validate the faithfulness of these charts</strong>
-            A subject matter expert reviews the flowcharts and annotations against
-            the primary literature and curated databases, confirming that the logic
-            gate assignments accurately reflect observed molecular behavior.
-            This is what we still have not accomplished — and it is what we are
-            asking you and your student to help us do. All of our current and planned
-            work in steps 3–5 rests on this assumption being answered in the affirmative.
+            <strong>Have a qualified molecular biologist validate the flowcharts</strong>
+            A subject-matter expert reviews the flowcharts and annotations against
+            the primary literature, confirming or flagging each logic-gate assignment.
+            This is the pivotal open step — and an honest limitation of the team as
+            constituted: neither Gary (a logician) nor Prof. Krampis (a bioinformatician)
+            is a molecular biologist, so the definitive biological judgment must come
+            from outside. A student on the biology track can and should attempt this
+            review as a learning exercise; their draft is then taken to a molecular
+            biologist for sign-off. Everything in steps 3–5 rests on this being
+            answered affirmatively.
             <div class="pivot-note">
               ⚑ Pivotal step — this is the open question. Your contribution here
               is the foundation everything else rests on.
@@ -322,8 +325,9 @@ graph TD
             <strong>Apply computer-assisted methods to extract the circuit logic from DNA</strong>
             Assuming the flowcharts are valid representations of real biology, we
             undertake computational methods for verifying, extracting, and teasing out
-            the logical structure directly from DNA sequences — using motif scanning
-            (FIMO/JASPAR), custom binding site matrices, and a logic parser that
+            the logical structure directly from DNA sequences — using FIMO motif
+            scanning with validated custom prokaryotic PWMs for <em>E. coli</em>
+            (JASPAR retained for yeast and phage only), and a logic parser that
             classifies circuits by their DNA-level topology.
             This is what Gary, Krampis, and our AI collaborators are engaged in now.
             <div class="active-note">Status: active — pipeline built, first circuits decoded.</div>
@@ -360,11 +364,11 @@ graph TD
   <div class="sec">
     <div class="sec-hd"><h2>Where the decoder stands today</h2></div>
     <div class="sec-bd">
-      <p>The GLMP DNA Decoder uses FIMO motif scanning against the JASPAR 2024
-      database to identify transcription factor binding sites in promoter sequences,
-      then infers logical relationships from their spatial arrangement. It has been
-      tested on three <em>E. coli</em> regulatory circuits and one yeast circuit
-      as an exploratory first eukaryotic attempt.</p>
+      <p>The GLMP DNA Decoder uses FIMO with validated custom prokaryotic PWMs for
+      <em>E. coli</em> (JASPAR for yeast/phage) to identify transcription factor
+      binding sites in promoter sequences, then infers logical relationships from
+      their spatial arrangement. It has been tested on five <em>E. coli</em> regulatory
+      circuits and one yeast circuit as an exploratory first eukaryotic attempt.</p>
 
       <table>
         <thead>
@@ -380,7 +384,7 @@ graph TD
           <tr>
             <td>lac operon</td>
             <td>E. coli</td>
-            <td>Class II</td>
+            <td>Class I/II</td>
             <td>Class II*</td>
             <td><span class="tag tag-now">Pending validation</span></td>
           </tr>
@@ -408,22 +412,27 @@ graph TD
           <tr>
             <td>SOS regulon (recA)</td>
             <td>E. coli</td>
-            <td>Class II</td>
+            <td>Class I/II</td>
             <td>Class II</td>
             <td><span class="tag tag-now">Pending validation</span></td>
           </tr>
           <tr>
             <td>SOS regulon (lexA)</td>
             <td>E. coli</td>
-            <td>Class II</td>
+            <td>Class I/II</td>
             <td>Class II</td>
             <td><span class="tag tag-now">Pending validation</span></td>
           </tr>
         </tbody>
       </table>
       <p style="font-size:.8rem;color:var(--muted);margin-top:.75rem;">
-        * lac operon biological class is under review — Class II vs III is an open
-        question the validation team is specifically asked to weigh in on.<br>
+        The decoder reads repression (NOT) reliably but cannot confirm a cooperative
+        CAP activation (AND) from sequence alone. For single-activator promoters like
+        <em>lac</em>, spacing-based TF–TF AND detection is structurally unreliable, so
+        the honest DNA-topology label is <strong>I/II</strong>. Biological class II —
+        CAP-dependent activation plus repression, the textbook logic shown in the
+        flowchart above — remains the biological ground truth the validation team is
+        asked to confirm.<br>
         † AraC is absent from JASPAR (prokaryote-specific TF); custom PWM in development.
       </p>
     </div>
@@ -441,17 +450,17 @@ graph TD
         </thead>
         <tbody>
           <tr>
-            <td><strong>Biology</strong></td>
-            <td>Review lac/ara/trp flowchart annotations against primary literature
-            and curated databases; confirm or flag each logic gate assignment</td>
-            <td>Structured validation report</td>
-            <td>~3 weeks</td>
-          </tr>
-          <tr>
             <td><strong>Computation</strong></td>
             <td>Cross-reference FIMO-predicted binding sites against RegulonDB
             gold-standard data; produce overlap statistics and discrepancy report</td>
             <td>Analysis script + validation report</td>
+            <td>~3 weeks</td>
+          </tr>
+          <tr>
+            <td><strong>Biology</strong></td>
+            <td>Review lac/ara/trp flowchart annotations against primary literature
+            and curated databases; confirm or flag each logic gate assignment</td>
+            <td>Structured draft review, for a molecular biologist's sign-off</td>
             <td>~3 weeks</td>
           </tr>
         </tbody>
@@ -465,9 +474,12 @@ graph TD
       preparation. Co-authorship is on the table depending on the significance
       of the contribution.</p>
 
-      <p>Expert biological reviewers are also being engaged for independent
-      validation of the flowchart annotations. The student's work and the
-      expert review are complementary layers, not redundant.</p>
+      <p>An external molecular biologist's judgment is required here, not optional:
+      neither Gary (a logician) nor Prof. Krampis (a bioinformatician) is a
+      molecular biologist, so the definitive call on each logic-gate assignment
+      has to come from outside the two of us — potentially sourced through the
+      John Jay–Hunter network. The student's draft review is a valuable first
+      pass and a learning exercise, not a substitute for that outside sign-off.</p>
     </div>
   </div>
 
@@ -490,17 +502,28 @@ graph TD
         </div>
         <div class="infra-item">
           <strong>Research papers</strong>
-          62,000+ indexed, growing daily
+          62,730 indexed, growing daily (biology is the largest single
+          discipline, ~46%; not primarily a mathematics corpus)
         </div>
         <div class="infra-item">
           <strong>Decoder pipeline</strong>
-          FIMO/JASPAR + custom PWMs, Jetson Nano
+          FIMO + custom prokaryotic PWMs (<em>E. coli</em>); JASPAR for yeast/phage · Jetson Nano
         </div>
         <div class="infra-item">
           <strong>Decoded circuits</strong>
           6 circuits in Firestore (glmp_circuits)
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Papers and links -->
+  <div class="sec">
+    <div class="sec-hd"><h2>Papers and links</h2></div>
+    <div class="sec-bd">
+      <p><a href="https://medium.com/@garywelz_47126/from-inspiration-to-ai-biology-as-visual-programming-520ee523029a" target="_blank" rel="noopener">From Inspiration to AI: Biology as Visual Programming</a> — Medium</p>
+      <p><a href="https://www.researchgate.net/profile/Gary-Welz-2/publication/394255600_Is_the_Genome_Like_a_Computer_Program/links/688f898858199117bcaa10a3/Is-the-Genome-Like-a-Computer-Program.pdf" target="_blank" rel="noopener">Is the Genome Like a Computer Program?</a> — ResearchGate</p>
+      <p><a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=3wTcI6EAAAAJ" target="_blank" rel="noopener">Gary Welz — Google Scholar profile</a></p>
     </div>
   </div>
 
