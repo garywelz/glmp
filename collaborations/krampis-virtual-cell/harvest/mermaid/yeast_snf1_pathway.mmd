@@ -1,0 +1,183 @@
+graph TD
+    %% Glucose Sensing
+    A[Glucose Level] --> B{OR: Glucose<br/>Status?}
+    B -->|High| C[/Glucose Repression/]
+    B -->|Low| D[Energy Stress]
+    
+    %% High Glucose - Snf1 Inactive
+    C --> E[High ATP/AMP Ratio]
+    E --> F[Reg1 Phosphatase Active]
+    F --> G[Reg1 Dephosphorylates Snf1]
+    G --> H[/Snf1 Inactive/]
+    H --> I[/Mig1 Repressor Active/]
+    I --> J[/Alternative Carbon Genes Repressed/]
+    
+    %% Low Glucose - Snf1 Activation
+    D --> K[Low ATP/AMP Ratio]
+    K --> L[AMP/ADP Accumulation]
+    L --> M[Snf4 Binds AMP]
+    
+    M --> N{AND: Snf1/Snf4/β<br/>Complex?}
+    N -->|No| O[No Activation]
+    N -->|Yes| P[Snf1 Heterotrimer]
+    
+    P --> Q{OR: Which<br/>β-Subunit?}
+    Q -->|Gal83| R[Cytoplasmic Localization]
+    Q -->|Sip1| S[Stress Granules]
+    Q -->|Sip2| T[Vacuolar Membrane]
+    
+    %% Upstream Kinase Activation
+    R --> U{OR: Which<br/>Upstream Kinase?}
+    S --> U
+    T --> U
+    
+    U -->|Sak1| V[Sak1 Kinase]
+    U -->|Elm1| W[Elm1 Kinase]
+    U -->|Tos3| X[Tos3 Kinase]
+    
+    V --> Y[Sak1 Phosphorylates Snf1-Thr210]
+    W --> Y
+    X --> Y
+    Y --> Z[Snf1 Activated]
+    
+    %% Mig1 Regulation
+    Z --> AA[Snf1 Phosphorylates Mig1]
+    AA --> AB[Mig1-P Nuclear Export]
+    AB --> AC[Mig1 Cytoplasmic]
+    AC --> AD[\SUC2/GAL Genes Derepressed/]
+    
+    AD --> AE{OR: Which Gene<br/>Class?}
+    AE -->|SUC2| AF[Invertase - Sucrose Use]
+    AE -->|GAL1-10| AG[Galactose Metabolism]
+    AE -->|MAL| AH[/Maltose Utilization/]
+    
+    AF --> AI[Sucrose Catabolism]
+    AG --> AJ[/Galactose Catabolism/]
+    AH --> AK[Maltose Catabolism]
+    
+    AI --> AL([Alternative Carbon Source Use])
+    AJ --> AL
+    AK --> AL
+    
+    %% Adr1 Activation
+    Z --> AM[Snf1 Phosphorylates Adr1]
+    AM --> AN[Adr1-P Nuclear Import]
+    AN --> AO[Adr1 Active TF]
+    AO --> AP[ADH2/POX1/CTA1 Expression]
+    AP --> AQ[Ethanol Oxidation]
+    AQ --> AR[Peroxisomal Fatty Acid β-Oxidation]
+    AR --> AS([Gluconeogenesis])
+    
+    %% Cat8 Activation
+    Z --> AT[Snf1 Activates Cat8]
+    AT --> AU[Cat8 TF Nuclear]
+    AU --> AV[Gluconeogenic Genes]
+    AV --> AW[FBP1/PCK1/ICL1]
+    AW --> AS
+    
+    %% Metabolic Enzyme Regulation
+    Z --> AX{OR: Which<br/>Enzyme?}
+    AX -->|Acc1| AY[Acc1 Acetyl-CoA Carboxylase]
+    AX -->|Hmg1| AZ[Hmg1 HMG-CoA Reductase]
+    
+    AY --> BA[Snf1 Phosphorylates Acc1]
+    BA --> BB[/Acc1 Inhibited/]
+    BB --> BC[Fatty Acid Synthesis Reduced]
+    
+    AZ --> BD[Snf1 Phosphorylates Hmg1]
+    BD --> BE[/Hmg1 Inhibited/]
+    BE --> BF[Sterol Synthesis Reduced]
+    
+    BC --> BG[Energy Conservation]
+    BF --> BG
+    BG --> BH([Metabolic Remodeling])
+    
+    %% Integration with TOR
+    D --> BI[/TORC1 Inhibition/]
+    BI --> BJ[Autophagy Induction]
+    Z --> BJ
+    BJ --> BK[/Protein Degradation/]
+    BK --> BL[Amino Acid Recycling]
+    BL --> BM["(\1)"]
+    
+    %% Feedback Regulation
+    Z --> BN[Snf1 Autophosphorylation]
+    BN --> BO[Enhanced Activity]
+    BO --> Z
+    
+    AL --> BP[Glucose Restored]
+    BP --> BQ[ATP/AMP Ratio Increases]
+    BQ --> F
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#ff6b6b,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#b197fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#b197fc,color:#fff
+    style BN fill:#51cf66,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff

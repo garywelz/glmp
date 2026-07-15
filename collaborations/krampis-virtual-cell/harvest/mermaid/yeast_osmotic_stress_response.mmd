@@ -1,0 +1,162 @@
+graph TD
+    A["Start: Osmotic Stress"]:::red
+    B[High External Osmolarity]:::red
+    C[Water Efflux from Cell]:::green
+    D[Cell Volume Decrease]:::green
+    E[Turgor Pressure Drop]:::green
+    F[Osmosensor Activation]:::red
+
+    F --> BS(Sho1 Sensor)
+    F --> BT(Msb2 Sensor)
+    F --> BU(Sln1 Sensor)
+
+    BS --> G[Sho1-Msb2 Complex Activation]:::red
+    BT --> G
+    BU --> H[Sln1 Histidine Kinase Inactivation]:::red
+
+    G --> I[Ste20 MAPKKK Activation]:::yellow
+    H --> J[Ssk1 Response Regulator Activation]:::yellow
+    J --> K[Ssk2/Ssk22 MAPKKK Activation]:::yellow
+
+    I --> BO(Pbs2 MAPKK)
+    K --> BO(Pbs2 MAPKK)
+    BO --> L[Pbs2 MAPKK Phosphorylation]:::yellow
+
+    L --> BP(Hog1 MAPK)
+    BP --> M[Hog1 MAPK Phosphorylation]:::yellow
+    M --> N[P-Hog1 Cytoplasmic-Nuclear Translocation]:::yellow
+
+    N --> O[P-Hog1 Regulates Transcription Factors]:::yellow
+    O --> P[Hot1 TF Activation]:::yellow
+    O --> Q[Sko1 TF Activation]:::yellow
+    O --> R[Msn2/Msn4 TF Activation]:::yellow
+
+    P --> BD[Hot1 Binds DNA]:::yellow
+    Q --> BE[Sko1 Binds DNA]:::yellow
+    R --> BF[Msn2/Msn4 Binds DNA]:::yellow
+
+    BD --> S[Gene Expression Changes]:::green
+    BE --> S
+    BF --> S
+
+    S --> T_U[Glycerol Synthesis Enzyme Upregulation]:::green
+    S --> V[Upregulation of STL1]:::green
+    S --> W[Regulation of FPS1 Expression]:::green
+    S --> X[Upregulation of HSPs]:::green
+    S --> Y[Upregulation of Trehalose Synthesis Genes]:::green
+    S --> BK[Upregulation of Cell Wall Remodeling Genes]:::green
+
+    Z[Glucose Metabolism & DHAP]:::green
+    Z --> AZ(Gpd1 Enzyme)
+    T_U --> AZ
+    AZ --> AC["Glycerol-3-Phosphate (G3P)"]:::blue
+    T_U --> BA(Gpp1/Gpp2 Enzymes)
+    AC --> BA
+    BA --> AD[Glycerol Synthesis]:::green
+    AD --> AE[Intracellular Glycerol Accumulation]:::blue
+    AE --> AI_AH[Cell Turgor & Volume Restoration]:::violet
+
+    W --> BC(Fps1 Aquaglyceroporin)
+    BC --> AF[Fps1 Aquaglyceroporin Closure]:::green
+    AF --> AE
+
+    V --> BB(Stl1 Transporter)
+    BB --> AE
+
+    X --> AK[/Protein Aggregation Prevention HSPs/]:::violet
+    Y --> BL[Trehalose Synthase Activation]:::yellow
+    BL --> BJ[Trehalose Accumulation]:::violet
+
+    N --> AJ[Proteasome Relocation to SGs]:::yellow
+    AJ --> BH["Stress-Induced Proteasome Storage Granules (SGs)"]:::violet
+    BH --> BI[Proteasome Activity Modulation]:::yellow
+
+    R --> AL[General Stress Response Pathway]:::green
+    AL --> AM<Stress Adaptation Achieved?>:::lavender
+    AI_AH --> AM
+    AK --> AM
+    BJ --> AM
+
+    AM --> AR{Osmotic Stress Resolved?}:::orange
+    AR -->|Yes| AN[Hog1 Dephosphorylation]:::yellow
+    AN --> BV(Msg5 Phosphatase)
+    AN --> BW(Ptp2/Ptp3 Phosphatases)
+
+    AN --> BG[Hog1 Cytoplasmic Re-localization]:::yellow
+    BG --> BX[Hog1 Inactive State]:::yellow
+    BX --> AT[Return to Basal State]:::violet
+
+    BG --> AP[Fps1 Re-opening]:::yellow
+    AP --> AQ[Glycerol Efflux]:::green
+    AQ --> AT
+
+    AR -->|No| AS[Continued Stress Response]:::green
+    AS --> F
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style U fill:#ffd43b,color:#000
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AZ fill:#ffd43b,color:#000
+    style AC fill:#74c0fc,color:#fff
+    style BA fill:#ffd43b,color:#000
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#b197fc,color:#fff
+    style AH fill:#b197fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style BL fill:#51cf66,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style BH fill:#ff6b6b,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style AL fill:#ff6b6b,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style BV fill:#51cf66,color:#fff
+    style BW fill:#51cf66,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#ff6b6b,color:#fff

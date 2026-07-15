@@ -1,0 +1,159 @@
+graph TD
+    A[Start Peroxisome Biogenesis] --> B(Environmental Inducers)
+    A --> C(Cellular Metabolic Demand)
+    B --> D(Oleate/Fatty Acid Presence)
+    C --> D
+    D --> E[Activate PEX Genes & Peroxisomal Enzyme Genes]
+
+    E --> F["Transcription Factor Binding (e.g., Oaf1/Pip2)"]
+    F --> G[mRNA Synthesis for PMPs & Matrix Proteins]
+    G --> H[Ribosomal Protein Synthesis]
+
+    H --> I[Nascent PMPs in Cytosol]
+    H --> J[Nascent Matrix Proteins in Cytosol]
+
+    I --> K[Pex19 Chaperone Binding to PMPs]
+    K --> L[Cytosolic PMP-Pex19 Complex]
+
+    J --> M[Pex5/Pex7 Binding to Matrix Proteins]
+    M --> N[Cytosolic Matrix Protein-Pex5/Pex7 Complex]
+
+    O[Pre-existing Peroxisomes Present?] --> |No| P[ER-derived Pre-peroxisomal Vesicle Formation]
+    O --> |Yes| Q[Existing Peroxisome]
+
+    P --> R[ER Membrane]
+    R --> S[Pex3 & Pex16 Insertion into ER]
+    S --> T[Budding of Pex3/Pex16 Vesicles]
+    T --> U[Pre-peroxisomal Vesicle]
+    
+    L --> V[PMP Insertion Target?]
+    V --> |To Pre-peroxisome| U
+    V --> |To Existing Peroxisome| Q
+
+    U --> W[PMP Insertion into Membrane]
+    Q --> W
+    W --> X["Pex3 (PMP Receptor)"]
+    W --> Y["Pex16 (PMP Receptor)"]
+    L --> Z["Pex19 (PMP Chaperone)"]
+    
+    W --> AA[Peroxisomal Membrane]
+    AA --> AB[PMP Integration into Peroxisomal Membrane]
+
+    N --> AC["Peroxisomal Membrane Docking (Pex14)"]
+    AC --> AD[PTS1 or PTS2 Pathway?]
+    AD --> |PTS1| AE[PTS1 Protein-Pex5 Complex]
+    AD --> |PTS2| AF[PTS2 Protein-Pex7 Complex]
+    
+    AE --> AG["Pex5 (PTS1 Receptor)"]
+    AF --> AH["Pex7 (PTS2 Receptor)"]
+    AC --> AI["Pex14 (Docking Protein)"]
+
+    AJ{All for Matrix Import?}
+    AG --> AJ
+    AH --> AJ
+    AI --> AJ
+    AJ --> AK[Matrix Protein Translocation into Lumen]
+
+    AK --> AL[Peroxisomal Lumen]
+    AL --> AM[Enzyme Complex Assembly in Lumen]
+
+    AE --> AN["Pex5 Ubiquitination (Pex2/10/12 RING complex)"]
+    AN --> AO[Recycling of Pex5 to Cytosol]
+    AF --> AP[Recycling of Pex7 to Cytosol]
+
+    AB --> AQ[Lipid Synthesis & Import]
+    AQ --> AR[Peroxisome Membrane Expansion]
+    AR --> AS[Peroxisome Elongation]
+    AS --> AT["Pex11 (Proliferation Factor)"]
+    AT --> AU[Peroxisome Fission Initiation]
+
+    AV[Fission Components Present?]
+    AU --> AV
+    AW["Dnm1 (Fission Dynamin)"] --> AV
+    AX["Vps1 (Fission Dynamin)"] --> AV
+    AV --> AY[Peroxisome Fission]
+    AY --> AZ[New Daughter Peroxisomes]
+    
+    AM --> BA["Post-translational Modifications (PTMs)"]
+    BA --> BB[Regulation of Peroxisome Activity/Stability]
+    
+    BC{Peroxisome Maturation Complete?}
+    AB --> BC
+    AK --> BC
+    AQ --> BC
+    AM --> BC
+    BC --> BD[Mature Functional Peroxisome]
+
+    AZ --> BD
+    BD --> BE[Peroxisomal Metabolic Reactions]
+    BE --> BF["Metabolic Products (e.g., Acetyl-CoA, H2O2)"]
+    BF --> BG[Cellular Homeostasis]
+    BD --> BH["Peroxisome Turnover (Pexophagy)"]
+    BH --> BG
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#51cf66,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#ffd43b,color:#000
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#ffd43b,color:#000
+    style AK fill:#ffd43b,color:#000
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#ffd43b,color:#000
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#ffd43b,color:#000
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#b197fc,color:#fff
+    style BG fill:#b197fc,color:#fff
+    style BH fill:#74c0fc,color:#fff

@@ -1,0 +1,170 @@
+graph TD
+    %% Environmental Signal
+    A[Environmental Change] --> B{OR: Which<br/>Signal?}
+    B -->|Osmolarity| C(\1)
+    B -->|Phosphate| D(\1)
+    B -->|Nitrogen| E(\1)
+    B -->|Acid| F(\1)
+    B -->|Other| G[30+ TCS Systems]
+    
+    %% EnvZ-OmpR Paradigm
+    C --> H[Osmolarity Change]
+    H --> I{OR: Osmolarity<br/>Level?}
+    I -->|High| J[High Osmolarity]
+    I -->|Low| K[Low Osmolarity]
+    
+    %% EnvZ Sensor Kinase
+    J --> L[EnvZ Periplasmic Domain]
+    K --> L
+    L --> M[Signal Detection]
+    M --> N[Conformational Change]
+    N --> O[EnvZ Cytoplasmic Kinase Domain]
+    
+    %% Autophosphorylation
+    O --> P{AND: ATP<br/>Available?}
+    P -->|No| Q[No Phosphorylation]
+    P -->|Yes| R[EnvZ Homodimer]
+    
+    R --> S[Trans-autophosphorylation]
+    S --> T[His243 Phosphorylation]
+    T --> U[EnvZ~P Formation]
+    
+    %% Phosphotransfer
+    U --> V[OmpR Response Regulator]
+    V --> W{AND: EnvZ~P<br/>AND OmpR?}
+    W -->|No| Q
+    W -->|Yes| X[Phosphotransfer]
+    
+    X --> Y[His243~P → Asp55]
+    Y --> Z[OmpR~P Formation]
+    
+    %% OmpR~P DNA Binding
+    Z --> AA[OmpR~P Dimerization]
+    AA --> AB[Enhanced DNA Binding]
+    AB --> AC[OmpR Binding Sites]
+    
+    %% Differential Gene Regulation
+    J --> AD[High Osmolarity]
+    AD --> AE[High OmpR~P]
+    AE --> AF{OR: ompF<br/>or ompC?}
+    AF -->|ompF| AG[\ompF Repressed/]
+    AF -->|ompC| AH[ompC Activated]
+    
+    K --> AI[Low Osmolarity]
+    AI --> AJ[Low OmpR~P]
+    AJ --> AK{OR: ompF<br/>or ompC?}
+    AK -->|ompF| AL[ompF Activated]
+    AK -->|ompC| AM[\ompC Repressed/]
+    
+    %% Porin Expression
+    AH --> AN[OmpC Porin Small Pore]
+    AN --> AO[Restricts Solute Entry]
+    AO --> AP([High Osmolarity Adaptation])
+    
+    AL --> AQ[OmpF Porin Large Pore]
+    AQ --> AR[Facilitates Nutrient Uptake]
+    AR --> AS([Low Osmolarity Adaptation])
+    
+    %% Phosphatase Activity
+    Z --> AT[EnvZ Phosphatase]
+    AT --> AU[EnvZ Dephosphorylates OmpR~P]
+    AU --> AV[\OmpR Inactive/]
+    AV --> AW[/Signal Termination/]
+    
+    %% Other TCS Examples
+    D --> AX[Phosphate Starvation]
+    E --> AY[Nitrogen Limitation]
+    F --> AZ[Acid Stress]
+    
+    AX --> BA[PhoB~P Activates PHO Regulon]
+    AY --> BB[NtrC~P Activates Nitrogen Genes]
+    AZ --> BC[EvgA~P Activates Acid Resistance]
+    
+    BA --> BD([Phosphate Scavenging])
+    BB --> BE([Nitrogen Assimilation])
+    BC --> BF([Acid Survival])
+    
+    %% Cross-Regulation
+    Z --> BG{OR: Other<br/>Targets?}
+    BG -->|micF| BH[micF Antisense RNA]
+    BG -->|bolA| BI[bolA Morphogene]
+    
+    BH --> BJ[/Represses OmpF Translation/]
+    BI --> BK[Cell Shape Changes]
+    
+    BJ --> AP
+    BK --> BL([Stress Morphology])
+    
+    Q --> BM([No Response])
+    AG --> BN([ompF OFF])
+    AM --> BO([ompC OFF])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#b197fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#b197fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#ff6b6b,color:#fff
+    style AS fill:#b197fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#ff6b6b,color:#fff
+    style AY fill:#ff6b6b,color:#fff
+    style AZ fill:#ff6b6b,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#b197fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#ff6b6b,color:#fff
+    style BM fill:#b197fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff

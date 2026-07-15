@@ -1,0 +1,176 @@
+graph TD
+    %% Tryptophan Level Input
+    A[Tryptophan in Cell] --> B[Trp-tRNA Charging]
+    C[Tryptophan Starvation] --> D[Uncharged Trp-tRNA]
+    
+    %% Decision: Tryptophan Present?
+    B --> E{High Tryptophan?}
+    D --> E
+    
+    %% High Trp Path - Repression
+    E -->|Yes| F[Trp Binds TrpR]
+    F --> G[TrpR-Trp Complex]
+    G --> H[/Active Repressor/]
+    H --> I[TrpR Binds Operator]
+    I --> J[\Transcription Blocked/]
+    J --> K[No trp mRNA]
+    K --> L[No Trp Biosynthesis]
+    L --> M[Cellular Trp Sufficient]
+    
+    %% Low Trp Path - Derepression
+    E -->|No| N[TrpR Apo-form]
+    N --> O[\Inactive Repressor/]
+    O --> P[Operator Free]
+    P --> Q[RNAP Binds Promoter]
+    Q --> R[Transcription Initiation]
+    
+    %% Leader Peptide Region
+    R --> S[Leader Sequence Transcription]
+    S --> T[trpL mRNA Synthesis]
+    T --> U[Ribosome Binds trpL]
+    U --> V[Leader Peptide Translation Starts]
+    
+    %% Leader Peptide Contains Trp Codons
+    V --> W[Two Consecutive Trp Codons]
+    W --> X[Ribosome Encounters Trp Codons]
+    
+    %% Decision: Charged Trp-tRNA Available?
+    X --> Y{Charged Trp-tRNA<br/>Available?}
+    
+    %% AND Gate: Attenuation Decision
+    Y -->|No| ANDGATE1{Low Trp AND<br/>Ribosome Stalled?}
+    D --> ANDGATE1
+    
+    %% Ribosome Stalls - Antitermination
+    ANDGATE1 -->|Yes| Z[Ribosome Stalls at Trp Codons]
+    Z --> AA[Region 1 Free]
+    AA --> AB["/Regions 2:3 Form Antiterminator"]
+    AB --> AC[Transcription Continues]
+    AC --> AD[trpE Gene Transcription]
+    AC --> AE[Full Operon Transcription]
+    
+    %% High Trp Path - Termination
+    Y -->|Yes| AF[Ribosome Translates Rapidly]
+    AF --> AG[Ribosome Covers Region 1]
+    AG --> AH["/Regions 3:4 Form Terminator"]
+    AH --> AI[/Terminator Hairpin/]
+    AI --> AJ[/Transcription Terminates/]
+    AJ --> AK[No trp Structural Genes]
+    AK --> AL[No Biosynthesis]
+    
+    %% AND Gate: Full Transcription
+    AD --> ANDGATE2[/Antiterminator AND<br/>RNAP Continues?/]
+    AC --> ANDGATE2
+    ANDGATE2 -->|Yes| AM[trpE mRNA]
+    AM --> AN[trpD mRNA]
+    AN --> AO[/trpC mRNA/]
+    AO --> AP[trpB mRNA]
+    AP --> AQ[trpA mRNA]
+    
+    %% Translation of Biosynthetic Enzymes
+    AM --> AR[TrpE Translation]
+    AN --> AS[TrpD Translation]
+    AO --> AT[TrpC Translation]
+    AP --> AU[TrpB Translation]
+    AQ --> AV[TrpA Translation]
+    
+    %% Enzyme Production
+    AR --> AW[Anthranilate Synthase Component I]
+    AS --> AX[Anthranilate Synthase Component II]
+    AT --> AY[Indole-3-glycerol Phosphate Synthase]
+    AU --> AZ[Tryptophan Synthase β]
+    AV --> BA[Tryptophan Synthase α]
+    
+    %% Tryptophan Biosynthesis Pathway
+    AW --> BB[Chorismate to Anthranilate]
+    AX --> BB
+    BB --> BC[Anthranilate to PRPP]
+    AY --> BD[PRPP to Indole-glycerol-P]
+    BD --> BE[Indole-glycerol-P to Indole]
+    AZ --> BF[Indole + Serine]
+    BA --> BF
+    BF --> BG[Tryptophan Synthesis]
+    BG --> BH[Tryptophan Product]
+    
+    %% Feedback
+    BH --> BI[Cellular Trp Pool Restored]
+    BI --> BJ[Feedback to TrpR]
+    BJ --> F
+    
+    %% System Outputs
+    M --> BK[High Trp State]
+    AL --> BL[\Trp Synthesis Blocked/]
+    BI --> BM[Trp Homeostasis]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#b197fc,color:#fff
+    style N fill:#ffd43b,color:#000
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#b197fc,color:#fff
+    style BJ fill:#ffd43b,color:#000
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#b197fc,color:#fff

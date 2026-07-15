@@ -1,0 +1,146 @@
+graph TD
+    Start([Transcription Elongation Cycle]) --> A1[RNAP elongation complex on DNA]
+    A1 --> A2["Transcription bubble: 8-9 bp unwound DNA"]
+    A2 --> A3["RNA-DNA hybrid: 9 bp in RNAP active site"]
+    A3 --> A4[RNA 3' end positioned in active site]
+    
+    A4 --> A5{NTP substrate available?}
+    A5 -->|Yes - correct NTP| A6[NTP binds in i+1 site]
+    A5 -->|Incorrect NTP| A7[Weak binding - rapid dissociation]
+    A5 -->|No NTP| Wait1[RNAP pauses waiting for NTP]
+    A7 --> A5
+    Wait1 --> A5
+    
+    A6 --> A8[Template base pairs with incoming NTP]
+    A8 --> A9[Trigger loop closes - catalytically active state]
+    
+    A9 --> A10[Two-metal-ion catalysis in active site]
+    A10 --> A11[Phosphodiester bond formed]
+    A11 --> A12[RNA extended by one nucleotide]
+    A12 --> A13[Pyrophosphate PPi released]
+    
+    A13 --> A14[Trigger loop opens - post-catalytic state]
+    
+    A14 --> A15{Translocation successful?}
+    A15 -->|Yes| A16[RNAP translocates forward 1 bp]
+    A15 -->|Backtrack| A17[RNAP backtracks - 3' end leaves active site]
+    
+    A17 --> A18{GreA or GreB present?}
+    A18 -->|Yes| A19[GreA/GreB binds secondary channel]
+    A18 -->|No| A20[Backtracked complex arrested]
+    
+    A19 --> A21[GreA/GreB activates RNAP cleavage activity]
+    A21 --> A22[/RNA 3' end cleaved - 2-3 nt removed GreA or 10+ nt GreB/]
+    A22 --> A23[New 3' end repositioned in active site]
+    A23 --> A16
+    
+    A16 --> A24[DNA translocated through RNAP]
+    A24 --> A25[Downstream DNA unwound into bubble]
+    A25 --> A26[Upstream DNA rewound behind RNAP]
+    A26 --> A27[RNA-DNA hybrid slides forward maintaining 9 bp]
+    
+    A27 --> A28{Pause signal encountered?}
+    A28 -->|No pause signal| A29[Normal elongation continues]
+    A28 -->|Hairpin pause| A30[RNA hairpin forms in exit channel]
+    A28 -->|Elemental pause| A31[Sequence-specific pause - weak RNA-DNA hybrid]
+    A28 -->|Backtrack pause| A32[His-pause or other backtrack signal]
+    
+    A30 --> A33[Hairpin stabilizes paused state]
+    A31 --> A34[Weak hybrid allows fraying]
+    A32 --> A17
+    
+    A33 --> A35{Antitermination factors present?}
+    A34 --> A35
+    
+    A35 -->|NusA present| A36[NusA binds RNAP and RNA]
+    A35 -->|NusG present| A37[NusG binds RNAP clamp]
+    A35 -->|No factors| A38[Extended pause]
+    
+    A36 --> A39[NusA can stabilize OR suppress pause depending on context]
+    A37 --> A40[NusG suppresses pausing - processivity factor]
+    
+    A39 --> A41{Which NusA function?}
+    A41 -->|Pause stabilization| A38
+    A41 -->|Pause suppression| A42[Pause released]
+    
+    A40 --> A42
+    A42 --> A29
+    
+    A29 --> A43{Termination signal encountered?}
+    A43 -->|No| A44[Continue elongation cycle]
+    A43 -->|Intrinsic terminator| A45[/Rho-independent termination pathway/]
+    A43 -->|Rho-dependent| A46[/Rho-dependent termination pathway/]
+    
+    A44 --> A4
+    
+    A38 --> A47{Rho helicase present?}
+    A47 -->|Yes - if rut site exposed| A48[Rho binds rut site on nascent RNA]
+    A47 -->|No or rut covered by ribosome| A49[/Pause eventually releases or terminates/]
+    
+    A48 --> A50[Rho translocates 5' to 3' on RNA]
+    A50 --> A51[Rho catches up to paused RNAP]
+    A51 --> A46
+    
+    A45 --> End1[/Intrinsic Termination/]
+    A46 --> End2[/Rho-Dependent Termination/]
+    A49 --> A52{Context-dependent outcome}
+    A52 -->|Resume| A42
+    A52 -->|Terminate| A45
+    
+    A20 --> A53[/Arrested complex may require Mfd or degradation/]
+    A53 --> End3([Transcript aborted])
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A1 fill:#74c0fc,color:#fff
+    style A2 fill:#51cf66,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A6 fill:#74c0fc,color:#fff
+    style A7 fill:#51cf66,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#74c0fc,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#51cf66,color:#fff
+    style A22 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A27 fill:#74c0fc,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#74c0fc,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A32 fill:#ff6b6b,color:#fff
+    style A33 fill:#74c0fc,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A37 fill:#74c0fc,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A40 fill:#ffd43b,color:#000
+    style A42 fill:#74c0fc,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#74c0fc,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style End1 fill:#74c0fc,color:#fff
+    style End2 fill:#74c0fc,color:#fff

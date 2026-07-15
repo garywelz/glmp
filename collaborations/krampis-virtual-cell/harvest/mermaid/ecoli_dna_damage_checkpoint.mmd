@@ -1,0 +1,209 @@
+graph TD
+    Start([DNA Damage Checkpoint]) --> A1{Type of DNA damage?}
+    
+    A1 -->|Double-strand break| A2[DSB checkpoint]
+    A1 -->|Replication fork stall| A3[Replication stress checkpoint]
+    A1 -->|UV damage| A4[Bulky lesion checkpoint]
+    A1 -->|Alkylation| A5[Base damage checkpoint]
+    
+    A2 --> A6[RecN protein recruited to break]
+    A6 --> A7[RecN forms focus at damage site]
+    A7 --> A8[RecN SMC-like protein holds chromosome ends together]
+    A8 --> A9[/Prevents chromosome fragmentation/]
+    
+    A3 --> A10[Replication fork encounters lesion]
+    A10 --> A11[Fork stalls - helicase uncoupled from polymerase]
+    A11 --> A12[Single-stranded DNA exposed]
+    
+    A4 --> A13[/UV lesion blocks replication/]
+    A13 --> A12
+    
+    A5 --> A14[Alkylated base stalls polymerase]
+    A14 --> A12
+    
+    A12 --> A15[SSB protein binds ssDNA initially]
+    A15 --> A16{RecA loading}
+    
+    A16 -->|RecFOR pathway| A17[RecF RecO RecR displace SSB]
+    A16 -->|RecBCD pathway| A18[RecBCD loads RecA at DSB]
+    
+    A17 --> A19[RecA monomers loaded on ssDNA]
+    A18 --> A19
+    
+    A19 --> A20[RecA polymerizes on ssDNA 5' to 3']
+    A20 --> A21[RecA nucleoprotein filament forms]
+    A21 --> A22[RecA filament binding ATP]
+    
+    A22 --> A23[RecA filament is activated coprotease]
+    
+    A23 --> A24[RecA stimulates LexA autocleavage]
+    A24 --> A25[/LexA is transcriptional repressor of SOS genes/]
+    A25 --> A26[LexA normally dimeric bound to SOS boxes]
+    
+    A26 --> A27{RecA-ssDNA present?}
+    A27 -->|No - no damage| A28[/LexA stable - represses SOS genes/]
+    A27 -->|Yes - damage signal| A29[RecA-ssDNA activates LexA cleavage]
+    
+    A29 --> A30[LexA undergoes autocleavage at Ala84-Gly85]
+    A30 --> A31[LexA cleaved into two fragments]
+    A31 --> A32[/Cleaved LexA cannot bind DNA/]
+    
+    A32 --> A33[\SOS genes derepressed/]
+    A33 --> A34{Which SOS genes induced?}
+    
+    A34 -->|recA| A35[RecA - positive feedback]
+    A34 -->|lexA| A36[LexA - negative feedback]
+    A34 -->|sulA| A37[/SulA cell division inhibitor/]
+    A34 -->|uvrA uvrB| A38[UvrAB for NER]
+    A34 -->|recN| A39[RecN for DSB repair]
+    A34 -->|dinB umuDC| A40[Error-prone polymerases]
+    
+    A35 --> A41[More RecA - amplifies response]
+    A36 --> A42[More LexA - prepares for recovery]
+    
+    A37 --> A43[SulA protein synthesized]
+    A43 --> A44[/SulA is FtsZ inhibitor/]
+    A44 --> A45[SulA binds FtsZ monomers]
+    A45 --> A46[\FtsZ polymerization blocked/]
+    A46 --> A47[/Z-ring cannot form/]
+    A47 --> A48[Cell division arrested]
+    
+    A48 --> A49[Checkpoint activated - cell elongates]
+    A49 --> A50[/Filamentous cell phenotype/]
+    
+    A38 --> A51[DNA repair enzymes active]
+    A39 --> A51
+    A40 --> A52[Translesion synthesis - mutagenic but allows survival]
+    
+    A51 --> A53{Repair successful?}
+    A52 --> A53
+    
+    A53 -->|Yes| A54[DNA damage repaired]
+    A53 -->|No - persistent| A55[Continued SOS induction]
+    
+    A54 --> A56[ssDNA eliminated]
+    A56 --> A57[RecA filaments disassemble]
+    A57 --> A58[ATP hydrolysis and RecA recycling]
+    
+    A58 --> A59[RecA coprotease activity lost]
+    A59 --> A60[/LexA cleavage stops/]
+    A60 --> A61[New LexA accumulates]
+    A61 --> A62[LexA binds SOS boxes]
+    A62 --> A63[\SOS genes repressed/]
+    
+    A63 --> A64[/sulA transcription stops/]
+    A64 --> A65[/Existing SulA degraded by Lon protease/]
+    A65 --> A66[SulA half-life ~2 min]
+    A66 --> A67[SulA levels drop]
+    
+    A67 --> A68[/FtsZ released from inhibition/]
+    A68 --> A69[FtsZ polymerization resumes]
+    A69 --> A70[Z-ring forms at midcell]
+    A70 --> A71[Cell division proceeds]
+    
+    A71 --> A72[Checkpoint released]
+    A72 --> A73[Normal cell cycle resumes]
+    
+    A9 --> A74[RecN maintains chromosome organization during repair]
+    A74 --> A51
+    
+    A55 --> A75[Chronic SOS state]
+    A75 --> A76{DpiAB checkpoint also active}
+    A76 -->|Yes| A77[DpiB sensor kinase activated by replication stress]
+    A77 --> A78[DpiA~P response regulator]
+    A78 --> A79[Additional checkpoint genes induced]
+    
+    A79 --> A80[Coordinate DNA repair and cell cycle]
+    A51 --> A80
+    
+    A80 --> A81{Ultimate outcome?}
+    A81 -->|Repair successful| A54
+    A81 -->|Repair fails| A82[Cell death or mutation]
+    
+    A28 --> End1([Normal growth - no checkpoint])
+    A73 --> End2([Checkpoint recovery - resume growth])
+    A82 --> End3([Cell death or mutagenesis])
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#ff6b6b,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#ff6b6b,color:#fff
+    style A6 fill:#ffd43b,color:#000
+    style A7 fill:#ff6b6b,color:#fff
+    style A8 fill:#ffd43b,color:#000
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#51cf66,color:#fff
+    style A11 fill:#51cf66,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#51cf66,color:#fff
+    style A15 fill:#ffd43b,color:#000
+    style A17 fill:#74c0fc,color:#fff
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#ffd43b,color:#000
+    style A22 fill:#51cf66,color:#fff
+    style A23 fill:#51cf66,color:#fff
+    style A24 fill:#51cf66,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A28 fill:#74c0fc,color:#fff
+    style A29 fill:#51cf66,color:#fff
+    style A30 fill:#51cf66,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A32 fill:#74c0fc,color:#fff
+    style A33 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A37 fill:#74c0fc,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#51cf66,color:#fff
+    style A40 fill:#51cf66,color:#fff
+    style A41 fill:#b197fc,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#ffd43b,color:#000
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A47 fill:#74c0fc,color:#fff
+    style A48 fill:#b197fc,color:#fff
+    style A49 fill:#b197fc,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#ffd43b,color:#000
+    style A52 fill:#51cf66,color:#fff
+    style A54 fill:#ff6b6b,color:#fff
+    style A55 fill:#74c0fc,color:#fff
+    style A56 fill:#74c0fc,color:#fff
+    style A57 fill:#74c0fc,color:#fff
+    style A58 fill:#51cf66,color:#fff
+    style A59 fill:#51cf66,color:#fff
+    style A60 fill:#74c0fc,color:#fff
+    style A61 fill:#74c0fc,color:#fff
+    style A62 fill:#74c0fc,color:#fff
+    style A63 fill:#74c0fc,color:#fff
+    style A64 fill:#74c0fc,color:#fff
+    style A65 fill:#74c0fc,color:#fff
+    style A66 fill:#74c0fc,color:#fff
+    style A67 fill:#74c0fc,color:#fff
+    style A68 fill:#74c0fc,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A70 fill:#b197fc,color:#fff
+    style A71 fill:#b197fc,color:#fff
+    style A72 fill:#74c0fc,color:#fff
+    style A73 fill:#b197fc,color:#fff
+    style A74 fill:#51cf66,color:#fff
+    style A75 fill:#74c0fc,color:#fff
+    style A77 fill:#ff6b6b,color:#fff
+    style A78 fill:#b197fc,color:#fff
+    style A79 fill:#74c0fc,color:#fff
+    style A80 fill:#51cf66,color:#fff
+    style A82 fill:#b197fc,color:#fff

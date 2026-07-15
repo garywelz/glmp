@@ -1,0 +1,213 @@
+graph TD
+    A[L-Alanine Present] --> B[Germinant Signal 1]
+    C[Glucose/Fructose/Asparagine] --> D[Germinant Signal 2]
+    E[Elevated Temperature] --> F[Environmental Trigger]
+    G[Physical Damage] --> H[Mechanical Trigger]
+    
+    B --> I{OR: Any Germinant<br/>Receptor Activated?}
+    D --> I
+    F --> I
+    H --> I
+    
+    I -->|Yes| J[Initiate Germination]
+    I -->|No| K[Remain Dormant]
+    
+    K --> L[Spore Dormancy Maintained]
+    L --> M[Metabolically Inactive]
+    M --> N[Resistant to Stress]
+    
+    J --> O[GerA Receptor Activation]
+    J --> P[GerB/GerK Receptor Activation]
+    
+    O --> Q[GerAA/AB/AC Trimer]
+    P --> R[GerB + GerK Cooperativity]
+    
+    Q --> S{OR: Receptor<br/>Pathway?}
+    R --> S
+    
+    S -->|Either| T[Release DPA-Ca2+]
+    T --> U[Dipicolinic Acid Export]
+    U --> V[Ca2+ Mobilization]
+    V --> W[Core Begins Rehydration]
+    
+    W --> X[Water Influx]
+    X --> Y[Core Swelling]
+    Y --> Z[Increased Core Volume]
+    
+    Z --> AA{AND: DPA Released +<br/>Core Hydrated?}
+    U --> AA
+    
+    AA -->|Yes| AB[Commit to Germination]
+    AB --> AC[Irreversible Commitment]
+    
+    AC --> AD[CwlJ Cortex Hydrolase Activation]
+    AD --> AE[SleB Cortex Hydrolase Activation]
+    
+    AE --> AF{OR: Which Hydrolase<br/>Active?}
+    AD --> AF
+    
+    AF -->|CwlJ| AG[Cortex Peptidoglycan Cleavage]
+    AF -->|SleB| AG
+    
+    AG --> AH[/Cortex Degradation/]
+    AH --> AI[Loss of Mechanical Rigidity]
+    AI --> AJ[Full Core Expansion]
+    
+    AJ --> AK[Cortex Fragments Released]
+    AK --> AL[Germ Cell Wall Exposed]
+    
+    AL --> AM[Phase Darkening Visible]
+    AM --> AN[Loss of Heat Resistance]
+    AN --> AO[Loss of Refractility]
+    
+    AJ --> AP[Metabolic Reactivation]
+    AP --> AQ[ATP Synthesis Resumes]
+    AQ --> AR[NADH Production]
+    AR --> AS[Respiratory Chain Active]
+    
+    AS --> AT{AND: Energy +<br/>Core Hydrated?}
+    AJ --> AT
+    
+    AT -->|Yes| AU[DNA Repair Systems Active]
+    AU --> AV[/Small Acid-Soluble Proteins Degraded/]
+    AV --> AW[DNA Accessibility Restored]
+    AW --> AX[RNA Polymerase Access]
+    
+    AX --> AY[Transcription Initiated]
+    AY --> AZ[Early Germination Genes]
+    AZ --> BA[Ribosome Assembly]
+    BA --> BB[Translation Begins]
+    
+    BB --> BC[Protein Synthesis]
+    BC --> BD[Cell Wall Synthesis Enzymes]
+    BD --> BE[Peptidoglycan Biosynthesis]
+    BE --> BF[New Cell Wall Formation]
+    
+    BC --> BG[DNA Replication Enzymes]
+    BG --> BH[Chromosome Replication]
+    
+    BF --> BI[Cell Elongation]
+    BI --> BJ[Outgrowth Begins]
+    BJ --> BK[Vegetative Cell Emerges]
+    
+    BK --> BL[Cell Division Machinery]
+    BL --> BM[First Division]
+    BM --> BN[Two Vegetative Cells]
+    
+    AP --> BO[Nutrient Uptake Systems]
+    BO --> BP[Glucose Transporters Active]
+    BP --> BQ[Amino Acid Permeases]
+    BQ --> BR[Metabolic Substrates Available]
+    BR --> AS
+    
+    J --> BS{OR: Abort<br/>Germination?}
+    BS -->|Nutrients Depleted| BT[Germination Failure]
+    BS -->|Proceed| AB
+    
+    BT --> BU[Superdormant State]
+    BU --> BV[Requires Stronger Germinant]
+    
+    AC --> BW[Point of No Return]
+    BW --> BX{Nutrients<br/>Available?}
+    BX -->|Yes| AP
+    BX -->|No| BY[Germination Without Outgrowth]
+    BY --> BZ[Cell Death]
+    
+    AQ --> CA{ATP Sufficient?}
+    CA -->|Yes| AU
+    CA -->|No| CB[Slow Germination]
+    CB --> AQ
+    
+    AJ --> CC[pH Equilibration]
+    CC --> CD[Core pH Rises]
+    CD --> CE[Enzyme Activity Restored]
+    CE --> AP
+    
+    BN --> CF[Return to Growth]
+    CF --> CG[Exponential Phase]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#b197fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#b197fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#51cf66,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#b197fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style BC fill:#ffd43b,color:#000
+    style BD fill:#ffd43b,color:#000
+    style BE fill:#51cf66,color:#fff
+    style BF fill:#b197fc,color:#fff
+    style BG fill:#ffd43b,color:#000
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#b197fc,color:#fff
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#b197fc,color:#fff
+    style BO fill:#ff6b6b,color:#fff
+    style BP fill:#51cf66,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BY fill:#b197fc,color:#fff
+    style BZ fill:#b197fc,color:#fff
+    style CB fill:#74c0fc,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    style CD fill:#74c0fc,color:#fff
+    style CE fill:#ffd43b,color:#000
+    style CF fill:#b197fc,color:#fff
+    style CG fill:#74c0fc,color:#fff

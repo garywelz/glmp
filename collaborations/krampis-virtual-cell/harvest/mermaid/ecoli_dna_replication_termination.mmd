@@ -1,0 +1,164 @@
+graph TD
+    A[Opposing Replication Forks] --> B[Convergence in Terminus Region]
+    B --> C{Ter Site Encounter?}
+    
+    C -->|TerA-J Sites Present| D[Tus Protein Binding]
+    C -->|No Ter Sites| E[Continue Until Collision]
+    
+    D --> F[Tus-Ter Complex Formation]
+    F --> G{Fork Orientation?}
+    
+    G -->|Permissive| H[Fork Passes Through]
+    G -->|Non-permissive| I[Fork Arrest]
+    
+    I --> J[Replication Fork Pausing]
+    H --> B
+    E --> K[Direct Fork Collision]
+    
+    J --> L{Opposing Fork Arrives?}
+    K --> L
+    L -->|Yes| M[Fork Convergence Complete]
+    L -->|No| N[Wait State]
+    
+    M --> O{Replication Completion Check?}
+    O -->|Leading Strands Meet| P[Final Synthesis]
+    O -->|Gap Remaining| Q[Gap Filling]
+    
+    Q --> R[DNA Pol I]
+    R --> S[Nick Translation]
+    S --> T[DNA Ligase]
+    T --> P
+    
+    P --> U{Replisome Disassembly?}
+    U -->|Signal| V[Pol III Dissociation]
+    V --> W[Helicase Release]
+    W --> X[Primase Dissociation]
+    X --> Y[Clamp Loader Release]
+    
+    Y --> Z{Sister Chromosomes Status?}
+    Z -->|Catenated| AA[Topological Linkage]
+    Z -->|Free| AB[Skip Decatenation]
+    
+    AA --> AC[Topoisomerase IV Recognition]
+    AC --> AD{ParC-ParE Activity?}
+    AD -->|Active| AE[Decatenation Reaction]
+    AD -->|Inhibited| AF[\Delayed Resolution/]
+    
+    AE --> AG[ATP Hydrolysis]
+    AG --> AH[DNA Strand Passage]
+    AH --> AI[Catenane Resolution]
+    AI --> AJ{Complete Separation?}
+    AJ -->|No| AE
+    AJ -->|Yes| AK[Free Sister Chromosomes]
+    
+    %% Chromosome Dimer Resolution
+    AK --> AL{Chromosome Dimer?}
+    AL -->|Yes Dimer| AM[XerC-XerD Recognition]
+    AL -->|No Dimer| AN[Monomeric Chromosomes]
+    
+    AM --> AO[dif Site Binding]
+    AO --> AP[FtsK Translocation]
+    AP --> AQ{FtsK at dif?}
+    AQ -->|Yes| AR[XerCD Activation]
+    AQ -->|No| AS[Continue Transport]
+    
+    AR --> AT{Recombination Conditions?}
+    AT -->|Both XerCD AND FtsK| AU[Strand Exchange]
+    AU --> AV[Holliday Junction Formation]
+    AV --> AW(\1)
+    AW --> AN
+    
+    %% Final Checks and Segregation
+    AN --> AX{Replication Complete?}
+    AB --> AX
+    
+    AX -->|All Checks Pass| AY[Segregation Competent]
+    AX -->|Issues Detected| AZ[Checkpoint Arrest]
+    
+    AY --> BA[FtsZ Ring Assembly]
+    BA --> BB[Divisome Formation]
+    BB --> BC[Chromosome Partitioning]
+    
+    BC --> BD{Par System Active?}
+    BD -->|ParABS| BE[Active Segregation]
+    BD -->|Passive| BF[Diffusion-Based]
+    
+    BE --> BG[Chromosome Migration]
+    BF --> BG
+    
+    BG --> BH{Nucleoid Occlusion?}
+    BH -->|Clear| BI[Division Proceeds]
+    BH -->|Blocked| BJ[\Wait for Clearance/]
+    
+    BI --> BK[Sister Chromosome Separation]
+    BK --> BL[Cell Division]
+    BL --> BM[Two Daughter Cells]
+    
+    %% Error Handling
+    AZ --> BN{Error Type?}
+    BN -->|Incomplete Replication| BO[DNA Damage Response]
+    BN -->|Unresolved Catenanes| BP[Topoisomerase Recruitment]
+    BN -->|Persistent Dimer| BQ[Enhanced XerCD Activity]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#b197fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#b197fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#b197fc,color:#fff
+    style BO fill:#ff6b6b,color:#fff
+    style BP fill:#51cf66,color:#fff
+    style BQ fill:#74c0fc,color:#fff

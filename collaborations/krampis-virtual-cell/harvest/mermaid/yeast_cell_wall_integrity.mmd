@@ -1,0 +1,219 @@
+graph TD
+    %% Cell Wall Stress
+    A[Cell Wall Stress] --> B{OR: Stress<br/>Type?}
+    B -->|Osmotic| C[Hypoosmotic Shock]
+    B -->|Heat| D[Temperature Stress]
+    B -->|Chemical| E[Cell Wall Damaging Agents]
+    B -->|Growth| F[Bud Formation]
+    
+    C --> G[Cell Wall Stretching]
+    D --> G
+    E --> G
+    F --> G
+    
+    %% Surface Sensors
+    G --> H{OR: Which<br/>Sensor?}
+    H -->|Wsc Family| I[Wsc1/2/3 Sensors]
+    H -->|Mid2| J[Mid2 Sensor]
+    H -->|Mtl1| K[Mtl1 Sensor]
+    
+    I --> L[Wsc Cysteine-Rich Domain]
+    L --> M[Conformational Change]
+    J --> M
+    K --> M
+    
+    %% Rho1 Activation
+    M --> N[Rom1/2 GEF Recruitment]
+    N --> O[Rho1-GDP at Membrane]
+    O --> P[Rom1/2 Catalyzes GTP Exchange]
+    P --> Q[Rho1-GTP Formation]
+    
+    %% Rho1 Dual Function
+    Q --> R{OR: Rho1-GTP<br/>Target?}
+    R -->|Pkc1 MAPK| S[Pkc1 Kinase Activation]
+    R -->|Glucan Synthase| T[Fks1/2 β-1,3-Glucan Synthase]
+    
+    %% Direct Glucan Synthesis
+    T --> U[Rho1 Binds Fks1]
+    U --> V{AND: Fks1 + Fks2<br/>Catalytic Subunits?}
+    V -->|No| W[Reduced Synthesis]
+    V -->|Yes| X[β-1,3-Glucan Polymerization]
+    X --> Y[Cell Wall Thickening]
+    Y --> Z[Immediate Repair]
+    
+    %% Pkc1 Activation
+    S --> AA[Pkc1 Protein Kinase C]
+    AA --> AB{AND: Phosphatidylserine<br/>AND DAG?}
+    AB -->|No| AC[\Pkc1 Inactive/]
+    AB -->|Yes| AD[Pkc1 Membrane Recruitment]
+    
+    AD --> AE[Pkc1 Autophosphorylation]
+    AE --> AF[Pkc1 Active]
+    
+    %% MAPK Cascade - MAPKKK
+    AF --> AG[Bck1 MAPKKK]
+    AG --> AH[Pkc1 Phosphorylates Bck1]
+    AH --> AI[Bck1 Activated]
+    
+    %% MAPK Cascade - MAPKK
+    AI --> AJ{OR: Mkk1<br/>or Mkk2?}
+    AJ -->|Mkk1| AK[Mkk1 MAPKK]
+    AJ -->|Mkk2| AL[Mkk2 MAPKK]
+    
+    AK --> AM[Bck1 Phosphorylates Mkk1]
+    AL --> AN[Bck1 Phosphorylates Mkk2]
+    AM --> AO[Mkk1/2 Active]
+    AN --> AO
+    
+    %% MAPK Cascade - MAPK
+    AO --> AP[Slt2/Mpk1 MAPK]
+    AP --> AQ[Mkk1/2 Dual Phosphorylation]
+    AQ --> AR[Slt2-PP Active]
+    
+    %% Nuclear Translocation
+    AR --> AS[Slt2 Nuclear Import]
+    AS --> AT[Active MAPK in Nucleus]
+    
+    %% Transcription Factor Activation
+    AT --> AU{OR: Which<br/>TF Target?}
+    AU -->|Rlm1| AV[Rlm1 Transcription Factor]
+    AU -->|SBF| AW[Swi4/Swi6 SBF Complex]
+    
+    %% Rlm1 Pathway
+    AV --> AX[Slt2 Phosphorylates Rlm1]
+    AX --> AY[Rlm1 Activated]
+    AY --> AZ{AND: Rlm1<br/>Binds DNA?}
+    AZ -->|No| BA[/No Transcription/]
+    AZ -->|Yes| BB[Rlm1 Binds CWI Elements]
+    
+    BB --> BC{OR: Which<br/>CWI Gene?}
+    BC -->|FKS2| BD[FKS2 Glucan Synthase]
+    BC -->|SED1| BE[SED1 Cell Wall Protein]
+    BC -->|CRH1| BF[CRH1 Chitin Transglycosylase]
+    BC -->|PIR| BG[PIR Proteins]
+    
+    BD --> BH[Enhanced Glucan Synthesis]
+    BE --> BI[Cell Wall Proteins]
+    BF --> BJ[Chitin Remodeling]
+    BG --> BI
+    
+    BH --> BK[Cell Wall Biosynthesis]
+    BI --> BK
+    BJ --> BK
+    BK --> BL([Reinforced Cell Wall])
+    
+    %% SBF Pathway
+    AW --> BM[Slt2 Phosphorylates Swi4]
+    BM --> BN[SBF Activated]
+    BN --> BO[Cell Cycle Gene Expression]
+    BO --> BP[CLN1/2 Cyclins]
+    BP --> BQ[G1/S Transition]
+    BQ --> BR[Cell Division]
+    BR --> BS([Growth Resume])
+    
+    %% Feedback Regulation
+    AR --> BT[Msg5 Phosphatase]
+    BT --> BU[Msg5 Dephosphorylates Slt2]
+    BU --> BV[Slt2 Inactivation]
+    BV --> BW[Signaling Attenuation]
+    
+    Q --> BX[Bem2 GAP]
+    BX --> BY[Rho1-GTP Hydrolysis]
+    BY --> BZ(\1)
+    BZ --> CA[\Inactive State/]
+    
+    %% Actin Cytoskeleton
+    Q --> CB[Bni1/Bnr1 Formins]
+    CB --> CC[Actin Polymerization]
+    CC --> CD[Polarized Growth]
+    CD --> CE[Bud Site Selection]
+    CE --> CF([Cell Morphogenesis])
+    
+    Z --> CG([Stress Resolved])
+    BL --> CG
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#b197fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AV fill:#ffd43b,color:#000
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BD fill:#51cf66,color:#fff
+    style BE fill:#ffd43b,color:#000
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#ffd43b,color:#000
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#ffd43b,color:#000
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#51cf66,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#b197fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#b197fc,color:#fff
+    style BS fill:#b197fc,color:#fff
+    style BT fill:#51cf66,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#51cf66,color:#fff
+    style BW fill:#ff6b6b,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#51cf66,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#74c0fc,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    style CD fill:#b197fc,color:#fff
+    style CE fill:#74c0fc,color:#fff
+    style CF fill:#b197fc,color:#fff
+    style CG fill:#ff6b6b,color:#fff

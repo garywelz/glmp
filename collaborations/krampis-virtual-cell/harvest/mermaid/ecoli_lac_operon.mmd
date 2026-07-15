@@ -1,0 +1,170 @@
+graph TD
+    %% Environmental Inputs
+    A[Lactose in Environment] --> B[Lactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    E[Low Energy Status] --> F[Energy Stress Signal]
+    
+    %% Transport Processes
+    B --> G[Lactose Permease LacY]
+    G --> H[Lactose Inside Cell]
+    H --> I[Lactose Availability]
+    D --> J[Glucose Transporters]
+    J --> K[Glucose Inside Cell]
+    K --> L[High Glucose Status]
+    
+    %% Regulatory Logic Gates - OR Gates
+    I --> M{Is Lactose Present?}
+    L --> N{Is Glucose Present?}
+    F --> O{Is Energy Low?}
+    
+    %% AND Gate 1: High cAMP Formation
+    N -->|No| ANDGATE1{Low Energy AND<br/>No Glucose?}
+    O -->|Yes| ANDGATE1
+    O -->|No| V
+    ANDGATE1 -->|Yes| W[High cAMP Levels]
+    ANDGATE1 -->|No| V[Low cAMP Levels]
+    N -->|Yes| V
+    
+    %% Repressor Logic
+    M -->|No| P[/Lac Repressor Active/]
+    M -->|Yes| Q[\Lac Repressor Inactive/]
+    P --> R[/Repressor Binds Operator/]
+    R --> S[\Transcription Blocked/]
+    Q --> T[/Repressor Released/]
+    T --> U[Operator Free]
+    
+    %% CAP-cAMP Logic
+    W --> X[cAMP-CAP Complex]
+    V --> Y[No CAP Binding State]
+    X --> Z[CAP Binds Promoter]
+    Y --> AA[CAP Binding Absent]
+    
+    %% AND Gate 2: Strong Transcription Requires Both Conditions
+    U --> ANDGATE2{Operator Free AND<br/>CAP Bound?}
+    Z --> ANDGATE2
+    ANDGATE2 -->|Yes| FF[Strong Transcription]
+    ANDGATE2 -->|No| GG[/Weak/No Transcription/]
+    
+    %% Alternative path: operator blocked
+    AA --> GG
+    
+    %% Gene Expression
+    FF --> II[lacZ mRNA Synthesis]
+    FF --> JJ[lacY mRNA Synthesis]
+    FF --> KK[lacA mRNA Synthesis]
+    
+    %% Protein Synthesis
+    II --> LL[LacZ Translation]
+    JJ --> MM[LacY Translation]
+    KK --> NN[LacA Translation]
+    
+    %% Functional Proteins
+    LL --> OO[Beta-Galactosidase Enzyme]
+    MM --> PP[Lactose Permease]
+    NN --> QQ[/Galactoside Acetyltransferase/]
+    
+    %% Metabolic Functions
+    OO --> RR[Lactose Hydrolysis]
+    PP --> SS[/Lactose Transport/]
+    QQ --> TT[Galactoside Modification]
+    
+    %% Final Products
+    RR --> UU[Glucose + Galactose]
+    SS --> VV2[Enhanced Lactose Uptake]
+    TT --> WW[Detoxification]
+    
+    %% Energy Production
+    UU --> XX(\1)
+    VV2 --> YY[Lactose Processing]
+    WW --> ZZ[Cell Protection]
+    
+    %% System Equilibrium
+    XX --> AAA[Energy Production]
+    YY --> BBB[Lactose Consumption]
+    ZZ --> CCC[Cell Survival]
+    
+    %% Feedback Control
+    AAA --> DDD[Energy Status Improved]
+    BBB --> EEE[Lactose Depletion]
+    CCC --> FFF[Reduced Stress]
+    
+    %% Dynamic Equilibrium
+    DDD --> GGG[Reduced Lactose Signal]
+    EEE --> HHH(\1)
+    FFF --> III[System Equilibrium]
+    
+    %% Styling - Programming Framework Color Scheme
+    %% Red (#ff6b6b): Triggers & Inputs
+    
+    %% Yellow (#ffd43b): Structures & Objects
+    
+    %% Green (#51cf66): Processing & Operations
+    
+    %% Blue (#74c0fc): Intermediates & States
+    
+    %% Orange (#ff9f43): OR Logic Gates
+    
+    %% Lavender (#b4b4dc): AND Logic Gates
+    
+    %% Violet (#b197fc): Products & Outputs
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style FF fill:#51cf66,color:#fff
+    style GG fill:#74c0fc,color:#fff
+    style II fill:#51cf66,color:#fff
+    style JJ fill:#51cf66,color:#fff
+    style KK fill:#51cf66,color:#fff
+    style LL fill:#51cf66,color:#fff
+    style MM fill:#51cf66,color:#fff
+    style NN fill:#51cf66,color:#fff
+    style OO fill:#ffd43b,color:#000
+    style PP fill:#74c0fc,color:#fff
+    style QQ fill:#51cf66,color:#fff
+    style RR fill:#51cf66,color:#fff
+    style SS fill:#51cf66,color:#fff
+    style TT fill:#51cf66,color:#fff
+    style UU fill:#74c0fc,color:#fff
+    style VV2 fill:#74c0fc,color:#fff
+    style WW fill:#74c0fc,color:#fff
+    style XX fill:#74c0fc,color:#fff
+    style YY fill:#51cf66,color:#fff
+    style ZZ fill:#b197fc,color:#fff
+    style AAA fill:#b197fc,color:#fff
+    style BBB fill:#74c0fc,color:#fff
+    style CCC fill:#b197fc,color:#fff
+    style DDD fill:#b197fc,color:#fff
+    style EEE fill:#ff6b6b,color:#fff
+    style FFF fill:#ff6b6b,color:#fff
+    style GGG fill:#ff6b6b,color:#fff
+    style HHH fill:#b197fc,color:#fff
+    style III fill:#b197fc,color:#fff

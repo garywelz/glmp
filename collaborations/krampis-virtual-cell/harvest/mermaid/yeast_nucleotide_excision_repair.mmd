@@ -1,0 +1,148 @@
+graph TD
+    %% DNA Damage Input
+    A[UV Radiation or Chemical Damage] --> B[Bulky DNA Lesion Formation]
+    B --> C[Helix Distortion]
+    
+    %% Pathway Choice
+    C --> D{Damage Location<br/>and Context?}
+    
+    %% Global Genome NER Pathway
+    D -->|Non-Transcribed| E[Global Genome Surveillance]
+    E --> F[Rad4-Rad23 Complex Scanning]
+    F --> G{Damage<br/>Detected?}
+    G -->|Yes| H[Rad4-Rad23 Binds Lesion]
+    H --> I[Damage Recognition]
+    
+    %% Transcription-Coupled NER Pathway
+    D -->|Transcribed Gene| J[RNA Pol II Stalling]
+    J --> K[Rad26 CSB Recruitment]
+    K --> L[Rad26 Recognizes Stalled Pol II]
+    L --> M[Transcription Complex Remodeling]
+    M --> N[Damage Site Exposure]
+    
+    %% Convergence to Core NER
+    I --> O[Rad14 XPA Recruitment]
+    N --> O
+    O --> P[TFIIH Complex Recruitment]
+    
+    P --> Q[Rad3 Helicase 5' to 3']
+    P --> R[Rad25 SSL2 Helicase 3' to 5']
+    
+    Q --> S[DNA Unwinding]
+    R --> S
+    S --> T[Open Bubble Formation]
+    T --> U[20-30 Nucleotide Bubble]
+    
+    %% Verification and Incision
+    U --> V{Damage Confirmed<br/>in Bubble?}
+    V -->|Yes| W[RPA Coating ssDNA]
+    W --> X[Rad1-Rad10 Recruitment]
+    X --> Y[Rad2 XPG Recruitment]
+    
+    Y --> ANDGATE1{Both Nucleases<br/>Positioned?}
+    ANDGATE1 -->|Yes| Z[Dual Incision]
+    
+    %% 5' and 3' Incisions
+    Z --> AA[Rad1-Rad10 5' Incision]
+    Z --> AB[Rad2 3' Incision]
+    
+    AA --> AC[Damaged Oligonucleotide Release]
+    AB --> AC
+    AC --> AD[24-32 nt Gap in DNA]
+    
+    %% Gap Filling
+    AD --> AE{Repair Synthesis<br/>Factors Ready?}
+    AE --> ANDGATE2{Gap Present AND<br/>Pol δ/ε Available?}
+    
+    ANDGATE2 -->|Yes| AF[PCNA Loading]
+    AF --> AG[DNA Polymerase δ or ε]
+    AG --> AH[Gap Filling Synthesis]
+    AH --> AI[New DNA Strand]
+    
+    %% Ligation
+    AI --> AJ{Nick Sealed?}
+    AJ --> ANDGATE3{Synthesis Complete AND<br/>Ligase Available?}
+    
+    ANDGATE3 -->|Yes| AK[DNA Ligase I]
+    AK --> AL[Nick Sealing]
+    AL --> AM[Restored DNA Duplex]
+    
+    %% Outcomes
+    AM --> AN[Repaired DNA]
+    AN --> AO{In Transcribed<br/>Gene?}
+    
+    AO -->|Yes| AP[Transcription Resumption]
+    AO -->|No| AQ[Genome Integrity Restored]
+    
+    AP --> AR[mRNA Synthesis Continues]
+    AQ --> AS[Cell Cycle Progression]
+    
+    %% Failed Repair
+    V -->|No| AT[Repair Aborted]
+    AT --> AU[Checkpoint Activation]
+    AU --> AV[Cell Cycle Arrest or Apoptosis]
+    
+    %% Styling - GLMP Color Scheme
+    %% Red: Triggers & Inputs
+    
+    %% Yellow: Structures & Objects
+    
+    %% Green: Processing & Operations
+    
+    %% Blue: Intermediates & States
+    
+    %% Orange: OR Logic Gates
+    
+    %% Lavender: AND Logic Gates
+    
+    %% Violet: Products & Outputs
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#ff6b6b,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AP fill:#51cf66,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#b197fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#b197fc,color:#fff

@@ -1,0 +1,197 @@
+graph TD
+    %% Environmental Inputs
+    A[Exponential Growth] --> B[Housekeeping Gene Demand]
+    C[Stationary Phase Entry] --> D[Stress Response Demand]
+    E[Heat Shock] --> F[Protein Folding Stress]
+    G[Nitrogen Limitation] --> H[Nitrogen Metabolism Demand]
+    I[Envelope Stress] --> J[Membrane Protein Stress]
+    K[Iron Limitation] --> L[Iron Transport Demand]
+    
+    %% Sigma Factor Synthesis
+    B --> M[σ70 RpoD Synthesis]
+    D --> N[σ38 RpoS Synthesis]
+    F --> O[σ32 RpoH Synthesis]
+    H --> P[σ54 RpoN Synthesis]
+    J --> Q[σ24 RpoE Synthesis]
+    L --> R[σ19 FecI Synthesis]
+    
+    %% Sigma Factor Pools
+    M --> S[σ70 Pool High]
+    N --> T[σ38 Pool Increases]
+    O --> U[σ32 Pool Increases]
+    P --> V[σ54 Available]
+    Q --> W[σ24 Activated]
+    R --> X[σ19 Available]
+    
+    %% Anti-Sigma Factor Regulation
+    S --> Y{Anti-Sigma<br/>Factors?}
+    Y -->|None| Z[Free σ70]
+    
+    U --> AA{DnaK DnaJ<br/>Chaperones?}
+    AA -->|Sequester| AB[\σ32 Inactive/]
+    AA -->|Release| AC[Free σ32]
+    
+    W --> AD{RseA Anti-Sigma<br/>Active?}
+    AD -->|Yes| AE[σ24 Sequestered]
+    AD -->|No| AF[Free σ24]
+    
+    %% Core RNAP Availability
+    AG[Core RNAP Pool] --> AH{Core Enzyme<br/>Available?}
+    AH -->|Limited| AI[Competition for Core]
+    AH -->|Abundant| AJ[Multiple Holoenzymes]
+    
+    %% Competition for Core
+    Z --> AI
+    T --> AI
+    AC --> AI
+    V --> AI
+    AF --> AI
+    X --> AI
+    
+    AI --> AK{Which Sigma<br/>Wins?}
+    
+    %% Sigma Selection Based on Levels and Affinity
+    AK -->|Highest Affinity| AL[Dominant Sigma Binds]
+    AL --> AM{Which Sigma<br/>Bound?}
+    
+    AM -->|σ70| AN[σ70-RNAP Holoenzyme]
+    AM -->|σ38| AO[σ38-RNAP Holoenzyme]
+    AM -->|σ32| AP[σ32-RNAP Holoenzyme]
+    AM -->|σ54| AQ[σ54-RNAP Holoenzyme]
+    AM -->|σ24| AR[σ24-RNAP Holoenzyme]
+    AM -->|σ19| AS[σ19-RNAP Holoenzyme]
+    
+    %% Promoter Recognition
+    AN --> AT[Housekeeping Promoters]
+    AO --> AU[Stationary Phase Promoters]
+    AP --> AV[Heat Shock Promoters]
+    AQ --> AW[Nitrogen-Regulated Promoters]
+    AR --> AX[Envelope Stress Promoters]
+    AS --> AY[Iron Transport Promoters]
+    
+    %% Transcription Initiation
+    AT --> AZ{Promoter<br/>Recognition?}
+    AU --> AZ
+    AV --> AZ
+    AW --> AZ
+    AX --> AZ
+    AY --> AZ
+    
+    AZ --> ANDGATE1{Holoenzyme AND<br/>Cognate Promoter?}
+    ANDGATE1 -->|Yes| BA[Open Complex Formation]
+    BA --> BB[Transcription Initiation]
+    
+    %% Transcriptional Programs
+    BB --> BC{Which Program<br/>Activated?}
+    
+    BC -->|σ70| BD[Housekeeping Genes]
+    BC -->|σ38| BE[Stress Response Genes]
+    BC -->|σ32| BF[Heat Shock Genes]
+    BC -->|σ54| BG[Nitrogen Metabolism Genes]
+    BC -->|σ24| BH[Envelope Stress Genes]
+    BC -->|σ19| BI[Iron Transport Genes]
+    
+    %% Cellular Outcomes
+    BD --> BJ[Normal Growth]
+    BE --> BK[Survival in Stationary Phase]
+    BF --> BL[Protein Folding Capacity]
+    BG --> BM[Nitrogen Assimilation]
+    BH --> BN[Envelope Homeostasis]
+    BI --> BO[Iron Acquisition]
+    
+    %% Global Coordination
+    BJ --> BP{Growth Conditions<br/>Change?}
+    BK --> BP
+    BL --> BP
+    BM --> BP
+    BN --> BP
+    BO --> BP
+    
+    BP -->|Yes| BQ[Sigma Factor Rebalancing]
+    BQ --> M
+    
+    BP -->|No| BR[Steady State]
+    
+    %% Styling - GLMP Color Scheme
+    %% Red: Triggers & Inputs
+    
+    %% Yellow: Structures & Objects
+    
+    %% Green: Processing & Operations
+    
+    %% Blue: Intermediates & States
+    
+    %% Orange: OR Logic Gates
+    
+    %% Lavender: AND Logic Gates
+    
+    %% Violet: Products & Outputs
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style J fill:#ff6b6b,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#ffd43b,color:#000
+    style AL fill:#74c0fc,color:#fff
+    style AN fill:#ffd43b,color:#000
+    style AO fill:#ffd43b,color:#000
+    style AP fill:#ffd43b,color:#000
+    style AQ fill:#ffd43b,color:#000
+    style AR fill:#ffd43b,color:#000
+    style AS fill:#ffd43b,color:#000
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#ff6b6b,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#ff6b6b,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#ff6b6b,color:#fff
+    style BF fill:#ff6b6b,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#ff6b6b,color:#fff
+    style BI fill:#51cf66,color:#fff
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#ffd43b,color:#000
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#b197fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BQ fill:#ffd43b,color:#000
+    style BR fill:#74c0fc,color:#fff

@@ -1,0 +1,194 @@
+graph TD
+    %% Pheromone Detection
+    A[Pheromone α-factor or a-factor] --> B{OR: Which<br/>Receptor?}
+    B -->|MATa cells| C[Ste2 GPCR binds α-factor]
+    B -->|MATα cells| D[Ste3 GPCR binds a-factor]
+    
+    C --> E[Ste2 Conformational Change]
+    D --> E
+    
+    %% G Protein Activation
+    E --> F[Gpa1-GDP Gβγ Heterotrimer]
+    F --> G[GEF Activity]
+    G --> H[Gpa1-GTP Formation]
+    H --> I[G Protein Dissociation]
+    I --> J[\Gpa1-GTP Inactive/]
+    I --> K[Gβγ Ste4/Ste18 Active]
+    
+    %% Scaffold Recruitment
+    K --> L[Ste5 Scaffold Recruitment]
+    L --> M{AND: Ste5 + Gβγ<br/>Membrane?}
+    M -->|No| N[No Signaling]
+    M -->|Yes| O[Ste5 Membrane-Bound]
+    
+    %% MAPKKK Layer
+    O --> P[Ste11 MAPKKK Recruitment]
+    P --> Q{AND: Ste11 + Ste5<br/>+ Ste50?}
+    Q -->|No| N
+    Q -->|Yes| R[Ste11 Complex]
+    
+    R --> S[Ste20 PAK Kinase]
+    S --> T[Ste20 Phosphorylates Ste11]
+    T --> U[Ste11 Active]
+    
+    %% MAPKK Layer
+    U --> V[Ste7 MAPKK on Ste5]
+    V --> W{AND: Ste7 + Ste5<br/>Scaffold?}
+    W -->|No| N
+    W -->|Yes| X[Ste11 Phosphorylates Ste7]
+    
+    X --> Y[Ste7 Activated]
+    
+    %% MAPK Layer
+    Y --> Z{OR: Which<br/>MAPK?}
+    Z -->|Fus3 - Mating| AA[Fus3 MAPK]
+    Z -->|Kss1 - Invasion| AB[Kss1 MAPK]
+    
+    AA --> AC[Ste7 Phosphorylates Fus3]
+    AC --> AD[Fus3 Dual Phosphorylation]
+    AD --> AE[Fus3-PP Active]
+    
+    %% Fus3 Substrates
+    AE --> AF{OR: Which<br/>Substrate?}
+    AF -->|Ste12| AG[Ste12 Transcription Factor]
+    AF -->|Far1| AH[/Far1 CDK Inhibitor/]
+    AF -->|Ste5| AI[Ste5 Feedback]
+    AF -->|Msg5| AJ[/Msg5 Phosphatase/]
+    
+    %% Transcriptional Response
+    AG --> AK{AND: Ste12<br/>AND Dig1/2 Relief?}
+    AK -->|No| AL[\Repressed/]
+    AK -->|Yes| AM[Dig1/2 Phosphorylated]
+    
+    AM --> AN[Dig1/2 Release]
+    AN --> AO[Ste12 Active]
+    AO --> AP[Ste12 Binds PRE Elements]
+    
+    AP --> AQ{OR: Which<br/>Mating Gene?}
+    AQ -->|FUS1| AR[FUS1 Cell Fusion]
+    AQ -->|FUS2| AS[FUS2 Cell Fusion]
+    AQ -->|AGA1/2| AT(\1)
+    AQ -->|FAR1| AU[FAR1 G1 Arrest]
+    AQ -->|FIG1| AV[FIG1 Projection]
+    
+    %% Cell Cycle Arrest
+    AH --> AW[Far1 Accumulation]
+    AW --> AX{AND: Far1 + Cdc28-Cln?}
+    AX -->|No| AY[Cell Cycle Continues]
+    AX -->|Yes| AZ[\Cdc28-Cln Inhibited/]
+    
+    AZ --> BA[G1 Arrest]
+    BA --> BB[Polarized Growth]
+    BB --> BC[Shmoo Formation]
+    
+    %% Morphological Changes
+    BC --> BD{AND: Actin<br/>Polarization?}
+    BD -->|No| BE[No Projection]
+    BD -->|Yes| BF[Actin Cables to Tip]
+    BF --> BG[Bni1 Formin]
+    BG --> BH[Projection Growth]
+    
+    %% Cell Fusion Preparation
+    AR --> BI[Fus1 Membrane Fusion Protein]
+    AS --> BI
+    AT --> BJ[Agglutinin Cell Adhesion]
+    BJ --> BK[Partner Cell Contact]
+    
+    BK --> BL{AND: Both Cells<br/>Shmoo?}
+    BL -->|No| BM[Mating Fails]
+    BL -->|Yes| BN[Cell Fusion Initiation]
+    
+    %% Cell Wall Degradation
+    BN --> BO[/Local Wall Degradation/]
+    BO --> BP{AND: Fus1 + Fus2<br/>Present?}
+    BP -->|No| BM
+    BP -->|Yes| BQ[Membrane Fusion]
+    
+    BQ --> BR[Cytoplasm Mixing]
+    BR --> BS[Nuclear Migration]
+    BS --> BT(\1)
+    BT --> BU([Diploid Zygote])
+    
+    %% Negative Feedback
+    AI --> BV[Ste5 Phosphorylation]
+    BV --> BW[Ste5 Membrane Release]
+    BW --> BX[Signaling Attenuation]
+    
+    AJ --> BY[Msg5 Dephosphorylates Fus3]
+    BY --> BZ[Fus3 Inactivation]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AG fill:#ffd43b,color:#000
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AR fill:#b197fc,color:#fff
+    style AS fill:#b197fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AY fill:#b197fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#ffd43b,color:#000
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#b197fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#51cf66,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#ff6b6b,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#51cf66,color:#fff

@@ -1,0 +1,228 @@
+graph TD
+    Start([HOG Pathway]) --> A1{Osmotic stress detected?}
+    
+    A1 -->|Hyperosmotic shock| A2[Two parallel input branches]
+    A1 -->|Normal osmolarity| A3[\Pathway inactive/]
+    
+    A2 --> A4["Branch 1: SLN1 two-component"]
+    A2 --> A5["Branch 2: SHO1 membrane sensor"]
+    
+    A4 --> A6[Sln1 histidine kinase in plasma membrane]
+    A6 --> A7[Sln1 senses turgor pressure via transmembrane domains]
+    
+    A7 --> A8{Osmolarity status?}
+    A8 -->|Normal - high turgor| A9[Sln1 autophosphorylates His576]
+    A8 -->|High osmolarity - low turgor| A10[\Sln1 kinase inactive/]
+    
+    A9 --> A11[Phosphotransfer to Ypd1 response regulator]
+    A11 --> A12[Ypd1~P transfers to Ssk1 Asp554]
+    A12 --> A13[\Ssk1~P inactive - cannot activate MAPKKKs/]
+    A13 --> A14[HOG pathway OFF under normal conditions]
+    
+    A10 --> A15[No phosphotransfer to Ypd1]
+    A15 --> A16[Ssk1 remains unphosphorylated]
+    A16 --> A17[Apo-Ssk1 active]
+    A17 --> A18[Ssk1 activates MAPKKKs Ssk2 and Ssk22]
+    
+    A5 --> A19[Sho1 transmembrane protein]
+    A19 --> A20[Sho1 SH3 domain in cytoplasm]
+    A20 --> A21{Osmotic stress sensed?}
+    A21 -->|Yes| A22[Membrane deformation or signal]
+    A21 -->|No| A23[\Pathway inactive/]
+    
+    A22 --> A24[Sho1 recruits Pbs2 MAPKK via SH3-proline interaction]
+    A24 --> A25[Ste50 adaptor protein binds Sho1]
+    A25 --> A26[Ste20 PAK kinase recruited]
+    
+    A26 --> A27{Ste20-Ste50-Ste11 complex assembled?}
+    A27 -->|Yes - all components| A28[Ste11 MAPKKK activated]
+    A27 -->|Missing component| Wait1[Wait for assembly]
+    Wait1 --> A27
+    
+    A28 --> A29[Ste11 phosphorylates Pbs2]
+    
+    A18 --> A30{Which MAPKKK?}
+    A30 -->|Ssk2 or Ssk22| A31[Redundant MAPKKKs]
+    A31 --> A32[Ssk2/Ssk22 phosphorylate Pbs2]
+    
+    A29 --> A33[Pbs2 MAPKK convergence point]
+    A32 --> A33
+    
+    A33 --> A34[Pbs2 phosphorylated at Ser514 Thr518]
+    A34 --> A35[Pbs2 active MAPKK]
+    
+    A35 --> A36{Hog1 MAPK available?}
+    A36 -->|Yes| A37[Pbs2 binds Hog1]
+    A36 -->|No| Wait2[Wait for Hog1]
+    Wait2 --> A36
+    
+    A37 --> A38[Pbs2 acts as scaffold - holds Hog1]
+    A38 --> A39[Pbs2 phosphorylates Hog1 at Thr174 Tyr176]
+    A39 --> A40[Dual phosphorylation required for activation]
+    
+    A40 --> A41{Both Thr and Tyr phosphorylated?}
+    A41 -->|Yes - both sites| A42[Hog1 fully activated]
+    A41 -->|No - incomplete| A43[\Hog1 inactive/]
+    
+    A42 --> A44[Hog1~P dissociates from Pbs2]
+    A44 --> A45[Hog1~P accumulates in nucleus]
+    A45 --> A46[Nuclear import via NLS]
+    
+    A46 --> A47[Nuclear Hog1 has multiple targets]
+    
+    A47 --> A48["Target 1: Transcription factors"]
+    A48 --> A49{Which transcription factor?}
+    
+    A49 -->|Hot1| A50[Hog1 phosphorylates Hot1]
+    A49 -->|Msn2/4| A51[Hog1 phosphorylates Msn2/Msn4]
+    A49 -->|Sko1| A52[Hog1 phosphorylates Sko1]
+    
+    A50 --> A53[Hot1 activates osmo-responsive genes]
+    A53 --> A54[GPD1 - glycerol-3-phosphate dehydrogenase]
+    A54 --> A55[GPP2 - glycerol-3-phosphatase]
+    
+    A51 --> A56[Msn2/4 activate STRE genes]
+    A56 --> A57[General stress response genes]
+    
+    A52 --> A58[\Sko1 de-repressed - activates targets/]
+    A58 --> A59[Additional osmo-protective genes]
+    
+    A55 --> A60[Glycerol synthesis pathway]
+    A60 --> A61[DHAP → Glycerol-3-P → Glycerol]
+    A61 --> A62[Glycerol accumulates intracellularly]
+    A62 --> A63[Osmotic balance restored]
+    
+    A47 --> A64["Target 2: Translation control"]
+    A64 --> A65[Hog1 phosphorylates Rck2 kinase]
+    A65 --> A66[Rck2 regulates translation]
+    
+    A47 --> A67["Target 3: Cell cycle arrest"]
+    A67 --> A68[Hog1 delays G1/S and G2/M transitions]
+    
+    A47 --> A69["Target 4: Chromatin remodeling"]
+    A69 --> A70[Hog1 recruits RSC complex and SAGA]
+    A70 --> A71[Promoter accessibility increased]
+    
+    A63 --> A72{Osmotic stress relieved?}
+    A72 -->|Yes| A73[Adaptation mechanisms]
+    A72 -->|No| A74[Maintain pathway activation]
+    
+    A73 --> A75[Phosphatases activated]
+    A75 --> A76{Which phosphatase?}
+    A76 -->|Ptp2 Ptp3| A77[Tyrosine phosphatases]
+    A76 -->|Ptc1| A78[Protein phosphatase 2C]
+    
+    A77 --> A79[Dephosphorylate Hog1 Tyr176]
+    A78 --> A80[Dephosphorylate Hog1 Thr174]
+    
+    A79 --> A81[Hog1 inactivated]
+    A80 --> A81
+    
+    A81 --> A82[Hog1 exported from nucleus]
+    A82 --> A83[Pathway reset to basal state]
+    
+    A74 --> A84[Chronic osmotic stress response]
+    A84 --> A85[Sustained glycerol production]
+    A85 --> A86[Cell wall remodeling]
+    A86 --> A87[Altered gene expression program]
+    
+    A57 --> A88[Stress adaptation outputs]
+    A59 --> A88
+    A62 --> A88
+    A66 --> A88
+    A68 --> A88
+    A71 --> A88
+    
+    A88 --> End1([Osmotic adaptation])
+    A83 --> End2([Pathway OFF])
+    A87 --> End3([Chronic stress state])
+    A14 --> End2
+    A23 --> End2
+    A43 --> End2
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#ff6b6b,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#74c0fc,color:#fff
+    style A6 fill:#51cf66,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#b197fc,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#ffd43b,color:#000
+    style A20 fill:#74c0fc,color:#fff
+    style A22 fill:#ff6b6b,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#ffd43b,color:#000
+    style A26 fill:#51cf66,color:#fff
+    style A28 fill:#74c0fc,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A32 fill:#74c0fc,color:#fff
+    style A33 fill:#74c0fc,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A37 fill:#74c0fc,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A40 fill:#51cf66,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#74c0fc,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#51cf66,color:#fff
+    style A47 fill:#74c0fc,color:#fff
+    style A48 fill:#ffd43b,color:#000
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#74c0fc,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style A54 fill:#74c0fc,color:#fff
+    style A55 fill:#51cf66,color:#fff
+    style A56 fill:#74c0fc,color:#fff
+    style A57 fill:#ff6b6b,color:#fff
+    style A58 fill:#74c0fc,color:#fff
+    style A59 fill:#74c0fc,color:#fff
+    style A60 fill:#51cf66,color:#fff
+    style A61 fill:#74c0fc,color:#fff
+    style A62 fill:#b197fc,color:#fff
+    style A63 fill:#74c0fc,color:#fff
+    style A64 fill:#51cf66,color:#fff
+    style A65 fill:#51cf66,color:#fff
+    style A66 fill:#51cf66,color:#fff
+    style A67 fill:#b197fc,color:#fff
+    style A68 fill:#74c0fc,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A70 fill:#74c0fc,color:#fff
+    style A71 fill:#74c0fc,color:#fff
+    style A73 fill:#b197fc,color:#fff
+    style A74 fill:#51cf66,color:#fff
+    style A75 fill:#51cf66,color:#fff
+    style A77 fill:#51cf66,color:#fff
+    style A78 fill:#51cf66,color:#fff
+    style A79 fill:#74c0fc,color:#fff
+    style A80 fill:#74c0fc,color:#fff
+    style A81 fill:#74c0fc,color:#fff
+    style A82 fill:#51cf66,color:#fff
+    style A83 fill:#74c0fc,color:#fff
+    style A84 fill:#ff6b6b,color:#fff
+    style A85 fill:#b197fc,color:#fff
+    style A86 fill:#b197fc,color:#fff
+    style A87 fill:#74c0fc,color:#fff
+    style A88 fill:#ff6b6b,color:#fff

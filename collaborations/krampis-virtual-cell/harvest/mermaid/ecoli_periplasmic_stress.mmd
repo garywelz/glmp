@@ -1,0 +1,188 @@
+graph TD
+    Start([Cpx Envelope Stress Response]) --> A1{Type of envelope stress?}
+    
+    A1 -->|Misfolded pili| A2[P pili or curli misassembly]
+    A1 -->|Alkaline pH| A3[pH > 8.0 in growth medium]
+    A1 -->|Membrane composition| A4[Phospholipid alterations]
+    A1 -->|Protein misfolding| A5[Periplasmic protein aggregation]
+    A1 -->|Lipoprotein defects| A6[NlpE accumulation]
+    
+    A2 --> A7[Stress signals detected by CpxA]
+    A3 --> A7
+    A4 --> A7
+    A5 --> A7
+    A6 --> A7
+    
+    A7 --> A8[CpxA sensor histidine kinase in inner membrane]
+    A8 --> A9[CpxA has two transmembrane domains]
+    A9 --> A10[Large periplasmic sensor domain]
+    
+    A10 --> A11{Stress signal recognition}
+    A11 -->|No stress| A12[/CpxP inhibitor present/]
+    A11 -->|Stress present| A13[CpxP titrated by misfolded proteins]
+    
+    A12 --> A14[CpxP binds CpxA periplasmic domain]
+    A14 --> A15[\CpxA kinase activity inhibited/]
+    A15 --> A16[Low basal CpxR~P levels]
+    
+    A13 --> A17[Misfolded proteins sequester CpxP]
+    A17 --> A18[/CpxA released from inhibition/]
+    A18 --> A19[CpxA autophosphorylation activated]
+    
+    A19 --> A20[His248 on CpxA phosphorylated]
+    A20 --> A21[Intramolecular phosphotransfer to Asp519]
+    
+    A21 --> A22{CpxR available?}
+    A22 -->|Yes| A23[Phosphotransfer to Asp51 on CpxR]
+    A22 -->|No| Wait1[Wait for CpxR]
+    Wait1 --> A22
+    
+    A23 --> A24[CpxR~P activated response regulator]
+    A24 --> A25[CpxR~P dimerizes]
+    A25 --> A26[CpxR~P binds target promoters]
+    
+    A26 --> A27[Transcription of Cpx regulon activated]
+    A27 --> A28{Which Cpx target genes?}
+    
+    A28 -->|cpxP| A29[CpxP - negative feedback]
+    A28 -->|degP| A30[DegP periplasmic protease]
+    A28 -->|dsbA| A31[DsbA disulfide bond formation]
+    A28 -->|ppiA ppiD| A32[Peptidyl-prolyl isomerases]
+    A28 -->|spy| A33[Spy periplasmic chaperone]
+    A28 -->|yccA| A34[Inner membrane protein quality control]
+    A28 -->|cpxRA| A35[CpxRA operon - positive autoregulation]
+    
+    A29 --> A36[CpxP synthesized]
+    A36 --> A37{Are misfolded proteins still present?}
+    A37 -->|Yes - stress continues| A38[CpxP sequestered by substrates]
+    A37 -->|No - stress resolved| A39[/CpxP inhibits CpxA/]
+    
+    A30 --> A40[/DegP degrades misfolded periplasmic proteins/]
+    A40 --> A41{DegP dual function}
+    A41 -->|Low temp <30C| A42[DegP acts as chaperone]
+    A41 -->|High temp >30C| A43[DegP acts as protease]
+    
+    A42 --> A44[Protein refolding attempted]
+    A43 --> A45[/Protein degradation - oligopeptides/]
+    
+    A31 --> A46[DsbA catalyzes disulfide bond formation]
+    A46 --> A47[Correct protein folding in periplasm]
+    
+    A32 --> A48[Proline isomerization accelerated]
+    A48 --> A49[Protein folding rate increased]
+    
+    A33 --> A50[/Spy prevents aggregation of outer membrane proteins/]
+    A50 --> A51[ATP-independent chaperone activity]
+    
+    A34 --> A52[/YccA prevents misfolded protein accumulation/]
+    
+    A35 --> A53[CpxR and CpxA levels increase]
+    A53 --> A54[Amplification of Cpx response]
+    
+    A44 --> A55[Periplasmic protein quality control]
+    A45 --> A55
+    A47 --> A55
+    A49 --> A55
+    A51 --> A55
+    A52 --> A55
+    
+    A55 --> A56{Envelope stress resolved?}
+    A56 -->|Yes| A57[Misfolded protein load decreased]
+    A56 -->|No - persistent| A58[Continued Cpx activation]
+    
+    A57 --> A59[CpxP no longer sequestered]
+    A59 --> A60[/CpxP binds and inhibits CpxA/]
+    A60 --> A61[/CpxA autophosphorylation stops/]
+    
+    A61 --> A62[CpxR~P dephosphorylated by phosphatase]
+    A62 --> A63[Cpx regulon transcription decreases]
+    A63 --> A64[Return to basal state]
+    
+    A58 --> A65[Chronic envelope stress]
+    A65 --> A66{Overlap with other envelope responses?}
+    A66 -->|σE pathway| A67[Outer membrane protein stress]
+    A66 -->|Bae pathway| A68[Drug efflux induction]
+    A66 -->|Rcs pathway| A69[Capsule synthesis]
+    
+    A67 --> A70[Coordinate envelope protection]
+    A68 --> A70
+    A69 --> A70
+    
+    A70 --> End1([Multi-layered envelope stress protection])
+    A64 --> End2([Envelope homeostasis restored])
+    A16 --> End3([Basal state - no stress])
+    
+    A38 --> A71[Feedback loop maintains response]
+    A71 --> A58
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#51cf66,color:#fff
+    style A3 fill:#b197fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#ffd43b,color:#000
+    style A6 fill:#74c0fc,color:#fff
+    style A7 fill:#ff6b6b,color:#fff
+    style A8 fill:#51cf66,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#ffd43b,color:#000
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#ffd43b,color:#000
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#51cf66,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#b197fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A27 fill:#51cf66,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#51cf66,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A32 fill:#51cf66,color:#fff
+    style A33 fill:#74c0fc,color:#fff
+    style A34 fill:#ffd43b,color:#000
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A40 fill:#74c0fc,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#51cf66,color:#fff
+    style A44 fill:#ffd43b,color:#000
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A47 fill:#ffd43b,color:#000
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#ffd43b,color:#000
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#74c0fc,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style A54 fill:#b197fc,color:#fff
+    style A55 fill:#ffd43b,color:#000
+    style A57 fill:#ffd43b,color:#000
+    style A58 fill:#51cf66,color:#fff
+    style A59 fill:#74c0fc,color:#fff
+    style A60 fill:#74c0fc,color:#fff
+    style A61 fill:#74c0fc,color:#fff
+    style A62 fill:#51cf66,color:#fff
+    style A63 fill:#51cf66,color:#fff
+    style A64 fill:#74c0fc,color:#fff
+    style A65 fill:#ff6b6b,color:#fff
+    style A67 fill:#ff6b6b,color:#fff
+    style A68 fill:#74c0fc,color:#fff
+    style A69 fill:#51cf66,color:#fff
+    style A70 fill:#74c0fc,color:#fff
+    style A71 fill:#b197fc,color:#fff

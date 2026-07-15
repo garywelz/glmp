@@ -1,0 +1,154 @@
+graph TD
+    %% Transcription and RNA Production
+    A[rrn Operon Transcription] --> B[Primary rRNA Transcript]
+    B --> C[RNase III Cleavage]
+    C --> D[16S rRNA Precursor]
+    C --> E[23S rRNA Precursor]
+    C --> F[5S rRNA Precursor]
+    
+    %% 30S Assembly Pathway
+    D --> G[16S rRNA Folding]
+    G --> H[5' Domain Formation]
+    H --> I{Early Proteins<br/>Available?}
+    
+    I -->|Yes| J[Primary Binding Proteins]
+    J --> K[S4 S8 S15 S17 S20 Binding]
+    K --> L[Central Domain Stabilization]
+    L --> M{Secondary Proteins<br/>Ready?}
+    
+    M -->|Yes| N[Secondary Binding Proteins]
+    N --> O[S2 S3 S5 S7 S9 S10 S14 S19 Binding]
+    O --> P[3' Domain Formation]
+    P --> Q{Tertiary Proteins<br/>Ready?}
+    
+    Q -->|Yes| R[Tertiary Binding Proteins]
+    R --> S[S6 S11 S12 S13 S18 S21 Binding]
+    S --> T[Pre-30S Particle]
+    
+    %% 30S Maturation
+    T --> U[RimM Chaperone Action]
+    U --> V[16S 3' End Processing]
+    V --> W[KsgA Methylation]
+    W --> X[Era GTPase Quality Check]
+    X --> ANDGATE1{Correctly Folded AND<br/>Modified?}
+    
+    ANDGATE1 -->|Yes| Y[Mature 30S Subunit]
+    ANDGATE1 -->|No| Z[/Degradation or Repair/]
+    
+    %% 50S Assembly Pathway
+    E --> AA[23S rRNA Folding]
+    F --> AB[5S rRNA Folding]
+    
+    AA --> AC[Domain I Formation]
+    AC --> AD{Early 50S Proteins<br/>Available?}
+    
+    AD -->|Yes| AE[L4 L13 L20 L22 Binding]
+    AE --> AF[Central Protuberance Assembly]
+    AF --> AG[L1 L2 L3 L6 L10 L11 Binding]
+    
+    AB --> AH[5S-L5-L18 Complex]
+    AH --> AI[5S Integration]
+    AI --> AF
+    
+    AG --> AJ{Late 50S Proteins<br/>Ready?}
+    AJ -->|Yes| AK[Remaining Protein Binding]
+    AK --> AL[L7/L12 Stalk Formation]
+    AL --> AM[Pre-50S Particle]
+    
+    %% 50S Maturation
+    AM --> AN[23S rRNA Modifications]
+    AN --> AO[RlmE Methylation]
+    AO --> AP[RluD Pseudouridylation]
+    AP --> AQ[ObgE GTPase Action]
+    AQ --> ANDGATE2{Correctly Assembled AND<br/>Peptidyl Transferase Active?}
+    
+    ANDGATE2 -->|Yes| AR[Mature 50S Subunit]
+    ANDGATE2 -->|No| AS[/Degradation/]
+    
+    %% 70S Formation
+    Y --> AT[30S in Cytoplasm]
+    AR --> AU[50S in Cytoplasm]
+    
+    AT --> AV{Subunits<br/>Available?}
+    AU --> AV
+    
+    AV -->|Yes| AW[30S-50S Association]
+    AW --> AX[70S Ribosome Formation]
+    AX --> AY[Functional Translation Complex]
+    
+    %% Quality Control
+    AY --> AZ[Translation Competence Test]
+    AZ --> BA{Functional?}
+    BA -->|Yes| BB[Active Ribosome Pool]
+    BA -->|No| BC[Ribosome Recycling]
+    
+    %% Styling - GLMP Color Scheme
+    %% Red: Triggers & Inputs
+    
+    %% Yellow: Structures & Objects (Proteins, Factors)
+    
+    %% Green: Processing & Operations
+    
+    %% Blue: Intermediates & States
+    
+    %% Orange: OR Logic Gates
+    
+    %% Lavender: AND Logic Gates
+    
+    %% Violet: Products & Outputs
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#51cf66,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style N fill:#ffd43b,color:#000
+    style O fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#51cf66,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AK fill:#ffd43b,color:#000
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff

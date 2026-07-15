@@ -1,0 +1,137 @@
+graph TD
+    A[Nutrient Limitation] --> B[Growth Slowdown]
+    C[Cell Density Signal] --> D[Quorum Sensing]
+    
+    B --> E{Starvation<br/>Stress?}
+    D --> F{High Cell<br/>Density?}
+    
+    E -->|Yes| G[ComP-ComA Two-Component]
+    F -->|Yes| G
+    G --> H[ComA Phosphorylation]
+    H --> I[ComA~P Active]
+    I --> J[comS Transcription]
+    J --> K[ComS Protein]
+    
+    K --> L[ComS Binds MecA]
+    M[MecA-ClpCP Protease] --> N[/ComK Degradation/]
+    L --> O[\MecA Inhibited/]
+    O --> P[/Reduced ComK Degradation/]
+    
+    P --> ANDGATE1{ComS Present AND<br/>ComK Escapes?}
+    ANDGATE1 -->|Yes| Q[ComK Accumulation]
+    ANDGATE1 -->|No| R[/ComK Degraded/]
+    R --> S[No Competence]
+    
+    Q --> T[ComK Binds comK Promoter]
+    T --> U[Positive Autoregulation]
+    U --> V[ComK Self-Activation]
+    V --> W[High ComK Levels]
+    
+    W --> X[ComK Binds comG Promoter]
+    W --> Y[ComK Binds comE Promoter]
+    W --> Z[ComK Binds comF Promoter]
+    W --> AA[ComK Binds Other Com Genes]
+    
+    X --> AB[comG Operon Expression]
+    Y --> AC[comE Operon Expression]
+    Z --> AD[comF Operon Expression]
+    AA --> AE[Late Competence Genes]
+    
+    AB --> AF[ComG DNA Binding Complex]
+    AC --> AG[ComE DNA Transport Channel]
+    AD --> AH[ComF DNA Processing]
+    AE --> AI[Additional Com Proteins]
+    
+    AF --> AJ[DNA Binding to Cell Surface]
+    AG --> AK[DNA Uptake Pore Assembly]
+    AH --> AL[DNA Processing Machinery]
+    AI --> AM[Competence State Established]
+    
+    AN[External DNA] --> AJ
+    AJ --> AO[/DNA Bound to ComG/]
+    AO --> AK
+    AK --> AP[DNA Entry Through ComE]
+    AP --> AL
+    AL --> AQ[Single-Strand DNA]
+    AQ --> AR[RecA-Mediated Recombination]
+    AR --> AS[Chromosomal Integration]
+    AS --> AT[Genetic Transformation]
+    
+    W --> AU[DprA/RecA Expression]
+    AU --> AV[Recombination Proteins]
+    AV --> AR
+    
+    W --> AW[/comK Repression After 2-3h/]
+    AW --> AX[Competence Exit]
+    AX --> AY[Return to Vegetative Growth]
+    
+    AT --> AZ[New Genetic Traits]
+    AZ --> BA[Adaptive Evolution]
+    S --> BB[Vegetative Cell]
+    
+    
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#51cf66,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#ffd43b,color:#000
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#b197fc,color:#fff
+    style AN fill:#ff6b6b,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#ffd43b,color:#000
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#b197fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff

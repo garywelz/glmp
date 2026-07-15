@@ -1,0 +1,190 @@
+graph TD
+    Start["(\1)"] --> A1{Glucose entry route?}
+    
+    A1 -->|PTS system - most common| A2[Glucose + PEP → Glucose-6-P + Pyruvate]
+    A1 -->|Glucokinase pathway| A3[Glucose + ATP → Glucose-6-P + ADP]
+    
+    A2 --> A4["Step 1 complete: Glucose-6-phosphate G6P"]
+    A3 --> A4
+    A4 --> A5[Committed to glycolysis - trapped in cell]
+    
+    A5 --> A6["Step 2: Phosphoglucose Isomerase Pgi"]
+    A6 --> A7[Glucose-6-P ⇌ Fructose-6-P]
+    A7 --> A8[Aldose ⇌ Ketose isomerization]
+    
+    A8 --> A9["Step 3: Phosphofructokinase - RATE LIMITING"]
+    A9 --> A10{Which PFK isoform?}
+    A10 -->|Pfk-1 major ATP-dependent| A11[Fructose-6-P + ATP → Fructose-1,6-bisP + ADP]
+    A10 -->|Pfk-2 minor PPi-dependent| A12[Fructose-6-P + PPi → Fructose-1,6-bisP + Pi]
+    
+    A11 --> A13[Fructose-1,6-bisphosphate F1,6BP]
+    A12 --> A13
+    
+    A13 --> A14{Allosteric regulation of Pfk?}
+    A14 -->|PEP high - inhibits| A15[/Feedback inhibition/]
+    A14 -->|AMP high - activates| A16[Energy deficit signal]
+    A14 -->|No regulation| A17[Basal activity]
+    
+    A15 --> A18[Glycolysis slowed]
+    A16 --> A19[Glycolysis accelerated]
+    A17 --> A20[Normal flux]
+    
+    A13 --> A21["Step 4: Fructose-bisphosphate Aldolase FbaAB"]
+    A21 --> A22[Fructose-1,6-bisP ⇌ DHAP + G3P]
+    A22 --> A23[C6 → 2 × C3 split]
+    
+    A23 --> A24[Dihydroxyacetone phosphate DHAP]
+    A23 --> A25[Glyceraldehyde-3-phosphate G3P]
+    
+    A24 --> A26["Step 5: Triose Phosphate Isomerase TpiA"]
+    A26 --> A27[DHAP ⇌ G3P]
+    A27 --> A28[Second G3P formed]
+    
+    A25 --> A29[Energy Payoff Phase begins]
+    A28 --> A29
+    A29 --> A30[Two G3P molecules proceed in parallel]
+    
+    A30 --> A31["Step 6: Glyceraldehyde-3-P Dehydrogenase GapA"]
+    A31 --> A32{Substrates present?}
+    A32 -->|G3P + NAD+ + Pi| A33[Oxidation coupled to phosphorylation]
+    A32 -->|Missing cofactor| Wait1[Wait for NAD+]
+    Wait1 --> A32
+    
+    A33 --> A34[G3P + NAD+ + Pi → 1,3-Bisphosphoglycerate + NADH]
+    A34 --> A35[First NADH produced - 2 total per glucose]
+    A35 --> A36[High-energy acyl phosphate formed]
+    
+    A36 --> A37["Step 7: Phosphoglycerate Kinase Pgk"]
+    A37 --> A38[1,3-Bisphosphoglycerate + ADP → 3-Phosphoglycerate + ATP]
+    A38 --> A39[Substrate-level phosphorylation]
+    A39 --> A40[First ATP produced - 2 total per glucose]
+    
+    A40 --> A41["Step 8: Phosphoglycerate Mutase GpmAB"]
+    A41 --> A42[3-Phosphoglycerate ⇌ 2-Phosphoglycerate]
+    A42 --> A43[Phosphate group migration]
+    
+    A43 --> A44["Step 9: Enolase Eno"]
+    A44 --> A45[2-Phosphoglycerate ⇌ Phosphoenolpyruvate PEP + H2O]
+    A45 --> A46[Dehydration creates high-energy phosphate]
+    
+    A46 --> A47["Step 10: Pyruvate Kinase PykAF"]
+    A47 --> A48[PEP + ADP → Pyruvate + ATP]
+    A48 --> A49[Second substrate-level phosphorylation]
+    A49 --> A50[Second ATP produced - 2 total per glucose]
+    
+    A50 --> A51[Pyruvate formed - 2 per glucose]
+    
+    A51 --> A52[Energy Balance Sheet]
+    A52 --> A53["Investment: -2 ATP in steps 1 and 3"]
+    A53 --> A54["Payoff: +4 ATP in steps 7 and 10"]
+    A54 --> A55["Net: +2 ATP per glucose"]
+    A55 --> A56["Plus: 2 NADH per glucose"]
+    
+    A56 --> A57{Pyruvate fate?}
+    
+    A57 -->|Aerobic conditions| A58[Pyruvate → Acetyl-CoA via PDH]
+    A57 -->|Anaerobic - fermentation| A59[Pyruvate → Lactate or Ethanol]
+    A57 -->|Biosynthesis| A60[Pyruvate → Amino acids Ala, Val, Leu]
+    
+    A58 --> A61[Acetyl-CoA enters TCA cycle]
+    A61 --> A62[Complete oxidation to CO2]
+    A62 --> A63["Total yield: 30-32 ATP per glucose via OXPHOS"]
+    
+    A59 --> A64[Mixed acid fermentation]
+    A64 --> A65[Lactate via LdhA regenerates NAD+]
+    A65 --> A66[Ethanol via AdhE regenerates NAD+]
+    A66 --> A67[Formate, Acetate also produced]
+    A67 --> A68["Net: 2 ATP per glucose only from glycolysis"]
+    
+    A60 --> A69[Biosynthetic precursor]
+    
+    A4 --> A70{G6P branch point}
+    A70 -->|Glycolysis| A6
+    A70 -->|Pentose phosphate pathway| A71[G6P → Ribose-5-P + NADPH]
+    A70 -->|Gluconeogenesis reverse| A72[When glucose absent]
+    
+    A71 --> A73[NADPH for biosynthesis, ribose for nucleotides]
+    
+    A63 --> End1([Aerobic energy production])
+    A68 --> End2([Anaerobic fermentation])
+    A69 --> End3["(\1)"]
+    A73 --> End4([Alternative pathways])
+    A18 --> End5([Regulated flux])
+    A19 --> End5
+    A20 --> End5
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#b197fc,color:#fff
+    style A5 fill:#b197fc,color:#fff
+    style A6 fill:#51cf66,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#51cf66,color:#fff
+    style A11 fill:#74c0fc,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A15 fill:#74c0fc,color:#fff
+    style A16 fill:#ff6b6b,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#74c0fc,color:#fff
+    style A22 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#51cf66,color:#fff
+    style A27 fill:#74c0fc,color:#fff
+    style A28 fill:#74c0fc,color:#fff
+    style A29 fill:#b197fc,color:#fff
+    style A30 fill:#74c0fc,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A33 fill:#51cf66,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#b197fc,color:#fff
+    style A37 fill:#51cf66,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#51cf66,color:#fff
+    style A40 fill:#74c0fc,color:#fff
+    style A41 fill:#74c0fc,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#74c0fc,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#b197fc,color:#fff
+    style A47 fill:#51cf66,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#51cf66,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#b197fc,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style A54 fill:#74c0fc,color:#fff
+    style A55 fill:#74c0fc,color:#fff
+    style A56 fill:#74c0fc,color:#fff
+    style A58 fill:#74c0fc,color:#fff
+    style A59 fill:#74c0fc,color:#fff
+    style A60 fill:#74c0fc,color:#fff
+    style A61 fill:#74c0fc,color:#fff
+    style A62 fill:#b197fc,color:#fff
+    style A63 fill:#74c0fc,color:#fff
+    style A64 fill:#74c0fc,color:#fff
+    style A65 fill:#74c0fc,color:#fff
+    style A66 fill:#74c0fc,color:#fff
+    style A67 fill:#74c0fc,color:#fff
+    style A68 fill:#74c0fc,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A71 fill:#74c0fc,color:#fff
+    style A72 fill:#74c0fc,color:#fff
+    style A73 fill:#51cf66,color:#fff

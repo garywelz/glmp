@@ -1,0 +1,162 @@
+graph TD
+    %% Carbon Source Sensing
+    A[Carbon Source Available] --> B{OR: Respiratory<br/>or Fermentative?}
+    B -->|Glycerol/Ethanol| C[Respiratory Growth Signal]
+    B -->|Glucose| D[Fermentative Growth Signal]
+    
+    %% Glucose Repression
+    D --> E[/Glucose Repression Active/]
+    E --> F[/Mig1 Repressor Active/]
+    F --> G[Low Mitochondrial Genes]
+    G --> H([Minimal Mitochondria])
+    
+    %% Respiratory Activation
+    C --> I[/Glucose Repression Relief/]
+    I --> J[Snf1 AMPK Activation]
+    J --> K[Mig1 Phosphorylation]
+    K --> L[Mig1 Nuclear Export]
+    
+    %% Hap Complex Assembly
+    L --> M{AND: Hap2/3/4<br/>Core Complex?}
+    M -->|No - Missing Subunits| G
+    M -->|Yes - Core Present| N[Hap2/3/4 Core Formed]
+    
+    N --> O{AND: Hap5<br/>Regulatory Subunit?}
+    O -->|No| G
+    O -->|Yes| P[Hap2/3/4/5 Complete Complex]
+    
+    %% Nuclear Mitochondrial Gene Activation
+    P --> Q[Hap Complex DNA Binding]
+    Q --> R[CCAAT Box Recognition]
+    R --> S[Nuclear Mitochondrial Gene Transcription]
+    
+    %% OR Gate: Which Mitochondrial Genes?
+    S --> T{OR: Which Gene<br/>Class?}
+    T -->|Respiratory Chain| U[COX/CYC Gene Expression]
+    T -->|TCA Cycle| V[CIT/ACO/IDH Gene Expression]
+    T -->|Import Machinery| W[TOM/TIM Gene Expression]
+    T -->|Matrix Enzymes| X[mtDNA Maintenance Genes]
+    
+    %% Precursor Protein Synthesis
+    U --> Y[Cytoplasmic Translation]
+    V --> Y
+    W --> Y
+    X --> Y
+    Y --> Z[Precursor Proteins with MTS]
+    Z --> AA[N-terminal Targeting Signal]
+    
+    %% Chaperone Binding
+    AA --> AB[Hsp70/Hsp90 Chaperones]
+    AB --> AC[Precursor Kept Unfolded]
+    AC --> AD[Delivery to TOM Complex]
+    
+    %% TOM Complex Import
+    AD --> AE[TOM70/TOM20 Receptors]
+    AE --> AF{AND: Tom40<br/>Channel Present?}
+    AF -->|No| AG[\Import Blocked/]
+    AF -->|Yes| AH[Tom40 Pore Entry]
+    
+    AH --> AI{AND: Tom22<br/>Central Receptor?}
+    AI -->|No| AG
+    AI -->|Yes| AJ[Precursor Translocation]
+    
+    %% Mitochondrial Membrane Potential
+    AJ --> AK{AND: ΔΨ Membrane<br/>Potential Present?}
+    AK -->|No - Depolarized| AL[Import Stalled]
+    AK -->|Yes - Polarized| AM[Import Continues]
+    
+    %% TIM Complex Sorting
+    AM --> AN{OR: Which<br/>Destination?}
+    AN -->|Matrix| AO[TIM23 Complex]
+    AN -->|Inner Membrane| AP[TIM22 Complex]
+    AN -->|Outer Membrane| AQ[SAM Complex]
+    
+    %% Matrix Import
+    AO --> AR[mtHsp70 Motor]
+    AR --> AS[Precursor Pulled In]
+    AS --> AT[MPP Peptidase]
+    AT --> AU[MTS Cleavage]
+    AU --> AV[Mature Protein in Matrix]
+    
+    %% Mitochondrial Function Check
+    AV --> AW{OR: Mitochondria<br/>Functional?}
+    AW -->|Yes - Healthy| AX[Normal Biogenesis]
+    AW -->|No - Dysfunctional| AY[RTG Retrograde Pathway]
+    
+    %% RTG Retrograde Signaling
+    AY --> AZ[Rtg2 Sensor Activation]
+    AZ --> BA[/Mks1 Inhibitor Inactivation/]
+    BA --> BB[Rtg1/3 TF Nuclear Entry]
+    BB --> BC[Compensatory Gene Expression]
+    BC --> BD[TCA Anaplerotic Genes]
+    BD --> BE[Metabolic Adaptation]
+    BE --> BF([Dysfunction Compensation])
+    
+    %% Normal Output
+    AX --> BG[Respiratory Chain Assembly]
+    BG --> BH[ATP Synthase Complex]
+    BH --> BI[Oxidative Phosphorylation]
+    BI --> BJ([Functional Mitochondria])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#74c0fc,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#b197fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#ff6b6b,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#ffd43b,color:#000
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#51cf66,color:#fff
+    style BJ fill:#74c0fc,color:#fff

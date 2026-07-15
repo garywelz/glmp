@@ -1,0 +1,203 @@
+graph TD
+    A[Oxygen Available] --> B[Aerobic Condition Signal]
+    C[Glucose or Other<br/>Carbon Source] --> D[Glycolysis Activated]
+    
+    B --> E{AND: O2 Present +<br/>Carbon Source?}
+    D --> E
+    
+    E -->|Yes| F[Activate Aerobic Respiration]
+    E -->|No| G[Anaerobic Pathways]
+    
+    F --> H[FNR Inactive in O2]
+    H --> I[/Derepress Aerobic Genes/]
+    I --> J[cyo Operon Cytochrome bo3]
+    I --> K[cyd Operon Cytochrome bd]
+    I --> L[ndh NADH Dehydrogenase-2]
+    
+    C --> M[Glycolysis to Pyruvate]
+    M --> N(\1)
+    N --> O[Pyruvate Dehydrogenase PDH]
+    O --> P[Acetyl-CoA + NADH + CO2]
+    
+    P --> Q[TCA Cycle]
+    Q --> R[Citrate Synthase gltA]
+    R --> S(\1)
+    S --> T[Aconitase acnA/acnB]
+    T --> U(\1)
+    U --> V[Isocitrate Dehydrogenase icd]
+    V --> W[α-Ketoglutarate + NADH + CO2]
+    
+    W --> X[α-KG Dehydrogenase sucABCD]
+    X --> Y[Succinyl-CoA + NADH + CO2]
+    Y --> Z(\1)
+    Z --> AA[Succinate Dehydrogenase sdhABCD]
+    AA --> AB[Fumarate + FADH2]
+    
+    AB --> AC[Fumarase fumAC]
+    AC --> AD(\1)
+    AD --> AE[Malate Dehydrogenase mdh]
+    AE --> AF[Oxaloacetate + NADH]
+    AF --> R
+    
+    P --> AG[NADH Pool]
+    W --> AG
+    Y --> AG
+    AF --> AG
+    
+    AB --> AH[FADH2 to Quinone]
+    
+    AG --> AI{OR: Which NADH<br/>Dehydrogenase?}
+    AI -->|High O2| AJ[NDH-I Complex nuoABCDEFGHIJKLMN]
+    AI -->|Low O2| AK[NDH-II ndh]
+    
+    AJ --> AL[Ubiquinone Reduced UQH2]
+    AK --> AL
+    AH --> AL
+    
+    AL --> AM[Quinone Pool QH2]
+    AM --> AN{OR: Which Terminal<br/>Oxidase?}
+    
+    AN -->|High O2| AO[Cytochrome bo3 Oxidase cyoABCDE]
+    AN -->|Low O2| AP[Cytochrome bd-I Oxidase cydAB]
+    AN -->|Very Low O2| AQ[Cytochrome bd-II Oxidase appCB]
+    
+    B --> AR{Oxygen Concentration?}
+    AR -->|High| AO
+    AR -->|Low| AP
+    AR -->|Very Low| AQ
+    
+    AO --> AS[4H+ + O2 → 2H2O]
+    AP --> AS
+    AQ --> AS
+    
+    AJ --> AT[Protons Pumped to Periplasm]
+    AO --> AT
+    
+    AT --> AU[Proton Motive Force PMF]
+    AU --> AV[Electrochemical Gradient]
+    
+    AV --> AW{AND: PMF +<br/>ATP Synthase?}
+    I --> AX[atpIBEFHAGDC Operon]
+    AX --> AY[F0F1-ATPase Complex]
+    AY --> AW
+    
+    AW -->|Yes| AZ[ATP Synthase]
+    AZ --> BA[ADP + Pi → ATP]
+    BA --> BB[~38 ATP per Glucose]
+    
+    AS --> BC[H2O Product]
+    P --> BD[CO2 from PDH]
+    W --> BE[CO2 from IDH]
+    Y --> BF[CO2 from α-KG DH]
+    
+    BB --> BG[ATP for Cellular Processes]
+    
+    B --> BH{OR: Oxygen<br/>Depleted?}
+    BH -->|Yes| BI[FNR Activated]
+    BI --> BJ[Induce Anaerobic Genes]
+    BJ --> BK[Switch to Anaerobic Respiration]
+    BH -->|No| F
+    
+    AR --> BL[ArcAB Two-Component System]
+    BL --> BM{High O2?}
+    BM -->|Yes| BN[ArcA Unphosphorylated]
+    BN --> BO[Aerobic Gene Expression]
+    BM -->|No| BP[ArcA-P Active]
+    BP --> BQ[/Repress Aerobic Genes/]
+    
+    BB --> BR{ATP Sufficient?}
+    BR -->|Yes| BS[Reduce Respiratory Rate]
+    BR -->|No| BT[Increase Carbon Uptake]
+    BT --> C
+    
+    AL --> BU{OR: Alternative<br/>Quinone Oxidation?}
+    BU -->|Minor| BV[Quinol Peroxidase qor]
+    BV --> BW[H2O2 Production]
+    BW --> BX[Catalase katG/katE]
+    BX --> BY(\1)
+    
+    BB --> BZ[High Energy Yield]
+    BC --> CA[Water Product]
+    BD --> CB[CO2 Released]
+    BE --> CB
+    BF --> CB
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#51cf66,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#b197fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#b197fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BV fill:#51cf66,color:#fff
+    style BW fill:#b197fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#b197fc,color:#fff
+    style CA fill:#b197fc,color:#fff
+    style CB fill:#74c0fc,color:#fff

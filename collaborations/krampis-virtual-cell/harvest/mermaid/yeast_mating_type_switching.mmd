@@ -1,0 +1,162 @@
+graph TD
+    %% Cell Lineage Signal
+    A[Cell Division Event] --> B[Mother vs Daughter Fate]
+    B --> C{Mother Cell?}
+    
+    %% Mother Cell Path
+    C -->|Yes| D[No Ash1p in Nucleus]
+    D --> E[HO Promoter Accessible]
+    
+    %% Daughter Cell Path  
+    C -->|No| F[Ash1p Delivered to Daughter]
+    F --> G[Ash1p Nuclear Localization]
+    G --> H[Ash1p Binds HO URS1]
+    H --> I[\HO Transcription Repressed/]
+    I --> J[No Mating Type Switch in Daughter]
+    
+    %% Cell Cycle Checkpoint
+    K[G1 Phase Entry] --> L[Cln3-Cdc28 Activity]
+    L --> M[SBF Activation]
+    M --> N[Swi4-Swi6 Complex]
+    N --> O{In G1 Phase?}
+    
+    %% Not G1 - No HO
+    O -->|No| P[\HO URS2 Inactive/]
+    P --> Q[No HO Expression]
+    
+    %% G1 YES Path
+    O -->|Yes| R[SBF Binds HO URS2]
+    
+    %% AND Gate 1: Mother Cell AND G1
+    E --> ANDGATE1{Mother Cell AND<br/>G1 Phase?}
+    R --> ANDGATE1
+    ANDGATE1 -->|Yes| S[Chromatin Remodeling]
+    ANDGATE1 -->|No| Q
+    
+    %% SWI/SNF Complex Activation
+    S --> T[SWI/SNF Recruitment]
+    T --> U[Nucleosome Displacement]
+    U --> V[HO Promoter Opened]
+    V --> W[Swi5p Binds HO URS1]
+    W --> X[Basal Transcription Complex]
+    
+    %% AND Gate 2: Chromatin Open AND Swi5p
+    V --> ANDGATE2{Chromatin Open AND<br/>Swi5p Bound?}
+    W --> ANDGATE2
+    ANDGATE2 -->|Yes| Y[RNA Pol II Recruitment]
+    ANDGATE2 -->|No| Q
+    
+    %% HO Gene Expression
+    Y --> Z[HO mRNA Synthesis]
+    Z --> AA[HO mRNA Export]
+    AA --> AB[HO Translation]
+    AB --> AC[HO Endonuclease Protein]
+    
+    %% DNA Cleavage
+    AC --> AD[HO Nuclear Import]
+    AD --> AE[HO Recognizes MAT Locus]
+    AE --> AF[Double-Strand Break at MAT]
+    
+    %% Mating Type Information
+    AG[HML Silent Cassette] --> AH[MATa or MATalpha Info]
+    AI[/HMR Silent Cassette/] --> AJ[MATalpha or MATa Info]
+    
+    %% Gene Conversion Decision
+    AF --> AK{Current Mating<br/>Type?}
+    AK -->|MATa| AL[Copy from HMR]
+    AK -->|MATalpha| AM[Copy from HML]
+    
+    %% Homologous Recombination
+    AL --> AN[Rad51 Filament Formation]
+    AM --> AN
+    AJ --> AN
+    AH --> AN
+    AN --> AO[Homology Search]
+    AO --> AP[/Strand Invasion/]
+    AP --> AQ[DNA Synthesis]
+    AQ --> AR[Gene Conversion]
+    
+    %% Mating Type Change
+    AR --> AS[New MAT Allele]
+    AS --> AT[Mating Type Switch Complete]
+    AT --> AU{New Type?}
+    AU -->|Now a| AV[a-Cell Identity]
+    AU -->|Now alpha| AW[alpha-Cell Identity]
+    
+    %% Cellular Consequences
+    AV --> AX[a-Specific Gene Expression]
+    AW --> AY[alpha-Specific Gene Expression]
+    AX --> AZ[Can Mate with alpha]
+    AY --> BA[Can Mate with a]
+    AZ --> BB[Diploid Formation Competent]
+    BA --> BB
+    J --> BC[Maintains Daughter Identity]
+    Q --> BD[No Switch This Cycle]
+    
+    %% Styling
+    
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#ffd43b,color:#000
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#b197fc,color:#fff
+    style AV fill:#b197fc,color:#fff
+    style AW fill:#b197fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff

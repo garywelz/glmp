@@ -1,0 +1,150 @@
+graph TD
+    A[External Pi Level]:::red --> B{Is External Pi Low?}:::orange
+
+    B -- "Yes" --> C[Pst System Activity Decreased]:::blue
+    C --> D["\Pst System (sensor) Inactive"]:::blue
+    D --> E["PhoR (Histidine Kinase)"]:::yellow
+    E --> F[PhoR Autophosphorylation]:::green
+    F --> G(\1):::blue
+    G --> H["PhoB (Response Regulator)"]:::yellow
+    G --> I[PhoR-P transfers P to PhoB]:::green
+    I --> J(\1):::blue
+    J --> K[PhoB-P binds to Pho boxes]:::green
+    K --> L{Activation of Pho Regulon Genes}:::lavender
+    L --> M["Increased Pi Uptake Genes (e.g., Pst, Pit)"]:::violet
+    L --> N["Increased Pi Scavenging Genes (e.g., PhoA, UgpB)"]:::violet
+    L --> O[Increased Membrane Remodeling Genes]:::violet
+    L --> P[RpoS Induction]:::violet
+
+    M --> Q[Enhanced Pi Uptake]:::green
+    N --> S[Phosphate Scavenging]:::green
+    O --> U[Replacement of Phospholipids]:::green
+    P --> W[General Stress Response Activation]:::violet
+
+    Q --> R[Intracellular Pi from Uptake]:::blue
+    S --> T[Liberation of Pi from Organic Sources]:::blue
+    U --> V[Conservation of Intracellular Pi]:::blue
+
+    R --> AX["Intracellular Pi Pool (General)"]:::blue
+    T --> AX
+    V --> AX
+    W --> X[Adaptation to Pi Starvation]:::violet
+    AX --> X
+
+    B -- "No" --> Y[Normal/High External Pi]:::red
+    Y --> Z["Pst System (sensor) Active"]:::blue
+    Z --> AA[/Inhibition of PhoR Autophosphorylation/]:::green
+    AA --> AB[\Pho Regulon Inactive/]:::violet
+
+    Y --> AC[High Intracellular Pi]:::blue
+    AX -- "High Pi State" --> AC
+    AC --> AD[Impact on PTS Phosphorylation]:::green
+    AD --> AE{Is Glucose Available?}:::orange
+    AE -- "Yes" --> AF["PTS Components Phosphorylated (EI-P, HPr-P, EIIA^Glc-P)"]:::blue
+    AF --> AG[Sugar Uptake via PTS]:::green
+
+    AE -- "No or High Pi" --> AH[Accumulation of EIIA^Glc-P-free]:::blue
+    AH --> AI["Adenylate Cyclase (CyaA)"]:::yellow
+    AI --> AJ["Activation of Adenylate Cyclase (CyaA)"]:::green
+    AJ --> AK[ATP Input for CyaA]:::red
+    AK --> AL[CyaA converts ATP to cAMP]:::green
+    AL --> AM[Increased cAMP Levels]:::blue
+    AM --> AN["Crp (Cyclic AMP Receptor Protein)"]:::yellow
+    AM --> AO[cAMP binds to Crp]:::green
+    AO --> AP[cAMP-Crp Complex]:::blue
+    AP --> AQ{Global Gene Regulation by cAMP-Crp}:::lavender
+    AQ --> AR[Activation of Carbon Catabolism Genes]:::violet
+    AQ --> AS[/Repression of Specific Stress Response Genes/]:::violet
+    AQ --> AT[Activation of Stress-mediated Death Pathway Genes]:::violet
+
+    AT --> AU[Cell Death Pathway Triggered]:::violet
+    AC --> AV[Potential Pi Toxicity]:::blue
+    AU --> AW[Reduced Cell Viability]:::violet
+    AV --> AW
+
+    AX --> BA["Synthesis of Polyphosphate (PolyP)"]:::green
+    AY[ATP for PolyP Synthesis]:::red --> BA
+    AZ["Polyphosphate Kinase (PPK)"]:::yellow --> BA
+    BA --> BB["PolyP Storage (Pi Reserve)"]:::blue
+
+    BB --> BC["Polyphosphate Exopolyphosphatase (PPX)"]:::yellow
+    BC --> BD[/Degradation of PolyP/]:::green
+    BD --> BE[Release of Intracellular Pi from PolyP]:::blue
+    BE --> AX
+
+    BF["Pyridoxal (PL)"]:::red --> BI[PL + ATP -> PLP + ADP Reaction]:::green
+    BG[ATP for PLP Synthesis]:::red --> BI
+    BH[Pyridoxal Kinase]:::yellow --> BI
+    BI --> BJ["Pyridoxal 5'-Phosphate (PLP)"]:::blue
+    BJ --> BK[/PLP Feedback Inhibits Pyridoxal Kinase/]:::green
+    BK --> BH
+    BJ --> BL[Regulation of PLP Levels]:::violet
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#74c0fc,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style R fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#b197fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#ff6b6b,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#b197fc,color:#fff
+    style AX fill:#b197fc,color:#fff
+    style X fill:#ff6b6b,color:#fff
+    style Y fill:#ff6b6b,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#b197fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#ff6b6b,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#ffd43b,color:#000
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#ff6b6b,color:#fff
+    style AU fill:#b197fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#b197fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#51cf66,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff

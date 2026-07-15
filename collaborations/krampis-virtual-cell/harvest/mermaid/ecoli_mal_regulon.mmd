@@ -1,0 +1,163 @@
+graph TD
+    %% Input Signals
+    A[Maltose in Medium] --> B[Maltose Transport]
+    C[Maltodextrins in Medium] --> D[Maltodextrin Transport]
+    E[Glucose Status] --> F[cAMP Synthesis]
+    
+    %% Transport
+    B --> G[LamB Porin]
+    D --> G
+    G --> H[Maltose/Maltodextrin Inside]
+    H --> I[Maltotriose Formation]
+    
+    %% Decision: Maltose Present?
+    I --> J{Maltose/Maltotriose<br/>Present?}
+    
+    %% No Maltose - Basal State
+    J -->|No| K[MalT Inactive]
+    K --> L[Low mal Gene Expression]
+    L --> M[Basal Transport Only]
+    M --> N[No Maltose Catabolism]
+    
+    %% Maltose Present - MalT Activation
+    J -->|Yes| O[Maltotriose Binds MalT]
+    O --> P[MalT Conformational Change]
+    P --> Q[MalT Active Form]
+    
+    %% Decision: Glucose Status
+    F --> R{High cAMP?}
+    
+    %% AND Gate 1: CRP-cAMP Requirement
+    Q --> ANDGATE1{MalT Active AND<br/>CRP-cAMP Present?}
+    R -->|Yes| S[CRP-cAMP Complex]
+    S --> ANDGATE1
+    
+    %% MalK Regulatory Signal
+    T[MalK ATPase] --> U[ATP Binding]
+    U --> V[MalK-ATP Complex]
+    V --> W[MalK Regulatory State]
+    
+    %% AND Gate 2: MalK Anti-activation
+    ANDGATE1 -->|Yes| ANDGATE2{MalT-CRP Active AND<br/>MalK-ATP Low?}
+    W --> X{High MalK-ATP?}
+    X -->|No| ANDGATE2
+    
+    %% Full Activation
+    ANDGATE2 -->|Yes| Y[MalT Binds Mal Boxes]
+    Y --> Z[Multiple Operon Activation]
+    
+    %% malEFG Operon
+    Z --> AA[malEFG Transcription]
+    AA --> AB[MalE Periplasmic Binding Protein]
+    AB --> AC[MalF Membrane Protein]
+    AC --> AD[MalG Membrane Protein]
+    
+    %% malK-lamB-malM Operon
+    Z --> AE[malK-lamB-malM Transcription]
+    AE --> T
+    AE --> AF[LamB Maltose Porin]
+    AF --> G
+    AE --> AG[MalM Maltose Regulation]
+    
+    %% malPQ Operon
+    Z --> AH[malPQ Transcription]
+    AH --> AI[MalP Phosphorylase]
+    AI --> AJ[MalQ Amylomaltase]
+    
+    %% Maltose Catabolism
+    H --> AK[Maltose Substrate]
+    AI --> AL[Maltodextrin to Maltose + Glucose-1-P]
+    AK --> AL
+    AL --> AM[Maltose Hydrolysis]
+    AJ --> AN[Maltose to Glucose]
+    AM --> AN
+    AN --> AO[Glucose Products]
+    AO --> AP[Glycolysis Entry]
+    AP --> AQ[Energy Production]
+    
+    %% AND Gate 3: malT Autoactivation
+    Y --> ANDGATE3{MalT Active AND<br/>malT Promoter?}
+    Q --> ANDGATE3
+    ANDGATE3 -->|Yes| AR[malT Gene Transcription]
+    AR --> AS[More MalT Protein]
+    AS --> K
+    
+    %% Catabolite Repression Path
+    R -->|No| AT[Low cAMP]
+    AT --> AU[CRP Inactive]
+    AU --> AV[Weak mal Expression]
+    AV --> AW[Glucose Preference]
+    
+    %% MalK Inhibition Path
+    X -->|Yes| AX[/MalK-ATP Inhibits MalT/]
+    AX --> AY[Reduced mal Expression]
+    AY --> AZ[Feedback Control]
+    
+    %% System Outputs
+    N --> BA[Maltose System Off]
+    AQ --> BB[Maltose Utilization]
+    AW --> BC[Glucose-Preferential Growth]
+    AZ --> BD[Regulated Mal Expression]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#ffd43b,color:#000
+    style AC fill:#ffd43b,color:#000
+    style AD fill:#ffd43b,color:#000
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#b197fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#b197fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#ffd43b,color:#000
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#b197fc,color:#fff
+    style BD fill:#74c0fc,color:#fff

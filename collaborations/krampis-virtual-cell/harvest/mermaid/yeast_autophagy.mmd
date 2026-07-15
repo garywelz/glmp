@@ -1,0 +1,195 @@
+graph TD
+    A[Environmental Stress] -->|Nutrient Starvation| B{TOR Kinase Activity?}
+    A -->|Rapamycin| B
+    B -->|Active| C[\Autophagy Repressed/]
+    B -->|Inactive| D[\Autophagy Induction/]
+    
+    D --> E[Atg1 Kinase Complex]
+    E --> F[Atg1 Atg13 Atg17 Atg29 Atg31]
+    F --> G{Atg1 Activation?}
+    G -->|Dephosphorylated Atg13| H[Active Atg1 Complex]
+    G -->|Phosphorylated| I[\Inactive State/]
+    
+    H --> J[PAS Pre-Autophagosomal Structure]
+    J --> K{Membrane Source?}
+    K -->|ER| L[ER-Derived Membranes]
+    K -->|Mitochondria| M[MAM Contacts]
+    K -->|Golgi| N[Golgi Vesicles]
+    
+    L --> O[Membrane Nucleation]
+    M --> O
+    N --> O
+    
+    O --> P[PI3K Complex I]
+    P --> Q[Vps34 Vps15 Atg6 Atg14]
+    Q --> R{PI3P Generation?}
+    R -->|Active| S[PI3P Enrichment at PAS]
+    R -->|Inactive| T[\No Nucleation/]
+    
+    S --> U[PROPPIN Recruitment]
+    U --> V[Atg18 Atg21]
+    V --> W[Membrane Curvature]
+    
+    H --> X[Atg9 Cycling System]
+    X --> Y[Atg9 Vesicles]
+    Y --> Z[Atg2-Atg18 Complex]
+    Z --> AA[Lipid Transfer to PAS]
+    
+    AA --> AB{Phagophore Expansion?}
+    W --> AB
+    AB -->|Continuous| AC[/Growing Phagophore/]
+    
+    S --> AD[/Ubiquitin-like Conjugation?/]
+    AD -->|System 1| AE[Atg12-Atg5 Pathway]
+    AD -->|System 2| AF[Atg8-PE Pathway]
+    
+    AE --> AG[Atg7 E1-like Enzyme]
+    AG --> AH[Atg12 Activation]
+    AH --> AI[/Atg10 E2-like Enzyme/]
+    AI --> AJ[Atg12~Atg5 Conjugate]
+    AJ --> AK[Atg16 Binding]
+    AK --> AL[Atg12-Atg5-Atg16 Complex]
+    
+    AF --> AM[Atg4 Protease]
+    AM --> AN[Atg8 Processing]
+    AN --> AO[Atg8-I Exposed Glycine]
+    AO --> AP[Atg7 E1-like]
+    AP --> AQ[Atg3 E2-like]
+    AQ --> AR[Atg8-PE Lipidation]
+    
+    AL --> AS{E3-like Activity?}
+    AR --> AS
+    AS -->|Enhanced| AT[/Atg8-PE on Membranes/]
+    
+    AT --> AU[Phagophore Membrane Expansion]
+    AU --> AV{Cargo Selection?}
+    
+    AV -->|Non-selective| AW[Bulk Autophagy]
+    AV -->|Selective| AX[Cargo Receptors]
+    
+    AX --> AY{Selective Autophagy Type?}
+    AY -->|Mitophagy| AZ[Atg32 Receptor]
+    AY -->|Pexophagy| BA[Atg30 Receptor]
+    AY -->|Cvt Pathway| BB[Atg19 Receptor]
+    
+    AZ --> BC[Mitochondria Sequestration]
+    BA --> BD[/Peroxisome Sequestration/]
+    BB --> BE[Ape1 Precursor Sequestration]
+    
+    AW --> BF[Cytoplasm Engulfment]
+    BC --> BF
+    BD --> BF
+    BE --> BF
+    
+    BF --> BG{Autophagosome Closure?}
+    BG -->|Atg8-PE Removal| BH[Atg4 Delipidation]
+    BH --> BI[Sealed Autophagosome]
+    
+    BI --> BJ{Vacuole Fusion?}
+    BJ -->|SNARE Complex| BK[Vam3 Vam7 Vti1]
+    BJ -->|Rab GTPase| BL(\1)
+    BJ -->|Tethering| BM[HOPS Complex]
+    
+    BK --> BN{Fusion Machinery Assembly?}
+    BL --> BN
+    BM --> BN
+    BN -->|Complete| BO[Membrane Fusion]
+    
+    BO --> BP[Autophagic Body in Vacuole]
+    BP --> BQ[Vacuolar Hydrolases]
+    BQ --> BR[/Cargo Degradation?/]
+    BR -->|Proteases| BS[Pep4 Prb1]
+    BR -->|Lipases| BT[Lipid Breakdown]
+    
+    BS --> BU[Amino Acid Release]
+    BT --> BV[Fatty Acid Release]
+    
+    BU --> BW[Nutrient Recycling]
+    BV --> BW
+    BW --> BX[Cellular Metabolism]
+    
+    BX --> BY{Cell Survival?}
+    BY -->|Nutrients Restored| BZ[TOR Reactivation]
+    BY -->|Continued Starvation| CA[Sustained Autophagy]
+    
+    BZ --> CB[Autophagy Shutdown]
+    CB --> C
+    
+    CA --> D
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#74c0fc,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#ffd43b,color:#000
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#ffd43b,color:#000
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#51cf66,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#ff6b6b,color:#fff
+    style BX fill:#b197fc,color:#fff
+    style BZ fill:#51cf66,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#74c0fc,color:#fff

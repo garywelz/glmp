@@ -1,0 +1,155 @@
+graph TD
+    Start[/Translation Termination/] --> A1[/Ribosome reaches stop codon in A site/]
+    
+    A1 --> A2{Which stop codon?}
+    A2 -->|UAA| A3[UAA recognized by RF1 or RF2]
+    A2 -->|UAG amber| A4[UAG recognized by RF1 only]
+    A2 -->|UGA opal| A5[UGA recognized by RF2 only]
+    
+    A3 --> A6{RF1 or RF2 available?}
+    A4 --> A7[RF1 binds to ribosome A site]
+    A5 --> A8[RF2 binds to ribosome A site]
+    
+    A6 -->|RF1 binds first| A7
+    A6 -->|RF2 binds first| A8
+    
+    A7 --> A9[/RF1 tripeptide motif PVT recognizes stop codon/]
+    A8 --> A10[/RF2 tripeptide motif SPF recognizes stop codon/]
+    
+    A9 --> A11[RF1 GGQ motif enters peptidyl transferase center PTC]
+    A10 --> A12[RF2 GGQ motif enters PTC]
+    
+    A11 --> A13[GGQ glutamine positioned for catalysis]
+    A12 --> A13
+    
+    A13 --> A14[Water molecule activated in PTC]
+    A14 --> A15[Nucleophilic attack on peptidyl-tRNA ester bond]
+    A15 --> A16[Peptidyl-tRNA ester bond hydrolyzed]
+    
+    A16 --> A17[Completed polypeptide released with C-terminal carboxyl]
+    A17 --> A18[Deacylated tRNA remains in P site]
+    A18 --> A19[RF1 or RF2 remains in A site]
+    
+    A17 --> A20[Polypeptide exits through ribosome tunnel]
+    A20 --> A21[Polypeptide folding or targeting]
+    
+    A19 --> A22{RF3-GTP available?}
+    A22 -->|Yes| A23[RF3-GTP binds to ribosome]
+    A22 -->|No| Wait1[Wait for RF3-GTP]
+    Wait1 --> A22
+    
+    A23 --> A24[RF3 GTPase activated]
+    A24 --> A25[GTP hydrolysis by RF3]
+    A25 --> A26[Conformational change promotes RF1/RF2 dissociation]
+    A26 --> A27[RF1 or RF2 released]
+    A27 --> A28[RF3-GDP dissociates]
+    A28 --> A29[RF3-GTP regenerated]
+    
+    A27 --> A30["/Post-termination complex: 70S, mRNA, deacylated tRNA"]
+    
+    A30 --> A31{RRF available?}
+    A31 -->|Yes| A32[Ribosome Recycling Factor RRF binds]
+    A31 -->|No| Wait2[Wait for RRF]
+    Wait2 --> A31
+    
+    A32 --> A33[RRF binds to ribosome A site mimicking tRNA L-shape]
+    
+    A33 --> A34{EF-G-GTP available?}
+    A34 -->|Yes| A35[EF-G-GTP binds]
+    A34 -->|No| Wait3[Wait for EF-G-GTP]
+    Wait3 --> A34
+    
+    A35 --> A36[EF-G GTPase activated]
+    A36 --> A37[GTP hydrolysis by EF-G]
+    A37 --> A38[EF-G and RRF cooperate]
+    
+    A38 --> A39[50S subunit dissociates from 30S]
+    A39 --> A40[70S ribosome splits into subunits]
+    
+    A40 --> A41[RRF dissociates]
+    A40 --> A42[EF-G-GDP dissociates]
+    
+    A40 --> A43["30S subunit retains: mRNA + deacylated tRNA"]
+    
+    A43 --> A44{IF3 available?}
+    A44 -->|Yes| A45[IF3 binds to 30S subunit]
+    A44 -->|No| Wait4[Wait for IF3]
+    Wait4 --> A44
+    
+    A45 --> A46[/IF3 prevents premature 50S rejoining/]
+    A46 --> A47[IF3 promotes deacylated tRNA dissociation]
+    A47 --> A48[tRNA released from P site]
+    
+    A46 --> A49[IF3 promotes mRNA dissociation]
+    A49 --> A50[mRNA released from 30S]
+    
+    A48 --> A51[Clean 30S subunit with IF3 bound]
+    A50 --> A51
+    
+    A51 --> A52[30S ready for new initiation cycle]
+    
+    A40 --> A53[Clean 50S subunit]
+    A53 --> A54[50S ready for new initiation cycle]
+    
+    A52 --> End1([Subunits recycled for new translation])
+    A54 --> End1
+    
+    A21 --> End2([Completed polypeptide])
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A1 fill:#74c0fc,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#74c0fc,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#51cf66,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#b197fc,color:#fff
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#51cf66,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A27 fill:#74c0fc,color:#fff
+    style A28 fill:#74c0fc,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#74c0fc,color:#fff
+    style A32 fill:#ffd43b,color:#000
+    style A33 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A37 fill:#51cf66,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A40 fill:#74c0fc,color:#fff
+    style A41 fill:#74c0fc,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#74c0fc,color:#fff
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A47 fill:#74c0fc,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#74c0fc,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#74c0fc,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style A54 fill:#74c0fc,color:#fff
+    style Start fill:#74c0fc,color:#fff

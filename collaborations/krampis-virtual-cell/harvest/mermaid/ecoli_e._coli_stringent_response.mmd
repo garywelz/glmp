@@ -1,0 +1,162 @@
+graph TD
+    subgraph Triggers & Initial Sensing
+        A[Amino acid starvation]:::red
+        B[Fatty acid limitation]:::red
+        C[Nitrogen limitation]:::red
+        D[Glucose phosphate stress]:::red
+        E[Other nutrient limitation]:::red
+
+        A --> FZ
+        B --> FZ
+        C --> FZ
+        D --> FZ
+        E --> FZ
+        FZ{Nutrient limitation present?}:::orange
+
+        FZ -->|Yes| F[Uncharged tRNA accumulation]:::blue
+        F --> G[Ribosome stalling]:::green
+    end
+
+    subgraph (p)ppGpp Synthesis
+        H[RelA protein]:::yellow
+        J[GTP substrate]:::blue
+        K[ATP substrate]:::blue
+
+        G & H & J & K --> GA[RelA activation requirements met?]:::lavender
+        GA --> I[RelA binds A-site of stalled ribosome]:::green
+        I --> M["RelA (p)ppGpp synthetase activity"]:::green
+        M --> O[pppGpp formation]:::blue
+        O --> N[pppGpp converted to ppGpp]:::green
+
+        P[SpoT protein]:::yellow
+        PA[Fatty acid starvation or other signals?]:::orange
+        PA -->|Yes| Q["SpoT (p)ppGpp synthetase activity"]:::green
+        Q --> N
+
+        N --> S["(p)ppGpp levels rise"]:::blue
+        M --> L[PPi release]:::blue
+        Q --> L
+    end
+
+    subgraph (p)ppGpp Action & Downstream Effects
+        S --> T["RNA Polymerase (RNAP)"]:::yellow
+        V[DksA protein]:::yellow
+        S & T & V --> WA["(p)ppGpp-RNAP-DksA complex formed?"]:::lavender
+        WA --> W[DksA-ppGpp-RNAP complex]:::green
+
+        W --> YZ[/Which anabolic process to repress?/]:::orange
+        YZ -->|rRNA synthesis| X[rRNA gene promoters]:::blue
+        YZ -->|tRNA synthesis| AA[tRNA gene promoters]:::blue
+        YZ -->|DNA replication| AC[oriC DNA]:::blue
+        YZ -->|Fatty acid synthesis| AH[Fatty acid synthesis genes]:::blue
+        YZ -->|Phospholipid synthesis| AI[Phospholipid synthesis genes]:::blue
+
+        X --> Y[Decreased rRNA transcription]:::green
+        Y --> Z[Reduced ribosome biogenesis]:::violet
+
+        AA --> AB[Decreased tRNA transcription]:::green
+
+        AC --> AD[Modulation of DNA gyrase activity]:::green
+        AD --> AE[Increased negative supercoiling at oriC]:::blue
+        AE --> AF[/Inhibition of DnaA binding to oriC/]:::green
+        AF --> AG[/Inhibition of DNA replication initiation/]:::violet
+
+        AH & AI --> AJ[/Repression of anabolic pathways/]:::green
+        AJ --> AK[Reduced cell growth]:::violet
+
+        W --> YB[Which catabolic/stress response to activate?]:::orange
+        YB -->|Amino acid biosynthesis| AL[Amino acid biosynthesis genes]:::blue
+        YB -->|Nitrogen assimilation| AO[Nitrogen assimilation genes]:::blue
+        YB -->|General stress response| AR[General stress response genes]:::blue
+        YB -->|Catabolic pathways| AU[Catabolic gene promoters]:::blue
+
+        AL --> AM[Activation of amino acid biosynthesis]:::green
+        AM --> AN[Increased amino acid pools]:::violet
+
+        AO --> AP[Activation of nitrogen assimilation]:::green
+        AP --> AQ[Enhanced nitrogen uptake/metabolism]:::violet
+
+        AR --> AS[Activation of stress regulons]:::green
+        AS --> AT[Enhanced stress resistance]:::violet
+
+        AU --> AV[Activation of catabolic pathways]:::green
+        AV --> AW[Utilization of alternative carbon sources]:::violet
+    end
+
+    subgraph Recovery
+        AX[Nutrient availability restored]:::red
+        AX --> AY[Charged tRNA levels increase]:::blue
+        AY --> AZ[RelA activity decreases]:::green
+        AZ --> BA["SpoT (p)ppGpp hydrolase activity dominant"]:::green
+        BA --> BB["(p)ppGpp levels decrease"]:::blue
+        BB --> BC[Transition to growth phase]:::violet
+        BB --> BD[Recovery from glucose phosphate stress]:::violet
+    end
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#ffd43b,color:#000
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style GA fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style O fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#ffd43b,color:#000
+    style PA fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style T fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style V fill:#ffd43b,color:#000
+    style WA fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style YZ fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#b197fc,color:#fff
+    style YB fill:#74c0fc,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AR fill:#ff6b6b,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AP fill:#51cf66,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#ff6b6b,color:#fff
+    style AT fill:#ff6b6b,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#ff6b6b,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#b197fc,color:#fff
+    style BD fill:#ff6b6b,color:#fff

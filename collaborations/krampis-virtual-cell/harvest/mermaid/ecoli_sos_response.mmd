@@ -1,0 +1,177 @@
+graph TD
+    A[DNA Damaging Agents] -->|UV Light| B[Thymine Dimers]
+    A -->|Chemicals| C[DNA Adducts]
+    A -->|Ionizing Radiation| D[Double-Strand Breaks]
+    
+    B --> E{Replication Fork Encounter?}
+    C --> E
+    D --> E
+    
+    E -->|Fork Stalling| F[ssDNA Accumulation]
+    E -->|No Damage| G[Normal Replication]
+    
+    F --> H[SSB Protein Binding]
+    H --> I[RecA Protein]
+    I --> J{RecA Loading?}
+    
+    J -->|RecFOR Pathway| K[RecA-ssDNA Filament]
+    J -->|RecBCD Pathway| L[RecA Loading at DSBs]
+    
+    K --> M[Active RecA Nucleoprotein]
+    L --> M
+    
+    M --> N[/LexA Repressor/]
+    N --> O{LexA Auto-Cleavage?}
+    O -->|RecA-Stimulated| P[LexA Cleavage]
+    O -->|No Signal| Q[LexA Intact]
+    
+    Q --> R[/SOS Genes Repressed/]
+    P --> S[/LexA Degradation/]
+    S --> T[/Derepression of SOS Regulon/]
+    
+    T --> U{SOS Gene Expression?}
+    U -->|Early Genes| V[recA lexA]
+    U -->|Middle Genes| W[uvrABC recN dinI]
+    U -->|Late Genes| X[umuDC sulA]
+    
+    V --> Y[Enhanced RecA Production]
+    Y --> Z[Positive Feedback Loop]
+    Z --> M
+    
+    V --> AA[Enhanced LexA Production]
+    AA --> AB[Negative Feedback]
+    
+    W --> AC{DNA Repair Pathways?}
+    AC -->|Excision Repair| AD[UvrABC Endonuclease]
+    AC -->|Recombinational Repair| AE[RecA RecBCD RecN]
+    AC -->|Base Excision| AF[AlkA Tag]
+    
+    AD --> AG[Damage Recognition UvrA2B]
+    AG --> AH[Dual Incision UvrC]
+    AH --> AI[UvrD Helicase]
+    AI --> AJ[Gap Filling Pol I]
+    AJ --> AK[Ligase Sealing]
+    AK --> AL[Repaired DNA]
+    
+    AE --> AM[Homologous Recombination]
+    AM --> AN[RecBCD Resection]
+    AN --> AO[RecA-Mediated Strand Invasion]
+    AO --> AP[Holiday Junction Formation]
+    AP --> AQ[RuvABC Resolution]
+    AQ --> AL
+    
+    X --> AR{Cell Division Control?}
+    AR -->|SulA Expression| AS[/FtsZ Inhibition/]
+    AS --> AT[Cell Division Arrest]
+    AT --> AU[Filamentation]
+    
+    X --> AV{Error-Prone Repair?}
+    AV -->|UmuDC Pol V| AW[Translesion Synthesis]
+    AV -->|DinB Pol IV| AX[Lesion Bypass]
+    
+    AW --> AY{Mutagenic Bypass?}
+    AX --> AY
+    AY -->|Successful| AZ[Replication Restart]
+    AY -->|Mutations Introduced| BA[Adaptive Mutagenesis]
+    
+    BA --> BB[Genetic Diversity]
+    BB --> BC[Potential Adaptation]
+    
+    AL --> BD{DNA Damage Resolved?}
+    AZ --> BD
+    BD -->|Yes| BE[ssDNA Depletion]
+    BD -->|No| F
+    
+    BE --> BF[RecA Filament Disassembly]
+    BF --> BG[Loss of LexA Cleavage Signal]
+    BG --> BH[LexA Accumulation]
+    BH --> BI[/SOS Gene Repression/]
+    
+    BI --> BJ[/SulA Degradation by Lon/]
+    BJ --> BK[FtsZ Release]
+    BK --> BL[Cell Division Resumption]
+    
+    BI --> BM[Return to Basal State]
+    BM --> BN{Cell Fate?}
+    BN -->|Repair Successful| BO(\1)
+    BN -->|Excessive Damage| BP[Cell Death]
+    
+    BO --> BQ[Normal Growth]
+    BP --> BR[Apoptosis-like Death]
+    
+    W --> BS{Additional Functions?}
+    BS -->|DinI| BT[RecA Modulation]
+    BS -->|RecN| BU[DSB Repair Enhancement]
+    BS -->|Cho| BV[Nucleoid Condensation]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#ffd43b,color:#000
+    style I fill:#ffd43b,color:#000
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#b197fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#ff6b6b,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#b197fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#b197fc,color:#fff
+    style BE fill:#ff6b6b,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#ff6b6b,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BO fill:#b197fc,color:#fff
+    style BP fill:#b197fc,color:#fff
+    style BQ fill:#b197fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#51cf66,color:#fff
+    style BV fill:#74c0fc,color:#fff

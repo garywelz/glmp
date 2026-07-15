@@ -1,0 +1,228 @@
+graph TD
+    %% Checkpoint Triggers
+    A[DNA Damage Detected] --> B[DNA Damage Signal]
+    C[Unreplicated DNA] --> D[Replication Stress Signal]
+    E[Unattached Kinetochores] --> F[Spindle Assembly Signal]
+    G[Cell Size Too Small] --> H[G1 Checkpoint Signal]
+    
+    %% G1/S Checkpoint (Start)
+    H --> I{OR: Ready for<br/>S Phase?}
+    B --> I
+    
+    I -->|Not Ready| J[Arrest at G1/S]
+    I -->|Ready| K[Proceed to S Phase]
+    
+    J --> L[/Whi5 Repressor Active/]
+    L --> M[/Inhibit SBF/MBF/]
+    M --> N[/Block G1/S Genes/]
+    
+    K --> O[CLN1/CLN2 Accumulation]
+    O --> P[G1-CDK Activity]
+    P --> Q[Whi5 Phosphorylation]
+    Q --> R[Whi5 Nuclear Export]
+    R --> S[SBF/MBF Active]
+    S --> T[Express G1/S Genes]
+    T --> U[S Phase Entry]
+    
+    %% DNA Damage Checkpoint Activation
+    B --> V[DNA Lesion Recognition]
+    V --> W{OR: Which Damage<br/>Sensor?}
+    W -->|DSB| X[MRX Complex Mre11/Rad50/Xrs2]
+    W -->|ssDNA| Y[RPA Coating]
+    
+    X --> Z[Tel1 Kinase Recruitment]
+    Y --> AA[Mec1-Ddc2 Recruitment]
+    Z --> AB[Checkpoint Kinase Activation]
+    AA --> AB
+    
+    AB --> AC[Rad53 Phosphorylation]
+    AC --> AD[Rad53 Active]
+    AD --> AE{AND: Rad53 +<br/>Downstream Targets?}
+    
+    AE -->|Yes| AF[Multiple Checkpoint Outputs]
+    AF --> AG[/Inhibit CDK Activity/]
+    AF --> AH[Stabilize Replication Forks]
+    AF --> AI[Activate DNA Repair]
+    AF --> AJ[/Block Mitosis/]
+    
+    %% Intra-S Phase Checkpoint
+    D --> AK[Stalled Replication Fork]
+    AK --> AL[Mec1-Ddc2 at Fork]
+    AL --> AM[Rad53 Activation]
+    AM --> AN[/Prevent Late Origin Firing/]
+    AN --> AO[Stabilize Replisome]
+    AO --> AP[Allow Fork Recovery]
+    
+    AM --> AQ[Dun1 Kinase Activation]
+    AQ --> AR[/Sml1 Degradation/]
+    AR --> AS[Increase dNTP Pools]
+    AS --> AP
+    
+    %% G2/M Checkpoint
+    B --> AT{DNA Damage<br/>in G2?}
+    AT -->|Yes| AU[G2/M Arrest]
+    AT -->|No| AV[Proceed to Mitosis]
+    
+    AU --> AW[Chk1 Activation]
+    AW --> AX[Pds1/Securin Stabilization]
+    AX --> AY[/Block Anaphase/]
+    
+    %% Spindle Assembly Checkpoint (SAC)
+    F --> AZ[Mad1/Mad2 at Kinetochore]
+    AZ --> BA[Mad2 Conformational Change]
+    BA --> BB[Mad2-Cdc20 Complex]
+    BB --> BC[/APC/C Inhibition/]
+    BC --> BD[/Block Sister Separation/]
+    
+    E --> BE{OR: All Chromosomes<br/>Attached?}
+    BE -->|No| AZ
+    BE -->|Yes| BF[SAC Satisfied]
+    
+    BF --> BG[Mad2 Released from Cdc20]
+    BG --> BH[APC/C-Cdc20 Active]
+    BH --> BI[/Securin Degradation/]
+    BI --> BJ[Separase Active]
+    BJ --> BK[Cohesin Cleavage]
+    BK --> BL[Sister Chromatid Separation]
+    
+    %% Checkpoint Recovery
+    AI --> BM[DNA Repair Complete]
+    BM --> BN{Is Damage<br/>Repaired?}
+    BN -->|Yes| BO[Checkpoint Recovery]
+    BN -->|No| BP[Maintain Arrest]
+    
+    BO --> BQ[Ptc2/Ptc3 Phosphatases]
+    BQ --> BR[Dephosphorylate Rad53]
+    BR --> BS[Inactivate Checkpoint]
+    BS --> BT[Resume Cell Cycle]
+    
+    %% Checkpoint Adaptation
+    BP --> BU{Prolonged<br/>Arrest?}
+    BU -->|Yes| BV[Checkpoint Adaptation]
+    BV --> BW[Resume Despite Damage]
+    BW --> BX[Often Leads to Death]
+    BU -->|No| BP
+    
+    %% Feedback and Amplification
+    AD --> BY[Positive Feedback Loop]
+    BY --> BZ[More Rad53 Activation]
+    BZ --> AD
+    
+    %% CDK Inhibition Mechanisms
+    AG --> CA[Swe1 Stabilization]
+    CA --> CB[Cdk1-Y19 Phosphorylation]
+    CB --> CC[CDK Inactive]
+    
+    AG --> CD[/Degradation of Cyclins/]
+    CD --> CE[Clb5/Clb6 Reduced]
+    CE --> CC
+    
+    %% Checkpoint Outputs Summary
+    AJ --> CF[/Block Mitotic Entry/]
+    AN --> CG[Slow S Phase]
+    AY --> CH[/Block Anaphase/]
+    BD --> CH
+    
+    CF --> CI[Cell Cycle Arrest]
+    CG --> CI
+    CH --> CI
+    
+    CI --> CJ{Checkpoint<br/>Satisfied?}
+    CJ -->|Yes| BT
+    CJ -->|No| CI
+    
+    %% Final Outcomes
+    BT --> CK[Cell Division]
+    BX --> CL[Apoptosis or Senescence]
+    
+    %% Styles
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#b197fc,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#b197fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#51cf66,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#b197fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#51cf66,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#b197fc,color:#fff
+    style BV fill:#b197fc,color:#fff
+    style BW fill:#ff6b6b,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#51cf66,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#51cf66,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    style CD fill:#74c0fc,color:#fff
+    style CE fill:#74c0fc,color:#fff
+    style CF fill:#74c0fc,color:#fff
+    style CG fill:#74c0fc,color:#fff
+    style CH fill:#74c0fc,color:#fff
+    style CI fill:#b197fc,color:#fff
+    style CK fill:#b197fc,color:#fff
+    style CL fill:#74c0fc,color:#fff

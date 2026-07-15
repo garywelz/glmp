@@ -1,0 +1,144 @@
+graph TD
+    A["Start: E. coli Iron Homeostasis"] --> B["Environmental Iron Availability (Fe3+)"];
+    A --> C(Dissolved Oxygen Levels);
+    B --> D(E. coli Cell);
+    C --> D;
+
+    D --> E{Is environmental iron low?};
+    E -- Yes --> F[Low Iron Condition];
+    E -- No --> G[High Iron Condition];
+
+    F --> H[/Apo-Fur Protein - inactive repressor/];
+    G --> I(Intracellular Fe2+ Ion);
+    H & I --> J[/Fe2+-Fur Complex - Holo-Fur, active repressor/];
+
+    J --> K(Fur Binding to DNA - Fur-box);
+    K --> L[/Transcriptional Repression by Holo-Fur/];
+    K --> M["Transcriptional Activation by Holo-Fur (e.g., storage genes)"];
+
+    F --> N(Apo-Fur Dissociates from DNA);
+    N --> O[/Transcriptional Derepression by Apo-Fur/];
+
+    O --> P["Upregulation of Siderophore Systems (ent, fep)"];
+    P --> Q[Siderophore Biosynthesis & Secretion Enzymes];
+    Q --> R["Siderophores (e.g., Enterobactin)"];
+    R & B --> S[Iron-Siderophore Complex];
+    S --> T["Siderophore Uptake Systems (Fhu, Fec, Fep)"];
+    T --> U["Cytoplasmic Ferric Iron (Fe3+) from siderophores"];
+
+    O --> V["Upregulation of Feo System (Ferrous Iron Uptake)"];
+    V --> W[FeoAB/C System];
+    W --> X["Cytoplasmic Ferrous Iron (Fe2+)"];
+
+    O --> Y["Upregulation of Heme Uptake Systems (chu, shu)"];
+    Y --> Z["Heme Uptake & Iron Release (HemO)"];
+    Z --> X; 
+
+    U --> AA[Ferric Reductase Activity];
+    AA --> X;
+
+    M --> AB["Upregulation of Iron Storage Proteins (ftnA, bfr)"];
+    AB --> AC["Ferritin (FtnA) & Bacterioferritin (Bfr)"];
+    AC --> AD[Iron Sequestration & Storage];
+    AD --> AE[Stored Iron Pool];
+
+    X --> AF[Iron Utilization for Essential Metalloproteins];
+    AF --> AG[Essential Metalloproteins & Cellular Metabolism];
+
+    X --> AH[\Is Cytoplasmic Fe2+ level high?/];
+    AH -- Yes --> AI[Fenton Reaction & ROS Production];
+    AI --> AJ[Oxidative Damage & Cell Impairment];
+    AH -- No --> AF;
+
+    F --> AK["RyhB sRNA Activation (low iron)"];
+    AK --> AL[/RyhB Repression of Iron-Dependent Enzymes e.g., sdh, suc/];
+    AL --> AM[Iron Conservation];
+
+    G --> AN[/RyhB sRNA Repression high iron/];
+    AN --> AO[/Derepression of Iron-Dependent Enzymes/];
+    AO --> AF;
+
+    G --> AP["High Iron Promotes Colibactin Production (pks island)"];
+    AP --> AQ[/Colibactin Genotoxicity/];
+    AQ --> AR[Increased DNA Damage];
+
+    C --> AS{Is Dissolved Oxygen high?};
+    AS -- Yes --> AT[Disruption of Iron Homeostasis];
+    AT --> AU[Increased Oxidative Stress/Iron Deficiency Symptoms];
+    AU --> AV[Impaired Cell Growth/Production];
+
+    D --> AW[Fur-Independent Gene Regulation];
+    AW --> AX["Alternative Sigma Factors (e.g., Sigma E)"];
+    AX --> AY[Regulation of Outer Membrane Proteins & Virulence];
+    AY --> AZ[Modulation of Iron Acquisition];
+
+    L --> BA[/Repression of Iron Efflux Genes e.g., fieF/];
+    O --> BB[/Derepression of Iron Efflux Genes/];
+    BB --> BC[Iron Efflux Proteins & Export];
+    BC --> B;
+
+    U & X --> C1(AND: Cytoplasmic Iron Pool);
+    C1 --> AH;
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#b197fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#ffd43b,color:#000
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#ffd43b,color:#000
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#b197fc,color:#fff
+    style AJ fill:#ff6b6b,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#b197fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#ff6b6b,color:#fff
+    style AT fill:#b197fc,color:#fff
+    style AU fill:#ff6b6b,color:#fff
+    style AV fill:#b197fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#ffd43b,color:#000
+    style AY fill:#ffd43b,color:#000
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#ffd43b,color:#000
+    style C1 fill:#74c0fc,color:#fff

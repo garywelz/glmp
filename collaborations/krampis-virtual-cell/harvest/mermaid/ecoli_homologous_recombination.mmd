@@ -1,0 +1,190 @@
+graph TD
+    Start([Homologous Recombination]) --> A1{DNA substrate type?}
+    
+    A1 -->|Double-strand break DSB| A2[RecBCD pathway - major pathway]
+    A1 -->|Gapped DNA from stalled fork| A3[RecF pathway - alternative]
+    A1 -->|Other recombination substrate| A4[RecQ pathway]
+    
+    A2 --> A5[RecBCD helicase-nuclease binds DSB end]
+    A5 --> A6["RecBCD is heterotrimer: RecB RecC RecD"]
+    
+    A6 --> A7[RecBCD unwinds DNA - dual helicase activity]
+    A7 --> A8["RecB helicase: 3' to 5' on one strand"]
+    A8 --> A9["RecD helicase: 5' to 3' on other strand faster"]
+    
+    A9 --> A10[/RecB nuclease degrades 3' ending strand/]
+    A10 --> A11[/RecD nuclease degrades 5' ending strand/]
+    
+    A11 --> A12{Chi sequence encountered?}
+    A12 -->|No Chi: 5'-GCTGGTGG-3'| A13[/Nuclease degradation continues/]
+    A12 -->|Yes - Chi site recognized| A14[RecC recognizes Chi]
+    
+    A13 --> A15{DNA fully degraded?}
+    A15 -->|Yes| A16[/No recombination - degradation pathway/]
+    A15 -->|No - keep scanning| A12
+    
+    A14 --> A17[RecBCD pauses at Chi]
+    A17 --> A18[RecB nuclease activity attenuated]
+    A18 --> A19[RecD ejected from complex]
+    A19 --> A20[RecBC now loads RecA]
+    
+    A20 --> A21[3' ssDNA overhang generated downstream of Chi]
+    A21 --> A22[RecBC recruits RecA protein]
+    
+    A22 --> A23{RecA available?}
+    A23 -->|Yes| A24[RecA monomers bind ssDNA]
+    A23 -->|No| Wait1[Wait for RecA]
+    Wait1 --> A23
+    
+    A24 --> A25[RecA polymerizes on ssDNA 5' to 3']
+    A25 --> A26[RecA nucleoprotein filament formed]
+    A26 --> A27[~6 nt DNA per RecA monomer right-handed helix]
+    
+    A3 --> A28[RecFOR pathway at gaps]
+    A28 --> A29[RecF RecO RecR load RecA on gaps]
+    A29 --> A24
+    
+    A4 --> A30[RecQ helicase pathway]
+    A30 --> A31[RecQ processes various substrates]
+    A31 --> A24
+    
+    A27 --> A32[RecA filament searches for homology]
+    A32 --> A33[ATP-bound RecA active for strand exchange]
+    
+    A33 --> A34{Homologous duplex found?}
+    A34 -->|Yes - homology > 50 bp| A35[RecA promotes strand invasion]
+    A34 -->|No homology| A36[Search continues or pathway aborted]
+    
+    A35 --> A37[RecA catalyzes D-loop formation]
+    A37 --> A38[Invading 3' strand pairs with complementary strand]
+    A38 --> A39[Displaced strand forms D-loop bubble]
+    
+    A39 --> A40[DNA polymerase III binds 3' end in D-loop]
+    A40 --> A41[DNA synthesis extends invading strand]
+    A41 --> A42["Template: homologous chromosome or sister"]
+    
+    A42 --> A43{Second DSB end captured?}
+    A43 -->|Yes - double Holliday junction pathway| A44[Second end anneals]
+    A43 -->|No - synthesis-dependent strand annealing SDSA| A45[SDSA pathway]
+    
+    A45 --> A46[Extended strand displaced]
+    A46 --> A47[Displaced strand anneals to other DSB end]
+    A47 --> A48[Gap filling and ligation]
+    A48 --> A49[Non-crossover product]
+    
+    A44 --> A50[DNA synthesis on both ends]
+    A50 --> A51[Ligation creates double Holliday junction dHJ]
+    
+    A51 --> A52[Two four-way junctions connecting homologs]
+    
+    A52 --> A53{Which resolution pathway?}
+    A53 -->|RuvABC pathway| A54[RuvAB binds Holliday junction]
+    A53 -->|RecG pathway| A55[RecG binds and processes junction]
+    
+    A54 --> A56[RuvA tetramer binds junction center]
+    A56 --> A57[RuvB hexameric rings on DNA arms - ATP-driven motor]
+    A57 --> A58[Branch migration - junctions move along DNA]
+    
+    A58 --> A59[RuvC endonuclease recruited]
+    A59 --> A60{RuvC cleavage orientation?}
+    A60 -->|Horizontal cuts| A61[Crossover products - recombinant]
+    A60 -->|Vertical cuts| A62[Non-crossover products - parental]
+    
+    A55 --> A63[RecG branch migration translocase]
+    A63 --> A64[RecG drives branch migration]
+    A64 --> A65[Junction regression or fork restoration]
+    
+    A61 --> A66[Nick sealing by DNA ligase]
+    A62 --> A66
+    A65 --> A66
+    
+    A66 --> A67[Recombination complete]
+    A67 --> A68[RecA disassembly - ATP hydrolysis]
+    A68 --> A69[RecA recycled]
+    
+    A67 --> A70{Product outcome?}
+    A70 -->|Crossover| A71[Genetic exchange between chromosomes]
+    A70 -->|Non-crossover| A72[Gene conversion - local sequence change]
+    A70 -->|DSB repair| A73[Restored chromosome integrity]
+    
+    A49 --> A73
+    
+    A71 --> End1([Recombinant products])
+    A72 --> End2([Gene conversion])
+    A73 --> End3([Repaired chromosome])
+    A16 --> End4[/DNA degraded/]
+    A36 --> End5([Recombination aborted])
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#51cf66,color:#fff
+    style A6 fill:#74c0fc,color:#fff
+    style A7 fill:#51cf66,color:#fff
+    style A8 fill:#51cf66,color:#fff
+    style A9 fill:#51cf66,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A18 fill:#51cf66,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#74c0fc,color:#fff
+    style A22 fill:#ffd43b,color:#000
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#ffd43b,color:#000
+    style A27 fill:#74c0fc,color:#fff
+    style A28 fill:#74c0fc,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#51cf66,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A32 fill:#74c0fc,color:#fff
+    style A33 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A37 fill:#74c0fc,color:#fff
+    style A38 fill:#74c0fc,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A40 fill:#51cf66,color:#fff
+    style A41 fill:#51cf66,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#74c0fc,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A47 fill:#74c0fc,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#b197fc,color:#fff
+    style A50 fill:#51cf66,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#74c0fc,color:#fff
+    style A54 fill:#74c0fc,color:#fff
+    style A55 fill:#74c0fc,color:#fff
+    style A56 fill:#74c0fc,color:#fff
+    style A57 fill:#74c0fc,color:#fff
+    style A58 fill:#74c0fc,color:#fff
+    style A59 fill:#51cf66,color:#fff
+    style A61 fill:#b197fc,color:#fff
+    style A62 fill:#b197fc,color:#fff
+    style A63 fill:#74c0fc,color:#fff
+    style A64 fill:#74c0fc,color:#fff
+    style A65 fill:#74c0fc,color:#fff
+    style A66 fill:#51cf66,color:#fff
+    style A67 fill:#b197fc,color:#fff
+    style A68 fill:#51cf66,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A71 fill:#74c0fc,color:#fff
+    style A72 fill:#74c0fc,color:#fff
+    style A73 fill:#74c0fc,color:#fff
+    style End4 fill:#74c0fc,color:#fff

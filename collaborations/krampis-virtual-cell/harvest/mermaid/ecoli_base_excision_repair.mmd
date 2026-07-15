@@ -1,0 +1,183 @@
+graph TD
+    A[DNA Damage Event] --> B{Lesion Type?}
+    
+    B -->|Oxidized Base| C[8-oxoG, Thymine Glycol]
+    B -->|Alkylated Base| D[3-methyladenine, 7-methylguanine]
+    B -->|Deaminated Base| E[Uracil, Hypoxanthine]
+    B -->|Other| F[Various Base Modifications]
+    
+    %% Glycosylase Recognition
+    C --> G{Specific Glycosylase?}
+    G -->|MutM FPG| H[8-oxoG Recognition]
+    G -->|Nth Endonuclease III| I[Thymine Glycol Recognition]
+    
+    D --> J[AlkA Recognition]
+    E --> K[UNG Uracil Glycosylase]
+    F --> L{Damage Recognition?}
+    L -->|MutY| M[Adenine Opposite 8-oxoG]
+    L -->|Other Glycosylases| N[Specific Recognition]
+    
+    %% Base Excision Step
+    H --> O[N-Glycosidic Bond Cleavage]
+    I --> O
+    J --> O
+    K --> O
+    M --> O
+    N --> O
+    
+    O --> P[Abasic AP Site Formation]
+    P --> Q{Glycosylase Type?}
+    
+    %% Bifunctional vs Monofunctional
+    Q -->|Bifunctional| R[MutM/Nth β-Lyase Activity]
+    Q -->|Monofunctional| S[UNG/AlkA No Lyase]
+    
+    R --> T[3' Phospho-α,β-unsaturated Aldehyde]
+    T --> U[AP Lyase Cleavage]
+    U --> V[Single-Strand Break]
+    
+    S --> W{AP Endonuclease?}
+    W -->|Xth Exo III| X[5' AP Site Cleavage]
+    W -->|Nfo Endo IV| Y[Alternative 5' Cleavage]
+    
+    X --> Z[3'-OH and 5'-dRP Termini]
+    Y --> Z
+    V --> AA[/3'-Phosphate Blocking Group/]
+    
+    %% End Processing
+    AA --> AB[APE1/Nfo Phosphatase]
+    AB --> AC[3'-OH Group Restored]
+    AC --> Z
+    
+    %% Gap Filling Decision
+    Z --> AD{Repair Pathway?}
+    
+    AD -->|Short-Patch 1 nt| AE[DNA Pol I]
+    AD -->|Long-Patch 2-10 nt| AF[DNA Pol I Strand Displacement]
+    
+    %% Short-Patch BER
+    AE --> AG[dRP Lyase Activity]
+    AG --> AH[Remove 5'-dRP]
+    AH --> AI[Single Nucleotide Gap]
+    AI --> AJ[dNTP Incorporation]
+    AJ --> AK[Gap Filled]
+    
+    %% Long-Patch BER
+    AF --> AL[Strand Displacement Synthesis]
+    AL --> AM[2-10 Nucleotide Flap]
+    AM --> AN{Flap Processing?}
+    AN -->|Small Flap| AO[Pol I 5'-3' Exonuclease]
+    AN -->|Large Flap| AP[Additional Factors]
+    
+    AO --> AQ[/Flap Removed/]
+    AP --> AQ
+    AQ --> AR[Gap Filled Multiple nt]
+    
+    %% Nick Sealing
+    AK --> AS{Ligation Ready?}
+    AR --> AS
+    
+    AS -->|Yes| AT[DNA Ligase Recognition]
+    AS -->|No| AU[Additional Processing]
+    
+    AT --> AV{Ligase Type?}
+    AV -->|NAD+ Ligase LigA| AW[Adenylate Transfer]
+    AV -->|ATP Ligase LigB| AX[Alternative Ligation]
+    
+    AW --> AY[Phosphodiester Bond Formation]
+    AX --> AY
+    
+    AY --> AZ[Nick Sealed]
+    AZ --> BA[Repaired DNA Strand]
+    
+    %% Quality Control
+    BA --> BB{Repair Verification?}
+    BB -->|Correct| BC[Successful Repair]
+    BB -->|Incorrect| BD[Mismatch Detection]
+    
+    BD --> BE[Mismatch Repair Pathway]
+    BE --> BF[Secondary Correction]
+    BF --> BC
+    
+    %% Alternative Pathways
+    AU --> BG{Issue Type?}
+    BG -->|Blocked 3' End| BH[\Polynucleotide Kinase/]
+    BG -->|Modified 5' End| BI[Additional Endonucleases]
+    BG -->|Complex Damage| BJ[Nucleotide Excision Repair]
+    
+    BH --> AS
+    BI --> AS
+    
+    %% Final Output
+    BC --> BK[Genome Integrity Maintained]
+    BK --> BL[Cell Survival]
+    BL --> BM[Replication Competence]
+    
+    %% Error Pathways
+    BJ --> BN[Switch to NER]
+    BN --> BO[Alternative Repair Mechanism]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#ffd43b,color:#000
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#51cf66,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#51cf66,color:#fff
+    style BJ fill:#51cf66,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#51cf66,color:#fff

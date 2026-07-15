@@ -1,0 +1,160 @@
+graph TD
+    A["Start: E. coli Envelope Stress Response"] --> B[External Stressor / Internal Perturbation]
+    B --> C["Outer Membrane (OM) Damage"]
+    B --> D[Periplasmic Protein Misfolding]
+    B --> E["Inner Membrane (IM) Stress"]
+    B --> F["Peptidoglycan (PG) Layer Defects"]
+    B --> G[Polymyxin Exposure]
+    B --> Y[Cardiolipin Loss]
+
+    G --> C
+    G --> F
+
+    C --> H[OM Integrity Loss Detected]
+    D --> I[Misfolded Periplasmic Proteins]
+    E --> J[IM Protein Stress / Lipid Imbalance]
+    F --> K[PG Structure Compromised]
+
+    H --> L{Which OM Sensor Activated?}
+    K --> L
+
+    L -->|RcsF Sensor| M[RcsF Senses OM Stress]
+    L -->|DegS Sensor| N[DegS Senses Misfolded OM Proteins]
+
+    I --> O[CpxA Senses Misfolded Proteins]
+    J --> O
+
+    %% Sigma E Pathway
+    N --> P[DegS Cleaves RseA]
+    P --> Q[RseP Processes Cleaved RseA]
+    Q --> R[/RseA Degradation/]
+    R --> S["σE (Sigma Factor E) Released"]
+    S --> T[σE Binds RNA Polymerase]
+    T --> U[Transcription of σE Target Genes]
+    U --> V["Outer Membrane Chaperones (e.g., DegP)"]
+    U --> W[LPS Modification Enzymes]
+    U --> X[Porin Biogenesis Factors]
+
+    Y --> Z[Does Cardiolipin Loss Bypass σE Essentiality?]
+    Z -->|Yes| AA[Reduced Dependence on σE]
+    Z -->|No| AB[σE Remains Critical]
+
+    %% Cpx Pathway
+    O --> AC["CpxA Autophosphorylation (CpxA-P)"]
+    AC --> AD[CpxA-P Transfers Phosphate to CpxR]
+    AD --> AE[CpxR-P Activated]
+    AE --> AF[CpxR-P Binds Target Promoters]
+    AF --> AG[Transcription of Cpx Target Genes]
+    AG --> AH["Periplasmic Chaperones (e.g., CpxP)"]
+    AG --> AI["Proteases (e.g., DegP, PstS)"]
+    AG --> AJ[/P-pilus Assembly Inhibition/]
+    AG --> AK[Cell Wall Remodeling Enzymes]
+
+    %% Rcs Pathway
+    M --> AL[RcsF Interacts with IgaA]
+    AL --> AM["RcsC Activation & Autophosphorylation (RcsC-P)"]
+    AM --> AN[RcsC-P Transfers Phosphate to RcsD]
+    AN --> AO[RcsD-P Transfers Phosphate to RcsB]
+    AO --> AP[RcsB-P Activated]
+    AP --> AQ[RcsB-P Binds Target Promoters]
+    AQ --> AR[Transcription of Rcs Target Genes]
+    AR --> AS[Colanic Acid Synthesis]
+    AR --> AT[Capsule Synthesis]
+    AR --> AU[Biofilm Formation]
+    AR --> AV[/Motility Repression/]
+
+    %% sRNA Regulation & Cross-talk
+    AW["Envelope Stress sRNAs (e.g., MicA, OmrA)"] --> AX[sRNA Binds Target mRNA]
+    AX --> AY[/mRNA Degradation OR Translation Inhibition?/]
+    AY -->|Degradation| AZ[Reduced Target Protein Expression]
+    AY -->|Inhibition| AZ
+    AZ --> BA[Fine-tuning Stress Response]
+
+    AW --> U
+    AW --> AG
+    AW --> AR
+
+    %% Integration & Outcomes
+    BB[All Pathways Respond?]
+    BB -->|Yes| BC["/AND: Coordinated Response\"]
+    BB -->|No| BD["/AND: Partial Response\"]
+
+    BC --> BE[Cell Envelope Remodeling]
+    BC --> BF[Detoxification & Repair]
+    BC --> BG[/Protein Refolding & Degradation/]
+    BC --> BH[Increased Stress Resistance]
+    BC --> BI[Adaptation to Stress Conditions]
+
+    BD --> BE
+    BD --> BF
+    BD --> BG
+    BD --> BH
+    BD --> BI
+
+    %% Style Definitions
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ffd43b,color:#000
+    style J fill:#ff6b6b,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#ffd43b,color:#000
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#ffd43b,color:#000
+    style X fill:#ffd43b,color:#000
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#ffd43b,color:#000
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#ff6b6b,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#ffd43b,color:#000
+    style BA fill:#ff6b6b,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#ff6b6b,color:#fff
+    style BI fill:#ff6b6b,color:#fff

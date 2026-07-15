@@ -1,0 +1,164 @@
+graph TD
+    A[Growth Conditions] --> B{Favorable<br/>Environment?}
+    B -->|Yes| C[FlhDC Activation]
+    B -->|No| D[/FlhDC Repression/]
+    D --> E[No Flagella]
+    
+    C --> F[FlhD4C2 Complex]
+    F --> G[Class 1 Master Regulator]
+    
+    G --> H[Class 2 Gene Transcription]
+    H --> I[flgAMN Operon]
+    H --> J[flgBCDEFGHIJ Operon]
+    H --> K[flhBAE Operon]
+    H --> L[fliAZY Operon]
+    
+    I --> M[MS Ring Proteins]
+    J --> N[Basal Body Proteins]
+    K --> O[Hook Proteins]
+    L --> P[Sigma28 FliA]
+    L --> Q[Anti-Sigma FlgM]
+    
+    M --> R[FliF MS Ring Assembly]
+    R --> S[C Ring Assembly]
+    N --> T[Rod Assembly]
+    S --> U[FliG,M,N Components]
+    T --> V[P Ring and L Ring]
+    
+    V --> ANDGATE1{Basal Body<br/>Complete?}
+    U --> ANDGATE1
+    ANDGATE1 -->|Yes| W[Hook Assembly Checkpoint]
+    ANDGATE1 -->|No| X[Continue Class 2]
+    
+    W --> Y[FlgE Hook Protein Export]
+    O --> Y
+    Y --> Z[Hook Length Control]
+    Z --> AA[FliK Hook-Length Sensor]
+    AA --> AB{Hook Length<br/>~55nm?}
+    
+    AB -->|No| AC[Continue Hook Export]
+    AC --> Y
+    AB -->|Yes| AD[Substrate Specificity Switch]
+    
+    AD --> AE[FlhB Cleavage]
+    AE --> AF[Filament Export Mode]
+    AF --> AG[FlgM Anti-Sigma Export]
+    
+    AG --> AH[FlgM Secreted]
+    AH --> AI[FliA Sigma28 Released]
+    AI --> AJ[Class 3 Gene Activation]
+    
+    AJ --> AK[fliC Transcription]
+    AJ --> AL[fliD Transcription]
+    AJ --> AM[motAB Transcription]
+    AJ --> AN[cheAWYBRZ Transcription]
+    
+    AK --> AO[FliC Flagellin]
+    AL --> AP[FliD Cap]
+    AM --> AQ[MotAB Motor]
+    AN --> AR[Che Chemotaxis]
+    
+    AP --> AS[Cap Assembly at Hook]
+    AS --> AT[Filament Polymerization Site]
+    AO --> AT
+    AT --> AU[FliC Self-Assembly]
+    AU --> AV[Filament Elongation]
+    AV --> AW[~10 um Filament]
+    
+    AQ --> AX[MotAB Stator Assembly]
+    AX --> AY[Proton Channel]
+    AY --> AZ[Torque Generation]
+    AZ --> BA[Motor Function]
+    
+    AR --> BB[Chemotaxis System]
+    BB --> BC[CheY-P Control]
+    BC --> BA
+    
+    BA --> BD{Motor<br/>Functional?}
+    BD -->|Yes| BE[CCW/CW Rotation]
+    BE --> BF[Swimming and Tumbling]
+    BF --> BG(\1)
+    BG --> BH(\1)
+    BH --> BI[Environmental Navigation]
+    
+    BD -->|No| BJ(\1)
+    E --> BJ
+    
+    BI --> BK[Nutrient Seeking]
+    BK --> BL[Survival Advantage]
+    
+    
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#74c0fc,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#ffd43b,color:#000
+    style O fill:#ffd43b,color:#000
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#51cf66,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#ff6b6b,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#ff6b6b,color:#fff
+    style BL fill:#b197fc,color:#fff

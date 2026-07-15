@@ -1,0 +1,142 @@
+graph TD
+    %% Carbon Source Input
+    A[Glucose in Medium] --> B[PTS Transport System]
+    C[Lactose in Medium] --> D[Lactose Signal]
+    E[Arabinose in Medium] --> F[Arabinose Signal]
+    
+    %% Decision: Glucose Present?
+    B --> G{Glucose Present?}
+    
+    %% High Glucose Path - Catabolite Repression
+    G -->|Yes| H[PEP-Dependent Glucose Transport]
+    H --> I[EIIAGlc Dephosphorylation]
+    I --> J[EIIAGlc-P Depletion]
+    J --> K[/Adenylyl Cyclase Inhibition/]
+    K --> L[Low cAMP Synthesis]
+    L --> M[Low cAMP Levels]
+    
+    %% Decision: cAMP Levels
+    M --> N{High cAMP?}
+    
+    %% Low cAMP - Repression Active
+    N -->|No| O[CRP Inactive Apo-form]
+    O --> P[No CRP-DNA Binding]
+    P --> Q[\lac Operon Repressed/]
+    P --> R[\ara Operon Repressed/]
+    P --> S[\mal Operons Repressed/]
+    Q --> T[No Lactose Utilization]
+    R --> U[No Arabinose Utilization]
+    S --> V[No Maltose Utilization]
+    T --> W[Glucose-Only Metabolism]
+    U --> W
+    V --> W
+    W --> X[Rapid Growth on Glucose]
+    
+    %% Low Glucose Path - Derepression
+    G -->|No| Y[No PTS Activity]
+    Y --> Z[EIIAGlc Phosphorylation]
+    Z --> AA[EIIAGlc-P Accumulation]
+    AA --> AB[Adenylyl Cyclase Activation]
+    AB --> AC[cAMP Synthesis]
+    AC --> AD[High cAMP Levels]
+    
+    %% cAMP-CRP Complex Formation
+    AD --> N
+    N -->|Yes| AE[cAMP Binds CRP]
+    AE --> AF[CRP Conformational Change]
+    AF --> AG[CRP-cAMP Active Complex]
+    
+    %% AND Gate 1: lac Operon Activation
+    AG --> ANDGATE1{CRP-cAMP AND<br/>lac Promoter Available?}
+    D --> AH[Lactose Inducer Signal]
+    AH --> ANDGATE1
+    ANDGATE1 -->|Yes| AI[CRP-cAMP Binds lac Promoter]
+    AI --> AJ[lac Operon Transcription]
+    AJ --> AK[lac Genes Expressed]
+    AK --> AL[Lactose Utilization]
+    
+    %% AND Gate 2: ara Operon Activation
+    AG --> ANDGATE2{CRP-cAMP AND<br/>ara Promoter Available?}
+    F --> AM[Arabinose Inducer Signal]
+    AM --> ANDGATE2
+    ANDGATE2 -->|Yes| AN[CRP-cAMP Binds ara Promoter]
+    AN --> AO[ara Operon Transcription]
+    AO --> AP[ara Genes Expressed]
+    AP --> AQ[/Arabinose Utilization/]
+    
+    %% mal Operons
+    AG --> AR[/CRP-cAMP Binds mal Promoters/]
+    AR --> AS[/mal Operons Transcription/]
+    AS --> AT[mal Genes Expressed]
+    AT --> AU[Maltose Utilization]
+    
+    %% Alternative Sugar Metabolism
+    AL --> AV[Alternative Carbon Source Use]
+    AQ --> AV
+    AU --> AV
+    AV --> AW[Slower Growth]
+    AW --> AX[Metabolic Adaptation]
+    
+    %% System Outputs
+    X --> AY[Optimal Glucose Growth]
+    AX --> AZ[Survival on Other Sugars]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#ff6b6b,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#b197fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#ff6b6b,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#ff6b6b,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#b197fc,color:#fff
+    style AX fill:#b197fc,color:#fff
+    style AY fill:#b197fc,color:#fff
+    style AZ fill:#b197fc,color:#fff

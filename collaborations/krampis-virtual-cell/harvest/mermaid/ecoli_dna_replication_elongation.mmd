@@ -1,0 +1,155 @@
+graph TD
+    A[Replication Fork] --> B[DnaB Helicase]
+    B --> C[DNA Unwinding]
+    C --> D[Single-Stranded DNA Regions]
+    D --> E{Strand Type?}
+    
+    E -->|Leading Strand| F[Continuous Synthesis Template]
+    E -->|Lagging Strand| G[Discontinuous Synthesis Template]
+    
+    %% Leading Strand Pathway
+    F --> H[DNA Pol III Core Enzyme α]
+    H --> I[3'-OH Primer Terminus]
+    I --> J{dNTP Available?}
+    J -->|Yes| K[Nucleotide Selection]
+    J -->|No| L[Synthesis Paused]
+    
+    K --> M[Watson-Crick Base Pairing]
+    M --> N[Phosphodiester Bond Formation]
+    N --> O[Pyrophosphate Release]
+    O --> P[DNA Extension +1 Nucleotide]
+    P --> Q{Proofreading Check?}
+    
+    Q -->|Correct Base| R[Continue Synthesis]
+    Q -->|Mismatch| S[3'-5' Exonuclease ε Subunit]
+    S --> T[Excise Incorrect Nucleotide]
+    T --> K
+    
+    R --> U[Beta Clamp Processivity]
+    U --> V[Tau Clamp Loader]
+    V --> W[Maintain Association]
+    W --> X{End of Template?}
+    X -->|No| K
+    X -->|Yes| Y[Leading Strand Complete]
+    
+    %% Lagging Strand Pathway
+    G --> Z[SSB Coating ssDNA]
+    Z --> AA[DnaG Primase Recognition]
+    AA --> AB[RNA Primer Synthesis]
+    AB --> AC[~10 nt RNA Primer]
+    AC --> AD[DNA Pol III Recognition]
+    
+    AD --> AE{Okazaki Fragment Synthesis?}
+    AE -->|Initiate| AF[DNA Pol III Core Enzyme α]
+    AF --> AG[Extension from RNA Primer]
+    AG --> AH[dNTP Incorporation]
+    AH --> AI[Synthesis ~1000-2000 nt]
+    
+    AI --> AJ{Reach Previous Fragment?}
+    AJ -->|No| AH
+    AJ -->|Yes| AK[Pol III Dissociates]
+    
+    AK --> AL[DNA Pol I Recognition]
+    AL --> AM[5'-3' Exonuclease Activity]
+    AM --> AN[Nick Translation]
+    AN --> AO[Remove RNA Primer]
+    AO --> AP[Replace with DNA]
+    
+    AP --> AQ{Nick Remaining?}
+    AQ -->|Yes| AR[DNA Ligase]
+    AR --> AS[Seal Phosphodiester Backbone]
+    AS --> AT[Completed Okazaki Fragment]
+    
+    %% Coordination and Regulation
+    AT --> AU{New Primer Needed?}
+    AU -->|Yes| AA
+    AU -->|No| AV[Lagging Strand Complete]
+    
+    B --> AW{Helicase-Primase Coordination?}
+    AW -->|Signal| AA
+    
+    U --> AX{Leading-Lagging Coupling?}
+    V --> AX
+    AX -->|Coordinated| AY[Replisome Integrity]
+    
+    AY --> AZ{Continue Replication?}
+    L --> AZ
+    AZ -->|Fork Active| BA[Processive Synthesis]
+    AZ -->|Fork Stalled| BB[Checkpoint Activation]
+    
+    BA --> BC{Obstacles?}
+    BC -->|Lesions| BD[Lesion Bypass Pathways]
+    BC -->|Proteins| BE[Fork Remodeling]
+    BC -->|None| K
+    
+    BD --> BF[TLS Polymerases]
+    BE --> BG[Recombination Pathways]
+    
+    Y --> BH{Both Strands Complete?}
+    AV --> BH
+    BH -->|Yes| BI[Replicated DNA Duplex]
+    BH -->|No| BA
+    
+    BI --> BJ[Topoisomerase Resolution]
+    BJ --> BK(\1)
+    BK --> BL[Sister Chromosome Separation]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#ffd43b,color:#000
+    style I fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#b197fc,color:#fff
+    style AV fill:#b197fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#51cf66,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff

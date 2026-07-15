@@ -1,0 +1,226 @@
+graph TD
+    %% Environmental Inputs
+    A[Low Glucose or Non-Fermentable<br/>Carbon Source] --> B[Respiratory Growth Signal]
+    C[Oxygen Available] --> D[Aerobic Condition]
+    E[Ethanol or Glycerol Present] --> F[Alternative Carbon Source]
+    
+    B --> G{OR: Activate<br/>Respiration?}
+    D --> G
+    F --> G
+    
+    G -->|Yes| H[/Derepress Respiratory Genes/]
+    G -->|No| I[Maintain Fermentation]
+    
+    %% SNF1/Snf1 Activation (Glucose Derepression)
+    H --> J[SNF1 Kinase Activation]
+    J --> K[Mig1 Phosphorylation]
+    K --> L[Mig1 Nuclear Export]
+    L --> M[/Relief of Glucose Repression/]
+    
+    %% Respiratory Gene Expression
+    M --> N[HAP2/3/4/5 Complex Activation]
+    N --> O[Cytochrome c Expression CYC1]
+    N --> P[Cytochrome c Oxidase COX Genes]
+    N --> Q[ATP Synthase Genes ATP1-20]
+    N --> R[TCA Cycle Enzyme Genes]
+    
+    %% Pyruvate Entry to Mitochondria
+    O --> S[Functional Respiratory Chain]
+    A --> T[Pyruvate from Glycolysis]
+    T --> U[Pyruvate Carrier MPC1/MPC2]
+    U --> V[Pyruvate in Mitochondrial Matrix]
+    
+    %% Pyruvate Dehydrogenase Complex
+    V --> W{AND: PDH Complex<br/>Assembly?}
+    P --> X[Lipoamide Required]
+    Q --> Y[Coenzyme A Required]
+    X --> W
+    Y --> W
+    
+    W -->|Yes| Z[Pyruvate Dehydrogenase PDA1/PDB1]
+    Z --> AA[Acetyl-CoA + NADH + CO2]
+    
+    %% TCA Cycle Entry
+    AA --> AB[Citrate Synthase CIT1/CIT2/CIT3]
+    AB --> AC[Oxaloacetate + Acetyl-CoA]
+    AC --> AD(\1)
+    AD --> AE[Aconitase ACO1]
+    AE --> AF(\1)
+    
+    %% NADH Generation Steps
+    AF --> AG[Isocitrate Dehydrogenase IDH1/IDH2]
+    AG --> AH[α-Ketoglutarate + NADH + CO2]
+    AH --> AI[α-Ketoglutarate Dehydrogenase KGD1/KGD2]
+    AI --> AJ[Succinyl-CoA + NADH + CO2]
+    
+    %% GTP Generation
+    AJ --> AK[Succinyl-CoA Synthetase LSC1/LSC2]
+    AK --> AL[Succinate + GTP]
+    AL --> AM[Succinate Dehydrogenase SDH1-4]
+    AM --> AN[Fumarate + FADH2]
+    
+    AN --> AO[Fumarase FUM1]
+    AO --> AP(\1)
+    AP --> AQ[Malate Dehydrogenase MDH1]
+    AQ --> AR[Oxaloacetate + NADH]
+    
+    %% NADH/FADH2 to Electron Transport Chain
+    AA --> AS[NADH Pool]
+    AH --> AS
+    AJ --> AS
+    AR --> AS
+    
+    AN --> AT[FADH2 Pool]
+    
+    %% Electron Transport Chain
+    AS --> AU["Complex I: NADH Dehydrogenase NDE1/NDI1"]
+    AU --> AV[Ubiquinone Reduced]
+    AT --> AW["Complex II: Succinate-Q Reductase"]
+    AW --> AV
+    
+    AV --> AX["Complex III: bc1 Complex QCR2/7/8/9/10"]
+    AX --> AY[Cytochrome c Reduced]
+    AY --> AZ["Complex IV: Cytochrome c Oxidase COX1-15"]
+    AZ --> BA[H2O Formation]
+    
+    %% Proton Pumping
+    AU --> BB[Protons Pumped to IMS]
+    AX --> BB
+    AZ --> BB
+    
+    BB --> BC[Proton Gradient ΔpH]
+    BC --> BD[Electrochemical Gradient Δψ]
+    
+    %% ATP Synthesis
+    BD --> BE{AND: Gradient +<br/>ATP Synthase?}
+    Q --> BF[F0F1-ATPase Complex]
+    BF --> BE
+    
+    BE -->|Yes| BG[ATP Synthase ATP1-5]
+    BG --> BH[ADP + Pi → ATP]
+    BH --> BI[~32 ATP per Glucose]
+    
+    %% Oxygen as Terminal Acceptor
+    C --> BJ[O2 to Mitochondria]
+    BJ --> AZ
+    AZ --> BK{Is O2 Available?}
+    BK -->|Yes| BA
+    BK -->|No| BL[/Respiration Halted/]
+    
+    %% Metabolite Export
+    BI --> BM[ATP Export to Cytoplasm]
+    BM --> BN[AAC1/AAC2/AAC3 ADP/ATP Carrier]
+    BN --> BO[ATP Available for Cell]
+    
+    %% Alternative Pathways
+    V --> BP{OR: Alternative<br/>Pyruvate Use?}
+    BP -->|Minor| BQ[/Alanine Aminotransferase/]
+    BP -->|Major| Z
+    
+    %% Regulation Feedback
+    BI --> BR{ATP/ADP Ratio High?}
+    BR -->|Yes| BS[/Inhibit PDH and TCA/]
+    BR -->|No| BT[Maintain Respiration]
+    BS --> BU[Reduced Respiratory Rate]
+    
+    %% Reactive Oxygen Species
+    AV --> BV{OR: Electron<br/>Leakage?}
+    BV -->|Yes| BW[Superoxide O2- Generation]
+    BW --> BX[Sod1/Sod2 Superoxide Dismutase]
+    BX --> BY(\1)
+    BY --> BZ[Catalase Ctt1]
+    BZ --> CA(\1)
+    
+    %% Final Products
+    BA --> CB[H2O as Product]
+    AA --> CC[CO2 from PDH]
+    AH --> CD[CO2 from IDH]
+    AJ --> CE[CO2 from KGD]
+    BO --> CF[High ATP Yield]
+    
+    %% Styles
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#ffd43b,color:#000
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#ffd43b,color:#000
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#ffd43b,color:#000
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#b197fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#b197fc,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    style CD fill:#74c0fc,color:#fff
+    style CE fill:#74c0fc,color:#fff
+    style CF fill:#74c0fc,color:#fff

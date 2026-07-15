@@ -1,0 +1,108 @@
+graph TD
+    A[Misfolded Protein in ER Lumen or Membrane] --> B["ER Stress Signal Activation (e.g., UPR)"]
+    B --> C{Is Misfolded Protein Luminal or Membrane Substrate?}
+
+    C -->|Luminal| D["Luminal Misfold Recognition Pathway (ERAD-L)"]
+    D --> E[BiP/Hsp70 Chaperone Binding]
+    E --> F[Sec63/Lhs1 J-domain Protein Interaction]
+    F --> G["PDI Family Protein Interaction (e.g., PDI1)"]
+    G --> H[Misfolded Protein-Chaperone Complex Formed]
+    H --> I[Hrd3 ERAD Receptor Recruitment to Complex]
+    I --> J[Hrd3-Hrd1 E3 Ligase Interaction]
+
+    C -->|Membrane| K["Membrane Misfold Recognition Pathway (ERAD-M)"]
+    K --> L[Direct Misfolded Protein-Hrd1 Interaction]
+    L --> M[Der1 ERAD Receptor Involvement]
+    M --> N[Usa1 Recruitment to Hrd1/Der1 Complex]
+
+    J --> O_AND{"Hrd1 Retrotranslocon Complex Assembled?"}
+    N --> O_AND
+
+    O_AND --> P[Sec61 Translocon Channel Engagement]
+    P --> Q["Sec61 Luminal Loop 4 Role in Substrate Engagement (Wheeler MC, 2012)"]
+
+    O_AND --> R["E1 Ubiquitin Activating Enzyme (Uba1) Action"]
+    R --> S["Ubiquitin Activation: Ub-AMP formation"]
+    S --> T["E2 Ubiquitin Conjugating Enzyme (Ubc7/Ubc1) Recruitment"]
+    T --> U["Ubiquitin Transfer to E2 (E2~Ub Thioester)"]
+    U --> V["E2 Chemoselectivity & Linkage Specificity (Swarnkar A, 2024)"]
+
+    Q --> W[Hrd1 E3 Ligase Catalysis of Ub Transfer]
+    V --> W
+
+    W --> X[Initial Ubiquitination of Misfolded Protein]
+    X --> Y["Polyubiquitin Chain Elongation (K48-linked)"]
+    Y --> Z["Polyubiquitinated Misfolded Protein (ER lumen/membrane)"]
+
+    Z --> AA[CDC48/Ufd1/Npl4 AAA-ATPase Complex Recruitment]
+    AA --> AB[CDC48 ATP Binding & Hydrolysis Cycle]
+    AB --> AC[Mechanical Pulling of Substrate into Cytosol]
+    AC --> AD[Dislocated Polyubiquitinated Protein in Cytosol]
+
+    AD --> AE["Png1 N-glycanase Action (Deglycosylation)"]
+    AE --> AF[Deglycosylated, Polyubiquitinated Protein]
+    AF --> AG["Deubiquitinating Enzymes (DUBs: Doa4, Ubp3) Activity"]
+    AG --> AH[Targeted Protein for 26S Proteasome]
+    AH --> AI[26S Proteasome Recruitment & Cap Interaction]
+    AI --> AJ[Proteasomal Substrate Entry & Unfolding]
+    AJ --> AK[/Proteasomal Degradation into Peptides/]
+
+    AK --> AL[Peptides & Amino Acids]
+    AK --> AM[Recycled Ubiquitin]
+    AK --> AN[Recycled CDC48/Ufd1/Npl4 Complex]
+    AK --> AO["Recycled E2 Enzymes (Ubc7/Ubc1)"]
+    AK --> AP[Recycled Hrd1 Complex Components]
+
+    AL & AM & AN & AO & AP --> AQ[ERAD Process Complete & ER Homeostasis Restored]
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#ffd43b,color:#000
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style AND fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style S fill:#51cf66,color:#fff
+    style T fill:#ffd43b,color:#000
+    style U fill:#74c0fc,color:#fff
+    style E2 fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#ffd43b,color:#000
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#ffd43b,color:#000
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#ffd43b,color:#000
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#ffd43b,color:#000
+    style AH fill:#ffd43b,color:#000
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#ffd43b,color:#000
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#b197fc,color:#fff

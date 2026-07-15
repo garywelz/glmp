@@ -1,0 +1,200 @@
+graph TD
+    %% Chromatin Locations
+    A[Genomic DNA] --> B{OR: Which<br/>Locus?}
+    B -->|Telomeres| C[Telomeric Regions]
+    B -->|HMR/HML| D[Hidden Mating Type]
+    B -->|rDNA| E[Ribosomal DNA Array]
+    B -->|Active Genes| F(\1)
+    
+    %% Euchromatin Pathway
+    F --> G[Histone Acetylation]
+    G --> H[Transcription Active]
+    H --> I([Gene Expression])
+    
+    %% Telomeric Silencing
+    C --> J[Telomeric Repeats TG1-3]
+    J --> K[Rap1 Binding Sites]
+    K --> L[Rap1 Protein Recruitment]
+    
+    L --> M{AND: Rap1<br/>Bound?}
+    M -->|No| N[/No Silencing/]
+    M -->|Yes| O[Rap1 C-terminal Domain]
+    
+    O --> P[Sir4 Recruitment]
+    O --> Q[Sir3 Recruitment]
+    
+    %% HM Loci Silencing
+    D --> R[/E Silencer Element/]
+    R --> S[Multiple Binding Sites]
+    S --> T[Rap1 + Abf1 + ORC]
+    
+    T --> U["/AND: All Silencer<br/>Factors?"]
+    U -->|No - Missing Factors| N
+    U -->|Yes - Complete| V[/Silencer Complex/]
+    
+    V --> W[Sir1 Recruited]
+    W --> X[Sir2/3/4 Nucleation]
+    
+    %% Sir Complex Assembly
+    P --> Y{AND: Sir2<br/>Present?}
+    Q --> Y
+    X --> Y
+    Y -->|No| N
+    Y -->|Yes| Z[Sir2/3/4 Complex Forms]
+    
+    %% Sir2 NAD+ Requirement
+    Z --> AA{AND: NAD+<br/>Available?}
+    AA -->|No - NAD+ Depleted| AB[/Sir2 Inactive/]
+    AA -->|Yes - NAD+ Present| AC[Sir2 Deacetylase Active]
+    
+    %% Histone Deacetylation
+    AC --> AD[H4-K16 Acetyl Group]
+    AD --> AE[Sir2 Catalysis]
+    AE --> AF[NAD+ → Nicotinamide + ADP-ribose]
+    AF --> AG[H4-K16 Deacetylated]
+    
+    %% Sir3/4 Binding
+    AG --> AH{AND: Sir3<br/>Binding Domain?}
+    AH -->|No| AI[No Spreading]
+    AH -->|Yes| AJ[Sir3 Binds Deacetylated H4]
+    
+    AJ --> AK{AND: Sir4<br/>Present?}
+    AK -->|No| AI
+    AK -->|Yes| AL[Sir3/4 Heterodimer]
+    
+    AL --> AM[Sir Complex Stabilized]
+    AM --> AN[Nucleosome Binding]
+    
+    %% Spreading Mechanism
+    AN --> AO[Adjacent Nucleosome]
+    AO --> AP[Sir2 Deacetylates Next H4]
+    AP --> AQ[Sir3/4 Binds Next Nucleosome]
+    AQ --> AR[Spreading Continues]
+    
+    AR --> AS{OR: Continue<br/>Spreading?}
+    AS -->|Yes - More Nucleosomes| AO
+    AS -->|No - Boundary Reached| AT[/Silenced Domain Established/]
+    
+    %% Boundary Elements
+    AT --> AU[tRNA Genes]
+    AT --> AV[Insulator Elements]
+    AU --> AW[Barrier to Spreading]
+    AV --> AW
+    AW --> AX[Defined Silent Region]
+    
+    %% Transcription Repression
+    AX --> AY[Nucleosome Compaction]
+    AY --> AZ{AND: RNA Pol II<br/>Access?}
+    AZ -->|Yes - Can Access| BA[/Weak Silencing/]
+    AZ -->|No - Blocked| BB[/Strong Silencing/]
+    
+    BB --> BC[/Transcription Prevented/]
+    BC --> BD[/Gene Silenced/]
+    
+    %% Sir2 Metabolic Connection
+    AC --> BE[Sirtuins Link Metabolism]
+    BE --> BF{OR: NAD+/NADH<br/>Ratio?}
+    BF -->|High NAD+ - Fed| BG[/Active Silencing/]
+    BF -->|Low NAD+ - Starved| BH[/Reduced Silencing/]
+    
+    BG --> BI[Caloric Restriction Effect]
+    BI --> BJ[Enhanced Sir2 Activity]
+    BJ --> BK[Lifespan Extension]
+    BK --> BL[/Longevity Phenotype/]
+    
+    %% rDNA Silencing
+    E --> BM[rDNA Repeats]
+    BM --> BN[Sir2 RENT Complex]
+    BN --> BO{AND: Net1<br/>AND Cdc14?}
+    BO -->|No| BP[rDNA Instability]
+    BO -->|Yes| BQ[/rDNA Silencing/]
+    BQ --> BR[/Suppressed Recombination/]
+    BR --> BS([Genomic Stability])
+    
+    %% Loss of Silencing
+    AB --> BT[/Sir2 Cannot Function/]
+    BT --> BU[Histones Remain Acetylated]
+    BU --> BV[/Sir3/4 Cannot Bind/]
+    BV --> BW[/Silencing Lost/]
+    BW --> BX[Inappropriate Gene Expression]
+    BX --> BY([Mating Type Defects])
+    
+    N --> BZ([No Silent Chromatin])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style O fill:#b197fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#74c0fc,color:#fff

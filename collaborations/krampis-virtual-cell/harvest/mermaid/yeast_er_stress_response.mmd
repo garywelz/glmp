@@ -1,0 +1,179 @@
+graph TD
+    %% ER Stress Triggers
+    A[Protein Synthesis Increase] --> B[ER Protein Load]
+    C[Mutations in Proteins] --> D[Misfolded Proteins]
+    E[Calcium Depletion] --> F[Chaperone Dysfunction]
+    G[Reducing Agents DTT] --> H[Disulfide Bond Disruption]
+    I[Tunicamycin Treatment] --> J[/Glycosylation Block/]
+    
+    %% OR Gate 1: ER Stress Detection
+    B --> K{OR: Unfolded<br/>Proteins in ER?}
+    D --> K
+    F --> K
+    H --> K
+    J --> K
+    K -->|No| L[Normal ER Homeostasis]
+    K -->|Yes| M[ER Stress Condition]
+    
+    %% Ire1 Sensing
+    M --> N[Ire1 Binds Unfolded Proteins]
+    N --> O[Ire1 Oligomerization]
+    
+    %% AND Gate 1: Ire1 Trans-autophosphorylation
+    O --> P{AND: Ire1 Dimers<br/>Formed?}
+    P -->|No - Monomers| L
+    P -->|Yes - Oligomers| Q[Ire1 Trans-autophosphorylation]
+    
+    Q --> R[Ire1 Kinase Domain Active]
+    R --> S[Ire1 RNase Domain Activated]
+    
+    %% HAC1 mRNA Splicing
+    S --> T[Constitutive HAC1u mRNA]
+    T --> U[Ire1 Recognizes Stem-Loops]
+    
+    %% AND Gate 2: Both Splice Sites
+    U --> V{AND: 5' Site<br/>AND 3' Site?}
+    V -->|No| W[No Splicing]
+    V -->|Yes| X[Ire1 Cleaves Both Sites]
+    
+    X --> Y[Intron Released]
+    Y --> Z[Exon Ligation]
+    
+    %% AND Gate 3: tRNA Ligase Required
+    Z --> AA{AND: Rlg1/Trl1<br/>Ligase Present?}
+    AA -->|No| AB[Splicing Incomplete]
+    AA -->|Yes| AC[HAC1i mRNA Formed]
+    
+    %% Translation Difference
+    W --> AD[HAC1u has Intron]
+    AD --> AE[Translation Stalled]
+    AE --> AF[No Hac1 Protein]
+    
+    AC --> AG[HAC1i mRNA Translated]
+    AG --> AH[Hac1 Protein Produced]
+    AH --> AI[Hac1 Homodimerization]
+    
+    %% Nuclear Localization
+    AI --> AJ{AND: NLS<br/>Functional?}
+    AJ -->|No| AK[Cytoplasmic Retention]
+    AJ -->|Yes| AL[Hac1 Nuclear Import]
+    
+    AL --> AM[Hac1 DNA Binding]
+    AM --> AN[UPRE Element Recognition]
+    AN --> AO[UPR Target Gene Transcription]
+    
+    %% OR Gate 2: Which UPR Target?
+    AO --> AP{OR: Which Gene<br/>Class?}
+    AP -->|Chaperones| AQ[KAR2 PDI1 Expression]
+    AP -->|ERAD| AR[DER1 HRD1 Expression]
+    AP -->|Lipid Synthesis| AS[INO1 OPI3 Expression]
+    AP -->|Quality Control| AT[EUG1 SCJ1 Expression]
+    
+    %% Chaperone Upregulation
+    AQ --> AU[Kar2/BiP Production]
+    AU --> AV[Pdi1 Disulfide Isomerase]
+    AV --> AW[Enhanced Folding Capacity]
+    
+    %% ERAD Enhancement
+    AR --> AX[Der1 Rhomboid Pseudoprotease]
+    AX --> AY[Hrd1 E3 Ubiquitin Ligase]
+    AY --> AZ[ERAD Complex Assembly]
+    AZ --> BA[/Misfolded Protein Degradation/]
+    
+    %% ER Expansion
+    AS --> BB[Phospholipid Synthesis]
+    BB --> BC[ER Membrane Expansion]
+    BC --> BD[Increased ER Volume]
+    
+    %% AND Gate 4: Resolution Check
+    AW --> BE{AND: Folding Improved<br/>AND ERAD Active?}
+    BA --> BE
+    BE -->|No| BF[Sustained UPR]
+    BE -->|Yes| BG[ER Stress Resolution]
+    
+    %% Feedback Inhibition
+    BG --> BH[Unfolded Proteins Cleared]
+    BH --> BI[Ire1 Deactivation]
+    BI --> BJ[No HAC1 Splicing]
+    BJ --> BK[Hac1 Protein Decay]
+    BK --> BL[/UPR Termination/]
+    
+    L --> BM([No UPR Needed])
+    AF --> BM
+    BF --> BN[Chronic ER Stress]
+    BN --> BO{OR: Apoptosis<br/>Pathway?}
+    BO -->|Yes| BP([Cell Death])
+    BO -->|No| BF
+    
+    %% Normal Resolution
+    BD --> BG
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ffd43b,color:#000
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style L fill:#b197fc,color:#fff
+    style M fill:#ff6b6b,color:#fff
+    style N fill:#ffd43b,color:#000
+    style O fill:#74c0fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#b197fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#ffd43b,color:#000
+    style AI fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#b197fc,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#ff6b6b,color:#fff
+    style BH fill:#ffd43b,color:#000
+    style BI fill:#51cf66,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#ffd43b,color:#000
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#ff6b6b,color:#fff
+    style BP fill:#b197fc,color:#fff

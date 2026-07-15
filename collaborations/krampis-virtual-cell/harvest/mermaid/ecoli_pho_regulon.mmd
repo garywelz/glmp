@@ -1,0 +1,161 @@
+graph TD
+    %% Phosphate Status Input
+    A[Low External Phosphate] --> B[Phosphate Limitation Signal]
+    C[Phosphate Depletion] --> B
+    
+    %% PstSCAB Transport System
+    B --> D[PstS Periplasmic Binding Protein]
+    D --> E[Low Phosphate Binding]
+    E --> F[PstS Conformational Change]
+    F --> G[PstCAB Transport Complex]
+    G --> H[Low Phosphate Transport]
+    
+    %% PhoR Sensor Activation
+    H --> I[PstSCAB-PhoR Interaction]
+    I --> J[PhoR Sensor Kinase]
+    
+    %% Decision: Phosphate Limitation?
+    J --> K{Low Phosphate?}
+    
+    %% Low Phosphate Path - PhoR Activation
+    K -->|Yes| L[PhoR Kinase Activity]
+    L --> M[ATP Binding]
+    M --> N[PhoR Autophosphorylation]
+    N --> O[PhoR-P Formation]
+    
+    %% Phosphotransfer to PhoB
+    O --> P[Phosphotransfer to PhoB]
+    P --> Q[PhoB-P Active Form]
+    Q --> R[PhoB-P Dimerization]
+    R --> S[DNA Binding Competent]
+    
+    %% Decision: PhoB-P Levels
+    S --> T{High PhoB-P?}
+    
+    %% AND Gate 1: phoA Activation
+    T -->|Yes| ANDGATE1{PhoB-P AND<br/>phoA Pho Box?}
+    U[phoA Promoter Accessibility] --> ANDGATE1
+    
+    %% Alkaline Phosphatase Expression
+    ANDGATE1 -->|Yes| V[PhoB-P Binds phoA Pho Box]
+    V --> W[phoA Transcription]
+    W --> X[phoA mRNA]
+    X --> Y[PhoA Translation]
+    Y --> Z[Alkaline Phosphatase]
+    Z --> AA[Enzyme Export]
+    AA --> AB[Periplasmic PhoA]
+    AB --> AC[Organic Phosphate Hydrolysis]
+    AC --> AD[Phosphate Liberation]
+    AD --> AE[Phosphate Scavenging]
+    
+    %% Alternative Transport Systems
+    S --> AF[PhoB-P Binds Multiple Pho Boxes]
+    AF --> AG[phoE Gene Activation]
+    AG --> AH[PhoE Porin Expression]
+    AH --> AI[Phosphate Anion Transport]
+    
+    AF --> AJ[ugpBAECQ Operon Activation]
+    AJ --> AK[Glycerol-3-P Transport System]
+    AK --> AL[Alternative Phosphate Sources]
+    
+    %% AND Gate 2: pstSCAB Repression
+    S --> ANDGATE2{PhoB-P AND<br/>pstS Pho Box?}
+    AM[pstS Promoter] --> ANDGATE2
+    ANDGATE2 -->|Yes| AN[Paradoxical pstS Activation]
+    AN --> AO[More PstS Protein]
+    AO --> D
+    
+    %% Phosphonate Utilization
+    AF --> AP[phnCDE Operon Activation]
+    AP --> AQ[/Phosphonate Degradation Enzymes/]
+    AQ --> AR[Phosphonate Breakdown]
+    AR --> AS[Phosphate from Phosphonates]
+    
+    %% High Phosphate Path
+    K -->|No| AT[High Phosphate]
+    AT --> AU[PstSCAB High Affinity Transport]
+    AU --> AV[Phosphate Accumulation]
+    AV --> AW[PhoR Phosphatase Activity]
+    AW --> AX[PhoB-P Dephosphorylation]
+    AX --> AY[PhoB Inactive]
+    AY --> AZ[Low Pho Gene Expression]
+    AZ --> BA[Basal State]
+    
+    %% Phosphate Homeostasis
+    AE --> BB[Cellular Phosphate Restored]
+    AI --> BB
+    AL --> BB
+    AS --> BB
+    BB --> BC[Feedback to PhoR]
+    BC --> AW
+    
+    %% System Outputs
+    BA --> BD[Phosphate-Sufficient Growth]
+    BB --> BE[Phosphate Homeostasis]
+    AE --> BF[Starvation Adaptation]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#ffd43b,color:#000
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#ffd43b,color:#000
+    style AP fill:#51cf66,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#b197fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#ff6b6b,color:#fff

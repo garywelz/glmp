@@ -1,0 +1,181 @@
+graph TD
+    A[Nuclear Gene Expression] --> B[Cytosolic Translation]
+    B --> C[Mitochondrial Precursor Protein]
+    C --> D{Targeting Signal?}
+    
+    D -->|N-terminal Presequence| E[Matrix-Destined Protein]
+    D -->|Internal Signal| F[Inner Membrane Protein]
+    D -->|β-barrel Signal| G[Outer Membrane Protein]
+    D -->|Cysteine Motifs| H[IMS Protein]
+    
+    E --> I[Cytosolic Chaperones]
+    I --> J[Hsp70 Hsp90 System]
+    J --> K[Unfolded Precursor]
+    
+    K --> L{TOM Complex Recognition?}
+    L -->|Tom20 Receptor| M[Presequence Binding]
+    L -->|Tom70 Receptor| N[Internal Signal Binding]
+    
+    M --> O[Tom22 Central Receptor]
+    N --> O
+    O --> P{TOM Channel Translocation?}
+    
+    P -->|Tom40 Pore| Q[Outer Membrane Crossing]
+    Q --> R[Protein in IMS]
+    
+    R --> S{Destination Decision?}
+    S -->|Matrix| T[TIM23 Complex]
+    S -->|Inner Membrane| U[TIM22 Complex]
+    S -->|IMS| V[MIA Pathway]
+    S -->|Outer Membrane| W[SAM Complex]
+    
+    T --> X{TIM23 Components?}
+    X -->|Tim23 Tim17| Y[Inner Membrane Channel]
+    X -->|Tim50| Z[IMS Receptor]
+    X -->|Tim21| AA[Respiratory Chain Link]
+    
+    Y --> AB{Membrane Potential Required?}
+    AB -->|Δψ Present| AC[Electrophoretic Driving Force]
+    AB -->|No Δψ| AD[Import Stalled]
+    
+    AC --> AE[Presequence Insertion]
+    AE --> AF{PAM Complex Engagement?}
+    
+    AF -->|Tim44 Platform| AG[mtHsp70 Recruitment]
+    AG --> AH[ATP-Dependent Pulling]
+    AH --> AI[Complete Translocation]
+    
+    AI --> AJ[MPP Matrix Processing Peptidase]
+    AJ --> AK[Presequence Cleavage]
+    AK --> AL[Mature Matrix Protein]
+    
+    AL --> AM[mtHsp70 Folding]
+    AM --> AN{Requires Hsp60?}
+    AN -->|Yes| AO[Hsp60-Hsp10 Chaperonin]
+    AN -->|No| AP[Spontaneous Folding]
+    
+    AO --> AQ[Functional Matrix Protein]
+    AP --> AQ
+    
+    U --> AR{TIM22 Pathway?}
+    AR -->|Tim22 Tim54 Tim18| AS[Carrier Protein Import]
+    AS --> AT[Tim9-Tim10 Chaperones]
+    AT --> AU[Lateral Release into IM]
+    AU --> AV[Functional Carrier]
+    
+    V --> AW{MIA Pathway Components?}
+    AW -->|Mia40 Oxidoreductase| AX[Disulfide Bond Formation]
+    AW -->|Erv1 Sulfhydryl Oxidase| AY[Electron Transfer]
+    
+    AX --> AZ[Oxidized IMS Protein]
+    AY --> AX
+    AZ --> BA[Trapped in IMS]
+    
+    W --> BB{SAM Complex Assembly?}
+    BB -->|Sam50 Core| BC[β-barrel Insertion]
+    BB -->|Sam35 Sam37| BD[Substrate Recognition]
+    
+    BC --> BE[Outer Membrane Integration]
+    BE --> BF{Additional Processing?}
+    BF -->|Mdm10 ERMES| BG[ER-Mitochondria Contacts]
+    BF -->|Complete| BH[Functional OM Protein]
+    
+    F --> BI{Hydrophobic Protein Path?}
+    BI -->|Stop-Transfer| BJ[TIM23 Lateral Release]
+    BI -->|Carrier| U
+    
+    BJ --> BK[Inner Membrane Insertion]
+    BK --> BL[Topology Establishment]
+    
+    AQ --> BM{Protein Complex Assembly?}
+    AV --> BM
+    BA --> BM
+    BH --> BM
+    BL --> BM
+    
+    BM -->|Respiratory Complexes| BN[Complex I-V Assembly]
+    BM -->|Metabolic Enzymes| BO[TCA Cycle Enzymes]
+    BM -->|Transporters| BP[Metabolite Carriers]
+    
+    BN --> BQ[Functional Mitochondria]
+    BO --> BQ
+    BP --> BQ
+    
+    BQ --> BR{Quality Control?}
+    BR -->|Misfolded| BS[AAA Proteases]
+    BR -->|Damaged| BT(\1)
+    BR -->|Functional| BU[Cellular Respiration]
+    
+    BS --> BV[/Protein Degradation/]
+    BT --> BW[Organelle Turnover]
+    BU --> BX[ATP Production]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#ffd43b,color:#000
+    style H fill:#ffd43b,color:#000
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#ff6b6b,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#b197fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#ffd43b,color:#000
+    style AM fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#ffd43b,color:#000
+    style AS fill:#ffd43b,color:#000
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#ffd43b,color:#000
+    style BA fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#ffd43b,color:#000
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BN fill:#51cf66,color:#fff
+    style BO fill:#ffd43b,color:#000
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BS fill:#51cf66,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#b197fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#b197fc,color:#fff

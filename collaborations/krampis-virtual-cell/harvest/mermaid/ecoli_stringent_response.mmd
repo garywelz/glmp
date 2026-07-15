@@ -1,0 +1,167 @@
+graph TD
+    %% Amino Acid Starvation Input
+    A[Amino Acid Limitation] --> B[Reduced Charged tRNA Pool]
+    C[Translation Stress] --> B
+    
+    %% tRNA Charging Imbalance
+    B --> D[Increased Uncharged tRNA]
+    D --> E[tRNA Charging Failure]
+    E --> F[Ribosome Stalling]
+    
+    %% Decision: Uncharged tRNA Present?
+    F --> G{Uncharged tRNA<br/>at A-site?}
+    
+    %% AND Gate: RelA Activation
+    G -->|Yes| ANDGATE1{Uncharged tRNA AND<br/>Ribosome Stalled?}
+    H[Ribosomal A-site] --> ANDGATE1
+    
+    %% RelA Activation
+    ANDGATE1 -->|Yes| I[RelA Binds Ribosome]
+    I --> J[RelA Conformational Change]
+    J --> K[RelA Synthetase Activation]
+    
+    %% (p)ppGpp Synthesis
+    K --> L[ATP Substrate Binding]
+    L --> M[GTP/GDP Substrate Binding]
+    M --> N[Phosphotransfer Reaction]
+    N --> O[pppGpp Synthesis]
+    N --> P[ppGpp Synthesis]
+    O --> Q[ppGpp/pppGpp Accumulation]
+    P --> Q
+    
+    %% Decision: ppGpp Levels
+    Q --> R{High ppGpp?}
+    
+    %% AND Gate: RNAP Regulation
+    R -->|Yes| ANDGATE2{ppGpp AND<br/>DksA Present?}
+    S[DksA Cofactor] --> ANDGATE2
+    
+    %% RNAP-ppGpp Complex
+    ANDGATE2 -->|Yes| T[ppGpp Binds RNAP]
+    T --> U[DksA Binds RNAP]
+    U --> V[RNAP Conformational Change]
+    
+    %% Stable RNA Repression
+    V --> W[rRNA Promoter Destabilization]
+    V --> X[tRNA Promoter Destabilization]
+    W --> Y[Reduced rRNA Transcription]
+    X --> Z[Reduced tRNA Transcription]
+    Y --> AA[Decreased Ribosome Synthesis]
+    Z --> AB[Decreased Translation Capacity]
+    AA --> AC[Growth Slowdown]
+    AB --> AC
+    
+    %% Amino Acid Biosynthesis Activation
+    V --> AD[Amino Acid Operon Activation]
+    AD --> AE[trp Operon Induction]
+    AD --> AF[his Operon Induction]
+    AD --> AG[ile Operon Induction]
+    AE --> AH[Tryptophan Biosynthesis]
+    AF --> AI[Histidine Biosynthesis]
+    AG --> AJ[Isoleucine Biosynthesis]
+    
+    %% Stress Gene Activation
+    V --> AK[Stress Response Gene Activation]
+    AK --> AL[rpoS Induction]
+    AK --> AM[Stationary Phase Genes]
+    AL --> AN[σS Alternative Sigma Factor]
+    AN --> AO[General Stress Response]
+    AM --> AP[Metabolic Adaptation]
+    
+    %% Amino Acid Pool Restoration
+    AH --> AQ[Amino Acid Pool Increase]
+    AI --> AQ
+    AJ --> AQ
+    AQ --> AR[tRNA Charging Restored]
+    AR --> AS[Translation Resumes]
+    
+    %% ppGpp Degradation
+    AS --> AT[RelA Dissociates from Ribosome]
+    AT --> AU[SpoT Hydrolase Activity]
+    AU --> AV[/ppGpp Degradation/]
+    AV --> AW[Basal ppGpp Levels]
+    AW --> AX[rRNA Transcription Restored]
+    AX --> AY[Growth Resumption]
+    
+    %% Normal Growth Path
+    G -->|No| AZ[Normal tRNA Charging]
+    AZ --> BA[Low ppGpp Levels]
+    BA --> BB[High rRNA/tRNA Transcription]
+    BB --> BC[Rapid Ribosome Synthesis]
+    BC --> BD[Fast Growth]
+    
+    %% System Outputs
+    AC --> BE[Survival Mode]
+    AO --> BF[Stress Resistance]
+    AP --> BG[Metabolic Remodeling]
+    AY --> BH[Growth Recovery]
+    BD --> BI[Optimal Growth]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#ffd43b,color:#000
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#b197fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#ff6b6b,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#ffd43b,color:#000
+    style AO fill:#ff6b6b,color:#fff
+    style AP fill:#b197fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#b197fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#b197fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#ff6b6b,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#b197fc,color:#fff

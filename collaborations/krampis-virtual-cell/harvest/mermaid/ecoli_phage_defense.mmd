@@ -1,0 +1,172 @@
+graph TD
+    %% Phage Infection
+    A[Bacteriophage Attachment] --> B[Phage DNA Injection]
+    B --> C[Foreign DNA Enters Cell]
+    
+    %% OR Gate 1: Which Defense System?
+    C --> D{OR: Which<br/>Defense Active?}
+    D -->|R-M System| E[Restriction-Modification]
+    D -->|CRISPR-Cas| F[Adaptive Immunity]
+    D -->|Abortive Infection| G[Suicide System]
+    D -->|None| H[Infection Succeeds]
+    
+    %% R-M System Branch
+    E --> I[Foreign DNA Recognition]
+    I --> J{AND: DNA Unmethylated<br/>at Recognition Site?}
+    J -->|No - Methylated| K[DNA Protected]
+    J -->|Yes - Unmethylated| L[Restriction Enzyme Cleavage]
+    
+    L --> M{OR: Which<br/>Restriction Enzyme?}
+    M -->|EcoRI| N[GAATTC Site Cleavage]
+    M -->|EcoRV| O[GATATC Site Cleavage]
+    M -->|Other| P[Other Sequence Cleavage]
+    
+    N --> Q[Phage DNA Fragmented]
+    O --> Q
+    P --> Q
+    Q --> R[/DNA Degradation/]
+    R --> S([Phage Destroyed])
+    
+    %% Self DNA Protection
+    K --> T[Host DNA Methyltransferase]
+    T --> U[Recognition Site Methylation]
+    U --> V[Self DNA Protected]
+    V --> W([Host Survives])
+    
+    %% CRISPR-Cas Branch
+    F --> X{OR: Prior<br/>Exposure?}
+    X -->|No - First Infection| Y[Adaptation Phase]
+    X -->|Yes - Memory| Z[Interference Phase]
+    
+    %% CRISPR Adaptation
+    Y --> AA[Cas1/Cas2 Complex]
+    AA --> AB[Phage DNA Fragment Selection]
+    AB --> AC[Protospacer Selection]
+    AC --> AD{AND: PAM Sequence<br/>Adjacent?}
+    AD -->|No| AE[/Not Suitable/]
+    AD -->|Yes| AF[Spacer Integration]
+    
+    AF --> AG[CRISPR Array Expansion]
+    AG --> AH[New Spacer Added]
+    AH --> AI[Heritable Memory]
+    AI --> AJ[Future Protection Acquired]
+    
+    %% CRISPR Interference
+    Z --> AK[CRISPR Locus Transcription]
+    AK --> AL[Pre-crRNA Synthesis]
+    AL --> AM[Cas6 Endonuclease]
+    AM --> AN[crRNA Processing]
+    AN --> AO[Mature crRNAs]
+    
+    %% Cascade Complex Assembly
+    AO --> AP{AND: All Cas Proteins<br/>Present?}
+    AP -->|No| AQ[No Immunity]
+    AP -->|Yes| AR[Cascade Complex Assembly]
+    
+    AR --> AS[Cas8/Cas11/Cas7 Complex]
+    AS --> AT{AND: crRNA<br/>Loaded?}
+    AT -->|No| AQ
+    AT -->|Yes| AU[Active Surveillance Complex]
+    
+    %% Target Recognition
+    AU --> AV[Foreign DNA Scanning]
+    AV --> AW{AND: Spacer Match<br/>AND PAM Present?}
+    AW -->|No| AX[No Match - Scanning Continues]
+    AW -->|Yes| AY[Target Recognition]
+    
+    AY --> AZ[R-loop Formation]
+    AZ --> BA[Cas3 Helicase-Nuclease Recruitment]
+    BA --> BB[/Target DNA Degradation/]
+    BB --> BC[Phage Genome Destroyed]
+    BC --> BD([Phage Neutralized])
+    
+    %% Abortive Infection
+    G --> BE[Infection Detected]
+    BE --> BF[Toxin Activation]
+    BF --> BG[Cell Suicide]
+    BG --> BH[/DNA Replication Halted/]
+    BH --> BI[/Phage Cannot Replicate/]
+    BI --> BJ([Colony Protected])
+    
+    %% Failed Defense
+    H --> BK[Phage Replication]
+    BK --> BL[Progeny Phage Assembly]
+    BL --> BM[Cell Lysis]
+    BM --> BN([Infection Spreads])
+    
+    %% Self/Non-self Discrimination
+    V --> BO{OR: Target<br/>DNA?}
+    BO -->|Self| BP[Methylation Protects]
+    BO -->|Foreign| BQ[Restriction Cleaves]
+    BP --> W
+    BQ --> S
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#ffd43b,color:#000
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#b197fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#51cf66,color:#fff
+    style BL fill:#51cf66,color:#fff
+    style BM fill:#b197fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff

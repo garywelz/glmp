@@ -1,0 +1,198 @@
+graph TD
+    %% Amino Acid Depletion
+    A[Amino Acid Starvation] --> B{OR: Which AA<br/>Depleted?}
+    B -->|Histidine| C[His-tRNA Uncharged]
+    B -->|Tryptophan| D[Trp-tRNA Uncharged]
+    B -->|Leucine| E[Leu-tRNA Uncharged]
+    B -->|Other| F[General AA Depletion]
+    
+    C --> G[Uncharged tRNA Accumulation]
+    D --> G
+    E --> G
+    F --> G
+    
+    %% Gcn2 Activation
+    G --> H[Gcn2 Kinase Sensing]
+    H --> I[Gcn2 HisRS-like Domain]
+    I --> J[Uncharged tRNA Binding]
+    J --> K[Gcn2 Dimerization]
+    K --> L[Gcn2 Trans-autophosphorylation]
+    L --> M[Gcn2 Active]
+    
+    %% eIF2α Phosphorylation
+    M --> N[eIF2α Substrate]
+    N --> O[Gcn2 Phosphorylates eIF2α-Ser51]
+    O --> P[eIF2α-P Formation]
+    
+    %% eIF2B Sequestration
+    P --> Q{AND: eIF2α-P<br/>Binds eIF2B?}
+    Q -->|No| R[Normal Translation]
+    Q -->|Yes| S[eIF2B Sequestered]
+    
+    S --> T[/eIF2-GTP Regeneration Blocked/]
+    T --> U[Reduced TC Formation]
+    U --> V[Global Translation Reduced]
+    
+    %% GCN4 mRNA Structure
+    W[GCN4 mRNA] --> X[Long 5' UTR]
+    X --> Y[4 Upstream ORFs uORF1-4]
+    Y --> Z[uORF1 - Short]
+    Y --> AA[uORF2 - Short]
+    Y --> AB[uORF3 - Short]
+    Y --> AC[uORF4 - Overlaps GCN4]
+    
+    %% Normal Conditions Translation
+    R --> AD[High TC Availability]
+    AD --> AE[40S Scans from Cap]
+    AE --> AF[Initiates at uORF1]
+    AF --> AG[Translates uORF1]
+    AG --> AH[40S Reinitiation]
+    AH --> AI[Rapid TC Rebinding]
+    AI --> AJ[Initiates at uORF4]
+    AJ --> AK[/uORF4 Blocks GCN4 Start/]
+    AK --> AL[No Gcn4 Protein]
+    AL --> AM([Low Gcn4])
+    
+    %% Starvation Conditions Translation
+    V --> AN[Low TC Availability]
+    AN --> AO[40S Scans from Cap]
+    AO --> AP[Initiates at uORF1]
+    AP --> AQ[Translates uORF1]
+    AQ --> AR[40S Reinitiation]
+    AR --> AS[Slow TC Rebinding]
+    AS --> AT[/Scans Past uORF2-4/]
+    AT --> AU[Reaches GCN4 Start Codon]
+    AU --> AV[GCN4 Translation]
+    AV --> AW[Gcn4 Protein Produced]
+    
+    %% Gcn4 Nuclear Function
+    AW --> AX[Gcn4 Nuclear Import]
+    AX --> AY[Gcn4 Homodimerization]
+    AY --> AZ{AND: Gcn4 Dimer<br/>AND GCRE?}
+    AZ -->|No| BA[No Activation]
+    AZ -->|Yes| BB[Gcn4 Binds GCRE Elements]
+    
+    BB --> BC{OR: Which Gene<br/>Class?}
+    BC -->|AA Biosynthesis| BD[HIS3/TRP3/LEU2/ARG Genes]
+    BC -->|Purine Synthesis| BE[ADE Genes]
+    BC -->|Autophagy| BF[ATG Genes]
+    BC -->|Mitochondrial| BG[Respiratory Genes]
+    BC -->|Amino Acid Permeases| BH[Permease Genes]
+    
+    %% Amino Acid Biosynthesis
+    BD --> BI[Amino Acid Synthesis Enzymes]
+    BI --> BJ[Increased AA Production]
+    BJ --> BK[Amino Acid Pools Restored]
+    
+    %% Purine Synthesis
+    BE --> BL[Purine Biosynthesis Enzymes]
+    BL --> BM[Enhanced Nucleotide Synthesis]
+    
+    %% Autophagy
+    BF --> BN[Autophagy Machinery]
+    BN --> BO[/Protein Degradation/]
+    BO --> BP[Amino Acid Recycling]
+    BP --> BK
+    
+    %% Adaptation
+    BK --> BQ[AA Starvation Relieved]
+    BQ --> BR[Charged tRNAs Restored]
+    BR --> BS[Gcn2 Inactivation]
+    BS --> BT[eIF2α Dephosphorylation]
+    BT --> BU[Normal Translation Resumed]
+    
+    %% Gcn4 Turnover
+    AW --> BV[Pho85-Pcl5 CDK]
+    BV --> BW[Gcn4 Phosphorylation]
+    BW --> BX[SCF Ubiquitin Ligase]
+    BX --> BY[/Gcn4 Degradation/]
+    BY --> BZ[Short Half-life 5 min]
+    BZ --> CA[/Rapid Response Termination/]
+    
+    BU --> CB([Homeostasis Restored])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#ffd43b,color:#000
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#ffd43b,color:#000
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#ffd43b,color:#000
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#ffd43b,color:#000
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#ff6b6b,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#51cf66,color:#fff
+    style BT fill:#51cf66,color:#fff
+    style BU fill:#51cf66,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#51cf66,color:#fff
+    style BX fill:#51cf66,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#b197fc,color:#fff

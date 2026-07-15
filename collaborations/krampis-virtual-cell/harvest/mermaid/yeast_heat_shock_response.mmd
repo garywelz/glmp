@@ -1,0 +1,137 @@
+graph TD
+    A[Heat Shock / Other Stressors] --> B{Is Stress acute/severe?}
+    B -->|Yes| C[Protein Misfolding & Accumulation]
+    B -->|No| D[Cellular Homeostasis Maintained]
+
+    C --> E[Hsp90/Hsp70 Chaperones Bind Misfolded Proteins]
+    E --> F[Release of Hsf1 from Chaperones]
+    F --> G[Hsf1 Monomer]
+    G --> H[Hsf1 Trimerization]
+    H --> I[Hsf1 Phosphorylation]
+    J["(Hsf1 Fully Activated)"]
+    H & I --> J
+    J --> K["Binding to Heat Shock Elements (HSEs)"]
+    K --> L[Transcriptional Activation of HSP Genes]
+    L --> M[HSP mRNA Synthesis]
+    M --> N[HSP mRNA Translation]
+    N --> O["Synthesis of Heat Shock Proteins (HSPs)"]
+    O --> P["Hsp Chaperones (e.g., Ssa1/2, Hsp90)"]
+
+    C --> Q[Partially Folded/Misfolded Proteins]
+    Q --> R{Is Protein Refoldable by Cytosolic Chaperones?}
+    R -->|Yes| S["ATP-dependent Refolding by Chaperones (P)"]
+    S --> T[Properly Folded Proteins]
+    R -->|No| U{Is Protein Terminally Misfolded or Heavily Aggregated?}
+    U -->|Yes| V{Degradation via Proteasome OR Mitochondria?}
+    U -->|No| W[Protein Aggregation / Inclusion Body Formation]
+
+    V --> X[Ubiquitination of Terminally Misfolded Proteins]
+    X --> Y[/26S Proteasome Degradation/]
+    Y --> Z[Amino Acids / Peptides]
+
+    V --> AA["Delivery to Mitochondria by Cytosolic Hsp70 (Ssa1/2)"]
+    AA --> AB["Binding to TOM Complex (Outer Membrane)"]
+    AB --> AC[Translocation through TOM/TIM Complexes]
+    AC --> AD["Mitochondrial Hsp70 (Ssc1) Binding"]
+    AD --> AE[ATP-dependent Import into Mitochondrial Matrix]
+    AE --> AF{Refoldable in Mitochondria?}
+    AF -->|Yes| AG[Refolding by mtHsp60 / mtHsp70]
+    AG --> AH[Properly Folded Mitochondrial Proteins]
+    AF -->|No| AI[/Degradation by Mitochondrial AAA-ATPases (Yta10/12)/]
+    AI --> AJ[Mitochondrial Peptides]
+
+    A --> BK["Osmotic Stress Component (from A)"]
+    BK --> BL["Glycerol 3-phosphate dehydrogenase (Gpd1) Activity"]
+    BL --> BM[Glycerol Synthesis]
+    BL --> BN[Modulation of Hsf1 Activation]
+    BN --> J
+
+    BO[Gpd1 Deletion / Impaired Activity] --> BP[Reduced Hsf1 Activation]
+    BP --> BQ[Reduced Thermotolerance]
+
+    B --> BR["Acute/Severe Stress for Phase Separation (from B)"]
+    BR --> BS[Specific mRNAs / RNA-binding Proteins]
+    BS --> BT[Stress-Triggered Liquid-Liquid Phase Separation]
+    BT --> BU[Formation of Stress Granules / P-bodies]
+    BU --> BV[Sequestration of Non-essential mRNA/Proteins]
+    BU --> BW[Reduced Protein Synthesis]
+
+    P --> BX[Chaperones Bind to Hsf1]
+    BX --> BY[Hsf1 Inactivation / Dephosphorylation]
+    BY --> BZ[Reduced HSP Gene Expression]
+
+    T --> CA[Cellular Adaptation / Survival]
+    AH --> CA
+    Z --> CA
+    AJ --> CA
+    BW --> CA
+    D --> CA
+
+    W --> CB{Protein Quality Control Overwhelmed?}
+    CB -->|Yes| CC[Cell Death / Apoptosis]
+    CB -->|No| CA
+
+    BQ --> CC
+
+    CA --> CD[Long-term Adaptation / Homeostasis]
+    CC --> CE[Cellular Failure]
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#ff6b6b,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#ff6b6b,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style S fill:#74c0fc,color:#fff
+    style T fill:#ffd43b,color:#000
+    style W fill:#ffd43b,color:#000
+    style X fill:#b197fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#ffd43b,color:#000
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style BK fill:#ff6b6b,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#51cf66,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#51cf66,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#ff6b6b,color:#fff
+    style BS fill:#ffd43b,color:#000
+    style BT fill:#ff6b6b,color:#fff
+    style BU fill:#ff6b6b,color:#fff
+    style BV fill:#ffd43b,color:#000
+    style BW fill:#ffd43b,color:#000
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#51cf66,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#b197fc,color:#fff
+    style CC fill:#b197fc,color:#fff
+    style CD fill:#b197fc,color:#fff
+    style CE fill:#b197fc,color:#fff

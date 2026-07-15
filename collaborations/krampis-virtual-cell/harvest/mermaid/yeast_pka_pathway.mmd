@@ -1,0 +1,196 @@
+graph TD
+    %% Glucose Sensing
+    A[Extracellular Glucose] --> B{OR: Which<br/>Sensor?}
+    B -->|Gpr1/Gpa2| C[GPCR Pathway]
+    B -->|Ras1/2| D[Ras Pathway]
+    
+    %% GPCR Branch
+    C --> E[Gpr1 Glucose Receptor]
+    E --> F[Glucose Binding]
+    F --> G[Gpa2 G-protein Activation]
+    G --> H[Gpa2-GTP Formation]
+    H --> I[Gpa2-GTP Activates Cyr1]
+    
+    %% Ras Branch
+    D --> J[Glucose Metabolism]
+    J --> K[ATP Production]
+    K --> L[High Energy State]
+    L --> M{OR: Ras1<br/>or Ras2?}
+    M -->|Ras1| N[Cdc25 GEF Activates Ras1]
+    M -->|Ras2| O[Cdc25 GEF Activates Ras2]
+    
+    N --> P(\1)
+    O --> Q(\1)
+    P --> R[Ras-GTP Activates Cyr1]
+    Q --> R
+    
+    %% Adenylyl Cyclase Activation
+    I --> S{AND: Gpa2-GTP<br/>AND Ras-GTP?}
+    R --> S
+    S -->|No| T[Low cAMP]
+    S -->|Yes| U[Cyr1 Adenylyl Cyclase Active]
+    
+    U --> V[ATP → cAMP + PPi]
+    V --> W[cAMP Accumulation]
+    
+    %% PKA Activation
+    W --> X[cAMP Binds Bcy1]
+    X --> Y[Bcy1 Regulatory Subunit]
+    Y --> Z{AND: 4 cAMP<br/>Molecules?}
+    Z -->|No| AA[/PKA Inactive/]
+    Z -->|Yes| AB[Bcy1 Conformational Change]
+    
+    AB --> AC[Tpk1/2/3 Release]
+    AC --> AD{OR: Which<br/>Catalytic Subunit?}
+    AD -->|Tpk1| AE[Tpk1 Active]
+    AD -->|Tpk2| AF[Tpk2 Active]
+    AD -->|Tpk3| AG[Tpk3 Active]
+    
+    %% PKA Substrates - Stress Response
+    AE --> AH{OR: Which<br/>Target?}
+    AF --> AH
+    AG --> AH
+    
+    AH -->|Msn2/4| AI[Msn2/4 Stress TFs]
+    AH -->|Trehalase| AJ[Nth1 Trehalase]
+    AH -->|Ribosomal| AK[Ribosomal Proteins]
+    AH -->|Transcription| AL[RNA Pol II CTD]
+    
+    %% Msn2/4 Regulation
+    AI --> AM[PKA Phosphorylates Msn2/4]
+    AM --> AN[14-3-3 Binding]
+    AN --> AO[Nuclear Export]
+    AO --> AP[Cytoplasmic Retention]
+    AP --> AQ[/Stress Genes Repressed/]
+    
+    T --> AR[Low PKA Activity]
+    AR --> AS[Msn2/4 Nuclear]
+    AS --> AT[STRE Element Binding]
+    AT --> AU[Stress Gene Expression]
+    AU --> AV([Stress Resistance])
+    
+    %% Glycogen Mobilization
+    AJ --> AW[PKA Activates Nth1]
+    AW --> AX[Trehalose-6-P → Glucose]
+    AX --> AY[Glycogen Breakdown]
+    AY --> AZ(\1)
+    AZ --> BA(\1)
+    BA --> BB([Energy Production])
+    
+    %% Translation Activation
+    AK --> BC[Ribosomal Protein Phosphorylation]
+    BC --> BD[Enhanced Translation]
+    BD --> BE[Protein Synthesis]
+    
+    AL --> BF[Pol II CTD Phosphorylation]
+    BF --> BG[Enhanced Transcription]
+    BG --> BH[Growth Gene Expression]
+    
+    BE --> BI[Cell Growth]
+    BH --> BI
+    BI --> BJ([Rapid Proliferation])
+    
+    %% Feedback - cAMP Degradation
+    W --> BK{OR: Phosphodiesterase?}
+    BK -->|Pde1| BL[Pde1 High Affinity]
+    BK -->|Pde2| BM[Pde2 Low Affinity]
+    
+    BL --> BN[cAMP → 5'-AMP]
+    BM --> BN
+    BN --> BO[/cAMP Degraded/]
+    BO --> BP[Reduced PKA Activity]
+    
+    %% PKA Phosphorylates Pde1
+    AH -->|Pde1| BQ[PKA Phosphorylates Pde1]
+    BQ --> BR[Pde1 Activated]
+    BR --> BN
+    
+    %% Glucose Depletion
+    BS[\\\Glucose Depleted///] --> BT[/Ras-GDP Inactive/]
+    BT --> BU[/Gpa2-GDP Inactive/]
+    BU --> BV[/Cyr1 Inactive/]
+    BV --> BW[cAMP Drops]
+    BW --> BX[/PKA Inactive/]
+    BX --> BY[Growth Arrest]
+    BY --> BZ([Stationary Phase])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#ffd43b,color:#000
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#b197fc,color:#fff
+    style L fill:#b197fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AI fill:#ff6b6b,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#ffd43b,color:#000
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#ff6b6b,color:#fff
+    style AV fill:#ff6b6b,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style BC fill:#ffd43b,color:#000
+    style BD fill:#51cf66,color:#fff
+    style BE fill:#ffd43b,color:#000
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#b197fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#b197fc,color:#fff
+    style BZ fill:#74c0fc,color:#fff

@@ -1,0 +1,208 @@
+graph TD
+    A[DNA Damage Event] --> B{Lesion Type?}
+    
+    B -->|UV Damage| C[Cyclobutane Pyrimidine Dimers]
+    B -->|UV Damage| D[6-4 Photoproducts]
+    B -->|Chemical Adduct| E[Bulky DNA Adducts]
+    B -->|Oxidative| F[Other Helix-Distorting Lesions]
+    
+    C --> G[Major Helix Distortion]
+    D --> G
+    E --> G
+    F --> G
+    
+    %% Damage Recognition Pathway Choice
+    G --> H{Repair Pathway?}
+    
+    H -->|Transcription-Coupled| I[RNA Pol Stalled at Lesion]
+    H -->|Global Genome| J[UvrA-UvrB Complex Formation]
+    
+    %% Transcription-Coupled NER
+    I --> K[Mfd Transcription Repair Coupling Factor]
+    K --> L[RNA Pol Displacement]
+    L --> M[Mfd Recruitment of UvrA]
+    M --> J
+    
+    %% Global Genome NER - Damage Recognition
+    J --> N[UvrA2-UvrB1 Complex]
+    N --> O[ATP-Dependent DNA Scanning]
+    O --> P{Damage Detected?}
+    
+    P -->|No Damage| Q[Continue Scanning]
+    Q --> O
+    P -->|Potential Damage| R[UvrB Loading]
+    
+    R --> S[UvrB DNA Unwinding]
+    S --> T[β-Hairpin Insertion]
+    T --> U{Damage Verification?}
+    
+    U -->|False Positive| V[UvrA-UvrB Dissociation]
+    V --> O
+    U -->|True Damage| W[Stable UvrB-DNA Complex]
+    
+    %% UvrA Dissociation and UvrC Recruitment
+    W --> X[ATP Hydrolysis]
+    X --> Y[UvrA Dissociation]
+    Y --> Z[UvrB Remains Bound]
+    
+    Z --> AA[UvrC Recognition of UvrB]
+    AA --> AB{UvrC Recruitment?}
+    AB -->|Yes| AC[UvrB-UvrC Complex]
+    AB -->|No| AD[Abortive Repair]
+    
+    %% Dual Incision
+    AC --> AE{Incision Coordination?}
+    AE -->|Both Sites Ready| AF[Dual Incision]
+    
+    AF --> AG[UvrC 3' Incision]
+    AG --> AH[4-5 nt 3' to Lesion]
+    AH --> AI[UvrC 5' Incision]
+    AI --> AJ[8 nt 5' to Lesion]
+    
+    AJ --> AK[12-13 nt Fragment Generated]
+    AK --> AL[UvrC Dissociation]
+    
+    %% Excision and Gap Creation
+    AL --> AM[UvrD Helicase Recognition]
+    AM --> AN{UvrD Activity?}
+    AN -->|ATP Available| AO[Helicase Unwinding]
+    AN -->|No ATP| AP[Stalled State]
+    
+    AO --> AQ[5' to 3' Translocation]
+    AQ --> AR[Oligonucleotide Displacement]
+    AR --> AS[Excised Fragment Release]
+    AS --> AT[UvrB Dissociation]
+    
+    AT --> AU[Single-Strand Gap 12-13 nt]
+    AU --> AV{Gap Filling Ready?}
+    
+    %% DNA Synthesis
+    AV -->|3'-OH Present| AW[DNA Pol I Recognition]
+    AV -->|End Processing Needed| AX[Additional Factors]
+    
+    AW --> AY[Pol I 5'-3' Polymerase]
+    AY --> AZ[dNTP Incorporation]
+    AZ --> BA[Processive Synthesis]
+    BA --> BB[Gap Filled 12-13 nt]
+    
+    BB --> BC{Nick Remaining?}
+    BC -->|Yes| BD[DNA Ligase Recognition]
+    BC -->|No| BE[Unexpected State]
+    
+    %% Nick Sealing
+    BD --> BF[NAD+ Ligase LigA]
+    BF --> BG[Adenylate Transfer]
+    BG --> BH[Phosphodiester Bond Formation]
+    BH --> BI[Nick Sealed]
+    
+    BI --> BJ[Restored DNA Helix]
+    BJ --> BK{Repair Verification?}
+    BK -->|Successful| BL[Genome Integrity]
+    BK -->|Residual Damage| BM[Secondary Repair]
+    
+    %% Quality Control
+    BL --> BN[Normal DNA Structure]
+    BN --> BO[Replication Competent]
+    BO --> BP[Transcription Competent]
+    BP --> BQ[Cell Survival]
+    
+    %% Error Pathways
+    AD --> BR[Incomplete Repair]
+    AP --> BR
+    BE --> BR
+    BM --> BS{Lesion Persistent?}
+    BS -->|Yes| BT[Alternative Repair Pathways]
+    BS -->|Bypass| BU[Translesion Synthesis]
+    
+    BT --> BV[Recombination Repair]
+    BU --> BW[Error-Prone Bypass]
+    
+    %% Regulation and Coordination
+    AX --> BY{Processing Type?}
+    BY -->|3' Block| BZ(\1)
+    BY -->|5' Block| CA(\1)
+    BZ --> AV
+    CA --> AV
+    
+    %% Final Outcomes
+    BQ --> CB[Successful NER]
+    BV --> CC[Backup Repair]
+    BW --> CD[Mutagenic Outcome]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#ffd43b,color:#000
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#ffd43b,color:#000
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BD fill:#51cf66,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#51cf66,color:#fff
+    style BP fill:#51cf66,color:#fff
+    style BQ fill:#b197fc,color:#fff
+    style BR fill:#b197fc,color:#fff
+    style BT fill:#51cf66,color:#fff
+    style BU fill:#51cf66,color:#fff
+    style BV fill:#51cf66,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BZ fill:#51cf66,color:#fff
+    style CA fill:#51cf66,color:#fff
+    style CB fill:#74c0fc,color:#fff
+    style CC fill:#51cf66,color:#fff
+    style CD fill:#b197fc,color:#fff

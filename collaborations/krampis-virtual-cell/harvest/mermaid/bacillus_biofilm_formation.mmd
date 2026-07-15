@@ -1,0 +1,168 @@
+graph TD
+    %% Environmental Signals and Inputs
+    A[Nutrient Limitation] --> B[Environmental Stress Signal]
+    C[High Cell Density] --> D[Quorum Sensing Signal]
+    E[Surface Contact] --> F[Surface Sensing Signal]
+    G[DNA Damage] --> H[SOS Response Signal]
+    I[Oxygen Limitation] --> J[Anaerobic Signal]
+    
+    %% OR Gate 1: Multiple Biofilm Triggers
+    B --> K{OR: Any Biofilm<br/>Inducing Signal?}
+    D --> K
+    F --> K
+    H --> K
+    J --> K
+    K -->|Yes - Signals Present| L[Kinase Phosphorylation Cascade]
+    K -->|No - No Signals| M[Maintain Planktonic State]
+    
+    %% Spo0A Phosphoryl Transfer
+    L --> N[KinA/KinB/KinC/KinD Autophosphorylation]
+    N --> O[Phosphotransfer to Spo0F]
+    O --> P[Spo0F~P Formation]
+    P --> Q[Spo0B Phosphotransferase]
+    Q --> R[Spo0A Phosphorylation]
+    R --> S[Spo0A~P Accumulation]
+    
+    %% OR Gate 2: Spo0A~P Threshold
+    S --> T{OR: Spo0A~P<br/>Above Threshold?}
+    T -->|Low - Below Threshold| M
+    T -->|High - Above Threshold| U[Biofilm Program Activation]
+    
+    %% SinR Repression Relief
+    U --> V[sinI Gene Transcription]
+    V --> W[SinI Protein Production]
+    W --> X[SinI Binds SinR]
+    X --> Y[/SinR Repressor Inactivated/]
+    
+    %% AND Gate 1: Matrix Gene Derepression
+    Y --> Z["{AND: SinR Inactive<br/>AND Spo0A~P High?"]}
+    S --> Z
+    Z -->|No| M
+    Z -->|Yes| AA[/Matrix Gene Derepression/]
+    
+    %% OR Gate 3: Which Matrix Operon?
+    AA --> AB{OR: Which Matrix<br/>Component?}
+    AB -->|EPS Route| AC[epsA-O Operon Transcription]
+    AB -->|TasA Route| AD[tasA Operon Transcription]
+    AB -->|Both Routes| AE[Both Operons Active]
+    
+    %% EPS Biosynthesis Pathway
+    AC --> AF[EpsA-O Proteins Produced]
+    AF --> AG[EpsA Glycosyltransferase]
+    AG --> AH[EpsB-E Sugar Synthesis]
+    AH --> AI[EpsF-O Export Complex]
+    AI --> AJ[Exopolysaccharide Synthesis]
+    AJ --> AK[EPS Secreted to Matrix]
+    
+    %% TasA Amyloid Pathway
+    AD --> AL[TasA Protein Synthesis]
+    AL --> AM[TapA Anchor Protein]
+    AM --> AN[SipW Signal Peptidase]
+    AN --> AO[TasA Cleavage and Maturation]
+    AO --> AP[TasA Polymerization]
+    AP --> AQ[Amyloid Fiber Formation]
+    AQ --> AR[Fibers Secreted to Matrix]
+    
+    %% AND Gate 2: Matrix Assembly
+    AK --> AS{AND: EPS Present<br/>AND TasA Present?}
+    AR --> AS
+    AS -->|No - One Component Only| AT[Weak Matrix]
+    AS -->|Yes - Both Present| AU[Strong Matrix Assembly]
+    
+    %% Motility Repression
+    U --> AV[/hag Flagellin Repression/]
+    AV --> AW[\Flagella Synthesis Blocked/]
+    AW --> AX[Motility Lost]
+    
+    %% AND Gate 3: Biofilm Commitment
+    AU --> AY{AND: Matrix Present<br/>AND Motility Lost?}
+    AX --> AY
+    AY -->|No| AZ[\Reversible State/]
+    AY -->|Yes| BA[Irreversible Biofilm Commitment]
+    
+    %% Biofilm Maturation
+    BA --> BB[Cell-Cell Adhesion]
+    BB --> BC[3D Architecture Development]
+    BC --> BD[Channels and Towers Formation]
+    BD --> BE[Nutrient Gradient Establishment]
+    
+    %% Heterogeneity and Division of Labor
+    BE --> BF{OR: Cell Fate<br/>Decision?}
+    BF -->|Matrix Producers| BG[High EPS/TasA Expression]
+    BF -->|Sporulation| BH[Spo0A Very High - Sporulation]
+    BF -->|Surfactin Producers| BI[Surfactin Synthesis]
+    
+    %% Final Outputs
+    BG --> BJ[Mature Biofilm Structure]
+    BH --> BJ
+    BI --> BJ
+    BJ --> BK([Biofilm Established])
+    M --> BL([Planktonic Growth])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style J fill:#ff6b6b,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#b197fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#ffd43b,color:#000
+    style AM fill:#ffd43b,color:#000
+    style AN fill:#ff6b6b,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#ff6b6b,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#51cf66,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#b197fc,color:#fff

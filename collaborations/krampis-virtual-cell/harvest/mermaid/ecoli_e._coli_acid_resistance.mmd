@@ -1,0 +1,178 @@
+graph TD
+    %% Acid Shock
+    A[Extreme Acid Exposure] --> B{OR: pH<br/>Level?}
+    B -->|pH 5-7| C[Mild Acid]
+    B -->|pH 2-3| D[Extreme Acid]
+    
+    C --> E[Periplasmic pH Drops]
+    D --> E
+    E --> F[Proton Influx]
+    F --> G[Cytoplasmic Acidification]
+    
+    %% OR Gate: Which AR System?
+    G --> H{OR: Which Acid<br/>Resistance?}
+    H -->|AR1| I[Oxidative System]
+    H -->|AR2| J[Glutamate-Dependent]
+    H -->|AR3| K[Arginine-Dependent]
+    
+    %% AR1 System - Glucose Repressed
+    I --> L{OR: Glucose<br/>Present?}
+    L -->|Yes| M[\AR1 Repressed/]
+    L -->|No| N[RpoS σS Activation]
+    
+    N --> O[Stationary Phase Stress]
+    O --> P[RpoS Accumulation]
+    P --> Q[AR1 Gene Expression]
+    Q --> R[Oxidative Stress Proteins]
+    R --> S[Catalases/Peroxidases]
+    S --> T[ROS Detoxification]
+    T --> U([Mild Protection])
+    
+    %% AR2 System - Glutamate
+    J --> V{OR: Glutamate<br/>Available?}
+    V -->|No| W[\AR2 Inactive/]
+    V -->|Yes| X[GadE/W/X Regulators]
+    
+    X --> Y[gadABC Operon Induction]
+    Y --> Z[GadA/GadB Decarboxylases]
+    Z --> AA[GadC Glutamate/GABA Antiporter]
+    
+    %% Decarboxylation Reaction
+    AA --> AB[External Glutamate Import]
+    AB --> AC[Glutamate in Cytoplasm]
+    AC --> AD[GadA/B Glutamate Decarboxylase]
+    AD --> AE[Glu + H+ → GABA + CO2]
+    AE --> AF[Proton Consumed]
+    AF --> AG[Cytoplasmic pH Maintained]
+    
+    %% GABA Export
+    AE --> AH[GABA Product]
+    AH --> AI[GadC Antiporter]
+    AI --> AJ[GABA Out / Glu In]
+    AJ --> AK[Continuous Cycle]
+    AK --> AL([Strong Protection pH 2-3])
+    
+    %% AR3 System - Arginine
+    K --> AM["\OR: Arginine<br/>Available?"]
+    AM -->|No| AN[\AR3 Inactive/]
+    AM -->|Yes| AO[AdiA Arginine Decarboxylase]
+    
+    AO --> AP[Arginine in Cytoplasm]
+    AP --> AQ["AdiA: Arg + H+ → Agmatine + CO2"]
+    AQ --> AR[Proton Consumed]
+    AR --> AS[pH Maintained]
+    
+    AQ --> AT[Agmatine Product]
+    AT --> AU[AdiC Antiporter]
+    AU --> AV[Agmatine Out / Arg In]
+    AV --> AW[/Continuous Cycle/]
+    AW --> AX([Moderate Protection])
+    
+    %% EvgA/S Regulation
+    E --> AY[EvgS Sensor Kinase]
+    AY --> AZ[Mild Acid Detection]
+    AZ --> BA[EvgS Autophosphorylation]
+    BA --> BB[EvgA Phosphorylation]
+    BB --> BC[EvgA~P Active]
+    BC --> BD[gadE/gadX/gadW Expression]
+    BD --> X
+    
+    %% GadE Cascade
+    X --> BE[GadE Master Regulator]
+    BE --> BF[GadE Activates gadA/gadB/gadC]
+    BF --> Y
+    
+    %% Other Protective Mechanisms
+    G --> BG{OR: Other<br/>Protection?}
+    BG -->|F1Fo ATPase| BH[Proton Pump Reversal]
+    BG -->|Amino Acid Transport| BI[Lysine/Ornithine Decarboxylases]
+    BG -->|DNA Repair| BJ[Base Excision Repair]
+    
+    BH --> BK[ATP-Dependent H+ Export]
+    BK --> BL[Energy Cost]
+    BI --> BM[/Alternative Decarboxylation/]
+    BJ --> BN[Repair Acid Damage]
+    
+    BL --> BO["(\1)"]
+    BM --> BO
+    BN --> BO
+    AL --> BO
+    AX --> BO
+    U --> BO
+    
+    M --> BP([Acid Sensitive])
+    W --> BP
+    AN --> BP
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#ff6b6b,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#ff6b6b,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#ff6b6b,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#b197fc,color:#fff
+    style AH fill:#b197fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#b197fc,color:#fff
+    style AT fill:#b197fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#51cf66,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#51cf66,color:#fff
+    style BK fill:#51cf66,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#ff6b6b,color:#fff
+    style BO fill:#b197fc,color:#fff
+    style BP fill:#74c0fc,color:#fff

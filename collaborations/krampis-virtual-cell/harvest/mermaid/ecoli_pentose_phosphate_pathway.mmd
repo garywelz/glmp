@@ -1,0 +1,155 @@
+graph TD
+    %% Entry Points
+    A[Glucose-6-Phosphate] --> B{OR: Which<br/>Pathway?}
+    B -->|Oxidative PPP| C[Enter Oxidative Phase]
+    B -->|Glycolysis| D[Phosphoglucose Isomerase]
+    B -->|Both| E[Flux Split]
+    
+    %% Oxidative Phase Step 1
+    C --> F["Zwf: G6P Dehydrogenase"]
+    F --> G{AND: NADP+<br/>Available?}
+    G -->|No| H[\Enzyme Inhibited/]
+    G -->|Yes| I[6-Phosphogluconolactone]
+    I --> J[NADPH #1 Produced]
+    
+    %% Oxidative Phase Step 2
+    I --> K["Pgl: 6-Phosphogluconolactonase"]
+    K --> L[6-Phosphogluconate]
+    
+    %% Oxidative Phase Step 3
+    L --> M["Gnd: 6PG Dehydrogenase"]
+    M --> N{AND: NADP+<br/>Available?}
+    N -->|No| O[\Enzyme Inhibited/]
+    N -->|Yes| P[Ribulose-5-Phosphate]
+    P --> Q[NADPH #2 Produced]
+    P --> R[CO2 Released]
+    
+    %% Branch Point
+    P --> S{OR: Cellular<br/>Need?}
+    S -->|NADPH for Biosynthesis| T[End Oxidative - NADPH Output]
+    S -->|Ribose-5-P for Nucleotides| U[Enter Isomerization]
+    S -->|Recycle to Glycolysis| V[Enter Non-oxidative Phase]
+    
+    %% Isomerization
+    U --> W["Rpe: Ru5P Epimerase"]
+    W --> X[Xylulose-5-Phosphate]
+    U --> Y["Rpi: Ru5P Isomerase"]
+    Y --> Z[Ribose-5-Phosphate]
+    
+    %% OR Gate: Nucleotide Synthesis
+    Z --> AA{OR: Which<br/>Nucleotide?}
+    AA -->|Purine| AB[PRPP Synthetase]
+    AA -->|Pyrimidine| AC[UMP Synthesis]
+    AA -->|Histidine| AD[Histidine Biosynthesis]
+    AB --> AE([Nucleotide Biosynthesis])
+    AC --> AE
+    AD --> AE
+    
+    %% Non-oxidative Phase
+    V --> AF[Mix of Sugar Phosphates]
+    X --> AF
+    Z --> AF
+    
+    %% Transketolase Reaction 1
+    AF --> AG["TktA: Transketolase"]
+    AG --> AH[/X5P + R5P → S7P + G3P/]
+    AH --> AI[Sedoheptulose-7-P]
+    AH --> AJ[Glyceraldehyde-3-P]
+    
+    %% Transaldolase Reaction
+    AI --> AK["TalB: Transaldolase"]
+    AJ --> AK
+    AK --> AL[S7P + G3P → F6P + E4P]
+    AL --> AM[Fructose-6-Phosphate]
+    AL --> AN[Erythrose-4-Phosphate]
+    
+    %% Transketolase Reaction 2
+    AN --> AO["/TktB: Transketolase"]
+    X --> AO
+    AO --> AP[E4P + X5P → F6P + G3P]
+    AP --> AQ[Fructose-6-Phosphate #2]
+    AP --> AR[Glyceraldehyde-3-P #2]
+    
+    %% Return to Glycolysis
+    AM --> AS{OR: Which<br/>Fate?}
+    AQ --> AS
+    AS -->|Lower Glycolysis| AT[Fructose-1,6-Bisphosphate]
+    AS -->|Gluconeogenesis| AU[Glucose-6-Phosphate]
+    
+    AJ --> AV{OR: Glycolysis<br/>Fate?}
+    AR --> AV
+    AV -->|Pyruvate| AW[Lower Glycolysis]
+    AV -->|Recycle| AU
+    
+    %% Operational Modes
+    AT --> AX["Mode 1: Max NADPH"]
+    AU --> AY["Mode 2: Max Ribose-5-P"]
+    AU --> AZ["Mode 3: Recycle to Glycolysis"]
+    
+    %% Outputs
+    T --> BA([NADPH for Fatty Acid Synthesis])
+    J --> BA
+    Q --> BA
+    AW --> BB([Pyruvate to TCA])
+    AX --> BB
+    AY --> BC([Pentose Sugars])
+    AZ --> BD([Glycolytic Intermediates])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style T fill:#b197fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#ffd43b,color:#000
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff

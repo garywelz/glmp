@@ -1,0 +1,180 @@
+graph TD
+    %% Heat Stress
+    A[Temperature Increase] --> B{OR: Stress<br/>Level?}
+    B -->|Normal 37°C| C(\1)
+    B -->|Heat Shock >42°C| D[Protein Stress]
+    
+    %% Normal Conditions
+    C --> E[σ32 RpoH Basal Level]
+    E --> F[DnaK/DnaJ Chaperones Available]
+    F --> G[DnaK Binds σ32]
+    G --> H[DnaJ Stimulates ATPase]
+    H --> I[DnaK-ADP-σ32 Complex]
+    I --> J[GrpE Nucleotide Exchange]
+    J --> K[DnaK Releases σ32]
+    K --> L[FtsH Protease Access]
+    L --> M[/σ32 Degradation/]
+    M --> N[Low σ32 t1/2 ~1 min]
+    N --> O([Basal Heat Shock Genes])
+    
+    %% Heat Shock - Protein Misfolding
+    D --> P[Proteins Unfold]
+    P --> Q[Hydrophobic Residues Exposed]
+    Q --> R[Misfolded Protein Accumulation]
+    
+    %% Chaperone Titration
+    R --> S[DnaK/DnaJ Bind Misfolded Proteins]
+    S --> T[Chaperones Sequestered]
+    T --> U[/σ32 Not Bound by DnaK/]
+    U --> V[σ32 Stabilized]
+    V --> W[σ32 Accumulates]
+    
+    %% σ32-RNAP Complex
+    W --> X[σ32 Binds Core RNAP]
+    X --> Y{AND: σ32 + Core<br/>RNAP?}
+    Y -->|No| Z[/No Transcription/]
+    Y -->|Yes| AA[Eσ32 Holoenzyme]
+    
+    %% Heat Shock Promoter Recognition
+    AA --> AB[Eσ32 Recognizes Heat Shock Promoters]
+    AB --> AC[-35 CTTGAAA]
+    AC --> AD[-10 CCCCATNT]
+    AD --> AE[Heat Shock Gene Transcription]
+    
+    %% OR Gate: Which Heat Shock Gene?
+    AE --> AF{OR: Which<br/>Gene Class?}
+    AF -->|dnaK/dnaJ/grpE| AG[DnaK Chaperone System]
+    AF -->|groEL/groES| AH[GroEL Chaperonin System]
+    AF -->|clpB| AI[ClpB Disaggregase]
+    AF -->|lon/ftsH| AJ[ATP-Dependent Proteases]
+    AF -->|htpG| AK[HtpG Hsp90 Homolog]
+    AF -->|ibpAB| AL[Small Heat Shock Proteins]
+    
+    %% DnaK System Upregulation
+    AG --> AM[DnaK/DnaJ/GrpE Production]
+    AM --> AN[Enhanced Chaperone Capacity]
+    AN --> AO[Protein Refolding]
+    
+    %% GroEL System
+    AH --> AP[GroEL/ES Production]
+    AP --> AQ[GroEL Barrel Complex]
+    AQ --> AR[Anfinsen Cage]
+    AR --> AS[Substrate Encapsulation]
+    AS --> AT[ATP-Dependent Folding]
+    AT --> AO
+    
+    %% ClpB Disaggregase
+    AI --> AU[ClpB AAA+ ATPase]
+    AU --> AV[Aggregate Recognition]
+    AV --> AW{AND: ClpB + DnaK<br/>Cooperation?}
+    AW -->|No| AX[Aggregates Persist]
+    AW -->|Yes| AY[Aggregate Disassembly]
+    AY --> AZ[Proteins Extracted]
+    AZ --> AO
+    
+    %% Proteolytic Quality Control
+    AJ --> BA[Lon/FtsH Proteases]
+    BA --> BB[Recognize Misfolded Proteins]
+    BB --> BC[Irreversibly Damaged]
+    BC --> BD[/Protease Degradation/]
+    BD --> BE[Amino Acids Recycled]
+    
+    %% Negative Feedback
+    AM --> BF[Newly Synthesized DnaK]
+    BF --> BG[Excess Chaperone Capacity]
+    BG --> BH[DnaK Rebinds σ32]
+    BH --> BI[σ32 Destabilization]
+    BI --> BJ[/FtsH Degrades σ32/]
+    BJ --> BK[σ32 Levels Drop]
+    BK --> BL[Heat Shock Response OFF]
+    
+    %% Resolution
+    AO --> BM[Proteins Refolded]
+    BE --> BM
+    BM --> BN[Proteome Restored]
+    BN --> BO[Temperature Normalized]
+    BO --> BP["(\1)"]
+    
+    AX --> BQ[Inclusion Bodies]
+    BQ --> BR[Permanent Aggregates]
+    BR --> BS([Cell Death])
+    
+    Z --> BT([No Response])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#ff6b6b,color:#fff
+    style P fill:#ffd43b,color:#000
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style S fill:#ffd43b,color:#000
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#ffd43b,color:#000
+    style AB fill:#ff6b6b,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#ff6b6b,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#ff6b6b,color:#fff
+    style AM fill:#b197fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#ffd43b,color:#000
+    style AP fill:#b197fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#51cf66,color:#fff
+    style AZ fill:#ffd43b,color:#000
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style BC fill:#ff6b6b,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#ff6b6b,color:#fff
+    style BM fill:#ffd43b,color:#000
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#b197fc,color:#fff
+    style BT fill:#b197fc,color:#fff

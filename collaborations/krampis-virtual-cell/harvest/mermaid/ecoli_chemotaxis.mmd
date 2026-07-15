@@ -1,0 +1,160 @@
+graph TD
+    A[Chemical Gradient] -->|Attractant| B[Serine, Aspartate]
+    A -->|Repellent| C[Ni2+, Co2+]
+    
+    B --> D[MCP Receptors]
+    C --> D
+    D -->|Tsr, Tar, Trg, Tap| E{Ligand Binding?}
+    
+    E -->|Attractant Bound| F[MCP Conformational Change]
+    E -->|Repellent Bound| G[Opposite Conformation]
+    E -->|No Ligand| H[Basal State]
+    
+    F --> I[Reduced CheA Activity]
+    G --> J[Increased CheA Activity]
+    H --> K[Moderate CheA Activity]
+    
+    K --> L[CheA Histidine Kinase]
+    J --> L
+    I --> L
+    
+    L -->|Requires| M[CheW Coupling Protein]
+    M --> N[Receptor-CheW-CheA Complex]
+    N --> O{CheA Autophosphorylation?}
+    
+    O -->|High Activity| P[CheA~P]
+    O -->|Low Activity| Q[Unphosphorylated CheA]
+    
+    P --> R{Phosphotransfer Branch?}
+    R -->|To CheY| S[CheY~P]
+    R -->|To CheB| T[CheB~P]
+    
+    S --> U{CheY~P Concentration?}
+    U -->|High| V[Enhanced Motor Binding]
+    U -->|Low| W[Reduced Motor Binding]
+    
+    V --> X[FliM FliN FliG Motor Complex]
+    W --> X
+    X --> Y{Motor Rotation?}
+    
+    Y -->|CheY~P Bound| Z[Clockwise CW Rotation]
+    Y -->|CheY~P Unbound| AA[Counterclockwise CCW Rotation]
+    
+    Z --> AB(\1)
+    AA --> AC[Smooth Swimming Run]
+    
+    AB --> AD{New Direction?}
+    AD -->|Random| AE[Reorientation]
+    AE --> AF{Gradient Assessment?}
+    
+    AF -->|Better| AC
+    AF -->|Worse| AB
+    
+    AC --> AG{Continue Run?}
+    AG -->|Favorable Gradient| AC
+    AG -->|Unfavorable| AB
+    
+    S --> AH[CheZ Phosphatase]
+    AH --> AI[CheY Dephosphorylation]
+    AI --> AJ[/Rapid Signal Termination/]
+    
+    T --> AK[Active CheB Methylesterase]
+    AK --> AL{Adaptation Mechanism?}
+    
+    AL -->|Demethylation| AM[Remove Methyl Groups]
+    AM --> AN[MCP Glutamate Residues]
+    AN --> AO[Reduced Sensitivity]
+    
+    D --> AP[CheR Methyltransferase]
+    AP --> AQ{Constitutive Methylation?}
+    AQ -->|Yes| AR[Add Methyl Groups]
+    AR --> AS[MCP Glutamine Residues]
+    AS --> AT[Increased Sensitivity]
+    
+    AO --> AU{Adaptation Balance?}
+    AT --> AU
+    AU -->|Equilibrium| AV[Restored Basal Activity]
+    AV --> L
+    
+    F --> AW{Temporal Sensing?}
+    AW -->|Increasing Attractant| AX[Sustained Low CheA]
+    AW -->|Decreasing Attractant| AY[Sustained High CheA]
+    
+    AX --> AZ[Prolonged Runs]
+    AY --> BA[Frequent Tumbles]
+    
+    AZ --> BB{Gradient Climbing?}
+    BA --> BB
+    BB -->|Successful| BC[Accumulation at Peak]
+    BB -->|Unsuccessful| BD[Continue Searching]
+    
+    BC --> BE[Optimal Environment]
+    BE --> BF[Enhanced Growth]
+    
+    D --> BG{Receptor Clustering?}
+    BG -->|Cooperative| BH[Receptor Arrays]
+    BH --> BI[Signal Amplification]
+    BI --> BJ[Enhanced Sensitivity]
+    BJ --> N
+    
+    N --> BK{Allosteric Coupling?}
+    BK -->|Team Response| BL[Coordinated Activity]
+    BL --> O
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#51cf66,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#ff6b6b,color:#fff
+    style BF fill:#b197fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#ff6b6b,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff

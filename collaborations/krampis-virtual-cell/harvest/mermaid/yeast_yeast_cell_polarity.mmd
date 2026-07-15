@@ -1,0 +1,130 @@
+graph TD
+    A[Start Yeast Cell Polarity] --> B[Cell Cycle Progression into G1]
+    B --> C[Bud Site Selection Trigger]
+    C --> D{Haploid or Diploid Cell?}
+    D -->|Haploid| E[Axial Budding Pathway]
+    D -->|Diploid| F[Bipolar Budding Pathway]
+
+    E --> G[Bud3 & Bud4 Localization]
+    G --> H[Axial Bud Site Marker Formed]
+
+    F --> I[Rsr1/Bud1, Bud2, Bud5 Recruitment]
+    I --> J[Bipolar Bud Site Marker Formed]
+
+    H --> K{Bud Site Established?}
+    J --> K
+    K -->|Yes| L["Recruitment of Cdc24 (GEF)"]
+    K -->|No| MA[Budding Defect, Re-evaluate]
+
+    L --> N[Cdc24 Activates Cdc42-GDP to Cdc42-GTP]
+    N --> O[Local Accumulation of Cdc42-GTP]
+    O --> P[Cdc42-GTP Binds Effectors]
+    P --> Q["Recruitment of Bni1 (Formin)"]
+    P --> R[Recruitment of Spa2/Polarisome Components]
+    P --> S["Recruitment of Ste20 & Cla4 (PAK kinases)"]
+
+    Q & R & S --> T{Polarisome and Polarity Factors Assembled}
+
+    T --> U[Bni1 Nucleates Actin Cables]
+    T --> V[Cdc42-GTP Recruits Arp2/3 Complex]
+    V --> W[Arp2/3 Nucleates Actin Patches]
+    U --> X[Formation of Polarized Actin Cables]
+    W --> Y[Formation of Polarized Actin Patches]
+
+    X & Y --> Z{Directed Vesicle Transport & Secretion?}
+    Z -->|Yes| AA[Secretory Vesicle Docking & Fusion]
+    Z -->|No| AB[Loss of Polarized Growth, Defect]
+
+    AA --> AC[Cell Wall Expansion at Bud Site]
+    AC --> AD[Bud Emergence]
+
+    AD --> AE[Septin Ring Assembly Triggered]
+    AE --> AF["Cdc42-GTP & Gic2 Recruit Septins (Cdc3, Cdc10, Cdc11, Cdc12)"]
+    AF --> AG[Septin Filament Formation & Assembly]
+    AG --> AH[Stable Septin Ring at Bud Neck]
+
+    AH --> AI{Bud Growth Maintained & Directed?}
+    AI -->|Yes| AJ["Continued Polarized Growth (Apical)"]
+    AI -->|No| AK[Premature Loss of Polarity, Defect]
+
+    AJ --> AL[Cdc42-GTP Positive Feedback Loop]
+    AL --> AM["Cdc42-GTP Recruits More GEFs (Cdc24)"]
+    AL --> AN[/Cdc42-GTP Inhibits GAPs Rga1, Rga2, Bem3/]
+
+    AJ --> AO[Septin Ring Scaffolding Function]
+    AO --> AP["Localizes Polarity Factors (e.g., Bni1, Gic2)"]
+
+    AJ --> AQ[Actin Cable Mediated Vesicle Transport]
+
+    AM & AN & AP & AQ --> AR{Stable Polarity State Maintained}
+
+    AR --> AS[Cell Cycle Progression to Mitosis/Cytokinesis]
+    AS --> AT[Repolarization Signal for Cytokinesis]
+    AT --> AU[Disassembly of Apical Polarity Components]
+    AU --> AV[Assembly of Cytokinetic Actin Ring]
+    AV --> AW["Recruitment of Myo1 (Myosin II)"]
+    AV --> AX[Assembly of F-actin Ring]
+
+    AW & AX --> AY{Cytokinetic Ring Assembled}
+
+    AY --> AZ[Actin Ring Contraction & Membrane Ingression]
+    AZ --> BA[Cell Wall Resynthesis at Division Site]
+    BA --> BB[Cell Division & Daughter Cell Separation]
+    BB --> BC[End of Polarity Cycle]
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style MA fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#b197fc,color:#fff
+    style AC fill:#b197fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AJ fill:#b197fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#ffd43b,color:#000
+    style AQ fill:#51cf66,color:#fff
+    style AS fill:#b197fc,color:#fff
+    style AT fill:#ff6b6b,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style BC fill:#74c0fc,color:#fff

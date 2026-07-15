@@ -1,0 +1,174 @@
+graph TD
+    %% Precursor from Shikimate
+    A(\1) --> B[Shikimate Pathway Product]
+    B --> C[TrpE/D Anthranilate Synthase]
+    
+    %% Step 1: Anthranilate Formation
+    C --> D{AND: Chorismate + Gln<br/>AND TrpE/D?}
+    D -->|No| E[\Synthesis Blocked/]
+    D -->|Yes| F[TrpE Amidotransferase]
+    F --> G[Glutamine → Glutamate + NH3]
+    G --> H[NH3 Attacks Chorismate]
+    H --> I[Anthranilate Formation]
+    I --> J[Pyruvate Released]
+    
+    %% Step 2: Phosphoribosylation
+    I --> K[TrpD Phosphoribosyltransferase]
+    K --> L{AND: Anthranilate + PRPP<br/>AND TrpD?}
+    L -->|No| E
+    L -->|Yes| M[PRPP Transfer]
+    M --> N[N-5'-Phosphoribosyl-anthranilate]
+    N --> O[PPi Released]
+    
+    %% Step 3: Isomerization
+    N --> P[TrpF Phosphoribosylanthranilate Isomerase]
+    P --> Q[Amadori Rearrangement]
+    Q --> R[1-O-Carboxyphenylamino-1-deoxyribulose-5-P]
+    R --> S(\1)
+    
+    %% Step 4: Indole-Glycerol-P Formation
+    S --> T[TrpC Indole-3-Glycerol-P Synthase]
+    T --> U[Ring Closure + Decarboxylation]
+    U --> V[Indole-3-Glycerol Phosphate]
+    V --> W[CO2 Released]
+    
+    %% Step 5: Tryptophan Synthase
+    V --> X[TrpA/B Tryptophan Synthase]
+    X --> Y{AND: TrpA α-Subunit<br/>AND TrpB β-Subunit?}
+    Y -->|No| E
+    Y -->|Yes| Z[α2β2 Tetramer]
+    
+    %% TrpA Reaction
+    Z --> AA["TrpA: IGP → Indole + G3P"]
+    AA --> AB[Indole Intermediate]
+    AB --> AC[Indole Channeled to TrpB]
+    
+    %% TrpB Reaction  
+    AC --> AD["TrpB: Serine Dehydration"]
+    AD --> AE[/Serine + PLP → Aminoacrylate/]
+    AE --> AF[Indole + Aminoacrylate]
+    AF --> AG[C-C Bond Formation]
+    AG --> AH(\1)
+    AH --> AI[PLP Regenerated]
+    
+    %% Regulation - TrpR Repressor
+    AH --> AJ[Tryptophan Accumulation]
+    AJ --> AK{OR: Trp<br/>Level?}
+    AK -->|High| AL[Trp Binds TrpR]
+    AK -->|Low| AM[\TrpR Inactive/]
+    
+    AL --> AN[TrpR-Trp Complex]
+    AN --> AO[TrpR Binds trp Operator]
+    AO --> AP[/trp Operon Repression/]
+    AP --> AQ[/No Transcription/]
+    
+    AM --> AR[/No Repression/]
+    AR --> AS[trp Operon Transcription]
+    AS --> AT[TrpEDCBA mRNA]
+    AT --> AU[Enzyme Synthesis]
+    AU --> C
+    
+    %% Attenuation Control
+    AS --> AV[trpL Leader Sequence]
+    AV --> AW{OR: Trp-tRNA<br/>Charged?}
+    AW -->|Yes - High Trp| AX[Ribosome Fast Through Leader]
+    AW -->|No - Low Trp| AY[Ribosome Stalls at Trp Codons]
+    
+    AX --> AZ["Stem-Loop 3:4 Forms"]
+    AZ --> BA[/Terminator Hairpin/]
+    BA --> BB[/Transcription Terminated/]
+    BB --> AQ
+    
+    AY --> BC["Stem-Loop 2:3 Forms"]
+    BC --> BD[/Antiterminator/]
+    BD --> BE[Transcription Continues]
+    BE --> AT
+    
+    %% Tryptophan Utilization
+    AH --> BF{OR: Trp<br/>Fate?}
+    BF -->|Protein Synthesis| BG[tRNA-Trp Charging]
+    BF -->|Biosynthesis| BH[NAD+ Synthesis via Kynurenine]
+    BF -->|Secondary Metabolite| BI[Indole Production]
+    
+    BG --> BJ(\1)
+    BH --> BK[NAD+ Cofactor]
+    BI --> BL[Indole Signaling]
+    
+    BJ --> BM["(\1)"]
+    BK --> BN["(\1)"]
+    BL --> BO([Quorum Sensing])
+    
+    E --> BP([Tryptophan Starvation])
+    AQ --> BP
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#74c0fc,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#ffd43b,color:#000
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#ffd43b,color:#000
+    style AO fill:#ffd43b,color:#000
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#ffd43b,color:#000
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#51cf66,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#b197fc,color:#fff
+    style BJ fill:#51cf66,color:#fff
+    style BK fill:#ffd43b,color:#000
+    style BL fill:#ff6b6b,color:#fff
+    style BM fill:#ffd43b,color:#000
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#ff6b6b,color:#fff

@@ -1,0 +1,172 @@
+graph TD
+    %% Target Protein and Signals
+    A[Target Protein Synthesis] --> B[Protein in Cytoplasm]
+    C[Damage Signal] --> D[Misfolded Protein]
+    E[Cell Cycle Signal] --> F[/Cyclin Degradation Signal/]
+    G[Stress Signal] --> H[Stress Response Protein]
+    
+    B --> I{Protein Fate<br/>Decision?}
+    D --> I
+    F --> I
+    H --> I
+    
+    %% Degron Recognition
+    I -->|Degradation| J{Degron<br/>Present?}
+    J -->|Yes| K[Degron Exposed]
+    K --> L[E3 Ligase Recognition]
+    
+    %% E3 Ligase Types
+    L --> M{Which E3<br/>Ligase?}
+    M -->|SCF| N[SCF Complex Skp1-Cdc53-F-box]
+    M -->|APC/C| O[APC/C Complex]
+    M -->|HECT| P[HECT Domain E3]
+    M -->|RING| Q[RING Domain E3]
+    
+    %% Ubiquitin Activation
+    R[Free Ubiquitin] --> S[E1 Uba1 Enzyme]
+    S --> T[ATP-Dependent Activation]
+    T --> U[Ubiquitin-E1 Thioester]
+    
+    %% Ubiquitin Conjugation
+    U --> V[E2 Ubc Enzyme]
+    V --> W[Ubiquitin Transfer to E2]
+    W --> X[Ubiquitin-E2 Thioester]
+    
+    %% E3-Mediated Ubiquitination
+    N --> Y[Substrate-SCF Binding]
+    O --> Y
+    P --> Y
+    Q --> Y
+    
+    X --> Y
+    Y --> ANDGATE1{E2-Ub AND E3-Substrate<br/>AND Lysine Available?}
+    
+    ANDGATE1 -->|Yes| Z[Ubiquitin Transfer to Substrate]
+    Z --> AA[Monoubiquitinated Protein]
+    
+    %% Polyubiquitin Chain Formation
+    AA --> AB{Continue<br/>Ubiquitination?}
+    AB -->|Yes| AC[K48-Linked Chain Extension]
+    AC --> AD[Polyubiquitin Chain]
+    AD --> AE{Chain Length<br/>≥ 4 Ubiquitins?}
+    
+    AE -->|Yes| AF[/K48-Ub4+ Degradation Signal/]
+    AE -->|No| AB
+    
+    %% 26S Proteasome Recognition
+    AF --> AG[19S Regulatory Particle Recognition]
+    AG --> AH[Rpn10 Rpn13 Ubiquitin Receptors]
+    AH --> AI{Substrate<br/>Committed?}
+    
+    AI --> ANDGATE2{Polyubiquitinated AND<br/>19S Bound?}
+    ANDGATE2 -->|Yes| AJ[Substrate Engagement]
+    
+    %% Deubiquitination and Unfolding
+    AJ --> AK[Rpn11 Deubiquitinase]
+    AK --> AL[Ubiquitin Chain Removal]
+    AL --> AM[Ubiquitin Recycling]
+    AL --> AN[Substrate Unfolding]
+    
+    AN --> AO[AAA+ ATPase Ring]
+    AO --> AP[ATP-Dependent Unfolding]
+    AP --> AQ{Protein<br/>Unfolded?}
+    
+    AQ --> ANDGATE3{Unfolded AND<br/>20S Gate Open?}
+    ANDGATE3 -->|Yes| AR[Translocation into 20S]
+    
+    %% Proteolysis
+    AR --> AS[20S Catalytic Core]
+    AS --> AT[Threonine Protease Activity]
+    AT --> AU[Processive Proteolysis]
+    AU --> AV[Peptide Products]
+    AV --> AW[7-9 Amino Acid Peptides]
+    
+    %% Final Products
+    AW --> AX[Peptide Release]
+    AX --> AY[Cytoplasmic Peptidases]
+    AY --> AZ[Free Amino Acids]
+    
+    AM --> BA[Ubiquitin Pool Replenishment]
+    AZ --> BB[Amino Acid Pool]
+    BB --> BC[Protein Synthesis or Metabolism]
+    
+    %% Alternative Fates
+    I -->|Stable| BD[Functional Protein]
+    J -->|No| BE[/Protein Escapes Degradation/]
+    AI -->|No| BF[Substrate Release]
+    AQ -->|No| BG[/Failed Degradation/]
+    
+    %% Styling - GLMP Color Scheme
+    %% Red: Triggers & Inputs
+    
+    %% Yellow: Structures & Objects
+    
+    %% Green: Processing & Operations
+    
+    %% Blue: Intermediates & States
+    
+    %% Orange: OR Logic Gates
+    
+    %% Lavender: AND Logic Gates
+    
+    %% Violet: Products & Outputs
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ffd43b,color:#000
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style H fill:#ff6b6b,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#ffd43b,color:#000
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#ffd43b,color:#000
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#ffd43b,color:#000
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#b197fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#ffd43b,color:#000
+    style BD fill:#ffd43b,color:#000
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff

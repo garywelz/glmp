@@ -1,0 +1,159 @@
+graph TD
+    A[Environmental Signals] -->|Nutrient Limitation| B{Stress Conditions?}
+    A -->|Surface Contact| C[Adhesion Initiation]
+    B -->|Yes| D[RpoS Activation]
+    B -->|No| E[Planktonic Growth]
+    
+    C --> F[Type 1 Fimbriae]
+    F --> G[Reversible Attachment]
+    G --> H{Commit to Biofilm?}
+    H -->|No| I(\1)
+    H -->|Yes| J[Irreversible Attachment]
+    
+    D --> K[CsgD Master Regulator]
+    K -->|Activates| L{Biofilm Component Synthesis?}
+    
+    L -->|Curli Pathway| M[csgBAC Operon]
+    L -->|Cellulose Pathway| N[bcsABZC Operon]
+    L -->|Colanic Acid| O[wca Operon]
+    
+    M --> P[CsgA Major Subunit]
+    M --> Q[CsgB Nucleator]
+    P --> R[CsgG Secretion Pore]
+    Q --> R
+    R --> S[Extracellular Curli Assembly]
+    S --> T[Amyloid Fiber Network]
+    
+    N --> U[BcsA Cellulose Synthase]
+    U -->|Requires| V(\1)
+    V --> W{c-di-GMP Level?}
+    W -->|High| X[Active Synthesis]
+    W -->|Low| Y[/Inactive State/]
+    
+    X --> Z[Cellulose Production]
+    Z --> AA[Polysaccharide Matrix]
+    
+    O --> AB[Wca Proteins]
+    AB --> AC[Colanic Acid Synthesis]
+    AC --> AD[Capsule Formation]
+    
+    J --> AE{Microcolony Formation?}
+    AE -->|Cell Division| AF[Clonal Expansion]
+    AE -->|Recruitment| AG[Multi-species Aggregation]
+    
+    AF --> AH[3D Architecture Development]
+    AG --> AH
+    
+    T --> AI{Matrix Integration?}
+    AA --> AI
+    AD --> AI
+    AI -->|Combined| AJ[Composite Matrix]
+    
+    AJ --> AK[Water Channels]
+    AJ --> AL[Mushroom Structures]
+    AJ --> AM[Protective Barrier]
+    
+    AM --> AN{Environmental Protection?}
+    AN -->|Antibiotics| AO[Reduced Penetration]
+    AN -->|Desiccation| AP[Water Retention]
+    AN -->|Immune System| AQ[Phagocytosis Resistance]
+    
+    AH --> AR{Quorum Sensing Integration?}
+    AR -->|AI-2 Signal| AS[Population Density Sensing]
+    AS --> AT[Coordinated Gene Expression]
+    AT --> AU[Enhanced Matrix Production]
+    
+    V --> AV[DGC Diguanylate Cyclases]
+    AV -->|Synthesize| V
+    V --> AW[PDE Phosphodiesterases]
+    AW -->|Degrade| AX(\1)
+    
+    K --> AY[/Regulatory Integration?/]
+    AY -->|RpoS| AZ[Stationary Phase]
+    AY -->|H-NS| BA[Temperature Sensing]
+    AY -->|IHF| BB[DNA Bending]
+    
+    AZ --> K
+    BA -->|Represses| BC[/Low Temperature Block/]
+    BB -->|Enhances| K
+    
+    AM --> BD{Biofilm Maturity?}
+    BD -->|Immature| AH
+    BD -->|Mature| BE[Stable Community]
+    
+    BE --> BF{Dispersal Signal?}
+    BF -->|Nutrient Depletion| BG[/Matrix Degradation/]
+    BF -->|Oxygen Limitation| BH[Nitric Oxide Production]
+    BF -->|No Signal| BE
+    
+    BG --> BI[Dispersin B]
+    BH --> BJ[c-di-GMP Reduction]
+    BI --> BK[Cell Release]
+    BJ --> BK
+    
+    BK --> BL[Planktonic Dispersal]
+    BL --> BM[Colonization of New Sites]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#b197fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#ffd43b,color:#000
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#b197fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff

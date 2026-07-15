@@ -1,0 +1,222 @@
+graph TD
+    Start([Metal Homeostasis]) --> A1{Which metal and condition?}
+    
+    A1 -->|Copper excess| A2[Copper resistance pathway]
+    A1 -->|Zinc excess| A3[Zinc export pathway]
+    A1 -->|Zinc limitation| A4[Zinc import pathway]
+    
+    A2 --> A5[Elevated Cu+ or Ag+ in periplasm]
+    A5 --> A6[CusS sensor kinase in inner membrane]
+    A6 --> A7[CusS has periplasmic sensor domain]
+    
+    A7 --> A8[Cu+ or Ag+ binds to CusS sensor]
+    A8 --> A9[CusS autophosphorylation activated]
+    A9 --> A10[His270 phosphorylated on CusS]
+    
+    A10 --> A11[Phosphotransfer to Asp578 CusS]
+    A11 --> A12[Phosphotransfer to CusR response regulator]
+    A12 --> A13[CusR~P activated]
+    
+    A13 --> A14[CusR~P binds cusCFBA promoter]
+    A14 --> A15[Transcription of cusCFBA operon]
+    
+    A15 --> A16[CusCFBA efflux system synthesized]
+    A16 --> A17[CusC outer membrane channel]
+    A17 --> A18[CusB periplasmic adaptor]
+    A18 --> A19[CusF periplasmic Cu+ chaperone]
+    A19 --> A20[CusA inner membrane RND transporter]
+    
+    A20 --> A21{CusCFBA complex assembly}
+    A21 -->|All components present| A22[Tripartite efflux complex forms]
+    A21 -->|Components missing| Wait1[Wait for synthesis]
+    Wait1 --> A21
+    
+    A22 --> A23[CusF binds Cu+ in periplasm]
+    A23 --> A24[CusF transfers Cu+ to CusB]
+    A24 --> A25[CusB transfers to CusA]
+    A25 --> A26[CusA pumps Cu+ through CusC to extracellular space]
+    A26 --> A27[Proton motive force drives efflux]
+    
+    A27 --> A28{Also CopA pathway}
+    A28 -->|Yes| A29[CopA P-type ATPase]
+    A29 --> A30[CopA pumps cytoplasmic Cu+ to periplasm]
+    A30 --> A31[ATP hydrolysis drives transport]
+    
+    A31 --> A32[Cu+ exported from cytoplasm]
+    A27 --> A32
+    
+    A32 --> A33{Copper levels reduced?}
+    A33 -->|Yes| A34[CusS no longer activated]
+    A33 -->|No - persistent| A35[Maintain efflux]
+    A34 --> A36[CusR dephosphorylated]
+    A36 --> A37[cusCFBA transcription decreases]
+    
+    A3 --> A40[Elevated Zn2+ in cytoplasm]
+    A40 --> A41[/ZntR repressor protein present/]
+    A41 --> A42[ZntR homodimer]
+    
+    A42 --> A43{Zinc binding to ZntR?}
+    A43 -->|Low Zn - apo-ZntR| A44[/ZntR cannot bind DNA/]
+    A43 -->|High Zn - Zn-ZntR| A45[Zn2+ binds to ZntR metal-binding site]
+    
+    A45 --> A46[Zn-ZntR conformational change]
+    A46 --> A47[Zn-ZntR binds zntA promoter]
+    A47 --> A48[Transcription of zntA activated]
+    
+    A48 --> A49[ZntA P-type ATPase synthesized]
+    A49 --> A50[ZntA inserts in inner membrane]
+    
+    A50 --> A51[ZntA binds cytoplasmic Zn2+]
+    A51 --> A52[ATP binds to ZntA]
+    A52 --> A53[ATP hydrolysis drives conformational change]
+    A53 --> A54[Zn2+ translocated across membrane to periplasm]
+    
+    A54 --> A55{Zinc levels reduced?}
+    A55 -->|Yes| A56[Zn2+ dissociates from ZntR]
+    A55 -->|No - persistent| A57[Maintain export]
+    A56 --> A58[\Apo-ZntR inactive/]
+    A58 --> A59[zntA transcription decreases]
+    
+    A4 --> A60[Low Zn2+ in cytoplasm]
+    A60 --> A61[/Zur repressor protein present/]
+    A61 --> A62[Zur homodimer]
+    
+    A62 --> A63{Zinc binding to Zur?}
+    A63 -->|High Zn - Zn-Zur| A64[Zn2+ binds to Zur metal-binding sites]
+    A63 -->|Low Zn - apo-Zur| A65[No zinc bound to Zur]
+    
+    A64 --> A66[Zn-Zur binds znuABC promoter]
+    A66 --> A67[\Transcription of znuABC blocked/]
+    A67 --> A68[Low ZnuABC expression]
+    
+    A65 --> A69[/Apo-Zur cannot bind DNA/]
+    A69 --> A70[\Transcription of znuABC operon derepressed/]
+    
+    A70 --> A71[ZnuABC transporter synthesized]
+    A71 --> A72[ZnuA periplasmic Zn2+ binding protein]
+    A72 --> A73[ZnuB membrane permease]
+    A73 --> A74[ZnuC cytoplasmic ATPase]
+    
+    A74 --> A75{ZnuABC complex formation}
+    A75 -->|All components| A76[ABC transporter complex assembled]
+    A75 -->|Incomplete| Wait2[Wait for synthesis]
+    Wait2 --> A75
+    
+    A76 --> A77[ZnuA binds Zn2+ in periplasm high affinity]
+    A77 --> A78[ZnuA delivers Zn2+ to ZnuB]
+    A78 --> A79[ZnuC hydrolyzes ATP]
+    A79 --> A80[Zn2+ transported into cytoplasm]
+    
+    A80 --> A81{Zinc sufficient?}
+    A81 -->|Yes - enough Zn| A82[Zn2+ binds to Zur]
+    A81 -->|No - still limiting| A83[Maintain import]
+    A82 --> A64
+    
+    A32 --> A84[Copper homeostasis restored]
+    A59 --> A85[Zinc homeostasis restored]
+    A80 --> A86[Zinc acquisition for metalloenzymes]
+    
+    A84 --> End1([Metal resistance - survival])
+    A85 --> End2([Metal homeostasis maintained])
+    A86 --> End3([Zinc-dependent enzymes functional])
+    
+    A37 --> End2
+    A68 --> End3
+    A35 --> A87[Chronic copper stress]
+    A57 --> A88[Chronic zinc excess]
+    A83 --> A89[Chronic zinc limitation]
+    
+    A87 --> A90[Continued efflux or cell death]
+    A88 --> A90
+    A89 --> A91[Impaired metalloenzyme function]
+    A91 --> A92[Growth defect]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#51cf66,color:#fff
+    style A4 fill:#51cf66,color:#fff
+    style A5 fill:#74c0fc,color:#fff
+    style A6 fill:#51cf66,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#51cf66,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#74c0fc,color:#fff
+    style A12 fill:#b197fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#51cf66,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#51cf66,color:#fff
+    style A22 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#b197fc,color:#fff
+    style A27 fill:#74c0fc,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#74c0fc,color:#fff
+    style A31 fill:#51cf66,color:#fff
+    style A32 fill:#51cf66,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A37 fill:#51cf66,color:#fff
+    style A40 fill:#74c0fc,color:#fff
+    style A41 fill:#74c0fc,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#51cf66,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A47 fill:#74c0fc,color:#fff
+    style A48 fill:#51cf66,color:#fff
+    style A49 fill:#74c0fc,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#74c0fc,color:#fff
+    style A53 fill:#51cf66,color:#fff
+    style A54 fill:#74c0fc,color:#fff
+    style A56 fill:#74c0fc,color:#fff
+    style A57 fill:#51cf66,color:#fff
+    style A58 fill:#74c0fc,color:#fff
+    style A59 fill:#51cf66,color:#fff
+    style A60 fill:#74c0fc,color:#fff
+    style A61 fill:#74c0fc,color:#fff
+    style A62 fill:#74c0fc,color:#fff
+    style A64 fill:#51cf66,color:#fff
+    style A65 fill:#74c0fc,color:#fff
+    style A66 fill:#74c0fc,color:#fff
+    style A67 fill:#74c0fc,color:#fff
+    style A68 fill:#74c0fc,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A70 fill:#74c0fc,color:#fff
+    style A71 fill:#51cf66,color:#fff
+    style A72 fill:#ffd43b,color:#000
+    style A73 fill:#74c0fc,color:#fff
+    style A74 fill:#74c0fc,color:#fff
+    style A76 fill:#51cf66,color:#fff
+    style A77 fill:#74c0fc,color:#fff
+    style A78 fill:#74c0fc,color:#fff
+    style A79 fill:#74c0fc,color:#fff
+    style A80 fill:#51cf66,color:#fff
+    style A82 fill:#74c0fc,color:#fff
+    style A83 fill:#51cf66,color:#fff
+    style A84 fill:#b197fc,color:#fff
+    style A85 fill:#b197fc,color:#fff
+    style A86 fill:#ffd43b,color:#000
+    style A87 fill:#ff6b6b,color:#fff
+    style A88 fill:#74c0fc,color:#fff
+    style A89 fill:#ff6b6b,color:#fff
+    style A90 fill:#b197fc,color:#fff
+    style A91 fill:#ffd43b,color:#000
+    style A92 fill:#b197fc,color:#fff

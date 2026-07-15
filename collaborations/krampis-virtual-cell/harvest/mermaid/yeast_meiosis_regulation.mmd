@@ -1,0 +1,155 @@
+graph TD
+    A[Nitrogen Starvation] --> B[Low Nitrogen Signal]
+    C[Acetate Carbon Source] --> D[Non-Fermentable Carbon]
+    E[Diploid Cell Type] --> F[a/alpha Heterozygous]
+    
+    B --> G{Nitrogen<br/>Depleted?}
+    D --> H{Acetate<br/>Present?}
+    F --> I{Diploid<br/>a/alpha?}
+    
+    G -->|Yes| ANDGATE1{N-Starved AND<br/>Acetate AND<br/>Diploid?}
+    H -->|Yes| ANDGATE1
+    I -->|Yes| ANDGATE1
+    
+    ANDGATE1 -->|All Yes| J[Meiosis-Inducing Conditions]
+    ANDGATE1 -->|Any No| K[Mitotic Growth]
+    
+    J --> L[Rim15 Kinase Activation]
+    L --> M[Rim15 Phosphorylates Ume6]
+    M --> N[Ume6 Conversion]
+    N --> O[Ume6 Activator State]
+    
+    O --> P[/IME1 URS1 Derepression/]
+    P --> Q[Msn2/Msn4 Activation]
+    Q --> R[IME1 Transcription]
+    R --> S[IME1 mRNA]
+    S --> T[Ime1p Translation]
+    T --> U[Ime1p Protein]
+    
+    V[Glucose Present] --> W{Glucose?}
+    W -->|Yes| X[/Glucose Repression/]
+    X --> Y[\IME1 Blocked/]
+    Y --> K
+    
+    W -->|No| Z[/No Glucose Repression/]
+    Z --> AA[IME1 Permissive]
+    
+    AB[Nitrogen Rich] --> AC{Nitrogen?}
+    AC -->|Rich| AD[\Rim15 Inactive/]
+    AD --> AE[/Ume6 Repressor/]
+    AE --> Y
+    
+    AC -->|Poor| AF[Rim15 Active]
+    AF --> M
+    
+    U --> AG[Ime1p Binds IME2 URS1]
+    AG --> AH[IME2 Transcription]
+    AH --> AI[IME2 mRNA]
+    AI --> AJ[Ime2p Translation]
+    AJ --> AK[Ime2p Kinase]
+    
+    AK --> AL[Ime2p Phosphorylates Targets]
+    AL --> AM[Sum1 Inactivation]
+    AL --> AN[Ndt80 Activation]
+    AL --> AO[/Sic1 Degradation/]
+    
+    AM --> AP[/NDT80 Derepression/]
+    AN --> AQ[Ndt80 Active]
+    AQ --> AR[Middle Meiotic Genes]
+    AR --> AS[Meiosis I Entry]
+    
+    AS --> AT[Chromosome Pairing]
+    AT --> AU[Synaptonemal Complex]
+    AU --> AV[Recombination]
+    AV --> AW[Crossover Formation]
+    AW --> AX[Meiosis I Division]
+    AX --> AY[/Dyad Formation/]
+    
+    AY --> AZ[Meiosis II]
+    AZ --> BA[Tetrad Formation]
+    BA --> BB[Four Haploid Spores]
+    BB --> BC[Spore Maturation]
+    BC --> BD[Dormant Ascospores]
+    
+    AO --> BE[CDK Activity]
+    BE --> BF[S Phase Entry]
+    BF --> BG[Premeiotic DNA Replication]
+    BG --> AS
+    
+    K --> BH[Vegetative Growth]
+    BD --> BI[Stress Resistance]
+    BI --> BJ[Genetic Diversity]
+    BJ --> BK[Adaptive Potential]
+    
+    
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#b197fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#ffd43b,color:#000
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#ffd43b,color:#000
+    style V fill:#ff6b6b,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#ff6b6b,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff

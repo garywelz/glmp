@@ -1,0 +1,201 @@
+graph TD
+    %% ER Cargo Selection
+    A[Protein in ER Lumen] --> B{OR: ER Exit<br/>Signal?}
+    B -->|Yes - Export Signal| C[Cargo Selection]
+    B -->|No - ER Retention| D[KDEL/KKXX Retained]
+    B -->|Transmembrane| E[TM Domain Packaging]
+    
+    D --> F([ER Resident Protein])
+    
+    %% COPII Coat Assembly Initiation
+    C --> G[Sec12 GEF at ER Exit Sites]
+    E --> G
+    G --> H[Sar1-GDP Recruitment]
+    H --> I[Sec12 Catalyzes GDP→GTP Exchange]
+    I --> J[Sar1-GTP Formation]
+    
+    %% Membrane Insertion
+    J --> K[Sar1-GTP Conformational Change]
+    K --> L[Amphipathic Helix Exposure]
+    L --> M[Helix Inserts into ER Membrane]
+    M --> N[Membrane Curvature Induction]
+    
+    %% Sec23/24 Recruitment
+    N --> O{AND: Sec23/24<br/>Heterodimer?}
+    O -->|No| P[Coat Assembly Fails]
+    O -->|Yes| Q[Sec23/24 Binds Sar1-GTP]
+    
+    Q --> R[Cargo Binding by Sec24]
+    R --> S{AND: Cargo<br/>Captured?}
+    S -->|No| P
+    S -->|Yes| T[Inner Coat Layer]
+    
+    %% Sec13/31 Outer Coat
+    T --> U{AND: Sec13/31<br/>Heterotetramer?}
+    U -->|No| P
+    U -->|Yes| V[Sec13/31 Polymerization]
+    
+    V --> W[Outer Coat Cage Formation]
+    W --> X[Cuboctahedral Lattice]
+    X --> Y[Complete COPII Coat]
+    
+    %% Vesicle Scission
+    Y --> Z{AND: Membrane<br/>Fission Factors?}
+    Z -->|No| AA[Budding Stalled]
+    Z -->|Yes| AB[Membrane Scission]
+    
+    AB --> AC[Vesicle Released from ER]
+    AC --> AD[Free COPII Vesicle]
+    
+    %% Coat Disassembly
+    AD --> AE[Sec23 GAP Activity]
+    AE --> AF[Sar1-GTP Hydrolysis]
+    AF --> AG[Sar1-GDP + Pi]
+    AG --> AH[Sar1 Membrane Dissociation]
+    AH --> AI[Coat Disassembly]
+    AI --> AJ[Naked Vesicle]
+    
+    %% Ypt1 Rab GTPase Recruitment
+    AJ --> AK{AND: Ypt1-GTP<br/>Present?}
+    AK -->|No| AL[/Vesicle Cannot Dock/]
+    AK -->|Yes| AM[Ypt1 Marks Vesicle Identity]
+    
+    %% Tethering to Golgi
+    AM --> AN[TRAPP Complex Recognition]
+    AN --> AO{AND: All TRAPP<br/>Subunits?}
+    AO -->|No| AL
+    AO -->|Yes| AP[TRAPP I Tethering Complex]
+    
+    AP --> AQ[Long-Range Vesicle Capture]
+    AQ --> AR[Vesicle Tethered to Golgi]
+    
+    %% SNARE Pairing
+    AR --> AS[v-SNARE Bet1/Bos1]
+    AS --> AT[t-SNAREs Sed5/Sec22]
+    
+    AT --> AU{AND: All 4<br/>SNAREs?}
+    AU -->|No - Missing SNARE| AV[/Fusion Blocked/]
+    AU -->|Yes - Complete Set| AW[SNARE Complex Assembly]
+    
+    %% Trans-SNARE to Cis-SNARE
+    AW --> AX[Trans-SNARE Complex]
+    AX --> AY[4-Helix Bundle Formation]
+    AY --> AZ{AND: Coiled-Coil<br/>Zippering?}
+    AZ -->|No| AV
+    AZ -->|Yes| BA[SNARE Zippering]
+    
+    BA --> BB[Membranes Pulled Together]
+    BB --> BC[Hemifusion Intermediate]
+    
+    %% Membrane Fusion
+    BC --> BD{AND: Sec17/18<br/>Present?}
+    BD -->|No| BE[Fusion Incomplete]
+    BD -->|Yes| BF[Full Membrane Fusion]
+    
+    BF --> BG[Pore Formation]
+    BG --> BH[Cargo Released into Golgi]
+    BH --> BI[Cis-SNARE Complex]
+    
+    %% SNARE Recycling
+    BI --> BJ[Sec18/NSF ATPase]
+    BJ --> BK[Sec17/α-SNAP Adaptor]
+    BK --> BL{AND: ATP<br/>Hydrolysis?}
+    BL -->|No| BM[SNAREs Stuck]
+    BL -->|Yes| BN[SNARE Complex Disassembly]
+    
+    BN --> BO[SNAREs Recycled]
+    BO --> BP[Ready for Next Round]
+    
+    %% Golgi Processing
+    BH --> BQ{OR: Next<br/>Destination?}
+    BQ -->|Plasma Membrane| BR[Sec4-Mediated Secretion]
+    BQ -->|Vacuole| BS[VPS Pathway]
+    BQ -->|ER Return| BT[COPI Retrograde]
+    
+    BR --> BU[Exocyst Complex]
+    BU --> BV{AND: All 8<br/>Exocyst Subunits?}
+    BV -->|No| BW[Secretion Fails]
+    BV -->|Yes| BX[PM Fusion]
+    BX --> BY([Protein Secreted])
+    
+    BS --> BZ([Vacuolar Delivery])
+    BT --> CA([ER Recycling])
+    P --> CB[/Transport Blocked/]
+    AV --> CB
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#b197fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#51cf66,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#51cf66,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#ffd43b,color:#000
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#74c0fc,color:#fff

@@ -1,0 +1,175 @@
+graph TD
+    %% Nitrogen Source Detection
+    A[Nitrogen Sources] --> B{OR: Nitrogen<br/>Quality?}
+    B -->|Preferred - NH4+ Gln| C[Good Nitrogen]
+    B -->|Non-preferred - Pro Urea| D[Poor Nitrogen]
+    B -->|Starvation| E[No Nitrogen]
+    
+    %% TORC1 Activation
+    C --> F[Amino Acid Abundance]
+    F --> G[Gtr1/Gtr2 Rag GTPases]
+    G --> H[EGO Complex]
+    H --> I[TORC1 Recruitment to Vacuole]
+    I --> J[TORC1 Activation]
+    
+    J --> K[Sch9 Kinase Phosphorylation]
+    K --> L[Tap42-PP2A Phosphatase Active]
+    L --> M[Gln3 Phosphorylation]
+    M --> N[Gln3-Ure2 Complex Formation]
+    
+    %% Cytoplasmic Retention
+    N --> O{AND: Ure2<br/>Binding?}
+    O -->|No| P[Gln3 Nuclear Entry]
+    O -->|Yes| Q[Gln3 Cytoplasmic Retention]
+    Q --> R[/NCR Genes Repressed/]
+    
+    %% Nitrogen Starvation Response
+    D --> S[Poor Nitrogen Sensed]
+    E --> S
+    S --> T[TORC1 Inactivation]
+    
+    T --> U[Sch9 Dephosphorylation]
+    U --> V[Tap42-PP2A Inactivation]
+    V --> W[Sit4 Phosphatase Activation]
+    
+    W --> X[Gln3 Dephosphorylation]
+    X --> Y[Ure2 Dissociation]
+    Y --> P
+    
+    %% Gat1 Parallel Pathway
+    X --> Z[Gat1 Dephosphorylation]
+    Z --> AA[Gat1 Nuclear Entry]
+    
+    %% Nuclear Transcription Activation
+    P --> AB{AND: GATA Sites<br/>in Promoters?}
+    AA --> AB
+    AB -->|No| AC[/No Transcription/]
+    AB -->|Yes| AD[NCR Gene Activation]
+    
+    %% OR Gate: Which NCR Gene?
+    AD --> AE{OR: Which<br/>Gene Class?}
+    AE -->|Permeases| AF[GAP1 - General AA Permease]
+    AE -->|Proline| AG[PUT1/2 - Proline Utilization]
+    AE -->|Urea| AH[/DUR1,2 - Urea Degradation/]
+    AE -->|Allantoin| AI[DAL Genes - Allantoin Use]
+    AE -->|GABA| AJ[UGA Genes - GABA Catabolism]
+    
+    %% Permease Expression
+    AF --> AK[Gap1 Production]
+    AK --> AL[Broad Amino Acid Uptake]
+    AL --> AM[Nitrogen Acquired]
+    
+    %% Proline Utilization
+    AG --> AN[Put1 Proline Oxidase]
+    AN --> AO[Put2 P5C Dehydrogenase]
+    AO --> AP[Proline → Glutamate]
+    AP --> AM
+    
+    %% Urea Degradation
+    AH --> AQ[Dur1,2 Urea Amidolyase]
+    AQ --> AR[/Urea → 2 NH3 + CO2/]
+    AR --> AM
+    
+    %% Allantoin Pathway
+    AI --> AS[DAL1-7 Enzymes]
+    AS --> AT[Allantoin → Urea]
+    AT --> AQ
+    
+    %% GABA Metabolism
+    AJ --> AU[UGA1-4 Enzymes]
+    AU --> AV[GABA → Succinate]
+    AV --> AW[Enter TCA Cycle]
+    AW --> AM
+    
+    %% Feedback to TORC1
+    AM --> AX{OR: Nitrogen<br/>Sufficient?}
+    AX -->|Yes| F
+    AX -->|No| AY[Continue NCR]
+    AY --> AE
+    
+    %% Rapamycin Treatment
+    I --> AZ{AND: Rapamycin<br/>Present?}
+    AZ -->|No| J
+    AZ -->|Yes| BA[/TORC1 Inhibited/]
+    BA --> T
+    
+    %% GAAC Integration
+    E --> BB[Uncharged tRNAs Accumulate]
+    BB --> BC[Gcn2 Kinase Activation]
+    BC --> BD[eIF2α Phosphorylation]
+    BD --> BE[GCN4 Translation]
+    BE --> BF[Gcn4 Transcription Factor]
+    BF --> BG[Amino Acid Biosynthesis Genes]
+    BG --> BH([Amino Acid Synthesis])
+    
+    %% Quality Control
+    C --> BI[Preferred Pathway Active]
+    BI --> BJ[Efficient Growth]
+    BJ --> BK([Optimal Growth])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#b197fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#ffd43b,color:#000
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#ffd43b,color:#000
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#51cf66,color:#fff
+    style BE fill:#51cf66,color:#fff
+    style BF fill:#ffd43b,color:#000
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#b197fc,color:#fff

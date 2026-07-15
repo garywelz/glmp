@@ -1,0 +1,218 @@
+graph TD
+    %% Central Metabolism Sources
+    A(\1) --> B[3-Phosphoglycerate]
+    A --> C[Phosphoenolpyruvate PEP]
+    A --> D(\1)
+    E[TCA Cycle] --> F[α-Ketoglutarate]
+    E --> G(\1)
+    H[Pentose Phosphate] --> I[Ribose-5-Phosphate]
+    I --> J(\1)
+    H --> K[Erythrose-4-Phosphate E4P]
+    
+    %% OR Gate 1: Which Amino Acid Family?
+    L[Amino Acid Biosynthesis] --> M{OR: Which<br/>Precursor?}
+    M -->|α-KG| N[Glutamate Family]
+    M -->|OAA| O[Aspartate Family]
+    M -->|3-PG| P[Serine Family]
+    M -->|PEP+E4P| Q{Aromatic: PEP AND E4P}
+    M -->|Pyruvate| R[Pyruvate Family]
+    M -->|PRPP| S(\1)
+    
+    %% Glutamate Family
+    F --> N
+    N --> T["GltA: α-KG + NH3 → Glutamate"]
+    T --> U[Glutamate Central Hub]
+    
+    U --> V{OR: Glu<br/>Branch?}
+    V -->|GlnA| W[Glu + NH3 → Glutamine]
+    V -->|ProABC| X[Glu → Proline 5 steps]
+    V -->|ArgABCDEFGH| Y[Glu → Arginine 8 steps]
+    
+    W --> Z(\1)
+    X --> AA(\1)
+    Y --> AB(\1)
+    
+    %% Aspartate Family
+    G --> O
+    O --> AC["AspC: OAA + Glu → Aspartate"]
+    AC --> AD[Aspartate Hub]
+    
+    AD --> AE{OR: Asp<br/>Branch?}
+    AE -->|AsnAB| AF[Asp + Gln → Asparagine]
+    AE -->|MetLABCE| AG[Asp → Methionine via Homoserine]
+    AE -->|ThrABC| AH[Asp → Threonine]
+    AE -->|LysC-DapF| AI[Asp → Lysine via DAP]
+    
+    AF --> AJ(\1)
+    AG --> AK(\1)
+    AH --> AL(\1)
+    AL --> AL_OR{Thr Path?}
+    AL_OR -->|To Ile| AM["IlvA: Thr → Isoleucine"]
+    AM --> AN(\1)
+    AI --> AO(\1)
+    
+    %% Serine Family
+    B --> P
+    P --> AP["SerA: 3-PG → 3-Phosphohydroxypyruvate"]
+    AP --> AQ["SerC: Transamination"]
+    AQ --> AR["SerB: Dephosphorylation"]
+    AR --> AS(\1)
+    
+    AS --> AT{OR: Ser<br/>Branch?}
+    AT -->|GlyA| AU[Ser → Glycine + C1 unit]
+    AT -->|CysE+CysK| AV[Ser → Cysteine]
+    
+    AU --> AW(\1)
+    AV --> AX(\1)
+    
+    %% Aromatic Family
+    C --> Q
+    K --> Q
+    Q --> AY["AroABCDEF: Shikimate Pathway"]
+    AY --> AZ[Chorismate Common Intermediate]
+    
+    AZ --> BA{OR: Aromatic<br/>Branch?}
+    BA -->|PheA+TyrA| BB[Phe/Tyr Pathway]
+    BA -->|TrpABCDE| BC[Trp Pathway 5 steps]
+    
+    BB --> BD{OR: Prephenate<br/>Branch?}
+    BD -->|PheA| BE[Prephenate → Phenylalanine]
+    BD -->|TyrA| BF[Prephenate → Tyrosine]
+    
+    BE --> BG[Phenylalanine]
+    BF --> BH(\1)
+    BC --> BI(\1)
+    
+    %% Pyruvate Family
+    D --> R
+    R --> BJ[Pyruvate Hub]
+    
+    BJ --> BK{OR: Pyr<br/>Branch?}
+    BK -->|AlaA| BL[Pyr + Glu → Alanine]
+    BK -->|IlvBCDE| BM[Pyr → Valine 4 steps]
+    
+    BL --> BN(\1)
+    BM --> BO(\1)
+    BO --> BO_OR{Val Path?}
+    BO_OR -->|To Leu| BP["LeuABCD: Val → Leucine"]
+    BP --> BQ(\1)
+    
+    %% Histidine Pathway
+    J --> S
+    S --> BR["HisABCDEFGH: 10 steps"]
+    BR --> BS(\1)
+    
+    %% Feedback Regulation
+    Z --> BT{High Gln?}
+    BT -->|Yes| BU[GlnA Feedback Active]
+    BU --> BV[/Gln Synthesis Reduced/]
+    
+    AB --> BW[ArgR Repressor Protein]
+    BW --> BX[/arg Operon Repression/]
+    
+    BI --> BY[TrpR Repressor Protein]
+    BY --> BZ[/trp Operon Repression/]
+    
+    %% Outputs
+    BN --> CA([20 Amino Acids])
+    Z --> CA
+    AA --> CA
+    AB --> CA
+    AJ --> CA
+    AK --> CA
+    AL --> CA
+    AN --> CA
+    AO --> CA
+    AW --> CA
+    AX --> CA
+    BG --> CA
+    BH --> CA
+    BI --> CA
+    BO --> CA
+    BQ --> CA
+    BS --> CA
+    
+    CA --> CB[Protein Synthesis]
+    CB --> CC([Cell Growth])
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#ffd43b,color:#000
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#ffd43b,color:#000
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#ffd43b,color:#000
+    style CC fill:#b197fc,color:#fff

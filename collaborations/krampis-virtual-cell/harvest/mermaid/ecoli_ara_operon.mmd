@@ -1,0 +1,160 @@
+graph TD
+    %% Input Signals
+    A[L-Arabinose in Medium] --> B[Arabinose Transport]
+    C[Glucose Status] --> D[cAMP Levels]
+    
+    %% Transport
+    B --> E[AraE Transporter]
+    E --> F[Arabinose Inside Cell]
+    
+    %% Decision: Arabinose Present?
+    F --> G{Arabinose Present?}
+    
+    %% No Arabinose - Repression
+    G -->|No| H[AraC Apo-form]
+    H --> I[AraC Dimer]
+    I --> J[AraC Binds araO2 and araI1]
+    J --> K[DNA Loop Formation]
+    K --> L[Promoter Occluded]
+    L --> M[\Transcription Repressed/]
+    M --> N[No ara Gene Expression]
+    N --> O[Basal State]
+    
+    %% Arabinose Present - Conformational Change
+    G -->|Yes| P[Arabinose Binds AraC]
+    P --> Q[AraC Conformational Change]
+    Q --> R[DNA Loop Breaks]
+    R --> S[AraC Releases araO2]
+    S --> T[AraC Binds araI1 and araI2]
+    T --> U[AraC as Activator]
+    
+    %% Decision: Glucose Status
+    D --> V{High cAMP?}
+    
+    %% AND Gate: Full Activation
+    U --> ANDGATE1{AraC-Ara Active AND<br/>CRP-cAMP Present?}
+    V -->|Yes| W[CRP-cAMP Complex]
+    W --> ANDGATE1
+    
+    %% Activation
+    ANDGATE1 -->|Yes| X[CRP Binds araI Site]
+    X --> Y[AraC-CRP Cooperative Binding]
+    Y --> Z[RNAP Recruitment]
+    Z --> AA[Strong Transcription]
+    
+    %% araBAD Operon Expression
+    AA --> AB[araBAD mRNA Synthesis]
+    AB --> AC[araB mRNA]
+    AB --> AD[araA mRNA]
+    AB --> AE[araD mRNA]
+    
+    %% Translation
+    AC --> AF[AraB Translation]
+    AD --> AG[AraA Translation]
+    AE --> AH[AraD Translation]
+    
+    %% Enzyme Production
+    AF --> AI[Ribulokinase AraB]
+    AG --> AJ[Arabinose Isomerase AraA]
+    AH --> AK[Ribulose-5-P Epimerase AraD]
+    
+    %% Arabinose Metabolism
+    F --> AL[L-Arabinose Substrate]
+    AJ --> AM[/Arabinose to Ribulose/]
+    AL --> AM
+    AM --> AN(\1)
+    AI --> AO[Ribulose to Ribulose-5-P]
+    AN --> AO
+    AO --> AP[L-Ribulose-5-phosphate]
+    AK --> AQ[Ribulose-5-P to Xylulose-5-P]
+    AP --> AQ
+    AQ --> AR[D-Xylulose-5-phosphate]
+    
+    %% Entry to Central Metabolism
+    AR --> AS[Pentose Phosphate Pathway]
+    AS --> AT(\1)
+    AT --> AU[Energy Production]
+    
+    %% Catabolite Repression Path
+    V -->|No| AV[Low cAMP]
+    AV --> AW[\CRP Inactive/]
+    AW --> AX[/Weak Transcription/]
+    AX --> AY[Limited ara Expression]
+    AY --> AZ[Glucose Preference]
+    
+    %% AND Gate: araC Autoregulation
+    U --> ANDGATE2{AraC-Ara AND<br/>araC Promoter?}
+    T --> ANDGATE2
+    ANDGATE2 -->|Yes| BA[araC Gene Transcription]
+    BA --> BB[More AraC Protein]
+    BB --> H
+    
+    %% System Outputs
+    O --> BC[Arabinose Utilization Off]
+    AU --> BD[Arabinose Catabolism]
+    AZ --> BE[Glucose-Preferential Growth]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#b197fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#ffd43b,color:#000
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#51cf66,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#51cf66,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#b197fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff

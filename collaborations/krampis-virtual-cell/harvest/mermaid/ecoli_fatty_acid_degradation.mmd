@@ -1,0 +1,181 @@
+graph TD
+    %% Fatty Acid Entry
+    A[External Fatty Acid] --> B{OR: Chain<br/>Length?}
+    B -->|Long C12-C18| C[Long-Chain FA]
+    B -->|Medium C6-C12| D[Medium-Chain FA]
+    B -->|Short C4-C6| E[Short-Chain FA]
+    
+    %% Uptake
+    C --> F[FadL Outer Membrane Transporter]
+    D --> F
+    E --> G[Passive Diffusion]
+    F --> H(\1)
+    G --> H
+    H --> I[Inner Membrane Transport]
+    I --> J(\1)
+    
+    %% FadR Regulation
+    J --> K[/FadR Repressor Bound to DNA/]
+    K --> L{AND: Acyl-CoA<br/>Present?}
+    L -->|No - Glucose Growth| M[\fadD/fadE/fadBA Repressed/]
+    L -->|Yes - FA Growth| N[Acyl-CoA Binds FadR]
+    
+    N --> O[FadR Releases DNA]
+    O --> P[\fadD/fadE/fadBA Derepressed/]
+    P --> Q[Fad Enzyme Expression]
+    
+    %% Activation Step
+    Q --> R[FadD Acyl-CoA Synthetase]
+    J --> R
+    R --> S{AND: ATP + CoA<br/>Available?}
+    S -->|No| T[No Activation]
+    S -->|Yes| U[Fatty Acid + ATP + CoA]
+    U --> V[Acyl-AMP Intermediate]
+    V --> W[Acyl-CoA + AMP + PPi]
+    W --> X[Activated Fatty Acid]
+    
+    %% β-Oxidation Cycle Entry
+    X --> Y{OR: Saturation<br/>State?}
+    Y -->|Saturated| Z[Enter Normal β-Oxidation]
+    Y -->|Unsaturated| AA[Additional Isomerases Needed]
+    Y -->|Odd-Chain| AB[Special Propionyl-CoA Step]
+    
+    %% Cycle Step 1: Oxidation
+    Z --> AC[FadE Acyl-CoA Dehydrogenase]
+    AC --> AD{AND: FAD<br/>Available?}
+    AD -->|No| AE[/Cycle Blocked/]
+    AD -->|Yes| AF[Acyl-CoA → trans-2-Enoyl-CoA]
+    AF --> AG[FADH2 Produced]
+    
+    %% Cycle Step 2: Hydration
+    AF --> AH[FadB Enoyl-CoA Hydratase]
+    AH --> AI[Water Addition]
+    AI --> AJ[L-3-Hydroxyacyl-CoA]
+    
+    %% Cycle Step 3: Oxidation
+    AJ --> AK[FadB 3-Hydroxyacyl-CoA DH]
+    AK --> AL{AND: NAD+<br/>Available?}
+    AL -->|No| AE
+    AL -->|Yes| AM[/3-Ketoacyl-CoA/]
+    AM --> AN[NADH Produced]
+    
+    %% Cycle Step 4: Thiolysis
+    AM --> AO[FadA β-Ketothiolase]
+    AO --> AP["{AND: CoA-SH<br/>Available?"]}
+    AP -->|No| AE
+    AP -->|Yes| AQ[Acetyl-CoA + Acyl-CoA n-2]
+    
+    AQ --> AR[Acetyl-CoA Released]
+    AQ --> AS[Shortened Acyl-CoA]
+    
+    %% Cycle Decision
+    AS --> AT{OR: Continue<br/>Oxidation?}
+    AT -->|Chain > C4| AC
+    AT -->|Chain = C4| AU(\1)
+    AU --> AV[Final Cycle]
+    AV --> AW[2 Acetyl-CoA]
+    
+    %% Energy Production
+    AR --> AX[Acetyl-CoA to TCA Cycle]
+    AW --> AX
+    AX --> AY[TCA Cycle Oxidation]
+    AG --> AZ[FADH2 to ETC]
+    AN --> AZ
+    AZ --> BA[Electron Transport Chain]
+    BA --> BB[~2.5 ATP per FADH2]
+    AY --> BC[~10 ATP per Acetyl-CoA]
+    BB --> BD[Total ATP Generation]
+    BC --> BD
+    
+    %% Unsaturated FA Branch
+    AA --> BE[Enoyl-CoA Isomerase]
+    BE --> BF[Double Bond Repositioning]
+    BF --> AH
+    
+    %% Odd-Chain FA
+    AB --> AG2[Normal Cycles]
+    AG2 --> BH[Final Product Propionyl-CoA]
+    BH --> BI[Methylmalonyl-CoA Mutase]
+    BI --> BJ(\1)
+    BJ --> AY
+    
+    %% Oxygen Requirement
+    BA --> BK{AND: O2<br/>Available?}
+    BK -->|No - Anaerobic| BL[/β-Oxidation Blocked/]
+    BK -->|Yes - Aerobic| BD
+    
+    BD --> BM([Energy from Fatty Acids])
+    M --> BN([Glucose Metabolism])
+    T --> BO[/(Blocked - No ATP/CoA)/]
+    AE --> BO
+    BL --> BP[/Fermentation Only/]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#ffd43b,color:#000
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AG2 fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#b197fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#51cf66,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BH fill:#b197fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#b197fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff

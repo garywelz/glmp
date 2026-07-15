@@ -1,0 +1,187 @@
+graph TD
+    Start([Oxidative Stress Response]) --> A1{Type of oxidative stress?}
+    
+    A1 -->|Hydrogen peroxide H2O2| A2[OxyR pathway activated]
+    A1 -->|Superoxide O2-| A3[SoxRS pathway activated]
+    A1 -->|Both| A4[Both pathways activated]
+    
+    A2 --> A5[H2O2 enters cell - diffuses across membrane]
+    A5 --> A6[Basal OxyR present as tetramer]
+    A6 --> A7[OxyR in reduced state - Cys199 Cys208 as thiols]
+    
+    A7 --> A8[H2O2 oxidizes Cys199]
+    A8 --> A9[Intramolecular disulfide bond forms Cys199-Cys208]
+    A9 --> A10[OxyR conformational change to activated state]
+    
+    A10 --> A11[Oxidized OxyR binds DNA at OxyR boxes]
+    A11 --> A12[OxyR activates transcription of ~30 genes]
+    
+    A12 --> A13{Which OxyR target genes?}
+    A13 -->|katG| A14[/Catalase KatG - degrades H2O2 to H2O + O2/]
+    A13 -->|ahpCF| A15[Alkyl hydroperoxide reductase AhpC - reduces H2O2 and organic peroxides]
+    A13 -->|gor| A16[Glutathione reductase - regenerates reduced glutathione]
+    A13 -->|dps| A17[DNA-binding protein Dps - protects DNA from oxidation]
+    A13 -->|grxA| A18[Glutaredoxin - reduces disulfides]
+    A13 -->|oxyS| A19[Small RNA OxyS - post-transcriptional regulation]
+    
+    A14 --> A20[H2O2 detoxification]
+    A15 --> A20
+    A16 --> A21[Thiol homeostasis restored]
+    A17 --> A22[DNA protected from damage]
+    A18 --> A21
+    A19 --> A23[Downregulates RpoS and other targets]
+    
+    A20 --> A24{H2O2 levels decreased?}
+    A24 -->|Yes| A25[Glutaredoxin or glutathione reduces OxyR disulfide]
+    A24 -->|No - high stress| A26[Maintain high OxyR activity]
+    
+    A25 --> A27[OxyR returns to reduced inactive state]
+    A27 --> A28[Transcription of OxyR regulon decreases]
+    
+    A3 --> A30[Superoxide O2- generated intracellularly]
+    A30 --> A31["Sources: respiratory chain, redox cycling drugs"]
+    
+    A31 --> A32[Basal SoxR present as homodimer]
+    A32 --> A33["SoxR contains (2Fe-2S) cluster per monomer"]
+    
+    A33 --> A34["Superoxide oxidizes (2Fe-2S) cluster"]
+    A34 --> A35["One-electron oxidation (2Fe-2S)+ to (2Fe-2S) 2+"]
+    A35 --> A36[Oxidized SoxR conformational change]
+    
+    A36 --> A37[SoxR binds soxS promoter with higher affinity]
+    A37 --> A38[SoxR activates soxS transcription]
+    
+    A38 --> A39[SoxS protein synthesized]
+    A39 --> A40[SoxS belongs to AraC family transcription factors]
+    
+    A40 --> A41[SoxS binds soxboxes in promoters]
+    A41 --> A42[SoxS activates transcription of ~100 genes]
+    
+    A42 --> A43{Which SoxS target genes?}
+    A43 -->|sodA| A44[Manganese superoxide dismutase SodA - O2- to H2O2]
+    A43 -->|nfo| A45[Endonuclease IV - repairs oxidized DNA]
+    A43 -->|acrAB| A46[AcrAB efflux pump - exports toxic compounds]
+    A43 -->|zwf| A47[Glucose-6-phosphate dehydrogenase - NADPH production]
+    A43 -->|fumC| A48[Fumarase C - resistant to superoxide]
+    A43 -->|micF| A49[Small RNA MicF - downregulates OmpF]
+    
+    A44 --> A50[Superoxide detoxification - produces H2O2]
+    A45 --> A51[DNA damage repair]
+    A46 --> A52[Export of redox-cycling compounds]
+    A47 --> A53[NADPH for reducing power]
+    A48 --> A54[Maintain TCA cycle under stress]
+    A49 --> A55[Reduce outer membrane permeability]
+    
+    A50 --> A56{Superoxide eliminated?}
+    A56 -->|Yes - H2O2 produced| A57[H2O2 triggers OxyR pathway]
+    A56 -->|No - persistent stress| A58[Maintain SoxRS activity]
+    
+    A57 --> A2
+    
+    A58 --> A59[Continued SoxS synthesis]
+    A59 --> A60{SoxS half-life very short ~10 min}
+    A60 -->|Stress persists| A61[Continuous transcription needed]
+    A60 -->|Stress relieved| A62[/SoxS rapidly degraded by Lon protease/]
+    
+    A61 --> A42
+    A62 --> A63[SoxR returns to reduced state]
+    A63 --> A64[SoxS regulon turned off]
+    
+    A4 --> A65[Coordinate response to mixed oxidants]
+    A65 --> A66[OxyR and SoxRS regulons overlap]
+    A66 --> A67{Overlapping genes?}
+    A67 -->|fumC| A68[Activated by both pathways - additive]
+    A67 -->|ahpCF| A69[Activated by both - synergistic]
+    
+    A68 --> A70[Maximum protection]
+    A69 --> A70
+    
+    A20 --> A71[Cell survival under oxidative stress]
+    A50 --> A71
+    A51 --> A71
+    A52 --> A71
+    A53 --> A71
+    
+    A71 --> End1([Protected from oxidative damage])
+    A28 --> End2([Return to basal state])
+    A64 --> End2
+    
+    A26 --> A72[Chronic oxidative stress adaptation]
+    A72 --> A73[Sustained gene expression]
+    A73 --> A74["Alternative: mutagenesis if severe"]
+    A74 --> End3([Adaptation or death])
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#b197fc,color:#fff
+    style A6 fill:#ff6b6b,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#74c0fc,color:#fff
+    style A12 fill:#51cf66,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#51cf66,color:#fff
+    style A16 fill:#51cf66,color:#fff
+    style A17 fill:#ffd43b,color:#000
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#51cf66,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#b197fc,color:#fff
+    style A22 fill:#ff6b6b,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A27 fill:#74c0fc,color:#fff
+    style A28 fill:#51cf66,color:#fff
+    style A30 fill:#b197fc,color:#fff
+    style A31 fill:#74c0fc,color:#fff
+    style A32 fill:#ff6b6b,color:#fff
+    style A33 fill:#74c0fc,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A37 fill:#74c0fc,color:#fff
+    style A38 fill:#51cf66,color:#fff
+    style A39 fill:#ffd43b,color:#000
+    style A40 fill:#ffd43b,color:#000
+    style A41 fill:#74c0fc,color:#fff
+    style A42 fill:#51cf66,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#51cf66,color:#fff
+    style A46 fill:#51cf66,color:#fff
+    style A47 fill:#b197fc,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#74c0fc,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#ff6b6b,color:#fff
+    style A52 fill:#51cf66,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style A54 fill:#ff6b6b,color:#fff
+    style A55 fill:#74c0fc,color:#fff
+    style A57 fill:#74c0fc,color:#fff
+    style A58 fill:#74c0fc,color:#fff
+    style A59 fill:#51cf66,color:#fff
+    style A61 fill:#51cf66,color:#fff
+    style A62 fill:#74c0fc,color:#fff
+    style A63 fill:#74c0fc,color:#fff
+    style A64 fill:#74c0fc,color:#fff
+    style A65 fill:#b197fc,color:#fff
+    style A66 fill:#74c0fc,color:#fff
+    style A68 fill:#74c0fc,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A70 fill:#74c0fc,color:#fff
+    style A71 fill:#ff6b6b,color:#fff
+    style A72 fill:#ff6b6b,color:#fff
+    style A73 fill:#74c0fc,color:#fff
+    style A74 fill:#74c0fc,color:#fff

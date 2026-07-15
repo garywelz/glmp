@@ -1,0 +1,147 @@
+graph TD
+    %% Transcription Elongation Context
+    A[Active Transcription Elongation] --> B[RNAP Approaching Gene End]
+    B --> C[/Termination Signal<br/>Type?/]
+    
+    %% Intrinsic Termination Pathway
+    C -->|Intrinsic| D[Hairpin Formation in RNA]
+    D --> E[U-Rich Sequence]
+    E --> F[RNA-DNA Hybrid Destabilization]
+    F --> G[Transcript Release]
+    G --> H[Core RNAP Release]
+    
+    %% Rho-Dependent Termination Pathway
+    C -->|Rho-Dependent| I[Rho Binding to rut Site]
+    I --> J[Rho Hexamer Assembly]
+    J --> K[ATP-Dependent Translocation]
+    K --> L[Rho Catches RNAP]
+    L --> M[RNA-DNA Unwinding]
+    M --> N[Transcript Release]
+    N --> O[Core RNAP Release]
+    
+    %% Core Enzyme State
+    H --> P[Free Core Enzyme]
+    O --> P
+    P --> Q[Core RNAP in Cytoplasm]
+    
+    %% Sigma Factor Availability
+    R[Sigma Factor Pool] --> S{Which Sigma<br/>Factor?}
+    S -->|σ70| T[Sigma-70 Available]
+    S -->|σ38| U[Sigma-38 Available]
+    S -->|σ32| V[Sigma-32 Available]
+    S -->|Other| W[Alternative Sigma]
+    
+    %% Anti-Sigma Regulation
+    T --> X{Anti-Sigma<br/>Present?}
+    X -->|No| Y[Free Sigma-70]
+    X -->|Yes| Z[Sigma Sequestered]
+    
+    %% Holoenzyme Formation
+    Q --> AA{Core RNAP<br/>Available?}
+    Y --> AA
+    
+    AA --> ANDGATE1{Core Available AND<br/>Sigma Available?}
+    ANDGATE1 -->|Yes| AB[Core-Sigma Association]
+    ANDGATE1 -->|No| AC[Wait State]
+    
+    AB --> AD[RNAP Holoenzyme Formation]
+    AD --> AE[Holoenzyme in Cytoplasm]
+    
+    %% Promoter Recognition
+    AF[Promoter DNA] --> AG{Promoter<br/>Accessible?}
+    AG -->|Yes| AH[Open Promoter]
+    AG -->|No| AI[\Blocked Promoter/]
+    
+    AE --> AJ{Holoenzyme Finds<br/>Promoter?}
+    AH --> AJ
+    
+    AJ -->|Yes| AK[Promoter Recognition]
+    AK --> AL[Closed Complex Formation]
+    AL --> AM[DNA Melting]
+    AM --> AN[Open Complex Formation]
+    
+    %% Transcription Initiation
+    AN --> AO{NTPs and<br/>Factors Ready?}
+    AO --> ANDGATE2{Open Complex AND<br/>NTPs Available?}
+    
+    ANDGATE2 -->|Yes| AP[Abortive Initiation Cycles]
+    AP --> AQ[Promoter Clearance]
+    AQ --> AR[Sigma Release]
+    AR --> AS[Elongation Complex]
+    
+    %% Recycling Complete
+    AS --> AT[New Transcript Synthesis]
+    AR --> AU[Sigma Returns to Pool]
+    AU --> R
+    
+    %% Failed Paths
+    Z --> AV[Reduced Transcription]
+    AC --> AW[Delayed Reinitiation]
+    AI --> AX[/No Transcription/]
+    
+    %% Styling - GLMP Color Scheme
+    %% Red: Triggers & Inputs
+    
+    %% Yellow: Structures & Objects
+    
+    %% Green: Processing & Operations
+    
+    %% Blue: Intermediates & States
+    
+    %% Orange: OR Logic Gates
+    
+    %% Lavender: AND Logic Gates
+    
+    %% Violet: Products & Outputs
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#74c0fc,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#ffd43b,color:#000
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#ffd43b,color:#000
+    style AE fill:#ffd43b,color:#000
+    style AF fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff

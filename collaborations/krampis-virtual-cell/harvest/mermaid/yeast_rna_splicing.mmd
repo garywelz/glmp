@@ -1,0 +1,206 @@
+graph TD
+    %% Pre-mRNA Structure
+    A[Pre-mRNA Transcript] --> B[5' Exon]
+    A --> C[Intron with Splice Sites]
+    A --> D[3' Exon]
+    
+    C --> E[5' Splice Site GU]
+    C --> F[Branch Point Adenosine]
+    C --> G[3' Splice Site AG]
+    
+    %% E Complex Assembly
+    E --> H[U1 snRNP Recognition]
+    H --> I[U1 snRNA Base Pairing]
+    I --> J{AND: U1-70K<br/>AND Snu71?}
+    J -->|No| K[E Complex Fails]
+    J -->|Yes| L[E Complex Formed]
+    
+    %% A Complex Assembly
+    F --> M[BBP Protein Binding]
+    M --> N[Branch Point Recognition]
+    N --> O[U2 snRNP Recruitment]
+    
+    O --> P{AND: SF3a<br/>AND SF3b?}
+    P -->|No| K
+    P -->|Yes| Q[U2 snRNA-Branch Point Pairing]
+    
+    Q --> R{AND: Prp5<br/>ATPase?}
+    R -->|No| K
+    R -->|Yes| S[A Complex Formed]
+    
+    %% U4/U6.U5 Tri-snRNP Recruitment
+    S --> T[U4/U6.U5 Tri-snRNP]
+    T --> U{AND: U4 + U6<br/>Base-Paired?}
+    U -->|No| V[Tri-snRNP Unstable]
+    U -->|Yes| W[Stable Tri-snRNP]
+    
+    W --> X{AND: Prp8<br/>Scaffold Present?}
+    X -->|No| V
+    X -->|Yes| Y[Tri-snRNP Recruitment]
+    
+    Y --> Z[B Complex Assembly]
+    
+    %% Catalytic Activation
+    Z --> AA[Prp28 Helicase]
+    AA --> AB[U1 snRNP Displaced]
+    AB --> AC[U6 snRNA Replaces U1]
+    
+    AC --> AD[Brr2 Helicase]
+    AD --> AE[U4/U6 Unwinding]
+    AE --> AF[U4 snRNP Released]
+    AF --> AG[U6 snRNA Freed]
+    
+    AG --> AH{AND: U6 + U2<br/>Catalytic Core?}
+    AH -->|No| AI[No Catalysis]
+    AH -->|Yes| AJ[Bact Complex Formed]
+    
+    %% Metal Ion Coordination
+    AJ --> AK{AND: Mg2+ Ions<br/>Coordinated?}
+    AK -->|No| AI
+    AK -->|Yes| AL[Active Site Configuration]
+    
+    %% Step 1: Branch Point Attack
+    AL --> AM[Branch Point 2'OH]
+    AM --> AN[Nucleophilic Attack on 5' SS]
+    AN --> AO[Phosphodiester Bond Cleavage]
+    AO --> AP[5' Exon Released]
+    AP --> AQ[Intron-3' Exon Lariat]
+    
+    AQ --> AR{AND: Branch-5'SS<br/>2'-5' Linkage?}
+    AR -->|No| AS[Splicing Error]
+    AR -->|Yes| AT[Lariat Intermediate]
+    
+    %% Spliceosome Rearrangement
+    AT --> AU[Prp16 Helicase]
+    AU --> AV[Prp16 ATP Hydrolysis]
+    AV --> AW[B→C Complex Transition]
+    AW --> AX[C Complex Active]
+    
+    %% Step 2: Exon Ligation
+    AX --> AY[5' Exon 3'OH]
+    AY --> AZ[Nucleophilic Attack on 3' SS]
+    AZ --> BA[3' Splice Site Cleavage]
+    BA --> BB[Exon Ligation]
+    
+    BB --> BC{AND: Exons<br/>Joined?}
+    BC -->|No| AS
+    BC -->|Yes| BD[Ligated mRNA]
+    BD --> BE[Lariat Intron Released]
+    
+    %% Spliceosome Disassembly
+    BE --> BF[Prp22 Helicase]
+    BF --> BG[mRNA Released]
+    BG --> BH[Prp43 Helicase]
+    BH --> BI[snRNP Disassembly]
+    
+    %% snRNP Recycling
+    BI --> BJ{OR: Which<br/>snRNP?}
+    BJ -->|U2| BK[U2 Recycled]
+    BJ -->|U5| BL[U5 Recycled]
+    BJ -->|U6| BM[U6 Recycled]
+    
+    BK --> BN[snRNP Regeneration]
+    BL --> BN
+    BM --> BN
+    BN --> BO[Ready for Next Round]
+    
+    %% Lariat Debranching
+    BE --> BP[Dbr1 Debranching Enzyme]
+    BP --> BQ[Lariat → Linear Intron]
+    BQ --> BR[/Exonucleolytic Degradation/]
+    BR --> BS[Nucleotides Recycled]
+    
+    %% mRNA Export
+    BG --> BT[Exon Junction Complex]
+    BT --> BU{AND: CBC<br/>AND TREX?}
+    BU -->|No| BV[Export Defect]
+    BU -->|Yes| BW[mRNA Export]
+    BW --> BX[Nuclear Export]
+    BX --> BY(\1)
+    BY --> BZ([Protein Production])
+    
+    %% Quality Control
+    AS --> CA[NMD Pathway]
+    CA --> CB[/Degraded/]
+    AI --> CB
+    K --> CB
+    V --> CB
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#51cf66,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#51cf66,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#ffd43b,color:#000
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BV fill:#51cf66,color:#fff
+    style BW fill:#51cf66,color:#fff
+    style BX fill:#51cf66,color:#fff
+    style BY fill:#51cf66,color:#fff
+    style BZ fill:#b197fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#74c0fc,color:#fff

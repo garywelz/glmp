@@ -1,0 +1,172 @@
+graph TD
+    %% Environmental Inputs
+    A[Galactose in Environment] --> B[Galactose Transport]
+    C[Glucose in Environment] --> D[Glucose Transport]
+    
+    %% Glucose Repression Pathway
+    D --> E[High Glucose Levels]
+    E --> F[cAMP Levels Low]
+    F --> G[\PKA Inactive/]
+    G --> H{Glucose Present?}
+    
+    %% Glucose YES path - Catabolite Repression
+    H -->|Yes| I[Mig1 Dephosphorylated]
+    I --> J[Mig1 Nuclear Import]
+    J --> K[Mig1 Binds GAL Promoters]
+    K --> L[\Chromatin Remodeling Blocked/]
+    L --> M[\GAL Genes Repressed/]
+    M --> N[No Galactose Metabolism]
+    
+    %% Glucose NO path - Derepression
+    H -->|No| O[PKA Active]
+    O --> P[Mig1 Phosphorylated]
+    P --> Q[Mig1 Nuclear Export]
+    Q --> R[GAL Promoters Accessible]
+    
+    %% Galactose Sensing
+    B --> S[Galactose Inside Cell]
+    S --> T{Galactose Present?}
+    
+    %% No Galactose path
+    T -->|No| U[\Gal3p Inactive/]
+    U --> V[Gal80p Binds Gal4p]
+    V --> W[\Gal4p Inhibited/]
+    W --> X[No GAL Activation]
+    X --> Y[Basal GAL Expression]
+    
+    %% Galactose YES path
+    T -->|Yes| Z[Galactose Binds Gal3p]
+    Z --> AA[Gal3p Conformational Change]
+    AA --> AB[Gal3p-Galactose-ATP Complex]
+    AB --> AC[Gal3p Binds Gal80p]
+    AC --> AD[Gal80p Released from Gal4p]
+    
+    %% AND Gate: Activation requires BOTH no glucose AND galactose
+    R --> ANDGATE1{No Glucose AND<br/>Gal80p Released?}
+    AD --> ANDGATE1
+    
+    ANDGATE1 -->|Yes| AE[Gal4p Activation Domain Exposed]
+    ANDGATE1 -->|No| Y
+    
+    AE --> AF[Gal4p Recruits Mediator]
+    AF --> AG[/SAGA Complex Recruitment/]
+    AG --> AH[Histone Acetylation]
+    AH --> AI[Chromatin Opening]
+    AI --> AJ[TFIID Recruitment]
+    AJ --> AK[RNA Pol II Recruitment]
+    AK --> AL[/Strong GAL Transcription/]
+    
+    %% Gene Expression
+    AL --> AM[/GAL1 mRNA Synthesis/]
+    AL --> AN[GAL7 mRNA Synthesis]
+    AL --> AO[GAL10 mRNA Synthesis]
+    AL --> AP[GAL2 mRNA Synthesis]
+    
+    %% Translation
+    AM --> AQ[Gal1p Translation]
+    AN --> AR[Gal7p Translation]
+    AO --> AS[Gal10p Translation]
+    AP --> AT[Gal2p Translation]
+    
+    %% Enzyme Functions
+    AQ --> AU[/Galactokinase Active/]
+    AR --> AV[Galactose-1-P Uridylyltransferase]
+    AS --> AW[/UDP-Glucose 4-Epimerase/]
+    AT --> AX[Galactose Permease]
+    
+    %% Metabolic Pathway
+    AU --> AY[Galactose to Gal-1-P]
+    AV --> AZ[Gal-1-P to UDP-Galactose]
+    AW --> BA[UDP-Galactose to UDP-Glucose]
+    AX --> BB[Enhanced Galactose Uptake]
+    
+    %% Products and Feedback
+    BA --> BC[UDP-Glucose Pool]
+    BC --> BD[Glycolysis Entry]
+    BD --> BE[Energy Production]
+    AY --> BF[Galactose-1-Phosphate Pool]
+    BF --> AZ
+    BB --> BG[Increased Galactose Influx]
+    BG --> BH[Sustained GAL Induction]
+    
+    %% System States
+    BE --> BI[Cell Growth on Galactose]
+    N --> BJ[Cell Growth on Glucose]
+    Y --> BK[Low Galactose Utilization]
+    
+    %% Styling
+    
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#ff6b6b,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#51cf66,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#51cf66,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#ff6b6b,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#b197fc,color:#fff
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#74c0fc,color:#fff

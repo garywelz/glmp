@@ -1,0 +1,196 @@
+graph TD
+    %% Sulfur Source Selection
+    A[Sulfur Sources Available] --> B{OR: Which<br/>Sulfur Source?}
+    B -->|Preferred - Sulfate| C[SO4 2-]
+    B -->|Alternative - Thiosulfate| D[S2O3 2-]
+    B -->|Alternative - Sulfite| E[SO3 2-]
+    B -->|Organic - Cysteine| F[External Cysteine]
+    
+    %% Sulfate Uptake
+    C --> G[CysPUWA ABC Transporter]
+    G --> H{AND: ATP + Periplasmic<br/>Binding Protein?}
+    H -->|No| I[\Uptake Blocked/]
+    H -->|Yes| J[Sulfate Transported]
+    J --> K[Cytoplasmic Sulfate]
+    
+    %% Sulfate Activation
+    K --> L[CysD ATP Sulfurylase]
+    L --> M[Sulfate + ATP]
+    M --> N[Adenosine 5'-Phosphosulfate APS]
+    N --> O[PPi Released]
+    
+    %% APS Reduction
+    O --> P[CysH APS Reductase]
+    P --> Q{AND: Thioredoxin<br/>Reduced?}
+    Q -->|No| R[\Reduction Blocked/]
+    Q -->|Yes| S[APS → Sulfite + AMP]
+    S --> T[SO3 2-]
+    
+    %% Alternative Sulfite Entry
+    E --> U[Sulfite Transport]
+    U --> T
+    
+    %% Thiosulfate Branch
+    D --> V[Thiosulfate Reductase]
+    V --> W[S2O3 → SO3 + S2-]
+    W --> T
+    W --> X[Free Sulfide]
+    
+    %% Sulfite Reduction
+    T --> Y[CysIJ Sulfite Reductase]
+    Y --> Z{AND: NADPH + Siroheme<br/>Cofactor?}
+    Z -->|No| R
+    Z -->|Yes| AA[6 NADPH + SO3]
+    AA --> AB[Sulfide + H2O]
+    AB --> X
+    
+    %% O-Acetylserine Synthesis
+    AC(\1) --> AD[SerA/SerB/SerC]
+    AD --> AE[Serine Availability]
+    AE --> AF[CysE Serine Acetyltransferase]
+    AF --> AG[Serine + Acetyl-CoA]
+    AG --> AH[O-Acetylserine OAS]
+    AH --> AI[/N-Acetylserine/]
+    
+    %% Cysteine Synthase Reaction
+    X --> AJ[Sulfide S2-]
+    AI --> AJ
+    AJ --> AK{OR: Which<br/>Synthase?}
+    AK -->|CysK - Major| AL[CysK O-Acetylserine Sulfhydrylase]
+    AK -->|CysM - Minor| AM[CysM O-Acetylserine Sulfhydrylase]
+    
+    AL --> AN[OAS + S2- → Cysteine]
+    AM --> AN
+    AN --> AO(\1)
+    AO --> AP[Acetate Released]
+    
+    %% CysB Regulation
+    AI --> AQ[N-Acetylserine Accumulation]
+    AQ --> AR[/CysB Transcriptional Activator/]
+    AR --> AS[CysB Binds N-Acetylserine]
+    AS --> AT[CysB-DNA Complex]
+    AT --> AU[cys Operon Activation]
+    AU --> AV[CysPUWA/CysD/CysH/CysIJ Expression]
+    AV --> G
+    
+    %% Cysteine Utilization
+    AO --> AW{OR: Cysteine<br/>Fate?}
+    AW -->|Protein Synthesis| AX[tRNA-Cys Charging]
+    AW -->|Methionine Synthesis| AY[MetB/MetC Pathway]
+    AW -->|Iron-Sulfur Clusters| AZ[IscS Cysteine Desulfurase]
+    AW -->|Glutathione| BA[GSH Biosynthesis]
+    
+    %% Methionine Pathway
+    AY --> BB[Cystathionine Intermediate]
+    BB --> BC(\1)
+    BC --> BD(\1)
+    BD --> BE([Methionine Output])
+    
+    %% Fe-S Cluster Assembly
+    AZ --> BF[Sulfur Transfer]
+    BF --> BG[Fe-S Scaffold]
+    BG --> BH[Fe-S Cluster]
+    BH --> BI([Cofactor Production])
+    
+    %% Glutathione Synthesis
+    BA --> BJ[γ-Glutamylcysteine]
+    BJ --> BK[Glutathione GSH]
+    BK --> BL([Antioxidant Defense])
+    
+    %% Protein Incorporation
+    AX --> BM[Ribosomal Translation]
+    BM --> BN[Cysteine in Proteins]
+    BN --> BO([Disulfide Bonds/Active Sites])
+    
+    %% Organic Sulfur Salvage
+    F --> BP[Dipeptide Uptake]
+    BP --> BQ[Peptidase Cleavage]
+    BQ --> AO
+    
+    %% Feedback Inhibition
+    AO --> BR["{AND: High Cysteine<br/>AND CysB?"]
+    BR -->|No| AS
+    BR -->|Yes| BS[/CysB Feedback Inhibition/]
+    BS --> BT[\cys Genes Repressed/]
+    BT --> BU([Balanced Synthesis])
+    
+    I --> BV([Sulfur Starvation])
+    R --> BV
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#51cf66,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#51cf66,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#51cf66,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#ffd43b,color:#000
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#b197fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#ffd43b,color:#000
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#51cf66,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#51cf66,color:#fff
+    style BV fill:#ff6b6b,color:#fff

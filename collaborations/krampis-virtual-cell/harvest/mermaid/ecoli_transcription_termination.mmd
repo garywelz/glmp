@@ -1,0 +1,157 @@
+graph TD
+    Start[/Transcription Termination/] --> A1{Which termination signal?}
+    
+    A1 -->|Intrinsic terminator sequence| A2[Rho-independent pathway]
+    A1 -->|Rho utilization rut site| A3[Rho-dependent pathway]
+    
+    A2 --> A4[RNAP transcribes GC-rich palindrome]
+    A4 --> A5[Nascent RNA forms hairpin structure]
+    A5 --> A6[Hairpin has stem 7-20 bp GC-rich and loop 3-10 nt]
+    
+    A6 --> A7[Hairpin forms in RNAP exit channel]
+    A7 --> A8[Hairpin pulls RNA 5' direction]
+    
+    A8 --> A9[RNAP transcribes U-rich tract 7-9 Us]
+    A9 --> A10[Weak rU-dA base pairs in RNA-DNA hybrid]
+    
+    A10 --> A11{Hairpin + U-tract combined effect}
+    A11 -->|Yes - sufficient| A12[RNA-DNA hybrid destabilized]
+    A11 -->|Weak signal| A13[Partial pausing - may read through]
+    
+    A12 --> A14[RNAP enters paused state]
+    A14 --> A15[/Forward translocation blocked by hairpin/]
+    A15 --> A16[Weak U-tract allows RNA fraying]
+    
+    A16 --> A17[RNA-DNA hybrid collapses]
+    A17 --> A18[RNA transcript released]
+    A18 --> A19[RNAP dissociates from DNA]
+    
+    A19 --> A20[Free RNAP for recycling]
+    A18 --> A21[/Transcript with 3' end defined by terminator/]
+    
+    A13 --> A22{Antitermination factors present?}
+    A22 -->|NusA N protein etc| A23[/Read-through - termination suppressed/]
+    A22 -->|No factors| A24[/Eventually terminates/]
+    A24 --> A12
+    
+    A3 --> A25[RNAP transcribes past rut site]
+    A25 --> A26["rut site: C-rich poorly structured ~70 nt"]
+    A26 --> A27[Nascent RNA emerges from RNAP]
+    
+    A27 --> A28{Is rut site accessible?}
+    A28 -->|Yes - uncoupled transcription| A29[Rho can bind rut]
+    A28 -->|No - coupled translation| A30[Ribosome covers rut site]
+    
+    A30 --> A31[Transcription-translation coupling]
+    A31 --> A32[/No Rho-dependent termination - read through/]
+    
+    A29 --> A33{Rho hexamer available?}
+    A33 -->|Yes| A34[Rho hexamer binds rut site on RNA]
+    A33 -->|No| Wait1[Wait for Rho]
+    Wait1 --> A33
+    
+    A34 --> A35[Rho hexamer encircles RNA in central channel]
+    A35 --> A36[Rho binds ATP]
+    
+    A36 --> A37{ATP available?}
+    A37 -->|Yes| A38[ATP binding activates Rho helicase]
+    A37 -->|No| Wait2[Wait for ATP]
+    Wait2 --> A37
+    
+    A38 --> A39[Rho translocates 5' to 3' on RNA]
+    A39 --> A40[ATP hydrolysis powers translocation ~80 nt/sec]
+    
+    A40 --> A41{Does Rho catch paused RNAP?}
+    A41 -->|Yes - RNAP paused at pause site| A42[Rho reaches RNAP]
+    A41 -->|RNAP too fast| A43[/Rho dissociates - termination fails/]
+    
+    A42 --> A44[Rho contacts RNAP]
+    A44 --> A45[Rho helicase activity disrupts RNA-DNA hybrid]
+    A45 --> A46[Forward translocation of unwinding]
+    A46 --> A47[RNA-DNA hybrid melted]
+    
+    A47 --> A48[RNA transcript released]
+    A48 --> A49[RNAP dissociates]
+    
+    A49 --> A50[Rho-ATP hydrolysis continues]
+    A50 --> A51[Rho dissociates from RNA]
+    A51 --> A52[Rho recycled for next cycle]
+    
+    A49 --> A53[Free RNAP for recycling]
+    A48 --> A54[Transcript with Rho-defined 3' end]
+    
+    A20 --> A55[RNAP recycling pathway]
+    A53 --> A55
+    
+    A55 --> A56[Sigma factor may rebind]
+    A56 --> A57[RNAP ready for new initiation]
+    
+    A21 --> End1[/Completed intrinsic termination/]
+    A54 --> End2[/Completed Rho-dependent termination/]
+    A57 --> End3([RNAP recycled])
+    A32 --> End4[/Read-through - no termination/]
+    A43 --> End4
+    A23 --> End4
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#74c0fc,color:#fff
+    style A6 fill:#74c0fc,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A12 fill:#74c0fc,color:#fff
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A18 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A20 fill:#74c0fc,color:#fff
+    style A21 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#74c0fc,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A27 fill:#74c0fc,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#74c0fc,color:#fff
+    style A31 fill:#51cf66,color:#fff
+    style A32 fill:#74c0fc,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A35 fill:#74c0fc,color:#fff
+    style A36 fill:#74c0fc,color:#fff
+    style A38 fill:#51cf66,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A40 fill:#51cf66,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#74c0fc,color:#fff
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#51cf66,color:#fff
+    style A46 fill:#74c0fc,color:#fff
+    style A47 fill:#74c0fc,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#74c0fc,color:#fff
+    style A50 fill:#51cf66,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#74c0fc,color:#fff
+    style A53 fill:#74c0fc,color:#fff
+    style A54 fill:#74c0fc,color:#fff
+    style A55 fill:#74c0fc,color:#fff
+    style A56 fill:#ffd43b,color:#000
+    style A57 fill:#74c0fc,color:#fff
+    style Start fill:#74c0fc,color:#fff
+    style End1 fill:#74c0fc,color:#fff
+    style End2 fill:#74c0fc,color:#fff
+    style End4 fill:#74c0fc,color:#fff

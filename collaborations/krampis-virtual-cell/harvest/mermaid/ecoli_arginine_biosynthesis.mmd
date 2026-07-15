@@ -1,0 +1,151 @@
+graph TD
+    %% Input and Regulation Check
+    A[Arginine Depletion Signal] --> B[Low Cellular Arginine]
+    C[External Arginine Source] --> D[Arginine Transport]
+    D --> E[High Cellular Arginine]
+    
+    %% Arginine Availability Decision
+    B --> F{Arginine Available?}
+    E --> F
+    
+    %% High Arginine Path - Repression
+    F -->|Yes| G[Arginine Binds ArgR]
+    G --> H[ArgR Hexamer Formation]
+    H --> I[/ArgR-Arg6 Active Repressor/]
+    I --> J[ArgR Complex Binds ARG Boxes]
+    J --> K[/arg Operon Repression/]
+    K --> L[No arg mRNA Synthesis]
+    L --> M[No Biosynthetic Enzymes]
+    M --> N[Arginine Biosynthesis OFF]
+    
+    %% Low Arginine Path - Derepression
+    F -->|No| O[ArgR Apo-form]
+    O --> P[/Inactive Repressor - Apo-form/]
+    P --> Q[ARG Boxes Free]
+    Q --> R[RNA Polymerase Access]
+    R --> S[arg Operon Transcription]
+    
+    %% Gene Expression
+    S --> T[argA mRNA]
+    S --> U[argB mRNA]
+    S --> V[argC mRNA]
+    S --> W[argD mRNA]
+    S --> X[argE mRNA]
+    S --> Y[argF mRNA]
+    S --> Z[argG mRNA]
+    S --> AA[argH mRNA]
+    
+    %% Translation
+    T --> AB[ArgA Enzyme]
+    U --> AC[ArgB Enzyme]
+    V --> AD[ArgC Enzyme]
+    W --> AE[ArgD Enzyme]
+    X --> AF[ArgE Enzyme]
+    Y --> AG[ArgF Enzyme]
+    Z --> AH[ArgG Enzyme]
+    AA --> AI[ArgH Enzyme]
+    
+    %% Biosynthetic Pathway Steps
+    AJ(\1) --> AB
+    AB --> AK[N-Acetylglutamate Synthase]
+    AK --> AL[N-Acetylglutamate]
+    AL --> AC
+    AC --> AM[N-Acetylglutamate Kinase]
+    AM --> AN[N-Acetylglutamyl-P]
+    AN --> AD
+    AD --> AO[N-Acetylglutamyl-P Reductase]
+    AO --> AP[N-Acetylglutamate Semialdehyde]
+    AP --> AE
+    AE --> AQ[/N-Acetylornithine Aminotransferase/]
+    AQ --> AR[N-Acetylornithine]
+    AR --> AF
+    AF --> AS[Acetylornithine Deacetylase]
+    AS --> AT(\1)
+    AT --> AG
+    AG --> AU[Ornithine Carbamoyltransferase]
+    AU --> AV(\1)
+    AV --> AH
+    AH --> AW[Argininosuccinate Synthase]
+    AW --> AX[Argininosuccinate]
+    AX --> AI
+    AI --> AY[Argininosuccinate Lyase]
+    AY --> AZ[L-Arginine Product]
+    
+    %% Feedback and System State
+    AZ --> BA[Cellular Arginine Pool]
+    BA --> BB[Protein Synthesis]
+    BA --> BC[Feedback to ArgR]
+    BC --> G
+    BB --> BD[Cell Growth]
+    N --> BE[Arginine Conservation Mode]
+    
+    %% Styling
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#ffd43b,color:#000
+    style N fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#ffd43b,color:#000
+    style AC fill:#ffd43b,color:#000
+    style AD fill:#ffd43b,color:#000
+    style AE fill:#ffd43b,color:#000
+    style AF fill:#ffd43b,color:#000
+    style AG fill:#ffd43b,color:#000
+    style AH fill:#ffd43b,color:#000
+    style AI fill:#ffd43b,color:#000
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#51cf66,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#b197fc,color:#fff
+    style BA fill:#b197fc,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#b197fc,color:#fff
+    style BE fill:#74c0fc,color:#fff

@@ -1,0 +1,177 @@
+graph TD
+    %% Input
+    A[Extracellular Glucose] --> B[Glucose Transport]
+    B --> C[Glucose Inside Cell]
+    
+    %% Step 1: Hexokinase
+    C --> D{Glucose Available?}
+    D -->|Yes| E[Hexokinase II]
+    D -->|No| DEND[No Glucose Available - Pathway Inactive]
+    E --> F[Glucose + ATP]
+    F --> G[Phosphorylation]
+    G --> H[Glucose-6-Phosphate]
+    
+    %% Step 2: Phosphoglucose Isomerase
+    H --> I[Phosphoglucose Isomerase]
+    I --> J[Isomerization]
+    J --> K[Fructose-6-Phosphate]
+    
+    %% Step 3: Phosphofructokinase (KEY CONTROL)
+    K --> L[Phosphofructokinase]
+    L --> M{ATP Available?}
+    M -->|Yes| N[F6P + ATP]
+    M -->|No| MEND[/Insufficient ATP - Glycolysis Halted/]
+    N --> O[Phosphorylation]
+    O --> P[Fructose-1,6-Bisphosphate]
+    
+    %% Allosteric Regulation
+    Q[High ATP] --> R[/PFK Inhibition/]
+    S[High AMP] --> T[PFK Activation]
+    R --> L
+    T --> L
+    
+    %% Step 4: Aldolase
+    P --> U(\1)
+    U --> V(\1)
+    V --> W[DHAP + G3P]
+    
+    %% Step 5: Triose Phosphate Isomerase
+    W --> X[Triose-P Isomerase]
+    X --> Y[DHAP to G3P]
+    Y --> Z[2 x G3P]
+    
+    %% Step 6: G3P Dehydrogenase (ENERGY CAPTURE)
+    Z --> AA[G3P Dehydrogenase]
+    AA --> AB{NAD+ Available?}
+    AB -->|Yes| AC[G3P + NAD+ + Pi]
+    AB -->|No| ABEND[/No NAD+ Available - Oxidation Blocked/]
+    AC --> AD[Oxidation + Phosphorylation]
+    AD --> AE[1,3-Bisphosphoglycerate]
+    AD --> AF[NADH Produced]
+    
+    %% Step 7: Phosphoglycerate Kinase (ATP PRODUCTION)
+    AE --> AG[Phosphoglycerate Kinase]
+    AG --> AH[Substrate-Level Phosphorylation]
+    AH --> AI[3-Phosphoglycerate]
+    AH --> AJ[ATP Produced]
+    
+    %% Step 8: Phosphoglycerate Mutase
+    AI --> AK[Phosphoglycerate Mutase]
+    AK --> AL[Isomerization]
+    AL --> AM[2-Phosphoglycerate]
+    
+    %% Step 9: Enolase
+    AM --> AN(\1)
+    AN --> AO(\1)
+    AO --> AP[Phosphoenolpyruvate]
+    
+    %% Step 10: Pyruvate Kinase (ATP PRODUCTION)
+    AP --> AQ[Pyruvate Kinase]
+    AQ --> AR[Substrate-Level Phosphorylation]
+    AR --> AS(\1)
+    AR --> AT[ATP Produced]
+    
+    %% Products and Fates
+    AS --> AU{Oxygen Available?}
+    AU -->|Yes| AV[Aerobic Respiration]
+    AU -->|No| AW(\1)
+    
+    %% Aerobic Path
+    AV --> AX[Pyruvate to Mitochondria]
+    AX --> AY[TCA Cycle Entry]
+    AY --> AZ[Complete Oxidation]
+    AZ --> BA[36-38 ATP Total]
+    
+    %% Anaerobic Path
+    AW --> BB[Pyruvate Decarboxylase]
+    BB --> BC(\1)
+    BC --> BD[Alcohol Dehydrogenase]
+    BD --> BE[Ethanol Production]
+    BD --> BF[NAD+ Regeneration]
+    BF --> BG[Glycolysis Continues]
+    
+    %% Energy Balance
+    AF --> BH[2 NADH]
+    AJ --> BI[2 ATP]
+    AT --> BJ[2 ATP]
+    BI --> BK["Gross: 4 ATP"]
+    F --> BL["Cost: 2 ATP"]
+    BK --> BM["Net: 2 ATP"]
+    
+    %% Styling
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#51cf66,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#b197fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#b197fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#b3e5fc,color:#000    style DEND fill:#000000,color:#fff
+    style MEND fill:#74c0fc,color:#fff
+    style ABEND fill:#74c0fc,color:#fff

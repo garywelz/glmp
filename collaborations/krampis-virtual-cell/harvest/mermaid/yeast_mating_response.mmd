@@ -1,0 +1,192 @@
+graph TD
+    A[Mating Partner Proximity] -->|a-cell Secretes| B[a-factor Pheromone]
+    A -->|α-cell Secretes| C[α-factor Pheromone]
+    
+    B --> D[Ste3 Receptor on α-cell]
+    C --> E[Ste2 Receptor on a-cell]
+    
+    D --> F{GPCR Activation?}
+    E --> F
+    F -->|Pheromone Bound| G[Conformational Change]
+    F -->|No Pheromone| H[Basal State]
+    
+    G --> I[Gpa1 Gβγ Heterotrimer]
+    I --> J{G Protein Dissociation?}
+    J -->|GTP Exchange| K[Gpa1-GTP Release]
+    J -->|GDP Bound| L[\Inactive Complex/]
+    
+    K --> M[Free Gβγ Ste4-Ste18]
+    M --> N{Downstream Signaling?}
+    
+    N -->|MAPK Cascade| O[Ste5 Scaffold Recruitment]
+    N -->|Polarity| P[Far1 Cdc24 Recruitment]
+    N -->|Transcription| Q[Direct Effects]
+    
+    O --> R[Ste5 Scaffold Complex]
+    R --> S{MAPK Tier 1?}
+    S -->|MAPKKK| T[Ste11 Activation]
+    
+    T --> U[Ste50 Adaptor]
+    U --> V[Ste11 Autophosphorylation]
+    V --> W{MAPK Tier 2?}
+    W -->|MAPKK| X[Ste7 Phosphorylation]
+    
+    X --> Y{MAPK Tier 3?}
+    Y -->|Fus3| Z[Fus3 Activation]
+    Y -->|Kss1| AA[Kss1 Activation]
+    
+    Z --> AB{Fus3 Substrates?}
+    AB -->|Far1| AC[Far1 Phosphorylation]
+    AB -->|Ste12| AD[Ste12 Activation]
+    AB -->|Dig1 Dig2| AE[/Repressor Phosphorylation/]
+    
+    AC --> AF[/Cln-CDK Inhibition/]
+    AF --> AG[G1 Cell Cycle Arrest]
+    
+    AD --> AH{Transcription Factors?}
+    AE --> AH
+    AH -->|Ste12 Active| AI[Pheromone Response Elements]
+    AH -->|Dig1/2 Inactivated| AJ[/Derepression/]
+    
+    AI --> AK{Mating Gene Expression?}
+    AJ --> AK
+    AK -->|FUS Genes| AL[/Cell Fusion Machinery/]
+    AK -->|FIG Genes| AM[Mating Projection]
+    AK -->|Pheromone| AN[Increased Pheromone]
+    AK -->|Agglutinins| AO[Cell Adhesion]
+    
+    P --> AP[Cdc24 GEF Recruitment]
+    AP --> AQ[Cdc42 Activation]
+    AQ --> AR{Polarity Establishment?}
+    
+    AR -->|Actin| AS[Actin Cable Formation]
+    AR -->|Secretion| AT[Polarized Exocytosis]
+    AR -->|Morphology| AU[Shmoo Formation]
+    
+    AS --> AV[Bni1 Formin]
+    AV --> AW[Actin Polymerization]
+    AW --> AT
+    
+    AT --> AX[Vesicle Delivery to Tip]
+    AX --> AU
+    
+    AU --> AY{Mating Projection Growth?}
+    AY -->|Continuous| AZ[Elongated Shmoo]
+    AY -->|Stalled| BA[Projection Maintenance]
+    
+    AZ --> BB{Partner Contact?}
+    BB -->|Yes| BC[Cell-Cell Recognition]
+    BB -->|No| AY
+    
+    BC --> BD[Agglutinin Binding]
+    BD --> BE{Cell Adhesion?}
+    BE -->|Aga1-Aga2 α-cell| BF[Strong Attachment]
+    BE -->|Sag1 a-cell| BF
+    
+    BF --> BG[/Cell Wall Degradation?/]
+    BG -->|Fus1 Fus2| BH[Local Wall Remodeling]
+    BH --> BI[Membrane Exposure]
+    
+    BI --> BJ{Membrane Fusion?}
+    BJ -->|Prm1 Fusion Protein| BK[Plasma Membrane Fusion]
+    BK --> BL[Cytoplasmic Mixing]
+    
+    BL --> BM{Nuclear Migration?}
+    BM -->|Kar3 Motor| BN[Nuclear Congression]
+    BN --> BO{Nuclear Fusion?}
+    
+    BO -->|Kar5 Kar8| BP[Outer Membrane Fusion]
+    BP --> BQ[Prm3 Fus2]
+    BQ --> BR[Inner Membrane Fusion]
+    BR --> BS(\1)
+    
+    BS --> BT[Diploid Nucleus]
+    BT --> BU[Diploid Cell]
+    
+    BU --> BV{Cell Fate?}
+    BV -->|Nutrient Rich| BW[Diploid Growth]
+    BV -->|Nutrient Poor| BX[Sporulation Program]
+    
+    M --> BY{Negative Regulation?}
+    BY -->|Sst2 RGS| BZ[GTPase Acceleration]
+    BZ --> CA(\1)
+    CA --> CB[/Signal Termination/]
+    
+    BY -->|Msg5 Phosphatase| CC[MAPK Dephosphorylation]
+    CC --> CB
+    
+    BY -->|Bar1 Protease a-cell| CD[/α-factor Degradation/]
+    CD --> CB
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style X fill:#51cf66,color:#fff
+    style Z fill:#51cf66,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#b197fc,color:#fff
+    style AI fill:#b197fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AL fill:#b197fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#b197fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BC fill:#b197fc,color:#fff
+    style BD fill:#51cf66,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#b197fc,color:#fff
+    style BW fill:#b197fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#74c0fc,color:#fff
+    style CC fill:#51cf66,color:#fff
+    style CD fill:#74c0fc,color:#fff

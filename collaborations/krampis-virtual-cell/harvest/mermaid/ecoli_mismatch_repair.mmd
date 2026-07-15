@@ -1,0 +1,240 @@
+graph TD
+    A[DNA Replication Error] --> B{Error Type?}
+    
+    B -->|Base-Base Mismatch| C[G-T, A-C, etc.]
+    B -->|Insertion-Deletion Loop| D[IDL 1-4 nt]
+    B -->|Complex Error| E[Multiple Errors]
+    
+    C --> F[Helix Distortion]
+    D --> F
+    E --> F
+    
+    %% MutS Recognition
+    F --> G[MutS Homodimer Scanning]
+    G --> H{Mismatch Detection?}
+    
+    H -->|No Mismatch| I[Continue Scanning]
+    I --> G
+    H -->|Mismatch Found| J[MutS Binding]
+    
+    J --> K{Mismatch Type Verification?}
+    K -->|G-T Most Recognized| L[Strong MutS Binding]
+    K -->|Other Mismatches| M[Variable Binding Affinity]
+    K -->|IDL| N[IDL-Specific Recognition]
+    
+    L --> O[ATP Binding to MutS]
+    M --> O
+    N --> O
+    
+    O --> P[MutS Conformational Change]
+    P --> Q[Sliding Clamp Formation]
+    
+    %% MutL Recruitment
+    Q --> R[MutL Homodimer Recruitment]
+    R --> S{MutS-MutL Complex?}
+    S -->|Formation| T[MutS-MutL-DNA Ternary Complex]
+    S -->|Failed| U[Abortive Recognition]
+    
+    T --> V[ATP Hydrolysis]
+    V --> W[MutS-MutL Translocation]
+    W --> X{GATC Site Search?}
+    
+    %% Strand Discrimination
+    X -->|Scanning| Y[Searching for GATC]
+    Y --> Z{Hemimethylated GATC?}
+    
+    Z -->|Not Found| AA[Continue Search]
+    AA --> Y
+    Z -->|Found| AB{Methylation Status?}
+    
+    AB -->|Hemimethylated| AC[Dam Methylation Site]
+    AB -->|Fully Methylated| AD[Wrong Strand]
+    AB -->|Unmethylated| AE[Abnormal State]
+    
+    %% MutH Activation
+    AC --> AF{Strand Identity?}
+    AF -->|New Strand Unmethylated| AG[Correct Target Identified]
+    AF -->|Old Strand Methylated| AH[Preserve This Strand]
+    
+    AG --> AI[MutH Endonuclease Recruitment]
+    AI --> AJ{MutL Activates MutH?}
+    AJ -->|Yes| AK[MutH Activation]
+    AJ -->|No| AL[Failed Activation]
+    
+    AK --> AM[MutH Incision at GATC]
+    AM --> AN[Nick in Unmethylated Strand]
+    AN --> AO{Nick Position?}
+    
+    AO -->|5' to Mismatch| AP[5' Nick]
+    AO -->|3' to Mismatch| AQ[3' Nick]
+    
+    %% Excision - 5' to 3' Direction
+    AP --> AR{Exonuclease Selection?}
+    AR -->|RecJ| AS[5' to 3' ssDNA Exonuclease]
+    AR -->|ExoVII| AT[Alternative 5' to 3']
+    
+    AS --> AU[/Degrade Toward Mismatch/]
+    AT --> AU
+    AU --> AV[Pass Mismatch Site]
+    AV --> AW[/Continue Degradation/]
+    AW --> AX[SSB Coating ssDNA]
+    
+    %% Excision - 3' to 5' Direction
+    AQ --> AY{Exonuclease Selection?}
+    AY -->|ExoI| AZ[3' to 5' ssDNA Exonuclease]
+    AY -->|ExoX| BA[Alternative 3' to 5']
+    AY -->|ExoVII| BB[Bidirectional Option]
+    
+    AZ --> BC[/Degrade Toward Mismatch/]
+    BA --> BC
+    BB --> BC
+    BC --> BD[Pass Mismatch Site]
+    BD --> BE[/Continue Degradation/]
+    BE --> BF[SSB Protection]
+    
+    %% Termination of Excision
+    AW --> BG{Excision Complete?}
+    BE --> BG
+    BG -->|Sufficient| BH[/Stop Signal/]
+    BG -->|Insufficient| BI(\1)
+    
+    BH --> BJ[Single-Strand Gap]
+    BJ --> BK{Gap Size?}
+    BK -->|Short <100 nt| BL[Small Gap]
+    BK -->|Long >1000 nt| BM[Large Gap]
+    
+    %% DNA Resynthesis
+    BL --> BN[DNA Pol III Recognition]
+    BM --> BN
+    BN --> BO{Holoenzyme Assembly?}
+    BO -->|Complete| BP[Processive Synthesis]
+    BO -->|Partial| BQ[Distributive Synthesis]
+    
+    BP --> BR[dNTP Incorporation]
+    BR --> BS[Rapid Gap Filling]
+    BS --> BT[High Fidelity Synthesis]
+    BT --> BU[Gap Filled]
+    
+    %% Ligation
+    BU --> BV{Nick Sealing?}
+    BV -->|Ready| BW[DNA Ligase]
+    BV -->|Not Ready| BX[Additional Processing]
+    
+    BW --> BY[NAD+ Ligase LigA]
+    BY --> BZ[Phosphodiester Bond]
+    BZ --> CA[Nick Sealed]
+    
+    CA --> CB[Restored DNA Helix]
+    CB --> CC{Repair Verification?}
+    CC -->|Successful| CD[High Fidelity DNA]
+    CC -->|Residual Error| CE[Secondary MMR]
+    
+    %% Final Outcomes
+    CD --> CF[1000x Error Reduction]
+    CF --> CG[Genome Stability]
+    CG --> CH[Cell Survival]
+    CH --> CI[Replication Fidelity]
+    
+    %% Error Pathways
+    U --> CJ[Mismatch Escapes]
+    AL --> CJ
+    AD --> CK[Wrong Strand Risk]
+    AE --> CL[Dam Methylation Defect]
+    CE --> CM[Persistent Mismatch]
+    
+    CJ --> CN[Reduced Fidelity]
+    CK --> CN
+    CM --> CN
+    CN --> CO(\1)
+    
+    %% Regulation
+    AX --> CP{SSB Saturation?}
+    BF --> CP
+    CP -->|Sufficient| BG
+    CP -->|Limited| CQ[/Slower Degradation/]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#51cf66,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#51cf66,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#51cf66,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BP fill:#51cf66,color:#fff
+    style BQ fill:#51cf66,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#51cf66,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BW fill:#51cf66,color:#fff
+    style BX fill:#51cf66,color:#fff
+    style BY fill:#51cf66,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#74c0fc,color:#fff
+    style CD fill:#74c0fc,color:#fff
+    style CE fill:#74c0fc,color:#fff
+    style CF fill:#74c0fc,color:#fff
+    style CG fill:#74c0fc,color:#fff
+    style CH fill:#b197fc,color:#fff
+    style CI fill:#51cf66,color:#fff
+    style CJ fill:#74c0fc,color:#fff
+    style CK fill:#74c0fc,color:#fff
+    style CL fill:#74c0fc,color:#fff
+    style CM fill:#74c0fc,color:#fff
+    style CN fill:#74c0fc,color:#fff
+    style CO fill:#74c0fc,color:#fff
+    style CQ fill:#74c0fc,color:#fff

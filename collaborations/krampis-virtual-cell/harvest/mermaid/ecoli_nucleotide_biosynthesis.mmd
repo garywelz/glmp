@@ -1,0 +1,196 @@
+graph TD
+    %% Entry Point
+    A[Ribose-5-Phosphate] --> B["PrsA: R5P + ATP → PRPP"]
+    B --> C[PRPP Phosphoribosyl Pyrophosphate]
+    
+    %% OR Gate 1: Purine vs Pyrimidine
+    C --> D{OR: Which<br/>Nucleotide?}
+    D -->|Purines| E[Purine Biosynthesis]
+    D -->|Pyrimidines| F[Pyrimidine Biosynthesis]
+    
+    %% Purine Pathway Step-by-Step
+    E --> G["PurF: PRPP + Gln → 5-Phosphoribosylamine"]
+    G --> H["PurD: + Gly"]
+    H --> I[GAR Glycinamide Ribotide]
+    I --> J["PurN: + Formyl-THF"]
+    J --> K(\1)
+    K --> L["PurL: + Gln"]
+    L --> M(\1)
+    M --> N["PurM: Cyclization"]
+    N --> O[AIR 5-Aminoimidazole Ribotide]
+    O --> P["PurK: + CO2"]
+    P --> Q(\1)
+    Q --> R["PurE: + Asp"]
+    R --> S(\1)
+    S --> T["PurB: Release Fumarate"]
+    T --> U(\1)
+    U --> V["PurH: + Formyl-THF"]
+    V --> W(\1)
+    W --> X["PurH: Cyclization"]
+    X --> Y[IMP Inosine Monophosphate]
+    
+    %% IMP Branch Point
+    Y --> Z{OR: AMP<br/>or GMP?}
+    Z -->|PurA| AA[IMP + Asp + GTP → AMP]
+    Z -->|PurB+GuaA| AB[IMP + NAD → GMP]
+    
+    AA --> AC[AMP Adenosine Monophosphate]
+    AB --> AD[GMP Guanosine Monophosphate]
+    
+    %% Pyrimidine Pathway
+    F --> AE["CarAB: Gln + CO2 + ATP → Carbamoyl-P"]
+    AE --> AF["PyrB: Carbamoyl-P + Asp"]
+    AF --> AG[Carbamoyl Aspartate]
+    AG --> AH["PyrC: Cyclization"]
+    AH --> AI[Dihydroorotate DHO]
+    AI --> AJ["PyrD: DHO + NAD → Orotate"]
+    AJ --> AK(\1)
+    AK --> AL["PyrE: Orotate + PRPP → Orotidine-5-P"]
+    AL --> AM[Orotidine Monophosphate]
+    AM --> AN["PyrF: Decarboxylation"]
+    AN --> AO[UMP Uridine Monophosphate]
+    
+    %% UMP to CTP
+    AO --> AP["PyrH: UMP + ATP → UDP"]
+    AP --> AQ(\1)
+    AQ --> AR["Ndk: UDP + ATP → UTP"]
+    AR --> AS(\1)
+    AS --> AT["PyrG: UTP + Gln + ATP → CTP"]
+    AT --> AU[CTP Cytidine Triphosphate]
+    
+    %% Nucleoside Diphosphate Kinase
+    AC --> AV[AMP → ADP → ATP]
+    AD --> AW[GMP → GDP → GTP]
+    
+    AV --> AX{AND: ATP<br/>Levels?}
+    AW --> AY{AND: GTP<br/>Levels?}
+    AS --> AZ{AND: UTP<br/>Levels?}
+    AU --> BA{AND: CTP<br/>Levels?}
+    
+    %% Ribonucleotide Reductase
+    AX -->|Sufficient| BB["RNR: ATP → dATP"]
+    AY -->|Sufficient| BC["RNR: GTP → dGTP"]
+    AZ -->|Sufficient| BD["RNR: UTP → dUTP"]
+    BA -->|Sufficient| BE["RNR: CTP → dCTP"]
+    
+    BD --> BF["Dut: dUTP → dUMP"]
+    BF --> BG["ThyA: dUMP + CH2-THF → dTMP"]
+    BG --> BH[dTMP → dTDP → dTTP]
+    
+    %% DNA/RNA Synthesis
+    BB --> BI(\1)
+    BC --> BJ(\1)
+    BE --> BK(\1)
+    BH --> BL(\1)
+    
+    BI --> BM{OR: DNA<br/>or RNA?}
+    BJ --> BM
+    BK --> BM
+    BL --> BM
+    AV --> BM
+    AW --> BM
+    AS --> BM
+    AU --> BM
+    
+    BM -->|DNA| BN[DNA Polymerase]
+    BM -->|RNA| BO[RNA Polymerase]
+    
+    BN --> BP([DNA Replication])
+    BO --> BQ([Transcription])
+    
+    %% Feedback Regulation
+    AC --> BR[/PurR Repressor/]
+    BR --> BS[/pur Operon Repression/]
+    
+    AO --> BT[PyrR Attenuation]
+    BT --> BU[pyr Operon Control]
+    
+    %% Salvage Pathways
+    BV(\1) --> BW["Apt: + PRPP → AMP"]
+    BW --> AC
+    BX(\1) --> BY["Gpt: + PRPP → GMP"]
+    BY --> AD
+    BZ(\1) --> CA["Upp: + PRPP → UMP"]
+    CA --> AO
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style E fill:#51cf66,color:#fff
+    style F fill:#51cf66,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style P fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BN fill:#51cf66,color:#fff
+    style BO fill:#51cf66,color:#fff
+    style BP fill:#51cf66,color:#fff
+    style BQ fill:#51cf66,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#74c0fc,color:#fff
+    style BT fill:#74c0fc,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style BZ fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff

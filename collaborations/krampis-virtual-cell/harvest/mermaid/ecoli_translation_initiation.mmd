@@ -1,0 +1,210 @@
+graph TD
+    A[mRNA Available] --> B[5' UTR Region]
+    B --> C{Shine-Dalgarno Sequence?}
+    
+    C -->|Present| D[AGGAGGU RBS]
+    C -->|Absent| E[Alternative Ribosome Entry]
+    
+    D --> F[Anti-Shine-Dalgarno Recognition]
+    E --> G[Leaderless mRNA Pathway]
+    
+    %% 30S Ribosomal Subunit Preparation
+    F --> H[Free 30S Ribosomal Subunit]
+    H --> I{Initiation Factors Present?}
+    
+    I -->|Yes| J[IF3 Binding to 30S]
+    I -->|No| K[\30S Remains Inactive/]
+    
+    J --> L[/IF3 Prevents 50S Association/]
+    L --> M[30S Platform State]
+    M --> N[IF1 Binding to A-site]
+    N --> O[\A-site Blocked/]
+    
+    %% mRNA Binding
+    O --> P{mRNA Recognition?}
+    P -->|IF3-Mediated| Q[mRNA-30S Complex]
+    P -->|Failed| R[30S Dissociates]
+    
+    Q --> S[Shine-Dalgarno Base Pairing]
+    S --> T[16S rRNA Anti-SD Interaction]
+    T --> U[mRNA Positioned]
+    U --> V{Start Codon Location?}
+    
+    V -->|AUG in P-site| W[Correct Positioning]
+    V -->|Wrong Distance| X[Repositioning]
+    V -->|No AUG| Y[Initiation Failure]
+    
+    X --> V
+    
+    %% Initiator tRNA Recruitment
+    W --> Z[IF2-GTP Complex]
+    Z --> AA[IF2 Recognition of fMet-tRNA]
+    AA --> AB{Initiator tRNA?}
+    
+    AB -->|fMet-tRNA^fMet| AC[Formylated Methionine]
+    AB -->|Wrong tRNA| AD(\1)
+    
+    AC --> AE[IF2-GTP-fMet-tRNA Ternary Complex]
+    AE --> AF[Delivery to 30S P-site]
+    AF --> AG{Codon-Anticodon Match?}
+    
+    AG -->|Perfect Match AUG-CAU| AH[Stable Binding]
+    AG -->|Mismatch| AI(\1)
+    
+    AH --> AJ[30S Initiation Complex]
+    AJ --> AK[/All Components Ready?/]
+    
+    %% Fidelity Checkpoint
+    AK -->|IF1 AND IF2 AND IF3 AND mRNA AND fMet-tRNA| AL[Complete 30S IC]
+    AK -->|Missing Component| AM[Wait State]
+    
+    AL --> AN{IF3 Proofreading?}
+    AN -->|Correct Assembly| AO[/IF3 Release/]
+    AN -->|Error Detected| AP[Complex Dissociation]
+    
+    %% 50S Subunit Joining
+    AO --> AQ[50S Ribosomal Subunit Available]
+    AQ --> AR{50S Recruitment?}
+    AR -->|Yes| AS[50S Docking]
+    AR -->|No| AT[Delayed Assembly]
+    
+    AS --> AU[Bridge Formation B2a]
+    AU --> AV[30S-50S Association]
+    AV --> AW{Subunit Interface?}
+    AW -->|Correct| AX[Stable 70S Formation]
+    AW -->|Incorrect| AY(\1)
+    
+    %% GTP Hydrolysis and Factor Release
+    AX --> AZ{IF2-GTP Positioned?}
+    AZ -->|At GTPase Center| BA[GTP Hydrolysis]
+    AZ -->|Not Positioned| BB[Conformational Adjustment]
+    
+    BA --> BC[IF2-GDP Formation]
+    BC --> BD[Pi Release]
+    BD --> BE[Conformational Change]
+    BE --> BF[IF2-GDP Release]
+    
+    BF --> BG[IF1 Dissociation]
+    BG --> BH{All Factors Released?}
+    BH -->|Yes| BI[Factor-Free 70S]
+    BH -->|No| BJ[Additional Release Steps]
+    
+    %% Final 70S Initiation Complex
+    BI --> BK[/fMet-tRNA in P-site/]
+    BK --> BL[A-site Available]
+    BL --> BM[E-site Empty]
+    BM --> BN{Elongation Ready?}
+    
+    BN -->|All Checks Pass| BO[70S Initiation Complex]
+    BN -->|Issue Detected| BP[Quality Control]
+    
+    BO --> BQ[EF-Tu-GTP-aa-tRNA Recognition]
+    BQ --> BR[Ready for Elongation]
+    BR --> BS[Translation Proceeds]
+    
+    %% Quality Control and Error Pathways
+    BP --> BT{Error Type?}
+    BT -->|Wrong Start Codon| BU(\1)
+    BT -->|Factor Stuck| BV[Ribosome Rescue]
+    BT -->|Damaged mRNA| BW[mRNA Decay]
+    
+    %% Regulation
+    K --> BX[Sequestered 30S Pool]
+    R --> BY[Failed Initiation]
+    Y --> BY
+    AI --> BY
+    AP --> BY
+    AY --> BY
+    
+    BY --> BZ{Retry?}
+    BZ -->|Yes| H
+    BZ -->|No| CA[\Translation Inhibited/]
+    
+    %% Alternative Pathways
+    G --> CB[Direct 30S Binding]
+    CB --> CC[Leaderless Initiation]
+    CC --> AE
+    
+    %% Final Outcomes
+    BS --> CD[Protein Synthesis]
+    CA --> CE[/Gene Silencing/]
+    BW --> CF[/mRNA Degradation/]
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style J fill:#51cf66,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#74c0fc,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#74c0fc,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#74c0fc,color:#fff
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AH fill:#51cf66,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#b197fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#74c0fc,color:#fff
+    style BG fill:#74c0fc,color:#fff
+    style BI fill:#ffd43b,color:#000
+    style BJ fill:#74c0fc,color:#fff
+    style BK fill:#74c0fc,color:#fff
+    style BL fill:#74c0fc,color:#fff
+    style BM fill:#74c0fc,color:#fff
+    style BO fill:#74c0fc,color:#fff
+    style BP fill:#74c0fc,color:#fff
+    style BQ fill:#74c0fc,color:#fff
+    style BR fill:#74c0fc,color:#fff
+    style BS fill:#51cf66,color:#fff
+    style BU fill:#74c0fc,color:#fff
+    style BV fill:#74c0fc,color:#fff
+    style BW fill:#74c0fc,color:#fff
+    style BX fill:#74c0fc,color:#fff
+    style BY fill:#74c0fc,color:#fff
+    style CA fill:#74c0fc,color:#fff
+    style CB fill:#51cf66,color:#fff
+    style CC fill:#74c0fc,color:#fff
+    style CD fill:#ffd43b,color:#000
+    style CE fill:#74c0fc,color:#fff
+    style CF fill:#74c0fc,color:#fff

@@ -1,0 +1,173 @@
+graph TD
+    %% Environmental Stress Signals
+    A[Nutrient Depletion] --> B[Glucose Starvation]
+    C[Amino Acid Limitation] --> D[Nitrogen Stress]
+    E[Phosphate Limitation] --> F[Phosphate Stress]
+    G[Cell Density Signal] --> H[Quorum Sensing]
+    I[DNA Damage] --> J[SOS Response]
+    
+    %% Kinase Activation Pathways
+    B --> K{KinA Sensor?}
+    D --> L{KinB Sensor?}
+    F --> M{KinC Sensor?}
+    H --> N{KinD Sensor?}
+    J --> O{KinE Sensor?}
+    
+    %% All kinases activate
+    K -->|Yes| P[KinA Autophosphorylation]
+    L -->|Yes| Q[KinB Autophosphorylation]
+    M -->|Yes| R[KinC Autophosphorylation]
+    N -->|Yes| S[KinD Autophosphorylation]
+    O -->|Yes| T[KinE Autophosphorylation]
+    
+    %% Phosphorylation of Spo0F
+    P --> U[KinA-P Formation]
+    Q --> V[KinB-P Formation]
+    R --> W[KinC-P Formation]
+    S --> X[KinD-P Formation]
+    T --> Y[KinE-P Formation]
+    
+    U --> Z[Phosphotransfer to Spo0F]
+    V --> Z
+    W --> Z
+    X --> Z
+    Y --> Z
+    
+    %% First Phosphorelay Step
+    Z --> AA[Spo0F~P Formation]
+    AA --> AB[Spo0F~P Accumulation]
+    
+    %% Negative Regulation by Phosphatases
+    AC[Spo0E Phosphatase] --> AD[Dephosphorylates Spo0F~P]
+    AE[RapA Phosphatase] --> AF[Dephosphorylates Spo0F~P]
+    AB --> AD
+    AB --> AF
+    AD --> AG[Reduced Spo0F~P]
+    AF --> AG
+    
+    %% AND Gate: High Spo0F~P AND Low Phosphatase
+    AB --> ANDGATE1{High Spo0F~P AND<br/>Low Phosphatase?}
+    AG --> ANDGATE1
+    ANDGATE1 -->|Yes| AH[Net Spo0F~P Increase]
+    ANDGATE1 -->|No| AI[Spo0F~P Insufficient]
+    
+    %% Second Phosphorelay Step
+    AH --> AJ[Spo0B Phosphotransferase]
+    AJ --> AK[Phosphotransfer to Spo0A]
+    AK --> AL[Spo0A~P Formation]
+    
+    %% Spo0A~P Threshold
+    AL --> AM{Spo0A~P<br/>Threshold?}
+    AM -->|Low| AN[Spo0A~P Low State]
+    AM -->|Medium| AO[Spo0A~P Medium State]
+    AM -->|High| AP[Spo0A~P High State]
+    
+    %% Low Spo0A~P - Vegetative Growth
+    AN --> AQ[Vegetative Gene Expression]
+    AQ --> AR[Cell Division Continues]
+    AR --> AS[No Sporulation]
+    
+    %% Medium Spo0A~P - Transition
+    AO --> AT[Early Sporulation Genes]
+    AT --> AU[spoIIA Activation]
+    AU --> AV[spoIIE Activation]
+    AV --> AW[spoIIG Activation]
+    AW --> AX[Commitment Point]
+    
+    %% High Spo0A~P - Full Sporulation
+    AP --> AY[Late Sporulation Genes]
+    AY --> AZ[/Vegetative Gene Repression/]
+    AZ --> BA[/abrB Repression/]
+    BA --> BB[Cell Asymmetry]
+    
+    %% Sporulation Stages
+    AX --> BC[Sporulation Stage 0]
+    BB --> BC
+    BC --> BD[Asymmetric Septation]
+    BD --> BE[Forespore Formation]
+    BE --> BF[Mother Cell Differentiation]
+    BF --> BG[Spore Coat Assembly]
+    BG --> BH[Spore Maturation]
+    BH --> BI[Dormant Spore]
+    
+    %% System Outputs
+    AS --> BJ[Continued Growth]
+    BI --> BK[Stress Resistance]
+    BK --> BL[Long-term Survival]
+    AI --> BM[Signal Insufficient]
+    BM --> AS
+    
+    %% Styling
+    
+    
+    
+    
+    
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#ff6b6b,color:#fff
+    style G fill:#ff6b6b,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#ff6b6b,color:#fff
+    style J fill:#b197fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#51cf66,color:#fff
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#51cf66,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style V fill:#74c0fc,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#51cf66,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#51cf66,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AR fill:#b197fc,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#51cf66,color:#fff
+    style AW fill:#51cf66,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#b197fc,color:#fff
+    style BC fill:#74c0fc,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BF fill:#b197fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#74c0fc,color:#fff
+    style BJ fill:#b197fc,color:#fff
+    style BK fill:#ff6b6b,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#ff6b6b,color:#fff

@@ -1,0 +1,175 @@
+graph TD
+    %% External Phosphate
+    A[Extracellular Phosphate Pi] --> B{OR: Pi<br/>Concentration?}
+    B -->|High >20 μM| C[Sufficient Phosphate]
+    B -->|Low <20 μM| D[Phosphate Starvation]
+    
+    %% High Pi - Pit System
+    C --> E[Pit Constitutive Transport]
+    E --> F[PitA/B H+ Symporters]
+    F --> G{AND: Pi + H+<br/>Gradient?}
+    G -->|No| H[No Transport]
+    G -->|Yes| I[Pi-H+ Cotransport]
+    I --> J[Cytoplasmic Pi]
+    
+    %% Low Pi - Pst System
+    D --> K[PHO Regulon Induction]
+    K --> L[PhoR/PhoB Activation]
+    L --> M[pstSCAB Operon Expression]
+    M --> N[Pst System Components]
+    
+    %% Pst System Assembly
+    N --> O{AND: PstS + PstCAB<br/>All Present?}
+    O -->|No| P[Transport Fails]
+    O -->|Yes| Q[Functional Pst Complex]
+    
+    %% PstS Binding Protein
+    Q --> R[PstS Periplasmic Protein]
+    A --> R
+    R --> S[PstS Binds Pi]
+    S --> T[PstS-Pi Complex]
+    
+    %% ABC Transporter
+    T --> U[PstS Docks with PstCAB]
+    U --> V{AND: PstA + PstC<br/>Membrane Pore?}
+    V -->|No| P
+    V -->|Yes| W[Pi Transfer to Transporter]
+    
+    W --> X{AND: PstB ATPase<br/>AND ATP?}
+    X -->|No| P
+    X -->|Yes| Y[ATP Hydrolysis]
+    Y --> Z[Conformational Change]
+    Z --> AA[Pi Transported]
+    AA --> J
+    
+    %% PhoU Regulation
+    J --> AB[Intracellular Pi]
+    AB --> AC{OR: Pi<br/>Level?}
+    AC -->|High| AD[Pi Binds PhoU]
+    AC -->|Low| AE[PhoU Free]
+    
+    AD --> AF[PhoU-Pi Complex]
+    AF --> AG[PhoU Interacts with PstB]
+    AG --> AH[/PhoU Inhibits PhoR/]
+    AH --> AI[\PhoR Kinase Inactive/]
+    AI --> AJ[/PhoB Not Phosphorylated/]
+    AJ --> AK[PHO Regulon OFF]
+    
+    %% Low Pi - PhoR Activation
+    AE --> AL[/No PhoU Inhibition/]
+    AL --> AM[PhoR Autophosphorylation]
+    AM --> AN[PhoR~P Formation]
+    AN --> AO[Phosphotransfer to PhoB]
+    AO --> AP[PhoB~P Active]
+    
+    %% PHO Regulon Activation
+    AP --> AQ[PhoB~P Binds Pho Boxes]
+    AQ --> AR{OR: Which PHO<br/>Gene?}
+    AR -->|pstSCAB| AS[High-Affinity Transporter]
+    AR -->|phoA| AT[Alkaline Phosphatase]
+    AR -->|ugpBAEC| AU[Glycerol-3-P Transporter]
+    AR -->|phnCDE| AV[Phosphonate Utilization]
+    
+    AS --> M
+    
+    %% Alternative Pi Sources
+    AT --> AW[PhoA Secreted]
+    AW --> AX[Cleaves Organic Phosphates]
+    AX --> AY[Pi Released]
+    AY --> A
+    
+    AU --> AZ[Import Glycerol-3-Phosphate]
+    AZ --> BA[GlpQ Cleaves G3P]
+    BA --> BB[Glycerol + Pi]
+    BB --> J
+    
+    AV --> BC[Phosphonate ABC Transporter]
+    BC --> BD[C-P Lyase]
+    BD --> BE[Phosphonate → Pi]
+    BE --> J
+    
+    %% Phosphate Utilization
+    J --> BF{OR: Pi<br/>Use?}
+    BF -->|Nucleotides| BG[ATP/GTP/CTP/UTP Synthesis]
+    BF -->|Phospholipids| BH[Membrane Biosynthesis]
+    BF -->|DNA/RNA| BI[Nucleic Acid Synthesis]
+    BF -->|Phosphoproteins| BJ(\1)
+    
+    BG --> BK([Energy/Metabolism])
+    BH --> BL([Membrane Growth])
+    BI --> BM([Replication/Transcription])
+    BJ --> BN["(\1)"]
+    
+    H --> BO([Pi Starvation])
+    P --> BO
+    AK --> BP["(\1)"]
+    
+    %% Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style H fill:#51cf66,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#74c0fc,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#74c0fc,color:#fff
+    style P fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style R fill:#ffd43b,color:#000
+    style S fill:#74c0fc,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#74c0fc,color:#fff
+    style W fill:#51cf66,color:#fff
+    style Y fill:#51cf66,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#b197fc,color:#fff
+    style AD fill:#74c0fc,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#51cf66,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#74c0fc,color:#fff
+    style AQ fill:#74c0fc,color:#fff
+    style AS fill:#51cf66,color:#fff
+    style AT fill:#51cf66,color:#fff
+    style AU fill:#51cf66,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#74c0fc,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BE fill:#74c0fc,color:#fff
+    style BG fill:#51cf66,color:#fff
+    style BH fill:#51cf66,color:#fff
+    style BI fill:#51cf66,color:#fff
+    style BJ fill:#ff6b6b,color:#fff
+    style BK fill:#b197fc,color:#fff
+    style BL fill:#b197fc,color:#fff
+    style BM fill:#51cf66,color:#fff
+    style BN fill:#74c0fc,color:#fff
+    style BO fill:#ff6b6b,color:#fff
+    style BP fill:#b197fc,color:#fff

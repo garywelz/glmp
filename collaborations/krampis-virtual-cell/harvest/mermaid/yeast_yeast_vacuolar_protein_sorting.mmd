@@ -1,0 +1,126 @@
+graph TD
+    A["Start: Gene Transcription"] --> B[mRNA Translation at ER]
+    B --> C[Protein Folding & Glycosylation]
+    C --> D["ER Chaperones (e.g., BiP)"]
+    D --> E{Protein Properly Folded?}
+    E -->|No| F[Misfolded Protein]
+    F --> G[ERAD Pathway Activation]
+    G --> H[Ubiquitination & Retrotranslocation]
+    H --> I[/Proteasomal Degradation/]
+    E -->|Yes| J[Properly Folded Protein in ER Lumen]
+    J --> K[COPII Vesicle Budding]
+    K --> L[COPII Vesicle Transport to Golgi]
+    L --> M[Fusion with Cis-Golgi]
+    M --> N[Protein in Golgi]
+
+    N --> O{Golgi Sorting Decision?}
+    O -->|Secretory Pathway (Default)| P[Secretory Vesicle Transport]
+    P --> Q[Protein Secretion/PM Insertion]
+
+    O -->|Misfolded Transmembrane Protein| R[Dsc Ligase Pathway]
+    R --> S[Dsc Ubiquitin Ligase Complex]
+    S --> T[TM Degron Recognition & Ubiquitination]
+    T --> U[Ubiquitinated Misfolded Protein]
+    U --> V<Degradation Targeting AND>
+    V --> W[Targeting to Vacuole via MVB]
+    W --> X[/Vacuolar Degradation/]
+    V --> Y[Targeting to Proteasome via ERAD/Cytosol]
+    Y --> I
+
+    O -->|Soluble Vacuolar Hydrolase (CPY)| Z[CPY Pathway]
+    Z --> AA[Vps10 Receptor Binding]
+    AA --> AB[Vps10 Receptor]
+    AA --> AC[CPY-Vps10 Complex]
+    AC --> AD[Clathrin Coat Assembly & Budding]
+    AD --> AE[Clathrin & Adaptors]
+    AD --> AF[CPY-Vps10 Clathrin Vesicle]
+    AF --> AG["Transport to Prevacuolar Compartment (PVC)"]
+    AG --> AH[Vesicle Uncoating & Fusion with PVC]
+    AH --> AI[PVC Acidification & CPY Release]
+    AI --> AJ[Free CPY in PVC Lumen]
+    AI --> AK[Vps10 Recycling to Golgi]
+    AJ --> AL[Vacuolar Vesicle Formation from PVC]
+    AL --> AM[Fusion with Vacuole]
+    AM --> AN[Mature CPY in Vacuole Lumen]
+
+    O -->|Transmembrane Vacuolar Protein (ALP)| AO[ALP Pathway]
+    AO --> AP[Cytosolic Sorting Signal Recognition]
+    AP --> AQ{Ubiquitination Required for MVB Entry?}
+    AQ -->|Yes| AR["Ubiquitin Ligase (Rsp5)"]
+    AR --> AS[ALP Ubiquitination]
+    AS --> AT[Ubiquitinated ALP]
+    AQ -->|No/Already Ubiquitinated| AT
+    AT --> AU["ESCRT Complexes (0, I, II, III)"]
+    AU --> AV[MVB Pathway Invagination & Budding]
+    AV --> AW[ALP in MVB Intraluminal Vesicle]
+    AW --> AX[MVB Transport & Maturation]
+    AX --> AY[MVB Fusion with Vacuole]
+    AY --> AZ[Mature ALP in Vacuolar Membrane]
+
+    X --> BA[Vacuolar Proteases]
+    AN --> BA
+    AZ --> BA
+    BA --> BB[/Degraded Products for Recycling/]
+    X --> BC[Vacuolar Storage/Homeostasis]
+    AN --> BC
+    AZ --> BC
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style F fill:#ffd43b,color:#000
+    style G fill:#51cf66,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#74c0fc,color:#fff
+    style J fill:#ffd43b,color:#000
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#ffd43b,color:#000
+    style P fill:#51cf66,color:#fff
+    style Q fill:#ffd43b,color:#000
+    style R fill:#51cf66,color:#fff
+    style S fill:#51cf66,color:#fff
+    style T fill:#74c0fc,color:#fff
+    style U fill:#ffd43b,color:#000
+    style W fill:#74c0fc,color:#fff
+    style X fill:#74c0fc,color:#fff
+    style Y fill:#74c0fc,color:#fff
+    style Z fill:#74c0fc,color:#fff
+    style AA fill:#51cf66,color:#fff
+    style AB fill:#74c0fc,color:#fff
+    style AC fill:#74c0fc,color:#fff
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#74c0fc,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#51cf66,color:#fff
+    style AH fill:#74c0fc,color:#fff
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#74c0fc,color:#fff
+    style AL fill:#74c0fc,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AN fill:#74c0fc,color:#fff
+    style AO fill:#74c0fc,color:#fff
+    style AP fill:#ff6b6b,color:#fff
+    style AR fill:#51cf66,color:#fff
+    style AS fill:#74c0fc,color:#fff
+    style AT fill:#74c0fc,color:#fff
+    style AU fill:#74c0fc,color:#fff
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#51cf66,color:#fff
+    style AY fill:#74c0fc,color:#fff
+    style AZ fill:#74c0fc,color:#fff
+    style BA fill:#51cf66,color:#fff
+    style BB fill:#74c0fc,color:#fff
+    style BC fill:#b197fc,color:#fff

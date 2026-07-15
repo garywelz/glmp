@@ -1,0 +1,220 @@
+graph TD
+    Start([TOR Signaling]) --> A1{Nutrient status?}
+    
+    A1 -->|Amino acids present| A2[Amino acid sensing pathway]
+    A1 -->|Nitrogen present| A3[Nitrogen sensing pathway]
+    A1 -->|Glucose present| A4[Glucose sensing pathway]
+    
+    A2 --> A5[EGO complex Gtr1/Gtr2 GTPases]
+    A5 --> A6{Amino acids available?}
+    A6 -->|Yes| A7[Gtr1-GTP, Gtr2-GDP state]
+    A6 -->|No| A8[Gtr1-GDP, Gtr2-GTP state]
+    
+    A7 --> A9[EGO complex recruits TORC1 to vacuole]
+    A8 --> A10[\TORC1 not recruited - inactive/]
+    
+    A3 --> A11[Glutamine synthetase Gln3]
+    A11 --> A12{Nitrogen quality?}
+    A12 -->|Good nitrogen NH4+| A13[\Gln3 phosphorylated and inhibited/]
+    A12 -->|Poor nitrogen| A14[Gln3 active]
+    
+    A4 --> A15[Glucose activates PKA pathway]
+    A15 --> A16[Cross-talk with TOR]
+    
+    A9 --> A17[TORC1 complex at vacuole membrane]
+    A17 --> A18{TORC1 components assembled?}
+    A18 -->|Tor1 or Tor2 + Kog1 + Lst8 + Tco89| A19[Active TORC1 complex]
+    A18 -->|Missing component| Wait1[Wait for assembly]
+    Wait1 --> A18
+    
+    A19 --> A20{Rapamycin present?}
+    A20 -->|Yes - drug inhibition| A21[Rapamycin binds FKBP12 Fpr1]
+    A20 -->|No - normal| A22[TORC1 active]
+    
+    A21 --> A23[Rapamycin-FKBP12 binds Tor FRB domain]
+    A23 --> A24[\TORC1 inhibited allosterically/]
+    
+    A22 --> A25[TORC1 kinase activity]
+    A25 --> A26[Multiple downstream targets]
+    
+    A26 --> A27["Target 1: Sch9 kinase AGC family"]
+    A27 --> A28{TORC1 phosphorylates Sch9?}
+    A28 -->|Yes - nutrients| A29[Sch9 phosphorylated and active]
+    A28 -->|No - starvation| A30[\Sch9 inactive/]
+    
+    A29 --> A31[Sch9 promotes translation initiation]
+    A31 --> A32[Phosphorylates ribosomal protein S6]
+    A32 --> A33[Ribosome biogenesis activated]
+    
+    A29 --> A34[/Sch9 inhibits stress responses/]
+    A34 --> A35[Msn2/4 transcription factors excluded from nucleus]
+    
+    A26 --> A36["Target 2: Tap42-PP2A phosphatase complex"]
+    A36 --> A37[TORC1 phosphorylates Tap42]
+    A37 --> A38[Tap42~P binds Sit4 and PP2A phosphatases]
+    A38 --> A39[\Phosphatases inhibited when bound to Tap42~P/]
+    
+    A39 --> A40{Result of phosphatase inhibition}
+    A40 -->|Substrate phosphorylation maintained| A41[Gln3 stays phosphorylated]
+    A41 --> A42[/Nitrogen catabolite repression active/]
+    
+    A26 --> A43["Target 3: Transcription factors"]
+    A43 --> A44[TORC1 regulates Gln3 Gat1 Rtg1/3]
+    A44 --> A45[Ribosomal protein genes activated]
+    A45 --> A46[tRNA synthesis genes activated]
+    
+    A46 --> A47[Translation capacity increases]
+    
+    A26 --> A48["/Target 4: Autophagy repression"]
+    A48 --> A49[TORC1 phosphorylates Atg13]
+    A49 --> A50[/Atg13~P cannot activate Atg1 kinase/]
+    A50 --> A51[\Autophagy blocked/]
+    
+    A33 --> A52[Anabolic outputs]
+    A47 --> A52
+    A51 --> A52
+    
+    A52 --> A53[Cell growth promoted]
+    A53 --> A54[Protein synthesis high]
+    A54 --> A55[Ribosome production high]
+    A55 --> A56[Nutrient import active]
+    
+    A56 --> End1([Growth state])
+    
+    A10 --> A57[\TORC1 inactive - starvation response/]
+    A24 --> A57
+    A30 --> A57
+    
+    A57 --> A58[/Tap42 not phosphorylated/]
+    A58 --> A59[Sit4 PP2A phosphatases released and active]
+    
+    A59 --> A60[Dephosphorylation of TORC1 substrates]
+    A60 --> A61[Gln3 Gat1 dephosphorylated]
+    A61 --> A62[Gln3/Gat1 enter nucleus]
+    A62 --> A63[/Nitrogen catabolite repression relieved/]
+    A63 --> A64[NCR genes expressed - use poor nitrogen]
+    
+    A59 --> A65[Msn2/Msn4 dephosphorylated]
+    A65 --> A66[Msn2/4 enter nucleus]
+    A66 --> A67[STRE stress genes activated]
+    A67 --> A68[Stress protection genes expressed]
+    
+    A57 --> A69[Atg13 dephosphorylated]
+    A69 --> A70[Atg13 activates Atg1 kinase]
+    A70 --> A71[Autophagy initiated]
+    A71 --> A72[/Bulk protein degradation/]
+    A72 --> A73[Amino acids recycled]
+    
+    A57 --> A74[Gcn2 kinase activated]
+    A74 --> A75[eIF2α phosphorylated]
+    A75 --> A76[\General translation repressed/]
+    A76 --> A77[But Gcn4 translation activated paradoxically]
+    A77 --> A78[Gcn4 transcription factor active]
+    A78 --> A79[Amino acid biosynthesis genes induced]
+    
+    A64 --> A80[Catabolic outputs]
+    A68 --> A80
+    A73 --> A80
+    A79 --> A80
+    
+    A80 --> A81[Cell growth arrested]
+    A81 --> A82[Autophagy active - protein turnover]
+    A82 --> A83[Stress resistance high]
+    A83 --> A84[Amino acid synthesis activated]
+    
+    A84 --> End2([Starvation/stress state])
+    
+    A13 --> A85[TORC1 and PKA coordinate]
+    A16 --> A85
+    A85 --> A86[Growth only when both nutrients AND glucose]
+    A86 --> A87{Both pathways active?}
+    A87 -->|Yes| A22
+    A87 -->|No| A57
+    
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A2 fill:#74c0fc,color:#fff
+    style A3 fill:#74c0fc,color:#fff
+    style A4 fill:#74c0fc,color:#fff
+    style A5 fill:#74c0fc,color:#fff
+    style A7 fill:#74c0fc,color:#fff
+    style A8 fill:#74c0fc,color:#fff
+    style A9 fill:#74c0fc,color:#fff
+    style A10 fill:#74c0fc,color:#fff
+    style A11 fill:#ffd43b,color:#000
+    style A13 fill:#74c0fc,color:#fff
+    style A14 fill:#74c0fc,color:#fff
+    style A15 fill:#74c0fc,color:#fff
+    style A16 fill:#74c0fc,color:#fff
+    style A17 fill:#74c0fc,color:#fff
+    style A19 fill:#74c0fc,color:#fff
+    style A21 fill:#74c0fc,color:#fff
+    style A22 fill:#74c0fc,color:#fff
+    style A23 fill:#74c0fc,color:#fff
+    style A24 fill:#74c0fc,color:#fff
+    style A25 fill:#51cf66,color:#fff
+    style A26 fill:#74c0fc,color:#fff
+    style A27 fill:#51cf66,color:#fff
+    style A29 fill:#74c0fc,color:#fff
+    style A30 fill:#74c0fc,color:#fff
+    style A31 fill:#51cf66,color:#fff
+    style A32 fill:#ffd43b,color:#000
+    style A33 fill:#74c0fc,color:#fff
+    style A34 fill:#74c0fc,color:#fff
+    style A35 fill:#ffd43b,color:#000
+    style A36 fill:#51cf66,color:#fff
+    style A37 fill:#74c0fc,color:#fff
+    style A38 fill:#51cf66,color:#fff
+    style A39 fill:#74c0fc,color:#fff
+    style A41 fill:#74c0fc,color:#fff
+    style A42 fill:#74c0fc,color:#fff
+    style A43 fill:#ffd43b,color:#000
+    style A44 fill:#74c0fc,color:#fff
+    style A45 fill:#ffd43b,color:#000
+    style A46 fill:#51cf66,color:#fff
+    style A47 fill:#51cf66,color:#fff
+    style A48 fill:#74c0fc,color:#fff
+    style A49 fill:#74c0fc,color:#fff
+    style A50 fill:#74c0fc,color:#fff
+    style A51 fill:#74c0fc,color:#fff
+    style A52 fill:#b197fc,color:#fff
+    style A53 fill:#b197fc,color:#fff
+    style A54 fill:#ffd43b,color:#000
+    style A55 fill:#b197fc,color:#fff
+    style A56 fill:#ff6b6b,color:#fff
+    style A57 fill:#74c0fc,color:#fff
+    style A58 fill:#74c0fc,color:#fff
+    style A59 fill:#51cf66,color:#fff
+    style A60 fill:#51cf66,color:#fff
+    style A61 fill:#74c0fc,color:#fff
+    style A62 fill:#74c0fc,color:#fff
+    style A63 fill:#74c0fc,color:#fff
+    style A64 fill:#74c0fc,color:#fff
+    style A65 fill:#74c0fc,color:#fff
+    style A66 fill:#74c0fc,color:#fff
+    style A67 fill:#ff6b6b,color:#fff
+    style A68 fill:#ff6b6b,color:#fff
+    style A69 fill:#74c0fc,color:#fff
+    style A70 fill:#51cf66,color:#fff
+    style A71 fill:#74c0fc,color:#fff
+    style A72 fill:#74c0fc,color:#fff
+    style A73 fill:#74c0fc,color:#fff
+    style A74 fill:#51cf66,color:#fff
+    style A75 fill:#74c0fc,color:#fff
+    style A76 fill:#74c0fc,color:#fff
+    style A77 fill:#51cf66,color:#fff
+    style A78 fill:#ffd43b,color:#000
+    style A79 fill:#51cf66,color:#fff
+    style A80 fill:#b197fc,color:#fff
+    style A81 fill:#b197fc,color:#fff
+    style A82 fill:#ffd43b,color:#000
+    style A83 fill:#ff6b6b,color:#fff
+    style A84 fill:#51cf66,color:#fff
+    style A85 fill:#74c0fc,color:#fff
+    style A86 fill:#ff6b6b,color:#fff

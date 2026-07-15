@@ -1,0 +1,137 @@
+graph TD
+    A["Start: Nascent Polypeptide Synthesis"]
+    B[Ribosome Translation]
+    C{N-terminal Signal Peptide present?}
+    D[SRP Recognition of Signal Peptide]
+    E[Cytosolic Nascent Polypeptide Exposure]
+
+    %% ER Pathway
+    C -->|Yes| D
+    D --> F[SRP-Ribosome Complex Formation]
+    F --> G["Docking to ER SRP Receptor (Sec65/Sec72/Sec71)"]
+    G --> H["Translocon Engagement (Sec61 Complex)"]
+    H --> I[Cotranslational Translocation into ER Lumen/Membrane]
+    I --> J[Signal Peptidase Cleavage]
+    J --> K[Polypeptide in ER Lumen/Membrane]
+    K --> L["N-linked Glycosylation (Oligosaccharyltransferase)"]
+    K --> M["Disulfide Bond Formation (PDI, Ero1)"]
+    K --> N[BiP/Kar2 Chaperone Binding]
+    K --> O["Calnexin/Calreticulin (Cne1/Crt1) Binding"]
+    L & M & N & O --> P{ER Folding Environment Ready?}
+    P --> Q[ER Chaperone-Assisted Folding Cycles]
+    Q --> R{Protein Properly Folded in ER?}
+    R -->|Yes| S[Functional Protein in ER Lumen/Membrane]
+    R -->|No| T[Misfolded Protein in ER]
+    S --> U{Destination: Soluble or Membrane?}
+    U -->|Soluble| V[Vesicular Transport to Golgi/Vacuole/Secretion]
+    U -->|Membrane| W[Integration into ER Membrane]
+    V --> X[Mature Secreted/Lumenal Protein]
+    W --> Y[Functional ER/Organelle Membrane Protein]
+
+    T --> Z{Can be Refolded by ER Chaperones?}
+    Z -->|Yes| AA[Re-engagement with ER Chaperones]
+    AA --> Q
+    Z -->|No| AB[Persistent Misfolded ER Protein]
+    AB --> AC{ER Stress High (UPR Triggered)?}
+    AC -->|Yes| AD["UPR Activation (Ire1/Hac1 Pathway)"]
+    AC -->|Yes| AE[Increased Chaperone & ERAD Component Synthesis]
+    AE --> Q
+    AC -->|No| AF[/ER-Associated Degradation ERAD Pathway Initiation/]
+    AF --> AG["Retrotranslocation to Cytosol (Derlins, Hrd1)"]
+    AG --> AH[Ubiquitination of Misfolded ER Protein]
+    AH --> AI[/26S Proteasome Degradation Cytosol/]
+    AI --> AJ[/Degraded Peptides ERAD Product/]
+
+    %% Cytosolic Pathway
+    C -->|No| E
+    E --> AK[Cytosolic Hsp70/Ssa Chaperone Binding]
+    AK --> AL[Hsp40/Ydj1 Co-chaperone Binding]
+    AL --> AM[Initial Cytosolic Folding Assistance]
+    AM --> AN{Protein Properly Folded in Cytosol?}
+    AN -->|Yes| AO[Functional Cytosolic Protein]
+    AN -->|No| AP[Misfolded Cytosolic Protein]
+    AP --> AQ{Can be Refolded by Cytosolic Chaperones?}
+    AQ -->|Yes| AR[Cytosolic Chaperone Re-engagement]
+    AR --> AM
+    AQ -->|No| AS[Persistent Misfolded Cytosolic Protein]
+    AS --> AT{Targeted for Proteasomal Degradation (UPS)?}
+    AT -->|Yes| AU[Ubiquitination of Misfolded Protein]
+    AT -->|Yes| AV[/26S Proteasome Degradation/]
+    AV --> AW[/Degraded Peptides UPS Product/]
+    AT -->|No| AX[Misfolded Protein Alternative Fate]
+    AX --> AY{Targeted for Mitochondrial Import (MIM Pathway)?}
+    AY -->|Yes| AZ[Recognition by Mitochondrial Import Machinery]
+    AY -->|Yes| BA["Translocation into Mitochondria (TOM/TIM)"]
+    AY -->|Yes| BB[Misfolded Protein in Mitochondria]
+    AY -->|Yes| BC[Mitochondrial Hsp70/Hsp60 Chaperone Binding]
+    AY -->|Yes| BD[Mitochondrial Refolding Attempt]
+    AY -->|Yes| BE{Refolded in Mitochondria?}
+    BE -->|Yes| BF[Functional Protein in Mitochondria]
+    BE -->|No| BG[/Mitochondrial Protease Degradation/]
+    BG --> BH[/Degraded Peptides Mitochondrial/]
+    AY -->|No| BI[Misfolded Protein Aggregation]
+    BI --> BJ[Insoluble Aggregates/Inclusion Bodies]
+
+    %% Styling
+
+
+
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+
+    %% Semantic Color Styling
+    style A fill:#51cf66,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
+    style E fill:#ff6b6b,color:#fff
+    style F fill:#74c0fc,color:#fff
+    style G fill:#74c0fc,color:#fff
+    style H fill:#74c0fc,color:#fff
+    style I fill:#51cf66,color:#fff
+    style J fill:#ff6b6b,color:#fff
+    style K fill:#74c0fc,color:#fff
+    style L fill:#51cf66,color:#fff
+    style M fill:#74c0fc,color:#fff
+    style N fill:#51cf66,color:#fff
+    style O fill:#51cf66,color:#fff
+    style Q fill:#74c0fc,color:#fff
+    style S fill:#ffd43b,color:#000
+    style T fill:#ffd43b,color:#000
+    style V fill:#51cf66,color:#fff
+    style W fill:#74c0fc,color:#fff
+    style X fill:#ffd43b,color:#000
+    style Y fill:#ffd43b,color:#000
+    style AA fill:#74c0fc,color:#fff
+    style AB fill:#ffd43b,color:#000
+    style AD fill:#51cf66,color:#fff
+    style AE fill:#51cf66,color:#fff
+    style AF fill:#74c0fc,color:#fff
+    style AG fill:#74c0fc,color:#fff
+    style AH fill:#ffd43b,color:#000
+    style AI fill:#74c0fc,color:#fff
+    style AJ fill:#74c0fc,color:#fff
+    style AK fill:#51cf66,color:#fff
+    style AL fill:#51cf66,color:#fff
+    style AM fill:#74c0fc,color:#fff
+    style AO fill:#ffd43b,color:#000
+    style AP fill:#ffd43b,color:#000
+    style AR fill:#74c0fc,color:#fff
+    style AS fill:#ffd43b,color:#000
+    style AU fill:#ffd43b,color:#000
+    style AV fill:#74c0fc,color:#fff
+    style AW fill:#74c0fc,color:#fff
+    style AX fill:#ffd43b,color:#000
+    style AZ fill:#51cf66,color:#fff
+    style BA fill:#74c0fc,color:#fff
+    style BB fill:#ffd43b,color:#000
+    style BC fill:#51cf66,color:#fff
+    style BD fill:#74c0fc,color:#fff
+    style BF fill:#ffd43b,color:#000
+    style BG fill:#74c0fc,color:#fff
+    style BH fill:#74c0fc,color:#fff
+    style BI fill:#ffd43b,color:#000
+    style BJ fill:#74c0fc,color:#fff
