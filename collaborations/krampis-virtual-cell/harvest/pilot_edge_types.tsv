@@ -1,0 +1,370 @@
+chart_id	source_id	source_label	source_nodetype	target_id	target_label	target_nodetype	edge_label	edge_type	confidence	rationale
+ecoli_tca_cycle	Start	[TCA Cycle]	other	A1	Acetyl-CoA enters cycle	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A1	Acetyl-CoA enters cycle	metabolite	A2	Acetyl-CoA from: glycolysis, fatty acids, amino acids	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A2	Acetyl-CoA from: glycolysis, fatty acids, amino acids	metabolite	A3	Step 1: Citrate Synthase GltA	metabolite		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A3	Step 1: Citrate Synthase GltA	metabolite	A4	Acetyl-CoA + Oxaloacetate + H2O	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A4	Acetyl-CoA + Oxaloacetate + H2O	metabolite	A5	Citrate + CoA-SH	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A5	Citrate + CoA-SH	metabolite	A6	ΔG°' = -31.4 kJ/mol - irreversible	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A6	ΔG°' = -31.4 kJ/mol - irreversible	other	A7	Step 2: Aconitase AcnA AcnB	other		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A7	Step 2: Aconitase AcnA AcnB	other	A8	Which aconitase isoform?	gate		proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A8	Which aconitase isoform?	gate	A9	Iron-sulfur cluster intact	other	AcnA - aerobic	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A8	Which aconitase isoform?	gate	A10	Alternative isoform	other	AcnB - stationary phase	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A9	Iron-sulfur cluster intact	other	A11	Citrate ⇌ cis-Aconitate + H2O	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A10	Alternative isoform	other	A11	Citrate ⇌ cis-Aconitate + H2O	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A11	Citrate ⇌ cis-Aconitate + H2O	metabolite	A12	cis-Aconitate ⇌ Isocitrate	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A12	cis-Aconitate ⇌ Isocitrate	metabolite	A13	Isocitrate formed	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A13	Isocitrate formed	metabolite	A14	Step 3: Isocitrate Dehydrogenase	metabolite		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A14	Step 3: Isocitrate Dehydrogenase	metabolite	A15	Which Icd isoform?	gate		proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A15	Which Icd isoform?	gate	A16	Produces NADPH for biosynthesis	other	Icd NADP+ dependent	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A15	Which Icd isoform?	gate	A17	Produces NADH for energy	metabolite	IcdA NAD+ dependent	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A16	Produces NADPH for biosynthesis	other	A18	Isocitrate + NADP+ → α-Ketoglutarate + CO2 + NADPH	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A17	Produces NADH for energy	metabolite	A19	Isocitrate + NAD+ → α-Ketoglutarate + CO2 + NADH	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A18	Isocitrate + NADP+ → α-Ketoglutarate + CO2 + NADPH	metabolite	A20	α-Ketoglutarate formed	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A19	Isocitrate + NAD+ → α-Ketoglutarate + CO2 + NADH	metabolite	A20	α-Ketoglutarate formed	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A20	α-Ketoglutarate formed	other	A21	First CO2 released, first NADH/NADPH	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A20	α-Ketoglutarate formed	other	A22	Branch point at α-ketoglutarate	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A22	Branch point at α-ketoglutarate	other	A23	α-Ketoglutarate → Glutamate	other	Biosynthetic	produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A22	Branch point at α-ketoglutarate	other	A24	Step 4: α-Ketoglutarate Dehydrogenase Complex	complex	Oxidative - continue cycle	proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A23	α-Ketoglutarate → Glutamate	other	A25	Biosynthetic withdrawal for amino acids	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A24	Step 4: α-Ketoglutarate Dehydrogenase Complex	complex	A26	α-Ketoglutarate Dehydrogenase KDH complex	complex		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A26	α-Ketoglutarate Dehydrogenase KDH complex	complex	A27	E1: SucA - decarboxylase	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A27	E1: SucA - decarboxylase	other	A28	E2: SucB - dihydrolipoyl transsuccinylase	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A28	E2: SucB - dihydrolipoyl transsuccinylase	other	A29	E3: LpdA - dihydrolipoyl dehydrogenase shared with PDH	protein		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A29	E3: LpdA - dihydrolipoyl dehydrogenase shared with PDH	protein	A30	Substrates available?	gate		proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A30	Substrates available?	gate	A31	Complex reaction proceeds	complex	α-KG + NAD+ + CoA	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A30	Substrates available?	gate	Wait1	Wait for substrates	other	Missing substrate	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	Wait1	Wait for substrates	other	A30	Substrates available?	gate		proceeds	high	wait loop until substrates present
+ecoli_tca_cycle	A31	Complex reaction proceeds	complex	A32	α-Ketoglutarate + NAD+ + CoA-SH → Succinyl-CoA + CO2 + NADH	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A32	α-Ketoglutarate + NAD+ + CoA-SH → Succinyl-CoA + CO2 + NADH	metabolite	A33	Second CO2 released, second NADH	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A33	Second CO2 released, second NADH	metabolite	A34	Succinyl-CoA formed - high energy thioester	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A34	Succinyl-CoA formed - high energy thioester	metabolite	A35	Succinyl-CoA fate	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A35	Succinyl-CoA fate	metabolite	A36	Porphyrin synthesis	other	Biosynthetic	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A35	Succinyl-CoA fate	metabolite	A37	Step 5: Succinyl-CoA Synthetase SucCD	metabolite	Oxidative - continue	proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A36	Porphyrin synthesis	other	A38	Biosynthetic withdrawal for heme	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A37	Step 5: Succinyl-CoA Synthetase SucCD	metabolite	A39	Succinyl-CoA + GDP + Pi → Succinate + CoA + GTP	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A39	Succinyl-CoA + GDP + Pi → Succinate + CoA + GTP	metabolite	A40	Substrate-level phosphorylation - only ATP equivalent	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A40	Substrate-level phosphorylation - only ATP equivalent	metabolite	A41	GTP formed can phosphorylate ADP	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A41	GTP formed can phosphorylate ADP	other	A42	Step 6: Succinate Dehydrogenase SdhABCD	metabolite		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A42	Step 6: Succinate Dehydrogenase SdhABCD	metabolite	A43	Membrane-bound complex II	complex		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A43	Membrane-bound complex II	complex	A44	Contains FAD, Fe-S clusters, heme b	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A44	Contains FAD, Fe-S clusters, heme b	other	A45	Succinate + FAD → Fumarate + FADH2	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A45	Succinate + FAD → Fumarate + FADH2	metabolite	A46	FADH2 directly feeds electrons to quinone pool	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A46	FADH2 directly feeds electrons to quinone pool	other	A47	Part of electron transport chain	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A47	Part of electron transport chain	other	A48	Oxygen availability?	gate		proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A48	Oxygen availability?	gate	A49	Electrons to O2 via ETC	other	Aerobic	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A48	Oxygen availability?	gate	A50	Reverse to fumarate reductase FrdABCD	metabolite	Anaerobic	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A50	Reverse to fumarate reductase FrdABCD	metabolite	A51	Fumarate → Succinate using NADH	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A51	Fumarate → Succinate using NADH	metabolite	A52	Anaerobic respiration with fumarate as acceptor	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A49	Electrons to O2 via ETC	other	A53	Step 7: Fumarase FumABC	other		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A53	Step 7: Fumarase FumABC	other	A54	Which fumarase?	gate		proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A54	Which fumarase?	gate	A55	Class I fumarase	other	FumA - aerobic	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A54	Which fumarase?	gate	A56	Class I fumarase	other	FumB - all conditions	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A54	Which fumarase?	gate	A57	Class II fumarase	other	FumC - aerobic Fe-S resistant	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A55	Class I fumarase	other	A58	Fumarate + H2O ⇌ L-Malate	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A56	Class I fumarase	other	A58	Fumarate + H2O ⇌ L-Malate	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A57	Class II fumarase	other	A58	Fumarate + H2O ⇌ L-Malate	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A58	Fumarate + H2O ⇌ L-Malate	metabolite	A59	L-Malate formed	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A59	L-Malate formed	metabolite	A60	Step 8: Malate Dehydrogenase Mdh	metabolite		proceeds	high	pathway step to enzyme/process
+ecoli_tca_cycle	A60	Step 8: Malate Dehydrogenase Mdh	metabolite	A61	L-Malate + NAD+ ⇌ Oxaloacetate + NADH + H+	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A61	L-Malate + NAD+ ⇌ Oxaloacetate + NADH + H+	metabolite	A62	Third NADH produced	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A62	Third NADH produced	metabolite	A63	Oxaloacetate regenerated	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A63	Oxaloacetate regenerated	metabolite	A64	Cycle complete - ready for next acetyl-CoA	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A64	Cycle complete - ready for next acetyl-CoA	metabolite	A65	Continue cycling?	gate		proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A65	Continue cycling?	gate	A3	Step 1: Citrate Synthase GltA	metabolite	Yes - acetyl-CoA available	proceeds	high	cycle continue back to citrate synthase
+ecoli_tca_cycle	A65	Continue cycling?	gate	End1	[Cycle paused]	other	No	proceeds	high	isoform/branch gate along pathway
+ecoli_tca_cycle	A21	First CO2 released, first NADH/NADPH	metabolite	A66	Reducing equivalents summary per cycle	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A33	Second CO2 released, second NADH	metabolite	A66	Reducing equivalents summary per cycle	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A40	Substrate-level phosphorylation - only ATP equivalent	metabolite	A66	Reducing equivalents summary per cycle	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A46	FADH2 directly feeds electrons to quinone pool	other	A66	Reducing equivalents summary per cycle	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A62	Third NADH produced	metabolite	A66	Reducing equivalents summary per cycle	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A66	Reducing equivalents summary per cycle	other	A67	3 NADH produced	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A67	3 NADH produced	metabolite	A68	1 FADH2 produced	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A68	1 FADH2 produced	other	A69	1 GTP produced	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A69	1 GTP produced	other	A70	2 CO2 released	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A70	2 CO2 released	other	A71	Total: 3 NADH + 1 FADH2 + 1 GTP = ~10 ATP from ETC	metabolite		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A71	Total: 3 NADH + 1 FADH2 + 1 GTP = ~10 ATP from ETC	metabolite	End2	[Energy and biosynthetic output]	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A25	Biosynthetic withdrawal for amino acids	other	A72	Biosynthetic outputs	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A38	Biosynthetic withdrawal for heme	other	A72	Biosynthetic outputs	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A72	Biosynthetic outputs	other	A73	α-KG → Glu → Pro, Arg	other		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A73	α-KG → Glu → Pro, Arg	other	A74	Succinyl-CoA → Heme	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A74	Succinyl-CoA → Heme	metabolite	A75	Oxaloacetate → Asp → Asn, Met, Thr, Ile, Lys	metabolite		produces	high	reaction yields metabolite/product
+ecoli_tca_cycle	A75	Oxaloacetate → Asp → Asn, Met, Thr, Ile, Lys	metabolite	End3	[Biosynthetic precursors]	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A52	Anaerobic respiration with fumarate as acceptor	metabolite	A76	Anaerobic TCA cycle modifications	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A76	Anaerobic TCA cycle modifications	other	A77	Glyoxylate shunt bypasses CO2 steps	other		proceeds	high	TCA process step advances
+ecoli_tca_cycle	A77	Glyoxylate shunt bypasses CO2 steps	other	End4	[Alternative modes]	other		proceeds	high	TCA process step advances
+ecoli_tryptophan_biosynthesis	A	1	other	B	Shikimate Pathway Product	other		UNTYPABLE	low	opaque placeholder label \1
+ecoli_tryptophan_biosynthesis	B	Shikimate Pathway Product	other	C	TrpE/D Anthranilate Synthase	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	C	TrpE/D Anthranilate Synthase	metabolite	D	AND: Chorismate + Gln AND TrpE/D?	gate		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	D	AND: Chorismate + Gln AND TrpE/D?	gate	E	Synthesis Blocked	other	No	proceeds	high	gate fail blocks synthesis
+ecoli_tryptophan_biosynthesis	D	AND: Chorismate + Gln AND TrpE/D?	gate	F	TrpE Amidotransferase	other	Yes	proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	F	TrpE Amidotransferase	other	G	Glutamine → Glutamate + NH3	other		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	G	Glutamine → Glutamate + NH3	other	H	NH3 Attacks Chorismate	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	H	NH3 Attacks Chorismate	metabolite	I	Anthranilate Formation	metabolite		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	I	Anthranilate Formation	metabolite	J	Pyruvate Released	other		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	I	Anthranilate Formation	metabolite	K	TrpD Phosphoribosyltransferase	other		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	K	TrpD Phosphoribosyltransferase	other	L	AND: Anthranilate + PRPP AND TrpD?	gate		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	L	AND: Anthranilate + PRPP AND TrpD?	gate	E	Synthesis Blocked	other	No	proceeds	high	gate fail blocks synthesis
+ecoli_tryptophan_biosynthesis	L	AND: Anthranilate + PRPP AND TrpD?	gate	M	PRPP Transfer	other	Yes	proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	M	PRPP Transfer	other	N	N-5'-Phosphoribosyl-anthranilate	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	N	N-5'-Phosphoribosyl-anthranilate	metabolite	O	PPi Released	other		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	N	N-5'-Phosphoribosyl-anthranilate	metabolite	P	TrpF Phosphoribosylanthranilate Isomerase	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	P	TrpF Phosphoribosylanthranilate Isomerase	metabolite	Q	Amadori Rearrangement	other		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	Q	Amadori Rearrangement	other	R	1-O-Carboxyphenylamino-1-deoxyribulose-5-P	other		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	R	1-O-Carboxyphenylamino-1-deoxyribulose-5-P	other	S	1	other		UNTYPABLE	low	opaque placeholder label \1
+ecoli_tryptophan_biosynthesis	S	1	other	T	TrpC Indole-3-Glycerol-P Synthase	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	T	TrpC Indole-3-Glycerol-P Synthase	metabolite	U	Ring Closure + Decarboxylation	other		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	U	Ring Closure + Decarboxylation	other	V	Indole-3-Glycerol Phosphate	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	V	Indole-3-Glycerol Phosphate	metabolite	W	CO2 Released	other		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	V	Indole-3-Glycerol Phosphate	metabolite	X	TrpA/B Tryptophan Synthase	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	X	TrpA/B Tryptophan Synthase	metabolite	Y	AND: TrpA α-Subunit AND TrpB β-Subunit?	gate		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	Y	AND: TrpA α-Subunit AND TrpB β-Subunit?	gate	E	Synthesis Blocked	other	No	proceeds	high	gate fail blocks synthesis
+ecoli_tryptophan_biosynthesis	Y	AND: TrpA α-Subunit AND TrpB β-Subunit?	gate	Z	α2β2 Tetramer	complex	Yes	proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	Z	α2β2 Tetramer	complex	AA	TrpA: IGP → Indole + G3P	metabolite		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	AA	TrpA: IGP → Indole + G3P	metabolite	AB	Indole Intermediate	metabolite		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	AB	Indole Intermediate	metabolite	AC	Indole Channeled to TrpB	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	AC	Indole Channeled to TrpB	metabolite	AD	TrpB: Serine Dehydration	other		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	AD	TrpB: Serine Dehydration	other	AE	Serine + PLP → Aminoacrylate	other		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	AE	Serine + PLP → Aminoacrylate	other	AF	Indole + Aminoacrylate	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	AF	Indole + Aminoacrylate	metabolite	AG	C-C Bond Formation	other		produces	high	biosynthetic reaction product
+ecoli_tryptophan_biosynthesis	AG	C-C Bond Formation	other	AH	1	other		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	AH	1	other	AI	PLP Regenerated	other		UNTYPABLE	low	opaque placeholder label \1
+ecoli_tryptophan_biosynthesis	AH	1	other	AJ	Tryptophan Accumulation	metabolite		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	AJ	Tryptophan Accumulation	metabolite	AK	OR: Trp Level?	gate		proceeds	high	biosynthetic pathway step
+ecoli_tryptophan_biosynthesis	AK	OR: Trp Level?	gate	AL	Trp Binds TrpR	TF	High	induces	high	high Trp binds/activates TrpR
+ecoli_tryptophan_biosynthesis	AK	OR: Trp Level?	gate	AM	TrpR Inactive	TF	Low	proceeds	high	low Trp leaves TrpR inactive
+ecoli_tryptophan_biosynthesis	AL	Trp Binds TrpR	TF	AN	TrpR-Trp Complex	TF		induces	high	Trp-TrpR complex formation
+ecoli_tryptophan_biosynthesis	AN	TrpR-Trp Complex	TF	AO	TrpR Binds trp Operator	promoter		represses	high	TrpR complex binds operator
+ecoli_tryptophan_biosynthesis	AO	TrpR Binds trp Operator	promoter	AP	trp Operon Repression	other		represses	high	operator binding represses operon
+ecoli_tryptophan_biosynthesis	AP	trp Operon Repression	other	AQ	No Transcription	other		represses	high	repression yields no transcription
+ecoli_tryptophan_biosynthesis	AM	TrpR Inactive	TF	AR	No Repression	other		activates	med	inactive repressor permits expression
+ecoli_tryptophan_biosynthesis	AR	No Repression	other	AS	trp Operon Transcription	gene		activates	high	no repression allows transcription
+ecoli_tryptophan_biosynthesis	AS	trp Operon Transcription	gene	AT	TrpEDCBA mRNA	other		produces	high	transcription produces TrpEDCBA mRNA
+ecoli_tryptophan_biosynthesis	AT	TrpEDCBA mRNA	other	AU	Enzyme Synthesis	protein		produces	high	mRNA produces biosynthetic enzymes
+ecoli_tryptophan_biosynthesis	AU	Enzyme Synthesis	protein	C	TrpE/D Anthranilate Synthase	metabolite		produces	high	enzymes re-enter pathway — pollution edge
+ecoli_tryptophan_biosynthesis	AS	trp Operon Transcription	gene	AV	trpL Leader Sequence	other		proceeds	high	transcription includes leader sequence
+ecoli_tryptophan_biosynthesis	AV	trpL Leader Sequence	other	AW	OR: Trp-tRNA Charged?	gate		proceeds	med	trp pathway advance default
+ecoli_tryptophan_biosynthesis	AW	OR: Trp-tRNA Charged?	gate	AX	Ribosome Fast Through Leader	other	Yes - High Trp	proceeds	high	high Trp-tRNA attenuation branch
+ecoli_tryptophan_biosynthesis	AW	OR: Trp-tRNA Charged?	gate	AY	Ribosome Stalls at Trp Codons	other	No - Low Trp	proceeds	med	low Trp-tRNA stalling branch
+ecoli_tryptophan_biosynthesis	AX	Ribosome Fast Through Leader	other	AZ	Stem-Loop 3:4 Forms	other		proceeds	high	fast ribosome to terminator fold
+ecoli_tryptophan_biosynthesis	AZ	Stem-Loop 3:4 Forms	other	BA	Terminator Hairpin	other		proceeds	high	stem-loop to terminator
+ecoli_tryptophan_biosynthesis	BA	Terminator Hairpin	other	BB	Transcription Terminated	other		represses	high	terminator aborts transcription
+ecoli_tryptophan_biosynthesis	BB	Transcription Terminated	other	AQ	No Transcription	other		represses	high	termination to no-transcription state
+ecoli_tryptophan_biosynthesis	AY	Ribosome Stalls at Trp Codons	other	BC	Stem-Loop 2:3 Forms	other		proceeds	high	stall to antiterminator fold
+ecoli_tryptophan_biosynthesis	BC	Stem-Loop 2:3 Forms	other	BD	Antiterminator	other		proceeds	high	2:3 antiterminator forms
+ecoli_tryptophan_biosynthesis	BD	Antiterminator	other	BE	Transcription Continues	other		activates	high	antiterminator allows transcription
+ecoli_tryptophan_biosynthesis	BE	Transcription Continues	other	AT	TrpEDCBA mRNA	other		produces	high	continued transcription yields mRNA
+ecoli_tryptophan_biosynthesis	AH	1	other	BF	OR: Trp Fate?	gate		UNTYPABLE	low	opaque placeholder label \1
+ecoli_tryptophan_biosynthesis	BF	OR: Trp Fate?	gate	BG	tRNA-Trp Charging	other	Protein Synthesis	proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BF	OR: Trp Fate?	gate	BH	NAD+ Synthesis via Kynurenine	other	Biosynthesis	proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BF	OR: Trp Fate?	gate	BI	Indole Production	metabolite	Secondary Metabolite	proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BG	tRNA-Trp Charging	other	BJ	1	other		proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BH	NAD+ Synthesis via Kynurenine	other	BK	NAD+ Cofactor	other		proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BI	Indole Production	metabolite	BL	Indole Signaling	metabolite		proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BJ	1	other	BM	(\1)	other		proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BK	NAD+ Cofactor	other	BN	(\1)	other		proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	BL	Indole Signaling	metabolite	BO	[Quorum Sensing]	other		proceeds	med	downstream fate/signaling branch
+ecoli_tryptophan_biosynthesis	E	Synthesis Blocked	other	BP	[Tryptophan Starvation]	metabolite		proceeds	high	blocked synthesis to starvation
+ecoli_tryptophan_biosynthesis	AQ	No Transcription	other	BP	[Tryptophan Starvation]	metabolite		proceeds	high	no transcription to starvation phenotype
+human_nfkb_ikb_oscillator	A	TNF / IL-1 signal	other	B	IKK active	protein		activates	high	TNF/IL-1 activates IKK
+human_nfkb_ikb_oscillator	B	IKK active	protein	C	IκB degraded	TF		modifies	high	IKK marks IκB for degradation
+human_nfkb_ikb_oscillator	C	IκB degraded	TF	D	NF-κB nuclear	TF		activates	high	IκB loss frees NF-κB
+human_nfkb_ikb_oscillator	D	NF-κB nuclear	TF	E	Inflammatory gene transcription	gene		activates	high	NF-κB drives gene transcription
+human_nfkb_ikb_oscillator	D	NF-κB nuclear	TF	F	IκBα resynthesized	TF		activates	high	NF-κB induces IκBα synthesis
+human_nfkb_ikb_oscillator	F	IκBα resynthesized	TF	G	IκB resequesters NF-κB	TF		sequesters	med	resynthesized IκB engages sequestration
+human_nfkb_ikb_oscillator	G	IκB resequesters NF-κB	TF	D	NF-κB nuclear	TF	⊣ delayed	sequesters	high	IκB binds/blocks NF-κB; ⊣ delayed
+human_nfkb_ikb_oscillator	E	Inflammatory gene transcription	gene	H	Oscillatory NF-κB localization	TF		proceeds	high	transcription outcome to phenotype
+human_ampk_energy_homeostat	A	Low energy: high AMP/ADP	metabolite	B	AMPK activated	TF		induces	high	high AMP/ADP activates AMPK
+human_ampk_energy_homeostat	B	AMPK activated	TF	C	Catabolism up, anabolism down	other		activates	high	AMPK shifts metabolic programs
+human_ampk_energy_homeostat	C	Catabolism up, anabolism down	other	D	ATP regenerated	metabolite		produces	high	catabolism regenerates ATP material
+human_ampk_energy_homeostat	D	ATP regenerated	metabolite	E	Rising ATP inactivates AMPK	TF		induces	high	ATP promotes AMPK inactivation
+human_ampk_energy_homeostat	E	Rising ATP inactivates AMPK	TF	B	AMPK activated	TF	⊣ feedback	represses	high	inactivation ⊣ feedback on AMPK
+human_ampk_energy_homeostat	D	ATP regenerated	metabolite	F	Stable energy charge	other		proceeds	high	ATP level to stable charge state
+yeast_cell_cycle_control	Start	[Cell Cycle Entry]	other	G1Phase	G1 Phase Cell Growth	state		transitions	high	entry to G1 phase
+yeast_cell_cycle_control	G1Phase	G1 Phase Cell Growth	state	StartCheck	Start Checkpoint Size & Nutrients?	gate		proceeds	high	phase to checkpoint gate
+yeast_cell_cycle_control	StartCheck	Start Checkpoint Size & Nutrients?	gate	G1Arrest	G1 Arrest	state	No	transitions	high	fail checkpoint to arrest state
+yeast_cell_cycle_control	StartCheck	Start Checkpoint Size & Nutrients?	gate	G1Cyclins	G1 Cyclins Cln1/2/3	state	Yes	activates	med	pass checkpoint enables G1 cyclins
+yeast_cell_cycle_control	G1Cyclins	G1 Cyclins Cln1/2/3	state	Cdc28Activation	Cdc28-Cln Activation	protein		activates	high	Cln cyclins activate Cdc28
+yeast_cell_cycle_control	Cdc28Activation	Cdc28-Cln Activation	protein	BudFormation	Bud Formation Spindle Pole Duplication	other		activates	med	CDK activity drives budding
+yeast_cell_cycle_control	BudFormation	Bud Formation Spindle Pole Duplication	other	SPhase	S Phase Entry DNA Replication	state		transitions	high	budding to S-phase entry
+yeast_cell_cycle_control	SPhase	S Phase Entry DNA Replication	state	SCheckpoint	DNA Replication Complete?	gate		proceeds	high	S phase to replication checkpoint
+yeast_cell_cycle_control	SCheckpoint	DNA Replication Complete?	gate	SArrest	S Phase Arrest Rad53 Checkpoint	state	No	transitions	high	fail to S arrest
+yeast_cell_cycle_control	SCheckpoint	DNA Replication Complete?	gate	ClbCyclins	Clb5/6 Cyclins S-phase CDK	state	Yes	activates	med	pass enables Clb5/6
+yeast_cell_cycle_control	ClbCyclins	Clb5/6 Cyclins S-phase CDK	state	G2Phase	G2 Phase Growth & Preparation	state		transitions	high	S-CDK to G2 phase
+yeast_cell_cycle_control	G2Phase	G2 Phase Growth & Preparation	state	MitCyclins	Clb1/2 Cyclins Mitotic CDK	protein		activates	med	G2 enables mitotic cyclins
+yeast_cell_cycle_control	MitCyclins	Clb1/2 Cyclins Mitotic CDK	protein	Mitosis	M Phase Chromosome Segregation	state		transitions	high	mitotic CDK to M phase
+yeast_cell_cycle_control	Mitosis	M Phase Chromosome Segregation	state	SpindleCheck	Spindle Assembly Checkpoint?	gate		proceeds	high	M to spindle checkpoint
+yeast_cell_cycle_control	SpindleCheck	Spindle Assembly Checkpoint?	gate	MArrest	Metaphase Arrest Mad2/BubR1	state	Failed	transitions	high	fail to metaphase arrest
+yeast_cell_cycle_control	SpindleCheck	Spindle Assembly Checkpoint?	gate	APC	APC/C Activation Cdc20	protein	Passed	activates	med	pass enables APC/C
+yeast_cell_cycle_control	APC	APC/C Activation Cdc20	protein	CyclinDegradation	Cyclin B Degradation	protein		modifies	high	APC marks cyclin for degradation
+yeast_cell_cycle_control	CyclinDegradation	Cyclin B Degradation	protein	CDKInactivation	CDK Inactivation	protein		represses	high	cyclin loss inactivates CDK
+yeast_cell_cycle_control	CDKInactivation	CDK Inactivation	protein	Anaphase	Anaphase Sister Separation	state		transitions	high	CDK off to anaphase
+yeast_cell_cycle_control	Anaphase	Anaphase Sister Separation	state	Telophase	Telophase Cytokinesis	state		transitions	high	anaphase to telophase
+yeast_cell_cycle_control	Telophase	Telophase Cytokinesis	state	G1Return	Return to G1	state		transitions	high	telophase to G1 return
+yeast_cell_cycle_control	G1Return	Return to G1	state	G1Phase	G1 Phase Cell Growth	state		transitions	high	return closes G1 state cycle
+ecoli_base_excision_repair	A	DNA Damage Event	other	B	Lesion Type?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	B	Lesion Type?	gate	C	8-oxoG, Thymine Glycol	other	Oxidized Base	proceeds	high	BER repair process step
+ecoli_base_excision_repair	B	Lesion Type?	gate	D	3-methyladenine, 7-methylguanine	other	Alkylated Base	proceeds	high	BER repair process step
+ecoli_base_excision_repair	B	Lesion Type?	gate	E	Uracil, Hypoxanthine	other	Deaminated Base	proceeds	high	BER repair process step
+ecoli_base_excision_repair	B	Lesion Type?	gate	F	Various Base Modifications	other	Other	proceeds	high	BER repair process step
+ecoli_base_excision_repair	C	8-oxoG, Thymine Glycol	other	G	Specific Glycosylase?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	G	Specific Glycosylase?	gate	H	8-oxoG Recognition	other	MutM FPG	proceeds	high	BER repair process step
+ecoli_base_excision_repair	G	Specific Glycosylase?	gate	I	Thymine Glycol Recognition	other	Nth Endonuclease III	proceeds	high	BER repair process step
+ecoli_base_excision_repair	D	3-methyladenine, 7-methylguanine	other	J	AlkA Recognition	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	E	Uracil, Hypoxanthine	other	K	UNG Uracil Glycosylase	protein		proceeds	high	BER repair process step
+ecoli_base_excision_repair	F	Various Base Modifications	other	L	Damage Recognition?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	L	Damage Recognition?	gate	M	Adenine Opposite 8-oxoG	other	MutY	proceeds	high	BER repair process step
+ecoli_base_excision_repair	L	Damage Recognition?	gate	N	Specific Recognition	other	Other Glycosylases	proceeds	high	BER repair process step
+ecoli_base_excision_repair	H	8-oxoG Recognition	other	O	N-Glycosidic Bond Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	I	Thymine Glycol Recognition	other	O	N-Glycosidic Bond Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	J	AlkA Recognition	other	O	N-Glycosidic Bond Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	K	UNG Uracil Glycosylase	protein	O	N-Glycosidic Bond Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	M	Adenine Opposite 8-oxoG	other	O	N-Glycosidic Bond Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	N	Specific Recognition	other	O	N-Glycosidic Bond Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	O	N-Glycosidic Bond Cleavage	other	P	Abasic AP Site Formation	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	P	Abasic AP Site Formation	other	Q	Glycosylase Type?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	Q	Glycosylase Type?	gate	R	MutM/Nth β-Lyase Activity	other	Bifunctional	proceeds	high	BER repair process step
+ecoli_base_excision_repair	Q	Glycosylase Type?	gate	S	UNG/AlkA No Lyase	other	Monofunctional	proceeds	high	BER repair process step
+ecoli_base_excision_repair	R	MutM/Nth β-Lyase Activity	other	T	3' Phospho-α,β-unsaturated Aldehyde	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	T	3' Phospho-α,β-unsaturated Aldehyde	other	U	AP Lyase Cleavage	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	U	AP Lyase Cleavage	other	V	Single-Strand Break	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	S	UNG/AlkA No Lyase	other	W	AP Endonuclease?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	W	AP Endonuclease?	gate	X	5' AP Site Cleavage	other	Xth Exo III	proceeds	high	BER repair process step
+ecoli_base_excision_repair	W	AP Endonuclease?	gate	Y	Alternative 5' Cleavage	other	Nfo Endo IV	proceeds	high	BER repair process step
+ecoli_base_excision_repair	X	5' AP Site Cleavage	other	Z	3'-OH and 5'-dRP Termini	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	Y	Alternative 5' Cleavage	other	Z	3'-OH and 5'-dRP Termini	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	V	Single-Strand Break	other	AA	3'-Phosphate Blocking Group	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AA	3'-Phosphate Blocking Group	other	AB	APE1/Nfo Phosphatase	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AB	APE1/Nfo Phosphatase	other	AC	3'-OH Group Restored	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AC	3'-OH Group Restored	other	Z	3'-OH and 5'-dRP Termini	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	Z	3'-OH and 5'-dRP Termini	other	AD	Repair Pathway?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AD	Repair Pathway?	gate	AE	DNA Pol I	other	Short-Patch 1 nt	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AD	Repair Pathway?	gate	AF	DNA Pol I Strand Displacement	other	Long-Patch 2-10 nt	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AE	DNA Pol I	other	AG	dRP Lyase Activity	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AG	dRP Lyase Activity	other	AH	Remove 5'-dRP	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AH	Remove 5'-dRP	other	AI	Single Nucleotide Gap	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AI	Single Nucleotide Gap	other	AJ	dNTP Incorporation	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AJ	dNTP Incorporation	other	AK	Gap Filled	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AF	DNA Pol I Strand Displacement	other	AL	Strand Displacement Synthesis	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AL	Strand Displacement Synthesis	other	AM	2-10 Nucleotide Flap	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AM	2-10 Nucleotide Flap	other	AN	Flap Processing?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AN	Flap Processing?	gate	AO	Pol I 5'-3' Exonuclease	other	Small Flap	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AN	Flap Processing?	gate	AP	Additional Factors	other	Large Flap	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AO	Pol I 5'-3' Exonuclease	other	AQ	Flap Removed	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AP	Additional Factors	other	AQ	Flap Removed	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AQ	Flap Removed	other	AR	Gap Filled Multiple nt	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AK	Gap Filled	other	AS	Ligation Ready?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AR	Gap Filled Multiple nt	other	AS	Ligation Ready?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AS	Ligation Ready?	gate	AT	DNA Ligase Recognition	protein	Yes	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AS	Ligation Ready?	gate	AU	Additional Processing	other	No	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AT	DNA Ligase Recognition	protein	AV	Ligase Type?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AV	Ligase Type?	gate	AW	Adenylate Transfer	other	NAD+ Ligase LigA	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AV	Ligase Type?	gate	AX	Alternative Ligation	other	ATP Ligase LigB	proceeds	high	BER repair process step
+ecoli_base_excision_repair	AW	Adenylate Transfer	other	AY	Phosphodiester Bond Formation	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AX	Alternative Ligation	other	AY	Phosphodiester Bond Formation	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AY	Phosphodiester Bond Formation	other	AZ	Nick Sealed	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AZ	Nick Sealed	other	BA	Repaired DNA Strand	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BA	Repaired DNA Strand	other	BB	Repair Verification?	gate		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BB	Repair Verification?	gate	BC	Successful Repair	other	Correct	proceeds	high	BER repair process step
+ecoli_base_excision_repair	BB	Repair Verification?	gate	BD	Mismatch Detection	other	Incorrect	proceeds	high	BER repair process step
+ecoli_base_excision_repair	BD	Mismatch Detection	other	BE	Mismatch Repair Pathway	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BE	Mismatch Repair Pathway	other	BF	Secondary Correction	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BF	Secondary Correction	other	BC	Successful Repair	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	AU	Additional Processing	other	BG	Issue Type?	gate		proceeds	high	extra processing to issue-type gate
+ecoli_base_excision_repair	BG	Issue Type?	gate	BH	Polynucleotide Kinase	protein	Blocked 3' End	proceeds	high	BER repair process step
+ecoli_base_excision_repair	BG	Issue Type?	gate	BI	Additional Endonucleases	other	Modified 5' End	proceeds	high	BER repair process step
+ecoli_base_excision_repair	BG	Issue Type?	gate	BJ	Nucleotide Excision Repair	other	Complex Damage	proceeds	high	BER repair process step
+ecoli_base_excision_repair	BH	Polynucleotide Kinase	protein	AS	Ligation Ready?	gate		proceeds	high	end-processing returns to ligation gate
+ecoli_base_excision_repair	BI	Additional Endonucleases	other	AS	Ligation Ready?	gate		proceeds	high	end-processing returns to ligation gate
+ecoli_base_excision_repair	BC	Successful Repair	other	BK	Genome Integrity Maintained	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BK	Genome Integrity Maintained	other	BL	Cell Survival	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BL	Cell Survival	other	BM	Replication Competence	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BJ	Nucleotide Excision Repair	other	BN	Switch to NER	other		proceeds	high	BER repair process step
+ecoli_base_excision_repair	BN	Switch to NER	other	BO	Alternative Repair Mechanism	other		proceeds	high	BER repair process step
+human_oct4_sox2_nanog_pluripotency	A	Pluripotency signals: LIF / BMP	other	B	OCT4-SOX2 heterodimer	TF		activates	med	LIF/BMP promote OCT4-SOX2
+human_oct4_sox2_nanog_pluripotency	B	OCT4-SOX2 heterodimer	TF	D	OCT4-SOX2 autoactivation	gene		activates	high	heterodimer drives autoactivation
+human_oct4_sox2_nanog_pluripotency	D	OCT4-SOX2 autoactivation	gene	B	OCT4-SOX2 heterodimer	TF	+	activates	high	+ autoactivation reinforces heterodimer
+human_oct4_sox2_nanog_pluripotency	B	OCT4-SOX2 heterodimer	TF	C	NANOG	TF		activates	high	OCT4-SOX2 activates NANOG
+human_oct4_sox2_nanog_pluripotency	C	NANOG	TF	B	OCT4-SOX2 heterodimer	TF	+	activates	high	+ NANOG reinforces OCT4-SOX2
+human_oct4_sox2_nanog_pluripotency	B	OCT4-SOX2 heterodimer	TF	E	Represses differentiation genes	gene		activates	high	TF activates repression program
+human_oct4_sox2_nanog_pluripotency	E	Represses differentiation genes	gene	G	Differentiated state	state	⊣	represses	high	⊣ differentiation genes/state
+human_oct4_sox2_nanog_pluripotency	B	OCT4-SOX2 heterodimer	TF	F	Self-renewing pluripotent state	state		activates	med	TF maintains pluripotent state
+ecoli_sos_lexa	A	DNA damage: ssDNA	other	B	RecA* filament	TF		activates	high	ssDNA activates RecA filament
+ecoli_sos_lexa	B	RecA* filament	TF	C	Stimulates LexA autocleavage	TF		modifies	high	RecA* stimulates LexA autocleavage
+ecoli_sos_lexa	C	Stimulates LexA autocleavage	TF	D	SOS repair genes derepressed	gene	⊣ LexA off	activates	high	LexA off derepresses SOS genes
+ecoli_sos_lexa	D	SOS repair genes derepressed	gene	E	Repair removes ssDNA signal	other		activates	med	SOS gene products enable repair
+ecoli_sos_lexa	E	Repair removes ssDNA signal	other	A	DNA damage: ssDNA	other	⊣ feedback	represses	high	repair removes inducing ssDNA signal
+ecoli_sos_lexa	E	Repair removes ssDNA signal	other	F	Damage cleared, LexA re-represses	TF		proceeds	high	repair outcome to cleared state
+drosophila_gap_gene_network	A	Bicoid + Caudal gradients	other	B	hunchback (hb)	TF		activates	high	maternal gradients activate hb
+drosophila_gap_gene_network	A	Bicoid + Caudal gradients	other	C	Krüppel (Kr)	TF		activates	high	maternal gradients activate Kr
+drosophila_gap_gene_network	A	Bicoid + Caudal gradients	other	D	giant (gt)	TF		activates	high	maternal gradients activate gt
+drosophila_gap_gene_network	A	Bicoid + Caudal gradients	other	E	knirps (kni)	TF		activates	high	maternal gradients activate kni
+drosophila_gap_gene_network	B	hunchback (hb)	TF	F	Gap genes mutual repression	gene		represses	med	hb enters mutual-repression network
+drosophila_gap_gene_network	C	Krüppel (Kr)	TF	F	Gap genes mutual repression	gene		represses	med	Kr enters mutual-repression network
+drosophila_gap_gene_network	D	giant (gt)	TF	F	Gap genes mutual repression	gene		represses	med	gt enters mutual-repression network
+drosophila_gap_gene_network	E	knirps (kni)	TF	F	Gap genes mutual repression	gene		represses	med	kni enters mutual-repression network
+drosophila_gap_gene_network	F	Gap genes mutual repression	gene	B	hunchback (hb)	TF	⊣	represses	high	mutual repression ⊣ hb
+drosophila_gap_gene_network	F	Gap genes mutual repression	gene	C	Krüppel (Kr)	TF	⊣	represses	high	mutual repression ⊣ Kr
+drosophila_gap_gene_network	F	Gap genes mutual repression	gene	D	giant (gt)	TF	⊣	represses	high	mutual repression ⊣ gt
+drosophila_gap_gene_network	F	Gap genes mutual repression	gene	E	knirps (kni)	TF	⊣	represses	high	mutual repression ⊣ kni
+drosophila_gap_gene_network	B	hunchback (hb)	TF	G	Sharp domain boundaries	other		proceeds	med	expression pattern to boundaries
+drosophila_gap_gene_network	G	Sharp domain boundaries	other	H	Multistable AP gap pattern	other		proceeds	high	boundaries to multistable pattern
+ecoli_lac_operon	A	Lactose in Environment	metabolite	B	Lactose Transport	metabolite		proceeds	high	lactose environment to transport
+ecoli_lac_operon	C	Glucose in Environment	metabolite	D	Glucose Transport	metabolite		produces	med	metabolic lactose processing
+ecoli_lac_operon	E	Low Energy Status	other	F	Energy Stress Signal	other		produces	med	metabolic lactose processing
+ecoli_lac_operon	B	Lactose Transport	metabolite	G	Lactose Permease LacY	metabolite		produces	high	translation yields functional enzyme
+ecoli_lac_operon	G	Lactose Permease LacY	metabolite	H	Lactose Inside Cell	metabolite		proceeds	med	input/transport/state flow
+ecoli_lac_operon	H	Lactose Inside Cell	metabolite	I	Lactose Availability	metabolite		proceeds	med	transport/status intermediate
+ecoli_lac_operon	D	Glucose Transport	metabolite	J	Glucose Transporters	metabolite		produces	med	metabolic lactose processing
+ecoli_lac_operon	J	Glucose Transporters	metabolite	K	Glucose Inside Cell	metabolite		proceeds	med	input/transport/state flow
+ecoli_lac_operon	K	Glucose Inside Cell	metabolite	L	High Glucose Status	metabolite		proceeds	med	transport/status intermediate
+ecoli_lac_operon	I	Lactose Availability	metabolite	M	Is Lactose Present?	gate		proceeds	med	logic/presence gate branch
+ecoli_lac_operon	L	High Glucose Status	metabolite	N	Is Glucose Present?	gate		proceeds	med	logic/presence gate branch
+ecoli_lac_operon	F	Energy Stress Signal	other	O	Is Energy Low?	gate		produces	med	metabolic lactose processing
+ecoli_lac_operon	N	Is Glucose Present?	gate	ANDGATE1	Low Energy AND No Glucose?	gate	No	produces	med	metabolic lactose processing
+ecoli_lac_operon	O	Is Energy Low?	gate	ANDGATE1	Low Energy AND No Glucose?	gate	Yes	produces	med	metabolic lactose processing
+ecoli_lac_operon	O	Is Energy Low?	gate	V	Low cAMP Levels	metabolite	No	proceeds	med	logic/presence gate branch
+ecoli_lac_operon	ANDGATE1	Low Energy AND No Glucose?	gate	W	High cAMP Levels	metabolite	Yes	proceeds	med	logic/presence gate branch
+ecoli_lac_operon	ANDGATE1	Low Energy AND No Glucose?	gate	V	Low cAMP Levels	metabolite	No	proceeds	med	logic/presence gate branch
+ecoli_lac_operon	N	Is Glucose Present?	gate	V	Low cAMP Levels	metabolite	Yes	proceeds	med	logic/presence gate branch
+ecoli_lac_operon	M	Is Lactose Present?	gate	P	Lac Repressor Active	TF	No	represses	med	repressor action on operator/transcription
+ecoli_lac_operon	M	Is Lactose Present?	gate	Q	Lac Repressor Inactive	TF	Yes	activates	med	relief of repression
+ecoli_lac_operon	P	Lac Repressor Active	TF	R	Repressor Binds Operator	promoter		represses	high	active repressor binds operator
+ecoli_lac_operon	R	Repressor Binds Operator	promoter	S	Transcription Blocked	other		represses	high	bound repressor blocks transcription
+ecoli_lac_operon	Q	Lac Repressor Inactive	TF	T	Repressor Released	TF		activates	med	inactive repressor releases operator
+ecoli_lac_operon	T	Repressor Released	TF	U	Operator Free	promoter		activates	high	repressor released yields free operator
+ecoli_lac_operon	W	High cAMP Levels	metabolite	X	cAMP-CAP Complex	metabolite		induces	high	high cAMP forms cAMP-CAP
+ecoli_lac_operon	V	Low cAMP Levels	metabolite	Y	No CAP Binding State	state		represses	med	low cAMP prevents CAP assist
+ecoli_lac_operon	X	cAMP-CAP Complex	metabolite	Z	CAP Binds Promoter	promoter		activates	high	cAMP-CAP binds promoter
+ecoli_lac_operon	Y	No CAP Binding State	state	AA	CAP Binding Absent	other		proceeds	med	transport/status intermediate
+ecoli_lac_operon	U	Operator Free	promoter	ANDGATE2	Operator Free AND CAP Bound?	gate		activates	high	free operator feeds AND gate
+ecoli_lac_operon	Z	CAP Binds Promoter	promoter	ANDGATE2	Operator Free AND CAP Bound?	gate		activates	high	CAP bound feeds AND gate
+ecoli_lac_operon	ANDGATE2	Operator Free AND CAP Bound?	gate	FF	Strong Transcription	other	Yes	activates	high	AND gate permits strong transcription
+ecoli_lac_operon	ANDGATE2	Operator Free AND CAP Bound?	gate	GG	Weak/No Transcription	other	No	activates	med	expression cascade step
+ecoli_lac_operon	AA	CAP Binding Absent	other	GG	Weak/No Transcription	other		represses	med	no CAP assist weakens transcription
+ecoli_lac_operon	FF	Strong Transcription	other	II	lacZ mRNA Synthesis	other		activates	high	strong transcription to lacZ mRNA
+ecoli_lac_operon	FF	Strong Transcription	other	JJ	lacY mRNA Synthesis	other		activates	high	transcription produces gene mRNA
+ecoli_lac_operon	FF	Strong Transcription	other	KK	lacA mRNA Synthesis	other		activates	high	transcription produces gene mRNA
+ecoli_lac_operon	II	lacZ mRNA Synthesis	other	LL	LacZ Translation	other		produces	high	mRNA translated to polypeptide
+ecoli_lac_operon	JJ	lacY mRNA Synthesis	other	MM	LacY Translation	other		produces	high	mRNA translated to polypeptide
+ecoli_lac_operon	KK	lacA mRNA Synthesis	other	NN	LacA Translation	other		produces	high	mRNA translated to polypeptide
+ecoli_lac_operon	LL	LacZ Translation	other	OO	Beta-Galactosidase Enzyme	protein		produces	high	translation yields functional enzyme
+ecoli_lac_operon	MM	LacY Translation	other	PP	Lactose Permease	metabolite		produces	high	translation yields functional enzyme
+ecoli_lac_operon	NN	LacA Translation	other	QQ	Galactoside Acetyltransferase	metabolite		produces	high	translation yields functional enzyme
+ecoli_lac_operon	OO	Beta-Galactosidase Enzyme	protein	RR	Lactose Hydrolysis	metabolite		produces	med	metabolic lactose processing
+ecoli_lac_operon	PP	Lactose Permease	metabolite	SS	Lactose Transport	metabolite		produces	med	metabolic lactose processing
+ecoli_lac_operon	QQ	Galactoside Acetyltransferase	metabolite	TT	Galactoside Modification	other		proceeds	med	enzyme activity to metabolic outcome
+ecoli_lac_operon	RR	Lactose Hydrolysis	metabolite	UU	Glucose + Galactose	metabolite		produces	med	metabolic lactose processing
+ecoli_lac_operon	SS	Lactose Transport	metabolite	VV2	Enhanced Lactose Uptake	metabolite		proceeds	med	enzyme activity to metabolic outcome
+ecoli_lac_operon	TT	Galactoside Modification	other	WW	Detoxification	other		proceeds	med	enzyme activity to metabolic outcome
+ecoli_lac_operon	UU	Glucose + Galactose	metabolite	XX	1	other		UNTYPABLE	low	opaque placeholder label
+ecoli_lac_operon	VV2	Enhanced Lactose Uptake	metabolite	YY	Lactose Processing	metabolite		proceeds	med	enzyme activity to metabolic outcome
+ecoli_lac_operon	WW	Detoxification	other	ZZ	Cell Protection	other		proceeds	med	phenotype/output state
+ecoli_lac_operon	XX	1	other	AAA	Energy Production	other		produces	med	metabolic lactose processing
+ecoli_lac_operon	YY	Lactose Processing	metabolite	BBB	Lactose Consumption	metabolite		produces	med	metabolic lactose processing
+ecoli_lac_operon	ZZ	Cell Protection	other	CCC	Cell Survival	other		proceeds	med	phenotype/output state
+ecoli_lac_operon	AAA	Energy Production	other	DDD	Energy Status Improved	other		produces	med	metabolic lactose processing
+ecoli_lac_operon	BBB	Lactose Consumption	metabolite	EEE	Lactose Depletion	metabolite		proceeds	med	input/transport/state flow
+ecoli_lac_operon	CCC	Cell Survival	other	FFF	Reduced Stress	other		proceeds	med	input/transport/state flow
+ecoli_lac_operon	DDD	Energy Status Improved	other	GGG	Reduced Lactose Signal	metabolite		proceeds	med	input/transport/state flow
+ecoli_lac_operon	EEE	Lactose Depletion	metabolite	HHH	1	other		UNTYPABLE	low	opaque placeholder label
+ecoli_lac_operon	FFF	Reduced Stress	other	III	System Equilibrium	other		proceeds	med	phenotype/output state
