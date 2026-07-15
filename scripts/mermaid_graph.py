@@ -1,19 +1,33 @@
 #!/usr/bin/env python3
 """
-Parse GLMP Mermaid flowcharts into directed graphs and detect regulatory cycles.
+Parse GLMP Mermaid flowcharts into directed graphs and detect cycles.
 
-Paper-aligned definition (GLMP Papers I / III):
-  A *feedback loop* is a directed cycle in the regulatory subgraph.
-  The `loops` field counts distinct nodes that lie on at least one directed cycle.
+Two cycle metrics (do not conflate them):
 
-This replaces the legacy declaration-order back-edge heuristic, which inflated counts
-when many edges converged on downstream hubs (e.g. ecoli_antibiotic_efflux_pumps).
+  `loops` (legacy)
+      Distinct nodes that lie on at least one directed cycle in the WHOLE graph.
+      Conflates metabolic circularity and state-machine returns with regulatory
+      feedback, and scales with cycle SIZE (nodes on the tour), not feedback COUNT.
+
+  `feedback_loops` (requires an edge type map)
+      Count of simple cycles that contain >= 1 regulatory edge
+      (activates / represses / sequesters / modifies / induces). Counted per cycle,
+      never per-SCC. Returns None when no edge type map is supplied — absence of
+      typing must not masquerade as absence of feedback.
+
+Paper-aligned intent (GLMP Papers I / III): a feedback loop is a directed cycle
+involving regulatory interactions. The legacy `loops` field does not implement that.
+
+This module also retains the legacy declaration-order back-edge heuristic as
+`legacyLoops` for comparison.
 """
 
 from __future__ import annotations
 
 import re
+import time
 from collections import defaultdict
+from typing import Any
 
 ARROW_RE = re.compile(
     r"\s*(?:<-->|<==>|x--x|o--o|-\.-+>|-\.-+|--+>|--+|==+>|==+|--[xo]|[ox]--)\s*"
@@ -23,6 +37,15 @@ RESERVED = {
     "graph", "flowchart", "subgraph", "end", "style", "classdef", "class",
     "linkstyle", "direction", "click", "td", "tb", "bt", "rl", "lr",
 }
+
+REGULATORY_EDGE_TYPES = frozenset(
+    {"activates", "represses", "sequesters", "modifies", "induces"}
+)
+
+# Enumeration insurance (probes: densest chart ~72 cycles in ~8ms)
+DEFAULT_MAX_CYCLES = 10_000
+DEFAULT_MAX_SECONDS = 60.0
+DEFAULT_MAX_CYCLE_LEN = 80
 
 
 def _strip_labels(line: str) -> str:
@@ -125,7 +148,7 @@ def _tarjan_scc(graph: dict[str, list[str]], nodes: set[str]) -> list[list[str]]
 
 
 def cycle_nodes(mermaid: str) -> set[str]:
-    """Nodes that participate in at least one directed cycle."""
+    """Nodes that participate in at least one directed cycle (whole graph)."""
     _, edges = parse_mermaid(mermaid)
     graph: dict[str, list[str]] = defaultdict(list)
     nodes: set[str] = set()
@@ -144,8 +167,6 @@ def cycle_nodes(mermaid: str) -> set[str]:
             continue
         comp_set = set(comp)
         sub_edges = [(a, b) for a, b in edges if a in comp_set and b in comp_set]
-        # A directed cycle exists in an SCC iff |E| >= |V| for this subgraph
-        # (necessary) — verify with reachability within SCC.
         if _subgraph_has_cycle(comp, sub_edges):
             cyclic.update(comp)
     return cyclic
@@ -175,7 +196,7 @@ def _subgraph_has_cycle(nodes: list[str], edges: list[tuple[str, str]]) -> bool:
 
 
 def count_cycle_nodes(mermaid: str) -> int:
-    """Paper-aligned loops: nodes on directed cycles."""
+    """Legacy `loops`: count of distinct nodes on any whole-graph directed cycle."""
     return len(cycle_nodes(mermaid))
 
 
@@ -194,14 +215,230 @@ def cycle_nodes_from_edges(edges: list[tuple[str, str]]) -> set[str]:
     return cycle_nodes("\n".join(lines))
 
 
-def compute_regulatory_stats(mermaid: str) -> dict:
+def _unique_edges(edges: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    seen: set[tuple[str, str]] = set()
+    out: list[tuple[str, str]] = []
+    for e in edges:
+        if e not in seen:
+            seen.add(e)
+            out.append(e)
+    return out
+
+
+def _enumerate_simple_cycles(
+    edges: list[tuple[str, str]],
+    max_cycles: int = DEFAULT_MAX_CYCLES,
+    max_seconds: float = DEFAULT_MAX_SECONDS,
+    max_len: int = DEFAULT_MAX_CYCLE_LEN,
+) -> tuple[list[tuple[str, ...]], bool]:
+    """
+    Enumerate simple cycles in a digraph.
+    Returns (cycles, capped). If capped, the cycle list must not be trusted as complete.
+    """
+    t0 = time.perf_counter()
+    succ: dict[str, list[str]] = defaultdict(list)
+    nodes: set[str] = set()
+    for a, b in edges:
+        succ[a].append(b)
+        nodes.add(a)
+        nodes.add(b)
+
+    cycles: list[tuple[str, ...]] = []
+    seen: set[tuple[str, ...]] = set()
+    capped = False
+
+    def add_cycle(body: tuple[str, ...]) -> None:
+        if not body:
+            return
+        rotations = [body[i:] + body[:i] for i in range(len(body))]
+        canon = min(rotations)
+        if canon not in seen:
+            seen.add(canon)
+            cycles.append(canon)
+
+    def timed_out() -> bool:
+        return (time.perf_counter() - t0) >= max_seconds
+
+    for comp in _tarjan_scc(succ, nodes):
+        if capped or timed_out() or len(cycles) >= max_cycles:
+            capped = True
+            break
+
+        if len(comp) == 1:
+            v = comp[0]
+            if v in succ.get(v, []):
+                add_cycle((v,))
+            continue
+
+        comp_set = set(comp)
+        sub: dict[str, list[str]] = defaultdict(list)
+        for u in comp:
+            for w in succ.get(u, ()):
+                if w in comp_set:
+                    sub[u].append(w)
+
+        order = sorted(comp)
+
+        def dfs(start: str, path: list[str]) -> None:
+            nonlocal capped
+            if capped:
+                return
+            if timed_out() or len(cycles) >= max_cycles:
+                capped = True
+                return
+            u = path[-1]
+            for v in sub.get(u, []):
+                if v == start:
+                    add_cycle(tuple(path))
+                    if len(cycles) >= max_cycles:
+                        capped = True
+                        return
+                    continue
+                if v in path:
+                    continue
+                if v < start:
+                    continue
+                if len(path) >= max_len:
+                    continue
+                path.append(v)
+                dfs(start, path)
+                path.pop()
+                if capped:
+                    return
+
+        for start in order:
+            if capped:
+                break
+            dfs(start, [start])
+
+    if timed_out() or len(cycles) >= max_cycles:
+        # Cap hit during or at end of search — treat as incomplete.
+        # (If we exactly filled max_cycles, we cannot know whether more exist.)
+        if len(cycles) >= max_cycles or timed_out():
+            capped = True
+
+    return cycles, capped
+
+
+def _is_regulatory(
+    edge_type: str | None,
+    *,
+    untypable_as_regulatory: bool,
+) -> bool:
+    if edge_type is None:
+        return False
+    if edge_type in REGULATORY_EDGE_TYPES:
+        return True
+    if edge_type == "UNTYPABLE" and untypable_as_regulatory:
+        return True
+    return False
+
+
+def compute_feedback_loops(
+    mermaid: str,
+    edge_types: dict[tuple[str, str], str] | None,
+    untypable_as_regulatory: bool = False,
+    *,
+    max_cycles: int = DEFAULT_MAX_CYCLES,
+    max_seconds: float = DEFAULT_MAX_SECONDS,
+) -> dict[str, Any]:
+    """
+    Count simple cycles that contain >= 1 regulatory edge (Rule B).
+
+    Parameters
+    ----------
+    mermaid:
+        Mermaid flowchart source.
+    edge_types:
+        Map (source_id, target_id) -> type string. Regulatory types:
+        activates, represses, sequesters, modifies, induces.
+        Non-regulatory: produces, consumes, transitions, proceeds.
+        UNTYPABLE is non-regulatory unless untypable_as_regulatory=True.
+        If edge_types is None or empty, feedback_loops is None (not 0).
+    untypable_as_regulatory:
+        When True, UNTYPABLE edges count as regulatory for the keep-condition.
+
+    Returns
+    -------
+    dict with keys:
+      feedback_loops      — int count of kept cycles, or None if untyped / capped
+      feedback_loop_nodes — int distinct nodes on kept cycles, or None if untyped / capped
+      kept_cycles         — list of node-id sequences (tuples), empty if none/untyped/capped
+      raw_cycle_count     — int simple cycles enumerated before filter (0 if untyped;
+                            incomplete if capped)
+      capped              — True if enumeration hit max_cycles or timeout
+    """
+    empty = {
+        "feedback_loops": None,
+        "feedback_loop_nodes": None,
+        "kept_cycles": [],
+        "raw_cycle_count": 0,
+        "capped": False,
+    }
+
+    if not edge_types:
+        return dict(empty)
+
+    _, edges = parse_mermaid(mermaid)
+    edges = _unique_edges(edges)
+    cycles, capped = _enumerate_simple_cycles(
+        edges, max_cycles=max_cycles, max_seconds=max_seconds
+    )
+
+    if capped:
+        return {
+            "feedback_loops": None,
+            "feedback_loop_nodes": None,
+            "kept_cycles": [],
+            "raw_cycle_count": len(cycles),
+            "capped": True,
+        }
+
+    kept: list[tuple[str, ...]] = []
+    for cyc in cycles:
+        has_reg = False
+        for i, u in enumerate(cyc):
+            v = cyc[(i + 1) % len(cyc)]
+            et = edge_types.get((u, v))
+            if _is_regulatory(et, untypable_as_regulatory=untypable_as_regulatory):
+                has_reg = True
+                break
+        if has_reg:
+            kept.append(cyc)
+
+    nodes: set[str] = set()
+    for cyc in kept:
+        nodes.update(cyc)
+
+    return {
+        "feedback_loops": len(kept),
+        "feedback_loop_nodes": len(nodes),
+        "kept_cycles": kept,
+        "raw_cycle_count": len(cycles),
+        "capped": False,
+    }
+
+
+def compute_regulatory_stats(
+    mermaid: str,
+    edge_types: dict[tuple[str, str], str] | None = None,
+    untypable_as_regulatory: bool = False,
+) -> dict:
+    """
+    Compute graph / cycle stats for a Mermaid chart.
+
+    Existing keys (loops, feedbackEdges, legacyLoops, …) are unchanged in meaning.
+    When edge_types is provided, also includes feedback_loops / feedback_loop_nodes
+    / feedback_loops_capped / feedback_loops_raw_cycle_count from
+    compute_feedback_loops. Without edge_types, feedback_loops is None.
+    """
     order, edges = parse_mermaid(mermaid)
     cyc = cycle_nodes(mermaid)
     conditionals = sum(
         1 for raw in (mermaid or "").splitlines()
         if "{" in raw and "-->" in raw and not raw.strip().startswith("%%")
     )
-    return {
+    out: dict[str, Any] = {
         "nodes": len(order),
         "edges": len(edges),
         "loops": len(cyc),
@@ -209,3 +446,11 @@ def compute_regulatory_stats(mermaid: str) -> dict:
         "legacyLoops": count_legacy_back_edge_nodes(mermaid),
         "conditionals": conditionals,
     }
+    fb = compute_feedback_loops(
+        mermaid, edge_types, untypable_as_regulatory=untypable_as_regulatory
+    )
+    out["feedback_loops"] = fb["feedback_loops"]
+    out["feedback_loop_nodes"] = fb["feedback_loop_nodes"]
+    out["feedback_loops_capped"] = fb["capped"]
+    out["feedback_loops_raw_cycle_count"] = fb["raw_cycle_count"]
+    return out
