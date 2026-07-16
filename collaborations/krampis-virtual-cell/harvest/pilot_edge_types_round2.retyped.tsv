@@ -1,0 +1,172 @@
+chart_id	source_id	source_label	source_nodetype	target_id	target_label	target_nodetype	edge_label	edge_type	confidence	rationale	prior_type	prior_confidence	label_was_placeholder
+human_camp_pka_desensitization	A	Agonist binds GPCR	TF	B	cAMP rises, PKA active	TF		activates	high	agonist→GPCR raises cAMP/PKA	activates	high	false
+human_camp_pka_desensitization	B	cAMP rises, PKA active	TF	C	Cellular response	other		proceeds	high	PKA to cellular response	proceeds	high	false
+human_camp_pka_desensitization	B	cAMP rises, PKA active	TF	D	GRK + β-arrestin desensitize receptor	other		activates	high	PKA pathway recruits GRK/arrestin	activates	high	false
+human_camp_pka_desensitization	D	GRK + β-arrestin desensitize receptor	other	A	Agonist binds GPCR	TF	⊣ feedback	represses	high	⊣ desensitization blocks GPCR	represses	high	false
+human_camp_pka_desensitization	B	cAMP rises, PKA active	TF	E	PDE degrades cAMP	metabolite		activates	med	PKA pathway induces PDE activity	activates	med	false
+human_camp_pka_desensitization	E	PDE degrades cAMP	metabolite	B	cAMP rises, PKA active	TF	⊣	represses	med	⊣ PDE lowers cAMP/PKA; also consumes cAMP	represses	med	false
+human_camp_pka_desensitization	C	Cellular response	other	F	Adapted GPCR response	TF		proceeds	high	response to adapted phenotype	proceeds	high	false
+ecoli_iron_homeostasis	A	Start: E. coli Iron Homeostasis	metabolite	B	Environmental Iron Availability (Fe3+)	metabolite		proceeds	high	start to inputs	proceeds	high	false
+ecoli_iron_homeostasis	A	Start: E. coli Iron Homeostasis	metabolite	C	Dissolved Oxygen Levels	other		proceeds	high	start to inputs	proceeds	high	false
+ecoli_iron_homeostasis	B	Environmental Iron Availability (Fe3+)	metabolite	D	E. coli Cell	other		proceeds	high	env iron availability to cell	proceeds	high	false
+ecoli_iron_homeostasis	C	Dissolved Oxygen Levels	other	D	E. coli Cell	other		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	D	E. coli Cell	other	E	Is environmental iron low?	gate		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	E	Is environmental iron low?	gate	Yes	Yes	other		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	Yes	Yes	other	F	Low Iron Condition	metabolite		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	E	Is environmental iron low?	gate	No	No	other		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	No	No	other	G	High Iron Condition	metabolite		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	F	Low Iron Condition	metabolite	H	Apo-Fur Protein - inactive repressor	TF		proceeds	high	low iron to apo-Fur protein	proceeds	high	false
+ecoli_iron_homeostasis	G	High Iron Condition	metabolite	I	Intracellular Fe2+ Ion	metabolite		proceeds	high	high iron to Fe2+ ion	proceeds	high	false
+ecoli_iron_homeostasis	H	Apo-Fur Protein - inactive repressor	TF	J	Fe2+-Fur Complex - Holo-Fur, active repressor	TF		modifies	med	apo-Fur to holo-Fur; Fe2+ effector edge not drawn	modifies	med	false
+ecoli_iron_homeostasis	J	Fe2+-Fur Complex - Holo-Fur, active repressor	TF	K	Fur Binding to DNA - Fur-box	TF		represses	med	holo-Fur binds Fur-box DNA	represses	med	false
+ecoli_iron_homeostasis	K	Fur Binding to DNA - Fur-box	TF	L	Transcriptional Repression by Holo-Fur	gene		represses	high	holo-Fur transcriptional repression	represses	high	false
+ecoli_iron_homeostasis	K	Fur Binding to DNA - Fur-box	TF	M	Transcriptional Activation by Holo-Fur (e.g., storage genes)	gene		activates	high	holo-Fur activates storage genes	activates	high	false
+ecoli_iron_homeostasis	F	Low Iron Condition	metabolite	N	Apo-Fur Dissociates from DNA	TF		proceeds	high	low-iron state to apo-Fur DNA leave	proceeds	high	false
+ecoli_iron_homeostasis	N	Apo-Fur Dissociates from DNA	TF	O	Transcriptional Derepression by Apo-Fur	gene		activates	high	apo-Fur dissociation derepresses	activates	high	false
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	gene	P	Upregulation of Siderophore Systems (ent, fep)	TF		activates	high	derepression upregulates siderophore genes	activates	high	false
+ecoli_iron_homeostasis	P	Upregulation of Siderophore Systems (ent, fep)	TF	Q	Siderophore Biosynthesis & Secretion Enzymes	TF		produces	high	gene upregulation yields biosynthetic enzymes	produces	high	false
+ecoli_iron_homeostasis	Q	Siderophore Biosynthesis & Secretion Enzymes	TF	R	Siderophores (e.g., Enterobactin)	TF		produces	high	enzymes produce siderophores	produces	high	false
+ecoli_iron_homeostasis	R	Siderophores (e.g., Enterobactin)	TF	S	Iron-Siderophore Complex	TF		produces	high	siderophore binds environmental iron	produces	high	false
+ecoli_iron_homeostasis	S	Iron-Siderophore Complex	TF	T	Siderophore Uptake Systems (Fhu, Fec, Fep)	TF		proceeds	high	complex to uptake systems	proceeds	high	false
+ecoli_iron_homeostasis	T	Siderophore Uptake Systems (Fhu, Fec, Fep)	TF	U	Cytoplasmic Ferric Iron (Fe3+) from siderophores	TF		produces	high	uptake yields cytoplasmic Fe3+	produces	high	false
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	gene	V	Upregulation of Feo System (Ferrous Iron Uptake)	metabolite		activates	high	derepression upregulates Feo genes	activates	high	false
+ecoli_iron_homeostasis	V	Upregulation of Feo System (Ferrous Iron Uptake)	metabolite	W	FeoAB/C System	other		produces	med	Feo gene upregulation yields Feo system	produces	med	false
+ecoli_iron_homeostasis	W	FeoAB/C System	other	X	Cytoplasmic Ferrous Iron (Fe2+)	metabolite		produces	high	Feo imports Fe2+	produces	high	false
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	gene	Y	Upregulation of Heme Uptake Systems (chu, shu)	other		activates	high	derepression upregulates heme uptake genes	activates	high	false
+ecoli_iron_homeostasis	Y	Upregulation of Heme Uptake Systems (chu, shu)	other	Z	Heme Uptake & Iron Release (HemO)	metabolite		produces	med	heme uptake genes yield uptake machinery	produces	med	false
+ecoli_iron_homeostasis	Z	Heme Uptake & Iron Release (HemO)	metabolite	X	Cytoplasmic Ferrous Iron (Fe2+)	metabolite		produces	high	heme pathway releases Fe2+	produces	high	false
+ecoli_iron_homeostasis	U	Cytoplasmic Ferric Iron (Fe3+) from siderophores	TF	AA	Ferric Reductase Activity	protein		proceeds	high	Fe3+ to reductase	proceeds	high	false
+ecoli_iron_homeostasis	AA	Ferric Reductase Activity	protein	X	Cytoplasmic Ferrous Iron (Fe2+)	metabolite		produces	high	reductase yields Fe2+	produces	high	false
+ecoli_iron_homeostasis	M	Transcriptional Activation by Holo-Fur (e.g., storage genes)	gene	AB	Upregulation of Iron Storage Proteins (ftnA, bfr)	metabolite		activates	high	Fur activates storage genes	activates	high	false
+ecoli_iron_homeostasis	AB	Upregulation of Iron Storage Proteins (ftnA, bfr)	metabolite	AC	Ferritin (FtnA) & Bacterioferritin (Bfr)	other		produces	high	storage gene expression yields ferritin	produces	high	false
+ecoli_iron_homeostasis	AC	Ferritin (FtnA) & Bacterioferritin (Bfr)	other	AD	Iron Sequestration & Storage	metabolite		sequesters	high	ferritin sequesters iron	sequesters	high	false
+ecoli_iron_homeostasis	AD	Iron Sequestration & Storage	metabolite	AE	Stored Iron Pool	metabolite		produces	high	sequestration makes stored pool	produces	high	false
+ecoli_iron_homeostasis	X	Cytoplasmic Ferrous Iron (Fe2+)	metabolite	AF	Iron Utilization for Essential Metalloproteins	metabolite		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	AF	Iron Utilization for Essential Metalloproteins	metabolite	AG	Essential Metalloproteins & Cellular Metabolism	other		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	X	Cytoplasmic Ferrous Iron (Fe2+)	metabolite	AH	\Is Cytoplasmic Fe2+ level high?	gate		proceeds	high	Fe2+ pool to level gate	proceeds	high	false
+ecoli_iron_homeostasis	AH	\Is Cytoplasmic Fe2+ level high?	gate	Yes	Yes	other		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	Yes	Yes	other	AI	Fenton Reaction & ROS Production	other		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	AI	Fenton Reaction & ROS Production	other	AJ	Oxidative Damage & Cell Impairment	other		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	AH	\Is Cytoplasmic Fe2+ level high?	gate	No	No	other		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	No	No	other	AF	Iron Utilization for Essential Metalloproteins	metabolite		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	F	Low Iron Condition	metabolite	AK	RyhB sRNA Activation (low iron)	metabolite		activates	high	low iron activates RyhB	activates	high	false
+ecoli_iron_homeostasis	AK	RyhB sRNA Activation (low iron)	metabolite	AL	RyhB Repression of Iron-Dependent Enzymes e.g., sdh, suc	metabolite		represses	high	RyhB represses Fe-enzymes	represses	high	false
+ecoli_iron_homeostasis	AL	RyhB Repression of Iron-Dependent Enzymes e.g., sdh, suc	metabolite	AM	Iron Conservation	metabolite		proceeds	high	repression to iron conservation	proceeds	high	false
+ecoli_iron_homeostasis	G	High Iron Condition	metabolite	AN	RyhB sRNA Repression high iron	metabolite		represses	med	high iron represses RyhB	represses	med	false
+ecoli_iron_homeostasis	AN	RyhB sRNA Repression high iron	metabolite	AO	Derepression of Iron-Dependent Enzymes	gene		activates	med	RyhB off derepresses Fe-enzymes	activates	med	false
+ecoli_iron_homeostasis	AO	Derepression of Iron-Dependent Enzymes	gene	AF	Iron Utilization for Essential Metalloproteins	metabolite		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	G	High Iron Condition	metabolite	AP	High Iron Promotes Colibactin Production (pks island)	metabolite		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	AP	High Iron Promotes Colibactin Production (pks island)	metabolite	AQ	Colibactin Genotoxicity	other		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	AQ	Colibactin Genotoxicity	other	AR	Increased DNA Damage	other		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	C	Dissolved Oxygen Levels	other	AS	Is Dissolved Oxygen high?	gate		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	AS	Is Dissolved Oxygen high?	gate	Yes	Yes	other		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	Yes	Yes	other	AT	Disruption of Iron Homeostasis	metabolite		proceeds	high	environmental/level gate branch	proceeds	high	false
+ecoli_iron_homeostasis	AT	Disruption of Iron Homeostasis	metabolite	AU	Increased Oxidative Stress/Iron Deficiency Symptoms	metabolite		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	AU	Increased Oxidative Stress/Iron Deficiency Symptoms	metabolite	AV	Impaired Cell Growth/Production	promoter		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	D	E. coli Cell	other	AW	Fur-Independent Gene Regulation	gene		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	AW	Fur-Independent Gene Regulation	gene	AX	Alternative Sigma Factors (e.g., Sigma E)	other		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	AX	Alternative Sigma Factors (e.g., Sigma E)	other	AY	Regulation of Outer Membrane Proteins & Virulence	other		proceeds	med	downstream physiology/damage branch	proceeds	med	false
+ecoli_iron_homeostasis	AY	Regulation of Outer Membrane Proteins & Virulence	other	AZ	Modulation of Iron Acquisition	metabolite		proceeds	med	iron chart process advance	proceeds	med	false
+ecoli_iron_homeostasis	L	Transcriptional Repression by Holo-Fur	gene	BA	Repression of Iron Efflux Genes e.g., fieF	gene		represses	high	Fur represses efflux genes	represses	high	false
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	gene	BB	Derepression of Iron Efflux Genes	gene		activates	high	derepression of efflux genes	activates	high	false
+ecoli_iron_homeostasis	BB	Derepression of Iron Efflux Genes	gene	BC	Iron Efflux Proteins & Export	metabolite		produces	high	efflux gene expression yields exporters	produces	high	false
+ecoli_iron_homeostasis	BC	Iron Efflux Proteins & Export	metabolite	B	Environmental Iron Availability (Fe3+)	metabolite		produces	med	export returns Fe to environment pool	produces	med	false
+ecoli_iron_homeostasis	U	Cytoplasmic Ferric Iron (Fe3+) from siderophores	TF	C1	AND: Cytoplasmic Iron Pool	gate		proceeds	high	Fe3+ to cytoplasmic pool AND	proceeds	high	false
+ecoli_iron_homeostasis	C1	AND: Cytoplasmic Iron Pool	gate	AH	\Is Cytoplasmic Fe2+ level high?	gate		proceeds	high	pool to Fe2+ level gate	proceeds	high	false
+human_iron_irp_ire	A	Low cellular iron	metabolite	B	IRP1/2 bind IRE elements	promoter		induces	high	low iron enables IRP IRE binding	induces	high	false
+human_iron_irp_ire	B	IRP1/2 bind IRE elements	promoter	C	Transferrin-receptor mRNA stabilized	gene		activates	high	IRP stabilizes TfR mRNA	activates	high	false
+human_iron_irp_ire	B	IRP1/2 bind IRE elements	promoter	D	Ferritin translation blocked	other		represses	high	IRP blocks ferritin translation	represses	high	false
+human_iron_irp_ire	C	Transferrin-receptor mRNA stabilized	gene	E	Iron uptake rises	metabolite		produces	med	stabilized TfR yields higher iron uptake	produces	med	false
+human_iron_irp_ire	E	Iron uptake rises	metabolite	F	Rising iron inactivates IRPs	TF		induces	high	rising iron as signal inactivates IRPs	induces	high	false
+human_iron_irp_ire	F	Rising iron inactivates IRPs	TF	B	IRP1/2 bind IRE elements	promoter	⊣ feedback	represses	high	⊣ inactive IRPs leave IREs	represses	high	false
+human_iron_irp_ire	E	Iron uptake rises	metabolite	G	Iron homeostasis	metabolite		proceeds	high	uptake to homeostasis output	proceeds	high	false
+yeast_yeast_glycolysis_regulation	A	Glucose uptake	metabolite	B	Hexokinase (Hxk)	protein		proceeds	high	glucose uptake to Hxk	proceeds	high	false
+yeast_yeast_glycolysis_regulation	B	Hexokinase (Hxk)	protein	C	G6P pool	metabolite		produces	high	Hxk produces G6P pool	produces	high	false
+yeast_yeast_glycolysis_regulation	C	G6P pool	metabolite	D	G6P inhibits Hxk	metabolite		induces	high	G6P as signal engages Hxk inhibition	induces	high	false
+yeast_yeast_glycolysis_regulation	D	G6P inhibits Hxk	metabolite	B	Hexokinase (Hxk)	protein	−	represses	high	− G6P inhibits Hxk activity	represses	high	false
+yeast_yeast_glycolysis_regulation	C	G6P pool	metabolite	E	Phosphofructokinase (Pfk-1)	protein		proceeds	high	G6P feeds Pfk-1 step	proceeds	high	false
+yeast_yeast_glycolysis_regulation	E	Phosphofructokinase (Pfk-1)	protein	F	F1,6BP	other		produces	high	Pfk-1 produces F1,6BP	produces	high	false
+yeast_yeast_glycolysis_regulation	F	F1,6BP	other	G	Pyruvate kinase (Pyk)	protein		proceeds	high	F1,6BP to Pyk step	proceeds	high	false
+yeast_yeast_glycolysis_regulation	G	Pyruvate kinase (Pyk)	protein	H	ATP / glycolytic flux	metabolite		produces	high	Pyk yields ATP/flux	produces	high	false
+yeast_yeast_glycolysis_regulation	H	ATP / glycolytic flux	metabolite	I	High ATP inhibits Pfk-1	metabolite		induces	high	high ATP as signal engages Pfk inhibition	induces	high	false
+yeast_yeast_glycolysis_regulation	I	High ATP inhibits Pfk-1	metabolite	E	Phosphofructokinase (Pfk-1)	protein	−	represses	high	− ATP inhibits Pfk-1	represses	high	false
+human_mtorc1_nutrient	A	Amino acids + growth factors	metabolite	B	mTORC1 active	TF		activates	high	AA/GF activate mTORC1	activates	high	false
+human_mtorc1_nutrient	B	mTORC1 active	TF	C	S6K1 / 4E-BP1	TF		activates	high	mTORC1 activates S6K1/4E-BP1	activates	high	false
+human_mtorc1_nutrient	C	S6K1 / 4E-BP1	TF	D	Protein synthesis / growth	other		activates	high	S6K/4E-BP drive translation/growth	activates	high	false
+human_mtorc1_nutrient	C	S6K1 / 4E-BP1	TF	E	S6K1 inhibits IRS-1	TF		activates	high	S6K1 pathway to IRS inhibition	activates	high	false
+human_mtorc1_nutrient	E	S6K1 inhibits IRS-1	TF	A	Amino acids + growth factors	metabolite	⊣ feedback	represses	high	⊣ S6K1 dampens IRS/nutrient input	represses	high	false
+human_mtorc1_nutrient	D	Protein synthesis / growth	other	F	Growth homeostasis	state		proceeds	high	growth to homeostasis output	proceeds	high	false
+ecoli_phosphate_regulation	A	External Pi Level	metabolite	B	Is External Pi Low?	gate		proceeds	med	phosphate chart process advance	proceeds	med	false
+ecoli_phosphate_regulation	B	Is External Pi Low?	gate	Yes	Yes	other		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	Yes	Yes	other	C	Pst System Activity Decreased	other		proceeds	high	low-Pi gate to Pst decrease	proceeds	high	false
+ecoli_phosphate_regulation	C	Pst System Activity Decreased	other	D	\Pst System (sensor) Inactive	other		proceeds	high	Pst activity down to inactive sensor	proceeds	high	false
+ecoli_phosphate_regulation	D	\Pst System (sensor) Inactive	other	E	PhoR (Histidine Kinase)	TF		activates	high	inactive Pst sensor activates PhoR	activates	high	false
+ecoli_phosphate_regulation	E	PhoR (Histidine Kinase)	TF	F	PhoR Autophosphorylation	TF		modifies	high	PhoR autophosphorylation	modifies	high	false
+ecoli_phosphate_regulation	F	PhoR Autophosphorylation	TF	G	PhoR-P	TF		modifies	high	PhoR Autophosphorylation produces/modifies to PhoR-P	proceeds	low	true
+ecoli_phosphate_regulation	G	PhoR-P	TF	H	PhoB (Response Regulator)	TF		activates	med	PhoR-P engages PhoB response regulator (sensor-P to RR)	UNTYPABLE	low	true
+ecoli_phosphate_regulation	G	PhoR-P	TF	I	PhoR-P transfers P to PhoB	TF		modifies	high	PhoR-P transfers phosphate toward PhoB (phosphotransfer step)	modifies	high	true
+ecoli_phosphate_regulation	I	PhoR-P transfers P to PhoB	TF	J	PhoB-P	TF		modifies	high	Phosphotransfer yields PhoB-P (RR modified/activated form)	proceeds	low	true
+ecoli_phosphate_regulation	J	PhoB-P	TF	K	PhoB-P binds to Pho boxes	promoter		activates	high	PhoB-P binds/activates Pho boxes (TF-P engages promoter)	activates	med	true
+ecoli_phosphate_regulation	K	PhoB-P binds to Pho boxes	promoter	L	Activation of Pho Regulon Genes	gene		activates	high	PhoB-P activates Pho regulon genes	activates	high	false
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	gene	M	Increased Pi Uptake Genes (e.g., Pst, Pit)	gene		activates	high	regulon induces uptake genes	activates	high	false
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	gene	N	Increased Pi Scavenging Genes (e.g., PhoA, UgpB)	gene		activates	high	regulon induces scavenging genes	activates	high	false
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	gene	O	Increased Membrane Remodeling Genes	gene		activates	high	regulon induces remodeling genes	activates	high	false
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	gene	P	RpoS Induction	other		activates	med	regulon induces RpoS	activates	med	false
+ecoli_phosphate_regulation	M	Increased Pi Uptake Genes (e.g., Pst, Pit)	gene	Q	Enhanced Pi Uptake	metabolite		produces	high	uptake genes enhance Pi uptake	produces	high	false
+ecoli_phosphate_regulation	N	Increased Pi Scavenging Genes (e.g., PhoA, UgpB)	gene	S	Phosphate Scavenging	metabolite		produces	high	scavenging genes enable Pi liberation	produces	high	false
+ecoli_phosphate_regulation	O	Increased Membrane Remodeling Genes	gene	U	Replacement of Phospholipids	other		produces	med	remodeling genes conserve Pi	produces	med	false
+ecoli_phosphate_regulation	P	RpoS Induction	other	W	General Stress Response Activation	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	Q	Enhanced Pi Uptake	metabolite	R	Intracellular Pi from Uptake	metabolite		produces	high	uptake yields intracellular Pi	produces	high	false
+ecoli_phosphate_regulation	S	Phosphate Scavenging	metabolite	T	Liberation of Pi from Organic Sources	metabolite		produces	high	scavenging liberates Pi	produces	high	false
+ecoli_phosphate_regulation	U	Replacement of Phospholipids	other	V	Conservation of Intracellular Pi	metabolite		proceeds	high	remodeling to conservation	proceeds	high	false
+ecoli_phosphate_regulation	R	Intracellular Pi from Uptake	metabolite	AX	Intracellular Pi Pool (General)	metabolite		produces	high	uptake Pi enters pool	produces	high	false
+ecoli_phosphate_regulation	T	Liberation of Pi from Organic Sources	metabolite	AX	Intracellular Pi Pool (General)	metabolite		produces	high	liberated Pi enters pool	produces	high	false
+ecoli_phosphate_regulation	V	Conservation of Intracellular Pi	metabolite	AX	Intracellular Pi Pool (General)	metabolite		produces	med	conservation feeds Pi pool	produces	med	false
+ecoli_phosphate_regulation	W	General Stress Response Activation	other	X	Adaptation to Pi Starvation	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AX	Intracellular Pi Pool (General)	metabolite	X	Adaptation to Pi Starvation	metabolite		proceeds	med	phosphate chart process advance	proceeds	med	false
+ecoli_phosphate_regulation	B	Is External Pi Low?	gate	No	No	other		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	No	No	other	Y	Normal/High External Pi	metabolite		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	Y	Normal/High External Pi	metabolite	Z	Pst System (sensor) Active	other		proceeds	high	high external Pi to active Pst	proceeds	high	false
+ecoli_phosphate_regulation	Z	Pst System (sensor) Active	other	AA	Inhibition of PhoR Autophosphorylation	TF		represses	high	active Pst inhibits PhoR	represses	high	false
+ecoli_phosphate_regulation	AA	Inhibition of PhoR Autophosphorylation	TF	AB	\Pho Regulon Inactive	gene		represses	high	PhoR off → regulon inactive	represses	high	false
+ecoli_phosphate_regulation	Y	Normal/High External Pi	metabolite	AC	High Intracellular Pi	metabolite		proceeds	high	high external to high internal Pi	proceeds	high	false
+ecoli_phosphate_regulation	AX	Intracellular Pi Pool (General)	metabolite	High	High	other		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	High	High	other	AC	High Intracellular Pi	metabolite		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	AC	High Intracellular Pi	metabolite	AD	Impact on PTS Phosphorylation	TF		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AD	Impact on PTS Phosphorylation	TF	AE	Is Glucose Available?	gate		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AE	Is Glucose Available?	gate	Yes	Yes	other		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	Yes	Yes	other	AF	PTS Components Phosphorylated (EI-P, HPr-P, EIIA^Glc-P)	TF		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	AF	PTS Components Phosphorylated (EI-P, HPr-P, EIIA^Glc-P)	TF	AG	Sugar Uptake via PTS	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AE	Is Glucose Available?	gate	No	No	other		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	No	No	other	AH	Accumulation of EIIA^Glc-P-free	other		proceeds	high	Pi/glucose gate branch	proceeds	high	false
+ecoli_phosphate_regulation	AH	Accumulation of EIIA^Glc-P-free	other	AI	Adenylate Cyclase (CyaA)	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AI	Adenylate Cyclase (CyaA)	other	AJ	Activation of Adenylate Cyclase (CyaA)	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AJ	Activation of Adenylate Cyclase (CyaA)	other	AK	ATP Input for CyaA	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AK	ATP Input for CyaA	metabolite	AL	CyaA converts ATP to cAMP	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AL	CyaA converts ATP to cAMP	metabolite	AM	Increased cAMP Levels	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AM	Increased cAMP Levels	metabolite	AN	Crp (Cyclic AMP Receptor Protein)	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AM	Increased cAMP Levels	metabolite	AO	cAMP binds to Crp	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AO	cAMP binds to Crp	metabolite	AP	cAMP-Crp Complex	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AP	cAMP-Crp Complex	metabolite	AQ	Global Gene Regulation by cAMP-Crp	gene		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AQ	Global Gene Regulation by cAMP-Crp	gene	AR	Activation of Carbon Catabolism Genes	gene		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AQ	Global Gene Regulation by cAMP-Crp	gene	AS	Repression of Specific Stress Response Genes	gene		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AQ	Global Gene Regulation by cAMP-Crp	gene	AT	Activation of Stress-mediated Death Pathway Genes	gene		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AT	Activation of Stress-mediated Death Pathway Genes	gene	AU	Cell Death Pathway Triggered	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AC	High Intracellular Pi	metabolite	AV	Potential Pi Toxicity	metabolite		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AU	Cell Death Pathway Triggered	other	AW	Reduced Cell Viability	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AV	Potential Pi Toxicity	metabolite	AW	Reduced Cell Viability	other		proceeds	med	cross-talk/stress side branch	proceeds	med	false
+ecoli_phosphate_regulation	AX	Intracellular Pi Pool (General)	metabolite	BA	Synthesis of Polyphosphate (PolyP)	metabolite		produces	high	Pi pool polymerized to PolyP	produces	high	false
+ecoli_phosphate_regulation	AY	ATP for PolyP Synthesis	metabolite	BA	Synthesis of Polyphosphate (PolyP)	metabolite		produces	med	Pi/metabolite transformation	produces	med	false
+ecoli_phosphate_regulation	AZ	Polyphosphate Kinase (PPK)	metabolite	BA	Synthesis of Polyphosphate (PolyP)	metabolite		produces	med	Pi/metabolite transformation	produces	med	false
+ecoli_phosphate_regulation	BA	Synthesis of Polyphosphate (PolyP)	metabolite	BB	PolyP Storage (Pi Reserve)	metabolite		produces	high	PolyP stored	produces	high	false
+ecoli_phosphate_regulation	BB	PolyP Storage (Pi Reserve)	metabolite	BC	Polyphosphate Exopolyphosphatase (PPX)	metabolite		proceeds	high	storage to PPX	proceeds	high	false
+ecoli_phosphate_regulation	BC	Polyphosphate Exopolyphosphatase (PPX)	metabolite	BD	Degradation of PolyP	other		produces	high	PPX degrades PolyP	produces	high	false
+ecoli_phosphate_regulation	BD	Degradation of PolyP	other	BE	Release of Intracellular Pi from PolyP	metabolite		produces	high	degradation releases Pi	produces	high	false
+ecoli_phosphate_regulation	BE	Release of Intracellular Pi from PolyP	metabolite	AX	Intracellular Pi Pool (General)	metabolite		produces	high	released Pi returns to pool	produces	high	false
+ecoli_phosphate_regulation	BF	Pyridoxal (PL)	other	BI	PL + ATP -> PLP + ADP Reaction	metabolite		produces	med	Pi/metabolite transformation	produces	med	false
+ecoli_phosphate_regulation	BG	ATP for PLP Synthesis	metabolite	BI	PL + ATP -> PLP + ADP Reaction	metabolite		produces	med	Pi/metabolite transformation	produces	med	false
+ecoli_phosphate_regulation	BH	Pyridoxal Kinase	protein	BI	PL + ATP -> PLP + ADP Reaction	metabolite		proceeds	high	kinase to PLP reaction	proceeds	high	false
+ecoli_phosphate_regulation	BI	PL + ATP -> PLP + ADP Reaction	metabolite	BJ	Pyridoxal 5'-Phosphate (PLP)	metabolite		produces	high	reaction produces PLP	produces	high	false
+ecoli_phosphate_regulation	BJ	Pyridoxal 5'-Phosphate (PLP)	metabolite	BK	PLP Feedback Inhibits Pyridoxal Kinase	protein		induces	high	PLP as signal engages kinase inhibition	induces	high	false
+ecoli_phosphate_regulation	BK	PLP Feedback Inhibits Pyridoxal Kinase	protein	BH	Pyridoxal Kinase	protein		represses	high	PLP feedback inhibits pyridoxal kinase	represses	high	false
+ecoli_phosphate_regulation	BJ	Pyridoxal 5'-Phosphate (PLP)	metabolite	BL	Regulation of PLP Levels	other		proceeds	med	phosphate chart process advance	proceeds	med	false
