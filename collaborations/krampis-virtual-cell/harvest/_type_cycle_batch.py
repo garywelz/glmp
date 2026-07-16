@@ -347,13 +347,15 @@ def type_edge(
     if re.search(r"\bactivat", ell) and not src_is_dec:
         return "activates", "high", "1", words12("Rule1 explicit activate label")
 
-    # RULE 2 — STRUCTURE: decision node + any non-empty outcome label
-    # (Yes/No/Passed/… list was illustrative; σ70, Path 1, Z-ring unstable all qualify)
-    if src_is_dec and is_outcome_branch(el):
-        pol = branch_polarity(el, tgt_lab)
-        if pol is None:
-            return "UNTYPABLE", "low", "2", words12("Rule2 gate but polarity unclear")
-        return pol, "high", "2", words12(f"Rule2 gate outcome {el} -> {pol}")
+    # RULE 2 RETIRED (2026-07-16) — do not type decision-gate outcomes as regulatory.
+    # Why: (1) vocabulary-keyed scope (Yes/No/Passed/Failed) was too narrow (missed σ70);
+    # (2) structure-keyed scope (any label from a ?/{} node) over-fired on path-choices
+    # (Which fumarase?); (3) halt-vs-distribute test is principled but still breaks TCA=0
+    # (Substrates available? → Wait for substrates is a real halt in a metabolic cycle).
+    # Gate outcomes are underdetermined; report feedback_loops as a sensitivity instead
+    # (harvest/feedback_loops_gate_sensitivity.tsv, feedback_loops_corpus.tsv columns
+    # feedback_loops = gates-as-nonreg primary, feedback_loops_gates_reg = upper bound).
+    # Gate edges with no Rule 1/3 hit fall through like other process structure.
 
     # RULE 3 — expression -> own machinery
     if expression_own_product(src_lab, tgt_lab):
