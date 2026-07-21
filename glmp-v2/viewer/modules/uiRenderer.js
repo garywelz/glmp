@@ -116,14 +116,20 @@ function renderCircuitClass(process) {
     const el = document.getElementById('process-circuit-class');
     if (!el) return;
     const cls = (process.circuitClass || '').toString().trim();
-    if (!cls) { el.style.display = 'none'; return; }
-    const name = CIRCUIT_CLASS_NAMES[cls] || 'Unclassified';
-    el.textContent = `Class ${cls} · ${name}`;
+    const name = (process.circuitClassName || '').toString().trim()
+        || CIRCUIT_CLASS_NAMES[cls]
+        || 'Unclassified';
+    if (!cls && name === 'Unclassified') { el.style.display = 'none'; return; }
+    // Descriptive name is the label; Roman numeral stays ordinal metadata only.
+    el.textContent = name;
+    if (cls) el.setAttribute('data-circuit-class', cls);
+    else el.removeAttribute('data-circuit-class');
     el.style.backgroundColor = CIRCUIT_CLASS_COLORS[cls] || '#bbb';
     el.style.color = '#fff';
+    const ordinal = cls ? `Class ${cls} (ordinal)` : '';
     el.title = process.circuitClassRationale
-        ? `${name} — ${process.circuitClassRationale}`
-        : name;
+        ? [ordinal, name, process.circuitClassRationale].filter(Boolean).join(' — ')
+        : [ordinal, name].filter(Boolean).join(' — ');
     el.style.display = '';
 }
 
