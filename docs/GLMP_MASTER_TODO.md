@@ -19,6 +19,13 @@ exposed GCP copernicusai-tts key deleted; dormant copernicus-podcast-api-v2 serv
 legacy repos Copernicus_AI + copernicus_backup deleted, copernicus-podcast-api archived.
 OpenAI / GitHub-PAT / Twitter leaked creds were already dead.
 
+**Untitled-husk corpus sweep closed (2026-07-21).** 1,543 Untitled husks (no
+identifiers, no abstract/URL/sources) archived then deleted from `research_papers`;
+corpus left at 63,059. Rollback: full export at
+`gs://regal-scholar-453620-r7-podcast-storage/research_data/corpus_hygiene/untitled_sweep_20260721/`.
+Deleted via `cloud-run-backend/scripts/sweep_untitled_husks.py`,
+copernicus-web commit `b38170ff5`.
+
 ## Top priorities (next)
 1. **CRP PWM** — highest-leverage science move. Would let lac reach a *legitimate,
    evidence-backed* Class II and turn the decoder from repression-only into
