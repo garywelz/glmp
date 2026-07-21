@@ -1,40 +1,21 @@
-# Shared diagrams — GLMP / lac–ara collaboration
+# Shared diagrams — lac, ara, and trp
 
-Two working pictures. The first is the method we're both using; the second is my current model of the mechanism, which I'd like you to red-pen.
+Interactive GLMP process charts for review. Each page shows the Mermaid flowchart and an **Improve this process** form.
 
-## 1. The tiering method (our shared tool for ara)
+| Operon | Chart |
+|--------|--------|
+| **Lac** | [Open lac operon](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon) |
+| **Ara** | [Open ara operon](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_ara_operon) |
+| **Trp** | [Open trp operon](https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_trp_operon) |
 
-For each regulatory feature, we sort it into one of three buckets by what kind of evidence settles it.
+## Short descriptions
 
-```mermaid
-flowchart TD
-    F["A regulatory feature<br/>(a site, a spacing, a bend)"] --> Q{"How is it settled?"}
-    Q -->|"read directly from sequence"| T1["Readable<br/>site identity, repression / NOT<br/>e.g. LacI at the operator"]
-    Q -->|"sequence shows it's possible"| T2["Permitted<br/>looping is geometrically feasible<br/>(phasing, loop length, intrinsic bend)"]
-    Q -->|"only the living system tells us"| T3["Needs the cell<br/>the real cooperativity, the AND,<br/>bistability — functional / structural data"]
-```
+**Lac (*E. coli* lac operon).** Combinatorial control of *lacZYA*: LacI repression and CAP–cAMP activation. The CRP∩LacI AND is loop-mediated (Tier 3); circuit-class label is pending review. Use this chart to red-pen the mechanism and the tiering of loop vs sequence-readable parts.
 
-The whole ara task is: run each feature of the AraC switch through this, and tell me which bucket it lands in — and where you'd disagree with the boundaries.
+**Ara (*E. coli* ara operon).** AraC dual regulation of *araBAD*: DNA looping (araO2–araI1) when arabinose is absent, activator at araI1–araI2 when present, with CRP–cAMP for full induction. Positive autoregulation; bistability pending confirmation. The araO2–araI1 loop is marked Tier 3.
 
-## 2. My current model of the lac mechanism (please correct)
-
-This is how I, as a non-biologist, have assembled the causal picture from the papers you pointed me to. I expect it's too clean in places — where is it wrong or oversimplified?
-
-```mermaid
-flowchart TD
-    GL["glucose low → cAMP high"] --> CRP["CRP–cAMP binds ~ -61.5"]
-    CRP --> BEND["CRP bends DNA ~ 80 degrees"]
-    LA["lactose absent → LacI active"] --> OP["LacI bound at operators"]
-    BEND --> LOOP["bend assists the LacI O1–O3 loop"]
-    OP --> LOOP
-    LOOP --> REP["operon repressed"]
-    IND["lactose present → allolactose"] --> REL["LacI released, loop breaks"]
-    REL --> EXP["operon expressed"]
-    CRP -. "also amplifies once de-repressed" .-> EXP
-```
-
-The part I'm least sure I've captured right is CRP's dual role — activator *and* enhancer of the repression loop — and how that reads under natural lactose versus IPTG.
+**Trp (*E. coli* trp operon).** End-product negative feedback via TrpR plus transcriptional attenuation at *trpL*. Hairpin geometry is Tier 2 (permitted by sequence); the terminator vs antiterminator decision is Tier 3. No DNA loop — loop count of zero is correct.
 
 ---
 
-*Note on sharing: these render as diagrams in GitHub and in the collaboration repo; if sending by email, export as images rather than pasting the code.*
+*Process IDs: `ecoli_lac_operon`, `ecoli_ara_operon`, `ecoli_trp_operon`. Source of truth: GitHub `glmp` → GCS viewer.*
