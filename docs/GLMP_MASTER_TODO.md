@@ -26,16 +26,49 @@ corpus left at 63,059. Rollback: full export at
 Deleted via `cloud-run-backend/scripts/sweep_untitled_husks.py`,
 copernicus-web commit `b38170ff5`.
 
+**Manifest glob-exclusion certified (2026-07-22).** `batch_*.json` acquisition
+side-cars excluded at scan time in
+`ingest_papers_from_metadata_json._iter_json_files` (copernicus-web `d256a0adf`).
+Two consecutive enforce cycles post-ship: rejects **0 / 0**; `Wrote:` **0** then
+**7**; reject-log noise floor reset to zero — gate restored as pure anomaly
+detector. Firestore spot-check: `paper_<32hex>` **0**, Untitled **0**; corpus
+**63,066** (= 63,059 post-sweep + footer sum). Stub gate stays **enforce**.
+On-disk manifests untouched (count **59**; writer still drops side-cars, scanner
+ignores them). Footer-vs-Firestore `Wrote:` sum remains the sanctioned count check.
+
+**Silent embedding-gap backfill closed (2026-07-22).** Census found **405**
+fully-metadated papers (358 `pubmed_*` + 47 `biorxiv_*`, all with abstracts,
+created 2026-07-15→2026-07-22) present in `research_papers` but missing
+`embedding_model` — invisible to count-based integrity, unreachable by
+`find_nearest`. Backfilled on Yoga 9i (system Python312 + ADC) via
+`cloud-run-backend/scripts/backfill_research_paper_embeddings.py`,
+copernicus-web `cfb155f81` (blob `872d09f1998ac2d96ec20a64f486258eb2bdbd1c`):
+OpenAI `text-embedding-3-small` @ 1536d, 149,855 tokens, checkpoint
+completed=405 / failed=0 / remaining=0. Post-census: corpus **63,066**,
+unembedded **0**, Untitled **0**, coverage **100.0%** (momentary — gap reopens
+each scout cycle until inline-embed). Status republished from Jetson to
+`gs://…/knowledge-engine-status.json` (`papers_with_embedding: 63,066`,
+100.0%). Fixed six-query `scientific_queries` probe (pre/post, top-20):
+Untitled 0→0; unbiased 2/3 surfaced backfilled docs (lac operon rank **2**);
+sensitivity 3/3 at rank 1 (mechanical check, not retrieval-value evidence).
+Local archives: `_sweep_work/embed_backfill_20260722/` (gitignored).
+Knowledge-engine paper finding (present-but-unfindable defect class) drafted
+by Claude Chat for the data-hygiene section.
+
 ## Top priorities (next)
-1. **CRP PWM** — highest-leverage science move. Would let lac reach a *legitimate,
+1. **Scout inline-embed follow-on** — ingest still writes papers without
+   embeddings; also fix hardcoded `text-embedding-004` label in
+   `add_embedding_to_paper_data`. Necessary sequel so 100% coverage is not a
+   one-day moment.
+2. **CRP PWM** — highest-leverage science move. Would let lac reach a *legitimate,
    evidence-backed* Class II and turn the decoder from repression-only into
    repression+activation. NOT a quick task: needs validated CRP binding sites
    (RegulonDB/literature) + biologist-grade judgment on their quality. Own focused session.
-2. **sciencevideodb quality pass** — the Claude Code evaluation still not run (today was all
+3. **sciencevideodb quality pass** — the Claude Code evaluation still not run (today was all
    decoder + infra). The actual "can Claude Code improve my HF Spaces" test.
-3. **MASTER_TODO cron install** — this file is currently hand-generated; automate it
+4. **MASTER_TODO cron install** — this file is currently hand-generated; automate it
    (Jetson→GCS→Yoga-push, ~6 AM ET) as its own calm step.
-4. **GitHub housekeeping** — glmp Pages build failing repeatedly (#110–158); two Dependabot
+5. **GitHub housekeeping** — glmp Pages build failing repeatedly (#110–158); two Dependabot
    alerts (form-data, protobufjs).
 
 ## Parked / backlog
@@ -45,6 +78,10 @@ copernicus-web commit `b38170ff5`.
   3-bucket decodability categorization is PROVISIONAL/CONFOUNDED — needs a re-anchored re-run
   + biologist review before it's a finding.
 - Build AraC PWM (recover an evidence-backed ara decode).
+- Backfill script polish when `backfill_research_paper_embeddings.py` next reopens:
+  docstring (Yoga 9i / system Python312, not “backend venv”); `StructuralError`
+  instead of `"HARD STOP" in str(exc)`.
+- Parked: `text-embedding-3-large` evaluation (not this corpus pass).
 - Deferred free-key rotations: YouTube (multi-service), Zenodo (scope check), NASA-ADS.
 - copernicusai-tts IAM too broad (project-level owner+editor) — tighten.
 - Descript API parallel experiment (TTS / post-prod / transcription / clips; never replace
