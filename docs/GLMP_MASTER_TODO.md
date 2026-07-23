@@ -4,91 +4,84 @@ Hand-maintained priorities with live AUTO-STATUS appended below.
 Read alongside: `docs/GLMP_GOALS.md`.
 
 <!-- CURATED:START -->
-## Where things stand — 2026-07-05
+## Where things stand — 2026-07-23
 
-**Decoder honesty milestone (committed a9eb66d).** Fixed the class-assignment bug where
-spurious JASPAR density produced false Class II calls. All 8 known circuits re-decoded:
-5 flipped II→I/II (lac, sos_lexa, sos_reca, dna_damage now honestly read I/II — repression
-detected, activation undetectable without activator PWMs). ara/flhdc/lambda =
-INSUFFICIENT_EVIDENCE; trp = I/II. **Class II is currently unreachable** — the decoder is
-presently a *repression detector*, because there are zero activator PWMs. This is the honest
-finding, not a regression.
+**Findability pattern (through-line).** Suite checks often ask whether things
+*exist*, not whether they are *retrievable*. Three instances this week: junk
+vectors polluting retrieval; 405 papers present-but-unembedded; 90 episodes
+embedded only on `podcast_jobs` while live `find_nearest` targets `episodes`.
 
-**Security + consolidation chapter closed.** ElevenLabs key rotated (scoped, verified);
-exposed GCP copernicusai-tts key deleted; dormant copernicus-podcast-api-v2 service deleted;
-legacy repos Copernicus_AI + copernicus_backup deleted, copernicus-podcast-api archived.
-OpenAI / GitHub-PAT / Twitter leaked creds were already dead.
+**Post-ingest ordering fix shipped (2026-07-23).** Status publish + MASTER_TODO
+now chain from `scout_ingest.sh` on success (`cee1928ef`, CRLF-safe sync
+`444d192dd`, asymmetry note `fd585ec75`). Standalone 10:40/10:45 cron **kept**
+until AM validates (safer cutover). First evidence = tonight’s PM 20:15
+(~21:20); AM double-publish is the cutover gate. PM has no fallback cron
+(durable asymmetry — ship risky chain changes in the morning).
 
-**Untitled-husk corpus sweep closed (2026-07-21).** 1,543 Untitled husks (no
-identifiers, no abstract/URL/sources) archived then deleted from `research_papers`;
-corpus left at 63,059. Rollback: full export at
-`gs://regal-scholar-453620-r7-podcast-storage/research_data/corpus_hygiene/untitled_sweep_20260721/`.
-Deleted via `cloud-run-backend/scripts/sweep_untitled_husks.py`,
-copernicus-web commit `b38170ff5`.
+**Label fix + episodes gap closed (partial).** Hardcoded `text-embedding-004`
+fixed on four handoff sites (`c066ed185`). Episodes: 1536d index READY;
+parameterized backfill (`621831bb0`) embedded **90/90** @ 1536;
+live `find_nearest` returns sensible topical hits. Dual-field
+`description`/`description_markdown` prevents title-only degradation.
+**Still open:** embed-at-promote (else 90/90 decays on next promote).
 
-**Manifest glob-exclusion certified (2026-07-22).** `batch_*.json` acquisition
-side-cars excluded at scan time in
-`ingest_papers_from_metadata_json._iter_json_files` (copernicus-web `d256a0adf`).
-Two consecutive enforce cycles post-ship: rejects **0 / 0**; `Wrote:` **0** then
-**7**; reject-log noise floor reset to zero — gate restored as pure anomaly
-detector. Firestore spot-check: `paper_<32hex>` **0**, Untitled **0**; corpus
-**63,066** (= 63,059 post-sweep + footer sum). Stub gate stays **enforce**.
-On-disk manifests untouched (count **59**; writer still drops side-cars, scanner
-ignores them). Footer-vs-Firestore `Wrote:` sum remains the sanctioned count check.
+**OpenAI key rotation (Jetson env, 2026-07-23).** Env rewritten from SM
+`openai-api-key:latest` (v6); last-8 changed; embed smoke 1536 /
+`text-embedding-3-small`. Backup `env.bak.20260723` still holds old key —
+**disable old OpenAI key (`…MYQA`) to finish rotation** (re-enable is one click
+if PM/AM misbehaves; AM still has publish cron backup). Cloud Run
+`copernicus`/`copernicus-api` already use secretKeyRef `latest`. Express
+gateway on `copernicus-api` blocks unauthenticated vector-search (Bearer
+required; form undocumented in-repo).
 
-**Silent embedding-gap backfill closed (2026-07-22).** Census found **405**
-fully-metadated papers (358 `pubmed_*` + 47 `biorxiv_*`, all with abstracts,
-created 2026-07-15→2026-07-22) present in `research_papers` but missing
-`embedding_model` — invisible to count-based integrity, unreachable by
-`find_nearest`. Backfilled on Yoga 9i (system Python312 + ADC) via
-`cloud-run-backend/scripts/backfill_research_paper_embeddings.py`,
-copernicus-web `cfb155f81` (blob `872d09f1998ac2d96ec20a64f486258eb2bdbd1c`):
-OpenAI `text-embedding-3-small` @ 1536d, 149,855 tokens, checkpoint
-completed=405 / failed=0 / remaining=0. Post-census: corpus **63,066**,
-unembedded **0**, Untitled **0**, coverage **100.0%** (momentary — gap reopens
-each scout cycle until inline-embed). Status republished from Jetson to
-`gs://…/knowledge-engine-status.json` (`papers_with_embedding: 63,066`,
-100.0%). Fixed six-query `scientific_queries` probe (pre/post, top-20):
-Untitled 0→0; unbiased 2/3 surfaced backfilled docs (lac operon rank **2**);
-sensitivity 3/3 at rank 1 (mechanical check, not retrieval-value evidence).
-Local archives: `_sweep_work/embed_backfill_20260722/` (gitignored).
-Knowledge-engine paper finding (present-but-unfindable defect class) drafted
-by Claude Chat for the data-hygiene section.
+**Earlier this week (still true).** Untitled husk sweep 1,543 deleted;
+manifest glob-exclusion certified (`d256a0adf`); 405-paper embed backfill
+closed (`cfb155f81`); research_focus keystone at glmp `9bb8bd9` (`flagged`
+empty pending TSV audit). Decoder honesty / CRP / biologist notes unchanged
+below in parked.
 
 ## Top priorities (next)
-1. **Scout inline-embed follow-on** — ingest still writes papers without
-   embeddings; also fix hardcoded `text-embedding-004` label in
-   `add_embedding_to_paper_data`. Necessary sequel so 100% coverage is not a
-   one-day moment.
-2. **CRP PWM** — highest-leverage science move. Would let lac reach a *legitimate,
-   evidence-backed* Class II and turn the decoder from repression-only into
-   repression+activation. NOT a quick task: needs validated CRP binding sites
-   (RegulonDB/literature) + biologist-grade judgment on their quality. Own focused session.
-3. **sciencevideodb quality pass** — the Claude Code evaluation still not run (today was all
-   decoder + infra). The actual "can Claude Code improve my HF Spaces" test.
-4. **MASTER_TODO cron install** — this file is currently hand-generated; automate it
-   (Jetson→GCS→Yoga-push, ~6 AM ET) as its own calm step.
-5. **GitHub housekeeping** — glmp Pages build failing repeatedly (#110–158); two Dependabot
-   alerts (form-data, protobufjs).
+1. **PM chain logs (tonight)** — after ~21:30 ET: ingest OK, hook START/OK near
+   completion, wrapper exit 0. First evidence the post-ingest chain fires.
+2. **AM double-publish then remove 10:40/10:45 cron** — stale 10:40 then ~11:35
+   overwrite; if clean, remove standalone lines (verbatim restore in
+   `SCOUT_ARCHITECTURE.md`).
+3. **Embed-at-promote** — write 1536d embedding onto `episodes` at promote so
+   new episodes don’t strand; pairs with (optional) stop embedding only on
+   `podcast_jobs`.
+4. **Remaining `embedding_model` hardcodes** — `sync_{glmp,physics,chemistry,cs}_processes.py`,
+   `sync_videos.py`, `index_existing_content.py` soft defaults.
+5. **8-podcast relabel** — `podcast_jobs` docs labeled 004 with measured dim
+   **1536** (by dim, never by label alone). Cosmetic on a collection search
+   doesn’t query; demoted.
+6. **Math focus file** — after GLMP `research_focus.json`; draft v2 ready.
+7. **TSV provenance audit** — flowchart TSV PMIDs mismatched Firestore
+   (3-for-3 wrong); produces verified IDs for `research_focus.flagged`.
+8. **Disable old OpenAI key (`…MYQA`)** — finishes rotation; inert-izes
+   `env.bak.20260723` copy. Decide tonight vs watch-first.
+9. **Delete defunct `copernicus` Cloud Run service** — dead since ~Apr 2025;
+   still carries `OPENAI_API_KEY` secretKeyRef.
+10. **Narrow `copernicus-service` IAM** — project-level `editor` + `run.admin` +
+    `storage.admin` + `cloudsql.admin` (plus secretAccessor).
+11. **Document Express auth on `copernicus-api`** — Bearer required;
+    in-repo subscriber login issues no JWT; can’t self-test API without the
+    gateway token.
+12. **CRP PWM / sciencevideodb quality / GitHub housekeeping** — prior science
+    + Space eval priorities (unchanged leverage).
 
 ## Parked / backlog
-- Decoder follow-ups: operon re-anchoring (5/9 batch circuits mis-anchored on TF
-  autoregulatory promoters, not regulated operons); trp LacI motif contamination (defer —
-  doesn't change class); σ32 promoters out of decoder scope (mutM); the RegulonDB-grounded
-  3-bucket decodability categorization is PROVISIONAL/CONFOUNDED — needs a re-anchored re-run
-  + biologist review before it's a finding.
+- Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
+  out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
 - Build AraC PWM (recover an evidence-backed ara decode).
-- Backfill script polish when `backfill_research_paper_embeddings.py` next reopens:
-  docstring (Yoga 9i / system Python312, not “backend venv”); `StructuralError`
-  instead of `"HARD STOP" in str(exc)`.
-- Parked: `text-embedding-3-large` evaluation (not this corpus pass).
-- Deferred free-key rotations: YouTube (multi-service), Zenodo (scope check), NASA-ADS.
-- copernicusai-tts IAM too broad (project-level owner+editor) — tighten.
-- Descript API parallel experiment (TTS / post-prod / transcription / clips; never replace
-  ElevenLabs; key straight to Secret Manager).
+- Scout inline-embed on ingest critical path (coverage still reopens each cycle
+  until then; scheduled `--auto` slot reserved in post-ingest hooks).
+- ~~Backfill docstring + StructuralError~~ — done in `621831bb0`.
+- Parked: `text-embedding-3-large` evaluation.
+- Deferred free-key rotations: YouTube, Zenodo, NASA-ADS.
+- copernicusai-tts IAM too broad — tighten.
+- Descript API parallel experiment (never replace ElevenLabs).
 - Rename papers-database-table.html → metadata-database.html.
-- Biologist engagement: re-approach Nathan Lents AFTER the Krampis call (decodability finding
-  as the hook); widen the biologist pool (Krampis's students TBD).
+- Biologist engagement: Lents after Krampis; widen pool.
 
 ## Reminder to self
 Gary is a logician, not a biologist. Biological claims (bucket assignments, mechanism, PWM
