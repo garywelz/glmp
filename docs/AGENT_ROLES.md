@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.1 — July 3, 2026
+**Version:** 1.2 — July 23, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -159,6 +159,27 @@ the repo.
 
 ---
 
+## Credential handling — standing rule
+
+**Never `cat`, `od`, `head`, or otherwise print the full contents of a file that may hold
+credentials** — `*.env`, anything named `*credentials*`, `*-sa.json`, or anything under
+`.config/`. This binds every agent (Cursor, Claude Code, Claude Chat), not just whoever is
+in the current task — it's now been two different agents in as many days.
+
+To check such a file, use a targeted read that reveals only what's needed and nothing that
+could reconstruct the secret:
+- Presence / shape check: `grep -c PATTERN file`, or match on the variable name only.
+- Identifying suffix, to compare against a known-key table: `grep PATTERN file | tail -c 9`
+  — enough characters to identify *which* key it is, never enough to be useful to anyone
+  who shouldn't have it.
+
+**If a credential reaches output anyway, say so immediately** in the same turn, the way
+Claude Code did when it found a plaintext OpenAI key while grepping `copernicus-jetson.env`
+for Cloud Run URL references (2026-07-23) — don't bury it, don't keep working past it
+silently.
+
+---
+
 ## Open items
 1. **Rename the table file** — `papers-database-table.html` → `metadata-database.html` for
    naming consistency. This is a *live* file: update every reference in one pass (the Space
@@ -175,6 +196,10 @@ the repo.
 ---
 
 ## Change log
+- **v1.2** (2026-07-23) — Added a standing credential-handling rule (never print
+  secret-shaped files in full; targeted greps for presence/suffix only; flag immediately if
+  a credential reaches output) after a live OpenAI key was found in a plaintext `.env` file
+  during a Cloud Run audit.
 - **v1.1** (2026-07-03) — Added authoritative GitHub repo↔Space map, five discipline
   databases, naming and license conventions, legacy/support repo audit table, Copernicus
   consolidation rule, open items.
