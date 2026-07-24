@@ -102,6 +102,18 @@ copies carry the corrected concept DOIs and the new ATAP rows.
     import. Decides subtree-split vs. fresh-commit before migration; a
     provenance defect was already found in `flowchart-source-papers.tsv`
     this week, so recording where content came from has real value.
+17. **Pin `copernicus-podcast-api` Dockerfile base image to a digest** —
+    currently floating `python:3.11-slim`. The 07-24 deploy pulled a fresh
+    base layer ("Downloaded newer image for python:3.11-slim" in the Cloud
+    Build log), so a code-only redeploy silently carried a Python patch
+    bump too. All smoke tests passed that time, but future rebuilds should
+    change only what was intended — pin to a specific digest.
+18. **VERIFY PENDING — embed-at-promote** (`ed618599f`, deployed as revision
+    `copernicus-podcast-api-00244-lj6`, 2026-07-24). Unproven until the next
+    real podcast generation/promote. Check then: the new `episodes` doc has
+    `embedding_model` set and a 1536d vector, and surfaces in a
+    `find_nearest` query against `episodes`. Do not synthesize a test
+    podcast to force this.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
