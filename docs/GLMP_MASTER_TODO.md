@@ -52,9 +52,19 @@ copies carry the corrected concept DOIs and the new ATAP rows.
 2. **AM double-publish then remove 10:40/10:45 cron** — stale 10:40 then ~11:35
    overwrite; if clean, remove standalone lines (verbatim restore in
    `SCOUT_ARCHITECTURE.md`).
-3. **Embed-at-promote** — write 1536d embedding onto `episodes` at promote so
-   new episodes don’t strand; pairs with (optional) stop embedding only on
-   `podcast_jobs`.
+3. **Deploy embed-at-promote fix (`ed618599f`)** — carries the embedding
+   already computed at promote (both auto-promote and manual RSS-submit
+   paths) forward onto `episodes` instead of stranding it on `podcast_jobs`;
+   gated on 1536d + non-empty `embedding_model`. Designed and committed; not
+   yet deployed. **Manual `deploy.sh` to `copernicus-podcast-api` — no
+   auto-deploy trigger exists** (0 Cloud Build triggers on this repo). Live
+   revision `copernicus-podcast-api-00243-6ht` dates from 2026-07-04, so the
+   deploy would also carry ~3 weeks of other `cloud-run-backend/` commits;
+   `requirements.txt` and `Dockerfile` are unchanged in that window (no
+   dependency drift), and everything besides the embed-at-promote fix and
+   the 07-23 embedding-label/text fixes (`c066ed185`, `621831bb0`) is
+   standalone scripts under `scripts/` that `main.py` never imports — inert
+   cargo in the image, not live behavior change.
 4. **Remaining `embedding_model` hardcodes** — `sync_{glmp,physics,chemistry,cs}_processes.py`,
    `sync_videos.py`, `index_existing_content.py` soft defaults.
 5. **8-podcast relabel** — `podcast_jobs` docs labeled 004 with measured dim
