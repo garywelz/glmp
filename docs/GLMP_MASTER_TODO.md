@@ -40,6 +40,12 @@ closed (`cfb155f81`); research_focus keystone at glmp `9bb8bd9` (`flagged`
 empty pending TSV audit). Decoder honesty / CRP / biologist notes unchanged
 below in parked.
 
+**Governance files staged for Project KB re-sync (2026-07-23).**
+`CONSTITUTION.md`, `METHODS_CATALOG.md`, `RESOURCE_MANIFEST.md` copied from
+copernicus-web `governance/` (commit `d4a673d5f`; manifest last edited
+`fedfae034`) to `C:\Users\garyw\Desktop\kb-sync\` for upload — confirmed the
+copies carry the corrected concept DOIs and the new ATAP rows.
+
 ## Top priorities (next)
 1. **PM chain logs (tonight)** — after ~21:30 ET: ingest OK, hook START/OK near
    completion, wrapper exit 0. First evidence the post-ingest chain fires.
@@ -68,6 +74,24 @@ below in parked.
     gateway token.
 12. **CRP PWM / sciencevideodb quality / GitHub housekeeping** — prior science
     + Space eval priorities (unchanged leverage).
+13. **DISCIPLINE_DATABASES_PLAN.md rewrite** — `copernicus-web/huggingface-space/`
+    still frames ATAP as a discipline database alongside biology/chemistry/CS/
+    physics. Needs a rewrite against the engine-vs-discipline distinction
+    (engines have a frontier + `research_focus.json`; disciplines don't), not
+    find-and-replace.
+14. **metadata_database footer prose relabel** —
+    `hf-spaces/metadata_database/index.html:34` still reads "serving GLMP, the
+    Mathematics Database, and CopernicusAI"; relabel to ATAP.
+15. **Prune stale settings.local.json allowlist entries** —
+    `copernicus-web/.claude/settings.local.json` has four tool-permission
+    entries referencing the deleted `mathematics-database` local paths.
+    Harmless, unused, cosmetic.
+16. **Git-history depth check on ATAP corpus** —
+    `copernicus-web/huggingface-space/mathematics-processes-database/`
+    (664 files): commit count, date range, substantive history vs. bulk
+    import. Decides subtree-split vs. fresh-commit before migration; a
+    provenance defect was already found in `flowchart-source-papers.tsv`
+    this week, so recording where content came from has real value.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
