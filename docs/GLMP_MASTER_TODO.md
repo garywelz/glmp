@@ -45,6 +45,15 @@ closed (`cfb155f81`); research_focus keystone at glmp `9bb8bd9` (`flagged`
 empty pending TSV audit). Decoder honesty / CRP / biologist notes unchanged
 below in parked.
 
+**Credential-shaped file sweep complete (2026-07-23, run by Cursor).** No
+credential-shaped files tracked in git across copernicus-web, glmp, or the HF
+Space checkouts — history clean too. Yoga 9i + Jetson path scans completed,
+paths-only per the standing rule (`AGENT_ROLES.md` credential-handling
+section). `/home/gary/.config/copernicus/env.bak.20260723` (held the revoked
+key) deleted. `.gitignore` prevention added across all six Space repos +
+`mathematics-database`. **Deferred, still open:** untracking ~14k venv paths
+in copernicus-web (item 19).
+
 **Governance files staged for Project KB re-sync (2026-07-23).**
 `CONSTITUTION.md`, `METHODS_CATALOG.md`, `RESOURCE_MANIFEST.md` copied from
 copernicus-web `governance/` (commit `d4a673d5f`; manifest last edited
@@ -135,6 +144,8 @@ git-history depth check).
     `embedding_model` set and a 1536d vector, and surfaces in a
     `find_nearest` query against `episodes`. Do not synthesize a test
     podcast to force this.
+19. **Untrack ~14k venv paths in copernicus-web** — deferred from the
+    2026-07-23 credential-shaped-file sweep (Cursor); stays open.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
