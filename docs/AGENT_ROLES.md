@@ -112,16 +112,18 @@ and for the multi-agent workflow. GitHub (`garywelz`) is the source of truth.
 | `sciencevideodb` | `sciencevideodb` | YouTube-filtered science video DB, searchable by transcript (TypeScript). |
 | `metadata_database` | `metadata-database` | Renamed from `copernicusai-research-metadata`. **Repo≠Space naming exception** (like `progframe`/`programming_framework`): GitHub repo is kebab-case, HF Space is snake_case. Apache-2.0. Its public face is the GCS-hosted table `papers-database-table.html` — a browsable/searchable view of the **same** 62,312-paper Firestore corpus that `copernicusai` surfaces. Division of labor: `copernicusai` = knowledge engine + podcast front end; `metadata_database` = the browse/search table. Not overlapping databases — two views of one corpus. Table file rename to `metadata-database.html` pending (see open items). |
 | `atap` | `atap` | Renamed 2026-07-23 from `mathematics-database` (HF Space + GitHub repo, both live and no longer stubs). Algorithms, axiomatic theories, and proofs as dependency graphs. Math content continues to migrate out of `progframe`. |
-| `biology-database` | `biology-database` | Repo created (CC0). **HF Space not yet created.** |
-| `chemistry-database` | `chemistry-database` | Repo created (CC0). **HF Space not yet created.** |
-| `computer-science-database` | `computer-science-database` | Repo created (CC0). **HF Space not yet created.** |
-| `physics-database` | `physics-database` | Repo created (CC0). **HF Space not yet created.** |
 
-### Discipline-database pattern
-Each science discipline gets its own repo *and* (eventually) its own HF Space, in a clean
-1:1. `progframe` is the **generator/tooling** repo that produces the databases; it is no
-longer their host. This keeps `progframe` lean and lets each discipline Space be improved
-independently by Claude Code.
+### Engines vs. everything else
+`glmp` and `atap` are the suite's only two **engines** — each has a frontier and a
+`research_focus.json`. Everything else in the table above is infrastructure, a
+browse/search surface, or Methods & Tools output, not a third or fourth engine.
+
+Biology, chemistry, computer science, and physics are not engines — the four
+discipline collections are Programming Framework demonstration corpus, worked
+examples of applying the method, not discipline databases — per
+`copernicus-web/huggingface-space/DISCIPLINE_DATABASES_PLAN.md`. No standalone repos
+or Spaces. If these collections are built, they belong under Methods & Tools /
+`progframe`, not as standalone per-discipline repos.
 
 ### Out of scope
 `garywelz/shadow` (**Shadow of Lillya**, a creative-writing completion of Audrey Berger
@@ -190,10 +192,7 @@ silently.
    `index.html` links, `knowledge-engine-status.json`, and the GCS copy under
    `regal-scholar-453620-r7-podcast-storage/`), and keep the old name reachable briefly so
    no inbound links break. Good careful Claude Code / Cursor task.
-2. **Discipline HF Spaces** — create/wire Spaces for `biology-database`,
-   `chemistry-database`, `computer-science-database`, `physics-database` (math Space
-   already exists). Candidate first real Claude Code task.
-3. **Copernicus legacy audit** — inventory `Copernicus_AI`, `copernicus-podcast-api`,
+2. **Copernicus legacy audit** — inventory `Copernicus_AI`, `copernicus-podcast-api`,
    `copernicus_backup`; report live vs. dead vs. worth-keeping before any move/archive.
    Candidate Claude Code read-only test.
 
