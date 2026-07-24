@@ -107,7 +107,7 @@ and for the multi-agent workflow. GitHub (`garywelz`) is the source of truth.
 | `programming_framework` | `progframe` | Generator/tooling repo for the discipline databases (HTML, MIT). Underscore/legacy naming — see exceptions. Discipline data is migrating out to per-discipline repos. |
 | `sciencevideodb` | `sciencevideodb` | YouTube-filtered science video DB, searchable by transcript (TypeScript). |
 | `metadata-database` | `metadata-database` | Renamed from `copernicusai-research-metadata`; hyphenated. Apache-2.0. Its public face is the GCS-hosted table `papers-database-table.html` — a browsable/searchable view of the **same** 62,312-paper Firestore corpus that `copernicusai` surfaces. Division of labor: `copernicusai` = knowledge engine + podcast front end; `metadata-database` = the browse/search table. Not overlapping databases — two views of one corpus. Table file rename to `metadata-database.html` pending (see open items). |
-| `mathematics-database` | `mathematics-database` | HF Space exists; GitHub repo now created (CC0). Math content to migrate out of `progframe`. |
+| `atap` | `atap` | Renamed 2026-07-23 from `mathematics-database` (HF Space + GitHub repo, both live and no longer stubs). Algorithms, axiomatic theories, and proofs as dependency graphs. Math content continues to migrate out of `progframe`. |
 | `biology-database` | `biology-database` | Repo created (CC0). **HF Space not yet created.** |
 | `chemistry-database` | `chemistry-database` | Repo created (CC0). **HF Space not yet created.** |
 | `computer-science-database` | `computer-science-database` | Repo created (CC0). **HF Space not yet created.** |

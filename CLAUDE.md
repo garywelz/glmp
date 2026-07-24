@@ -37,7 +37,7 @@ and cron/pipeline work. When a task looks like Cursor's, say so rather than forc
 | `programming_framework` | `progframe` (generator/tooling for the discipline databases) |
 | `sciencevideodb` | `sciencevideodb` |
 | `metadata-database` | `metadata-database` (public face = GCS table `papers-database-table.html`) |
-| `mathematics-database` | `mathematics-database` |
+| `atap` | `atap` |
 | `biology-database` | `biology-database` (Space not yet created) |
 | `chemistry-database` | `chemistry-database` (Space not yet created) |
 | `computer-science-database` | `computer-science-database` (Space not yet created) |
