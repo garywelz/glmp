@@ -79,14 +79,18 @@ desktop-only.
 
 ## Naming convention
 
-**Standard: kebab-case (hyphens), e.g. `mathematics-database`.** Repo and Space names are
-URL-facing (HF Spaces, copernicusai.fyi), and hyphens are the web-readable standard.
+**Naming has no single convention — consult the repo↔Space table below for each asset's
+actual name.** Historically the aim was kebab-case for URL-facing names, but in practice:
 
-Documented exceptions (not worth breaking live links to fix right now):
-- HF Space `programming_framework` and its repo `progframe` use the old style. Legacy —
-  rename only in a deliberate pass that fixes every inbound link at once.
-- Single-token names (`glmp`, `copernicusai`, `sciencevideodb`, `shadow`) have no
-  separator and are unaffected.
+- Single-token names (`copernicusai`, `glmp`, `sciencevideodb`, `atap`, `shadow`) have
+  nothing to hyphenate.
+- Two assets split repo and Space spelling: `progframe` (repo) / `programming_framework`
+  (Space), and `metadata-database` (repo) / `metadata_database` (Space).
+- The four discipline-database repos (`biology-database`, `chemistry-database`,
+  `computer-science-database`, `physics-database`) are kebab-case but have no live Space
+  yet to test the convention against.
+
+**Never guess a name from the pattern — copy it from the table below.**
 
 **License convention:** data/content collections use **CC0-1.0** (maximally reusable, no
 attribution burden); code/tooling repos use **Apache-2.0** or **MIT**. This is why the five
@@ -106,7 +110,7 @@ and for the multi-agent workflow. GitHub (`garywelz`) is the source of truth.
 | `glmp` | `glmp` | Project home / dashboard (HTML). Exact-name match. |
 | `programming_framework` | `progframe` | Generator/tooling repo for the discipline databases (HTML, MIT). Underscore/legacy naming — see exceptions. Discipline data is migrating out to per-discipline repos. |
 | `sciencevideodb` | `sciencevideodb` | YouTube-filtered science video DB, searchable by transcript (TypeScript). |
-| `metadata-database` | `metadata-database` | Renamed from `copernicusai-research-metadata`; hyphenated. Apache-2.0. Its public face is the GCS-hosted table `papers-database-table.html` — a browsable/searchable view of the **same** 62,312-paper Firestore corpus that `copernicusai` surfaces. Division of labor: `copernicusai` = knowledge engine + podcast front end; `metadata-database` = the browse/search table. Not overlapping databases — two views of one corpus. Table file rename to `metadata-database.html` pending (see open items). |
+| `metadata_database` | `metadata-database` | Renamed from `copernicusai-research-metadata`. **Repo≠Space naming exception** (like `progframe`/`programming_framework`): GitHub repo is kebab-case, HF Space is snake_case. Apache-2.0. Its public face is the GCS-hosted table `papers-database-table.html` — a browsable/searchable view of the **same** 62,312-paper Firestore corpus that `copernicusai` surfaces. Division of labor: `copernicusai` = knowledge engine + podcast front end; `metadata_database` = the browse/search table. Not overlapping databases — two views of one corpus. Table file rename to `metadata-database.html` pending (see open items). |
 | `atap` | `atap` | Renamed 2026-07-23 from `mathematics-database` (HF Space + GitHub repo, both live and no longer stubs). Algorithms, axiomatic theories, and proofs as dependency graphs. Math content continues to migrate out of `progframe`. |
 | `biology-database` | `biology-database` | Repo created (CC0). **HF Space not yet created.** |
 | `chemistry-database` | `chemistry-database` | Repo created (CC0). **HF Space not yet created.** |
