@@ -11,28 +11,33 @@ Read alongside: `docs/GLMP_GOALS.md`.
 vectors polluting retrieval; 405 papers present-but-unembedded; 90 episodes
 embedded only on `podcast_jobs` while live `find_nearest` targets `episodes`.
 
-**Post-ingest ordering fix shipped (2026-07-23).** Status publish + MASTER_TODO
-now chain from `scout_ingest.sh` on success (`cee1928ef`, CRLF-safe sync
-`444d192dd`, asymmetry note `fd585ec75`). Standalone 10:40/10:45 cron **kept**
-until AM validates (safer cutover). First evidence = tonight’s PM 20:15
-(~21:20); AM double-publish is the cutover gate. PM has no fallback cron
-(durable asymmetry — ship risky chain changes in the morning).
+**Post-ingest ordering fix shipped and validated (2026-07-23).** Status publish
++ MASTER_TODO chain from `scout_ingest.sh` on success (`cee1928ef`, CRLF-safe
+sync `444d192dd`, asymmetry note `fd585ec75`). PM (20:15) and AM (10:30) cycles
+both validated post-install; standalone 10:40/10:45 cron removed, the chain is
+now the sole trigger. *(Jetson-log-based; Gary/Cursor-reported — I have no SSH
+access to independently verify crontab/log state this session.)*
 
-**Label fix + episodes gap closed (partial).** Hardcoded `text-embedding-004`
-fixed on four handoff sites (`c066ed185`). Episodes: 1536d index READY;
-parameterized backfill (`621831bb0`) embedded **90/90** @ 1536;
-live `find_nearest` returns sensible topical hits. Dual-field
-`description`/`description_markdown` prevents title-only degradation.
-**Still open:** embed-at-promote (else 90/90 decays on next promote).
+**Label fix + episodes gap closed.** Hardcoded `text-embedding-004` fixed on
+four handoff sites (`c066ed185`). Episodes: 1536d index READY; parameterized
+backfill (`621831bb0`) embedded **90/90** @ 1536; live `find_nearest` returns
+sensible topical hits. Dual-field `description`/`description_markdown`
+prevents title-only degradation. **Embed-at-promote fix designed, committed,
+and deployed** (`ed618599f`, revision `copernicus-podcast-api-00244-lj6`,
+2026-07-24) — carries the embedding already computed at promote forward onto
+`episodes` instead of stranding it; verify-pending on the next real promote
+(item 18).
 
-**OpenAI key rotation (Jetson env, 2026-07-23).** Env rewritten from SM
+**OpenAI key rotation complete (2026-07-23).** Env rewritten from SM
 `openai-api-key:latest` (v6); last-8 changed; embed smoke 1536 /
-`text-embedding-3-small`. Backup `env.bak.20260723` still holds old key —
-**disable old OpenAI key (`…MYQA`) to finish rotation** (re-enable is one click
-if PM/AM misbehaves; AM still has publish cron backup). Cloud Run
-`copernicus`/`copernicus-api` already use secretKeyRef `latest`. Express
-gateway on `copernicus-api` blocks unauthenticated vector-search (Bearer
-required; form undocumented in-repo).
+`text-embedding-3-small`. **Old key disabled** — verified directly via
+`gcloud secrets versions list openai-api-key`: v6 `enabled`, v1-5 `disabled`.
+Cloud Run `copernicus-api` uses secretKeyRef `latest`; the defunct
+`copernicus` service (which also carried this secretKeyRef) was deleted
+2026-07-23 (verified: `gcloud run services describe copernicus` now errors
+"Cannot find service"). Express gateway on `copernicus-api` blocks
+unauthenticated vector-search (Bearer required; form undocumented in-repo) —
+still open, item 11.
 
 **Earlier this week (still true).** Untitled husk sweep 1,543 deleted;
 manifest glob-exclusion certified (`d256a0adf`); 405-paper embed backfill
@@ -46,37 +51,54 @@ copernicus-web `governance/` (commit `d4a673d5f`; manifest last edited
 `fedfae034`) to `C:\Users\garyw\Desktop\kb-sync\` for upload — confirmed the
 copies carry the corrected concept DOIs and the new ATAP rows.
 
+**ATAP rename propagation complete (2026-07-24).** `mathematics-database`
+renamed to `atap` on HF Hub + GitHub; propagated through copernicus-web and
+glmp docs, all three sibling-Space footer links, the atap Space's own
+README/cardData/GitHub-About, and `DISCIPLINE_DATABASES_PLAN.md`'s
+engine-vs-demonstration-corpus reframing (item 13). Duplicate local checkout
+consolidated to `hf-spaces/atap`. **Four discipline stub repos deleted**
+(`biology-database`, `chemistry-database`, `computer-science-database`,
+`physics-database` — verified 0 forks/stars before deletion, `gh repo view`
+now returns "Could not resolve to a Repository" for all four). Still open:
+items 14-16 (footer prose relabel, stale allowlist entries, ATAP corpus
+git-history depth check).
+
 ## Top priorities (next)
-1. **PM chain logs (tonight)** — after ~21:30 ET: ingest OK, hook START/OK near
-   completion, wrapper exit 0. First evidence the post-ingest chain fires.
-2. **AM double-publish then remove 10:40/10:45 cron** — stale 10:40 then ~11:35
+1. ~~**PM chain logs (tonight)** — after ~21:30 ET: ingest OK, hook START/OK near
+   completion, wrapper exit 0. First evidence the post-ingest chain fires.~~ —
+   done, PM cycle validated 2026-07-23 (Gary/Cursor-reported; Jetson logs, not
+   independently verified this session).
+2. ~~**AM double-publish then remove 10:40/10:45 cron** — stale 10:40 then ~11:35
    overwrite; if clean, remove standalone lines (verbatim restore in
-   `SCOUT_ARCHITECTURE.md`).
-3. **Deploy embed-at-promote fix (`ed618599f`)** — carries the embedding
+   `SCOUT_ARCHITECTURE.md`).~~ — done, AM validated and standalone cron removed
+   (Gary/Cursor-reported; Jetson crontab, not independently verified this
+   session).
+3. ~~**Deploy embed-at-promote fix (`ed618599f`)** — carries the embedding
    already computed at promote (both auto-promote and manual RSS-submit
    paths) forward onto `episodes` instead of stranding it on `podcast_jobs`;
-   gated on 1536d + non-empty `embedding_model`. Designed and committed; not
-   yet deployed. **Manual `deploy.sh` to `copernicus-podcast-api` — no
-   auto-deploy trigger exists** (0 Cloud Build triggers on this repo). Live
-   revision `copernicus-podcast-api-00243-6ht` dates from 2026-07-04, so the
-   deploy would also carry ~3 weeks of other `cloud-run-backend/` commits;
-   `requirements.txt` and `Dockerfile` are unchanged in that window (no
-   dependency drift), and everything besides the embed-at-promote fix and
-   the 07-23 embedding-label/text fixes (`c066ed185`, `621831bb0`) is
-   standalone scripts under `scripts/` that `main.py` never imports — inert
-   cargo in the image, not live behavior change.
+   gated on 1536d + non-empty `embedding_model`.~~ — deployed 2026-07-24,
+   revision `copernicus-podcast-api-00244-lj6` (verified `Ready: True`, 100%
+   traffic; `/health` 200; `find_nearest` smoke test against `episodes`
+   returned relevant hits). Correctness of the fix itself is still
+   VERIFY PENDING on the next real promote (item 18) — deploying it isn't
+   the same as proving it.
 4. **Remaining `embedding_model` hardcodes** — `sync_{glmp,physics,chemistry,cs}_processes.py`,
    `sync_videos.py`, `index_existing_content.py` soft defaults.
-5. **8-podcast relabel** — `podcast_jobs` docs labeled 004 with measured dim
-   **1536** (by dim, never by label alone). Cosmetic on a collection search
-   doesn’t query; demoted.
+5. ~~**8-podcast relabel** — `podcast_jobs` docs labeled 004 with measured dim
+   **1536** (by dim, never by label alone).~~ — done, verified directly via
+   Firestore query: 0 docs currently labeled `text-embedding-004` with an
+   actual 1536d vector. (46 docs still say `text-embedding-004`, but all 46
+   measure genuinely 768d — the separate, already-known legacy Vertex
+   vectors, not the mislabeled ones this item was about.)
 6. **Math focus file** — after GLMP `research_focus.json`; draft v2 ready.
 7. **TSV provenance audit** — flowchart TSV PMIDs mismatched Firestore
    (3-for-3 wrong); produces verified IDs for `research_focus.flagged`.
-8. **Disable old OpenAI key (`…MYQA`)** — finishes rotation; inert-izes
-   `env.bak.20260723` copy. Decide tonight vs watch-first.
-9. **Delete defunct `copernicus` Cloud Run service** — dead since ~Apr 2025;
-   still carries `OPENAI_API_KEY` secretKeyRef.
+8. ~~**Disable old OpenAI key (`…MYQA`)**~~ — done, verified via
+   `gcloud secrets versions list openai-api-key`: v6 `enabled`, v1-5
+   `disabled`.
+9. ~~**Delete defunct `copernicus` Cloud Run service**~~ — done 2026-07-23,
+   verified: `gcloud run services describe copernicus` now errors "Cannot
+   find service."
 10. **Narrow `copernicus-service` IAM** — project-level `editor` + `run.admin` +
     `storage.admin` + `cloudsql.admin` (plus secretAccessor).
 11. **Document Express auth on `copernicus-api`** — Bearer required;
@@ -84,11 +106,10 @@ copies carry the corrected concept DOIs and the new ATAP rows.
     gateway token.
 12. **CRP PWM / sciencevideodb quality / GitHub housekeeping** — prior science
     + Space eval priorities (unchanged leverage).
-13. **DISCIPLINE_DATABASES_PLAN.md rewrite** — `copernicus-web/huggingface-space/`
-    still frames ATAP as a discipline database alongside biology/chemistry/CS/
-    physics. Needs a rewrite against the engine-vs-discipline distinction
-    (engines have a frontier + `research_focus.json`; disciplines don't), not
-    find-and-replace.
+13. ~~**DISCIPLINE_DATABASES_PLAN.md rewrite**~~ — done, commit `c7a614529`:
+    reframed as engine (ATAP) vs. Methods & Tools demonstration corpus
+    (biology/chemistry/CS/physics), against the engine-vs-discipline
+    distinction, not find-and-replace.
 14. **metadata_database footer prose relabel** —
     `hf-spaces/metadata_database/index.html:34` still reads "serving GLMP, the
     Mathematics Database, and CopernicusAI"; relabel to ATAP.
