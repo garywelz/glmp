@@ -173,8 +173,12 @@ git-history depth check).
     `embedding_model` set and a 1536d vector, and surfaces in a
     `find_nearest` query against `episodes`. Do not synthesize a test
     podcast to force this.
-19. **Untrack ~14k venv paths in copernicus-web** — deferred from the
-    2026-07-23 credential-shaped-file sweep (Cursor); stays open.
+19. ~~**Untrack ~14k venv paths in copernicus-web**~~ — done 2026-07-26,
+    commit `c1234dc99`: `git rm -r --cached` on `venv`, `rss_venv`,
+    `cloud-run-backend/backend_venv`, `cloud-run-backend/test_env` (14,871
+    files, index-only, zero disk deletions; all four already covered by
+    `.gitignore`). Deferred from the 2026-07-23 credential-shaped-file sweep
+    (Cursor).
 20. **PROPOSE — GLMP Daily Brief / Collaborator Window** (design task, not
     built yet). A fetchable status page serving two audiences from one
     artifact: the GLMP project's opening context (collaborator sees current
