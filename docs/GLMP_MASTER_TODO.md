@@ -41,9 +41,19 @@ still open, item 11.
 
 **Earlier this week (still true).** Untitled husk sweep 1,543 deleted;
 manifest glob-exclusion certified (`d256a0adf`); 405-paper embed backfill
-closed (`cfb155f81`); research_focus keystone at glmp `9bb8bd9` (`flagged`
-empty pending TSV audit). Decoder honesty / CRP / biologist notes unchanged
-below in parked.
+closed (`cfb155f81`); research_focus keystone at glmp `9bb8bd9`. Decoder
+honesty / CRP / biologist notes unchanged below in parked.
+
+**FINDING: flowchart-source-papers.tsv provenance is ~54% reliable per-row.**
+Diagnostic (2026-07-26, pattern C): of 481 rows, correct-PMID rate ~54%;
+DOIs not uniformly safe (mismatches + unresolved); bad rows independently
+mis-IDed, no mechanical offset. IMPLICATION: any GLMP text citing chart
+sources from this TSV may cite wrong papers — verify before publication.
+**QUEUED THREAD:** full re-harvest from `raw_citation` free-text against a
+resolver, ~220 rows to correct, own runway (not a quick fix). Seeded
+`research_focus.flagged` with 5 verified in-corpus IDs (Jacob/Monod,
+cAMP-Crp, attenuation, two QS/activation circuits) — retrieval seed only,
+not a bibliography.
 
 **Credential-shaped file sweep complete (2026-07-23, run by Cursor).** No
 credential-shaped files tracked in git across copernicus-web, glmp, or the HF
@@ -100,8 +110,9 @@ git-history depth check).
    measure genuinely 768d — the separate, already-known legacy Vertex
    vectors, not the mislabeled ones this item was about.)
 6. **Math focus file** — after GLMP `research_focus.json`; draft v2 ready.
-7. **TSV provenance audit** — flowchart TSV PMIDs mismatched Firestore
-   (3-for-3 wrong); produces verified IDs for `research_focus.flagged`.
+7. ~~**TSV provenance audit**~~ — diagnostic 2026-07-26: pattern C (~54%
+   correct-PMID). Seeded `research_focus.flagged` with 5 verified in-corpus
+   IDs. Full re-harvest queued (see FINDING above).
 8. ~~**Disable old OpenAI key (`…MYQA`)**~~ — done, verified via
    `gcloud secrets versions list openai-api-key`: v6 `enabled`, v1-5
    `disabled`.
