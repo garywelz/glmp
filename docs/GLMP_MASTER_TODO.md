@@ -55,6 +55,24 @@ resolver, ~220 rows to correct, own runway (not a quick fix). Seeded
 cAMP-Crp, attenuation, two QS/activation circuits) — retrieval seed only,
 not a bibliography.
 
+**FINDING: `copernicus-api` auth enforcement has no locatable source
+(2026-07-26).** Diagnostic: `/api/*` rejects with token-style errors ("No
+token provided" / "Authentication failed", reproduced live against the
+service), but the enforcing code is not in `cloud-run-backend` source, git
+history (`copernicus-web` + `glmp`, full-history search), or Secret Manager
+(verified: no `jwt`/`JWT` strings anywhere in the FastAPI app code, no
+subscriber- or jwt-named secret exists in the project). The only
+`/api/subscribers/login` route returns `{subscriber_id, email, name,
+subscription_tier, message}` — no token. So: something in front of or around
+the FastAPI app enforces token auth, but its source is not locatable in the
+suite's repos or GCP secrets. That unlocatable enforcement is itself the
+finding — auth logic with no version-controlled source we can find.
+**OPEN QUESTIONS (do not start):** what actually performs the token check
+(not found in-repo — could be a proxy, an API Gateway, a separate service, or
+config not in these repos); how a valid token is obtained, given login mints
+none; whether `/api/vector-search` is reachable by any means today or
+effectively locked.
+
 **Credential-shaped file sweep complete (2026-07-23, run by Cursor).** No
 credential-shaped files tracked in git across copernicus-web, glmp, or the HF
 Space checkouts — history clean too. Yoga 9i + Jetson path scans completed,
