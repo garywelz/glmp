@@ -146,6 +146,31 @@ git-history depth check).
     podcast to force this.
 19. **Untrack ~14k venv paths in copernicus-web** — deferred from the
     2026-07-23 credential-shaped-file sweep (Cursor); stays open.
+20. **PROPOSE — GLMP Daily Brief / Collaborator Window** (design task, not
+    built yet). A fetchable status page serving two audiences from one
+    artifact: the GLMP project's opening context (collaborator sees current
+    project state) and the welcome-package landing surface for
+    Krampis/Lents/Me-Me.
+    - **Content** (collaborator-facing, *not* the engineering queue): live
+      collection counts — research-paper corpus, sciencevideodb, podcasts,
+      flowchart/process count; what's available (papers, process flowcharts,
+      papers-in-progress); current research state + what changed recently
+      (the frontier, in plain terms — reads `research_focus.json`); how to
+      contribute (a path for partners to suggest edits to charts, podcasts,
+      papers, videos).
+    - **Host/mechanism**: GitHub Pages (`garywelz.github.io/glmp`), not GCS —
+      renders from the repo, can't drift, updates on push; fetchable at a
+      stable URL the GLMP project instructions can pull daily. Counts come
+      from live status sources that already exist
+      (`knowledge-engine-status.json`, `/api/content/stats`), never
+      hand-maintained — a stale brief is worse than none. Generation can ride
+      the existing post-ingest chain (`build_master_todo.py` already runs as
+      a hook; a collaborator-brief output is a small addition, not new
+      machinery).
+    - **Not the MASTER_TODO** — engineering items (venv untracking, IAM,
+      hardcodes) are noise to a biologist; different audience, different
+      document.
+    - Queue entry only — design is next session.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
