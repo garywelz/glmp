@@ -161,12 +161,13 @@ git-history depth check).
     import. Decides subtree-split vs. fresh-commit before migration; a
     provenance defect was already found in `flowchart-source-papers.tsv`
     this week, so recording where content came from has real value.
-17. **Pin `copernicus-podcast-api` Dockerfile base image to a digest** —
-    currently floating `python:3.11-slim`. The 07-24 deploy pulled a fresh
-    base layer ("Downloaded newer image for python:3.11-slim" in the Cloud
-    Build log), so a code-only redeploy silently carried a Python patch
-    bump too. All smoke tests passed that time, but future rebuilds should
-    change only what was intended — pin to a specific digest.
+17. ~~**Pin `copernicus-podcast-api` Dockerfile base image to a digest**~~ —
+    done, commit `12ea2bc09` in `copernicus-web`: pinned to
+    `sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93`
+    (verified via that deploy's Cloud Build log to be the exact digest
+    already pulled, a true no-op pin). The 07-24 deploy had pulled a fresh
+    base layer ("Downloaded newer image for python:3.11-slim") alongside an
+    unrelated code change; pinning stops that recurring unnoticed.
 18. **VERIFY PENDING — embed-at-promote** (`ed618599f`, deployed as revision
     `copernicus-podcast-api-00244-lj6`, 2026-07-24). Unproven until the next
     real podcast generation/promote. Check then: the new `episodes` doc has
