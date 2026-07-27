@@ -101,6 +101,70 @@ now returns "Could not resolve to a Repository" for all four). Still open:
 items 14-16 (footer prose relabel, stale allowlist entries, ATAP corpus
 git-history depth check).
 
+**`math_processes` → `atap_graphs` migration complete (2026-07-27).** Full
+gated migration, verified at every phase, in `copernicus-web`:
+- **Writer #1** fixed and fail-loud (`f8a85bcbc`): `sync_math_processes.py`
+  previously wrote metadata only — `create_text_for_math_process()` was
+  defined but never called, and the embedding step it referenced
+  (`backfill_embeddings.py`) doesn't exist in the repo. Added the missing
+  embedding step (`get_embedding_service()` + `resolve_embedding_model_name`,
+  same pattern as `sync_glmp_processes.py`), and made it fail-loud on
+  purpose: an unavailable service aborts the run, a failed/empty embed or
+  unresolvable label aborts that doc's write. An `atap_graphs` doc is never
+  written without a vector — silent unembedded docs were the defect being
+  fixed, so the writer must not be able to recreate them.
+- **Data migration**: 237/237 docs copied `math_processes` → `atap_graphs`,
+  same IDs, full `.set()` (idempotent, safe to re-run). Verified byte-for-byte
+  on a spot-checked doc (all 1536 vector values equal, not just length), text
+  fields intact. The `math-set-theory-001` "orphan" named in the original
+  migration spec was checked directly and never existed in the live
+  collection (confirmed via `.get()` and a full GCS-manifest-vs-Firestore ID
+  diff, zero mismatches either direction) — migration count was 237 → 237,
+  not 237 → 236.
+- **Relabel check**: all 237 already measured 1536d / `text-embedding-3-small`
+  post-copy — relabel was a confirmed no-op, nothing to fix.
+- **Index**: 1536-dim vector index on `atap_graphs.embedding` built and
+  `READY`, mirroring `research_papers`'s config exactly.
+- **Reader + Writer #2** (`5038b467a`): `mcp_server/config.py`'s
+  `COLLECTION_MATH_PROCESSES` constant value moved to `"atap_graphs"` (name
+  kept — renaming it would touch `vector_search.py` x4 and
+  `index_existing_content.py` for no functional gain); `endpoints/content
+  /routes.py`'s separately-hardcoded `PROCESS_FAMILY_COLLECTIONS` dict
+  updated too. `sync_all_process_families.py`'s `FAMILIES` list — a second,
+  independent metadata-only writer — no longer contains `math_processes` (or
+  `atap_graphs`); `atap_graphs` is synced exclusively through the dedicated
+  fail-loud `sync_math_processes()` function, not the generic
+  `process_sync_common` path used by chemistry/physics/computer_science/
+  biology. One writer discipline for `atap_graphs`, not two.
+- **Deployed**: Cloud Build `8269b3f6` → revision
+  `copernicus-podcast-api-00245-zh8`, 100% traffic, `/health` 200.
+- **Live proof, both directions**: a throwaway marker doc written to
+  `atap_graphs` only (confirmed absent from `math_processes`) came back
+  through the live `/api/vector-search/semantic` endpoint before the delete —
+  proof the reader had actually moved, not just that both collections still
+  held identical data. Anchor query ("field extension degree theorem")
+  surfaced `abstract_algebra-field-theory-extensions` at #1. After deleting
+  `math_processes`, a follow-up live query still returned correct
+  `atap_graphs` results, confirming the delete didn't break the live path.
+- **`math_processes` deleted**: all 237 docs removed, collection confirmed
+  empty (0 docs, `math-set-theory-001` confirmed still absent).
+- **Standards recorded**: chart/graph embedding text-builders must include
+  Mermaid source — `atap_graphs` already does (confirmed on both of its
+  text-builders). `glmp_processes` re-embed + rename to `_graphs`-family
+  naming is **deferred**, blocked on the RegulonDB redraw decision (Nathan
+  Lents, ~2-4 weeks) — do not touch `glmp_processes` until that resolves; its
+  current text-builder already includes Mermaid too, so the deferred re-embed
+  doesn't need to add that, just keep it. Naming taxonomy going forward:
+  mathematical-object collections → `_graphs`, empirical
+  literature-derived-process collections stay `_processes`. Applied to
+  `atap_graphs` now; not retroactively applied to any other collection unless
+  independently touched.
+- **Not in this thread**: frontend chart-link/Mermaid-preview rendering for
+  process-family search results (`SearchInterface.tsx` already renders
+  `atap_graphs` hits as plain text cards — a chart-specific "View Chart" link
+  or inline Mermaid render is a small, separate follow-on, scoped but not
+  built); any other process-collection rename.
+
 ## Top priorities (next)
 1. ~~**PM chain logs (tonight)** — after ~21:30 ET: ingest OK, hook START/OK near
    completion, wrapper exit 0. First evidence the post-ingest chain fires.~~ —
