@@ -219,9 +219,15 @@ gated migration, verified at every phase, in `copernicus-web`:
    find service."
 10. **Narrow `copernicus-service` IAM** — project-level `editor` + `run.admin` +
     `storage.admin` + `cloudsql.admin` (plus secretAccessor).
-11. **Document Express auth on `copernicus-api`** — Bearer required;
-    in-repo subscriber login issues no JWT; can’t self-test API without the
-    gateway token.
+11. ~~**Document Express auth on `copernicus-api`**~~ — done. Documented as
+    the `fe9b337` finding (auth enforcement not locatable in-repo or Secret
+    Manager) and flagged at governance level as a known limitation of the
+    record-of-truth principle (`CONSTITUTION.md` §4, commit `676aa5918`).
+    The underlying open questions (what performs the check, how a token is
+    obtained, whether `/api/vector-search` is reachable) are **not closed** —
+    they stay deferred, "do not start," in the `fe9b337` finding. This item
+    was "document it"; that's done. Resolving it is a separate, unscheduled
+    thread.
 12. **CRP PWM / sciencevideodb quality / GitHub housekeeping** — prior science
     + Space eval priorities (unchanged leverage).
 13. ~~**DISCIPLINE_DATABASES_PLAN.md rewrite**~~ — done, commit `c7a614529`:
