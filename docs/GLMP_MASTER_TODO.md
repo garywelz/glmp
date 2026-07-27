@@ -112,7 +112,8 @@ gated migration, verified at every phase, in `copernicus-web`:
   purpose: an unavailable service aborts the run, a failed/empty embed or
   unresolvable label aborts that doc's write. An `atap_graphs` doc is never
   written without a vector — silent unembedded docs were the defect being
-  fixed, so the writer must not be able to recreate them.
+  fixed, so the writer must not be able to recreate them. Migration script
+  itself committed separately (`2f76224a9`).
 - **Data migration**: 237/237 docs copied `math_processes` → `atap_graphs`,
   same IDs, full `.set()` (idempotent, safe to re-run). Verified byte-for-byte
   on a spot-checked doc (all 1536 vector values equal, not just length), text
@@ -184,8 +185,17 @@ gated migration, verified at every phase, in `copernicus-web`:
    returned relevant hits). Correctness of the fix itself is still
    VERIFY PENDING on the next real promote (item 18) — deploying it isn't
    the same as proving it.
-4. **Remaining `embedding_model` hardcodes** — `sync_{glmp,physics,chemistry,cs}_processes.py`,
-   `sync_videos.py`, `index_existing_content.py` soft defaults.
+4. ~~**Remaining `embedding_model` hardcodes**~~ — done. Five files
+   (`sync_{glmp,physics,chemistry,cs}_processes.py`, `sync_videos.py`) fixed
+   `81bd1bc3c`; the sixth (`index_existing_content.py`, 3 sites) fixed
+   `deff18da4`. All six now resolve the label via `resolve_embedding_model_name`
+   (fail-loud, no substituted default). Verified: no remaining instance of the
+   actual bug (a script hardcoding `"text-embedding-004"` as an
+   `embedding_model` fallback regardless of which provider ran). The two
+   `"text-embedding-004"` strings still in the codebase are unrelated to this
+   bug — `services/embedding_service.py`'s own Vertex-provider default (the
+   correct model name for that provider) and a comment in `auto_embedding.py`
+   describing the fix.
 5. ~~**8-podcast relabel** — `podcast_jobs` docs labeled 004 with measured dim
    **1536** (by dim, never by label alone).~~ — done, verified directly via
    Firestore query: 0 docs currently labeled `text-embedding-004` with an
