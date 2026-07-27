@@ -202,7 +202,12 @@ gated migration, verified at every phase, in `copernicus-web`:
    actual 1536d vector. (46 docs still say `text-embedding-004`, but all 46
    measure genuinely 768d — the separate, already-known legacy Vertex
    vectors, not the mislabeled ones this item was about.)
-6. **Math focus file** — after GLMP `research_focus.json`; draft v2 ready.
+6. ~~**Math focus file**~~ — done. Draft v2 became `atap/docs/research_focus.json`
+   (`a62ac33`), verified live: raw URL 200
+   (`raw.githubusercontent.com/garywelz/atap/main/docs/research_focus.json`),
+   commit confirmed on `origin/main`, content holds `active_questions` and
+   `frontier` including the n=3 algorithm-capsule question. Wired into the
+   ATAP Claude project's fetch-live instructions.
 7. ~~**TSV provenance audit**~~ — diagnostic 2026-07-26: pattern C (~54%
    correct-PMID). Seeded `research_focus.flagged` with 5 verified in-corpus
    IDs. Full re-harvest queued (see FINDING above).
