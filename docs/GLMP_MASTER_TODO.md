@@ -205,6 +205,15 @@ git-history depth check).
       hardcodes) are noise to a biologist; different audience, different
       document.
     - Queue entry only — design is next session.
+21. **Build a findability check** — a periodic probe that asks "is this
+    retrievable?" not "does this exist?" for every embedded collection:
+    confirm live `find_nearest` returns sensible hits for a fixed query set,
+    and flag any collection where doc-count and findable-count diverge. ≥3
+    known instances of presence-without-findability so far (junk vectors
+    polluting retrieval, 405 papers present-but-unembedded, 90 episodes
+    embedded only on `podcast_jobs` while live `find_nearest` targets
+    `episodes`). Belongs in the nightly chain's verification stage; output to
+    the morning report.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
