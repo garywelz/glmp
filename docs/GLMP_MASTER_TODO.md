@@ -10,6 +10,7 @@ Read alongside: `docs/GLMP_GOALS.md`.
 *exist*, not whether they are *retrievable*. Three instances this week: junk
 vectors polluting retrieval; 405 papers present-but-unembedded; 90 episodes
 embedded only on `podcast_jobs` while live `find_nearest` targets `episodes`.
+A periodic check for this pattern is now tracked as item 21.
 
 **Post-ingest ordering fix shipped and validated (2026-07-23).** Status publish
 + MASTER_TODO chain from `scout_ingest.sh` on success (`cee1928ef`, CRLF-safe
