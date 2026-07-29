@@ -54,6 +54,7 @@ SCOUT_INGEST_LOGS = (
     ),
 )
 BATCH_DECODER_LOG_DIR = Path("/media/sdcard/logs")
+FINDABILITY_REPORT = Path("/media/sdcard/status/findability_report.json")
 
 STATUS_JSON_BLOB = "knowledge-engine-status.json"
 ET = ZoneInfo("America/New_York")
@@ -183,6 +184,10 @@ def parse_last_good(existing: Optional[str]) -> Dict[str, Any]:
         ("queue_failed", "Queue failed"),
         ("batch_decoder_log", "Last batch decoder log"),
         ("decoder_source_note", "decoder_source_note"),
+        ("findability_overall", "Overall"),
+        ("findability_anchors", "Anchor queries"),
+        ("findability_warnings", "Coverage/index warnings"),
+        ("findability_run", "Last probe run"),
     ]:
         val = table_cell(label)
         if val:
@@ -385,6 +390,32 @@ def read_batch_decoder_log() -> SourceResult:
         return SourceResult(False, error=str(exc))
 
 
+def read_findability_status() -> SourceResult:
+    """Read the findability probe's JSON report (written by
+    findability_probe.py as a post-ingest hook step). Missing or malformed
+    JSON degrades to a stale/unavailable cell via SourceResult(False, ...) --
+    it must never raise or abort the assembler; the probe running or not is
+    independent of whether this report can be built."""
+    try:
+        if not FINDABILITY_REPORT.exists():
+            return SourceResult(False, error="no findability report found")
+        with FINDABILITY_REPORT.open(encoding="utf-8") as fh:
+            report = json.load(fh)
+        summary = report.get("summary", {})
+        return SourceResult(
+            True,
+            {
+                "overall": summary.get("overall", "UNKNOWN"),
+                "alerts": summary.get("check_a_alerts", 0),
+                "anchors_total": summary.get("check_a_total", 0),
+                "warnings": summary.get("check_c_warnings", 0),
+            },
+            report.get("generated_at"),
+        )
+    except Exception as exc:
+        return SourceResult(False, error=str(exc))
+
+
 def _stale_cell(live: Optional[str], lg_key: str, state: RunState, source: str) -> str:
     if live is not None:
         return live
@@ -402,6 +433,7 @@ def build_auto_status(
     queue: SourceResult,
     regression: SourceResult,
     batch_log: SourceResult,
+    findability: SourceResult,
     state: RunState,
 ) -> str:
     now_display = datetime.now(ET).isoformat(timespec="seconds")
@@ -413,6 +445,7 @@ def build_auto_status(
     qdata = queue.value if queue.ok and isinstance(queue.value, dict) else {}
     rdata = regression.value if regression.ok and isinstance(regression.value, dict) else {}
     bdata = batch_log.value if batch_log.ok and isinstance(batch_log.value, dict) else {}
+    fdata = findability.value if findability.ok and isinstance(findability.value, dict) else {}
 
     papers = cdata.get("papers")
     if isinstance(papers, int):
@@ -540,6 +573,26 @@ def build_auto_status(
         state.stale_sources.append("batch_log")
         batch_cell = "⚠️ unavailable"
 
+    if fdata.get("overall"):
+        overall = fdata["overall"]
+        icon = {"ALERT": "🔴", "WARNING": "⚠️", "OK": "✅"}.get(overall, "❓")
+        findability_overall_cell = f"{icon} {overall}"
+        anchors_cell = f"{fdata.get('anchors_total', '?') - fdata.get('alerts', 0)}/{fdata.get('anchors_total', '?')} passing"
+        warnings_cell = str(fdata.get("warnings", 0))
+        findability_run_cell = findability.source_time or "unknown"
+    elif lg.get("findability_overall"):
+        state.stale_sources.append("findability")
+        findability_overall_cell = f"⚠️ stale — last good: {lg['findability_overall']}"
+        anchors_cell = lg.get("findability_anchors", "⚠️ unavailable")
+        warnings_cell = lg.get("findability_warnings", "⚠️ unavailable")
+        findability_run_cell = lg.get("findability_run", "⚠️ unavailable")
+    else:
+        state.stale_sources.append("findability")
+        findability_overall_cell = "⚠️ unavailable"
+        anchors_cell = "⚠️ unavailable"
+        warnings_cell = "⚠️ unavailable"
+        findability_run_cell = "⚠️ unavailable"
+
     count_source = cdata.get("count_source", "api")
     status_source = f"`knowledge-engine-status.json` on GCS (`count_source: {count_source}`)"
 
@@ -578,6 +631,15 @@ def build_auto_status(
         f"| Queue completed | {queue_cell('completed', 'completed')} |",
         f"| Queue failed | {queue_cell('failed', 'failed')} |",
         f"| Last batch decoder log | {batch_cell} |",
+        "",
+        "### Findability",
+        "",
+        "| Signal | Value |",
+        "|--------|-------|",
+        f"| Overall | {findability_overall_cell} |",
+        f"| Anchor queries | {anchors_cell} |",
+        f"| Coverage/index warnings | {warnings_cell} |",
+        f"| Last probe run | {findability_run_cell} |",
         "",
     ]
     return "\n".join(lines)
@@ -751,9 +813,10 @@ def run(dry_run: bool = False) -> int:
     queue = read_queue_counts()
     regression = read_regression_summary()
     batch_log = read_batch_decoder_log()
+    findability = read_findability_status()
 
     auto_status = build_auto_status(
-        corpus, scout, decoder, queue, regression, batch_log, state
+        corpus, scout, decoder, queue, regression, batch_log, findability, state
     )
     document = assemble_document(curated_block, auto_status)
     ok, reason = validate_document(document)
