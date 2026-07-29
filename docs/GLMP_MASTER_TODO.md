@@ -317,6 +317,16 @@ gated migration, verified at every phase, in `copernicus-web`:
     Deferred, not urgent (small, low-traffic collection), but must be
     resolved before `physics_processes` is trusted as a retrieval target.
 
+    **RESOLVED which field is corrupt (2026-07-28, content-read of 3
+    mismatched docs): TITLE is correct, ID is corrupt, in all 3 checked — no
+    exceptions.** Content (description+mermaid) matches title exactly,
+    contradicts ID (e.g. `astrophysics-higgs-mechanism` is entirely about Big
+    Bang nucleosynthesis, matching its title). Pattern = systematic
+    ID-generation bug (shuffled/mis-zipped list at batch import), not
+    scattered noise. FIX SHAPE: regenerate IDs from correct titles/content;
+    do NOT alter titles. Full check across all process collections still
+    warranted before trusting any ID namespace.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
