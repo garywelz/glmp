@@ -327,6 +327,22 @@ gated migration, verified at every phase, in `copernicus-web`:
     do NOT alter titles. Full check across all process collections still
     warranted before trusting any ID namespace.
 
+23. **FINDING — `build_master_todo.py` cron path is a manual copy, not a git
+    checkout (2026-07-29).** Cron runs the script from
+    `/media/sdcard/glmp-cron/` — a manual one-file copy, NOT a git checkout and
+    NOT auto-synced from `/media/sdcard/glmp`. Confirmed during
+    findability-probe activation: the `read_findability_status()` update only
+    reached cron because an explicit `cp` was run. IMPLICATION: any future
+    change to `build_master_todo.py` requires a manual copy to `glmp-cron/`
+    after the Jetson pulls, or cron silently runs the stale version. Options
+    for later: (a) point cron directly at the git checkout copy, (b) add a
+    sync step to the pull process, or (c) document the manual `cp` as a
+    required post-pull step. Deferred — flagging so it's not rediscovered the
+    hard way. (The two TSVs moved aside during this pull —
+    `net_new_papers.cleaned.tsv`, `reference_works.updated.tsv` — are safe in
+    `/media/sdcard/status/glmp_pull_blockers_20260729/`, Jul-11 harvest work
+    products, not needed by cron.)
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
