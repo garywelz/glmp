@@ -291,15 +291,16 @@ gated migration, verified at every phase, in `copernicus-web`:
       hardcodes) are noise to a biologist; different audience, different
       document.
     - Queue entry only — design is next session.
-21. **Build a findability check** — a periodic probe that asks "is this
-    retrievable?" not "does this exist?" for every embedded collection:
-    confirm live `find_nearest` returns sensible hits for a fixed query set,
-    and flag any collection where doc-count and findable-count diverge. ≥3
-    known instances of presence-without-findability so far (junk vectors
-    polluting retrieval, 405 papers present-but-unembedded, 90 episodes
-    embedded only on `podcast_jobs` while live `find_nearest` targets
-    `episodes`). Belongs in the nightly chain's verification stage; output to
-    the morning report.
+21. ~~**Build a findability check**~~ — DONE (2026-07-29). Probe built
+    (`findability_probe.py`, `403e0b4c`), Gate-3 acceptance test passed
+    against production (14 anchors, `podcast_jobs` + `math_processes`
+    WARNINGs, no false alarms), integrated fail-soft into the nightly chain
+    (hook `8eff8947d`, reader `073be02`), Jetson-activated (both repos
+    pulled, cron copy synced). PENDING: first automated cron cycle to
+    confirm the Findability section renders in the morning report
+    (WARNING / 14-14 / 2) — witnessed on the next scheduled run. Probe
+    surfaced two real findings on first run: physics ID corruption (item 22)
+    and a chemistry near-duplicate (item 24 below).
 22. **FINDING — `physics_processes` ID/title mismatch.** Confirmed in a
     read-only sample (2026-07-28): at least 4 of 6 sampled docs have IDs whose
     topic doesn't match their title —
@@ -342,6 +343,16 @@ gated migration, verified at every phase, in `copernicus-web`:
     `net_new_papers.cleaned.tsv`, `reference_works.updated.tsv` — are safe in
     `/media/sdcard/status/glmp_pull_blockers_20260729/`, Jul-11 harvest work
     products, not needed by cron.)
+
+24. **FINDING — possible near-duplicate in `chemistry_processes`** (2026-07-29,
+    surfaced by the findability probe's Gate-3 anchor testing):
+    `surface_chemistry_catalysis-heterogeneous-catalysis` AND
+    `surface_chemistry-heterogeneous-catalysis` (near-identical names) both
+    present; the pair crowds catalysis retrieval (pushed the intended anchor
+    to rank 9). Needs a content-read to confirm duplicate vs. distinct, then
+    dedup if confirmed. This is the retrieval-pollution failure class the
+    probe exists to catch — found on the probe's own first run. Deferred,
+    not urgent.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
