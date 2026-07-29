@@ -300,6 +300,22 @@ gated migration, verified at every phase, in `copernicus-web`:
     embedded only on `podcast_jobs` while live `find_nearest` targets
     `episodes`). Belongs in the nightly chain's verification stage; output to
     the morning report.
+22. **FINDING — `physics_processes` ID/title mismatch.** Confirmed in a
+    read-only sample (2026-07-28): at least 4 of 6 sampled docs have IDs whose
+    topic doesn't match their title —
+    `astrophysics-higgs-mechanism` → titled "Big Bang Nucleosynthesis";
+    `electromagnetism-wave-function` → titled "Electromagnetic Induction";
+    `quantum_mechanics-electromagnetic-induction` → titled "Time-Independent
+    Schrödinger Equation"; `solid_state-nuclear-fusion` → titled "Phonons &
+    Debye Heat Capacity". Not yet known which field (ID or title) reflects
+    the real doc content — needs a content read (`description`/`mermaid`) to
+    determine; likely a batch-import misalignment. Impact: navigation/
+    retrieval by ID returns a topically-wrong doc; the collection's ID
+    namespace can't be trusted until resolved. Scope: `physics_processes`
+    only (28 docs) as sampled — the other process collections sampled clean,
+    but a full check across all of them is warranted once this is fixed.
+    Deferred, not urgent (small, low-traffic collection), but must be
+    resolved before `physics_processes` is trusted as a retrieval target.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
