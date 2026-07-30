@@ -335,8 +335,11 @@ gated migration, verified at every phase, in `copernicus-web`:
     pull step as before. Full check across the other process collections
     (they sampled clean earlier) still not done.
 
-23. **FINDING — `build_master_todo.py` cron path is a manual copy, not a git
-    checkout (2026-07-29).** Cron runs the script from
+23. **ASSIGNED TO CURSOR (2026-07-30)** — **FINDING — `build_master_todo.py`
+    cron path is a manual copy, not a git checkout (2026-07-29).** Requires
+    SSH-to-Jetson and crontab edits — Cursor's territory, not mine. See
+    handoff given to Gary 2026-07-30 for exact paths, the three options,
+    and verification steps. Cron runs the script from
     `/media/sdcard/glmp-cron/` — a manual one-file copy, NOT a git checkout and
     NOT auto-synced from `/media/sdcard/glmp`. Confirmed during
     findability-probe activation: the `read_findability_status()` update only
