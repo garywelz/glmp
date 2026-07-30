@@ -317,32 +317,25 @@ gated migration, verified at every phase, in `copernicus-web`:
     (WARNING / 14-14 / 2) — witnessed on the next scheduled run. Probe
     surfaced two real findings on first run: physics ID corruption (item 22)
     and a chemistry near-duplicate (item 24 below).
-22. **FINDING — `physics_processes` ID/title mismatch.** Confirmed in a
-    read-only sample (2026-07-28): at least 4 of 6 sampled docs have IDs whose
-    topic doesn't match their title —
-    `astrophysics-higgs-mechanism` → titled "Big Bang Nucleosynthesis";
-    `electromagnetism-wave-function` → titled "Electromagnetic Induction";
-    `quantum_mechanics-electromagnetic-induction` → titled "Time-Independent
-    Schrödinger Equation"; `solid_state-nuclear-fusion` → titled "Phonons &
-    Debye Heat Capacity". Not yet known which field (ID or title) reflects
-    the real doc content — needs a content read (`description`/`mermaid`) to
-    determine; likely a batch-import misalignment. Impact: navigation/
-    retrieval by ID returns a topically-wrong doc; the collection's ID
-    namespace can't be trusted until resolved. Scope: `physics_processes`
-    only (28 docs) as sampled — the other process collections sampled clean,
-    but a full check across all of them is warranted once this is fixed.
-    Deferred, not urgent (small, low-traffic collection), but must be
-    resolved before `physics_processes` is trusted as a retrieval target.
-
-    **RESOLVED which field is corrupt (2026-07-28, content-read of 3
-    mismatched docs): TITLE is correct, ID is corrupt, in all 3 checked — no
-    exceptions.** Content (description+mermaid) matches title exactly,
-    contradicts ID (e.g. `astrophysics-higgs-mechanism` is entirely about Big
-    Bang nucleosynthesis, matching its title). Pattern = systematic
-    ID-generation bug (shuffled/mis-zipped list at batch import), not
-    scattered noise. FIX SHAPE: regenerate IDs from correct titles/content;
-    do NOT alter titles. Full check across all process collections still
-    warranted before trusting any ID namespace.
+22. ~~**FINDING — `physics_processes` ID/title mismatch.**~~ FIXED
+    (2026-07-30), commit `b67dfb692`: full scan found **12 of 28 docs**
+    mismatched (not the 4 originally sampled), a per-subcategory rotation —
+    astrophysics, electromagnetism, quantum_mechanics, solid_state, 3 of 3
+    wrong in each. All 12 content-verified (title correct, ID corrupt, no
+    exceptions) before any write. Firestore-only fix, as decided: each doc
+    copied to a new ID derived from its verified title (embedding carried
+    across unmodified, doc's own `id`/`process_id` fields updated to match),
+    old-ID doc deleted. Verified post-fix: 28/28 docs intact, all 12 old IDs
+    gone, vector index unaffected (1536, READY), live `find_nearest` still
+    returns the doc correctly under its new ID.
+    **NOT fixed — flagged separately**: `metadata.file_path`/`gcs_url` on
+    all 12 still point at the old-wrong-slug GCS filenames (the corruption
+    exists at the GCS source too, not just in Firestore); the GCS rename is
+    a separate, still-open thread. Also: `findability_probe.py`'s physics
+    anchor updated to the new ID in the same commit — the Jetson checkout
+    needs to pull this commit before its next automated run, same manual
+    pull step as before. Full check across the other process collections
+    (they sampled clean earlier) still not done.
 
 23. **FINDING — `build_master_todo.py` cron path is a manual copy, not a git
     checkout (2026-07-29).** Cron runs the script from
