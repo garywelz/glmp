@@ -310,11 +310,15 @@ gated migration, verified at every phase, in `copernicus-web`:
     against production (14 anchors, `podcast_jobs` + `math_processes`
     WARNINGs, no false alarms), integrated fail-soft into the nightly chain
     (hook `8eff8947d`, reader `073be02`), Jetson-activated (both repos
-    pulled, cron copy synced). PENDING: first automated cron cycle to
-    confirm the Findability section renders in the morning report
-    (WARNING / 14-14 / 2) — witnessed on the next scheduled run. Probe
-    surfaced two real findings on first run: physics ID corruption (item 22)
-    and a chemistry near-duplicate (item 24 below).
+    pulled, cron copy synced). **Automated render witnessed** (2026-07-30):
+    overnight cycle `01:21Z` wrote `### Findability` into published
+    `GLMP_MASTER_TODO.md` / `GLMP_STATUS.html` (Overall WARNING, physics
+    anchor PASS, 2 coverage/index warnings; hook OK). Same-day AM cycle
+    `15:36Z` also rendered the section (Overall ALERT, 13/14 — physics
+    anchor NOT FOUND after item-22 ID migration; fail-soft, master_todo
+    still OK). Pending-first-cycle caveat dropped. Probe surfaced two
+    real findings on first run: physics ID corruption (item 22) and a
+    chemistry near-duplicate (item 24 below).
 22. ~~**FINDING — `physics_processes` ID/title mismatch.**~~ FIXED
     (2026-07-30), commit `b67dfb692`: full scan found **12 of 28 docs**
     mismatched (not the 4 originally sampled), a per-subcategory rotation —
@@ -344,6 +348,10 @@ gated migration, verified at every phase, in `copernicus-web`:
     was in the dir). Also updated `jetson_master_todo_cron.sh` + rollback
     lines in `SCOUT_ARCHITECTURE.md` so a restored 10:45 cron cannot reintroduce
     the stale path. `glmp-cron/` can be retired later; no longer on the hot path.
+    **Jetson file-level + pull confirmed** (`8640e7983` on HFS/worker).
+    **Automated cycle on the new path: not yet witnessed** — commit landed
+    12:49 ET; today's AM chain was 11:36 ET (still pre-fix). Next PM/AM
+    cycle is the witness.
 
 24. ~~**FINDING — possible near-duplicate in `chemistry_processes`**~~ FIXED
     (2026-07-30), commit `bdc0bde1b`. Content-read of the original pair found
