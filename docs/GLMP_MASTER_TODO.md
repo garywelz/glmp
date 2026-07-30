@@ -553,6 +553,30 @@ gated migration, verified at every phase, in `copernicus-web`:
     key value across Jetson's env/config paths would close this
     definitively.
 
+32. **FINDING — `programming_framework` index.html has diverged from the
+    deployed Space, unclear which is current (2026-07-30, surfaced during
+    the repo/Space cleanout's `progframe` pass).** `progframe/`'s local
+    copy (`programming_framework/index.html`, bulk-committed `72bf07b`
+    2026-06-28) and the actual deployed Space
+    (`hf-spaces/programming_framework`, content last touched `0b60f3c`
+    2026-04-29, only a credential-hygiene commit since) differ by 1189
+    diff lines — not a small edit. Content comparison (not just commit
+    date) says the **deployed Space's version is the more developed one**:
+    fully-styled Tailwind sections (Prior Work & Research Contributions,
+    How It Works, Technical Architecture, Validation & Accuracy) vs.
+    `progframe`'s simpler plain-tag/inline-style version ("Project
+    Overview," "Technical Foundation: Mermaid Markdown"). Commit-date
+    alone is misleading here: `progframe`'s later timestamp is a bulk
+    re-import (same pattern as other repos' wholesale-snapshot commits
+    this session), not necessarily forward development. **Not touched —
+    flagged for Cursor/manual review**, not resolved as part of the
+    cleanout (this is a content-currency question, not a stale-file
+    question). 34 files total exist in `progframe/programming_framework/`
+    that aren't in the deployed Space (mostly `chemistry-processes-database/`,
+    which uploads directly to GCS rather than through the Space, so may be
+    expected — not all 34 are alarming, `index.html` is the one that
+    actually matters since it's what's served).
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
