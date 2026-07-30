@@ -97,9 +97,23 @@ engine-vs-demonstration-corpus reframing (item 13). Duplicate local checkout
 consolidated to `hf-spaces/atap`. **Four discipline stub repos deleted**
 (`biology-database`, `chemistry-database`, `computer-science-database`,
 `physics-database` — verified 0 forks/stars before deletion, `gh repo view`
-now returns "Could not resolve to a Repository" for all four). Still open:
-items 14-16 (footer prose relabel, stale allowlist entries, ATAP corpus
-git-history depth check).
+now returns "Could not resolve to a Repository" for all four). Items 14-16
+(footer prose relabel, stale allowlist entries, ATAP corpus git-history
+depth check) since closed.
+
+**Thread fully closed out (2026-07-30).** Live-verified rather than
+re-executed: `sciencevideodb` (`7b58d67f9`), `copernicusai` (`904712fdd`),
+and `metadata_database` (`b3dbd91`) all confirmed `RUNNING` on HF with
+deployed `sha` matching local `HEAD` — no stale `mathematics-database`
+Space links remain in any of the three. Also corrected a prior
+mischaracterization: the "duplicate local checkout" above wasn't actually
+one repo cloned twice — `C:\Users\garyw\atap` (GitHub source repo: docs +
+`research_focus.json` only, no README.md) and
+`C:\Users\garyw\hf-spaces\atap` (the HF Space checkout) are two distinct
+repos serving different purposes, both correctly renamed on disk with
+correct remotes. The Space checkout's README (the only one that exists)
+was already fully rewritten (`6464185`, 2026-07-23) with zero stale
+references. Nothing left open on this thread.
 
 **`math_processes` → `atap_graphs` migration complete (2026-07-27).** Full
 gated migration, verified at every phase, in `copernicus-web`:
