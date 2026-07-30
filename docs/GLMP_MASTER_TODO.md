@@ -319,6 +319,12 @@ gated migration, verified at every phase, in `copernicus-web`:
     still OK). Pending-first-cycle caveat dropped. Probe surfaced two
     real findings on first run: physics ID corruption (item 22) and a
     chemistry near-duplicate (item 24 below).
+    **Independent corroboration (2026-07-30, Claude Code):** live re-run
+    of `findability_probe.py` at 19:25 UTC (well after Jetson would have
+    pulled `b67dfb692`) confirms full recovery — 14/14 anchors PASS
+    including physics, Overall WARNING with the same 2 known coverage/index
+    warnings. Consistent with the above explanation from a second,
+    independent angle.
 22. ~~**FINDING — `physics_processes` ID/title mismatch.**~~ FIXED
     (2026-07-30), commit `b67dfb692`: full scan found **12 of 28 docs**
     mismatched (not the 4 originally sampled), a per-subcategory rotation —
@@ -504,6 +510,25 @@ gated migration, verified at every phase, in `copernicus-web`:
     list (4 keys remain, down from 5). The `youtube-api-key` Secret
     Manager secret itself (holding the legitimate replacement key) was
     untouched.
+    **Additional pre-deletion thoroughness check, requested by Claude Chat
+    (2026-07-30, done retroactively — key was already deleted by the time
+    asked, but this is a value-based grep, not repo/git-history-dependent,
+    so it's still a valid check against the deleted key string):** grepped
+    the literal key value across all 5 locally-cloned repos
+    (`copernicus-web`, `glmp`, `sciencevideodb`, `atap`, `hf-spaces`, all
+    working-tree files, not just tracked ones). Every match confined to
+    the dormant `sciencevideodb` repo's own documentation describing the
+    exposure itself (`PENDING_KEY_ROTATION.md`, `FIND_EXPOSED_KEY.md`,
+    etc.) — zero hits in any actively-used repo's source or config.
+    **One gap remains, cannot close without SSH**: Jetson-side env/config
+    files were not checked (no SSH access this session). Given this
+    codebase's established pattern is Secret Manager for all live
+    credentials (not hardcoded/local `.env` values — the 2026-07-23
+    credential-shaped-file sweep found none tracked in git, though that
+    doesn't rule out an untracked local file), the risk is judged low but
+    not zero. **Ask for Cursor**: a quick `grep -r` for the literal old
+    key value across Jetson's env/config paths would close this
+    definitively.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
