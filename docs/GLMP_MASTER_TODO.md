@@ -360,45 +360,41 @@ gated migration, verified at every phase, in `copernicus-web`:
     resolver, ~220 rows to correct. Own runway, not a quick fix.
     `research_focus.flagged` already seeded with 5 verified in-corpus IDs as
     a retrieval seed only — this item is the full correction, not that seed.
-26. **CRP PWM** (split from former item 12). Build a position-weight-matrix
-    for CRP binding sites from RegulonDB data — the highest-leverage
-    remaining science move on the decoder, would let the lac operon reach an
-    evidence-backed Class II call from sequence rather than curated biology
-    alone. Real molecular-biology work: per the Reminder to Self below,
-    needs a qualified biologist's judgment, not something to execute
-    unilaterally.
+26. **BACK BURNER — CRP PWM** (split from former item 12). Build a
+    position-weight-matrix for CRP binding sites from RegulonDB data — the
+    highest-leverage remaining science move on the decoder, would let the
+    lac operon reach an evidence-backed Class II call from sequence rather
+    than curated biology alone. Real molecular-biology work: per the
+    Reminder to Self below, needs a qualified biologist's judgment, not
+    something to execute unilaterally. **On hold pending Prof. Lents'
+    feedback** (2026-07-30) — do not proceed until he's weighed in.
 27. **sciencevideodb quality** (split from former item 12). Content/data-
     quality evaluation of the Science Video Database Space. No specific
     deliverable defined yet — needs scoping before it's actionable.
 28. **GitHub housekeeping** (split from former item 12). Unspecified —
     needs scoping (stale branches? README updates? issue triage?) before
     it's actionable.
-29. **PROPOSE — GLMP Daily Brief** (split from former item 20; design task,
-    not built yet). A fetchable, auto-updating status page: live collection
-    counts (research-paper corpus, sciencevideodb, podcasts,
-    flowchart/process count), what's available (papers, process flowcharts,
-    papers-in-progress), current research state + what changed recently
-    (the frontier, in plain terms — reads `research_focus.json`), how to
-    contribute. Host/mechanism: GitHub Pages (`garywelz.github.io/glmp`),
-    not GCS — renders from the repo, can't drift, updates on push, fetchable
-    at a stable URL. Counts come from live status sources that already exist
+29. **PROPOSE — GLMP Daily Brief / Collaborator Window** (recombined
+    2026-07-30 — briefly split into former items 29-30, merged back since
+    they're one artifact, not two independent builds; design task, not
+    built yet). A fetchable, auto-updating status page serving two
+    audiences from one artifact: the GLMP project's opening context, and
+    the welcome-package landing surface for Krampis/Lents/Me-Me and future
+    collaborators — current project state, what's available (papers,
+    process flowcharts, papers-in-progress, sciencevideodb, podcasts),
+    current research state + what changed recently (the frontier, in plain
+    terms — reads `research_focus.json`), how to contribute. Host/mechanism:
+    GitHub Pages (`garywelz.github.io/glmp`), not GCS — renders from the
+    repo, can't drift, updates on push, fetchable at a stable URL. Counts
+    come from live status sources that already exist
     (`knowledge-engine-status.json`, `/api/content/stats`), never
     hand-maintained — a stale brief is worse than none. Generation can ride
     the existing post-ingest chain (`build_master_todo.py` already runs as a
     hook; this is a small addition, not new machinery). Not the MASTER_TODO
     — engineering items (venv untracking, IAM, hardcodes) are noise to this
     audience; different document. Queue entry only — design is next
-    session. **Paired with item 30**: one artifact, two audience framings —
-    split here per request, not independently buildable.
-30. **Collaborator Window** (split from former item 20). What it means: the
-    collaborator-facing *use* of the Daily Brief artifact (item 29) — the
-    welcome-package landing surface for Krampis/Lents/Me-Me and future
-    collaborators: current project state, what's available, what changed,
-    how to contribute a suggestion. Not a separate build — same fetchable
-    page as item 29, framed for someone arriving at the project rather than
-    someone maintaining it. Queue entry only — design is next session,
-    alongside item 29.
-31. **FINDING — `physics_processes` GCS filenames still wrong** (2026-07-30,
+    session.
+30. **FINDING — `physics_processes` GCS filenames still wrong** (2026-07-30,
     flagged during item 22's fix, not touched). Item 22 corrected the 12
     corrupted Firestore document IDs, but `metadata.file_path`/`gcs_url` on
     all 12 still point at the old-wrong-slug GCS source filenames — the
