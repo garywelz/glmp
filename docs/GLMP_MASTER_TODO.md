@@ -285,12 +285,17 @@ gated migration, verified at every phase, in `copernicus-web`:
     already pulled, a true no-op pin). The 07-24 deploy had pulled a fresh
     base layer ("Downloaded newer image for python:3.11-slim") alongside an
     unrelated code change; pinning stops that recurring unnoticed.
-18. **VERIFY PENDING — embed-at-promote** (`ed618599f`, deployed as revision
-    `copernicus-podcast-api-00244-lj6`, 2026-07-24). Unproven until the next
-    real podcast generation/promote. Check then: the new `episodes` doc has
-    `embedding_model` set and a 1536d vector, and surfaces in a
-    `find_nearest` query against `episodes`. Do not synthesize a test
-    podcast to force this.
+18. ~~**VERIFY PENDING — embed-at-promote**~~ — VERIFIED (2026-07-30). Gary
+    generated a real podcast by hand ("CRISPR's Unfolding Revolution:
+    Precision Engineering Life's Code," Biology). Job `157a577d-4432-40ac-`
+    `8507-8fdf55a7f73c` promoted to `episodes/ever-bio-250044` at
+    `2026-07-30T15:58:17`. All three conditions met: `embedding_model` set
+    (`text-embedding-3-small`, not stranded/blank), vector is 1536d, and it
+    surfaces correctly in a live `/api/vector-search/semantic` query
+    ("recent CRISPR gene editing applications") — ranked **#2**, topically
+    relevant among the results. The `ed618599f` fix (deployed
+    `copernicus-podcast-api-00244-lj6`, 2026-07-24) is confirmed working on
+    a real promote, not just deployed.
 19. ~~**Untrack ~14k venv paths in copernicus-web**~~ — done 2026-07-26,
     commit `c1234dc99`: `git rm -r --cached` on `venv`, `rss_venv`,
     `cloud-run-backend/backend_venv`, `cloud-run-backend/test_env` (14,871
