@@ -228,8 +228,9 @@ gated migration, verified at every phase, in `copernicus-web`:
     they stay deferred, "do not start," in the `fe9b337` finding. This item
     was "document it"; that's done. Resolving it is a separate, unscheduled
     thread.
-12. **CRP PWM / sciencevideodb quality / GitHub housekeeping** — prior science
-    + Space eval priorities (unchanged leverage).
+12. *(Split into items 26-28 below — CRP PWM, sciencevideodb quality,
+    GitHub housekeeping — per 2026-07-30 request to divide this bundled
+    item into its three slash-separated parts.)*
 13. ~~**DISCIPLINE_DATABASES_PLAN.md rewrite**~~ — done, commit `c7a614529`:
     reframed as engine (ATAP) vs. Methods & Tools demonstration corpus
     (biology/chemistry/CS/physics), against the engine-vs-discipline
@@ -282,31 +283,9 @@ gated migration, verified at every phase, in `copernicus-web`:
     files, index-only, zero disk deletions; all four already covered by
     `.gitignore`). Deferred from the 2026-07-23 credential-shaped-file sweep
     (Cursor).
-20. **PROPOSE — GLMP Daily Brief / Collaborator Window** (design task, not
-    built yet). A fetchable status page serving two audiences from one
-    artifact: the GLMP project's opening context (collaborator sees current
-    project state) and the welcome-package landing surface for
-    Krampis/Lents/Me-Me.
-    - **Content** (collaborator-facing, *not* the engineering queue): live
-      collection counts — research-paper corpus, sciencevideodb, podcasts,
-      flowchart/process count; what's available (papers, process flowcharts,
-      papers-in-progress); current research state + what changed recently
-      (the frontier, in plain terms — reads `research_focus.json`); how to
-      contribute (a path for partners to suggest edits to charts, podcasts,
-      papers, videos).
-    - **Host/mechanism**: GitHub Pages (`garywelz.github.io/glmp`), not GCS —
-      renders from the repo, can't drift, updates on push; fetchable at a
-      stable URL the GLMP project instructions can pull daily. Counts come
-      from live status sources that already exist
-      (`knowledge-engine-status.json`, `/api/content/stats`), never
-      hand-maintained — a stale brief is worse than none. Generation can ride
-      the existing post-ingest chain (`build_master_todo.py` already runs as
-      a hook; a collaborator-brief output is a small addition, not new
-      machinery).
-    - **Not the MASTER_TODO** — engineering items (venv untracking, IAM,
-      hardcodes) are noise to a biologist; different audience, different
-      document.
-    - Queue entry only — design is next session.
+20. *(Split into items 29-30 below — GLMP Daily Brief, Collaborator Window —
+    per 2026-07-30 request to divide this bundled item into its
+    slash-separated parts. They remain one coupled design — see 29's note.)*
 21. ~~**Build a findability check**~~ — DONE (2026-07-29). Probe built
     (`findability_probe.py`, `403e0b4c`), Gate-3 acceptance test passed
     against production (14 anchors, `podcast_jobs` + `math_processes`
@@ -373,6 +352,62 @@ gated migration, verified at every phase, in `copernicus-web`:
     batch. Verified: 124/124 remaining (173 − 49), zero placeholder-pattern
     docs left, index unaffected, full probe re-run confirms both chemistry
     anchors still rank 1.
+
+25. **TSV re-harvest** — promoted from the curated FINDING above (2026-07-26
+    diagnostic: `flowchart-source-papers.tsv`, 481 rows, ~54% correct-PMID
+    rate, pattern C — bad rows independently mis-IDed, no mechanical offset
+    to correct for). Full re-harvest from `raw_citation` free-text against a
+    resolver, ~220 rows to correct. Own runway, not a quick fix.
+    `research_focus.flagged` already seeded with 5 verified in-corpus IDs as
+    a retrieval seed only — this item is the full correction, not that seed.
+26. **CRP PWM** (split from former item 12). Build a position-weight-matrix
+    for CRP binding sites from RegulonDB data — the highest-leverage
+    remaining science move on the decoder, would let the lac operon reach an
+    evidence-backed Class II call from sequence rather than curated biology
+    alone. Real molecular-biology work: per the Reminder to Self below,
+    needs a qualified biologist's judgment, not something to execute
+    unilaterally.
+27. **sciencevideodb quality** (split from former item 12). Content/data-
+    quality evaluation of the Science Video Database Space. No specific
+    deliverable defined yet — needs scoping before it's actionable.
+28. **GitHub housekeeping** (split from former item 12). Unspecified —
+    needs scoping (stale branches? README updates? issue triage?) before
+    it's actionable.
+29. **PROPOSE — GLMP Daily Brief** (split from former item 20; design task,
+    not built yet). A fetchable, auto-updating status page: live collection
+    counts (research-paper corpus, sciencevideodb, podcasts,
+    flowchart/process count), what's available (papers, process flowcharts,
+    papers-in-progress), current research state + what changed recently
+    (the frontier, in plain terms — reads `research_focus.json`), how to
+    contribute. Host/mechanism: GitHub Pages (`garywelz.github.io/glmp`),
+    not GCS — renders from the repo, can't drift, updates on push, fetchable
+    at a stable URL. Counts come from live status sources that already exist
+    (`knowledge-engine-status.json`, `/api/content/stats`), never
+    hand-maintained — a stale brief is worse than none. Generation can ride
+    the existing post-ingest chain (`build_master_todo.py` already runs as a
+    hook; this is a small addition, not new machinery). Not the MASTER_TODO
+    — engineering items (venv untracking, IAM, hardcodes) are noise to this
+    audience; different document. Queue entry only — design is next
+    session. **Paired with item 30**: one artifact, two audience framings —
+    split here per request, not independently buildable.
+30. **Collaborator Window** (split from former item 20). What it means: the
+    collaborator-facing *use* of the Daily Brief artifact (item 29) — the
+    welcome-package landing surface for Krampis/Lents/Me-Me and future
+    collaborators: current project state, what's available, what changed,
+    how to contribute a suggestion. Not a separate build — same fetchable
+    page as item 29, framed for someone arriving at the project rather than
+    someone maintaining it. Queue entry only — design is next session,
+    alongside item 29.
+31. **FINDING — `physics_processes` GCS filenames still wrong** (2026-07-30,
+    flagged during item 22's fix, not touched). Item 22 corrected the 12
+    corrupted Firestore document IDs, but `metadata.file_path`/`gcs_url` on
+    all 12 still point at the old-wrong-slug GCS source filenames — the
+    corruption exists at the GCS source too. A re-sync from GCS would
+    recreate the wrong IDs. Separate, still-open thread whenever picked up.
+    Also: the Jetson checkout needs to pull commit `b67dfb692`
+    (`copernicus-web`) before its next automated cron run, so
+    `findability_probe.py`'s physics anchor isn't stale (it was updated to
+    the corrected ID in that same commit).
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
