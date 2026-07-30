@@ -319,12 +319,35 @@ gated migration, verified at every phase, in `copernicus-web`:
     still OK). Pending-first-cycle caveat dropped. Probe surfaced two
     real findings on first run: physics ID corruption (item 22) and a
     chemistry near-duplicate (item 24 below).
-    **Independent corroboration (2026-07-30, Claude Code):** live re-run
-    of `findability_probe.py` at 19:25 UTC (well after Jetson would have
-    pulled `b67dfb692`) confirms full recovery — 14/14 anchors PASS
-    including physics, Overall WARNING with the same 2 known coverage/index
-    warnings. Consistent with the above explanation from a second,
-    independent angle.
+    **Ground-truth diagnosis of the 15:36Z ALERT, requested by Gary/Claude
+    Chat (2026-07-30) — do not file as assumed-benign migration noise.**
+    Ran all three requested checks directly, not inferred:
+    1. **Old anchor ID** (`electromagnetism-wave-function`) — confirmed
+       `exists: False` in `physics_processes` (direct Firestore `.get()`).
+       It was renamed away by item 22's fix, not just relabeled.
+    2. **New ID's embedding** (`electromagnetism-electromagnetic-induction`)
+       — confirmed present and intact: 1536-dim vector, title "Electromagnetic
+       Induction (Faraday's Law)" (exactly the anchor query's intended
+       target). The copy-then-delete re-ID did **not** strand the vector.
+    3. **Live retrieval right now** — ran the exact anchor query ("why does
+       a changing magnetic field create an electric current") against the
+       production `/api/vector-search/semantic` endpoint. Result:
+       `electromagnetism-electromagnetic-induction` at **rank 1** — the
+       best possible outcome, not just "findable."
+    **Verdict: Case 1 (benign), not a regression.** Physics retrieval is
+    fully healthy; the doc was always findable, just under its corrected
+    ID. Root cause of the 11:36 ET ALERT: the anchor-fix commit
+    (`b67dfb692`, 11:05 ET — same commit that did the ID fix) landed only
+    31 minutes before that cron cycle ran, and Jetson pulls are manual, not
+    automatic mid-cycle — so Jetson was almost certainly still running the
+    pre-fix probe script with the stale anchor at 11:36 ET. Confirmed
+    `b67dfb692` is a direct git ancestor of `8640e7983` (the item-23 fix,
+    12:49 ET, which Jetson has already pulled per Cursor's report) — so
+    Jetson's checkout now has the correct anchor too, no separate pull
+    needed. No code change required; the anchor was already correct in the
+    repo before this diagnosis was even requested. Next automated cycle
+    (tonight's PM run) should show a clean 14/14 — that's the remaining
+    witness, not a fix.
 22. ~~**FINDING — `physics_processes` ID/title mismatch.**~~ FIXED
     (2026-07-30), commit `b67dfb692`: full scan found **12 of 28 docs**
     mismatched (not the 4 originally sampled), a per-subcategory rotation —
