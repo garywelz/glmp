@@ -387,34 +387,60 @@ gated migration, verified at every phase, in `copernicus-web`:
     Reminder to Self below, needs a qualified biologist's judgment, not
     something to execute unilaterally. **On hold pending Prof. Lents'
     feedback** (2026-07-30) — do not proceed until he's weighed in.
-27. **SCOPED (2026-07-30) — sciencevideodb quality** (split from former item
-    12). Investigated the live catalog (`videos-metadata.json` on GCS, 753
-    YouTube videos, 5 disciplines, 13 channels — the real data; `app.py`'s
-    Gradio demo is dead code, never served since the Space's `sdk` is
-    `static`). Four verified findings, agreed as the deliverable:
-    - **Quick static-page fixes**: mojibake channel name (the em-dash in
-      "Kurzgesagt — In a Nutshell" renders as a replacement character);
-      `category`/`disciplines` naming mismatch (`computer_science` vs `cs`,
-      148/753 records, same content just inconsistently labeled across two
-      fields); the page's
-      own "Prototype (Current): 10-15 channels, ~2k videos" milestone claim
-      overstates real content ~2.7x (actual 13 channels, 753 videos); and
-      the "Research Paper linking potential" / "Integration Framework...
-      designed for CopernicusAI Knowledge Engine integration" claims are
-      aspirational — `related_papers`/`related_processes` are empty in all
-      753 records, not built yet. All near-zero-risk static-file edits.
-    - **Transcript-coverage investigation**: 190/753 (25%) videos have no
-      transcript despite transcript-based search being the page's headline
-      feature — sample-check whether YouTube genuinely lacks captions for
-      these or the ingestion pipeline missed them.
-    - **Dead-link spot check**: sample video URLs against YouTube to confirm
-      they're still live (videos get taken down over time) — needs external
-      network calls, scoped as a sample, not all 753.
-    - **Clean up dead `app.py`**: decide delete vs. leave as historical
-      scaffolding — it describes features as "coming soon" that already
-      exist for real elsewhere.
-    Minor completeness gaps also noted, not separately actioned: 2 videos
-    missing description, 1 missing duration, no duplicate IDs.
+27. ~~**sciencevideodb quality**~~ — DONE (2026-07-30, split from former item
+    12). Scoped as 4 quick fixes; the discipline-naming check led straight
+    into a much larger finding: **43% of the 753-video catalog (322 videos)
+    had wrong YouTube channel attribution** — a batch ingestion bug had
+    mapped several claimed channels to entirely the wrong real channel.
+    Verified every one of the 753 videos individually against YouTube's
+    oEmbed endpoint (not a sample — a full census) before touching
+    anything:
+    - **5 channels 100% misattributed**: "Khan Academy" (116) was actually
+      66 SSSniperWolf (pop-culture/reaction junk, zero science) + 50 Google
+      for Developers (real dev/cloud content); "Caltech" (54) was actually
+      Chandoo (Excel/Power BI tutorials, junk); "SciShow" (50, incl. 1
+      unreachable/401) was actually OpenAI product/business content;
+      "UC Berkeley" (53) was actually ElectroBOOM (real electrical-
+      engineering demo channel). "FuseSchool" (50) was actually Domain of
+      Science (real science channel, per-video categories already matched
+      actual content, so left as-is beyond the channel-name fix).
+    - **Numberphile** (54, channel attribution correct): 53/54 miscategorized
+      (mostly `chemistry` instead of `mathematics`) — fixed.
+    - **Remediation** (`videos-metadata.json` on GCS): deleted 171 videos
+      (120 junk + 50 OpenAI business content + 1 dead link), re-attributed
+      and recategorized 202 legitimate videos to their real channel, fixed
+      Numberphile's 53 miscategorized entries, fixed the `cs`/
+      `computer_science` naming split (418 records). Catalog now: **582
+      videos, 11 channels** (down from 753/13). Verified post-fix: counts
+      reconcile, zero bad-channel labels remain, no duplicate IDs, JSON
+      valid, live GCS copy matches.
+    - **Page/README honest rewrite** (`copernicus-web` HF Space repo
+      `hf-spaces/sciencevideodb`, commit `dca17c3`): replaced aspirational
+      claims (transcript-based search, vector-DB semantic search,
+      "Integration Framework... designed for CopernicusAI Knowledge Engine
+      integration") with what's actually true — keyword search over
+      title/description/channel only, no transcript text stored, no vector
+      search; corrected milestone numbers to 582/11; added a clear "Live
+      Today" vs. "Built But Disconnected" (a separate, dormant
+      `github.com/garywelz/sciencevideodb` monorepo, last active December
+      2025, with a real tested YouTube API client but no working database/
+      search/frontend) vs. "Planned, Never Built" (Postgres, vector DB,
+      Meilisearch/OpenSearch, Vercel) breakdown. One claim was checked and
+      confirmed **true**, left alone: the Research Tools Dashboard at
+      `copernicus-frontend-.../knowledge-engine` is real and live.
+    - **Transcript-coverage check**: inconclusive — YouTube's unauthenticated
+      caption-list endpoint no longer returns useful data without proper
+      API access; documented in the page itself that the ~72% caption flag
+      is a stored ingestion-time value, not independently re-verified.
+    - **Dead-link check**: fully covered as a side effect of the full
+      oEmbed census (not just a sample) — exactly 2 broken links found
+      (1 confirmed 404, 1 confirmed 401 traced by title to the same OpenAI
+      junk batch), both already removed above.
+    - **`app.py` cleanup** (commit `6d452b4`): deleted, along with
+      `requirements.txt` (existed solely for its Gradio dependency) — the
+      file was never served (Space `sdk` is `static`) and its own text
+      described the same fictional architecture just corrected elsewhere.
+    Space confirmed `RUNNING` at `6d452b4` post-deploy (HF Spaces API).
 28. **GitHub housekeeping** (split from former item 12). Unspecified —
     needs scoping (stale branches? README updates? issue triage?) before
     it's actionable.
