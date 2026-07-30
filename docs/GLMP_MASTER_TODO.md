@@ -394,16 +394,25 @@ gated migration, verified at every phase, in `copernicus-web`:
     — engineering items (venv untracking, IAM, hardcodes) are noise to this
     audience; different document. Queue entry only — design is next
     session.
-30. **FINDING — `physics_processes` GCS filenames still wrong** (2026-07-30,
-    flagged during item 22's fix, not touched). Item 22 corrected the 12
-    corrupted Firestore document IDs, but `metadata.file_path`/`gcs_url` on
-    all 12 still point at the old-wrong-slug GCS source filenames — the
-    corruption exists at the GCS source too. A re-sync from GCS would
-    recreate the wrong IDs. Separate, still-open thread whenever picked up.
-    Also: the Jetson checkout needs to pull commit `b67dfb692`
-    (`copernicus-web`) before its next automated cron run, so
-    `findability_probe.py`'s physics anchor isn't stale (it was updated to
-    the corrected ID in that same commit).
+30. ~~**FINDING — `physics_processes` GCS filenames still wrong**~~ — DONE
+    `2d11b6f1a` (`copernicus-web`). Scope grew mid-fix: beyond the 12
+    GCS file pairs (24 files renamed) and 12 `metadata.file_path`/`gcs_url`
+    Firestore updates originally scoped, three catalog files
+    (`process-index.json`, `collections.json`,
+    `whole-of-physics-graph-data.json`) also referenced the old slugs and
+    needed the same substitution — one of them (`whole-of-physics-graph-data.json`,
+    84KB, 3 graph layout variants) had 157 references across node ids,
+    `processId`, `url`, and link source/target fields. Fixed via whole-file
+    string substitution (old slug → new slug), safe because no old slug is
+    a substring of another or of any new slug (checked programmatically
+    before any write). Dry-run confirmed exact counts before the real run.
+    Post-fix verification: all 24 old GCS files gone, all 24 new files
+    present with intact content, all 12 Firestore metadata fields correct,
+    zero remaining old-slug references in any of the 3 catalog files, all
+    still valid JSON. Final live regression check —
+    `findability_probe.py` re-run — confirms no regression: physics anchor
+    ("why does a changing magnetic field create an electric current") ranks
+    1, `physics_processes` fully embedded (28/28) with a READY index.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
