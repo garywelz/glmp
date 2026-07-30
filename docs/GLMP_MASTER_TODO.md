@@ -353,15 +353,26 @@ gated migration, verified at every phase, in `copernicus-web`:
     `/media/sdcard/status/glmp_pull_blockers_20260729/`, Jul-11 harvest work
     products, not needed by cron.)
 
-24. **FINDING — possible near-duplicate in `chemistry_processes`** (2026-07-29,
-    surfaced by the findability probe's Gate-3 anchor testing):
-    `surface_chemistry_catalysis-heterogeneous-catalysis` AND
-    `surface_chemistry-heterogeneous-catalysis` (near-identical names) both
-    present; the pair crowds catalysis retrieval (pushed the intended anchor
-    to rank 9). Needs a content-read to confirm duplicate vs. distinct, then
-    dedup if confirmed. This is the retrieval-pollution failure class the
-    probe exists to catch — found on the probe's own first run. Deferred,
-    not urgent.
+24. ~~**FINDING — possible near-duplicate in `chemistry_processes`**~~ FIXED
+    (2026-07-30), commit `bdc0bde1b`. Content-read of the original pair found
+    them **not duplicates** — a content-free 2025-12-29 placeholder stub
+    ("Chemistry process: {title}", generic auto-generated mermaid) vs. a
+    substantive 2026-01-08 doc on the same broad topic. Checking for a
+    broader batch found this was **one of 49** identical placeholder stubs
+    (28% of the collection), all dated 2025-12-29, spread across essentially
+    every subcategory. All had been superseded by later real content — same
+    subcategory name in 6 cases, a renamed subcategory in 5
+    (`surface_chemistry_catalysis`→`surface_chemistry`,
+    `kinetic_processes`→`kinetics`, `thermodynamic_processes`→`thermodynamics`,
+    `spectroscopy_analysis`→`spectroscopy_advanced`,
+    `electrochemical_processes`→`electrochemistry`) — but never removed, so
+    they competed in retrieval against the content that replaced them.
+    Confirmed out of scope for Knowledge Engine concerns first
+    (`chemistry_processes` is a Methods & Tools demonstration collection, not
+    part of a running project like GLMP/ATAP); all 49 then deleted as a
+    batch. Verified: 124/124 remaining (173 − 49), zero placeholder-pattern
+    docs left, index unaffected, full probe re-run confirms both chemistry
+    anchors still rank 1.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
