@@ -247,12 +247,22 @@ gated migration, verified at every phase, in `copernicus-web`:
     `hf-spaces/mathematics-database/**` specifically was already redundant
     with the broader `Read(//c/Users/garyw/hf-spaces/**)` entry that
     remains — no functional loss.
-16. **Git-history depth check on ATAP corpus** —
-    `copernicus-web/huggingface-space/mathematics-processes-database/`
-    (664 files): commit count, date range, substantive history vs. bulk
-    import. Decides subtree-split vs. fresh-commit before migration; a
-    provenance defect was already found in `flowchart-source-papers.tsv`
-    this week, so recording where content came from has real value.
+16. ~~**Git-history depth check on ATAP corpus**~~ — done (2026-07-30).
+    Zero substantive history: exactly **one commit** (`093587d38`,
+    2026-06-12) ever touches
+    `copernicus-web/huggingface-space/mathematics-processes-database/`, and
+    that commit is literally the repo's root commit — a wholesale initial
+    import of 75,192 files (11.5M insertions) covering the entire repo at
+    once (venv, config, everything), not a dedicated add-this-corpus commit.
+    Scoped to just this directory: 664 files, 74,557 insertions, all in that
+    same single commit — no prior or subsequent history at all. The whole
+    repo has only 57 commits total; only this one ever touched the
+    directory. DECISION: **fresh-commit, not subtree-split** — a
+    subtree-split exists to preserve incremental history, and there is none
+    to preserve here; splitting would just carry over one opaque bulk
+    snapshot with extra ceremony. Same opacity-of-provenance concern as the
+    `flowchart-source-papers.tsv` finding, different dimension (chronological
+    history vs. citation accuracy) — recorded for the same reason.
 17. ~~**Pin `copernicus-podcast-api` Dockerfile base image to a digest**~~ —
     done, commit `12ea2bc09` in `copernicus-web`: pinned to
     `sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93`
