@@ -576,6 +576,16 @@ gated migration, verified at every phase, in `copernicus-web`:
     which uploads directly to GCS rather than through the Space, so may be
     expected — not all 34 are alarming, `index.html` is the one that
     actually matters since it's what's served).
+    **Addendum**: the Space's own `style.css` (real, substantial, 4 real
+    commits including "Add comprehensive Programming Framework content" —
+    not HF-default boilerplate) is currently unreferenced by `index.html`,
+    but its class names (`.tab-btn`, `.batch-status`,
+    `.status-card.complete/in-progress/external`) don't match either
+    `index.html` version compared above — suggesting a **third**, even
+    earlier tabbed-UI redesign this stylesheet belonged to, now itself
+    superseded. Same underlying story (multiple historical redesigns,
+    unclear which is canonical), not a separate issue — not proposed for
+    archival given its entanglement with this open question.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
