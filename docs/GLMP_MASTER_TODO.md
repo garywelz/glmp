@@ -484,31 +484,24 @@ gated migration, verified at every phase, in `copernicus-web`:
     ("why does a changing magnetic field create an electric current") ranks
     1, `physics_processes` fully embedded (28/28) with a READY index.
 
-31. **FINDING — exposed YouTube API key, rotation never completed
-    (surfaced 2026-07-30 while investigating item 27)**. The dormant
-    `github.com/garywelz/sciencevideodb` repo's `docs/PENDING_KEY_ROTATION.md`
-    documents a key rotation started 2025-12-02 and never finished: a new
-    key was created and put into the `youtube-api-key` Secret Manager
-    secret (confirmed still `enabled` there, version 5, created
-    2025-12-02), but the **old key was never revoked** — the doc's own
-    words: "Old key still active... was used 91 times in past 30 days...
-    likely used in CopernicusAI services... waiting to verify usage before
-    deleting." The repo went dormant one week later (last commit
-    2025-12-09) and this was never followed up.
-    **Blocked on**: checking the old key's actual current usage requires
-    either the `apikeys.googleapis.com` API (not enabled on this project —
-    enabling it is a config change, prompted for confirmation, not done
-    without asking) or the GCP Console UI directly (no browser access this
-    session). `gcloud secrets versions list youtube-api-key` only shows
-    Secret Manager version states (all 5 versions show `enabled`, including
-    versions predating the Dec 2 rotation) — this does not by itself tell
-    us whether the raw old API key is still live at the platform level.
-    **Do not revoke unilaterally** — the doc's own caution ("likely used in
-    CopernicusAI services") means blind deletion risks breaking a live
-    service. Needs either explicit go-ahead to enable the API Keys API and
-    check current usage, or Gary checking
-    `https://console.cloud.google.com/apis/credentials?project=regal-scholar-453620-r7`
-    directly.
+31. ~~**FINDING — exposed YouTube API key, rotation never completed**~~ —
+    RESOLVED (2026-07-30). Enabled `apikeys.googleapis.com` (was disabled)
+    and matched the old key's literal value against every API key in the
+    project by content, not by label — found it under display name
+    **"API key 1"** (UID `b40e3f27...`, created 2025-04-06), **not** under
+    any YouTube-labeled key. Its restriction had been silently changed away
+    from YouTube at some point (`updateTime: 2026-06-19`) to **only
+    `generativelanguage.googleapis.com` (Gemini)** — so the original
+    "still live for YouTube" concern was already stale; the risk had moved
+    to a different API without the rotation doc ever being updated to
+    reflect it. Confirmed it matched none of the three live Gemini secrets
+    (`GEMINI_API_KEY`, `gemini-api-key`, `google-ai-api-key`) that
+    deployed services actually pull from — nothing currently depends on it
+    via the standard Secret Manager pattern. Deleted outright
+    (`gcloud services api-keys delete`), confirmed gone from the active
+    list (4 keys remain, down from 5). The `youtube-api-key` Secret
+    Manager secret itself (holding the legitimate replacement key) was
+    untouched.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
