@@ -387,9 +387,34 @@ gated migration, verified at every phase, in `copernicus-web`:
     Reminder to Self below, needs a qualified biologist's judgment, not
     something to execute unilaterally. **On hold pending Prof. Lents'
     feedback** (2026-07-30) — do not proceed until he's weighed in.
-27. **sciencevideodb quality** (split from former item 12). Content/data-
-    quality evaluation of the Science Video Database Space. No specific
-    deliverable defined yet — needs scoping before it's actionable.
+27. **SCOPED (2026-07-30) — sciencevideodb quality** (split from former item
+    12). Investigated the live catalog (`videos-metadata.json` on GCS, 753
+    YouTube videos, 5 disciplines, 13 channels — the real data; `app.py`'s
+    Gradio demo is dead code, never served since the Space's `sdk` is
+    `static`). Four verified findings, agreed as the deliverable:
+    - **Quick static-page fixes**: mojibake channel name (the em-dash in
+      "Kurzgesagt — In a Nutshell" renders as a replacement character);
+      `category`/`disciplines` naming mismatch (`computer_science` vs `cs`,
+      148/753 records, same content just inconsistently labeled across two
+      fields); the page's
+      own "Prototype (Current): 10-15 channels, ~2k videos" milestone claim
+      overstates real content ~2.7x (actual 13 channels, 753 videos); and
+      the "Research Paper linking potential" / "Integration Framework...
+      designed for CopernicusAI Knowledge Engine integration" claims are
+      aspirational — `related_papers`/`related_processes` are empty in all
+      753 records, not built yet. All near-zero-risk static-file edits.
+    - **Transcript-coverage investigation**: 190/753 (25%) videos have no
+      transcript despite transcript-based search being the page's headline
+      feature — sample-check whether YouTube genuinely lacks captions for
+      these or the ingestion pipeline missed them.
+    - **Dead-link spot check**: sample video URLs against YouTube to confirm
+      they're still live (videos get taken down over time) — needs external
+      network calls, scoped as a sample, not all 753.
+    - **Clean up dead `app.py`**: decide delete vs. leave as historical
+      scaffolding — it describes features as "coming soon" that already
+      exist for real elsewhere.
+    Minor completeness gaps also noted, not separately actioned: 2 videos
+    missing description, 1 missing duration, no duplicate IDs.
 28. **GitHub housekeeping** (split from former item 12). Unspecified —
     needs scoping (stale branches? README updates? issue triage?) before
     it's actionable.
