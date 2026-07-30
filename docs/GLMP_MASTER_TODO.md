@@ -234,9 +234,11 @@ gated migration, verified at every phase, in `copernicus-web`:
     reframed as engine (ATAP) vs. Methods & Tools demonstration corpus
     (biology/chemistry/CS/physics), against the engine-vs-discipline
     distinction, not find-and-replace.
-14. **metadata_database footer prose relabel** —
-    `hf-spaces/metadata_database/index.html:34` still reads "serving GLMP, the
-    Mathematics Database, and CopernicusAI"; relabel to ATAP.
+14. ~~**metadata_database footer prose relabel**~~ — done (2026-07-30),
+    commit `b3dbd91` in the `metadata_database` HF Space repo: "serving GLMP,
+    the Mathematics Database, and CopernicusAI" → "serving GLMP, ATAP, and
+    CopernicusAI." Verified live at
+    `garywelz-metadata-database.static.hf.space/index.html` post-deploy.
 15. ~~**Prune stale settings.local.json allowlist entries**~~ — done
     (2026-07-30). Removed the four `mathematics-database`-path entries from
     `copernicus-web/.claude/settings.local.json`, confirmed both old local
