@@ -237,10 +237,14 @@ gated migration, verified at every phase, in `copernicus-web`:
 14. **metadata_database footer prose relabel** —
     `hf-spaces/metadata_database/index.html:34` still reads "serving GLMP, the
     Mathematics Database, and CopernicusAI"; relabel to ATAP.
-15. **Prune stale settings.local.json allowlist entries** —
-    `copernicus-web/.claude/settings.local.json` has four tool-permission
-    entries referencing the deleted `mathematics-database` local paths.
-    Harmless, unused, cosmetic.
+15. ~~**Prune stale settings.local.json allowlist entries**~~ — done
+    (2026-07-30). Removed the four `mathematics-database`-path entries from
+    `copernicus-web/.claude/settings.local.json`, confirmed both old local
+    checkout paths no longer exist first. File is gitignored (local-only by
+    design, no commit/push applicable). The one entry covering
+    `hf-spaces/mathematics-database/**` specifically was already redundant
+    with the broader `Read(//c/Users/garyw/hf-spaces/**)` entry that
+    remains — no functional loss.
 16. **Git-history depth check on ATAP corpus** —
     `copernicus-web/huggingface-space/mathematics-processes-database/`
     (664 files): commit count, date range, substantive history vs. bulk
