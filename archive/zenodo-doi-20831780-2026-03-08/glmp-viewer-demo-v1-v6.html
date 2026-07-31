@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>GLMP Process — Version comparison (V1–V6)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        .mermaid { text-align: center; }
+        .nav-link { padding: 4px 10px; border-radius: 4px; font-size: 0.9rem; text-decoration: none; }
+        .nav-link:hover { background: #e5e7eb; }
+        .nav-link.active { background: #3b82f6; color: white; }
+    </style>
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-6">
+            <p class="text-sm text-gray-500 mb-2"><a href="index.html" class="text-blue-600 hover:underline">← Back to process list</a></p>
+            <h1 id="pageTitle" class="text-2xl font-bold text-gray-900 mb-2">Process — Version comparison</h1>
+            <p class="text-sm text-gray-600 mb-3">Same process, different sources. Use the links below to switch version.</p>
+            <nav class="flex flex-wrap gap-2" id="versionNav">
+                <a href="#" data-version="v1" class="nav-link">V1 Original (LLM-assisted)</a>
+                <a href="#" data-version="v2" class="nav-link">V2 RegulonDB Backbone</a>
+                <a href="#" data-version="v3" class="nav-link">V3 RegulonDB only</a>
+                <a href="#" data-version="v4" class="nav-link">V4 EcoCyc only</a>
+                <a href="#" data-version="v5" class="nav-link">V5 KEGG only</a>
+                <a href="#" data-version="v6" class="nav-link">V6 Abasy only</a>
+            </nav>
+        </div>
+        <div id="loading" class="p-8 text-center text-gray-500">Loading…</div>
+        <div id="error" class="hidden p-6 bg-red-50 text-red-800 rounded-lg"></div>
+        <div id="content" class="hidden">
+            <div class="mb-4">
+                <h2 id="processName" class="text-xl font-semibold text-gray-800"></h2>
+                <p id="processDesc" class="text-gray-600 text-sm mt-1"></p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+                <div id="mermaidContainer" class="mermaid"></div>
+            </div>
+            <div id="colorLegend" class="mt-6 bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span aria-hidden="true">🎨</span> Color Coding System
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="flex items-start gap-3 p-3 rounded-lg border border-gray-100">
+                        <div class="w-10 h-10 rounded flex-shrink-0" style="background:#e74c3c;" aria-hidden="true"></div>
+                        <div>
+                            <div class="font-medium text-gray-900">Red — Triggers &amp; Inputs</div>
+                            <p class="text-sm text-gray-600">Environmental signals, nutrient availability, stress conditions.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg border border-gray-100">
+                        <div class="w-10 h-10 rounded flex-shrink-0" style="background:#ffd43b;" aria-hidden="true"></div>
+                        <div>
+                            <div class="font-medium text-gray-900">Yellow — Structures &amp; Objects</div>
+                            <p class="text-sm text-gray-600">Enzymes, receptor proteins, regulatory complexes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg border border-gray-100">
+                        <div class="w-10 h-10 rounded flex-shrink-0" style="background:#51cf66;" aria-hidden="true"></div>
+                        <div>
+                            <div class="font-medium text-gray-900">Green — Processing &amp; Operations</div>
+                            <p class="text-sm text-gray-600">Metabolic reactions, signal transduction, gene expression.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg border border-gray-100">
+                        <div class="w-10 h-10 rounded flex-shrink-0" style="background:#74c0fc;" aria-hidden="true"></div>
+                        <div>
+                            <div class="font-medium text-gray-900">Light Blue — Intermediates &amp; States</div>
+                            <p class="text-sm text-gray-600">Metabolites, signaling molecules, regulatory states.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg border border-gray-100">
+                        <div class="w-10 h-10 rounded flex-shrink-0" style="background:#b197fc;" aria-hidden="true"></div>
+                        <div>
+                            <div class="font-medium text-gray-900">Violet — Products &amp; Outputs</div>
+                            <p class="text-sm text-gray-600">Biomolecules, cellular responses, system behaviors.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 rounded-lg border border-gray-100">
+                        <div class="w-10 h-10 rounded flex-shrink-0" style="background:#b4b4dc;" aria-hidden="true"></div>
+                        <div>
+                            <div class="font-medium text-gray-900">Lavender — Decision diamonds (AND / OR)</div>
+                            <p class="text-sm text-gray-600">Decision nodes for AND and OR gates; diamond shape.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bottomSection" class="mt-8 space-y-6"></div>
+        </div>
+    </div>
+    <script>
+        const GCS_BASE = 'https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2';
+        const VERSION_PATHS = {
+            v1: GCS_BASE + '/processes',
+            v2: GCS_BASE + '/processes_v2',
+            v3: GCS_BASE + '/processes_v3',
+            v4: GCS_BASE + '/processes_v4',
+            v5: GCS_BASE + '/processes_v5',
+            v6: GCS_BASE + '/processes_v6'
+        };
+
+        const params = new URLSearchParams(location.search);
+        const processId = params.get('process') || 'ecoli_lac_operon';
+        const version = (params.get('version') || 'v1').toLowerCase();
+        const versionPath = VERSION_PATHS[version] || VERSION_PATHS.v1;
+
+        function setActiveNav() {
+            var base = '?process=' + encodeURIComponent(processId) + '&version=';
+            document.querySelectorAll('#versionNav .nav-link').forEach(function(a) {
+                var v = a.getAttribute('data-version');
+                a.setAttribute('href', base + v);
+                a.classList.remove('active');
+                if (v === version) a.classList.add('active');
+            });
+        }
+
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('error').classList.add('hidden');
+            document.getElementById('content').classList.add('hidden');
+        }
+        function showError(msg) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('content').classList.add('hidden');
+            document.getElementById('error').textContent = msg;
+            document.getElementById('error').classList.remove('hidden');
+        }
+        function showContent() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error').classList.add('hidden');
+            document.getElementById('content').classList.remove('hidden');
+        }
+
+        function renderBottomSection(data) {
+            var el = document.getElementById('bottomSection');
+            if (!el || !data) return;
+            var sourcesHtml = '';
+            var sources = data.sources || [];
+            for (var i = 0; i < sources.length; i++) {
+                var s = sources[i];
+                var title = s.title || (s.authors ? s.authors + (s.year ? ' (' + s.year + ')' : '') : 'Source');
+                var link = s.url || (s.doi ? 'https://doi.org/' + s.doi : '');
+                var note = s.note || '';
+                if (link) sourcesHtml += '<li class="mb-1"><a href="' + link + '" target="_blank" rel="noopener" class="text-blue-600 hover:underline">' + title + '</a>' + (note ? ' — ' + note : '') + '</li>';
+                else sourcesHtml += '<li class="mb-1">' + title + (note ? ' — ' + note : '') + '</li>';
+            }
+            var meta = [];
+            if (data.organism) meta.push(data.organism);
+            if (data.category) meta.push(data.category);
+            if (data.version_label) meta.push('Version: ' + data.version_label);
+            if (data.source) meta.push('Source: ' + data.source);
+            if (data.source_version) meta.push(data.source_version);
+            var accuracy = data.scientificAccuracy || '';
+            el.innerHTML =
+                '<div class="bg-white rounded-lg shadow p-6"><h3 class="text-lg font-semibold text-gray-800 mb-2">📚 Sources &amp; Citations</h3><ul class="text-sm text-gray-700 list-disc pl-5">' + (sourcesHtml || '<li>No sources listed.</li>') + '</ul></div>' +
+                (meta.length ? '<div class="bg-white rounded-lg shadow p-6"><h3 class="text-lg font-semibold text-gray-800 mb-2">📋 Metadata</h3><p class="text-sm text-gray-600">' + meta.join(' · ') + '</p></div>' : '') +
+                (accuracy ? '<div class="bg-white rounded-lg shadow p-6"><h3 class="text-lg font-semibold text-gray-800 mb-2">📊 Scientific Accuracy</h3><p class="text-sm text-gray-700">' + accuracy + '</p></div>' : '') +
+                '<div class="bg-white rounded-lg shadow p-6"><h3 class="text-lg font-semibold text-gray-800 mb-2">💬 Improve this process</h3><p class="text-sm text-gray-600 mb-3">Spotted an issue or have a suggestion? Add a comment below.</p><form id="commentForm"><textarea id="commentText" rows="3" class="w-full border rounded px-2 py-1 text-sm" placeholder="Your suggestion or correction..."></textarea><br><button type="submit" class="mt-2 px-4 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700">Submit feedback</button></form></div>';
+            var form = document.getElementById('commentForm');
+            if (form) form.addEventListener('submit', function(e) { e.preventDefault(); var t = document.getElementById('commentText'); if (t && t.value) { window.location.href = 'mailto:?subject=GLMP%20demo%20feedback%20' + encodeURIComponent(processId) + '%20' + version + '&body=' + encodeURIComponent(t.value); t.value = ''; } });
+        }
+
+        setActiveNav();
+
+        if (!processId) {
+            showError('Missing ?process= parameter. Example: ?process=ecoli_lac_operon&version=v3');
+        } else {
+            showLoading();
+            fetch(versionPath + '/' + encodeURIComponent(processId) + '.json?nocache=' + Date.now())
+                .then(r => {
+                    if (!r.ok) throw new Error('Process not found: ' + processId + ' for ' + version + ' (HTTP ' + r.status + ')');
+                    return r.json();
+                })
+                .then(data => {
+                    document.getElementById('processName').textContent = data.name || processId;
+                    document.getElementById('processDesc').textContent = data.description || '';
+                    document.getElementById('pageTitle').textContent = (data.name || processId) + ' — Version comparison';
+                    if (document.title) document.title = (data.name || processId) + ' — V1–V6';
+                    var mermaidSrc = data.mermaid;
+                    if (!mermaidSrc) {
+                        showError('No mermaid diagram in this process.');
+                        return;
+                    }
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'default',
+                        flowchart: { useMaxWidth: true, htmlLabels: true },
+                        securityLevel: 'loose'
+                    });
+                    var container = document.getElementById('mermaidContainer');
+                    var id = 'mermaid-demo-' + Date.now();
+                    mermaid.render(id, mermaidSrc).then(function(result) {
+                        container.innerHTML = (result && result.svg) ? result.svg : '';
+                        if (result && typeof result.bindFunctions === 'function') {
+                            try { result.bindFunctions(container); } catch (e) {}
+                        }
+                        renderBottomSection(data);
+                        showContent();
+                    }).catch(function(err) {
+                        document.getElementById('loading').classList.add('hidden');
+                        container.innerHTML = '<p class="text-gray-500 py-4">Diagram could not be rendered.</p>';
+                        document.getElementById('processName').textContent = data.name || processId;
+                        document.getElementById('processDesc').textContent = data.description || '';
+                        renderBottomSection(data);
+                        document.getElementById('content').classList.remove('hidden');
+                        var errEl = document.getElementById('error');
+                        errEl.textContent = 'Render error: ' + (err && err.message ? err.message : 'unknown');
+                        errEl.classList.remove('hidden');
+                    });
+                })
+                .catch(err => {
+                    showError(err.message || 'Failed to load process.');
+                });
+        }
+    </script>
+</body>
+</html>

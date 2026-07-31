@@ -1,0 +1,32 @@
+# Published-artifact drift manifest.
+#
+# One row per collaborator-facing document that is authored in this repo and
+# published by hand (gsutil) to a public GCS URL. Format: repo_path<TAB>public_url
+#
+# Checked by scripts/check-published-drift.sh / .github/workflows/published-drift-check.yml.
+# Add a row here whenever a new document gets this treatment -- an entry not
+# listed here cannot be checked and will drift silently, same as before this
+# existed.
+#
+# Known gap, not fixable by adding a row: gs://.../validation/index.html
+# ("Validation package", linked from README.md) has no repo source at all --
+# authored and uploaded directly, no local copy, no history. Not drift-
+# checkable because there's nothing to diff against. Separate follow-up:
+# pull a copy into the repo so it has version history and can join this list.
+#
+# HARD EXCLUSION -- DO NOT ADD TO THIS MANIFEST OR ANY FUTURE DEPLOY AUTOMATION:
+#   gs://regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer_demo/glmp-viewer-demo-v1-v6.html
+#   gs://regal-scholar-453620-r7-podcast-storage/glmp-v2/processes/ecoli_lac_operon.json
+# Cited by a deposited, DOI-pinned PDF (mermaid-perturbation-design-zenodo.md,
+# Zenodo DOI 10.5281/zenodo.20831780) as of 2026-03-08. The viewer HTML fetches
+# the JSON live at request time via ?process=&version= -- there is no "correct"
+# repo state to redeploy from, because the repo's own copy of this data has
+# already evolved past what the DOI cites. A drift check or a future
+# auto-deploy script pushing repo HEAD to either of these two paths would
+# silently break a permanent citation. If this content ever needs to change,
+# the correct action is a NEW Zenodo record version with the data deposited
+# as an attached file, not a GCS overwrite. See snapshot at
+# archive/zenodo-doi-20831780-2026-03-08/ for the exact bytes as cited.
+collaborations/krampis-virtual-cell/lac-operon-annotation-review.html	https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp/lac-operon-annotation-review.html
+glmp-database-table.html	https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html
+glmp-v2/viewer/index.html	https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html
