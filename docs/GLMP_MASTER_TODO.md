@@ -514,6 +514,37 @@ gated migration, verified at every phase, in `copernicus-web`:
     `findability_probe.py` re-run — confirms no regression: physics anchor
     ("why does a changing magnetic field create an electric current") ranks
     1, `physics_processes` fully embedded (28/28) with a READY index.
+    **Addendum (2026-07-30, surfaced during the `copernicus-web` cleanout's
+    Tier 3 review):** this item's fix was applied directly to Firestore/GCS
+    but never reconciled back to the local git-tracked mirror in
+    `copernicus-web`, `huggingface-space/physics-processes-database/` — it
+    still held all 12 old corrupted slugs. That mirror is the exact source
+    `huggingface-space/scripts/upload_all_processes_to_gcs.sh` uploads to
+    GCS; running it unreconciled would have silently overwritten the fixed
+    production data with the stale corrupted version. Fixed in
+    `copernicus-web` commit `1c0c6de30` (committed, **not yet pushed** —
+    pending Gary's go, per the repo's gated status): downloaded the actual
+    corrected content from GCS for all 12 processes, renamed the 24
+    files, removed the 12 stale `.json.backup` files, and applied the same
+    slug substitution to `process-index.json`, `collections.json`,
+    `whole-of-physics-graph-data.json`, plus **two files the original fix
+    missed** — `metadata.json` (12 refs) and `physical-universe-map.html`
+    (18 refs). Verified byte-identical (modulo line endings) against the
+    live GCS copy.
+    **Follow-up fix (2026-07-30), same day:** the internal `"id"` field
+    finding above is now resolved. `copernicus-web` commit `36c34eaa8`
+    fixed the internal `"id"` field and the `flowchartStandard.basis`
+    `"source_extraction:<id>"` reference in all 12 GCS files (and the local
+    mirror identically) — each had exactly 2 old-slug occurrences, both
+    corrected. Confirmed via `sync_physics_processes.py` that Firestore's
+    `process_id`/doc-id are derived from the GCS file path, not this
+    internal field, so the fix has no Firestore blast radius. HTML viewer
+    files checked and were already clean (0 old-slug references). Dry-run
+    confirmed the expected 2→0 count per file before the real run;
+    post-fix verification confirms zero remaining old-slug references and
+    valid JSON in all 12 files. `findability_probe.py` re-run shows no
+    regression. Both `1c0c6de30` and `36c34eaa8` are pushed to
+    `origin/main`. Item 30 and its follow-ups are now fully closed.
 
 31. ~~**FINDING — exposed YouTube API key, rotation never completed**~~ —
     RESOLVED (2026-07-30). Enabled `apikeys.googleapis.com` (was disabled)
