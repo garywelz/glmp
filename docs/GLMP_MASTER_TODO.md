@@ -618,6 +618,24 @@ gated migration, verified at every phase, in `copernicus-web`:
     unclear which is canonical), not a separate issue — not proposed for
     archival given its entanglement with this open question.
 
+33. **AUDIT (scoped, not run) — `loops`/`feedbackEdges` may be blind to a
+    duplicate-node pattern corpus-wide.** Surfaced 2026-08-02 while
+    fact-checking a Zenodo-cited lac operon record. `loops`/`feedbackEdges`
+    are computed mechanically from Mermaid-graph cycle detection
+    (`scripts/mermaid_graph.py` / `backfill_loops.py`), not curated. If one
+    biological entity is given two node IDs (e.g. permease modeled as both
+    `G[Lactose Permease LacY]` and `PP[Lactose Permease]`), a real feedback
+    cycle renders as a straight-line path and the detector correctly reports
+    `loops: 0` for a graph that should show a loop — a false negative, not a
+    bug in the detector. `ecoli_lac_operon` was caught only because a human
+    curator separately noticed the inconsistency and left a
+    `circuitClassNeedsReview: true` rationale note; nothing forces that catch
+    to happen. **Scope, don't run yet:** how many other corpus records show
+    `loops: 0` (or `feedbackEdges: 0`) with no such review flag — same defect,
+    uncaught. Presence-without-correctness, same family as the findability
+    probe (item 21) but for structural/topological correctness rather than
+    retrievability. Gary scopes execution later.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
