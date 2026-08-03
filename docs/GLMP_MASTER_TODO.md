@@ -649,6 +649,15 @@ gated migration, verified at every phase, in `copernicus-web`:
 - Descript API parallel experiment (never replace ElevenLabs).
 - Rename papers-database-table.html → metadata-database.html.
 - Biologist engagement: Lents after Krampis; widen pool.
+- **Build domain-specific GLMP and ATAP scouts** (2026-08-03, from CopernicusAI
+  Core positioning review). Current scouts aren't domain-tuned to either
+  engine's frontier — confirmed while checking the corpus for a defensible
+  "papers relevant to GLMP/ATAP" number: the only queryable signal is a
+  coarse `discipline` field (biology: 29,184; mathematics: 17,153 papers,
+  verified via Firestore count aggregation), not a regulatory-biology- or
+  logic-specific filter. A scout tuned to each engine's actual frontier
+  (not just broad discipline) would make that number real instead of a
+  discipline-level proxy.
 
 ## Reminder to self
 Gary is a logician, not a biologist. Biological claims (bucket assignments, mechanism, PWM
