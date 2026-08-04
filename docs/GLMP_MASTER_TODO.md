@@ -838,6 +838,33 @@ gated migration, verified at every phase, in `copernicus-web`:
     carried into the new file — it stays a Lents-specific scheduling fact,
     not an open question anyone can adjudicate.
 
+    **Two related naming decisions, resolved 2026-08-04 (Gary + Claude
+    Chat), recorded here so neither stays an open flag:**
+    - **`collaborations/krampis-virtual-cell/` is not being renamed.**
+      Considered because the directory names a collaborator the same way
+      the removed draft did, but the cases differ: Prof. Krampis has seen
+      the name in correspondence and hasn't objected — an active, ongoing,
+      opted-in collaboration, not a name attached without agreement. The
+      rename would also cost real breakage for no benefit: GitHub blob URLs
+      embedded in paper-II, paper-III, and `synthesis-biorxiv.md`, ~12
+      external path references, and a possible Jetson cron path. If ever
+      revisited: check the deposit question first, then external
+      references, then intra-folder scripts/cron paths, then `git mv` last
+      — in that order, not reversed.
+    - **Standing rule going forward:** don't put a person's name in a new
+      path or filename until they've opted in. Krampis has (implicitly);
+      Prof. Lents has not yet — no new files should carry his name until he
+      has. **Existing exception, checked directly, not guessed:**
+      `collaborations/krampis-virtual-cell/shared-diagrams-for-lents.md` is
+      fine as-is — unlike the removed draft, its content is written in
+      first-person direct address ("my distilled models... treat them as
+      'my model, please correct,'" "a proposed edit I'd value your call
+      on") and its 3-commit history (`f06d5bf` → `6623f6a` → `4753fbc`)
+      shows it was built as active collaboration material from the start,
+      not an internal document retroactively addressed to him. The filename
+      matches what the file actually is. Not verifiable from the repo:
+      whether he's actually seen it yet.
+
 34. ~~**FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground
     on the clicked node**~~ (2026-08-03) — **FIXED AND DEPLOYED** (2026-08-04,
     `copernicus-web@9b90e9ef1`, Cloud Build `cf52f050`, revision
