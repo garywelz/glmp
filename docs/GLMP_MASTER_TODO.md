@@ -472,9 +472,9 @@ gated migration, verified at every phase, in `copernicus-web`:
       file was never served (Space `sdk` is `static`) and its own text
       described the same fictional architecture just corrected elsewhere.
     Space confirmed `RUNNING` at `6d452b4` post-deploy (HF Spaces API).
-28. **GitHub housekeeping** (split from former item 12). Scope decided
-    2026-08-04 (Gary, via Claude Chat): **`copernicus-web`-only for now** — the
-    other five suite repos go on a separate future list, not folded into this
+28. ~~**GitHub housekeeping**~~ (split from former item 12) — DONE, closed
+    2026-08-04. Scope decided (Gary, via Claude Chat): **`copernicus-web`-only**
+    — the other five suite repos go on a separate future list, not folded into this
     item.
     - ~~`copernicus-web` README~~ — DONE (`0277e89b2`). Rewrote it as the monorepo
       it actually is; the old one had described it as a standalone Spotify podcast
@@ -548,8 +548,9 @@ gated migration, verified at every phase, in `copernicus-web`:
         changes targeted `cloud-run-backend/main_google.py`, which no longer
         exists on main at all — the file it patches is gone, and the podcast
         pipeline has been substantially rebuilt since this branch's Aug 2025 base.
-    - Still unspecified: whether GitHub housekeeping should also cover the other
-      five repos eventually (deferred per the scope decision above, not forgotten).
+    - Whether GitHub housekeeping extends to the other five repos: resolved by
+      moving that scope to **item 41**, which now holds it with ownership per
+      finding. Superseded here, not duplicated — item 28 is closed.
 29. **PROPOSE — GLMP Daily Brief / Collaborator Window** (recombined
     2026-07-30 — briefly split into former items 29-30, merged back since
     they're one artifact, not two independent builds; design task, not
