@@ -502,13 +502,15 @@ gated migration, verified at every phase, in `copernicus-web`:
       headers as parsing constants, plus a browser-saved webpage snapshot
       (`podcastwothumbnails.html` + `_files/`) whose Google CDN URL parameters
       coincidentally match the Google-API-key shape. No real secret found in
-      current reachable history. Caveat, inherent to the method: a scan of
-      post-purge history can't see whatever a genuine BFG run already removed —
-      this confirms nothing *currently reachable* is exposed, not that the BFG
-      jar's presence is explained. The jar's own commits carry no message
+      current reachable history. **Marked limit, not a clean bill of health**
+      (`governance/CONSTITUTION.md` §5: "treat a clearly marked limit as a
+      finding, not a failure to paper over") — a scan of post-purge history
+      can't see whatever a genuine BFG run already removed, by construction.
+      This confirms nothing *currently reachable* is exposed; it does not confirm
+      the BFG jar's presence is benign. The jar's own commits carry no message
       referencing a purge; more likely an accidental byproduct of a bulk sweep
-      than evidence of a deliberate, completed rewrite. Unresolved either way,
-      low urgency given the clean scan result.
+      than evidence of a deliberate, completed rewrite — but that's a guess, not
+      a finding. Standing limit, not resolved.
     - **The 4 open draft PRs — read in full, not judged by name** (per Claude
       Chat's caution that two might be live findings, not cruft):
       - ~~`cursor/mathematics-database-flowchart-errors-d178`~~ — CLOSED
@@ -869,6 +871,64 @@ gated migration, verified at every phase, in `copernicus-web`:
     whether any found instances warrant a fresh, correctly-scoped fix (reusing
     PR #5's diagnosis, not its diff, since that diff targets files that no
     longer matter).
+
+40. **FINDING (Core-scoped) — trace propagation of the pre-correction
+    computational pattern counts, before treating PR #977c's merge as
+    "handled" (2026-08-04, flagged by Claude Chat).** PR
+    `cursor/verify-and-correct-computational-pattern-counts-977c` (merged as
+    docs into `copernicus-web@1cf51477e`, see item 28) documents a real
+    25-40% overestimate: GLMP's chart counts *pattern instances*, so a process
+    exhibiting both an AND gate and an OR gate is counted twice. **The merge is
+    the small part.** Merging the correction into docs does not answer whether
+    the inflated, pre-correction numbers already propagated elsewhere —
+    the Programming Framework Space, the discipline database tables, a
+    process-count claim in a paper draft, or a Zenodo deposit. If a deposited
+    paper carries the inflated figure, that's an erratum against a published
+    record, not a docs fix. **This is exactly the "presence is not
+    findability" failure the reorg plan's Part 5 describes, applied to a
+    finding instead of a paper** — an eleven-month-old correct analysis that
+    sat in an open PR is not the same as the correction having reached
+    everywhere the wrong number was used. **Not yet scoped:** enumerate every
+    surface that cites a GLMP pattern-prevalence count, check each against the
+    corrected analysis, and determine whether any published figure (paper,
+    Space, Zenodo record) needs a correction rather than a silent docs update.
+    Core-scoped — the corpus and the published record are both in this
+    project's scope, regardless of which repo the number physically lives in.
+
+41. **File cross-suite GitHub housekeeping findings, not executed (2026-08-04).**
+    Full survey in `docs/GITHUB_HOUSEKEEPING_TODO.md` (this repo) — item 28 was
+    scoped `copernicus-web`-only, so everything below was found during that
+    survey but belongs to another project or needs Gary's decision first.
+    Filed, not actioned:
+    - **A2 — `atap` has no README.** Public repo, 4 commits; GitHub renders the
+      CC0 legal text as the landing body instead of a description. Highest
+      external-visibility defect in the suite. Unblocks the reorg plan's Part 1
+      "retitle ATAP" item. Owner: ATAP project.
+    - **B — per-repo defects table**, one row each for `atap` (also missing
+      `research_focus.json`, confirms reorg plan Part 4's open item),
+      `sciencevideodb` (README has duplicated YAML front-matter *and*
+      declares `sdk: gradio` against the actually-live `sdk: static`),
+      `metadata-database` (README is one future-tense sentence for a live
+      Resource backing ~62,900 papers), `glmp` (README cites ~62,700 papers
+      against the live ~62,900 — consider a dated/generated figure, not a
+      hardcode), `progframe` (README still says "Mathematics database",
+      predates the ATAP rename — **unverified whether the prose should change
+      even where GCS paths legitimately keep the old name**).
+    - **C1 — license posture is inconsistent, looks accidental**: `copernicus-web`
+      MIT, `atap` CC0, `progframe`/`metadata-database` have unchecked LICENSE
+      files, **`glmp` and `sciencevideodb` have none** (defaults to
+      all-rights-reserved) — `glmp` being unlicensed is the sharpest gap given
+      it's the suite's most public-facing research surface. Gary's call.
+    - **C2 — no `CONTRIBUTING.md` in any suite repo**, relevant to the reorg
+      plan's Part 4 collaborator-onboarding work.
+    - **C3 — PR disposition** — superseded, already done: item 28 records all
+      four `copernicus-web` PRs as merged/closed with rationale.
+    - **C4 — no CI anywhere** in `copernicus-web` beyond GitHub's own
+      dependency-graph bot. Given the PI-control collaboration model
+      (`governance/SUITE_REORG_PLAN.md` §4), this may be deliberate rather than
+      an oversight. Flagged, not prescribed.
+    Owner per finding is noted above; nothing in this item is Claude Code's to
+    execute unilaterally — visible actions on other repos need their own go.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
