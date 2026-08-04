@@ -766,6 +766,34 @@ gated migration, verified at every phase, in `copernicus-web`:
     family as the findability probe (item 21) but for structural/topological
     correctness rather than retrievability.
 
+    **Follow-up audit (2026-08-04, Claude Chat): is the false positive itself
+    a bigger finding than the candidate list?** The `ecoli_trp_operon` false
+    positive (Tryptophan Synthase β/α collapsed by non-ASCII stripping) raised
+    a real question — does that same stripping run anywhere in the actual
+    production pipeline, where it could be silently merging distinct
+    corpus-wide (α/β/γ subunits, σ factors, Δ mutants — Greek/special
+    characters carrying real meaning is a recurring feature of this domain,
+    not an edge case; `σ32` is already separately out-of-scope in the decoder
+    backlog for a related reason). **Checked, clean result:** the stripping
+    was confined to this session's one-off audit script, never run against
+    real data. `create_text_for_glmp` (`copernicus-web`
+    `mcp_server/tools/vector_search.py:1116`, the actual embedding-text
+    builder) concatenates raw fields with no character filtering at all.
+    Both dedup scripts in the pipeline
+    (`copernicus-web/cloud-run-backend/scripts/dedup_chemistry_processes_stubs.py`,
+    `glmp/k562-empirical-sequel/scripts/dedup_gene_circuit_classes.py`) have
+    no ASCII-stripping normalization — the latter only lowercases a
+    confidence label. The Mermaid parser's node-ID extraction
+    (`mermaid_graph.py`'s `_first_id`) only ever reads the short arbitrary ID
+    codes (`AZ`, `BA`), never derives them from label text, so cycle
+    detection itself can't be affected either. **Also addressed:** the
+    heuristic's `normalize()` step does lowercase and collapse whitespace
+    before comparing, so case/whitespace variants would already be caught —
+    the real remaining gap is same-entity-different-wording with no shared
+    substring, plus the non-ASCII collapse already found. The 11 candidates
+    are still a floor, not a ceiling, just via a narrower gap than
+    case/whitespace.
+
 34. ~~**FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground
     on the clicked node**~~ (2026-08-03) — **FIXED AND DEPLOYED** (2026-08-04,
     `copernicus-web@9b90e9ef1`, Cloud Build `cf52f050`, revision
