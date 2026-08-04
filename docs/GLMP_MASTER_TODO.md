@@ -715,7 +715,8 @@ gated migration, verified at every phase, in `copernicus-web`:
     retrievability. Gary scopes execution later.
 
 34. **FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground on
-    the clicked node (2026-08-03).** Traced the frontend feature
+    the clicked node (2026-08-03).** — **FIXED IN CODE, NOT YET DEPLOYED**
+    (2026-08-04, `copernicus-web@9b90e9ef1`). Traced the frontend feature
     (`knowledge-engine` → Knowledge Map → click a node → "🧠 Node Explanation") to
     `/api/rag/answer` on `copernicus-podcast-api-phzp4ie2sq-uc.a.run.app`. Reproduced
     directly against the live endpoint, not inferred from the UI:
@@ -729,20 +730,52 @@ gated migration, verified at every phase, in `copernicus-web`:
       ("What is the CRISPR-Cas9 mechanism?"): retrieval was genuinely on-topic (real
       PubMed/DOI-backed papers, real podcasts, real GLMP processes), answer accurate.
       The RAG mechanism itself works when a user types a real question.
-    **Hypothesis:** `focus_id` is not used to anchor retrieval in `paper_explanation`
-    mode — the backend runs a generic semantic search against the boilerplate question
-    text instead, which matches meta-commentary about papers-in-general rather than the
-    specific clicked document. Citations are not fabricated (real titles/DOIs from the
-    corpus), just irrelevant to the node that was clicked — the failure mode is
-    misdirected retrieval, not hallucination.
-    **Also observed, separate minor bug:** `similarity_score` is `0.0` on every source
-    in both tests, on-topic or not — the field is never populated, not just low.
-    **Open questions, not yet run:** does `concept_explanation` mode have the same bug?
-    Where in the RAG backend does `focus_id` get lost — is it reaching the vector query
-    at all? Scope is: locate the `paper_explanation`/`concept_explanation` handler in
-    `cloud-run-backend`, confirm whether `focus_id` is even read. **Not fixed** — this
-    is a live production Cloud Run service; a backend fix needs its own review, not a
-    same-session patch.
+
+    **Root cause found (2026-08-04):** `services/rag_service.py`'s
+    `answer_question()` appended `focus_id` as a literal string onto the question
+    (`f"{question} {focus_id}"`) before running semantic search. An opaque ID like
+    `biorxiv_10.64898_2026.07.02.736007` carries almost no signal to an embedding
+    model next to natural-language question text — retrieval was effectively still
+    just matching the boilerplate question alone, exactly reproducing Test 1's
+    symptom. Citations were never fabricated (real titles/DOIs from the corpus),
+    just irrelevant to the node clicked — misdirected retrieval, not hallucination,
+    confirmed.
+
+    **Fix:** added `_fetch_focus_document()` — when `focus_id` is present, fetch
+    that exact document directly by ID (tries `research_papers`, `glmp_processes`,
+    `atap_graphs`, chemistry/physics/computer_science/biology `_processes`, in
+    order) and guarantee it as citation `[1]`, instead of hoping a mangled query
+    string wins a semantic ranking against its own question text. Semantic search
+    still runs on the plain question for neighbor context. Falls back to
+    semantic-only retrieval (logged warning, no crash) if `focus_id` doesn't match
+    any collection.
+
+    **Verified against live Firestore + OpenAI before committing, not just
+    compiled or code-reviewed:**
+    - `_fetch_focus_document('biorxiv_10.64898_2026.07.02.736007')` correctly
+      returns the HERC4 paper's real title/abstract/DOI.
+    - Full `answer_question()` re-run of the exact Test 1 scenario: the generated
+      answer now explains the actual clicked paper (HERC4 DNA damage) instead of
+      the unrelated preprint-server paper, focus document as citation `[1]`.
+    - `concept_explanation` path (the open question from the original finding)
+      verified separately against a real GLMP process ID
+      (`glmp_processes/ecoli_iron_homeostasis`) — correct title/description
+      fetched, confirming it had the same bug and now has the same fix.
+    - Nonexistent `focus_id` degrades gracefully: warning logged, falls back to
+      semantic-only, no crash, no fabricated grounding.
+
+    **Also observed, separate minor bug, not fixed here:** `similarity_score` is
+    `0.0` on every semantically-retrieved source in both original tests, on-topic
+    or not — the field is never populated, not just low. Out of scope for this
+    fix (the injected focus document correctly shows `1.0`; the pre-existing
+    semantic-search scoring bug is untouched).
+
+    **Not deployed.** Committed and pushed to `copernicus-web` main
+    (`9b90e9ef1`); the live Cloud Run service (`copernicus-podcast-api`) still
+    runs the pre-fix code until a deploy happens. No CI/CD is wired to this repo
+    (confirmed item 28), so deploy is a manual `gcloud builds submit` /
+    Cloud Build step — held for Gary's explicit go per the standing
+    propose-before-deploy rule, same as any other production change.
 
 35. **PROPOSE — rebuild automated science-video ingestion (2026-08-03, from papers/
     videos growth-plan discussion).** Confirmed via `sciencevideodb`'s own README:
