@@ -529,20 +529,21 @@ gated migration, verified at every phase, in `copernicus-web`:
         presence-vs-correctness findings. Landed as `detailed_overlap_analysis.md`
         and `glmp_pattern_analysis.md` at the `copernicus-web` repo root — this had
         sat unactioned for 11 months and was worth keeping.
-      - `cursor/sync-rss-status-with-firestore-d6f6` (2025-11-19) — touches live
-        `cloud-run-backend/main.py` (116KB, confirmed still the live FastAPI
-        entrypoint, drifted since Jun 29 independent of this PR's Nov 2025 base).
-        The script it recreates, `sync_rss_status.py`, already exists today —
-        but only under `archive/one_off_scripts/root/`, meaning someone already
-        independently judged this exact tool a spent one-off. **Likely
-        superseded**, high conflict risk if force-merged given the drift; the
-        underlying discrepancy (Firestore `submitted_to_rss` lagging the real RSS
-        feed) is a separate, current question worth checking fresh rather than
-        resurrecting this branch.
-      - `cursor/fix-podcast-generation-system-issues-a5f1` (2025-08-31, oldest) —
-        targets `cloud-run-backend/main_google.py`, which **no longer exists** on
-        main at all. **Confirmed stale** — safe to close, the file it patches is
-        gone.
+      - ~~`cursor/sync-rss-status-with-firestore-d6f6`~~ — CLOSED (2026-08-04),
+        with rationale comment on the PR. Touched live `cloud-run-backend/main.py`
+        (116KB, confirmed still the live FastAPI entrypoint, drifted since Jun 29
+        independent of this PR's Nov 2025 base). The script it recreates,
+        `sync_rss_status.py`, already exists today — but only under
+        `archive/one_off_scripts/root/`, meaning someone already independently
+        judged this exact tool a spent one-off. Closed as superseded rather than
+        force-merged given the drift risk; the underlying discrepancy (Firestore
+        `submitted_to_rss` lagging the real RSS feed) is a separate, current
+        question left open for a fresh check, not resurrected via this branch.
+      - ~~`cursor/fix-podcast-generation-system-issues-a5f1`~~ — CLOSED
+        (2026-08-04), with rationale comment on the PR. Confirmed stale: its core
+        changes targeted `cloud-run-backend/main_google.py`, which no longer
+        exists on main at all — the file it patches is gone, and the podcast
+        pipeline has been substantially rebuilt since this branch's Aug 2025 base.
     - Still unspecified: whether GitHub housekeeping should also cover the other
       five repos eventually (deferred per the scope decision above, not forgotten).
 29. **PROPOSE — GLMP Daily Brief / Collaborator Window** (recombined
