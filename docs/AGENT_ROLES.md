@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.4 — August 4, 2026
+**Version:** 1.5 — August 4, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -188,6 +188,16 @@ the repo.
   `RESOURCE_MANIFEST.md` (the underlying facts were correct; only the evidence
   pointers rotted). The cleanout is the actual trigger — it's the step that
   silently breaks a citation, not the governance edit itself.
+- **Anything handed across between agents regenerates from a fresh fetch
+  before it's applied — never trust the artifact in hand.** Added 2026-08-04
+  after three instances of the same failure in one session: Claude Code's
+  shallow clone gave a false "no conflicts" read; Claude Chat's own working
+  copy had a blocked `git pull` that silently reverted a fix, briefly making
+  a landed patch look unlanded; and a script patch was built on a pre-docstring
+  base and would have silently dropped an unrelated addition if applied
+  verbatim. All three cost nothing because the receiving side re-verified
+  against live `main` before acting — that won't always happen unless it's
+  the default, not a judgment call made fresh each time.
 
 ---
 
@@ -225,6 +235,11 @@ silently.
 ---
 
 ## Change log
+- **v1.5** (2026-08-04) — Added a working preference: regenerate anything
+  handed across between agents from a fresh fetch before applying it, after
+  three same-day instances of an out-of-date artifact silently producing a
+  wrong verdict (a shallow clone, a blocked local `git pull`, a patch built
+  on a pre-docstring base).
 - **v1.4** (2026-08-04) — Added a working preference: run
   `copernicus-web/governance/check_citations.py` after any cleanout and before
   committing governance edits, after a cleanout left two dead citations in
