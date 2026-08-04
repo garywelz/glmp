@@ -1083,6 +1083,13 @@ gated migration, verified at every phase, in `copernicus-web`:
     corpus: syntax-clean, content/correctness unverified — not "provisional
     pending the same GLMP decision."**
 
+    **The note also lives where a reader would actually see it, not just
+    here.** This to-do isn't what someone browsing the charts consults —
+    added the same syntax-vs-correctness caveat directly to the live
+    catalog page a real reader lands on (`mathematics-database-table.html`
+    header, `copernicus-web@f14209ab7`), and verified it live on the
+    deployed GCS page after publishing, not just committed to git.
+
     Closed PR `cursor/mathematics-database-flowchart-errors-d178` (item 28)
     fixed real Mermaid rendering bugs — `style` directives concatenated onto
     node/edge statements, invalid `{[...]}` decision-node syntax, raw HTML
