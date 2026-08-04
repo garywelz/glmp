@@ -1,0 +1,64 @@
+name: Published artifact drift check
+
+# Read-only. Never deploys, never touches GCS credentials -- every object in
+# .github/published-artifacts.tsv is world-readable, so this only ever curls
+# the public URL and diffs it against the repo source. Deploy stays manual.
+#
+# Trigger behavior is deliberately asymmetric:
+#   - push to main: check runs and reports (warning annotation on drift), but
+#     never fails the build. A repo edit landing before its manual GCS deploy
+#     catches up is the normal, expected gap this whole thing exists to make
+#     visible -- failing the build for that would just be noise every time
+#     someone edits a published doc, and noisy CI gets ignored.
+#   - schedule / workflow_dispatch: same check, but drift or an unreadable
+#     manifest fails the job. This is the "has a gap gone unnoticed" signal,
+#     and it's supposed to be loud.
+on:
+  push:
+    branches: [main]
+  schedule:
+    # 13:00 UTC Mon-Fri = 9am ET (EDT); shifts to 8am during EST. Good enough
+    # for a "did this drift silently" nudge -- not scheduling anything
+    # time-sensitive.
+    - cron: "0 13 * * 1-5"
+  workflow_dispatch: {}
+
+jobs:
+  check-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check published artifacts against repo sources
+        id: drift
+        run: |
+          set +e
+          bash scripts/check-published-drift.sh
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Report result
+        run: |
+          code="${{ steps.drift.outputs.exit_code }}"
+          event="${{ github.event_name }}"
+
+          case "$code" in
+            0) echo "Clean -- all published artifacts match their repo sources." ;;
+            1) echo "::warning::Published-artifact drift detected -- see the 'Check published artifacts against repo sources' step output for which file(s) and the exact gsutil command to redeploy." ;;
+            2) echo "::warning::Could not fetch one or more published artifacts (network/HTTP issue) -- not treated as confirmed drift." ;;
+            3) echo "::error::published-artifacts.tsv is malformed or references a missing repo file -- fix the manifest, this check can't run correctly until then." ;;
+          esac
+
+          # A broken manifest fails on every trigger, push included -- it
+          # means the check itself is broken, not just that a doc drifted.
+          if [[ "$code" == "3" ]]; then
+            exit 1
+          fi
+
+          if [[ "$event" == "push" ]]; then
+            exit 0
+          fi
+
+          if [[ "$code" != "0" ]]; then
+            exit 1
+          fi
