@@ -636,6 +636,87 @@ gated migration, verified at every phase, in `copernicus-web`:
     probe (item 21) but for structural/topological correctness rather than
     retrievability. Gary scopes execution later.
 
+34. **FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground on
+    the clicked node (2026-08-03).** Traced the frontend feature
+    (`knowledge-engine` → Knowledge Map → click a node → "🧠 Node Explanation") to
+    `/api/rag/answer` on `copernicus-podcast-api-phzp4ie2sq-uc.a.run.app`. Reproduced
+    directly against the live endpoint, not inferred from the UI:
+    - **Test 1** — real paper node `biorxiv_10.64898_2026.07.02.736007` ("HERC4 limits
+      oxidative stress-induced DNA damage..."), `focus_id` set to that id,
+      `mode=paper_explanation`, question = the frontend's own template text ("Explain
+      this paper and its findings"). Result: the answer explained an unrelated paper —
+      "bioRxiv: the preprint server for biology" — never mentioning HERC4. None of the
+      50 returned sources was the clicked paper.
+    - **Test 2 (control)** — `mode=general`, no `focus_id`, a real specific question
+      ("What is the CRISPR-Cas9 mechanism?"): retrieval was genuinely on-topic (real
+      PubMed/DOI-backed papers, real podcasts, real GLMP processes), answer accurate.
+      The RAG mechanism itself works when a user types a real question.
+    **Hypothesis:** `focus_id` is not used to anchor retrieval in `paper_explanation`
+    mode — the backend runs a generic semantic search against the boilerplate question
+    text instead, which matches meta-commentary about papers-in-general rather than the
+    specific clicked document. Citations are not fabricated (real titles/DOIs from the
+    corpus), just irrelevant to the node that was clicked — the failure mode is
+    misdirected retrieval, not hallucination.
+    **Also observed, separate minor bug:** `similarity_score` is `0.0` on every source
+    in both tests, on-topic or not — the field is never populated, not just low.
+    **Open questions, not yet run:** does `concept_explanation` mode have the same bug?
+    Where in the RAG backend does `focus_id` get lost — is it reaching the vector query
+    at all? Scope is: locate the `paper_explanation`/`concept_explanation` handler in
+    `cloud-run-backend`, confirm whether `focus_id` is even read. **Not fixed** — this
+    is a live production Cloud Run service; a backend fix needs its own review, not a
+    same-session patch.
+
+35. **PROPOSE — rebuild automated science-video ingestion (2026-08-03, from papers/
+    videos growth-plan discussion).** Confirmed via `sciencevideodb`'s own README:
+    there is currently **no automated ingestion running at all** — the 582-video
+    catalog is a static JSON snapshot on GCS, last touched by a "now-inactive process."
+    A real, tested YouTube API client (10/10 tests passing) exists but sits in a
+    separate, dormant `github.com/garywelz/sciencevideodb` monorepo (last active
+    December 2025), disconnected from any working database, search, or frontend.
+    "Increase the video rate" is therefore a rebuild-first problem, not a tuning
+    problem — there is no live cadence to speed up.
+    **Needs scoping, not yet built:**
+    - Decide: resurrect the dormant repo's ingestion client, or write a smaller one
+      against the current static-catalog architecture (channel list → oEmbed/YouTube
+      Data API → append to `videos-metadata.json` on GCS, same shape as today's file).
+    - Decide where new videos land — today there's no database, just a GCS JSON file;
+      channel-attribution bugs already found once this way (item 27) argue for some
+      verification step on ingest, not raw appends.
+    - Cron/schedule equivalent to the paper scout pattern (Jetson cron, or a Cloud Run
+      scheduled job — video ingestion doesn't obviously need Jetson's edge placement
+      the way the paper scout does). Cron/schedule design is Cursor's domain per
+      `AGENT_ROLES.md`.
+    Queue entry only — design and execution ownership still to be decided.
+
+36. **PROPOSE — domain-tuned scouts for GLMP and ATAP frontiers (promoted from
+    backlog, rescoped 2026-08-03).** Original note: current scouts aren't tuned to
+    either engine's actual research frontier, only to a coarse `discipline` field
+    (biology: 29,184, mathematics: 17,153 papers). Rescoped after reading the live
+    scout config directly:
+    - **GLMP side is partially already true.** `daily_scout_config.json` (v2.0) is
+      already 100% biology/GLMP-tuned — 10 PubMed query clusters on gene regulation,
+      operons, regulatory circuits, synthetic biology, key GLMP-relevant authors/labs
+      (Voigt, Weissman, Regev, Yanofsky, Schleif, Stormo), plus arXiv q-bio categories
+      and bioRxiv subject filters. What it is **not** tuned to: `research_focus.json`'s
+      actual active frontier questions — it's discipline-relevant, not
+      frontier-relevant. Gap is narrower than the original note assumed.
+    - **ATAP side has no active scout at all.** No math/logic/algorithms query set
+      exists anywhere in `daily_scout_config.json` — `sources.nasa_ads` is even
+      disabled. ATAP's 17,153-paper corpus is not growing via any automated
+      acquisition today; unclear by what process it grew historically (likely manual/
+      `progframe`-side work, per `AGENT_ROLES.md`'s migration note).
+    **Needs scoping, not yet built:**
+    - A parallel `atap_scout_config.json`-equivalent: query clusters against ATAP's
+      `research_focus.json` frontier (axiomatic theories, algorithm-capsule
+      regularity, the n=3 pattern), not just "mathematics" broadly — same
+      discipline-vs-frontier gap as GLMP's, but starting from zero instead of partial.
+    - Whether ATAP papers should route through PubMed/bioRxiv/arXiv (arXiv `math.*`
+      categories, most likely) or need a different source entirely (MathSciNet/
+      zbMATH-style, if accessible) — not evaluated yet.
+    - Re-tune GLMP's existing config against `research_focus.json` specifically, not
+      just add ATAP from scratch — same frontier-vs-discipline fix applies to both.
+    Supersedes the backlog note below — tracked here, not there.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
@@ -649,15 +730,9 @@ gated migration, verified at every phase, in `copernicus-web`:
 - Descript API parallel experiment (never replace ElevenLabs).
 - Rename papers-database-table.html → metadata-database.html.
 - Biologist engagement: Lents after Krampis; widen pool.
-- **Build domain-specific GLMP and ATAP scouts** (2026-08-03, from CopernicusAI
-  Core positioning review). Current scouts aren't domain-tuned to either
-  engine's frontier — confirmed while checking the corpus for a defensible
-  "papers relevant to GLMP/ATAP" number: the only queryable signal is a
-  coarse `discipline` field (biology: 29,184; mathematics: 17,153 papers,
-  verified via Firestore count aggregation), not a regulatory-biology- or
-  logic-specific filter. A scout tuned to each engine's actual frontier
-  (not just broad discipline) would make that number real instead of a
-  discipline-level proxy.
+- ~~Build domain-specific GLMP and ATAP scouts~~ — promoted to item 36 above
+  (2026-08-03), rescoped against the live scout config rather than left as a
+  one-line note.
 
 ## Reminder to self
 Gary is a logician, not a biologist. Biological claims (bucket assignments, mechanism, PWM
