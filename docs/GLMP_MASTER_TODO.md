@@ -717,6 +717,51 @@ gated migration, verified at every phase, in `copernicus-web`:
       just add ATAP from scratch — same frontier-vs-discipline fix applies to both.
     Supersedes the backlog note below — tracked here, not there.
 
+37. **PROPOSE — growth plan: paper/video acquisition + podcast-to-video pipeline
+    (2026-08-03, design-only, queue entry).** Full draft grounded in direct
+    inspection of the live scout config, `sciencevideodb`'s README,
+    `podcast_generation_service.py`, and three prior December-2025 planning docs in
+    `copernicus-web/docs/` (`DESCRIPT_INTEGRATION_THOUGHTS.md`,
+    `docs/video/VIDEO_GRAPHICS_INTEGRATION_ANALYSIS.md`,
+    `docs/video/VIDEO_FEATURE_ROADMAP.md` — architecture-only, never implemented
+    beyond dead scaffolding). Covers, at a summary level (full plan not yet filed
+    in a repo — currently a local draft pending Gary/Claude Chat review):
+    - **Papers:** tune before scaling — item 36 (frontier-tuned scouts) should land
+      before raising `daily_scout_config.json`'s volume caps; enable the
+      already-wired-but-disabled NASA ADS source as a free win.
+    - **Videos:** item 35 covers this — no dependency either direction.
+    - **Podcast-to-video, gradual:** four phases — (A) inline graphics shown in the
+      web player, no video file; (B) short animations (Matplotlib/Plotly); (C)
+      timed still-frame sequences (A+B's assets, timestamped); (D) full MP4
+      composition via FFmpeg/MoviePy, reusing the real-but-unfinished
+      `VideoGenerationService` scaffolding and the marked-but-commented-out
+      extension point at `podcast_generation_service.py:2618-2630`. Descript stays
+      optional manual-polish only, per the Dec-2025 analysis's conclusion (its API
+      doesn't cover graphics/overlay/timeline composition) — never load-bearing for
+      the automated pipeline.
+    - **FINDING, confirmed via full-repo grep:** podcast generation today sources
+      content from **live external PubMed/arXiv search**
+      (`research_pipeline.py`), not from the internal 63k-paper corpus or any
+      process/flowchart collection (`glmp_processes`, `atap_graphs`, etc.) — the
+      podcast pipeline and the knowledge base are fully disconnected systems today.
+      Fixing this is a prerequisite for KB-sourced podcasts, not a side effect of
+      anything already built.
+    - **Dependency flag:** a KB-sourced content path should NOT route through the
+      `/api/rag/answer` endpoint — item 34 already found it doesn't reliably anchor
+      on a specific requested document. Recommend a direct Firestore read by
+      process/paper ID instead, which also sidesteps the dependency entirely since
+      the pilot always knows exactly which process it wants.
+    - **Pilot scope:** GLMP + ATAP first (richest structured source material,
+      already-curated citations — e.g. `research_focus.flagged`'s existing lac
+      operon seed), Phase A only (inline graphics, no animation/video yet). The one
+      genuinely net-new technical piece: **no Mermaid→image renderer exists
+      anywhere in the repo** (confirmed via grep; `mermaid_images/` samples are a
+      manual one-off, not a script's output) — building this is the pilot's real
+      dependency, everything else in Phase A is assembly of existing pieces.
+    **Ownership:** backend/pipeline work (Cloud Run service code, Jetson/cron
+    scheduling) — Cursor's domain to execute per `AGENT_ROLES.md`. Design-only for
+    now; not built, not scheduled, not assigned.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
