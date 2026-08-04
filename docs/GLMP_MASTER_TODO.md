@@ -696,23 +696,75 @@ gated migration, verified at every phase, in `copernicus-web`:
     unclear which is canonical), not a separate issue — not proposed for
     archival given its entanglement with this open question.
 
-33. **AUDIT (scoped, not run) — `loops`/`feedbackEdges` may be blind to a
-    duplicate-node pattern corpus-wide.** Surfaced 2026-08-02 while
-    fact-checking a Zenodo-cited lac operon record. `loops`/`feedbackEdges`
-    are computed mechanically from Mermaid-graph cycle detection
-    (`scripts/mermaid_graph.py` / `backfill_loops.py`), not curated. If one
-    biological entity is given two node IDs (e.g. permease modeled as both
-    `G[Lactose Permease LacY]` and `PP[Lactose Permease]`), a real feedback
-    cycle renders as a straight-line path and the detector correctly reports
-    `loops: 0` for a graph that should show a loop — a false negative, not a
-    bug in the detector. `ecoli_lac_operon` was caught only because a human
-    curator separately noticed the inconsistency and left a
+33. **AUDIT — `loops`/`feedbackEdges` blind to a duplicate-node pattern
+    corpus-wide — RUN, candidates identified (2026-08-04, Gary's go).**
+    Surfaced 2026-08-02 while fact-checking a Zenodo-cited lac operon record.
+    `loops`/`feedbackEdges` are computed mechanically from Mermaid-graph cycle
+    detection (`scripts/mermaid_graph.py` / `backfill_loops.py`), not curated.
+    If one biological entity is given two node IDs (e.g. permease modeled as
+    both `G[Lactose Permease LacY]` and `PP[Lactose Permease]`), a real
+    feedback cycle renders as a straight-line path and the detector correctly
+    reports `loops: 0` for a graph that should show a loop — a false
+    negative, not a bug in the detector. `ecoli_lac_operon` was caught only
+    because a human curator separately noticed the inconsistency and left a
     `circuitClassNeedsReview: true` rationale note; nothing forces that catch
-    to happen. **Scope, don't run yet:** how many other corpus records show
-    `loops: 0` (or `feedbackEdges: 0`) with no such review flag — same defect,
-    uncaught. Presence-without-correctness, same family as the findability
-    probe (item 21) but for structural/topological correctness rather than
-    retrievability. Gary scopes execution later.
+    to happen.
+
+    **Corpus scan** (`glmp-v2/processes/**/*.json`, current versions only —
+    217 total): **85 processes show `loops: 0`** (identical count for
+    `feedbackEdges: 0` — the two are perfectly correlated in this corpus).
+    Of those, **77 carry no `circuitClassNeedsReview` flag** — the exact
+    uncaught-defect population this item exists to find.
+
+    **Heuristic pass to prioritize those 77**, not just count them: extracted
+    node-ID → label pairs from each Mermaid source (reusing the same
+    `parse_mermaid`-adjacent bracket syntax, separately since the existing
+    parser strips labels before cycle detection) and checked for duplicate or
+    near-duplicate labels on different node IDs — the actual signature of the
+    `ecoli_lac_operon` defect. Verified the method first against the known
+    case before trusting it on the rest: correctly found `G`/`PP` ("Lactose
+    Permease LacY" / "Lactose Permease", a substring relationship, not exact)
+    in the already-flagged file.
+
+    Result, tiered by confidence:
+    - **11 processes with an exact-label duplicate** (highest priority —
+      identical text on two different node IDs): `bacillus_sporulation_initiation`,
+      `ecoli_e._coli_acid_resistance`, `ecoli_e._coli_flagellar_assembly`,
+      `ecoli_e._coli_two_component_signaling`, `ecoli_heat_shock_response`,
+      `ecoli_pentose_phosphate_pathway`, `ecoli_trp_operon`,
+      `yeast_gcn4_starvation`, `yeast_glycolysis`, `yeast_pka_pathway`,
+      `yeast_yeast_peroxisome_biogenesis`.
+    - **24 processes with a substring-only duplicate** (lower confidence —
+      spot-checked and much of this tier looks like ordinary biosynthesis
+      pathway naming, e.g. `ecoli_arginine_biosynthesis`'s 15 pairs are
+      mostly enzyme-name-contains-substrate-name, like "N-Acetylglutamate"
+      vs. "N-Acetylglutamate Synthase" — different, real, correctly distinct
+      entities, not the same node twice).
+    - **42 processes with no duplicate-label signal at all** — likely
+      genuinely acyclic, not misdetected.
+
+    **One false positive caught and recorded, not silently fixed:**
+    `ecoli_trp_operon`'s "exact" hit is `AZ='Tryptophan Synthase β'` ==
+    `BA='Tryptophan Synthase α'` — these are **not** duplicates, they're the
+    two real subunits of a genuine two-subunit enzyme complex. My
+    normalization strips non-ASCII characters before comparing, so it
+    collapsed `β` and `α` away and produced a false match. Flagging this
+    explicitly rather than trusting the label — the heuristic has this
+    specific, now-known blind spot (any pair distinguished only by a
+    non-ASCII character, e.g. Greek-letter subunit names) and should be
+    re-checked with unicode-aware normalization before anyone treats the
+    11-item list as final.
+
+    **Not done — explicitly needs a biologist, not Claude Code**, per this
+    doc's own standing reminder: whether each exact-duplicate candidate is a
+    real `ecoli_lac_operon`-style defect (same entity, two IDs, a hidden real
+    loop) or legitimate biology (the same intermediate/step genuinely
+    recurring at two distinct points in a process, e.g. yeast_gcn4_starvation's
+    repeated "40S Scans from Cap" could be two real ribosome-scanning events
+    in a reinitiation cycle, not one entity duplicated) is a judgment call
+    this session can scope but not make. Presence-without-correctness, same
+    family as the findability probe (item 21) but for structural/topological
+    correctness rather than retrievability.
 
 34. ~~**FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground
     on the clicked node**~~ (2026-08-03) — **FIXED AND DEPLOYED** (2026-08-04,
