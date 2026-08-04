@@ -519,16 +519,16 @@ gated migration, verified at every phase, in `copernicus-web`:
         current). **Likely stale as a mergeable diff**, but the underlying
         Mermaid-syntax bug class may still be worth checking against the real
         files independently — recommend close-with-note, not close-and-forget.
-      - `cursor/verify-and-correct-computational-pattern-counts-977c`
-        (2025-09-01) — **docs-only** (`detailed_overlap_analysis.md`,
-        `glmp_pattern_analysis.md`), zero code risk to merge. Real finding: GLMP's
-        chart counts *pattern instances*, so a process with both an AND gate and
-        an OR gate is counted twice — estimated 25-40% overcount. Distinct from
-        item 33's loops/feedbackEdges false-negative issue (different defect:
-        overcounting vs. hidden cycles), not overlapping despite both being
-        presence-vs-correctness findings. **Recommend merging the docs or at
-        least extracting the finding into a new item — this has sat
-        unactioned for 11 months and looks right.**
+      - ~~`cursor/verify-and-correct-computational-pattern-counts-977c`~~ —
+        MERGED (2026-08-04), `copernicus-web@1cf51477e`, squash, docs-only, zero
+        code changes. Real finding, not cruft: GLMP's chart counts *pattern
+        instances*, so a process with both an AND gate and an OR gate is counted
+        twice — estimated 25-40% overcount. Distinct from item 33's
+        loops/feedbackEdges false-negative issue (different defect: overcounting
+        vs. hidden cycles), not overlapping despite both being
+        presence-vs-correctness findings. Landed as `detailed_overlap_analysis.md`
+        and `glmp_pattern_analysis.md` at the `copernicus-web` repo root — this had
+        sat unactioned for 11 months and was worth keeping.
       - `cursor/sync-rss-status-with-firestore-d6f6` (2025-11-19) — touches live
         `cloud-run-backend/main.py` (116KB, confirmed still the live FastAPI
         entrypoint, drifted since Jun 29 independent of this PR's Nov 2025 base).
