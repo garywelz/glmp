@@ -511,14 +511,16 @@ gated migration, verified at every phase, in `copernicus-web`:
       low urgency given the clean scan result.
     - **The 4 open draft PRs — read in full, not judged by name** (per Claude
       Chat's caution that two might be live findings, not cruft):
-      - `cursor/mathematics-database-flowchart-errors-d178` (2026-01-04) — fixes
-        real Mermaid syntax bugs (concatenated `style` directives, invalid
-        `{[...]}` decision-node syntax) but against root-level scratch/temp files
+      - ~~`cursor/mathematics-database-flowchart-errors-d178`~~ — CLOSED
+        (2026-08-04), with rationale comment on the PR. Fixed real Mermaid syntax
+        bugs (concatenated `style` directives, invalid `{[...]}` decision-node
+        syntax, raw HTML in labels) but against root-level scratch/temp files
         (`math.html`, `tmp-binomial.html`, `sanitized_processes*/`), not the real
         corpus path (`huggingface-space/mathematics-processes-database/`, still
-        current). **Likely stale as a mergeable diff**, but the underlying
-        Mermaid-syntax bug class may still be worth checking against the real
-        files independently — recommend close-with-note, not close-and-forget.
+        current) — not a mergeable diff as it stood. **Not closed-and-forgotten:**
+        the underlying Mermaid-syntax bug class is real and worth checking against
+        the actual live corpus files independently of this branch — separate,
+        still-open follow-up, not tracked as its own item yet.
       - ~~`cursor/verify-and-correct-computational-pattern-counts-977c`~~ —
         MERGED (2026-08-04), `copernicus-web@1cf51477e`, squash, docs-only, zero
         code changes. Real finding, not cruft: GLMP's chart counts *pattern
