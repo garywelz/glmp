@@ -1068,12 +1068,20 @@ gated migration, verified at every phase, in `copernicus-web`:
     `copernicus-web` — a different repo, different files, and a different
     kind of check entirely from item 33's GLMP corpus (217 biology
     processes, `glmp-v2/processes/**/*.json`). This item never touched
-    classification, class assignments, or content correctness — only
-    whether the Mermaid syntax parses without rendering errors. It says
-    nothing about whether any chart's content is final; per Gary, none of
-    these charts (in either corpus) should be treated as final pending
-    Lents' classification review and the planned change away from the
-    5-class system.**
+    classification or content correctness — only whether the Mermaid syntax
+    parses without rendering errors. A clean syntax scan is not a clean
+    correctness scan; it says nothing about whether any chart's content is
+    final. **Correction (2026-08-04):** an earlier version of this note
+    also invoked GLMP's 5-class-system caveat as applying to this corpus
+    too — checked `atap/docs/research_focus.json` directly and that's
+    wrong. ATAP has its own, entirely separate frontier questions
+    (algorithm-capsule regularity, proof-role vocabulary adequacy, whether
+    Mermaid is even the right representation) with no mention of a 5-class
+    system or Lents-classification review — that caveat is specific to
+    GLMP's biology corpus (see item 33) and doesn't transfer here just
+    because both are "process charts." The correct, narrower claim for this
+    corpus: syntax-clean, content/correctness unverified — not "provisional
+    pending the same GLMP decision."**
 
     Closed PR `cursor/mathematics-database-flowchart-errors-d178` (item 28)
     fixed real Mermaid rendering bugs — `style` directives concatenated onto
