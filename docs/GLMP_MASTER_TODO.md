@@ -794,6 +794,34 @@ gated migration, verified at every phase, in `copernicus-web`:
     are still a floor, not a ceiling, just via a narrower gap than
     case/whitespace.
 
+    **Pre-sorted before sending to Lents (2026-08-04, Claude Chat), not
+    left as ten undifferentiated rows.** A second candidate is checkable
+    without biology, same class as the trp false positive:
+    `yeast_yeast_peroxisome_biogenesis`'s duplicate labels are the node's
+    own full text — `Pex3 (PMP Receptor)` vs. `Pex16 (PMP Receptor)`,
+    `Dnm1 (Fission Dynamin)` vs. `Vps1 (Fission Dynamin)` — two named
+    proteins sharing a role description, not one protein under two IDs.
+    Confirmed against the raw Mermaid source before accepting it. The
+    remaining nine, prior-probability sorted (Claude Chat's read, explicitly
+    not adjudication — neither of us is a biologist): four likely-fine
+    (`yeast_glycolysis`, `bacillus_sporulation_initiation`,
+    `ecoli_heat_shock_response`, `ecoli_e._coli_flagellar_assembly`) where
+    recurrence is textbook-expected; four genuinely-plausible
+    (`ecoli_pentose_phosphate_pathway`, `yeast_pka_pathway`,
+    `ecoli_e._coli_acid_resistance`, `yeast_gcn4_starvation`) where a missed
+    feedback edge fits the biology. **One catch, recorded rather than
+    silently applied:** Claude Chat's sort omitted
+    `ecoli_e._coli_two_component_signaling` from all three tiers. Checked
+    the raw Mermaid source directly before placing it anywhere: genuinely
+    mixed evidence within the one process — the duplicated "OR: ompF or
+    ompC?" decision recurring under both the high- and low-osmolarity
+    branches reads like real EnvZ/OmpR biology (not a defect), but
+    `J --> AD[High Osmolarity]` (a direct edge into a second
+    identically-labeled node) looks more like the artifact pattern. Left
+    unsorted in the Lents draft rather than forced into a tier — flagged
+    as its own row with the reasoning shown, not a confident guess dressed
+    up as a sort.
+
 34. ~~**FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground
     on the clicked node**~~ (2026-08-03) — **FIXED AND DEPLOYED** (2026-08-04,
     `copernicus-web@9b90e9ef1`, Cloud Build `cf52f050`, revision
