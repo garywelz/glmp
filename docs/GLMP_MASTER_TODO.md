@@ -622,8 +622,9 @@ gated migration, verified at every phase, in `copernicus-web`:
     regression. Both `1c0c6de30` and `36c34eaa8` are pushed to
     `origin/main`. Item 30 and its follow-ups are now fully closed.
 
-31. ~~**FINDING — exposed YouTube API key, rotation never completed**~~ —
-    RESOLVED (2026-07-30). Enabled `apikeys.googleapis.com` (was disabled)
+31. **FINDING — exposed YouTube API key, rotation never completed** —
+    PARTIALLY RESOLVED (2026-07-30); **not closed** — see the Jetson gap at
+    the end. Key deletion itself is done: enabled `apikeys.googleapis.com` (was disabled)
     and matched the old key's literal value against every API key in the
     project by content, not by label — found it under display name
     **"API key 1"** (UID `b40e3f27...`, created 2025-04-06), **not** under
@@ -656,9 +657,10 @@ gated migration, verified at every phase, in `copernicus-web`:
     credentials (not hardcoded/local `.env` values — the 2026-07-23
     credential-shaped-file sweep found none tracked in git, though that
     doesn't rule out an untracked local file), the risk is judged low but
-    not zero. **Ask for Cursor**: a quick `grep -r` for the literal old
-    key value across Jetson's env/config paths would close this
-    definitively.
+    not zero. **Ask for Cursor, still standing (2026-08-04, Gary confirmed
+    keep open rather than accept the residual risk)**: a quick `grep -r` for
+    the literal old key value across Jetson's env/config paths would close
+    this definitively. Item stays open until that runs.
 
 32. **FINDING — `programming_framework` index.html has diverged from the
     deployed Space, unclear which is current (2026-07-30, surfaced during
