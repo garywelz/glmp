@@ -472,9 +472,25 @@ gated migration, verified at every phase, in `copernicus-web`:
       file was never served (Space `sdk` is `static`) and its own text
       described the same fictional architecture just corrected elsewhere.
     Space confirmed `RUNNING` at `6d452b4` post-deploy (HF Spaces API).
-28. **GitHub housekeeping** (split from former item 12). Unspecified —
-    needs scoping (stale branches? README updates? issue triage?) before
-    it's actionable.
+28. **GitHub housekeeping** (split from former item 12). Partially scoped
+    2026-08-04, one piece done:
+    - ~~`copernicus-web` README~~ — DONE (`0277e89b2`). Rewrote it as the monorepo
+      it actually is; the old one had described it as a standalone Spotify podcast
+      site since a June 2025 initial commit, unchanged by a later, misleadingly-
+      titled "Complete update" commit. Verified via a full unshallow (repo was a
+      shallow 69-commit clone locally, real history is 268 commits) that nothing
+      else was pending against the file before overwriting it.
+    - **New, found doing the above:** `copernicus-web` has **4 open draft PRs, all
+      stale** — `cursor/mathematics-database-flowchart-errors-d178` (2026-01-04),
+      `cursor/sync-rss-status-with-firestore-d6f6` (2025-11-19),
+      `cursor/verify-and-correct-computational-pattern-counts-977c` (2025-09-01),
+      `cursor/fix-podcast-generation-system-issues-a5f1` (2025-08-31). None touch
+      `README.md`. Not reviewed for content merit or safety to close — just
+      confirmed they exist and are old. Real housekeeping candidates once someone
+      decides merge/close/rescope for each.
+    - Still unspecified: whether "housekeeping" extends beyond `copernicus-web` to
+      the other five suite repos, and whether issue triage is in scope at all (no
+      open issues checked yet, only PRs).
 29. **PROPOSE — GLMP Daily Brief / Collaborator Window** (recombined
     2026-07-30 — briefly split into former items 29-30, merged back since
     they're one artifact, not two independent builds; design task, not
