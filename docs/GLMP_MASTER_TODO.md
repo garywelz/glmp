@@ -472,25 +472,79 @@ gated migration, verified at every phase, in `copernicus-web`:
       file was never served (Space `sdk` is `static`) and its own text
       described the same fictional architecture just corrected elsewhere.
     Space confirmed `RUNNING` at `6d452b4` post-deploy (HF Spaces API).
-28. **GitHub housekeeping** (split from former item 12). Partially scoped
-    2026-08-04, one piece done:
+28. **GitHub housekeeping** (split from former item 12). Scope decided
+    2026-08-04 (Gary, via Claude Chat): **`copernicus-web`-only for now** — the
+    other five suite repos go on a separate future list, not folded into this
+    item.
     - ~~`copernicus-web` README~~ — DONE (`0277e89b2`). Rewrote it as the monorepo
       it actually is; the old one had described it as a standalone Spotify podcast
       site since a June 2025 initial commit, unchanged by a later, misleadingly-
       titled "Complete update" commit. Verified via a full unshallow (repo was a
       shallow 69-commit clone locally, real history is 268 commits) that nothing
       else was pending against the file before overwriting it.
-    - **New, found doing the above:** `copernicus-web` has **4 open draft PRs, all
-      stale** — `cursor/mathematics-database-flowchart-errors-d178` (2026-01-04),
-      `cursor/sync-rss-status-with-firestore-d6f6` (2025-11-19),
-      `cursor/verify-and-correct-computational-pattern-counts-977c` (2025-09-01),
-      `cursor/fix-podcast-generation-system-issues-a5f1` (2025-08-31). None touch
-      `README.md`. Not reviewed for content merit or safety to close — just
-      confirmed they exist and are old. Real housekeeping candidates once someone
-      decides merge/close/rescope for each.
-    - Still unspecified: whether "housekeeping" extends beyond `copernicus-web` to
-      the other five suite repos, and whether issue triage is in scope at all (no
-      open issues checked yet, only PRs).
+    - **Issue triage:** DONE, trivially — zero open issues on `copernicus-web`.
+    - **GitHub Actions:** DONE, trivially — no `.github/workflows/` configured at
+      all; the only run in the repo's history is GitHub's own automatic
+      Dependency Graph bot (pip, `/papers`, 2026-06-10), not a custom workflow.
+    - **Full-history credential scan (2026-08-04), requested by Claude Chat**
+      after noticing `bfg-1.14.0.jar` committed twice in this repo — BFG's only
+      purpose is stripping secrets from history, so something was apparently
+      scrubbed at some point, but that alone doesn't confirm completeness.
+      Unshallowed and checked 9 secret-shape pattern classes (OpenAI, Google API
+      key, GitHub PAT, AWS key, Slack token, Google OAuth token, PEM private-key
+      blocks, GCP service-account `"private_key":` JSON field, Twilio-style SID)
+      across full history using commit-listing-only greps (`git log -G`, never
+      `-p` on a match — no secret content was ever printed, per the standing
+      credential-handling rule). **Result: every hit traced to a false positive**
+      — vendored third-party library source (`google-auth`, `python-rsa`,
+      `googleapiclient`, inside three different committed venvs, since untracked)
+      whose own code legitimately contains strings like `"private_key":` and PEM
+      headers as parsing constants, plus a browser-saved webpage snapshot
+      (`podcastwothumbnails.html` + `_files/`) whose Google CDN URL parameters
+      coincidentally match the Google-API-key shape. No real secret found in
+      current reachable history. Caveat, inherent to the method: a scan of
+      post-purge history can't see whatever a genuine BFG run already removed —
+      this confirms nothing *currently reachable* is exposed, not that the BFG
+      jar's presence is explained. The jar's own commits carry no message
+      referencing a purge; more likely an accidental byproduct of a bulk sweep
+      than evidence of a deliberate, completed rewrite. Unresolved either way,
+      low urgency given the clean scan result.
+    - **The 4 open draft PRs — read in full, not judged by name** (per Claude
+      Chat's caution that two might be live findings, not cruft):
+      - `cursor/mathematics-database-flowchart-errors-d178` (2026-01-04) — fixes
+        real Mermaid syntax bugs (concatenated `style` directives, invalid
+        `{[...]}` decision-node syntax) but against root-level scratch/temp files
+        (`math.html`, `tmp-binomial.html`, `sanitized_processes*/`), not the real
+        corpus path (`huggingface-space/mathematics-processes-database/`, still
+        current). **Likely stale as a mergeable diff**, but the underlying
+        Mermaid-syntax bug class may still be worth checking against the real
+        files independently — recommend close-with-note, not close-and-forget.
+      - `cursor/verify-and-correct-computational-pattern-counts-977c`
+        (2025-09-01) — **docs-only** (`detailed_overlap_analysis.md`,
+        `glmp_pattern_analysis.md`), zero code risk to merge. Real finding: GLMP's
+        chart counts *pattern instances*, so a process with both an AND gate and
+        an OR gate is counted twice — estimated 25-40% overcount. Distinct from
+        item 33's loops/feedbackEdges false-negative issue (different defect:
+        overcounting vs. hidden cycles), not overlapping despite both being
+        presence-vs-correctness findings. **Recommend merging the docs or at
+        least extracting the finding into a new item — this has sat
+        unactioned for 11 months and looks right.**
+      - `cursor/sync-rss-status-with-firestore-d6f6` (2025-11-19) — touches live
+        `cloud-run-backend/main.py` (116KB, confirmed still the live FastAPI
+        entrypoint, drifted since Jun 29 independent of this PR's Nov 2025 base).
+        The script it recreates, `sync_rss_status.py`, already exists today —
+        but only under `archive/one_off_scripts/root/`, meaning someone already
+        independently judged this exact tool a spent one-off. **Likely
+        superseded**, high conflict risk if force-merged given the drift; the
+        underlying discrepancy (Firestore `submitted_to_rss` lagging the real RSS
+        feed) is a separate, current question worth checking fresh rather than
+        resurrecting this branch.
+      - `cursor/fix-podcast-generation-system-issues-a5f1` (2025-08-31, oldest) —
+        targets `cloud-run-backend/main_google.py`, which **no longer exists** on
+        main at all. **Confirmed stale** — safe to close, the file it patches is
+        gone.
+    - Still unspecified: whether GitHub housekeeping should also cover the other
+      five repos eventually (deferred per the scope decision above, not forgotten).
 29. **PROPOSE — GLMP Daily Brief / Collaborator Window** (recombined
     2026-07-30 — briefly split into former items 29-30, merged back since
     they're one artifact, not two independent builds; design task, not
