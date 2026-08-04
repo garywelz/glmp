@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.3 — August 3, 2026
+**Version:** 1.4 — August 4, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -182,6 +182,12 @@ the repo.
 - Cursor reports in a four-section format:
   **what I found / what I did / what I'm uncertain about / what to discuss with Gary.**
 - GitHub (`garywelz`) is the canonical source of truth for all repositories.
+- **Run `copernicus-web/governance/check_citations.py` after any cleanout that
+  moves files out of the tree, and before committing governance edits.** Added
+  2026-08-04 after a cleanout left two dead file-path citations in
+  `RESOURCE_MANIFEST.md` (the underlying facts were correct; only the evidence
+  pointers rotted). The cleanout is the actual trigger — it's the step that
+  silently breaks a citation, not the governance edit itself.
 
 ---
 
@@ -219,6 +225,10 @@ silently.
 ---
 
 ## Change log
+- **v1.4** (2026-08-04) — Added a working preference: run
+  `copernicus-web/governance/check_citations.py` after any cleanout and before
+  committing governance edits, after a cleanout left two dead citations in
+  `RESOURCE_MANIFEST.md`.
 - **v1.3** (2026-08-03) — Added CI/GitHub Actions ownership section: Claude Code owns
   workflows for repos it already does self-contained work in (not Jetson/cron/pipeline
   CI, which stays Cursor's); read-only vs. side-effecting CI is the approval-relevant
