@@ -818,9 +818,25 @@ gated migration, verified at every phase, in `copernicus-web`:
     branches reads like real EnvZ/OmpR biology (not a defect), but
     `J --> AD[High Osmolarity]` (a direct edge into a second
     identically-labeled node) looks more like the artifact pattern. Left
-    unsorted in the Lents draft rather than forced into a tier — flagged
-    as its own row with the reasoning shown, not a confident guess dressed
-    up as a sort.
+    unsorted rather than forced into a tier — flagged as its own row with
+    the reasoning shown, not a confident guess dressed up as a sort.
+
+    **Moved from a named draft to an open pre-registration (2026-08-04,
+    Claude Chat, `6aa8cd4`).** The candidate list now lives at
+    `docs/open-questions/loop-audit-candidates-2026-08-04.md` — addressed
+    to nobody, not gated on Lents specifically, predictions recorded
+    *before* any ruling so the pre-sort's own precision becomes measurable
+    once rulings arrive (an "Outcome" column per row). The two false
+    positives are named as a characterized error mode of the heuristic
+    there, not just worked examples. Old location
+    (`collaborations/krampis-virtual-cell/lents-questions-....md`, named
+    for a reviewer who'd never seen or agreed to it) removed from the
+    working tree — **still reachable in `glmp`'s public history at commit
+    `954e6f0`**, since `git rm` does not erase history. Whether that
+    warrants a history rewrite is explicitly Gary's call, not decided or
+    executed here. The CRP PWM question (item 26) was deliberately not
+    carried into the new file — it stays a Lents-specific scheduling fact,
+    not an open question anyone can adjudicate.
 
 34. ~~**FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground
     on the clicked node**~~ (2026-08-03) — **FIXED AND DEPLOYED** (2026-08-04,
