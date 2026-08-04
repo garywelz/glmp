@@ -853,6 +853,23 @@ gated migration, verified at every phase, in `copernicus-web`:
     the design intentionally avoids. Live self-reporting lives at
     `/media/sdcard/status/` + GCS, not in this git file.
 
+39. **Check the real ATAP/mathematics corpus for the Mermaid syntax bugs found in
+    PR #5 (promoted 2026-08-04, not yet scoped or run).** Closed PR
+    `cursor/mathematics-database-flowchart-errors-d178` (item 28) fixed real
+    Mermaid rendering bugs — `style` directives concatenated onto node/edge
+    statements, invalid `{[...]}` decision-node syntax, raw HTML embedded in
+    labels, all causing intermittent parse failures — but only against
+    root-level scratch/temp copies (`math.html`, `tmp-binomial.html`,
+    `sanitized_processes*/`), never against the real corpus path
+    (`huggingface-space/mathematics-processes-database/`). **Whether these same
+    defect patterns exist in the actual live files was never checked** — the PR
+    never touched them, so its existence proves nothing either way about the
+    real corpus's health. Needs: a scan of the live `mathematics-processes-database/`
+    HTML/Mermaid files for the three specific patterns above, then a decision on
+    whether any found instances warrant a fresh, correctly-scoped fix (reusing
+    PR #5's diagnosis, not its diff, since that diff targets files that no
+    longer matter).
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
