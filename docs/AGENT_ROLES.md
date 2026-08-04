@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.2 — July 23, 2026
+**Version:** 1.3 — August 3, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -60,6 +60,26 @@ The working split, subject to revision as we learn:
 
 This boundary is a starting hypothesis, not a rule. Overlap is expected while we evaluate
 where each tool is strongest.
+
+### CI / GitHub Actions ownership — **(evaluating)**
+Established by precedent, not yet a settled rule: **Claude Code authors and maintains
+GitHub Actions workflows** for repos it already does self-contained quality/deployment
+work in — this fits the same "reads and acts autonomously on a single repo" profile as
+its other work, and needs no Jetson/SSH access. First instance: `glmp`'s
+`published-drift-check.yml` (added 2026-08-03), a read-only check that curls each
+published artifact and diffs it against the repo source.
+
+This does **not** extend to workflows that touch Jetson, cron, or the ingest/decode
+pipeline — that stays Cursor's, per the boundary above.
+
+**Read-only vs. side-effecting CI is the load-bearing distinction, not "who wrote it":**
+- A read-only check (drift detection, link validation, lint) can run unattended on a
+  schedule or every push — no dialogue needed per-run, the same way a passing test suite
+  doesn't need Gary's sign-off each time.
+- Any workflow that would *deploy*, *publish*, or otherwise change GCS/HF/production state
+  needs the same propose-then-wait approval as a manual deploy would, whether or not a
+  human is literally typing the command. Nothing like this exists yet — flagging it now so
+  the first one doesn't get waved through just because it's "just CI."
 
 ---
 
@@ -199,6 +219,11 @@ silently.
 ---
 
 ## Change log
+- **v1.3** (2026-08-03) — Added CI/GitHub Actions ownership section: Claude Code owns
+  workflows for repos it already does self-contained work in (not Jetson/cron/pipeline
+  CI, which stays Cursor's); read-only vs. side-effecting CI is the approval-relevant
+  distinction, not authorship. Anchored to the first instance, `glmp`'s
+  `published-drift-check.yml`.
 - **v1.2** (2026-07-23) — Added a standing credential-handling rule (never print
   secret-shaped files in full; targeted greps for presence/suffix only; flag immediately if
   a credential reaches output) after a live OpenAI key was found in a plaintext `.env` file
