@@ -873,28 +873,39 @@ gated migration, verified at every phase, in `copernicus-web`:
     PR #5's diagnosis, not its diff, since that diff targets files that no
     longer matter).
 
-40. **FINDING (Core-scoped) — trace propagation of the pre-correction
-    computational pattern counts, before treating PR #977c's merge as
-    "handled" (2026-08-04, flagged by Claude Chat).** PR
-    `cursor/verify-and-correct-computational-pattern-counts-977c` (merged as
-    docs into `copernicus-web@1cf51477e`, see item 28) documents a real
-    25-40% overestimate: GLMP's chart counts *pattern instances*, so a process
-    exhibiting both an AND gate and an OR gate is counted twice. **The merge is
-    the small part.** Merging the correction into docs does not answer whether
-    the inflated, pre-correction numbers already propagated elsewhere —
-    the Programming Framework Space, the discipline database tables, a
-    process-count claim in a paper draft, or a Zenodo deposit. If a deposited
-    paper carries the inflated figure, that's an erratum against a published
-    record, not a docs fix. **This is exactly the "presence is not
-    findability" failure the reorg plan's Part 5 describes, applied to a
-    finding instead of a paper** — an eleven-month-old correct analysis that
-    sat in an open PR is not the same as the correction having reached
-    everywhere the wrong number was used. **Not yet scoped:** enumerate every
-    surface that cites a GLMP pattern-prevalence count, check each against the
-    corrected analysis, and determine whether any published figure (paper,
-    Space, Zenodo record) needs a correction rather than a silent docs update.
-    Core-scoped — the corpus and the published record are both in this
-    project's scope, regardless of which repo the number physically lives in.
+40. ~~**FINDING (Core-scoped) — trace propagation of the pre-correction
+    computational pattern counts**~~ — RESOLVED (2026-08-04). Traced the exact
+    figures the analysis corrects (243 "pattern instances" / 545 visualizations
+    / 45.1% prevalence, broken down OR 110, NOT 45, Feedback 31, AND 17, State
+    Machines ~25, Decision Trees ~15 — from `detailed_overlap_analysis.md` and
+    `glmp_pattern_analysis.md`, both merged into `copernicus-web` this session)
+    across every surface item 40 named:
+    - **Live GLMP Space** (`hf-spaces/glmp`, both `index.html` and `README.md`):
+      not present. Git history shows `545` *was* present as of an Aug/Oct 2025
+      snapshot, but a large October 15, 2025 rewrite (`905df3e`, -869/+423
+      lines) removed it — incidentally, not as a deliberate correction, but
+      the wrong figure has been off the live page for over a year regardless.
+      No current pattern-prevalence stat under any other numbers exists on the
+      page at all — nothing to correct because nothing quantitative is
+      claimed there now.
+    - **Programming Framework Space, CopernicusAI Core Space, the GCS database
+      table** (`glmp-database-table.html`): no match, any of the three figures.
+    - **The deposited Zenodo methods paper** — the highest-stakes surface,
+      checked directly: `collaborations/krampis-virtual-cell/mermaid-perturbation-design-zenodo.md`
+      (source for DOI `10.5281/zenodo.20831780`) — no match. No erratum
+      needed; the deposited record never carried this figure.
+    - **Paper drafts and proposals** (`nsf-proposal/`, `doe-proposal/`,
+      `papers/` in `copernicus-web`): every apparent hit traced individually
+      and confirmed noise — all matches on "545" were the unrelated retrieval
+      metric `nDCG@10 = 0.545` (a different evaluation entirely), one "243"
+      hit was a journal page-range citation. No genuine occurrence anywhere.
+    **Conclusion: nothing to correct.** The inflated figure was live on the
+    GLMP Space roughly a year ago, was already gone before this month's audit
+    ever started, and never reached the deposited paper, the other Spaces, or
+    any draft document. PR #977c's merge (`copernicus-web@1cf51477e`) can be
+    treated as fully handled — the concern that prompted this item (a merge
+    reading as "done" while a public record still carried the error) does not
+    apply here; verified, not assumed.
 
 41. **File cross-suite GitHub housekeeping findings, not executed (2026-08-04).**
     Full survey in `docs/GITHUB_HOUSEKEEPING_TODO.md` (this repo) — item 28 was
