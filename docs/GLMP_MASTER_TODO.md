@@ -781,6 +781,22 @@ gated migration, verified at every phase, in `copernicus-web`:
     explains HERC4/oxidative-stress-induced DNA damage — the same bug, on the
     same live service, now produces correct output. Item fully closed.
 
+    **Two follow-up checks Claude Chat raised, both closed clean:**
+    - **Cache risk** — none. Confirmed by calling the live endpoint twice with
+      the identical question + `focus_id`: `generated_at` differed by seconds
+      both times, proving no response is ever cached or replayed. No
+      `cache-control`/`age`/`x-cache` headers, no caching code in
+      `rag_service.py`/`routes.py`, no stored-answers Firestore collection
+      found anywhere in `cloud-run-backend`. The fix reaches every future
+      query immediately; nothing needed invalidating.
+    - **Was the concatenation bug a pattern, not one call site?** No —
+      checked every `embed_text()`/`search_semantic()` call site in
+      `cloud-run-backend`. Every other one builds its embedding text from a
+      proper `create_text_for_X(data)` content builder (title/abstract/
+      description); the dev/test CLI scripts take plain user queries with no
+      ID involved. `f"{question} {focus_id}"` was genuinely isolated to the
+      one call site already fixed.
+
 35. **PROPOSE — rebuild automated science-video ingestion (2026-08-03, from papers/
     videos growth-plan discussion).** Confirmed via `sciencevideodb`'s own README:
     there is currently **no automated ingestion running at all** — the 582-video
@@ -980,6 +996,22 @@ gated migration, verified at every phase, in `copernicus-web`:
       an oversight. Flagged, not prescribed.
     Owner per finding is noted above; nothing in this item is Claude Code's to
     execute unilaterally — visible actions on other repos need their own go.
+
+42. **PROPOSE — surface item 34's fallback path as a self-reporting counter,
+    not a Cloud Run log line (2026-08-04, Claude Chat).** The RAG grounding
+    fix (item 34) falls back to semantic-only retrieval when `focus_id`
+    doesn't resolve to any known document, logging a `structured_logger.warning`
+    and nothing else. If that path starts firing regularly in production — a
+    frontend bug sending malformed IDs, a renamed process ID no longer
+    matching, a new content collection not yet added to `_FOCUS_ID_COLLECTIONS`
+    — the symptom is exactly item 34's original bug, silently returning,
+    invisible unless someone goes looking in Cloud Run logs by hand. Not
+    scoped or built: needs a persistence mechanism (a Firestore counter
+    written on each fallback, or a Cloud Monitoring log-based metric) plus a
+    read path into `glmp`'s AUTO-STATUS, matching the `findability_probe.py` →
+    `read_findability_status()` pattern already established for item 21.
+    Cross-repo (counter lives in `copernicus-web`, surfaced in `glmp`) —
+    same shape as item 34 itself.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
