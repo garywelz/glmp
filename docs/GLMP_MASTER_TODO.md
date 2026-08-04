@@ -1062,22 +1062,47 @@ gated migration, verified at every phase, in `copernicus-web`:
     the design intentionally avoids. Live self-reporting lives at
     `/media/sdcard/status/` + GCS, not in this git file.
 
-39. **Check the real ATAP/mathematics corpus for the Mermaid syntax bugs found in
-    PR #5 (promoted 2026-08-04, not yet scoped or run).** Closed PR
-    `cursor/mathematics-database-flowchart-errors-d178` (item 28) fixed real
-    Mermaid rendering bugs — `style` directives concatenated onto node/edge
-    statements, invalid `{[...]}` decision-node syntax, raw HTML embedded in
-    labels, all causing intermittent parse failures — but only against
-    root-level scratch/temp copies (`math.html`, `tmp-binomial.html`,
-    `sanitized_processes*/`), never against the real corpus path
-    (`huggingface-space/mathematics-processes-database/`). **Whether these same
-    defect patterns exist in the actual live files was never checked** — the PR
-    never touched them, so its existence proves nothing either way about the
-    real corpus's health. Needs: a scan of the live `mathematics-processes-database/`
-    HTML/Mermaid files for the three specific patterns above, then a decision on
-    whether any found instances warrant a fresh, correctly-scoped fix (reusing
-    PR #5's diagnosis, not its diff, since that diff targets files that no
-    longer matter).
+39. ~~**Check the real ATAP/mathematics corpus for the Mermaid syntax bugs
+    found in PR #5**~~ — RESOLVED (2026-08-04), clean result. **Scope note:
+    this corpus is `huggingface-space/mathematics-processes-database/` in
+    `copernicus-web` — a different repo, different files, and a different
+    kind of check entirely from item 33's GLMP corpus (217 biology
+    processes, `glmp-v2/processes/**/*.json`). This item never touched
+    classification, class assignments, or content correctness — only
+    whether the Mermaid syntax parses without rendering errors. It says
+    nothing about whether any chart's content is final; per Gary, none of
+    these charts (in either corpus) should be treated as final pending
+    Lents' classification review and the planned change away from the
+    5-class system.**
+
+    Closed PR `cursor/mathematics-database-flowchart-errors-d178` (item 28)
+    fixed real Mermaid rendering bugs — `style` directives concatenated onto
+    node/edge statements, invalid `{[...]}` decision-node syntax, raw HTML
+    embedded in labels, all causing intermittent parse failures — but only
+    against root-level scratch/temp copies, never the real corpus.
+
+    **Scanned all 280 files** in the actual corpus
+    (`huggingface-space/mathematics-processes-database/processes/**/*.html`
+    — confirmed the correct directory first: the sibling `collections/`
+    dir's 96 files have zero Mermaid content, a different page type
+    entirely, out of scope). Built targeted checks for each of the three
+    named patterns:
+    - Concatenated `style` directives (more than one `style X ...` on a
+      single logical line, or a `style` clause following other node/edge
+      content on the same line): **0 files.**
+    - Invalid `\w+\{\[` decision-node syntax: **0 files.**
+    - Raw HTML in labels (any `<letter` not part of a `<br/>` tag): **2
+      files flagged, both confirmed false positives** on inspection —
+      `information_theory-channel.html` and `information_theory-coding.html`
+      both contain `R<C ⇒ reliable`-style lines, which is literal
+      information-theory notation (Rate < Capacity), not malformed markup.
+
+    **Zero real instances of any of the three patterns exist in the live
+    corpus.** Nothing to fix — the "decide whether a fresh, correctly-scoped
+    fix is warranted" step this item originally called for is moot; there's
+    no rendering defect to scope a fix against. (Whether the charts'
+    *content* needs revision is a separate, open question — see scope note
+    above.)
 
 40. ~~**FINDING (Core-scoped) — trace propagation of the pre-correction
     computational pattern counts**~~ — RESOLVED (2026-08-04). Traced the exact
