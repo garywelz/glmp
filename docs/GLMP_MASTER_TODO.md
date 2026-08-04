@@ -714,9 +714,10 @@ gated migration, verified at every phase, in `copernicus-web`:
     probe (item 21) but for structural/topological correctness rather than
     retrievability. Gary scopes execution later.
 
-34. **FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground on
-    the clicked node (2026-08-03).** — **FIXED IN CODE, NOT YET DEPLOYED**
-    (2026-08-04, `copernicus-web@9b90e9ef1`). Traced the frontend feature
+34. ~~**FINDING — Knowledge Engine "Node Explanation (OpenAI RAG)" does not ground
+    on the clicked node**~~ (2026-08-03) — **FIXED AND DEPLOYED** (2026-08-04,
+    `copernicus-web@9b90e9ef1`, Cloud Build `cf52f050`, revision
+    `copernicus-podcast-api-00246-q6z`, confirmed `100%` traffic). Traced the frontend feature
     (`knowledge-engine` → Knowledge Map → click a node → "🧠 Node Explanation") to
     `/api/rag/answer` on `copernicus-podcast-api-phzp4ie2sq-uc.a.run.app`. Reproduced
     directly against the live endpoint, not inferred from the UI:
@@ -770,12 +771,15 @@ gated migration, verified at every phase, in `copernicus-web`:
     fix (the injected focus document correctly shows `1.0`; the pre-existing
     semantic-search scoring bug is untouched).
 
-    **Not deployed.** Committed and pushed to `copernicus-web` main
-    (`9b90e9ef1`); the live Cloud Run service (`copernicus-podcast-api`) still
-    runs the pre-fix code until a deploy happens. No CI/CD is wired to this repo
-    (confirmed item 28), so deploy is a manual `gcloud builds submit` /
-    Cloud Build step — held for Gary's explicit go per the standing
-    propose-before-deploy rule, same as any other production change.
+    **Deployed and verified live (2026-08-04), per Gary's explicit go.**
+    `gcloud builds submit --config cloudbuild.yaml .` — build `cf52f050`
+    (`SUCCESS`, 4m52s) — deployed revision `copernicus-podcast-api-00246-q6z`,
+    confirmed `latestRevision: true` / `percent: 100`. Not just trusted the
+    build status: called the live `/api/rag/answer` endpoint reproducing the
+    exact Test 1 scenario against production. Citation `[1]` is the HERC4
+    paper with `similarity_score: 1.0`, and the generated answer correctly
+    explains HERC4/oxidative-stress-induced DNA damage — the same bug, on the
+    same live service, now produces correct output. Item fully closed.
 
 35. **PROPOSE — rebuild automated science-video ingestion (2026-08-03, from papers/
     videos growth-plan discussion).** Confirmed via `sciencevideodb`'s own README:
