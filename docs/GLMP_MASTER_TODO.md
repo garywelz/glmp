@@ -1336,11 +1336,65 @@ gated migration, verified at every phase, in `copernicus-web`:
     partially mirrored locally, not necessarily complete or 1:1 with what's
     live in Firestore) — a much larger and riskier undertaking than a single
     doc's merge update, and a scale-of-effort decision for Gary, not
-    something to start speculatively. Also not evaluated: whether any live
-    code (retrieval ranking, citation display, dedup) already silently
-    depends on these fields being absent (e.g. treats missing `year` as
-    "unknown" gracefully) versus would newly behave differently once a
-    backfill lands — worth checking before any bulk backfill, not after.
+    something to start speculatively.
+    **Retrieval/ranking dependency check, done (2026-08-05).** Grepped every
+    non-script backend file touching `research_papers`
+    (`vector_search.py`, `rag.py`, `rag_service.py`, `knowledge_map_service.py`
+    + its routes, `papers/routes.py`, `content/routes.py`,
+    `cross_component.py`) for all 15 fields. Semantic search/RAG (the actual
+    embedding-based retrieval path) reference none of them — ranking there
+    runs purely on the vector, unaffected either way. Two real dependencies
+    found, both confirmed live against production, not just read in the
+    code:
+    - **`/api/papers/query`'s `min_citation_count` filter has been
+      effectively dead code for the corpus's entire existence.** It runs a
+      Firestore inequality `where('citation_count', '>=', N)`, which
+      excludes any doc lacking the field entirely (standard Firestore
+      semantics, confirmed empirically: `citation_count >= 0` matched
+      exactly **1** doc out of 63,198 — our own backfilled item-43 test
+      doc). Today's fix makes this correct going forward for newly-ingested
+      papers; the ~63,197-doc backlog stays invisible to this filter until
+      backfilled.
+    - **Knowledge Map date-range filtering (`_paper_passes_date_filters`)
+      falls back `published_at` → `published_date` → `year`, and silently
+      *passes* (does not exclude) any doc with none of the three** — so
+      date-range browsing has been unable to actually narrow the bulk of
+      the corpus by date; results have been over-inclusive, not wrongly
+      empty. `published_at` turns out to come from a **different, third
+      writer** (see below), not from this ingest script at all.
+    **Bigger finding, surfaced by chasing `published_at`'s origin:**
+    `research_papers` has **at least three independent writers with three
+    different document shapes** — this ingest script (source-prefixed doc
+    IDs), `cloud-run-backend/scripts/sync_research_papers.py` (a `Paper`
+    object sync, contributes `published_at`), and the
+    `/api/papers/upload` FastAPI endpoint (UUID `paper_id` docs, minimal
+    fields, explains the UUID-style doc IDs seen while spot-checking).
+    Same "no single writer discipline" shape as item 24's `atap_graphs`
+    fix, now found here too — today's allowlist fix only closes the gap
+    for one of the three writers.
+    **Separate, more serious problem, found by reading the citation_count
+    call sites rather than just grepping the name:** `citation_count` is
+    semantically overloaded. `/api/papers/{id}/link-podcast/{podcast_id}`
+    unconditionally **overwrites** `citation_count` with
+    `len(used_in_podcasts)` — a "how many podcasts used this paper" count,
+    not the external bibliometric citation count the acquirers compute.
+    Today's fix means a freshly-ingested paper now carries its real
+    citation count — until the moment it's linked to any podcast, at which
+    point that real value is silently clobbered with a small unrelated
+    integer. This is a live landmine independent of the backfill question:
+    even fully backfilling `citation_count` corpus-wide would leave it
+    unstable for every paper that ever gets used in a podcast. **Not fixed
+    here** — needs a naming/semantics decision (e.g. a separate
+    `podcast_usage_count` field) before either the field or a backfill can
+    be trusted, and touches a live FastAPI endpoint, not just an offline
+    script.
+    **Net effect on the backfill decision:** the retrieval-dependency check
+    that was the missing piece is done, and it raises the stakes rather
+    than lowering them — two live features actually depend on this data,
+    plus a writer-count problem and a field-semantics collision neither
+    known before this check. Still Gary's call whether/how to backfill the
+    ~63,197 docs; the citation_count collision arguably needs a decision
+    before that regardless of backfill scope or timing.
 
 45. **GAP in item 43 — re-citation of an already-in-corpus paper drops the
     provenance signal, flagged not fixed.** Raised by Claude Chat: this
