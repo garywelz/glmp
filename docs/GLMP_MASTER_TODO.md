@@ -1884,10 +1884,39 @@ gated migration, verified at every phase, in `copernicus-web`:
     match ("Virus induction of human IFNβ gene expression requires the
     assembly of an enhanceosome"). **Not corrected in the paper** — that's
     Gary's document to edit, flagging rather than touching it.
-    **Still not run for real** — this was the dry run. Writing the 32
-    clean records (and deciding what to do about the 8 duplicates, per
-    #45) is a separate step, gated on Gary's go same as every other write
-    this session.
+    **32 clean records written (2026-08-05), local JSON only — Firestore
+    ingest not yet run.** Reclassified all 73 fresh (no corpus/state
+    changes since the dry run; confirmed identical 32/33/8 split), then
+    ran `--write` on just the 32 — not the 8 duplicates, not the 33
+    unresolved, matching this item's own scoping exactly.
+    **Found a fourth issue, this time in how the batch was run, not in
+    the script: only 28 unique files exist on disk from those 32
+    writes.** Three papers are cited more than once across the three
+    foundational papers — Shen-Orr's network-motifs paper (paper-I#11 +
+    paper-III#7), Rice's theorem (paper-I#30 + paper-II#11 +
+    paper-III#13), and the ENCODE Project paper (paper-II#17 +
+    paper-III#10) — and `researcher_cited_intake.py --write` has no
+    protection against two different citations of the same paper landing
+    on the same output path: each later write silently overwrote the
+    earlier one's `cited_context`/`cited_by`/etc, no warning, no merge.
+    **Same failure shape as item 45 (a re-citation's provenance dropped,
+    not merged) — just one layer earlier**, at the local-JSON-mirror
+    step, before Firestore ingest even runs, so #45's existing dedup
+    checks (against `research_papers` and the local `crossref/` mirror)
+    never had a chance to catch it: those check different directories
+    than where `researcher_cited_*.json` files land, and Firestore
+    doesn't have these papers yet either. Concretely, not hypothetically:
+    **4 of the 32 citations' specific context (paper-I#11, paper-I#30,
+    paper-II#11, paper-II#17) is gone from disk** — only the
+    chronologically-last citation of each of the 3 repeated papers
+    survives (paper-III#7, paper-III#13, paper-III#10 respectively). Not
+    fixed or recovered here — the underlying fields are single-value, not
+    a list, so recovering this needs a schema decision (can a citation
+    record hold multiple citers?), the same open question item 45's own
+    text already names. **Nothing ingested to Firestore yet** — the
+    28 local files are metadata JSON only; running the existing
+    `ingest_papers_from_metadata_json.py` on them is still a separate,
+    ungated step.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
