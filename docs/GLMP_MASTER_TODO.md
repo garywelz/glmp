@@ -2010,10 +2010,9 @@ gated migration, verified at every phase, in `copernicus-web`:
     findable, with who/when/why intact, even when the same paper is
     cited more than once) is now proven end to end, not just for the
     single-citation case.
-    **Still open:** the 8 corpus-duplicates (item 45 proper) — papers
-    already in `research_papers` before this batch ran, whose new
-    citation context was reported and intentionally not written, per
-    item 45's still-unresolved merge-onto-existing-doc question.
+    **The 8 corpus-duplicates (item 45 proper) — resolved same day, see
+    item 45.** Merged onto their existing docs rather than left
+    unwritten; not still open.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
