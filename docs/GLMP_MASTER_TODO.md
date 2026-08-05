@@ -1909,14 +1909,44 @@ gated migration, verified at every phase, in `copernicus-web`:
     **4 of the 32 citations' specific context (paper-I#11, paper-I#30,
     paper-II#11, paper-II#17) is gone from disk** — only the
     chronologically-last citation of each of the 3 repeated papers
-    survives (paper-III#7, paper-III#13, paper-III#10 respectively). Not
-    fixed or recovered here — the underlying fields are single-value, not
-    a list, so recovering this needs a schema decision (can a citation
-    record hold multiple citers?), the same open question item 45's own
-    text already names. **Nothing ingested to Firestore yet** — the
-    28 local files are metadata JSON only; running the existing
+    survives (paper-III#7, paper-III#13, paper-III#10 respectively).
+    **Fixed and recovered same-day (2026-08-05), per Gary's request to
+    design the multi-citer schema before ingesting anything.**
+    Designed and built the schema item 45 itself was already gesturing
+    at: a `citations` list of per-event objects
+    (`cited_by`/`cited_date`/`cited_context`/`cited_project`), with the
+    existing singular fields kept in sync with the latest event for any
+    reader that doesn't know about the list yet. A record with no
+    `citations` array yet (the legacy shape, i.e. every one of these 28
+    files) has its own singular fields recovered as citation #1 the
+    first time it's touched again — nothing about the old shape is
+    discarded. Appending is idempotent: re-running the identical citation
+    doesn't duplicate the list entry. Unit-tested before trusting it on
+    real files (legacy-record recovery, append, and re-run idempotency,
+    all confirmed) — same discipline as every other fix this session,
+    verify before you rely on it. Shipped in
+    `copernicus-web@86a8149fe`.
+    **Then used it for real**, not just built and left: re-ran the exact
+    4 lost citations (paper-I#11, paper-I#30, paper-II#11, paper-II#17)
+    through the fixed script with `--write`. All 4 merged cleanly.
+    Live-verified by reading all 3 affected files directly: Shen-Orr's
+    paper now correctly shows both citations
+    (`researcher_cited_crossref_10.1038_ng881.json`), Rice's theorem
+    shows all 3 (interesting resolution detail — Crossref canonicalizes
+    the JSTOR-prefixed DOI `10.2307/1990888` both papers cite to its own
+    `10.1090/S0002-9947-1953-0053041-6`, so both correctly landed on the
+    same record despite citing the DOI differently), and ENCODE shows
+    both. **All 32 citations are now correctly represented across the 28
+    files — zero lost.**
+    Reuse note for whenever item 45 itself gets built: this is the same
+    `citations` shape, deliberately — an already-Firestore-ingested paper
+    getting re-cited should append to this same list via a Firestore
+    update, not invent a second schema.
+    **Nothing ingested to Firestore yet** — the 28 local files are
+    metadata JSON only; running the existing
     `ingest_papers_from_metadata_json.py` on them is still a separate,
-    ungated step.
+    ungated step, and the 8 corpus-duplicates (item 45 proper) are still
+    unresolved.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
