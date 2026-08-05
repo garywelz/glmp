@@ -1868,11 +1868,23 @@ gated migration, verified at every phase, in `copernicus-web`:
     **Part A of #37 now reads coherently**: A1 blocked until September
     pending Lents/Me-Me, A2 pending `research_focus.json`'s field
     semantics, #43 done and live.
-    **Not implemented, per the handoff's explicit instruction.** Sequencing
-    step 1 (confirm `mute`/`flagged`/`frontier`/`horizons` semantics with
-    Gary) is unresolved and gates everything after it — `flagged` currently
-    holds paper IDs with notes, and whether that means include, exclude, or
-    review changes the contract, exactly as flagged in the source doc.
+    **Blocker cleared same day (2026-08-05) — Claude Chat's point that
+    "A2's blocker is one message from you" turned out right.** Asked Gary
+    directly, concretely, with each field's actual current contents shown
+    rather than asked abstractly: **`flagged`** = curated priority-seed
+    papers, always-include (matches how item 25 already used
+    `research_focus.flagged` as a verified retrieval seed). **`mute`** = a
+    negative filter, exclude these topics outright. **`frontier`** = drives
+    acquisition the same way `active_questions` does — its own `terms`
+    field exists for exactly this, not informational-only despite reading
+    like framing prose at a glance. **`horizons`** = adjacent-field
+    awareness, included at lower priority, matching the governance
+    companion doc's "bridges over silos" framing. Recorded in the contract
+    itself (`copernicus-web@b572455e4`), not just here.
+    **Still not implemented** — confirming semantics isn't building the
+    scout — but sequencing step 2 (ATAP first, since it has zero
+    acquisition today) is now the next actionable step, not a design
+    question waiting on anyone.
 
 47. **PROPOSE — researcher-cited backfill of the foundational papers'
     73 references via #43, separately actionable from A2 (2026-08-05).**
