@@ -1942,11 +1942,31 @@ gated migration, verified at every phase, in `copernicus-web`:
     `citations` shape, deliberately — an already-Firestore-ingested paper
     getting re-cited should append to this same list via a Firestore
     update, not invent a second schema.
-    **Nothing ingested to Firestore yet** — the 28 local files are
-    metadata JSON only; running the existing
-    `ingest_papers_from_metadata_json.py` on them is still a separate,
-    ungated step, and the 8 corpus-duplicates (item 45 proper) are still
-    unresolved.
+    **Ingested to Firestore (2026-08-05), Gary's go given.** Caught one
+    more instance of the exact same allowlist gap before running it,
+    not after: `ingest_papers_from_metadata_json.py`'s field allowlist
+    knew about the four singular `cited_*` fields but not the new
+    `citations` list added the same day — ingesting as-is would have
+    dropped the just-recovered multi-citer history straight back down to
+    a single citation, undoing the merge fix above. Fixed
+    (`copernicus-web@f9e052900`), unit-tested (a record with a
+    `citations` list passes through intact; an ordinary record without
+    one is unaffected) before running anything real.
+    Scoped to exactly these 28 files (an isolated `--root`, same
+    precedent as item 43's original ingest) — dry-run first (would-write
+    28, 0 gate hits), then for real: **wrote 28, skipped 0, failed 0.**
+    Live-verified, not just trusted the exit code: read all 3
+    multi-citer docs directly from `research_papers` —
+    Shen-Orr shows 2/2 citations, Rice's theorem 3/3, ENCODE 2/2, all
+    with correct `cited_context` text. Corpus count 63,198 → 63,226,
+    exactly +28. Item 43's full loop (researcher sends a citation → it's
+    findable, with who/when/why intact, even when the same paper is
+    cited more than once) is now proven end to end, not just for the
+    single-citation case.
+    **Still open:** the 8 corpus-duplicates (item 45 proper) — papers
+    already in `research_papers` before this batch ran, whose new
+    citation context was reported and intentionally not written, per
+    item 45's still-unresolved merge-onto-existing-doc question.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
