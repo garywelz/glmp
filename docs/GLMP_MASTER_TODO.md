@@ -1410,6 +1410,44 @@ gated migration, verified at every phase, in `copernicus-web`:
     schema-completeness gaps as `ingest_papers_from_metadata_json.py` did
     (it doesn't write `year`, `citation_count`, or most of the same 15
     fields either) — a legitimate follow-on question, not answered here.
+    **Checked (2026-08-05), by request — different shape of gap, not the
+    same bug.** Grepped every `paper.<attr>` access in the file: exactly 11
+    distinct attributes (`paper_id`, `arxiv_id`, `doi`, `title`, `authors`,
+    `abstract`, `published_at`, `categories`, `sources`, `ingested_at`,
+    `updated_at`), and **all 11 are forwarded to Firestore** —
+    `convert_paper_to_firestore_format()` doesn't read a field and then
+    discard it the way the other script's allowlist did. So this isn't a
+    code-level drop; if there's a gap, it's upstream, in whether the
+    Postgres `Paper` row/table even *has* columns for `year`,
+    `citation_count`, `volume`, `issue`, `page`, `journal`, `keywords`,
+    `language`, `publisher`, `issn`. **Genuinely can't verify that from
+    here** — `copernicusai-research-metadata` (the sibling repo defining
+    the `Paper` model) isn't cloned in this checkout, and no planning doc in
+    `copernicus-web` documents that table's schema; marked as a real limit,
+    not guessed past.
+    **One gap findable without the sibling repo, because it needs no new
+    source data at all:** no `url` or `pdf_url` field is ever set, despite
+    `arxiv_id` being present on every doc this script touches. Every other
+    arXiv acquirer in this codebase (`acquire_arxiv_batch.py`'s
+    `parse_arxiv_entry`) already derives
+    `f"https://arxiv.org/abs/{arxiv_id}"` — the same derivation would work
+    here with zero dependency on the Postgres schema. Not fixed
+    unilaterally this time (the ask was "check," and the Postgres-schema
+    unknown makes a confident full fix impossible anyway) — flagging the one
+    piece that is unambiguous, for a decision on whether to patch it.
+    **Correction to this item's own framing above:** the Knowledge Map
+    date-filter gap does not actually affect these UUID docs — they carry
+    `published_at`, which `_paper_passes_date_filters` checks *first*,
+    before falling back to `published_date`/`year`. That gap is specific to
+    docs from `ingest_papers_from_metadata_json.py`, which have none of the
+    three.
+    **Also noted, not chased further:** a 2026-early planning doc
+    (`docs/planning/TEST_SYNC_COMPLETE.md`) references a *different* script
+    path, `copernicusai-research-metadata/scripts/sync_to_firestore.py`
+    (inside the sibling repo itself), described as "the working sync
+    script" — possibly a second, duplicate, or superseding sync path beyond
+    `cloud-run-backend/scripts/sync_research_papers.py`. Unverifiable
+    without that repo; flagged, not resolved.
     **Separate, more serious problem, found by reading the citation_count
     call sites rather than just grepping the name:** `citation_count` is
     semantically overloaded. `/api/papers/{id}/link-podcast/{podcast_id}`
