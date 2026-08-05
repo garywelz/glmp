@@ -1442,6 +1442,27 @@ gated migration, verified at every phase, in `copernicus-web`:
     field here — `sync_research_papers.py --no-skip-existing` would refresh
     them, not attempted here since it wasn't asked for and touches the live
     collection at that scale).
+    **Ask for Cursor/Jetson — re-run to backfill, cannot be run from this
+    session (2026-08-05).** Tried directly first rather than assuming:
+    `python scripts/sync_research_papers.py --dry-run --limit 1` fails
+    immediately from this Windows checkout — `sqlalchemy`/`psycopg2` aren't
+    installed here, and more fundamentally the sibling repo the script
+    imports from, `copernicusai-research-metadata`
+    (`github.com/garywelz/copernicusai-research-metadata`, found documented
+    in this repo's own `docs/planning/CONTENT_INGESTION_PLAN.md` and the
+    NSF/DOE biographical sketches — not guessed), isn't cloned here. Same
+    Jetson-path convention (`/home/gdubs/copernicusai-research-metadata`,
+    venv-activated) as every other Jetson-run script this session has
+    flagged rather than attempted, for the same reason: no SSH/environment
+    access from here. **Needs, wherever that Postgres-backed service
+    actually runs:** `cd copernicusai-research-metadata && source
+    venv/bin/activate && python3
+    /path/to/copernicus-web/cloud-run-backend/scripts/sync_research_papers.py`
+    `--no-skip-existing` (a plain re-run without that flag would skip all
+    ~12,040 already-existing docs and backfill nothing). Recommend
+    `--dry-run --limit 10` first to confirm the new `url`/`pdf_url` fields
+    appear before a full run, same caution as this session applied to every
+    other write in this item.
     **Correction to this item's own framing above:** the Knowledge Map
     date-filter gap does not actually affect these UUID docs — they carry
     `published_at`, which `_paper_passes_date_filters` checks *first*,
