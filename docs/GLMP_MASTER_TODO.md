@@ -1431,10 +1431,17 @@ gated migration, verified at every phase, in `copernicus-web`:
     arXiv acquirer in this codebase (`acquire_arxiv_batch.py`'s
     `parse_arxiv_entry`) already derives
     `f"https://arxiv.org/abs/{arxiv_id}"` — the same derivation would work
-    here with zero dependency on the Postgres schema. Not fixed
-    unilaterally this time (the ask was "check," and the Postgres-schema
-    unknown makes a confident full fix impossible anyway) — flagging the one
-    piece that is unambiguous, for a decision on whether to patch it.
+    here with zero dependency on the Postgres schema.
+    **Fixed same-day** (`copernicus-web@1f12b3f4b`), once asked: sets `url`
+    and `pdf_url` from `arxiv_id` when present, guarded so it adds nothing
+    when absent — verified against both cases with a mock `Paper` object
+    (couldn't import the real one; its module chain requires the sibling
+    repo). Additive only, same pattern as every other fix in this item.
+    Applies going forward to new syncs; the already-synced ~12,040 UUID docs
+    aren't backfilled by this (same re-run-the-script mechanics as any other
+    field here — `sync_research_papers.py --no-skip-existing` would refresh
+    them, not attempted here since it wasn't asked for and touches the live
+    collection at that scale).
     **Correction to this item's own framing above:** the Knowledge Map
     date-filter gap does not actually affect these UUID docs — they carry
     `published_at`, which `_paper_passes_date_filters` checks *first*,
