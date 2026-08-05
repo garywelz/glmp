@@ -467,6 +467,57 @@ gated migration, verified at every phase, in `copernicus-web`:
     in-corpus IDs (retrieval seed only, not a bibliography) — unaffected by
     this finding, since those were checked individually rather than trusted
     from the TSV.
+    **Splits into three tiers with very different costs (Claude Chat,
+    2026-08-05), independently verified against the actual process
+    files, not taken on trust:** reading all 217 current `glmp-v2/processes`
+    JSON files' own `sources` array lengths (excluding
+    `_previous_versions/`, which held 3 stale duplicates) gives exactly
+    **121 with 2+ sources, 87 with exactly 1, 9 with 0** — matching Claude
+    Chat's figures exactly. The insight that splits them: `pick_canonical_source()`
+    (the manifest builder) takes `sources[0]` with a DOI and never checks
+    relevance — so the 121-chart tier isn't a sourcing problem, it's a
+    **selection** problem, and the right paper may already be sitting
+    unused in the same row (as it literally is for the flagellar case).
+    Only the 87 single-source charts are genuine re-sourcing, the same
+    biologist bottleneck as #26/#33; the 9 zero-source charts are already
+    flagged `needs_krampis_review`.
+    **Tier-one sized with real data, not an inherited estimate (2026-08-05).**
+    Built the measurement Claude Chat suggested — embedding similarity
+    between each process's own subject text (`name`+`description`) and
+    each of its sources' titles, using the engine's actual production
+    model (`text-embedding-3-small`, fetched live via the same
+    `openai-api-key` secret the ingest pipeline uses) — not a second
+    generative pass, a discriminative similarity measurement instead, per
+    Claude Chat's own caution that validating a reselection can't be
+    another model pass. **Validated against the one already-known case
+    before trusting it on the rest**: for the flagellar row, the method
+    correctly ranks `sources[1]` (the real flagellar paper, sim=0.766) far
+    above `sources[0]` (the picked TnpB paper, sim=0.292) — gap 0.474, the
+    largest in the whole set.
+    **Result across all 121 multi-source charts:** the picked source is
+    *not* the top-ranked one, by a meaningful margin, in **54** of them —
+    the real, measured size of the reselection-candidate tier, not the
+    inherited "~220" figure (which was arithmetic on an unreproducible
+    54%, per the correction above, and was never tier-specific anyway).
+    Confidence isn't uniform across those 54 — gap-size breakdown: **10
+    with gap >0.20** (near-certain mismatches, flagellar's 0.474 among
+    them), **17 with gap >0.15**, **20 in 0.10–0.20**, and **17 below
+    0.10** (short/generic titles like "Glycolysis" produce weaker signal,
+    lower confidence). Notably, **`ecoli_lac_operon` is in the flagged set**
+    (gap 0.253) — the same circuit at the center of the active cAMP-CRP
+    work with Lents; worth surfacing to him directly rather than waiting
+    for a full pass. Full 54-row list (both titles, both similarity scores,
+    sorted by gap size) filed at
+    `docs/open-questions/source-reselection-candidates-2026-08-05.tsv`,
+    same convention as `loop-audit-candidates-2026-08-04.md` — a
+    pre-registered record, not a private working file.
+    **Not done, per Claude Chat's explicit design:** no row has been
+    reselected or changed. The honest next step is mechanical reselection
+    (swap in the top-similarity source as the *candidate* replacement) for
+    the 54 flagged rows, then a biologist spot-checks a **sample**, not all
+    54 individually, and accepts or rejects the method wholesale — the
+    same reduced-bottleneck shape Claude Chat proposed, now with a sized
+    population to sample from instead of an unknown one.
 26. **BACK BURNER — CRP PWM** (split from former item 12). Build a
     position-weight-matrix for CRP binding sites from RegulonDB data — the
     highest-leverage remaining science move on the decoder, would let the
