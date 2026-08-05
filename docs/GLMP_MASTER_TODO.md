@@ -1372,6 +1372,44 @@ gated migration, verified at every phase, in `copernicus-web`:
     Same "no single writer discipline" shape as item 24's `atap_graphs`
     fix, now found here too — today's allowlist fix only closes the gap
     for one of the three writers.
+    **Third writer identified (2026-08-05), by request:**
+    `cloud-run-backend/scripts/sync_research_papers.py`. It reads a `Paper`
+    row from a *separate* PostgreSQL "research metadata" database (a sibling
+    service/repo, `copernicusai-research-metadata`, not present in this
+    checkout — the script's own import path assumes it's cloned next to
+    `copernicus-web` and exits with an explicit error if it isn't found) and
+    writes it to `research_papers` using the Postgres row's own `paper_id`
+    (a UUID) directly as the Firestore document ID — the source of the
+    UUID-style doc IDs. Confirmed field-for-field, not by name alone:
+    `convert_paper_to_firestore_format()` writes exactly `paper_id`,
+    `arxiv_id`, `doi`, `title`, `authors`, `abstract`, `published_at`,
+    `categories`, `sources` (defaults to `["arxiv"]` if the Postgres row
+    doesn't set it), `ingested_at`, `updated_at`, `created_at`, `discipline`
+    — 13 fields, matching the live sampled UUID doc's 16 keys once the
+    other 3 (`embedding`, `embedding_model`, `embedding_updated_at`) are
+    accounted for: this script's own embedding attempt writes
+    `embedding_updated` (no `_at`) inline, but the live docs show
+    `embedding_updated_at`, meaning the embeddings on these docs were added
+    afterward by a *separate* pass (matching `_at`-suffix naming
+    convention used elsewhere, e.g. `backfill_research_paper_embeddings.py`)
+    rather than by this script's own inline attempt — a fourth touch-point
+    on the same collection, though only for embeddings, not the rest of the
+    document. Verified live: sampled 15 UUID-style docs, all 15 have
+    `sources: ["arxiv"]` exactly matching this script's default. Not a rogue
+    or abandoned script — actively documented
+    (`docs/planning/SYNC_SCRIPTS_READY.md`) as a manual, Jetson-run batch job
+    (`python3 scripts/sync_research_papers.py [--dry-run] [--limit N]
+    [--no-skip-existing]`), last touched 2026-07-23 in the same commit
+    (`c066ed185`) that fixed the hardcoded-embedding-model bug (item 4) —
+    so it's a live, maintained part of the pipeline for arXiv papers sourced
+    from that separate Postgres database, running in parallel to (not
+    instead of) the JSON-file-based `acquire_papers/` →
+    `ingest_papers_from_metadata_json.py` path this whole item-44 thread has
+    been about. **Not evaluated further, out of scope for this ask:**
+    whether `sync_research_papers.py`'s own field set has the same
+    schema-completeness gaps as `ingest_papers_from_metadata_json.py` did
+    (it doesn't write `year`, `citation_count`, or most of the same 15
+    fields either) — a legitimate follow-on question, not answered here.
     **Separate, more serious problem, found by reading the citation_count
     call sites rather than just grepping the name:** `citation_count` is
     semantically overloaded. `/api/papers/{id}/link-podcast/{podcast_id}`
