@@ -1406,13 +1406,45 @@ gated migration, verified at every phase, in `copernicus-web`:
     backfill** — it would otherwise have been unstable for any paper ever
     linked to a podcast; that risk is now closed regardless of when/whether
     the backfill itself happens.
-    **Net effect on the backfill decision:** the retrieval-dependency check
-    that was the missing piece is done, and it raises the stakes rather
-    than lowering them — two live features actually depend on this data,
-    plus a writer-count problem and a field-semantics collision neither
-    known before this check. Still Gary's call whether/how to backfill the
-    ~63,197 docs; the citation_count collision arguably needs a decision
-    before that regardless of backfill scope or timing.
+    **DECIDED (2026-08-05), per Gary's explicit request: no corpus-wide
+    `citation_count` backfill for now.** Checked both potential consumers for
+    actual live use before deciding, the same way `link-podcast` was checked
+    before being fixed — **correction to this item's own earlier framing**:
+    neither turns out to be live. `/api/papers/query`'s `min_citation_count`
+    filter has no caller anywhere in the codebase or frontend (grepped for
+    `/api/papers/query` and `min_citation_count` — hits only in the route's
+    own definition and API-reference docs, same dead-endpoint shape as
+    `link-podcast` before it was found unused). The only other consumer,
+    a ranking-boost formula, lives in `archive/one_off_scripts/root/`
+    (already dead code, not deployed). So there is currently no live feature
+    a backfill would fix — the earlier "two live features depend on this
+    data" was wrong; both are unused.
+    **Feasibility was the other half of the decision, checked rather than
+    assumed:** a full corpus scan by doc-ID prefix gives the actual
+    composition — `pubmed_` 25,318, `crossref_` 12,274, UUID-style (a third
+    writer, `sync_research_papers.py` or `/api/papers/upload`, entirely
+    outside this ingest script's reach) 12,040, `arxiv_` 10,985, `biorxiv_`
+    1,531, `medrxiv_` 1,035. Matched against the local acquisition-JSON
+    mirror's per-source counts: crossref ~100% covered (12,235/12,274),
+    arxiv ~94% (10,279/10,985), pubmed only ~92% (23,324-ish/25,318),
+    biorxiv ~52% (803/1,531), medrxiv ~63% (652/1,035) — and the 12,040
+    UUID-style docs (19% of the corpus) aren't reachable via this mirror at
+    all, needing their own separate investigation of whichever writer
+    produced them first. A real backfill would be partial by construction,
+    not a clean pass over the whole corpus.
+    **Conclusion:** speculative completeness with no live consumer and
+    genuinely incomplete source data is exactly the kind of premature
+    investment this doc's own standing practice argues against. Revisit
+    if/when a real feature (the query filter or a ranking signal) actually
+    gets built and needs it — scope the backfill to what that feature
+    requires at that time, not to "all 63,197 docs" as a goal in itself. If
+    it's ever needed: crossref and arxiv are the cheap, high-coverage wins;
+    pubmed/biorxiv/medrxiv would need either accepting partial local
+    coverage or a live re-query pass (DOI/PMID/bibcode are already present
+    on every doc, so re-querying Crossref/PubMed/NASA-ADS/Semantic Scholar
+    per doc is possible without the original JSON, just slow — 63k
+    rate-limited API calls is a multi-hour-to-multi-day job); the
+    UUID-style docs need their source identified before anything else.
 
 45. **GAP in item 43 — re-citation of an already-in-corpus paper drops the
     provenance signal, flagged not fixed.** Raised by Claude Chat: this
