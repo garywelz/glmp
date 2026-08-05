@@ -1442,27 +1442,38 @@ gated migration, verified at every phase, in `copernicus-web`:
     field here — `sync_research_papers.py --no-skip-existing` would refresh
     them, not attempted here since it wasn't asked for and touches the live
     collection at that scale).
-    **Ask for Cursor/Jetson — re-run to backfill, cannot be run from this
-    session (2026-08-05).** Tried directly first rather than assuming:
-    `python scripts/sync_research_papers.py --dry-run --limit 1` fails
-    immediately from this Windows checkout — `sqlalchemy`/`psycopg2` aren't
-    installed here, and more fundamentally the sibling repo the script
-    imports from, `copernicusai-research-metadata`
-    (`github.com/garywelz/copernicusai-research-metadata`, found documented
-    in this repo's own `docs/planning/CONTENT_INGESTION_PLAN.md` and the
-    NSF/DOE biographical sketches — not guessed), isn't cloned here. Same
-    Jetson-path convention (`/home/gdubs/copernicusai-research-metadata`,
-    venv-activated) as every other Jetson-run script this session has
-    flagged rather than attempted, for the same reason: no SSH/environment
-    access from here. **Needs, wherever that Postgres-backed service
-    actually runs:** `cd copernicusai-research-metadata && source
-    venv/bin/activate && python3
-    /path/to/copernicus-web/cloud-run-backend/scripts/sync_research_papers.py`
-    `--no-skip-existing` (a plain re-run without that flag would skip all
-    ~12,040 already-existing docs and backfill nothing). Recommend
-    `--dry-run --limit 10` first to confirm the new `url`/`pdf_url` fields
-    appear before a full run, same caution as this session applied to every
-    other write in this item.
+    **Superseded, resolved a different way (2026-08-05).** Handed to
+    Cursor as a `sync_research_papers.py --no-skip-existing` re-run;
+    Cursor caught a real problem before running it and stopped: Jetson's
+    checkout was 3 commits behind (still on `8640e7983`, pre-dating the
+    `url`/`pdf_url` fix); the `copernicusai-research-metadata` GitHub URL
+    resolves to an empty stub, not the real Postgres app; a Cloud SQL
+    instance (`research-metadata-db`) exists but has no matching Secret
+    Manager URL or proxy set up anywhere found. More fundamentally,
+    `--no-skip-existing` calls `.set()`, which **rewrites the whole
+    document and re-triggers embedding generation** — not the two-field
+    patch this was supposed to be. Cursor proposed the actually-correct
+    fix instead: a Firestore-only pass, no Postgres involved at all —
+    stream `research_papers` for `arxiv_id`-bearing docs missing
+    `url`/`pdf_url`, `update()` (merge, not `set()`) just those two derived
+    fields. Dry-run first: paginated the full 63,198-doc collection
+    (a single unbounded `.stream()` timed out past ~25k docs; cursor-based
+    `order_by("__name__")` batches of 1000 fixed it) — **23,025 docs would
+    update**, not the ~12,040 originally scoped. The other 10,985 are
+    `arxiv_`-prefixed docs from the *other* writer
+    (`ingest_papers_from_metadata_json.py`), which always set `url`
+    correctly but never set `pdf_url` at all — a second, previously-unflagged
+    gap (`pdf_url` isn't in `metadata_schema.json`'s strict property list,
+    so the earlier 15-field schema audit never caught it). Ran the real
+    backfill after showing the expanded scope and getting explicit go:
+    batched Firestore `update()`s (400/commit), touching only missing
+    fields, matching the dry-run count exactly — **23,025 updated, 40,173
+    skipped (no `arxiv_id`), 0 errors**. Live-verified: a UUID-style doc and
+    a `crossref_`-prefixed doc (no `arxiv_id`, correctly left untouched)
+    checked directly, plus a 500-doc spot re-check confirmed **zero**
+    remaining `arxiv_id`-bearing docs missing either field. No Postgres, no
+    Jetson, no Cursor round-trip needed in the end — this session already
+    had live Firestore credentials and the fix required nothing else.
     **Correction to this item's own framing above:** the Knowledge Map
     date-filter gap does not actually affect these UUID docs — they carry
     `published_at`, which `_paper_passes_date_filters` checks *first*,
