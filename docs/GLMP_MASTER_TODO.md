@@ -1814,13 +1814,38 @@ gated migration, verified at every phase, in `copernicus-web`:
     verification claim of its own, called out explicitly rather than
     silently riding on the existing date — exactly the false-claim pattern
     this field exists to prevent.
-    **A1 could not be filed alongside it, per the handoff's request to
-    check.** Searched both repos' working trees and full git history for
-    `A1-glmp-source-backfill-plan.md` or anything matching — not found
-    anywhere, and it isn't among the files provided this session either.
-    Part A of #37 stays incoherent (A2 filed, A1 missing) until that plan
-    surfaces or gets redrafted — flagging rather than guessing at its
-    content.
+    **A1 found and filed (2026-08-05, later the same day).** It existed —
+    drafted alongside A2 and the governance text, but never handed over in
+    that batch; downloaded separately once Gary noticed the gap. Filed next
+    to A2, same directory:
+    `copernicus-web/huggingface-space/scripts/acquire_papers/`
+    `A1-glmp-source-backfill-plan.md`.
+    **Two corrections applied before filing, both flagged by Claude Chat as
+    stale by the time A1 surfaced:**
+    1. Its "Open question 1" (does ingestion route through the stub gate?)
+       was already answered hours after drafting — the gate is conjunctive
+       (rejects only when there's no usable title *and* no identifier),
+       defaults to `observe`, and all 216 papers have at least a title plus
+       a DOI or PMID. Struck with the answer recorded, not left open.
+    2. Its `**Hard dependency:** item #25` header line was stale — #25 was
+       reworked hours after A1 was drafted, from "TSV re-harvest" to the
+       three-tier re-sourcing split (item 25 above). Replaced with A1's
+       actual status: **blocked, deliberately, until ~2026-09-01**, pending
+       Prof. Lents' and Me-Me's biology review — not blocked on a resolver
+       run anyone could pick up and unblock sooner. The plan's own "Gate:
+       item #25" section body was also rewritten to describe the current
+       #25 (121 multi-source/54 flagged/~40% false-positive rate even at
+       high confidence, 87 single-source, 9 source-less) rather than the
+       superseded "~220 of 481 need re-resolving" framing.
+    Everything else in the plan holds as originally drafted, per Claude
+    Chat's own read: the 216/217 finding, the identifier readiness table,
+    the 217−208=9 reconciliation, the two recorded triage failures
+    (including the `SOS` tokenizer false-negative — the same
+    token-discarding failure mode as item #33's trp-operon β/α case, a
+    third instance in the suite), and the behavioural success criterion.
+    **Part A of #37 now reads coherently**: A1 blocked until September
+    pending Lents/Me-Me, A2 pending `research_focus.json`'s field
+    semantics, #43 done and live.
     **Not implemented, per the handoff's explicit instruction.** Sequencing
     step 1 (confirm `mute`/`flagged`/`frontier`/`horizons` semantics with
     Gary) is unresolved and gates everything after it — `flagged` currently
