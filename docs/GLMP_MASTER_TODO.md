@@ -1746,23 +1746,45 @@ gated migration, verified at every phase, in `copernicus-web`:
     this blind spot and should enumerate fields from actual documents as
     well, not from the schema alone.
 
-45. **GAP in item 43 — re-citation of an already-in-corpus paper drops the
-    provenance signal, flagged not fixed.** Raised by Claude Chat: this
-    isn't an edge case, it's the steady state — as the corpus grows, "a
-    researcher cites something already present" becomes the *ordinary*
-    outcome, and today `researcher_cited_intake.py` correctly declines to
-    re-write the paper but reports the duplicate and keeps nothing: the
-    who/when/why is discarded, which is the exact signal item 43 exists to
-    capture. Recorded as open question 4 in
-    `copernicus-web/huggingface-space/scripts/acquire_papers/43-researcher-cited-intake.md`
-    at build time; promoted to its own numbered item here per the standing
-    lesson (items 21/28/33/40/44) that a DONE-marked item with a known gap
-    reads as fully handled to whoever scans this list next unless the gap
-    has its own line. Needs a design decision, not yet made: merging
-    provenance onto an existing `research_papers` doc is a production write
-    with its own failure modes (concurrent re-citations, whether to append
-    to a list vs. overwrite single `cited_*` fields, whether a doc can carry
-    multiple citers) — deliberately not built speculatively.
+45. ~~**GAP in item 43 — re-citation of an already-in-corpus paper drops the
+    provenance signal.**~~ **RESOLVED (2026-08-05) — no longer speculative
+    once item 47's batch hit it 8 times for real.** Raised by Claude Chat:
+    this isn't an edge case, it's the steady state — as the corpus grows,
+    "a researcher cites something already present" becomes the *ordinary*
+    outcome. It stopped being a hypothetical the moment 8 of the 73
+    foundational-paper references (item 47) turned out to already be in
+    `research_papers`.
+    **Decision:** merge, using the exact `citations` schema built the same
+    day for item 47's local-mirror collision (a paper cited twice within
+    one batch) — the same shape, reused rather than inventing a second one,
+    per the reuse note left when that schema was first built. Answers the
+    design questions this item originally left open: append to a list (not
+    overwrite), a doc can carry multiple citers, and — since this script is
+    manual/sequential by design (no cron, no concurrency) — concurrent
+    re-citation races were out of scope to solve here.
+    **Built and shipped** (`copernicus-web@f9203b0ac`): the Firestore-
+    duplicate branch of `researcher_cited_intake.py` now reads the existing
+    doc, merges the new citation event via the same `merge_citation()`
+    logic already proven at the local-mirror and fresh-ingest layers, and
+    writes back *only* the provenance fields via a scoped Firestore
+    `update()` — the paper's real metadata (title/authors/abstract/etc)
+    is never touched. Local-mirror-only duplicates (not yet in Firestore)
+    are left as report-only; extending merge there wasn't needed for the
+    case in front of us and would be a different acquisition-pipeline
+    concern.
+    **Verified on the real 8, not a synthetic case:** dry-ran all 8 first
+    (each correctly showed what would merge, wrote nothing), then ran for
+    real. **Live-verified directly in Firestore, not just the exit code:**
+    the two multiply-cited papers (Gardner's toggle switch, Elowitz's
+    oscillator — each cited 3× across the three foundational papers)
+    correctly accumulated to 3 citations each; Jacob & Monod and scGPT
+    (each cited once) show 1. All four papers' original title/authors/
+    `sources` fields confirmed byte-identical to before — the merge
+    touched provenance only.
+    Item 43's full loop is now proven for every case it needs to handle:
+    new paper (the Lents record), same paper cited twice before ingest
+    (item 47's local collision), and now a re-citation of a paper already
+    live in the corpus.
 
 46. **PROPOSE — A2, the standing acquisition contract (item #37 Part A;
     proposal only, nothing implemented, 2026-08-05).** Both plan docs
