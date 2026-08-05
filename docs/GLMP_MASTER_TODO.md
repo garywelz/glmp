@@ -512,12 +512,68 @@ gated migration, verified at every phase, in `copernicus-web`:
     same convention as `loop-audit-candidates-2026-08-04.md` — a
     pre-registered record, not a private working file.
     **Not done, per Claude Chat's explicit design:** no row has been
-    reselected or changed. The honest next step is mechanical reselection
-    (swap in the top-similarity source as the *candidate* replacement) for
-    the 54 flagged rows, then a biologist spot-checks a **sample**, not all
-    54 individually, and accepts or rejects the method wholesale — the
-    same reduced-bottleneck shape Claude Chat proposed, now with a sized
-    population to sample from instead of an unknown one.
+    reselected or changed. The originally-planned next step (mechanical
+    reselection of the 17 near-certain+solid rows, then a biologist
+    spot-check to accept/reject the method wholesale) **did not survive
+    the spot-check** — see the correction immediately below, done before
+    any file was touched.
+    **Corrected before any write, once the spot-check was actually run
+    (2026-08-05):** manually checked all 10 near-certain (gap ≥0.20) rows
+    against their full source metadata — including each source's own
+    `note` field, not just its title, which the embedding check never saw.
+    Result: only **4 of 10 look like real errors**
+    (`ecoli_e._coli_flagellar_assembly`, `ecoli_protein_folding_chaperones`,
+    `yeast_yeast_vacuolar_protein_sorting`, `synthetic_recombinase_counter`
+    — picked source is genuinely tangential, alternative squarely on-topic).
+    **4 of 10 look like likely false positives**: `ecoli_lac_operon`
+    (picked = Jacob & Monod 1961, the Nobel-winning original operon paper,
+    explicitly noted as such — the "better-ranked" alternative is a 1996
+    review whose title just contains "lactose operon" verbatim),
+    `yeast_mating_type_switching` (picked = Nasmyth 1983, noted as the
+    discovery of the actual mother-daughter HO-expression asymmetry
+    mechanism — the alternative is "a comprehensive modern review"),
+    `bacillus_competence_development` (picked = the ComK bistable-switch
+    paper, arguably *more* mechanistically specific than the alternative's
+    "comprehensive review"), and `ecoli_anaerobic_respiration` (FNR vs
+    ArcA — E. coli's two co-equal master anaerobic regulators, not a
+    right-vs-wrong pair at all). **2 of 10 genuinely ambiguous**
+    (`yeast_oxidative_stress_response`, `yeast_heat_shock_response`).
+    **Pattern in the false positives:** the picked source is a foundational
+    or mechanistically-specific paper, and the embedding prefers the
+    alternative because its title lexically contains the process's own
+    query terms — a different signal than "is this the right citation,"
+    correlated with it only sometimes. This shows up **within the highest-
+    confidence gap tier**, not just among the weak/short-title rows
+    excluded earlier — a ~40% false-positive rate on the tier that was
+    about to be auto-reselected.
+    **Conclusion: no mechanical reselection, for any tier, without
+    per-row review.** The embedding measurement is a good *triage* signal
+    — it found every genuine error checked so far, including flagellar —
+    but gap size alone doesn't separate real errors from lexical
+    coincidences, even at gap ≥0.20. The 54-row list stays valuable as a
+    **prioritized human-review queue**, not an auto-apply list; treating
+    "near-certain" as safe-to-auto-fix was the mistake, caught before any
+    of the 217 process JSONs were touched. Also confirmed, checked rather
+    than assumed, why this matters beyond the TSV: the flagellar process is
+    live in Firestore `glmp_processes` with a real embedding
+    (`text-embedding-3-small`, computed 2026-06-07) built partly from its
+    `sources` array text — so a wrong reselection wouldn't just be a
+    documentation error, it would reach live semantic search. A correct
+    reselection would need the same downstream propagation (re-sync via
+    `sync_glmp_processes.py`, re-embed) to actually land — and separately,
+    `flowchart-source-papers.tsv`'s current 481-row harvested schema was
+    produced by a tool not present in this repo (see the finding above), so
+    that specific derived artifact **cannot be correctly regenerated** with
+    anything currently committed here, independent of the reselection
+    question.
+    **Sent to Prof. Lents as a standalone finding (drafted, not yet sent —
+    Gary's channel), per Claude Chat's request:** the lac_operon case,
+    specifically *because* it's a good concrete illustration of the
+    false-positive risk, not despite it — asks whether Jacob & Monod or the
+    alternative is the better citation, states plainly this is a
+    machine-measured signal that may be a lexical coincidence, and names
+    both titles rather than implying the embedding's pick is correct. Draft:
+    `docs/open-questions/lac-operon-source-finding-for-lents-2026-08-05.md`.
 26. **BACK BURNER — CRP PWM** (split from former item 12). Build a
     position-weight-matrix for CRP binding sites from RegulonDB data — the
     highest-leverage remaining science move on the decoder, would let the
