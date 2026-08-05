@@ -172,6 +172,8 @@ flowchart TD
 
 Each is the complete, cited model with an "Improve this process" form. In each, the Tier-3 point currently lives in the *text* (the derived-logic line and the sequence-annotation table) — the *diagram* still shows a plain AND/decision node. Making that node **visually** Tier-3 (a distinct color or shape, as in the teaching views above) is a proposed edit I'd value your call on; the form (tap the node, add a note or PMID) is the channel for it.
 
+We're also running an automated cross-check of chart citations across the corpus (comparing each chart's sources against its content). lac's current citation held up fine on that check. If anything looks off on any of these three — or others you look at later — the same form/PMID note covers that too.
+
 - **lac** — https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_lac_operon
 - **ara** — https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_ara_operon
 - **trp** — https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-v2/viewer/index.html?process=ecoli_trp_operon
