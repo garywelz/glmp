@@ -1383,11 +1383,29 @@ gated migration, verified at every phase, in `copernicus-web`:
     point that real value is silently clobbered with a small unrelated
     integer. This is a live landmine independent of the backfill question:
     even fully backfilling `citation_count` corpus-wide would leave it
-    unstable for every paper that ever gets used in a podcast. **Not fixed
-    here** — needs a naming/semantics decision (e.g. a separate
-    `podcast_usage_count` field) before either the field or a backfill can
-    be trusted, and touches a live FastAPI endpoint, not just an offline
-    script.
+    unstable for every paper that ever gets used in a podcast.
+    **DECIDED AND FIXED same-day (2026-08-05), per Gary's explicit request to
+    resolve this before any backfill.** `citation_count` keeps its
+    schema-defined meaning — external bibliometric citation count — full
+    stop. Evidence was unanimous, not a coin flip: all four acquirers
+    (Crossref/PubMed/NASA ADS/bioRxiv), `semantic_scholar_service.py`, and
+    `research_pipeline.py`'s NASA ADS sort/scoring all treat it as external;
+    an archived relevance-scoring script even used it as a ranking-boost
+    signal; `metadata_schema.json`'s own field description says "Number of
+    citations (when available)." The `link-podcast` call site was the one
+    outlier. Checked before touching it, not assumed safe: zero frontend
+    references to `citation_count` anywhere, the endpoint's own response
+    body never returned the field, and a live Firestore scan confirmed
+    **zero documents have ever actually had `used_in_podcasts` set** — the
+    collision was live but had never fired, so there was no corrupted data
+    to reconcile. Fixed in `copernicus-web@b14998dc4`:
+    `/api/papers/{id}/link-podcast/{podcast_id}` now writes
+    `podcast_usage_count` instead of `citation_count`; `used_in_podcasts`
+    itself (the source list) is untouched and the count remains trivially
+    derivable from it either way. **This unblocks a future `citation_count`
+    backfill** — it would otherwise have been unstable for any paper ever
+    linked to a podcast; that risk is now closed regardless of when/whether
+    the backfill itself happens.
     **Net effect on the backfill decision:** the retrieval-dependency check
     that was the missing piece is done, and it raises the stakes rather
     than lowering them — two live features actually depend on this data,
