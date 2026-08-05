@@ -1204,8 +1204,9 @@ gated migration, verified at every phase, in `copernicus-web`:
     Cross-repo (counter lives in `copernicus-web`, surfaced in `glmp`) —
     same shape as item 34 itself.
 
-43. **Researcher-cited intake — built and dry-run tested (2026-08-05), not yet
-    ingested.** Plan: `copernicus-web/huggingface-space/scripts/acquire_papers/`
+43. **Researcher-cited intake — DONE end-to-end (2026-08-05): built, tested,
+    ingested, and its own ingestion bug found and fixed live.** Plan:
+    `copernicus-web/huggingface-space/scripts/acquire_papers/`
     `43-researcher-cited-intake.md` (placement note: put next to the code it
     documents, not in a governance/docs folder — flagging per the standing
     governance-doc-scatter open question rather than assuming this was the
@@ -1265,6 +1266,37 @@ gated migration, verified at every phase, in `copernicus-web`:
     here — it's expected to already be present wherever the batch acquirers
     actually run); bibcode resolution likewise implemented but untested (no
     `NASA_ADS_API_TOKEN` exercised this session).
+    **Gary's go given; `--write` and the real ingest both run (2026-08-05).**
+    `researcher_cited_intake.py --write` produced the metadata JSON (same
+    record shown above). `cloud-run-backend/scripts/ingest_papers_from_metadata_json.py`
+    was run scoped to that one file only (an isolated single-file `--root`,
+    not the full local mirror, specifically to avoid accidentally mass-ingesting
+    whatever else happens to sit in the local `metadata-database/papers/`
+    checkout) — dry-run first (would-write: 1, 0 gate hits), then for real.
+    Live-verified: `research_papers/crossref_10.1016_j.bpj.2022.01.016` exists
+    with correct title/DOI/authors/journal.
+    **FINDING, caught only by checking the live doc rather than trusting the
+    ingest script's own success output:** none of the five provenance fields
+    (`acquisition_channel`, `cited_by`, `cited_date`, `cited_context`,
+    `cited_project`) made it into Firestore. Root cause:
+    `_to_firestore_paper()` in the ingest script hardcodes an explicit
+    allowlist of fields it copies from source JSON to the Firestore doc —
+    provenance was never on that list, since no prior caller had ever
+    supplied it. The paper became findable; *why it was worth adding* — the
+    entire stated point of item #43 — was silently dropped at the very last
+    step. Same presence-without-correctness shape as items 21/28/33 in this
+    doc, just in a new location.
+    **Fixed same-day**, `copernicus-web@9a7f524cb`: added a small additive
+    block to `_to_firestore_paper()` passing through the five fields when
+    present, verified against both a provenance-bearing sample (all five
+    fields correctly appear) and an ordinary scout-acquired sample (no
+    provenance keys added — existing behavior unchanged for every other
+    record type). **Backfilled the already-ingested doc** via a Firestore
+    merge update sourced from its own JSON file (not re-run through the
+    ingest script, since `skip_existing` would have just skipped it) —
+    live-verified post-merge: all five fields present with correct values.
+    Item #43 is now a complete, working, live-proven path from a researcher's
+    citation to a retrievable, provenance-bearing corpus entry.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
