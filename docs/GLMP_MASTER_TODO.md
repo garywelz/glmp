@@ -1842,12 +1842,52 @@ gated migration, verified at every phase, in `copernicus-web`:
     volume it has never had (the Lents test case was one record). Seeds
     the shared corpus with exactly the cross-domain material ATAP
     currently lacks, without waiting on A2's semantics questions to
-    resolve. **Not run.** Per the handoff: dry-run first, same caution as
-    the Lents record. **Interacts with item 45**: any of the 73 already in
-    the corpus would hit the exact gap #45 describes — provenance reported
-    but dropped, not merged — and at 73 records this is likely to actually
-    fire rather than stay theoretical, which makes running this batch a
-    real test of how much that gap costs, not just a hypothetical.
+    resolve. **Dry-run complete (2026-08-05), nothing written.** Ran all
+    73 through the real `researcher_cited_intake.py` (each reference's own
+    DOI when present, free text otherwise), no `--write` at any point.
+    **Final result: 32 resolved cleanly, 33 unresolved, 8 already in the
+    corpus.**
+    **#45's gap is no longer hypothetical.** 8 of 73 (~11%) hit the exact
+    gap #45 describes — a real hit rate, not an edge case. Four distinct
+    already-in-corpus papers, cited 8 times across the three papers
+    (Gardner's toggle switch and Elowitz's oscillator each cited in all
+    three; Jacob & Monod once; scGPT once) — each citation's specific
+    `cited_context` (why *that* paper, in *that* argument) is reported by
+    the script and then discarded, not merged, exactly as #45 describes.
+    This one batch alone would be 8 concrete instances of the gap, not a
+    theoretical one.
+    **Three real bugs found in `researcher_cited_intake.py` /
+    `validate_metadata.py` by testing at volume, fixed same-day
+    (`copernicus-web@f9889a304`)** — this is the point of running 73
+    real references instead of one:
+    1. `DOI_RE` truncated any DOI containing a literal `)` — exactly the
+       old Elsevier PII-derived DOI format (`10.1016/S0022-2836(61)`
+       `80072-7`, Jacob & Monod 1961) that the script already parsed
+       correctly *as a PII string* but broke on when given as the DOI
+       itself. Fixed with a paren-balance-aware trim.
+    2. `resolve_doi()`'s bioRxiv-first path treated more than one API
+       response entry as "ambiguous" — but a DOI-scoped bioRxiv query only
+       ever returns multiple entries for multiple *revisions* of that same
+       DOI, never a different paper. Confirmed against two real preprints
+       in this batch (2 and 4 revisions, identical titles throughout). Now
+       picks the latest version.
+    3. `validate_metadata.py`'s `valid_sources` list was already flagged
+       missing `biorxiv`/`medrxiv` when #43 was first built (open question
+       5 in the plan doc) — no longer theoretical: fix (2) surfaced two
+       real, correctly-resolved bioRxiv preprints that then failed
+       validation on exactly this gap. Fixed.
+    **One real content error found, in the paper itself, not the
+    pipeline:** paper-II reference #3 (Thanos & Maniatis 1995, *Cell*)
+    cites DOI `10.1016/0092-8674(95)90417-0`, which does not exist —
+    confirmed directly against Crossref, not inferred. Found the real
+    paper by title search: `10.1016/0092-8674(95)90136-1`, exact title
+    match ("Virus induction of human IFNβ gene expression requires the
+    assembly of an enhanceosome"). **Not corrected in the paper** — that's
+    Gary's document to edit, flagging rather than touching it.
+    **Still not run for real** — this was the dry run. Writing the 32
+    clean records (and deciding what to do about the 8 duplicates, per
+    #45) is a separate step, gated on Gary's go same as every other write
+    this session.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
