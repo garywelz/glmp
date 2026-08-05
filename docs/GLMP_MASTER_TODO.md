@@ -2014,6 +2014,23 @@ gated migration, verified at every phase, in `copernicus-web`:
     item 45.** Merged onto their existing docs rather than left
     unwritten; not still open.
 
+48. **FINDING — ATAP process files: 218 of 237 have an empty `sources`
+    array (2026-08-05).** Surfaced while verifying an earlier claim for
+    item 46 (A2), never filed on its own — recorded now rather than left
+    living only in conversation. Verified directly, not re-quoted:
+    `copernicus-web/huggingface-space/mathematics-processes-database/`
+    `processes/**/*.json`, 237 files, `sources` field empty on 218,
+    populated on 19. Same shape as item 46's own framing of A2's
+    motivation (ATAP has no acquisition at all, not just an untuned
+    one) — this is the citation-layer half of that gap: even where ATAP
+    *does* have process files, most carry no source citations to backfill
+    from, the mathematics-side analogue of GLMP's 216/217 gap A1 exists to
+    fix. No plan filed yet — not scoped, not sequenced, not assigned. Given
+    A1's own shape (identify what's missing, ingest what's ready, resolve
+    the source-less remainder with human judgment), this likely wants an
+    "A1 for ATAP," but that's a decision, not something to assume by
+    building it.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
