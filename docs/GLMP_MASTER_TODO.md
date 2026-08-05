@@ -1295,8 +1295,70 @@ gated migration, verified at every phase, in `copernicus-web`:
     merge update sourced from its own JSON file (not re-run through the
     ingest script, since `skip_existing` would have just skipped it) —
     live-verified post-merge: all five fields present with correct values.
-    Item #43 is now a complete, working, live-proven path from a researcher's
-    citation to a retrievable, provenance-bearing corpus entry.
+    Item #43 is a complete, working, live-proven path from a researcher's
+    citation to a retrievable, provenance-bearing corpus entry — **DONE
+    status caveated, not unqualified: see item 45**, a real gap in this same
+    feature (already-in-corpus re-citations) that's flagged, not built. The
+    ingest-script bug this item's catch led to is generalized in item 44,
+    which outranks everything else on this list.
+
+44. **FINDING (Core-scoped) — the ingest allowlist was dropping 15 of
+    `metadata_schema.json`'s 31 fields, corpus-wide, for every source, since
+    before item #43 existed. FIXED same-day (2026-08-05).** Claude Chat's
+    follow-up question on item 43's provenance-drop catch: "is the allowlist
+    dropping more than provenance?" — checked directly rather than assumed
+    either way. Diffed `_to_firestore_paper()`'s explicit field list against
+    the schema's 31 properties: `year`, `citation_count`, `bibcode`, `issn`,
+    `issue`, `journal_full`, `language`, `page`, `published_date`,
+    `publisher`, `updated_date`, `volume`, `author_string`,
+    `deduplication_method`, `deduplication_confidence` had no path into
+    Firestore at all, for any source. **Confirmed live, not left as a
+    synthetic worst case:** spot-checked 3 real documents each across
+    crossref/pubmed/arxiv/biorxiv (`research_papers`, **63,198 docs total**)
+    — every sampled doc had zero of the 15 fields — and a corpus-wide count
+    on a non-empty `year` filter returned **1** document out of 63,198. This
+    predates item 43 entirely; item 43 only surfaced it because its five new
+    fields happened to be the ones someone finally checked for.
+    **Fixed** (`copernicus-web@a92b14c2f`), same additive pattern as the
+    provenance fix: never overwrites a key already set, skips fields absent
+    from the source JSON, changes nothing for a record that never carried
+    them. Verified against a synthetic all-31-fields-populated record (all
+    15 previously-dropped fields now appear) and an ordinary minimal record
+    (no new keys added — regression-checked). Backfilled item 43's own test
+    doc with its now-recovered fields (`year`, `citation_count`, `volume`,
+    `issue`, `page`, `publisher`, `issn`, `language`, `author_string`) as a
+    single-doc proof; the doc now carries all 31 schema fields it has values
+    for.
+    **NOT done — the actual scale question, deliberately not answered
+    unilaterally:** whether/how to backfill the ~63,197 other already-ingested
+    docs. That needs each doc's original source JSON, and it's genuinely
+    unknown how many of those still exist (Jetson-side acquisition output,
+    partially mirrored locally, not necessarily complete or 1:1 with what's
+    live in Firestore) — a much larger and riskier undertaking than a single
+    doc's merge update, and a scale-of-effort decision for Gary, not
+    something to start speculatively. Also not evaluated: whether any live
+    code (retrieval ranking, citation display, dedup) already silently
+    depends on these fields being absent (e.g. treats missing `year` as
+    "unknown" gracefully) versus would newly behave differently once a
+    backfill lands — worth checking before any bulk backfill, not after.
+
+45. **GAP in item 43 — re-citation of an already-in-corpus paper drops the
+    provenance signal, flagged not fixed.** Raised by Claude Chat: this
+    isn't an edge case, it's the steady state — as the corpus grows, "a
+    researcher cites something already present" becomes the *ordinary*
+    outcome, and today `researcher_cited_intake.py` correctly declines to
+    re-write the paper but reports the duplicate and keeps nothing: the
+    who/when/why is discarded, which is the exact signal item 43 exists to
+    capture. Recorded as open question 4 in
+    `copernicus-web/huggingface-space/scripts/acquire_papers/43-researcher-cited-intake.md`
+    at build time; promoted to its own numbered item here per the standing
+    lesson (items 21/28/33/40/44) that a DONE-marked item with a known gap
+    reads as fully handled to whoever scans this list next unless the gap
+    has its own line. Needs a design decision, not yet made: merging
+    provenance onto an existing `research_papers` doc is a production write
+    with its own failure modes (concurrent re-citations, whether to append
+    to a list vs. overwrite single `cited_*` fields, whether a doc can carry
+    multiple citers) — deliberately not built speculatively.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
