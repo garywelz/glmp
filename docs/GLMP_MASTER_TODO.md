@@ -1764,6 +1764,91 @@ gated migration, verified at every phase, in `copernicus-web`:
     to a list vs. overwrite single `cited_*` fields, whether a doc can carry
     multiple citers) — deliberately not built speculatively.
 
+46. **PROPOSE — A2, the standing acquisition contract (item #37 Part A;
+    proposal only, nothing implemented, 2026-08-05).** Both plan docs
+    committed to `copernicus-web/huggingface-space/scripts/acquire_papers/`
+    — same directory as item #43's plan, since A2 is the same acquisition
+    subsystem: `A2-standing-acquisition-contract.md` (the contract itself)
+    and `governance-resource-collection-scope.md` (the original proposal,
+    kept for the record; its content is placed into
+    `governance/RESOURCE_MANIFEST.md`, see below, not left only here).
+    **Fresh-fetched both repos and verified all four claims before
+    filing, per the handoff's own instructions:**
+    1. `docs/research_focus.json` schema — **confirmed exactly**: both
+       `glmp` and `atap` have it, same `active_questions[].{q,since,terms}`
+       shape, GLMP 2 questions, ATAP 4 (ATAP also has a `categories` field
+       the schema note anticipated).
+    2. `daily_scout_config.json` — **confirmed exactly**: 10 PubMed + 4
+       arXiv queries, every one `discipline: biology`,
+       `total_papers_per_run: 1000`, source weights (PubMed 0.5,
+       bioRxiv/medRxiv 0.35, arXiv 0.15) match precisely.
+    3. **Load-bearing claim, confirmed**: grepped both repos for
+       `research_focus` — one hit, `copernicus-web/governance/`
+       `check_citations.py`, which only checks that the *filename* exists
+       as a citation target (a governance-doc integrity linter), never
+       reads the file's content. Nothing in the acquisition pipeline
+       consumes it. A2's central premise holds.
+    4. **Reference count — corrected, not confirmed.** Independently
+       recounted the three foundational papers' actual reference sections
+       (not a naive numbered-list regex, which over-counts by picking up
+       unrelated numbered lists elsewhere in each document — paper-I: 36
+       raw matches vs. 33 real references; paper-III: 28 vs. 21). Real
+       counts: paper-I 33, paper-II 19 new (explicitly builds on paper-I's
+       33), paper-III 21 new — **73 total, not 83**. DOI count, verified
+       two independent ways (a `doi.org/` substring match and a bare
+       `10\.\d{4,}/` pattern, identical results both times): paper-I 7/33,
+       paper-II 14/19, paper-III 20/21 — **41 with a resolvable DOI, not
+       33**. Both the placed governance text and this item use the
+       corrected figures.
+    **Placement asked, not assumed, per the handoff's explicit
+    instruction:** Claude Chat's draft pointed at `CONSTITUTION.md` §7,
+    which doesn't match — that section is "Naming & Terms," not Resources,
+    and no existing section fits topically (closest is §4, "Records of
+    truth"). Asked Gary directly; chose `RESOURCE_MANIFEST.md` under
+    "Shared resource collections" instead — a direct fit, since that
+    section already lists the metadata database as a shared collection.
+    Placed (`copernicus-web@75cb84e56`) with the corrected 73-reference
+    figure, and with a header note rather than a flipped date: the
+    document's "last verified against reality: 2026-08-04" claim covers
+    what it covered then; the new subsection added 2026-08-05 carries no
+    verification claim of its own, called out explicitly rather than
+    silently riding on the existing date — exactly the false-claim pattern
+    this field exists to prevent.
+    **A1 could not be filed alongside it, per the handoff's request to
+    check.** Searched both repos' working trees and full git history for
+    `A1-glmp-source-backfill-plan.md` or anything matching — not found
+    anywhere, and it isn't among the files provided this session either.
+    Part A of #37 stays incoherent (A2 filed, A1 missing) until that plan
+    surfaces or gets redrafted — flagging rather than guessing at its
+    content.
+    **Not implemented, per the handoff's explicit instruction.** Sequencing
+    step 1 (confirm `mute`/`flagged`/`frontier`/`horizons` semantics with
+    Gary) is unresolved and gates everything after it — `flagged` currently
+    holds paper IDs with notes, and whether that means include, exclude, or
+    review changes the contract, exactly as flagged in the source doc.
+
+47. **PROPOSE — researcher-cited backfill of the foundational papers'
+    73 references via #43, separately actionable from A2 (2026-08-05).**
+    The 73 references in paper-I/II/III (corrected count, see item 46)
+    qualify as researcher-cited under #43's own terms — cited by a
+    participant (Gary, as the papers' author), in a stated context (each
+    paper's argument). 41 have a resolvable DOI already in the text and
+    would resolve immediately through `researcher_cited_intake.py`'s DOI
+    path; the other 32 (mostly pre-DOI-era books, dissertations, and
+    non-journal sources — Euclid, Hilbert, Peano, Brouwer's dissertation,
+    several Stanford Encyclopedia-linked classics) would exercise the
+    free-text path, which per #43's own design is never auto-accepted and
+    would queue to the review file instead — a real test of that path at
+    volume it has never had (the Lents test case was one record). Seeds
+    the shared corpus with exactly the cross-domain material ATAP
+    currently lacks, without waiting on A2's semantics questions to
+    resolve. **Not run.** Per the handoff: dry-run first, same caution as
+    the Lents record. **Interacts with item 45**: any of the 73 already in
+    the corpus would hit the exact gap #45 describes — provenance reported
+    but dropped, not merged — and at 73 records this is likely to actually
+    fire rather than stay theoretical, which makes running this batch a
+    real test of how much that gap costs, not just a hypothetical.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
