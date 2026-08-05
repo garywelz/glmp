@@ -566,14 +566,26 @@ gated migration, verified at every phase, in `copernicus-web`:
     that specific derived artifact **cannot be correctly regenerated** with
     anything currently committed here, independent of the reselection
     question.
-    **Sent to Prof. Lents as a standalone finding (drafted, not yet sent —
-    Gary's channel), per Claude Chat's request:** the lac_operon case,
+    **Standalone email drafted, then superseded by Gary's better channel
+    (2026-08-05).** Drafted per Claude Chat's request — the lac_operon case,
     specifically *because* it's a good concrete illustration of the
-    false-positive risk, not despite it — asks whether Jacob & Monod or the
-    alternative is the better citation, states plainly this is a
-    machine-measured signal that may be a lexical coincidence, and names
-    both titles rather than implying the embedding's pick is correct. Draft:
+    false-positive risk, not despite it — asking whether Jacob & Monod or
+    the alternative is the better citation, stating plainly this is a
+    machine-measured signal that may be a lexical coincidence. Draft kept
+    for the record, not sent:
     `docs/open-questions/lac-operon-source-finding-for-lents-2026-08-05.md`.
+    **Gary caught a better path**: Lents already has the canonical
+    `ecoli_lac_operon` record open via
+    `collaborations/krampis-virtual-cell/shared-diagrams-for-lents.md`
+    (Layer 2's viewer links), which already invites feedback through its own
+    built-in "Improve this process" form — a standalone email would be a
+    redundant channel on top of one already working, not a needed one.
+    **Folded into that document instead** (`glmp@28e5c44`): one line noting
+    an automated citation cross-check is running corpus-wide, that lac's own
+    citation held up fine on it, and that the same form/PMID-note path
+    covers anything he notices on any chart. States the true, low-key
+    result (no error found here) rather than raising a concern that the
+    analysis itself didn't support.
 26. **BACK BURNER — CRP PWM** (split from former item 12). Build a
     position-weight-matrix for CRP binding sites from RegulonDB data — the
     highest-leverage remaining science move on the decoder, would let the
