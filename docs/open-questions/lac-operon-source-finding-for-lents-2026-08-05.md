@@ -1,6 +1,16 @@
 # A finding on the lac operon chart's citation, for Prof. Lents
 
-Draft for Gary to send — not yet sent.
+**Status: not being sent (Gary's call, 2026-08-05).** Two reasons, both
+good: (1) Lents already has direct access to the canonical `ecoli_lac_operon`
+record via the Layer-2 viewer link in the shared teaching-diagrams document,
+with its own "Improve this process" form built in — a standalone email would
+be a redundant channel, not a needed one. (2) The finding's own analysis
+(see `GLMP_MASTER_TODO.md` item 25) concluded the current citation, Jacob &
+Monod 1961, is very likely already correct — the embedding flag here looks
+like a false positive (a review book's title lexically matching the query),
+not a real error. There's no live problem on this specific circuit to
+report. Kept below for the record, not deleted, since the analysis behind it
+is real and may be useful context later.
 
 ---
 
