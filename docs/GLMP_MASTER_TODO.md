@@ -50,11 +50,14 @@ Diagnostic (2026-07-26, pattern C): of 481 rows, correct-PMID rate ~54%;
 DOIs not uniformly safe (mismatches + unresolved); bad rows independently
 mis-IDed, no mechanical offset. IMPLICATION: any GLMP text citing chart
 sources from this TSV may cite wrong papers — verify before publication.
-**QUEUED THREAD:** full re-harvest from `raw_citation` free-text against a
-resolver, ~220 rows to correct, own runway (not a quick fix). Seeded
-`research_focus.flagged` with 5 verified in-corpus IDs (Jacob/Monod,
+Seeded `research_focus.flagged` with 5 verified in-corpus IDs (Jacob/Monod,
 cAMP-Crp, attenuation, two QS/activation circuits) — retrieval seed only,
-not a bibliography.
+not a bibliography. **Superseded (2026-08-05): the queued re-harvest thread
+turned out to be unrunnable as scoped — see item 25 below for the full
+trace (original PMIDs were AI-assigned at flowchart-authoring time in
+October 2025, `raw_citation` is generated from them so re-resolving it is
+circular, and the 54%/"~220 rows" figures themselves have no reproducible
+methodology committed anywhere in this repo).**
 
 **FINDING: `copernicus-api` auth enforcement has no locatable source
 (2026-07-26).** Diagnostic: `/api/*` rejects with token-style errors ("No
@@ -403,13 +406,67 @@ gated migration, verified at every phase, in `copernicus-web`:
     docs left, index unaffected, full probe re-run confirms both chemistry
     anchors still rank 1.
 
-25. **TSV re-harvest** — promoted from the curated FINDING above (2026-07-26
-    diagnostic: `flowchart-source-papers.tsv`, 481 rows, ~54% correct-PMID
-    rate, pattern C — bad rows independently mis-IDed, no mechanical offset
-    to correct for). Full re-harvest from `raw_citation` free-text against a
-    resolver, ~220 rows to correct. Own runway, not a quick fix.
-    `research_focus.flagged` already seeded with 5 verified in-corpus IDs as
-    a retrieval seed only — this item is the full correction, not that seed.
+25. ~~**TSV re-harvest**~~ — **CANNOT BE RESOLVED AS SCOPED (2026-08-05,
+    Claude Chat catch, traced and confirmed).** The item as written asks to
+    "re-harvest from `raw_citation` free-text against a resolver" — but
+    `raw_citation` is generated *from* each row's own `pmid`/`doi`/`title`
+    columns (confirmed: it's a formatted citation string built from those
+    fields, live-checked against the actual TSV), not an independent
+    original. Re-resolving it returns the same wrong paper every time — the
+    method is circular, not a quick-fix engineering task as originally
+    scoped.
+    **Traced fully, both open provenance questions Claude Chat raised:**
+    1. **Where did the original PMIDs come from?** Git-blamed the flagellar
+       row (PMID 38926585, an unrelated TnpB transposon paper Claude Chat
+       flagged) back to its earliest commit, `1ee3076` (2025-10-15,
+       `gcs-processes/ecoli/ecoli_e._coli_flagellar_assembly.json`). The
+       process JSON's own fields answer it directly:
+       `verifiedBy: "AI-assisted generation with PubMed literature review"`,
+       `notes: "Auto-generated using PubMed and Gemini APIs. Based on 5
+       peer-reviewed sources."` The wrong PMID was assigned by a model
+       during original flowchart authoring in October 2025, not inherited
+       from any upstream human-curated artifact. Made worse by the
+       manifest-builder script itself
+       (`scripts/build_flowchart_source_papers_manifest.py`,
+       `pick_canonical_source()`): it takes `sources[0]` with a DOI,
+       position-based, no relevance check — and this process's own
+       `sources` array has the *correct* flagellar-assembly paper sitting
+       right there at position 1, never picked because position 0 already
+       had a DOI too. The `bb9b8a4` commit Claude Chat asked about
+       (2026-07-15, "ingest provenance") is unrelated to this — it's 9
+       months downstream, adding harvest sidecar files
+       (`interpretive_layer.tsv`, Mermaid diagrams), not the original PMID
+       assignment.
+    2. **Where does "~220 of 481" come from?** Traced the file's own
+       history: 481 is real — the live `flowchart-source-papers.tsv` has
+       482 lines (1 header + 481 data rows), confirmed by direct count.
+       Commit `09f4dc9` (2026-07-11) explains why: it replaced a June
+       217/199-canonical-row manifest (archived as
+       `flowchart-source-papers.pre-harvest-2026-06.tsv`, the "pre-harvest"
+       file with `canonical_doi`/`canonical_pmid`/`canonical_title` columns
+       and no `raw_citation` anywhere) with "the cleaned 481-row harvest" —
+       a one-row-per-source-paper schema, not one-row-per-process. But **the
+       harvest tool that produced those 481 rows, and whatever check
+       produced "~54% correct," were never committed** — no script, no
+       per-row verification output, nothing beyond the master todo's own
+       summary sentence (commit `ce1cd5d`, 2026-07-26). "~220" is not a
+       second, independently-verified data point — it's `481 × (1 − 0.54)
+       ≈ 220`, arithmetic restating the 54% figure, not a separate count of
+       specific wrong rows. **The 54% figure itself cannot be reproduced or
+       audited from anything in this repository.**
+    **Conclusion, matching Claude Chat's:** #25 as scoped is not
+    re-runnable. What it actually needs is **re-sourcing** — finding papers
+    that genuinely support each chart, from scratch — not re-resolving
+    already-circular text. That's a different, larger task needing biology
+    judgment, the same bottleneck already holding #26 and #33. Recommend
+    folding it into that queue rather than treating it as an engineering
+    task. **First actual task, not yet started:** identify which of the 481
+    rows are wrong at all — unknown until then, "which rows are wrong" *is*
+    the blocking first step, not a preamble to one.
+    `research_focus.flagged` remains seeded with 5 separately-verified
+    in-corpus IDs (retrieval seed only, not a bibliography) — unaffected by
+    this finding, since those were checked individually rather than trusted
+    from the TSV.
 26. **BACK BURNER — CRP PWM** (split from former item 12). Build a
     position-weight-matrix for CRP binding sites from RegulonDB data — the
     highest-leverage remaining science move on the decoder, would let the
@@ -1560,6 +1617,15 @@ gated migration, verified at every phase, in `copernicus-web`:
     per doc is possible without the original JSON, just slow — 63k
     rate-limited API calls is a multi-hour-to-multi-day job); the
     UUID-style docs need their source identified before anything else.
+    **Note on schema completeness (Claude Chat, 2026-08-05):**
+    `pdf_url` is not among `metadata_schema.json`'s tracked properties,
+    which is why the earlier 15-field audit missed the 10,985 `arxiv_`
+    -prefixed documents lacking it entirely — that gap was only found
+    afterward, while scoping the backfill's actual row count. **The schema
+    is therefore not a reliable inventory of fields present in production.**
+    Any future audit that diffs live documents against the schema inherits
+    this blind spot and should enumerate fields from actual documents as
+    well, not from the schema alone.
 
 45. **GAP in item 43 — re-citation of an already-in-corpus paper drops the
     provenance signal, flagged not fixed.** Raised by Claude Chat: this
