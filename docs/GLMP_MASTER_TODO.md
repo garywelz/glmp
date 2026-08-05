@@ -1204,6 +1204,68 @@ gated migration, verified at every phase, in `copernicus-web`:
     Cross-repo (counter lives in `copernicus-web`, surfaced in `glmp`) —
     same shape as item 34 itself.
 
+43. **Researcher-cited intake — built and dry-run tested (2026-08-05), not yet
+    ingested.** Plan: `copernicus-web/huggingface-space/scripts/acquire_papers/`
+    `43-researcher-cited-intake.md` (placement note: put next to the code it
+    documents, not in a governance/docs folder — flagging per the standing
+    governance-doc-scatter open question rather than assuming this was the
+    obviously right call). A front door, not a pipeline: when a researcher
+    cites a paper (email, Zoom, review comment), it enters the corpus carrying
+    who/when/why. Currently the only inbound literature route for ATAP (no
+    scout exists there — see item 36) and ungated unlike A1/A2 (items 25/36).
+    Built as `researcher_cited_intake.py`, same directory — manual invocation
+    only, no cron, no interface, per the plan's own recommendation. Accepts
+    DOI/PMID/arXiv ID/bibcode/publisher URL (incl. Cell Press PII)/free text
+    plus `--cited-by`/`--cited-date`/`--cited-context`/`--cited-project`;
+    reuses the existing Crossref/PubMed/arXiv/bioRxiv-medRxiv/NASA-ADS
+    resolvers and `validate_metadata.py`/`deduplicate_papers.py` rather than
+    reimplementing any of them. On ambiguous or failed resolution, queues the
+    original text verbatim and exits non-zero — never a best-effort guess
+    (item 25's lesson, applied here before it bit here too).
+    **One correction made before building:** the plan's draft proposed
+    `source: "researcher_citation"`, which fails `metadata_schema.json`'s
+    closed six-value `source` enum. Fixed to a separate `acquisition_channel`
+    field (schema has `additionalProperties: true`, so no schema edit
+    needed) — `source` stays whichever resolver actually ran.
+    **Test case resolved (2026-08-05), the awkward path proven, not just
+    described:** Prof. Lents' Biophysical Journal citation
+    (`https://www.cell.com/biophysj/fulltext/S0006-3495(22)00045-5`, a
+    publisher URL in PII form, no DOI) → Crossref indexes Elsevier/Cell Press
+    PIIs (punctuation stripped) as each work's `alternative-id` and supports
+    `filter=alternative-id:<value>` as an exact-match lookup — not a scrape of
+    cell.com, which is Cloudflare-gated and returned 403 when tried directly.
+    PII → `alternative-id` `S0006349522000455` → exactly one match: DOI
+    `10.1016/j.bpj.2022.01.016`, "Inducer exclusion, by itself, cannot
+    account for the glucose-mediated lac repression of *Escherichia coli*"
+    (Aggarwal & Narang, *Biophysical Journal* 121(5):820-829, 2022) — directly
+    on-topic for the cAMP-CRP question Lents was working, confirming this is
+    the right paper. Dry run only (no `--write`): validates at 91.7% quality
+    (`validate_metadata.validate_paper`; the only gap is a missing `abstract`,
+    which Crossref doesn't carry for this Elsevier record and which isn't
+    required), confirmed **not** already in `research_papers` by a live
+    Firestore query, confirmed absent from the local `crossref/` mirror
+    (12,235 files) via `deduplicate_papers.are_duplicates`. **Nothing written
+    to the corpus — holding for Gary's go per the plan's explicit gate**
+    before any `--write` run.
+    **Two related findings surfaced, not fixed (out of scope for this task):**
+    `validate_metadata.py`'s hardcoded `valid_sources` list is missing
+    `biorxiv`/`medrxiv` (both valid per the schema's six-value enum) — would
+    wrongly fail any bioRxiv/medRxiv-sourced record, including one resolved by
+    this same script's `10.1101/`-prefix preprint-first path. And: an
+    already-in-corpus re-citation (a researcher citing a paper this script's
+    dedup check finds already present) currently just reports the duplicate
+    and writes nothing — the provenance signal (who/when/why re-cited it) is
+    dropped rather than merged onto the existing doc, since that would be a
+    separate production write not scoped here. Both recorded as open questions
+    in the plan doc, not actioned.
+    **Not done:** the intake-mechanism question (manual vs. repo-file-plus-cron
+    vs. form vs. email) is still open by design — plan recommends starting
+    manual for a month before committing to an interface; PMID resolution is
+    implemented but untested in this environment (no `biopython` installed
+    here — it's expected to already be present wherever the batch acquirers
+    actually run); bibcode resolution likewise implemented but untested (no
+    `NASA_ADS_API_TOKEN` exercised this session).
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
