@@ -2299,19 +2299,74 @@ gated migration, verified at every phase, in `copernicus-web`:
     gap for both fields caught and closed in
     `ingest_papers_from_metadata_json.py` *before* the dry-run, not
     after (same recurring bug class as items 43/44/49).
-    **Dry-run against live Firestore — exact confirmation of Finding
-    3:** `Would write: 3460, Skipped: 0, Gate hits: 0, Failed: 0`. Zero
-    of the 3,460 candidates already exist in `research_papers` by
-    `arxiv_id` — Finding 3's sampled zero-overlap read is now an exact
-    one. Stub gate ran in `observe` mode, zero hits either way.
-    **Not yet done: the actual Firestore write.** Per standing practice
-    (dry-run first, hold for explicit go-ahead on production writes) and
-    Claude Chat's operational note — a second live session touching the
-    same repos is the worst moment for the `claude.exe`-in-use warning
-    to be the Chrome-helper false positive rather than a real
-    collision — a `Get-CimInstance` process check runs immediately
-    before the write, not before the dry-run. Awaiting Gary's go-ahead.
-    Raw build/score reports filed alongside this item for reproducibility.
+    **Dry-run reported `Skipped: 0` — WRONG, and wrong for a reason worth
+    recording on its own.** `--dry-run` stages each doc via `batch.create()`
+    but never calls `batch.commit()`, so the `AlreadyExists` check that
+    produces a real skip count never runs — dry-run mode is structurally
+    blind to pre-existing docs, not evidence of their absence. Caught
+    because the real write's skip count (7) didn't match the dry-run's (0)
+    and the discrepancy was chased down rather than let stand — this
+    script's `--dry-run` cannot be used to verify zero-duplicate-writes
+    before a real run; only the write itself (or a direct `get()` check)
+    can. Worth carrying forward anywhere else this script's dry-run is
+    trusted for that purpose.
+    **Rollback proven before it was needed, per Claude Chat's request:**
+    confirmed all 3,460 local candidate files carried `run_id` before
+    writing anything, wrote a rollback/audit script
+    (`rollback_query.py`, filed in `scripts/atap_firstpass_2026-08-06/`)
+    querying `research_papers.where("run_id", "==", "atap-firstpass-
+    20260806")`, and ran it pre-write (0 matches, as expected) to prove
+    the query mechanics before trusting it post-write.
+    **Process check, then write:** `Get-CimInstance` showed only this
+    session's own `claude.exe` plus the Chrome native-host helper
+    (previously diagnosed as benign) — no second live session, safe to
+    write. Ingest result: `Wrote: 3453, Skipped: 7, Gate hits: 0,
+    Failed: 0`.
+    **Finding 3 corrected: not zero overlap, 7 of 3,460 (0.2%).**
+    The 7 skips were real, not an artifact — checked each by direct
+    `get()`: all 7 already existed in `research_papers` with `created_at`
+    dates from 2026-01-19 through 2026-06-24 (pre-dating this run by
+    months) and no `run_id`, i.e. acquired earlier by the generic arXiv
+    scout. Finding 3's original sampled top-5-per-term check missed
+    these (small sample against terms with hundreds of hits); the
+    dry-run's blind `Skipped: 0` then independently failed to catch it
+    for the structural reason above. Two different failures landing on
+    the same wrong number is itself worth noticing.
+    **Fixed per A2 requirement 5, not left as a silent skip:** "a hit
+    against the existing corpus must still record the new attribution."
+    `skip_existing`'s `create()`-based collision handling correctly left
+    all 7 existing docs untouched (no title/abstract/sources clobbered —
+    requirement 4 held), but a bare skip would have discarded the new
+    question/term/score attribution these papers also earned. Additively
+    merged `acquisition_matches` + `run_id` onto the 7 existing docs
+    (same shape as item 45's `merge_citation_onto_firestore_doc`, same
+    file filed as `rollback_query.py`'s sibling `merge_preexisting.py`).
+    Re-ran the rollback query after: **3,460 matches, exact** — every
+    candidate this run touched, whether freshly written or merged onto
+    an existing doc, is now findable and reversible by `run_id`.
+    **GLMP spot-check, pre/post pair, per Claude Chat's request:** ran
+    three GLMP Node-Explanation-style RAG queries (lac operon/CRP,
+    GRN-as-dependency-graph mathematical structure, operon evolutionary
+    complexity) before and after the write, saved full citation lists
+    both times (`atap-firstpass-glmp-spotcheck-pre/post-2026-08-06.json`).
+    **Zero citation-set change on all three** — same papers cited,
+    same counts (36/40/39), before and after. Answer text differs
+    slightly between runs (LLM sampling variance at the same citation
+    set, not a retrieval effect). **Reading this honestly: no evidence
+    of dilution, but also no evidence of uptake** — on these three
+    queries, none of the 3,460 new papers ranked into the top context
+    window. Doesn't clear the dilution question generally, only on the
+    three queries actually run; a query that leans harder on the formal/
+    mathematical side of GLMP (rather than the biology side, which all
+    three of these did) might behave differently and hasn't been tested.
+    **5.5% of the corpus, one project, one domain, in one run — flagged
+    by Claude Chat for later:** if GLMP retrieval quality shifts going
+    forward, this run is the first place to look, and `run_id` is what
+    makes that testable rather than a guess.
+    A2 gained a new requirement from this run's per-question-threshold
+    finding: "thresholds are per-question or they are not thresholds"
+    (`copernicus-web`, A2 §2). Raw build/score/spot-check reports and the
+    rollback/merge scripts filed alongside this item for reproducibility.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
