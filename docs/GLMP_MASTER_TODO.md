@@ -2175,11 +2175,20 @@ gated migration, verified at every phase, in `copernicus-web`:
       network model" 7→62→106; "model checking biological" 0→18→20;
       "formal verification biology" 0→11→15; "formal methods application"
       (frontier-4) 0→125→480.
-    - Partially recovered, correction method itself still short: "formal
-      methods systems biology" stays 0→0 under word-pair chunking (the
-      natural break is elsewhere — "formal methods" + "for" + "systems
-      biology" — not a clean 2+2 split), but ceiling=38 confirms real
-      literature exists; the chunking heuristic is naive, not ground truth.
+    - **Third null in effect, cause not fully established (Claude Chat
+      correction, 2026-08-06):** "formal methods systems biology" stays
+      0→0 under corrected word-pair chunking. First filed here as a
+      diagnosed artifact — "the natural break is elsewhere, not a clean
+      2+2 split" — but that's a hypothesis, not a confirmed diagnosis: it
+      hasn't been tested against an actual re-chunked query the way the
+      other artifacts were confirmed by re-running with a fix that
+      recovered real hits. ceiling=38 shows related literature exists
+      somewhere in the broader unquoted-word match, but nothing confirms
+      it's about *this* term rather than the ceiling's own looseness.
+      Treated the same as the two confirmed nulls below for the Task 3
+      acquisition run — returns nothing, run and expect nothing — but
+      listed separately because "returns nothing, cause not fully
+      established" and "confirmed genuine null" are different claims.
     - **Confirmed genuine null, not an artifact:** "qualitative modeling
       gene regulation" — 0 under all three constructions including the
       loosest, no-adjacency-required one. This is now the one term in
@@ -2232,6 +2241,77 @@ gated migration, verified at every phase, in `copernicus-web`:
     **Not built:** the declaration-reading runner (Task 3) stays held, per
     the handoff's own sequencing — writing it before this report landed
     would have meant guessing at the query construction it should produce.
+
+51. **ATAP first-pass acquisition runner — built, dry-run reports zero
+    corpus overlap, no Firestore write yet (2026-08-06).** Task 3, on
+    Gary's explicit decisions relayed via Claude Chat: full unwindowed
+    sweep, automated relevance scoring only (no manual review gate),
+    review happens *after* ingest rather than as a gate.
+    **Dry-count first, per the handoff's own gate** ("if it's 80,000,
+    Gary should see it before the write"): 3,463 unique arXiv IDs across
+    all 43 terms (in-category, corrected query construction, every
+    term's fetch matched its declared total — exact, not another
+    floor). ~5.5% of the 62,900-doc corpus — large enough to give ATAP
+    real representation, small enough to review, per Claude Chat.
+    **Build:** fetched full entries (not just IDs) for the 40 non-null
+    terms, reusing item 50's cached responses (same query params,
+    almost entirely cache hits — no new arXiv load). Applied ATAP's
+    `mute` filter (`research_focus.json`): 3 papers dropped, all on
+    "cryptocurrency" (a Proofgold blockchain explorer, a ledger-
+    structures paper, a smart-contract verification paper) — the filter
+    caught exactly what it was built for. **3,460 unique candidates**
+    survive (3,463 − 3 muted).
+    **Third null, listed separately from the two confirmed ones (Claude
+    Chat correction):** "formal methods systems biology" treated the
+    same as the confirmed nulls for this run — skipped, contributes 0 —
+    but recorded as "returns nothing, cause not fully established," not
+    filed under the same diagnosis as the other artifacts item 50 fixed.
+    **Scoring:** relevance score = cosine similarity between a paper's
+    title+abstract embedding and its matched question's embedding
+    (`text-embedding-3-small`), computed per (paper, question) match —
+    a paper matched under multiple questions carries one score per
+    match, none of them gating the write. **No single global threshold
+    was set, and this is a finding, not just a design choice deferred:**
+    per-question score distributions are not comparable to each other —
+    frontier-2's entire range (0.13–0.26, 10 papers) sits below
+    active-question-2's 10th percentile (0.26), and frontier-3's range
+    (0.09–0.45, 552 papers) is centered well below it too. A global
+    cutoff tuned to look reasonable against Q2's 1,940 papers (54% of
+    the sweep) would silently erase most of the frontier questions'
+    already-thin candidate sets — confirming Claude Chat's specific
+    concern about Q2 dominating a pooled threshold. If/when review
+    prunes, it should prune **per question**, not against one shared
+    number. Full distributions (min/p10/median/p90/max) and 10 sampled
+    titles at top/mid/bottom per question filed in
+    `atap-firstpass-score-report-2026-08-06.json`.
+    **Resolved exact numbers, replacing item 50's "~700 with stated
+    overlap" frontier estimate:** frontier-1: 36, frontier-2: 10,
+    frontier-3: 552, frontier-4: 129, frontier-5: 2 (frontier-5's 2
+    papers make its distribution not meaningfully a "distribution").
+    Active questions: Q1 733, Q2 1,940, Q3 197, Q4 91. (Sums exceed
+    3,460 because some papers match more than one question — e.g.
+    "proof structure" spans Q1 and frontier-1 — each contributes to
+    both questions' own unique counts by design.)
+    **Provenance, per A2 requirement 2:** every candidate tagged with
+    `run_id` (`atap-firstpass-20260806`), `acquisition_channel`, and
+    `acquisition_matches` (list of `{kind, question, term, score}`) —
+    attributed to the specific question, not just to ATAP. Allowlist
+    gap for both fields caught and closed in
+    `ingest_papers_from_metadata_json.py` *before* the dry-run, not
+    after (same recurring bug class as items 43/44/49).
+    **Dry-run against live Firestore — exact confirmation of Finding
+    3:** `Would write: 3460, Skipped: 0, Gate hits: 0, Failed: 0`. Zero
+    of the 3,460 candidates already exist in `research_papers` by
+    `arxiv_id` — Finding 3's sampled zero-overlap read is now an exact
+    one. Stub gate ran in `observe` mode, zero hits either way.
+    **Not yet done: the actual Firestore write.** Per standing practice
+    (dry-run first, hold for explicit go-ahead on production writes) and
+    Claude Chat's operational note — a second live session touching the
+    same repos is the worst moment for the `claude.exe`-in-use warning
+    to be the Chrome-helper false positive rather than a real
+    collision — a `Get-CimInstance` process check runs immediately
+    before the write, not before the dry-run. Awaiting Gary's go-ahead.
+    Raw build/score reports filed alongside this item for reproducibility.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
