@@ -2100,9 +2100,8 @@ gated migration, verified at every phase, in `copernicus-web`:
     "A1 for ATAP," but that's a decision, not something to assume by
     building it.
 
-49. **FINDING — `acquire_arxiv_batch.py` discards its own computed
-    discipline; blast radius sized (2026-08-06), read-only, nothing
-    changed.** Confirmed against current `main`: line 181 computes
+49. **FINDING, then FIXED (2026-08-06) — `acquire_arxiv_batch.py` discarded
+    its own computed discipline.** Confirmed against current `main`: line 181 computes
     `category = determine_discipline(...)` correctly (physics/math/
     computer_science/biology by arXiv category prefix), then lines
     204-205 hardcode `"category": "biology"` and `"discipline": "biology"`
@@ -2125,9 +2124,21 @@ gated migration, verified at every phase, in `copernicus-web`:
     `math-ph`), 12 `eess`, 5 `stat`, 3 `nlin`. **This is a #44-scale
     problem, not a two-line-fix-and-move-on** — the fix stops new damage;
     whether/how to backfill the 313 already-mislabeled documents is a
-    scale-of-effort decision, explicitly not made here. Nothing written —
-    read-only sizing, per the handoff's own gate ("read-only until Gary
-    sees the number").
+    scale-of-effort decision, explicitly not made here.
+    **Both fixes applied, 2026-08-06, on Claude Chat's explicit go-ahead
+    after this sizing landed** (`copernicus-web@12da1c1e3`): the two
+    hardcoded `"biology"` literals now use the already-computed `category`
+    value, and a latent operator-precedence bug in that same line
+    (`primary_category or categories[0] if categories else ""`, which
+    Python parses as `(primary_category or categories[0]) if categories
+    else ""` — silently dropping `primary_category` whenever `categories`
+    was empty) was fixed at the same time, since the value it feeds was
+    about to start mattering for the first time. `primary_category` is
+    now also carried through to Firestore on ingest, closing the
+    allowlist gap this item's own methodology note had to work around
+    with a proxy. Both changes are additive — new records only, no
+    existing document touched; the 313-document backfill decision above
+    is unaffected and still open.
 
 50. **ATAP declaration dry-run against live arXiv — feasibility report,
     no writes, no ingest (2026-08-06).** Ran all 25 `active_questions`
@@ -2137,40 +2148,74 @@ gated migration, verified at every phase, in `copernicus-web`:
     which carry a `since` date — windowed vs. unwindowed. Raw responses
     cached (43 terms × up to 4 queries), full structured results
     filed alongside this item for reproducibility without re-querying.
-    **Finding 1 — WRONG, corrected same day (Claude Chat catch).** Originally
-    reported as "question 4 is close to non-functional as phrased," based on
-    4 of its 5 terms returning zero hits in every mode. **The zero was the
-    instrument, not the declaration.** All four queries used a single
-    quoted 4-word phrase (`all:"formal methods systems biology"`) — arXiv's
-    exact-phrase match on a long compound descriptive phrase essentially
-    never fires, since real papers say "formal methods *for* systems
-    biology" or similar, breaking the literal 4-gram. Re-tested all four
-    with an AND of shorter components instead: **all four have real,
-    substantial literature** — "formal methods systems biology" → 334 hits
-    unquoted-AND (4 with quoted sub-phrases); "model checking biological" →
-    141 (39 quoted-sub-phrase); "formal verification biology" → 34 (17);
-    "qualitative modeling gene regulation" → 30. Checked the same pattern
-    elsewhere in the sweep rather than treating it as a one-term fix:
-    `interdisciplinary formalization` (frontier item 4) was also a false
-    zero — 151 hits with a looser query. `formal methods application`
-    (frontier item 4) likewise — 318–5,078 hits. `proof role vocabulary`
-    (frontier item 2) stayed genuinely near-zero even loosened (5 tangential
-    hits, 0 on a targeted sub-phrase AND) — plausibly real thin literature,
-    not the same artifact. **This is the fifth instance today of the day's
-    recurring shape** (trp Greek letters, peroxisome names, the `SOS`
-    tokenizer, a regex reporting zero DOIs, now a phrase-match query) — a
-    measurement came back empty and the instrument was at fault, not the
-    thing being measured. Do not treat question 4 as needing a rewrite on
-    the strength of the original zero-hit report.
+    **Finding 1 — WRONG as first reported, corrected same day (Claude Chat
+    catch, twice).** Originally reported as "question 4 is close to
+    non-functional as phrased," based on 4 of its 5 terms returning zero
+    hits in every mode. **The zero was the instrument, not the
+    declaration.** All four queries used a single quoted 4-word phrase
+    (`all:"formal methods systems biology"`) — arXiv's exact-phrase match on
+    a long compound descriptive phrase essentially never fires, since real
+    papers say "formal methods *for* systems biology" or similar, breaking
+    the literal 4-gram. A first hand-tested re-check confirmed the
+    hypothesis on all four terms — but Claude Chat's second catch was
+    broader and more important: **every multi-word term in the whole sweep
+    used this same construction, so every count in the filed JSON is a
+    floor, not a measurement — not only the ones that happened to land on
+    zero.** A plausible-looking undercount doesn't announce itself the way
+    a zero does.
+    **Response: re-ran the full sweep systematically** (in-category,
+    unwindowed only — see scope note below) with three constructions per
+    multi-word term — floor (original quoted full phrase), corrected
+    (non-overlapping quoted word-pair chunks, ANDed), ceiling (every word
+    ANDed, unquoted, no adjacency) — rather than hand-checking a few terms
+    again. Filed as `atap-arxiv-feasibility-corrected-2026-08-06.json`; the
+    original file now carries a header flagging it as instrument-affected
+    and pointing here. Results, floor → corrected → ceiling:
+    - Recovered (instrument artifact, real literature exists): "Boolean
+      network model" 7→62→106; "model checking biological" 0→18→20;
+      "formal verification biology" 0→11→15; "formal methods application"
+      (frontier-4) 0→125→480.
+    - Partially recovered, correction method itself still short: "formal
+      methods systems biology" stays 0→0 under word-pair chunking (the
+      natural break is elsewhere — "formal methods" + "for" + "systems
+      biology" — not a clean 2+2 split), but ceiling=38 confirms real
+      literature exists; the chunking heuristic is naive, not ground truth.
+    - **Confirmed genuine null, not an artifact:** "qualitative modeling
+      gene regulation" — 0 under all three constructions including the
+      loosest, no-adjacency-required one. This is now the one term in
+      question 4 that may actually need rephrasing.
+    - **Confirmed genuine near-null, not an artifact:** "proof role
+      vocabulary" (frontier-2) — 0→0→2. Stays a real finding about that
+      frontier question, not lost among the corrections.
+    - Note on `interdisciplinary formalization` (frontier-4): the earlier
+      hand-check found 151 hits with a looser query; the systematic
+      in-category re-run shows 0→0→10. Not a contradiction — the 151 was
+      unrestricted across all of arXiv, not limited to ATAP's five declared
+      categories (math.LO, cs.LO, cs.PL, math.CT, cs.DM); the in-category
+      ceiling of 10 is the number that actually bears on ATAP's feasibility.
+    **This is the fifth instance today of the day's recurring shape** (trp
+    Greek letters, peroxisome names, the `SOS` tokenizer, a regex reporting
+    zero DOIs, now a phrase-match query) — a measurement came back empty
+    and the instrument was at fault, not the thing being measured. Added to
+    `AGENT_ROLES.md` v1.6 as a standing working preference: an empty or
+    surprising result is a claim about the instrument until the instrument
+    is checked. Do not treat question 4 as needing a rewrite on the
+    strength of the original zero-hit report — only "qualitative modeling
+    gene regulation" holds up as a real gap.
     **Finding 2 — answers the windowed-vs-unwindowed framing question
-    directly.** Windowed counts run 10-60× smaller than unwindowed across
-    nearly every term ("diagonalization": 382 in-category all-time vs.
-    **7** since 2026-07-01; "incompleteness": 629 vs. **12**). **ATAP's
-    first pass should be a historical/frontier sweep, not a windowed scout
-    run** — there is a large, real, already-published body of work
-    predating the declared `since` dates; a windowed-only scout from day
-    one would look broken when it's actually just caught up on backlog
-    that was never ingested.
+    directly, direction solid, magnitudes are floors.** Windowed counts run
+    10-60× smaller than unwindowed across nearly every term
+    ("diagonalization": 382 in-category all-time vs. **7** since
+    2026-07-01; "incompleteness": 629 vs. **12**). **ATAP's first pass
+    should be a historical/frontier sweep, not a windowed scout run** —
+    there is a large, real, already-published body of work predating the
+    declared `since` dates; a windowed-only scout from day one would look
+    broken when it's actually just caught up on backlog that was never
+    ingested. **Caveat inherited from Finding 1's fix:** the windowed
+    figures above were not re-run with corrected query construction — both
+    sides of each ratio move together under the same phrase-query defect,
+    so the *direction* (windowed ≪ unwindowed) holds, but the exact
+    multiples (10-60×) are a floor-over-floor ratio, not a measured one.
     **Finding 3 — zero corpus overlap.** Sampled each term's top-5 hits
     (not exhaustive — a true unique-paper count isn't cheap for terms
     with hundreds/thousands of hits) and checked every sampled ID against

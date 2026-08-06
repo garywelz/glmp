@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.5 — August 4, 2026
+**Version:** 1.6 — August 6, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -198,6 +198,21 @@ the repo.
   verbatim. All three cost nothing because the receiving side re-verified
   against live `main` before acting — that won't always happen unless it's
   the default, not a judgment call made fresh each time.
+- **An empty or surprising result is a claim about the instrument until the
+  instrument is checked.** Added 2026-08-06 after five instances in two
+  days, all caught the same way — by someone asking whether the tool could
+  produce that answer for a boring reason before believing the answer said
+  something about the world: trp operon Greek letters dropped by an encoding
+  step, peroxisome names failing a case-sensitive match, the SOS tokenizer
+  splitting on the wrong boundary, a regex reporting zero DOIs because of an
+  unescaped paren, and an arXiv feasibility sweep reporting "no literature"
+  for several terms because every multi-word query was a single quoted
+  phrase requiring exact word-adjacency (`GLMP_MASTER_TODO.md` item 50).
+  Five in two days is a property of this kind of work, not a streak — a
+  zero or an outlier is exactly as likely to be the measurement breaking as
+  the thing being measured being empty, and it doesn't announce which.
+  Check the instrument before writing the finding down as being about the
+  world.
 
 ---
 
@@ -235,6 +250,11 @@ silently.
 ---
 
 ## Change log
+- **v1.6** (2026-08-06) — Added a working preference: an empty or surprising
+  result is a claim about the instrument until the instrument is checked,
+  after five same-shape catches in two days, the most recent being a
+  feasibility sweep undercounting arXiv literature because of an overly
+  strict phrase-query construction.
 - **v1.5** (2026-08-04) — Added a working preference: regenerate anything
   handed across between agents from a fresh fetch before applying it, after
   three same-day instances of an out-of-date artifact silently producing a
