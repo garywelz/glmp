@@ -2137,15 +2137,31 @@ gated migration, verified at every phase, in `copernicus-web`:
     which carry a `since` date — windowed vs. unwindowed. Raw responses
     cached (43 terms × up to 4 queries), full structured results
     filed alongside this item for reproducibility without re-querying.
-    **Finding 1 — question 4 is close to non-functional as phrased.** 4 of
-    its 5 terms ("formal methods systems biology," "model checking
-    biological," "formal verification biology," "qualitative modeling
-    gene regulation") return **zero hits in every mode**, categorized or
-    not, windowed or not. Only "Boolean network model" returns anything
-    (7 in-category all-time). A zero is a finding about the declaration's
-    wording, not a null result to route past, exactly as the handoff
-    framed it — these compound phrases likely don't match how the actual
-    literature talks about this intersection.
+    **Finding 1 — WRONG, corrected same day (Claude Chat catch).** Originally
+    reported as "question 4 is close to non-functional as phrased," based on
+    4 of its 5 terms returning zero hits in every mode. **The zero was the
+    instrument, not the declaration.** All four queries used a single
+    quoted 4-word phrase (`all:"formal methods systems biology"`) — arXiv's
+    exact-phrase match on a long compound descriptive phrase essentially
+    never fires, since real papers say "formal methods *for* systems
+    biology" or similar, breaking the literal 4-gram. Re-tested all four
+    with an AND of shorter components instead: **all four have real,
+    substantial literature** — "formal methods systems biology" → 334 hits
+    unquoted-AND (4 with quoted sub-phrases); "model checking biological" →
+    141 (39 quoted-sub-phrase); "formal verification biology" → 34 (17);
+    "qualitative modeling gene regulation" → 30. Checked the same pattern
+    elsewhere in the sweep rather than treating it as a one-term fix:
+    `interdisciplinary formalization` (frontier item 4) was also a false
+    zero — 151 hits with a looser query. `formal methods application`
+    (frontier item 4) likewise — 318–5,078 hits. `proof role vocabulary`
+    (frontier item 2) stayed genuinely near-zero even loosened (5 tangential
+    hits, 0 on a targeted sub-phrase AND) — plausibly real thin literature,
+    not the same artifact. **This is the fifth instance today of the day's
+    recurring shape** (trp Greek letters, peroxisome names, the `SOS`
+    tokenizer, a regex reporting zero DOIs, now a phrase-match query) — a
+    measurement came back empty and the instrument was at fault, not the
+    thing being measured. Do not treat question 4 as needing a rewrite on
+    the strength of the original zero-hit report.
     **Finding 2 — answers the windowed-vs-unwindowed framing question
     directly.** Windowed counts run 10-60× smaller than unwindowed across
     nearly every term ("diagonalization": 382 in-category all-time vs.
