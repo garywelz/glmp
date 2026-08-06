@@ -2358,7 +2358,35 @@ gated migration, verified at every phase, in `copernicus-web`:
     window. Doesn't clear the dilution question generally, only on the
     three queries actually run; a query that leans harder on the formal/
     mathematical side of GLMP (rather than the biology side, which all
-    three of these did) might behave differently and hasn't been tested.
+    three of these did) might behave differently and hasn't been tested
+    — **it has now.** Ran two more queries specifically bridging GLMP
+    and ATAP's material (network-motif formal structure vs. graph
+    similarity; category-theoretic/proof-graph framing applied to the
+    lac operon's regulatory logic) and checked their citation lists
+    directly against `run_id` rather than eyeballing titles. **Still
+    zero** — 0 of ~40 citations on either query trace back to this
+    run's 3,460 papers, even when the question was written to invite
+    exactly that connection. Filed as
+    `atap-firstpass-glmp-spotcheck-formal-lean-2026-08-06.json`. Reading
+    this straight, same as before: no dilution, but also no uptake, now
+    on five queries instead of three, including the two built to give
+    it the best chance. Doesn't prove uptake will never happen — an
+    embedding-similarity RAG search may simply not be the right lens for
+    a connection this abstract — but the "shared corpus helps GLMP see
+    category theory" hypothesis has no supporting evidence yet, only
+    the absence of harm.
+    **Retroactive caveat on `--dry-run`'s `Skipped: 0`, for the record:**
+    items 43 and 47 both quote a dry-run "0 skips" result before their
+    real writes. Neither conclusion is actually in doubt — item 43's
+    "not already in `research_papers`" claim came from a direct live
+    Firestore query run separately, and item 47's write was verified by
+    corpus-count delta (+28, exact) and direct reads of the multi-citer
+    docs — but if either record is read as "the dry-run's 0 skips proved
+    non-duplication," that reading is wrong. The dry-run number was
+    never the evidence; the separate live check next to it was, in both
+    cases. Worth being explicit about which sentence in a past record is
+    doing the evidentiary work when the same tool's output text hasn't
+    changed but what it means has.
     **5.5% of the corpus, one project, one domain, in one run — flagged
     by Claude Chat for later:** if GLMP retrieval quality shifts going
     forward, this run is the first place to look, and `run_id` is what

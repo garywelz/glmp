@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.6 — August 6, 2026
+**Version:** 1.7 — August 6, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -213,6 +213,21 @@ the repo.
   the thing being measured being empty, and it doesn't announce which.
   Check the instrument before writing the finding down as being about the
   world.
+- **Agreement between instruments is only evidence if the instruments
+  could have disagreed.** Added 2026-08-06, same day as the rule above,
+  after the rule above wasn't enough on its own: ATAP's first-pass
+  acquisition run had two independent checks both report zero overlap
+  with the existing corpus — a sampled top-5-per-term check, and an
+  ingest script's `--dry-run`. They agreed, which read as confirmation.
+  It wasn't: the dry-run's skip count was structurally incapable of
+  detecting overlap at all (`batch.create()` staged but never committed,
+  so the existence check never ran), and the sample simply hadn't drawn
+  the 0.2% of terms with pre-existing hits. Two blind spots produced the
+  same wrong number by coincidence, not two measurements confirming each
+  other. Before treating agreement across methods as corroboration, ask
+  whether either method was actually capable of returning the other
+  answer — if one of them couldn't have said "yes, overlap," its
+  agreement with the one that could is not information.
 
 ---
 
@@ -250,6 +265,11 @@ silently.
 ---
 
 ## Change log
+- **v1.7** (2026-08-06) — Added a working preference: agreement between
+  instruments is only evidence if the instruments could have
+  disagreed, after two independent zero-overlap checks in the ATAP
+  first-pass run turned out to be two unrelated blind spots agreeing
+  by coincidence, not confirmation.
 - **v1.6** (2026-08-06) — Added a working preference: an empty or surprising
   result is a claim about the instrument until the instrument is checked,
   after five same-shape catches in two days, the most recent being a
