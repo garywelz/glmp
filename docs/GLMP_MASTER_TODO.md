@@ -2100,6 +2100,78 @@ gated migration, verified at every phase, in `copernicus-web`:
     "A1 for ATAP," but that's a decision, not something to assume by
     building it.
 
+49. **FINDING — `acquire_arxiv_batch.py` discards its own computed
+    discipline; blast radius sized (2026-08-06), read-only, nothing
+    changed.** Confirmed against current `main`: line 181 computes
+    `category = determine_discipline(...)` correctly (physics/math/
+    computer_science/biology by arXiv category prefix), then lines
+    204-205 hardcode `"category": "biology"` and `"discipline": "biology"`
+    regardless — the computed value is thrown away. A two-line fix,
+    sized before touching it per Claude Chat's explicit request.
+    **Measured directly against live Firestore, not estimated:** of 550
+    arxiv-sourced `research_papers` documents with `discipline: "biology"`,
+    **237 (43%) have a `math.` or `cs.` primary category** — 199 `cs.`,
+    38 `math.` **One methodology note**: `primary_category` itself never
+    reached Firestore either (a related, smaller allowlist gap, same
+    family as item 44's finding but never previously caught since it's an
+    arxiv-acquirer-specific field, not in `metadata_schema.json`'s tracked
+    properties) — used `categories[0]` as the proxy instead, reliable
+    since arXiv lists the primary category first, spot-checked against
+    samples before trusting it.
+    **Fuller picture than the strict math/cs question asked for, since the
+    data was already in hand:** only **240 of 550 (44%) are correctly
+    labeled** (genuine `q-bio.*`). The remaining 313 split: 237 math/cs
+    (above), 53 more that should be physics (`physics.*`/`cond-mat`/
+    `math-ph`), 12 `eess`, 5 `stat`, 3 `nlin`. **This is a #44-scale
+    problem, not a two-line-fix-and-move-on** — the fix stops new damage;
+    whether/how to backfill the 313 already-mislabeled documents is a
+    scale-of-effort decision, explicitly not made here. Nothing written —
+    read-only sizing, per the handoff's own gate ("read-only until Gary
+    sees the number").
+
+50. **ATAP declaration dry-run against live arXiv — feasibility report,
+    no writes, no ingest (2026-08-06).** Ran all 25 `active_questions`
+    terms (corrected from the handoff's claimed 26 — 7+7+6+5, verified by
+    counting, not assumed) and all 18 `frontier` terms against the real
+    arXiv API: in-category vs. no-category, and — for `active_questions`,
+    which carry a `since` date — windowed vs. unwindowed. Raw responses
+    cached (43 terms × up to 4 queries), full structured results
+    filed alongside this item for reproducibility without re-querying.
+    **Finding 1 — question 4 is close to non-functional as phrased.** 4 of
+    its 5 terms ("formal methods systems biology," "model checking
+    biological," "formal verification biology," "qualitative modeling
+    gene regulation") return **zero hits in every mode**, categorized or
+    not, windowed or not. Only "Boolean network model" returns anything
+    (7 in-category all-time). A zero is a finding about the declaration's
+    wording, not a null result to route past, exactly as the handoff
+    framed it — these compound phrases likely don't match how the actual
+    literature talks about this intersection.
+    **Finding 2 — answers the windowed-vs-unwindowed framing question
+    directly.** Windowed counts run 10-60× smaller than unwindowed across
+    nearly every term ("diagonalization": 382 in-category all-time vs.
+    **7** since 2026-07-01; "incompleteness": 629 vs. **12**). **ATAP's
+    first pass should be a historical/frontier sweep, not a windowed scout
+    run** — there is a large, real, already-published body of work
+    predating the declared `since` dates; a windowed-only scout from day
+    one would look broken when it's actually just caught up on backlog
+    that was never ingested.
+    **Finding 3 — zero corpus overlap.** Sampled each term's top-5 hits
+    (not exhaustive — a true unique-paper count isn't cheap for terms
+    with hundreds/thousands of hits) and checked every sampled ID against
+    `research_papers` by `arxiv_id`: **zero matches, across all four
+    questions.** ATAP's declared frontier isn't redundant with what's
+    already in the corpus.
+    **Frontier terms**, checked separately (in-category/no-category only,
+    no `since` date to window by): frontier-3 (representation/notation:
+    "knowledge representation," "string diagram," "commutative diagram")
+    is the one area with substantial hits (up to 305 in-category); the
+    other four frontier groups return single digits to zero even
+    unfiltered — consistent with genuinely open, thinly-studied questions
+    rather than a phrasing problem, unlike question 4's pattern above.
+    **Not built:** the declaration-reading runner (Task 3) stays held, per
+    the handoff's own sequencing — writing it before this report landed
+    would have meant guessing at the query construction it should produce.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
