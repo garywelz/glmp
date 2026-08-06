@@ -1885,6 +1885,28 @@ gated migration, verified at every phase, in `copernicus-web`:
     scout — but sequencing step 2 (ATAP first, since it has zero
     acquisition today) is now the next actionable step, not a design
     question waiting on anyone.
+    **Two consequences of those answers changed the contract's text, not
+    just its glossary — caught same day, before drift set in
+    (`copernicus-web@bb7e2bd36`):**
+    - **`flagged` moved out of A2's scope, into #43's.** Always-include
+      seed papers a researcher curated and justified are researcher-cited
+      by another name — same provenance shape, same `citations` merge
+      semantics already shipped and verified on 8 real cases (item 45).
+      Routing them through the scout would put a resolved ingest problem
+      back through an unbuilt one. `mute` stays in A2's scope — a genuine
+      scout filtering decision, not a citation.
+    - **`horizons` cross-referenced with the governance text, both
+      directions.** It's the concrete mechanism for
+      `RESOURCE_MANIFEST.md`'s adjacency principle ("admits work from
+      adjacent disciplines... when semantic relationship earns it"), not a
+      separate idea that happens to resemble it — the principle says why,
+      `horizons` is where a project says which fields it means. Neither
+      doc pointed at the other before; both do now.
+    **Checked, not assumed, before editing:** requirement 1's own top
+    sentence already correctly named both `active_questions[].terms` and
+    `frontier[].terms` as acquisition targets — the specific staleness
+    risked (right in the glossary, stale in the requirement, the pattern
+    corrected three times earlier today) didn't actually happen this time.
 
 47. **PROPOSE — researcher-cited backfill of the foundational papers'
     73 references via #43, separately actionable from A2 (2026-08-05).**
