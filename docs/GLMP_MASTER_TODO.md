@@ -1907,6 +1907,41 @@ gated migration, verified at every phase, in `copernicus-web`:
     `frontier[].terms` as acquisition targets — the specific staleness
     risked (right in the glossary, stale in the requirement, the pattern
     corrected three times earlier today) didn't actually happen this time.
+    **Worth noting for what it says about the drafting, not just the
+    result (Claude Chat):** that sentence was written before the
+    semantics were confirmed, inferring `frontier` drives acquisition from
+    the fact that it has its own `terms` array. The inference happened to
+    be right — but checking rather than assuming was the correct move
+    regardless of the outcome, and recording "the staleness didn't happen
+    this time" is worth more than silence would have been: it's a verified
+    negative, distinguishable from a staleness risk nobody actually looked
+    at.
+    **A design generalization, captured before it's lost to the day
+    ending:** moving `flagged` to #43 makes #43 the general path for
+    *anything a human deliberately chose* — an email citation, a paper's
+    bibliography, a curated seed list, all the same shape. Cleaner boundary
+    than originally drawn; A2 gets smaller for it.
+    **Two more things written into the contract itself before stopping for
+    the day** (`copernicus-web@c54d018f9`), so they don't live only in
+    conversation: the ~40% false-positive calibration figure was already in
+    the doc but parked under "what this leaves to #36," disconnected from
+    requirement 2 (attribute every candidate) where a similarity-based
+    mechanism would actually need it — cross-referenced in place. And
+    ATAP's four `active_questions` have `terms` but have never been run
+    against a live source; whether they return anything usable is itself a
+    finding about the declaration, not a null result to route past — noted
+    at sequencing step 2, paired with item #48 as the same gap from two
+    sides.
+    **End of day, 2026-08-05.** Built and proven on three distinct cases:
+    a new paper (Lents), the same paper cited twice before ingest, and a
+    re-citation of a paper already live in the corpus. #44 backfilled
+    23,025 documents. #45's merge semantics shipped and verified live.
+    #48 filed. A1 and A2 both filed, corrected, and — for A2 — actually
+    unblocked. The governance text written, placed, and now
+    cross-referenced with the field that implements it. #25 went from an
+    unreproducible "~220 rows" estimate to a measured, tiered, 54-row
+    candidate list with its own false-positive rate known. Nothing left
+    mid-air that isn't explicitly logged as deliberately parked.
 
 47. **PROPOSE — researcher-cited backfill of the foundational papers'
     73 references via #43, separately actionable from A2 (2026-08-05).**
