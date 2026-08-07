@@ -2393,8 +2393,57 @@ gated migration, verified at every phase, in `copernicus-web`:
     makes that testable rather than a guess.
     A2 gained a new requirement from this run's per-question-threshold
     finding: "thresholds are per-question or they are not thresholds"
-    (`copernicus-web`, A2 §2). Raw build/score/spot-check reports and the
-    rollback/merge scripts filed alongside this item for reproducibility.
+    (`copernicus-web`, A2 §2).
+
+    **Correction, 2026-08-07: the zero-uptake result above was measuring
+    the pipeline, not the premise (Claude Chat's diagnosis, confirmed).**
+    Checked the Firestore schema directly: the 7 merged pre-existing
+    docs carry `embedding`/`embedding_model`; none of the 3,453 freshly
+    written docs did. GLMP's retrieval is Firestore native vector search
+    (`find_nearest` on the `embedding` field) — a doc without that field
+    is structurally unrankable, not merely low-relevance. All five
+    "zero uptake" spot-checks were answered honestly against an index
+    that never contained the thing being tested.
+    **Fixed via the proper tool, not improvised:** `backfill_research_paper_embeddings.py`'s
+    own `--pin`/`--dry-run`/`--pilot`/`--run` workflow. `--pin` census
+    matched exactly 3,453 — independent confirmation the 7-doc merge
+    worked (the merged docs correctly did *not* need re-embedding), a
+    case of two measurements agreeing where they could have disagreed,
+    same standard as the rollback-count check above. `--pilot 5` wrote
+    5 real embeddings; proved the write path with a live `find_nearest`
+    query on one pilot doc's own title before trusting the rest — it
+    ranked first, `run_id` intact. Full `--run` completed clean:
+    **3,453 embedded, 0 skipped, 0 failed.**
+    **Corpus-wide census, per Claude Chat's request — the invisible-
+    papers question generalizes past this run, and the answer is
+    reassuring: 0 of 66,697 documents corpus-wide now lack an
+    embedding.** Not a longstanding #44-shaped gap. Checked items 43
+    and 47's specific researcher-cited papers directly (33 docs via
+    `acquisition_channel == "researcher_citation"`, including Lents'
+    cAMP-CRP paper): **all 33 already embedded**, most since shortly
+    after their 2026-08-05 ingest — evidence of a working periodic
+    auto-embed process (`--auto` cron, per the script's own docstring)
+    that had two days to reach the item 43/47 batch but not yet the
+    hours-old ATAP batch when the original spot-checks ran. #43/#47's
+    "in the corpus, retrievable, and its record shows who cited it"
+    criterion holds; the gap was time-lag on new records, not a
+    standing hole.
+    **Re-ran all five spot-check queries against the now-complete
+    index — real, graded uptake, matching Claude Chat's stated
+    prediction almost exactly:** the two pure-biology queries (lac
+    operon/CRP; evolutionary complexity) still show **0** ATAP-run
+    citations. The GRN-as-dependency-graph query (a partial bridge)
+    shows **1**. The two queries built specifically to bridge GLMP and
+    ATAP show real pickup: network-motif formal structure **2** ATAP
+    papers, and the category-theory/proof-graph query **5** — with an
+    ATAP paper (**"Graphical Regular Logic"**) ranking **first**.
+    Filed as `atap-firstpass-glmp-spotcheck-post-embed-2026-08-07.json`.
+    **The shared-corpus hypothesis now has actual supporting evidence,
+    not just absence of harm** — graded exactly along the semantic
+    distance predicted in advance, not read post-hoc into a pooled
+    result. Raw build/score/spot-check reports, the embedding backfill
+    log, and the rollback/merge scripts filed alongside this item for
+    reproducibility.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
