@@ -2644,6 +2644,52 @@ gated migration, verified at every phase, in `copernicus-web`:
     uppercase, Jacob & Monod's two citation events both read back
     consistent.
 
+    **Third follow-up, same day — multi-seed combination test,
+    predicted before measuring.** A2 amended: `flagged` gains a second
+    role as scoring anchors (paper-to-paper, not text-to-paper), and
+    `mute`'s limit is now recorded (excludes a known topic, doesn't fix
+    a query matching on the wrong dimension) — both in
+    `copernicus-web`'s A2 doc, §1.
+    **Prediction, stated before running:** mean-of-seeds cleanest/most
+    representative; union broader and noisier (each seed's own
+    idiosyncratic neighbors leaking in); intersection degenerate (six
+    thematically diverse seeds unlikely to share a tight neighborhood,
+    so min-across-seeds mostly measures the worst-matching seed).
+    **Result: partially right, and the more useful finding is a
+    different one.** Combined all 6 available seeds (the 5 flagged
+    papers + Lents' citation). Intersection *was* markedly weaker as
+    predicted — scores 0.42–0.45 versus 0.65–0.77 for mean/union — but
+    still surfaced plausible gene-regulatory-circuit material, not
+    garbage. Union was **not** noticeably noisier than mean — the two
+    overlap heavily in their top ranks (several identical papers in
+    both top-15s), because the 6 seeds themselves aren't embedding-wise
+    far apart.
+    **The finding that actually matters: none of the three combination
+    methods stayed on active-question-1's specific target.** All three
+    converge on a broader "synthetic gene-circuit engineering" theme —
+    coherent, real research, clearly GLMP-adjacent, but not narrowly
+    "CRP binding-site evidence / PWM." The single-seed test two rounds
+    earlier (`pubmed_35648826` alone, the one note explicitly marked
+    "direct Crp literature seed") stayed tighter to the actual question
+    than any multi-seed combination did. Reason, once looked for: only
+    1 of the 6 seeds is actually about CRP/PWM specifically — the other
+    5 are flagged for GLMP's research programme generally (pattern
+    formation, quorum sensing, attenuation, Jacob & Monod's founding
+    paper), not for *this* question. Averaging or unioning across a
+    seed set that's mostly off-topic *for this question* dilutes the
+    one seed that was on-topic, rather than sharpening it.
+    **Correction to the amendment above, recorded rather than left
+    implicit:** seed selection for anchoring should be **per-question**,
+    using only seeds actually relevant to that question — which may be
+    a single paper, and that's a feature of a well-scoped question, not
+    a shortfall to fix by adding more seeds. `flagged` papers are
+    project-level judgments, not pre-tagged to a specific
+    `active_questions`/`frontier` entry; using the whole list
+    indiscriminately as one combined anchor set is the mistake this
+    test surfaced, not a property of mean/union/intersection as
+    combination methods. Filed as
+    `glmp-q1-multiseed-test-2026-08-08.json`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
