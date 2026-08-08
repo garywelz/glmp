@@ -2589,6 +2589,61 @@ gated migration, verified at every phase, in `copernicus-web`:
     `"glmp"`) — pre-existing inconsistency from before this session,
     left as-is rather than silently normalized without being asked.
 
+    **Second follow-up, same day — tested two candidate fixes before
+    concluding the dimension needs indefinite human review, per Claude
+    Chat's push not to stop at "open, not solved."**
+    **(f) Mute filtering (`c-reactive protein`, `inflammation marker`)
+    against the original bare-CRP text: partial, diagnostic result.**
+    The C-reactive protein cluster is gone from the top 15 — muting
+    worked for the specific cluster it targeted. But the new top 15 is
+    still off-target: generic protein-benchmark and biomarker papers
+    (`ProtDBench`, antibody validation, proteomics biomarker panels),
+    nothing about *E. coli*, CRP, or binding sites specifically. This
+    confirms the diagnosis rather than fixing the dimension: the
+    question text keys on generic "protein/binding/biomarker" register,
+    and muting one wrong cluster only exposes the next one — it treats
+    a symptom, not the cause.
+    **(g) Paper-to-paper anchoring: works, decisively.** Scored the
+    corpus against a single seed paper's own embedding —
+    `pubmed_35648826`, the flagged note's own "direct Crp literature
+    seed" — instead of against question text. **Every one of the top 15
+    hits is genuinely on-topic:** *E. coli* stress-response systems
+    (PhoP/PhoQ, envelope-stress Rcs/Cpx signaling), bacterial death/
+    lysis pathways, acid-resistance and oxidative-stress systems — zero
+    C-reactive-protein contamination, zero generic-proteomics noise.
+    Confirms Claude Chat's hypothesis directly: Jacob & Monod's abstract
+    (and this seed's) carries no C-reactive-protein register to latch
+    onto, so the ambiguity is sidestepped structurally rather than
+    filtered after the fact.
+    **Caveat, so this isn't oversold as fully solved:** the top hits
+    lean toward the seed paper's own dominant framing (this one is
+    titled around a "stress-mediated bacterial death pathway," so its
+    neighbors skew toward stress/death-pathway biology specifically,
+    not narrowly "CRP binding-site/PWM evidence") — a single seed
+    inherits that seed's thematic center, not the declared question's
+    exact scope. The likely refinement is multiple seeds per question
+    (the flagged papers plus Lents' cited paper) scored and combined,
+    not a single anchor. Not tested here; flagged for whoever builds
+    the real attribution pass.
+    **Implication for the eventual write:** for active-question-1
+    specifically (and plausibly frontier-1, same "CRP" term), paper-
+    anchor scoring using the flagged seeds should replace or supplement
+    question-text scoring. Active-question-2 and frontier-2 showed no
+    equivalent contamination in the original pass and don't need this.
+    Filed as `glmp-q1-two-fixes-test-2026-08-08.json`.
+    **(h) `cited_project` casing normalized corpus-wide, root cause
+    fixed.** Surveyed before touching anything: top-level field was 33
+    `"GLMP"` vs. 4 `"glmp"` (ATAP's own field was 1000/1000 `"atap"` —
+    ATAP's invocations happened to stay consistent, GLMP's didn't).
+    Traced to the actual cause: `researcher_cited_intake.py` stores
+    whatever casing an operator typed on the CLI verbatim, no
+    normalization (`copernicus-web`) — fixed to lowercase at write time
+    so this can't drift again. Backfilled existing data: 33 top-level
+    docs plus 15 citation events inside `citations[]` arrays across 7
+    docs, all normalized to `"glmp"`. Live-verified after: 0 remaining
+    uppercase, Jacob & Monod's two citation events both read back
+    consistent.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
