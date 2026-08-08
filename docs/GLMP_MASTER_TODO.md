@@ -2690,6 +2690,41 @@ gated migration, verified at every phase, in `copernicus-web`:
     combination methods. Filed as
     `glmp-q1-multiseed-test-2026-08-08.json`.
 
+    **Fourth follow-up, same day — schema gap closed
+    (`research_focus.json`, both projects share the format).** Neither
+    `flagged` nor `active_questions`/`frontier` had a field for *which
+    question a seed anchors* — the exact thing the multi-seed test
+    showed was missing. Two candidate fixes; Claude Chat asked for the
+    call before either was implemented. **Chose a `seeds` list on each
+    `active_questions`/`frontier` entry over a `questions` back-
+    reference on `flagged`.** The back-reference option needs something
+    stable to point at, and `active_questions` entries have no ID, only
+    free-text `q` — a reference would have to match that text verbatim
+    and would have silently broken this very session, when
+    active-question-1's text was reworded for the CRP fix. `seeds`
+    living inside the question object needs no cross-reference and
+    matches how the file is already consumed — one object per question,
+    carrying its text, terms, and now its anchors together.
+    Added `active_questions[0].seeds` (`pubmed_35648826`, `crossref_
+    10.1016_j.bpj.2022.01.016`) and `frontier[0].seeds` (the same Lents
+    citation). **Populated only with the two papers this session's own
+    testing actually justified** — not bulk-copied from the rest of
+    `flagged`, which is precisely the mistake the multi-seed test
+    surfaced. A paper can be a project-level `flagged` entry, a
+    question-level `seeds` entry, both, or `seeds`-only (Lents'
+    citation isn't in `flagged` at all) — the two fields are
+    independent.
+    **Named, not silently left implicit: this doesn't yet make the
+    combination-method question testable.** Active-question-1 has 2
+    seeds now, still short of enough for mean/union/intersection to
+    meaningfully diverge. Not a blocker — the growth path already
+    exists via #43: every paper a researcher cites while working a
+    specific question is a candidate seed, with `cited_context` already
+    capturing why. Wiring #43 to record *which question* a citation
+    was for, so it can feed a question's `seeds` automatically, is real
+    future work — named here, not built, and not guessed at. Full
+    reasoning filed in `copernicus-web`'s A2 doc, §1.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
