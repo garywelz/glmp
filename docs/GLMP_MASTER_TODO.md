@@ -2445,6 +2445,90 @@ gated migration, verified at every phase, in `copernicus-web`:
     log, and the rollback/merge scripts filed alongside this item for
     reproducibility.
 
+52. **GLMP retroactive attribution — report only, no writes (2026-08-08).**
+    Design note filed: `project-oriented-research-design-note.md` —
+    thinking, not a build spec, prompted by Gary's 2026-08-06 framing
+    ("I want to drive it in a very specific direction to ask specific
+    questions"). Core claim: for GLMP the job is attribution before
+    acquisition — GLMP's ~63,000 papers carry nothing connecting them to
+    GLMP's own declared questions, while ATAP's 3,453 (item 51) carry
+    full `acquisition_matches` provenance. The newest, smallest project
+    is the best-instrumented one.
+    **Two claims fresh-fetch-verified before acting on them, both
+    correct:** `research_focus.json` — 2 active questions (9 terms
+    each), 2 frontier entries (4 terms each), 5 flagged PMIDs, 2 mute
+    terms, exactly as claimed. `KNOWLEDGE_MAP_FILTERING_NOTE.md` is
+    stale — the endpoint (`endpoints/knowledge_map/routes.py`) declares
+    all six filter params and `build_graph()`
+    (`services/knowledge_map_service.py:758`) genuinely uses them
+    (in-memory filtering, vector-seeded path on `keyword`), not just
+    accepts and drops them. Dated rather than deleted
+    (`copernicus-web`, same convention as governance docs) — the real
+    remaining gap is narrower than the note describes: filtering exists
+    on library dimensions, not on "which declared question does this
+    serve."
+    **Task A — scored the existing corpus against GLMP's 2 active
+    questions + 2 frontier entries, reusing item 51's now-universal
+    embeddings (no re-embedding, no new papers, `since` ignored per the
+    handoff).** 66,738 papers scanned, all embedded (matches the
+    2026-08-06 census), 0 muted (the 2 mute terms are narrow enough
+    that nothing in the corpus matches verbatim — expected, not a gate
+    failure).
+    **Finding: the "CRP" ambiguity contaminates active-question-1's top
+    end.** Its highest-scoring hits are "Evolution of C-Reactive
+    Protein" (0.5588) and "Phylogenetic aspects of C-reactive protein"
+    (0.5087) — the wrong CRP entirely. GLMP's "CRP" is the cAMP
+    receptor protein; the biomedical literature's overwhelmingly more
+    common "CRP" is an inflammation biomarker, and the embedding model
+    doesn't fully disambiguate even with "binding-site sets" and
+    "position weight matrices" in the same question text. Active-
+    question-2 (no bare "CRP", built around "E. coli," "activator,"
+    "PWM") shows no equivalent contamination — its top-10 are
+    plausible on-target hits (toggle switches, network motifs in *E.
+    coli*, flagella regulators, promoter engineering). This is a
+    declaration-wording problem, not a scoring-method problem, and it's
+    specific to one of the four dimensions, not general — exactly why
+    per-question review beats a pooled score.
+    Frontier-1's top hit is the actual paper Lents cited
+    (`crossref_10.1016_j.bpj.2022.01.016`, item 43's original test
+    case) — genuine signal at the top, with some drift a few ranks down
+    (CRISPR/Cas13a diagnostics, quantum decoders — likely "CRP"/
+    "decoder"-adjacent term collisions of the same shape). Frontier-2's
+    top-10 are diffuse but plausible (gene-regulation modeling papers).
+    Mid and bottom samples across all four dimensions are unambiguous
+    noise (obituaries, award announcements, unrelated physics/astronomy)
+    — the floor behaves correctly.
+    **Unclaimed remainder:** of 66,738 papers, only **45 score above
+    0.5** on any of the 4 dimensions, **1,189 above 0.4**, **15,856
+    above 0.3**, **57,577 above 0.2** (median max-score: 0.257). No
+    global threshold is set — per-question-thresholds-or-none, per the
+    ATAP-run finding this design note explicitly carries forward — these
+    are reference points for Gary/Claude Chat to judge, not a verdict.
+    Reading it plainly: GLMP's declaration claims a small, sharp sliver
+    of the corpus; the great majority of the ~63,000 generic biology
+    papers serve neither GLMP's stated questions nor, per item 51, most
+    of ATAP's. Confirms the design note's own prediction (a narrow
+    declaration of the *current investigation*, not of GLMP's subject
+    matter, produces a small claimed set) rather than indicating
+    something broken.
+    Full distributions, all four dimensions' top/mid/bottom-10 samples
+    filed as `glmp-retroactive-attribution-report-2026-08-08.json`.
+    **Task B — GLMP's 5 flagged PMIDs, dry-run only.** All 5 already
+    exist in the corpus (all embedded); per the 2026-08-05 A2 decision,
+    flagged papers route through #43's citation-shaped path, not
+    scoring. Dry-run shows what a `citations`-list merge would add for
+    each — `cited_by: "Gary Welz"`, `cited_date: "2026-07-26"` (the
+    declaration's own `updated` date), `cited_context`: the flagged
+    `note` text, `cited_project: "glmp"`. `pubmed_13718526` (Jacob &
+    Monod 1961) already carries one citation from item 47's
+    foundational-papers batch — this would be a second, distinct
+    event, exactly what the multi-citer schema exists for. Filed as
+    `glmp-flagged-papers-citation-merge-dryrun-2026-08-08.json`.
+    **Not done, per the handoff's explicit scope:** no UI work, no
+    question dimension added to the graph endpoint, no attribution
+    written, no threshold set, no Task B merge executed. All of it
+    holds for Gary's review of the distributions above.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
