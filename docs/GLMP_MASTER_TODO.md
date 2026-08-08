@@ -2526,8 +2526,68 @@ gated migration, verified at every phase, in `copernicus-web`:
     `glmp-flagged-papers-citation-merge-dryrun-2026-08-08.json`.
     **Not done, per the handoff's explicit scope:** no UI work, no
     question dimension added to the graph endpoint, no attribution
-    written, no threshold set, no Task B merge executed. All of it
-    holds for Gary's review of the distributions above.
+    written, no threshold set. All of it holds for Gary's review of the
+    distributions above.
+
+    **Follow-up, same day (Claude Chat's read of this item):**
+    **(a) A distinct failure-mode direction, worth naming explicitly.**
+    Every prior instrument-catch this week was normalization discarding
+    a discriminating token (trp's Greek letters, peroxisome names, the
+    `SOS` tokenizer, the quoted 4-gram). The CRP finding is the
+    reverse — an embedding *retaining* a token whose dominant corpus
+    meaning is wrong. The fix is different in kind: not a code bug, a
+    declaration-wording problem.
+    **(b) Tried the fix, measured it, it did not work — reporting that
+    plainly rather than assuming the obvious fix would land.** Reworded
+    active-question-1's `q` to "cAMP receptor protein (CRP) /
+    catabolite activator protein (CAP)" in place of bare "CRP"
+    (`research_focus.json`, `updated` bumped to 2026-08-08) and
+    re-scored the full corpus against the new text alone. **The
+    contamination did not clear.** "Evolution of C-Reactive Protein"
+    dropped only from 0.5588 to 0.5168 and stayed in the top 2; the new
+    #1 (0.5408) is an unrelated CXCR4/ACKR3 signaling paper, and most of
+    the new top-15 is generic receptor/proteomics material — spelling
+    out "receptor protein" and "activator protein" pulled in a second,
+    broader kind of noise (any paper about protein receptors generally)
+    on top of the first. One genuine hit did surface at rank 12 ("The
+    dual role of cAMP receptor protein (CRP) in regulating type 3
+    fimbriae expression") that plausibly wasn't reachable before.
+    **Open, not solved:** short-question-embedding similarity appears to
+    key on generic high-frequency biomedical vocabulary ("protein,"
+    "receptor," "binding") as much as on the specific named entity that
+    actually discriminates relevance. Reworded question text is kept
+    (marginal improvement, one genuine hit surfaced) but active-
+    question-1's scores should not be trusted at the top without a
+    human read until this is actually fixed — a real fix likely needs
+    either a longer/more specific anchor text weighted toward *E. coli*/
+    bacterial vocabulary, or a scoring method that isn't pure embedding
+    similarity over one question string. Filed as `q1_rescore.json`.
+    **(c) Frontier-1's Lents hit is an independent validation, worth
+    stating as such.** A researcher-cited paper (item 43's original test
+    case) surfaced at the top of the one frontier question it was cited
+    for, with nothing done to promote it — the method works when the
+    terms aren't ambiguous, which is the useful contrast to (b).
+    **(d) The design note's own recommendation was wrong, and the note
+    should not be read as still arguing the opposite:** 45 papers above
+    0.5 out of 66,738 is a direct answer to the note's central open
+    question — GLMP's coverage gap is a *missing-papers* problem, not
+    an attribution problem the retroactive pass could substitute for.
+    Targeted GLMP acquisition (A2) is warranted, informed by this
+    attribution pass's numbers rather than guessed at, reversing the
+    note's "attribution before acquisition might be enough" framing.
+    Attribution was still the right first step — cheap, no new data,
+    and it's what makes this correction possible with numbers instead
+    of a guess — but it is not a substitute for A2.
+    **(e) Task B executed for real, on explicit go-ahead, live-
+    verified.** All 5 flagged-paper citation merges written — additive,
+    nothing else on any doc touched. Jacob & Monod's doc now carries 2
+    distinct citation events (item 47's foundational-papers reference,
+    2026-06-14, and this flagging, 2026-07-26) — read directly from
+    Firestore after the write, not trusted from the write call's return
+    value. Minor, non-blocking note found in the same read: the two
+    events use different casing for `cited_project` (`"GLMP"` vs.
+    `"glmp"`) — pre-existing inconsistency from before this session,
+    left as-is rather than silently normalized without being asked.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32

@@ -1,7 +1,7 @@
 # Agent Roles and Division of Labor
 ## GLMP + CopernicusAI Research Program
 
-**Version:** 1.7 — August 6, 2026
+**Version:** 1.8 — August 8, 2026
 **Lives in:** `glmp` repo at `docs/AGENT_ROLES.md`
 **Read alongside:** `docs/GLMP_GOALS.md`, `docs/GLMP_MASTER_TODO.md`
 
@@ -228,6 +228,23 @@ the repo.
   whether either method was actually capable of returning the other
   answer — if one of them couldn't have said "yes, overlap," its
   agreement with the one that could is not information.
+- **Instrument failures run in both directions — discarding the right
+  signal, and retaining the wrong one — and the fixes are not the same
+  kind of fix.** Added 2026-08-08. Every catch through the ATAP work
+  was normalization throwing away a discriminating token (trp's Greek
+  letters, peroxisome names, the `SOS` tokenizer, a quoted 4-gram
+  requiring exact adjacency). GLMP's retroactive-attribution pass found
+  the opposite: an embedding scored "CRP binding-site sets" highest
+  against papers about C-reactive protein — a real, dominant meaning of
+  that string in the wider biomedical literature, correctly retained,
+  just not the meaning intended. The first kind is a code bug; the
+  second is a declaration-wording problem, and a wording fix is not
+  guaranteed to work — tried rewording to "cAMP receptor protein (CRP) /
+  catabolite activator protein (CAP)" and re-scored before trusting it:
+  the contamination did not clear, and spelling out "receptor protein"
+  pulled in a second, broader kind of noise instead. Measure a
+  reword's effect the same way a code fix gets measured, rather than
+  reasoning that spelling out the full term ought to obviously work.
 
 ---
 
@@ -265,6 +282,11 @@ silently.
 ---
 
 ## Change log
+- **v1.8** (2026-08-08) — Added a working preference: instrument
+  failures run in both directions (discarding the right signal vs.
+  retaining the wrong one) and need different fixes, after GLMP's
+  retroactive-attribution pass found a "CRP" ambiguity that a wording
+  fix, tried and measured, did not actually clear.
 - **v1.7** (2026-08-06) — Added a working preference: agreement between
   instruments is only evidence if the instruments could have
   disagreed, after two independent zero-overlap checks in the ATAP
