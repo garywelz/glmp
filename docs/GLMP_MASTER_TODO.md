@@ -2725,6 +2725,52 @@ gated migration, verified at every phase, in `copernicus-web`:
     future work — named here, not built, and not guessed at. Full
     reasoning filed in `copernicus-web`'s A2 doc, §1.
 
+    **Fifth follow-up, same day — #43 wired, on Claude Chat's three
+    corrections to my own proposal.** I'd suggested auto-appending a
+    cited paper to `seeds`; Claude Chat's read was sharper: a citation
+    event and a seed are different claims, and conflating them would
+    rebuild the exact dilution the multi-seed test just caught. Built
+    to her spec, not mine.
+    **(1) Stable question IDs, added to both projects' declarations
+    before any citation record could point at prose.** `glmp-q1`,
+    `glmp-q2`, `glmp-f1`, `glmp-f2`; `atap-q1`–`atap-q4`,
+    `atap-f1`–`atap-f5`. Done first, specifically because the seeds-
+    inside-question design only solved the reference problem for the
+    declaration file — a Firestore citation record can't nest inside
+    `research_focus.json` and needs something stable to point at.
+    **(2) `researcher_cited_intake.py` gained `--cited-for-question`**
+    (`copernicus-web`) — optional, defaults to empty, filtered out by
+    the script's existing truthy-only field logic when unset, so an
+    unspecified association writes nothing rather than a guess.
+    Records the association only; **does not** write to `seeds` —
+    that stays the separate, deliberate step Claude Chat specified.
+    Added to `CITATION_EVENT_FIELDS` (the tuple both the `citations[]`
+    entries and the top-level-field sync read from) *before* any real
+    caller exists, closing the allowlist-gap shape pre-emptively for
+    once rather than catching it after a write. Mirrored into
+    `ingest_papers_from_metadata_json.py`'s allowlist for the same
+    reason.
+    **(3) Retroactive backfill — read all 33, mapped 1.** Pulled every
+    researcher-cited record's actual `cited_context` text rather than
+    guessing from titles. Exactly one is an obvious, current-question
+    match: Lents' citation, `crossref_10.1016_j.bpj.2022.01.016`
+    (`cited_context`: "while looking into the cAMP-CRP issue") →
+    `glmp-q1`. The other 32 — item 47's foundational-papers batch — are
+    GLMP paper-I/II/III reference-list citations (bistability theory,
+    bibliographic classics, perturbation-prediction methods, Rice's
+    theorem, etc.): real citations, correctly provenanced, but
+    recording what was already in the papers' argument, not what
+    Gary was actively working against `research_focus.json`'s
+    currently-declared questions. One candidate looked temptingly
+    close — Stormo's "DNA binding sites: representation and discovery,"
+    cited in GLMP paper-II as "the JASPAR/motif database approach,"
+    shares vocabulary with `glmp-q2`'s terms — but it's a backward-
+    looking methodology reference from when the paper was written, not
+    a citation made while working the question, so it's left null
+    rather than inferred from keyword overlap. Left null is the
+    honest answer for 32 of 33, per Claude Chat's own standard: a
+    wrong guess reads as signal and is worse than a gap.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
