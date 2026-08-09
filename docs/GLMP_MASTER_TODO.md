@@ -2957,6 +2957,14 @@ gated migration, verified at every phase, in `copernicus-web`:
     picked in advance.** Yields 3,876 papers: 3,642 new, 234 already in
     the corpus (needing the attribution-merge treatment, same as item
     51's 7 pre-existing ATAP docs — not yet executed).
+    **0.35 is `glmp-q5`'s cutoff, explicitly not GLMP's, per Claude
+    Chat's correction — recorded here so it isn't quietly inherited.**
+    The ATAP run already established that score ranges aren't
+    comparable across questions (frontier-2's whole range sat below
+    active-question-2's 10th percentile). The next question scored gets
+    its own percentile sampling and its own title-read falloff; if it
+    also lands near 0.35, that's a coincidence worth noting, not
+    confirmation of a reusable default.
     **Dry-run clean:** 3,642 candidates, 0 failed to load, 0 gate hits,
     0 skipped (skip-check is meaningless in dry-run per item 51's own
     finding, but these were already corpus-deduped upstream during
@@ -2984,6 +2992,62 @@ gated migration, verified at every phase, in `copernicus-web`:
     Full scored dataset (7,557 rows) and the cutoff rationale filed as
     `glmp-q5-full-scored-2026-08-09.json` /
     `glmp-q5-scoring-summary-2026-08-09.json`.
+
+    **Written, embedded, spot-checked — two predictions confirmed
+    decisively, two genuinely wrong, reported as such (2026-08-09).**
+    Per Claude Chat's explicit prerequisites before the write: rollback
+    proven at 0 pre-write, gradient predicted and filed
+    (`glmp-q5-spotcheck-prediction-2026-08-09.md`) before any post-write
+    query ran, process check clean (only this session's own `claude.exe`
+    plus the known-benign Chrome helper). Wrote 3,642 new docs (0
+    skipped, 0 failed, 0 gate hits) and additively merged
+    `acquisition_matches` onto the 234 already-in-corpus docs. Rollback
+    query confirmed exactly 3,876 post-write. Embedding backfill run in
+    full (pin → pilot-5 → live `find_nearest` proof on its own title,
+    ranked first → full run): **3,642/3,642 embedded, 0 failed** —
+    checked explicitly before reading anything into the spot-check, per
+    Claude Chat's reminder that ATAP's first spot-check measured an
+    empty index, not a relevance failure.
+    **Graded against the written prediction, not read post-hoc:**
+    - Q1 (synthetic circuits, predicted *sharpens*) — **confirmed
+      decisively.** All 5 sampled citations are `glmp-q5`-run papers.
+    - Q2 (synthetic vs. natural circuit logic, predicted *sharpens*) —
+      **confirmed decisively.** Same result, all 5 sampled citations
+      from the new run.
+    - Q3 (CRP/PWM, predicted *should not move much*) — **wrong.** 4 of
+      5 sampled citations are `glmp-q5`-run papers — titles like
+      "Engineering Synthetic cis-Regulatory Elements for... Recognition
+      of Three Transcriptional Factors in Bacteria" and "Expanding the
+      logic of bacterial promoters using engineered overlapping
+      operators for global regulators." Real content, not noise —
+      synthetic-circuit engineering routinely uses and characterizes
+      native transcription-factor binding sites (including CRP-family
+      regulators) as parts, so this is genuine cross-relevance the
+      category-based q1/q5 split undersold, not an instrument error.
+    - Q4 (heat shock/sigma factors, predicted *should not move at
+      all*) — **also wrong, though far more modestly.** 1 of the
+      sampled citations is a new q5-run paper ("Anti-Sigma Factors in
+      *E. coli*... Controlling Sigma Factors Availability") — sigma
+      factors do double duty as synthetic-circuit control parts, so
+      a small, real bleed-through rather than zero.
+    **Read plainly: the topic boundary between `glmp-q5` and GLMP's
+    other questions is more porous than the chart-category framing
+    suggested, specifically toward `glmp-q1` (binding-site engineering
+    is genuinely shared ground between "characterize natural CRP sites"
+    and "build synthetic circuits using engineered sites"), and only
+    slightly toward `glmp-q6` (stress-response regulon parts reused in
+    circuit design).** Not a failure of the method — a well-functioning
+    retrieval system should surface genuinely cross-relevant papers for
+    both questions where the content actually overlaps — but a real
+    correction to the assumption that the ten chart-derived questions
+    are as topically separate as their category labels imply. Worth
+    carrying into whichever question is scored next: expect some
+    cross-question bleed wherever GLMP's own subject matter is
+    genuinely interdisciplinary (synthetic biology explicitly reuses
+    natural regulatory parts), not just where wording is ambiguous.
+    Filed: `glmp-q5-spotcheck-pre-2026-08-09.json`,
+    `glmp-q5-spotcheck-post-2026-08-09.json`,
+    `glmp-q5-spotcheck-prediction-2026-08-09.md`.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
