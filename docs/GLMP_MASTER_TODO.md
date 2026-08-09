@@ -2771,6 +2771,77 @@ gated migration, verified at every phase, in `copernicus-web`:
     honest answer for 32 of 33, per Claude Chat's own standard: a
     wrong guess reads as signal and is worse than a gap.
 
+53. **Expanded GLMP declaration proposal — dry-count run, overshoots
+    the target before the outliers are even counted (2026-08-08).**
+    Gary's framing: GLMP should have field-spanning coverage on ATAP's
+    scale (~3,000+ relevant papers), not the ~45-paper sliver item 52
+    found. Claude Chat's diagnosis, checked and correct: the two
+    numbers aren't comparable — ATAP's 3,453 came from *acquisition*
+    (fetched and written in against its declaration), GLMP's 45 came
+    from *attribution* (scoring what's already in the corpus against a
+    2-question declaration covering one narrow investigation, not a
+    field). Proposed fix: expand GLMP's declaration to span the field
+    the charts actually cover, then run its own acquisition sweep —
+    same path as ATAP, not a threshold change.
+    **Proposal verified against live chart data before running
+    anything.** `glmp-research-focus-expanded-PROPOSAL.json` (filed)
+    expands from 2 to 10 active questions, derived from
+    `glmp-v2/metadata.json`'s real category/organism counts, not
+    invented: every cited number checked exactly — 217 total charts,
+    E. coli 68, *Synthetic Biology* category 39 (previously
+    unrepresented in the declaration), Stress Response 20, Signal
+    Transduction 11, and the three metabolic categories (Metabolic
+    Pathway 13 + Metabolic Regulation 7 + Metabolic Signaling 4)
+    summing to exactly 24 as claimed.
+    **Dry-counted before anything else, same discipline as ATAP's item
+    50/51 — and needed a different instrument, not the same one.**
+    GLMP's corpus is majority-PubMed, not arXiv (`daily_scout_config.json`
+    weights: PubMed 0.5, bioRxiv/medRxiv 0.35, arXiv 0.15) — reused
+    ATAP's arXiv-specific query construction here would have measured
+    the wrong 15% of the field. Queried NCBI E-utilities directly
+    (`esearch`) instead, existing `acquire_pubmed_batch.py`/
+    `daily_scout_config.json` convention confirmed first: unquoted
+    multi-word phrases, no `[tiab]` restriction — PubMed's automatic
+    term mapping doesn't share arXiv's quoted-phrase pitfall, checked
+    with a 4-term pilot before trusting the full 71-term sweep across
+    the 10 questions + 2 frontier entries.
+    **Pass 1 (raw counts, all 71 terms): confirms Claude Chat's own
+    named risk, decisively.** 16 term-rows exceed 15,000 raw hits,
+    three of them catastrophic — `metabolic regulation transcription`
+    612,358; `competence regulation` 558,108; `transcription
+    activation` 242,672 (twice, in `glmp-q2` and `glmp-f1`). **`Class
+    II` (139,975) is the same failure shape as the CRP finding, more
+    severe:** MHC Class II, drug classes, dental restorations, FDA
+    device classes — "Class II" in the lac-operon-activator sense
+    `glmp-f1` intends is a minor sense of a heavily overloaded string.
+    `competence regulation` likely the same (clinical/educational
+    "competency," not cellular DNA-uptake competence). One genuine
+    zero: `operon re-anchoring` (`glmp-f2`) — GLMP's own internal
+    decoder terminology, not literature vocabulary; a real null, not
+    an instrument artifact, and not worth chasing.
+    **Pass 2 (deduplicated union, non-outlier terms only, capped at
+    300 PMIDs/term relevance-sorted): 13,153 unique papers — already
+    roughly 3× Claude Chat's stated 3,000–5,000 target, before a single
+    one of the 16 excluded outlier terms is added back in.** The cap
+    itself means 13,153 is a floor, not a ceiling — most terms hit the
+    300-per-term cap, so the true clean-term union is larger still.
+    Per-question unique counts ranged 182 (`glmp-f2`) to 1,831
+    (`glmp-q2`), all filed in
+    `glmp-expanded-dry-count-pass2-2026-08-08.json`.
+    **Reading it straight: this declaration, as worded, overshoots.**
+    Not a reason to abandon the field-spanning approach — Gary's
+    reasoning for wanting ATAP-scale coverage stands, and the category
+    counts underneath the 10 questions are real — but several terms
+    need tightening (bacterial/*E. coli*-scoping qualifiers, dropping
+    or replacing the ambiguous ones) before this is sized right, per
+    Claude Chat's own stated fix: "the fix is tightening terms, not
+    lowering a threshold, since thresholds must be per-question and
+    none is set." **Not yet done:** no declaration committed, no
+    seeds added, no acquisition sweep run. Raw pass1/pass2 data and
+    the proposal itself filed for reproducibility; next step is
+    revising the ~16 flagged terms before re-dry-counting, not
+    proceeding to acquisition on the current wording.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
