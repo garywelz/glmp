@@ -3383,6 +3383,85 @@ gated migration, verified at every phase, in `copernicus-web`:
     scoped-retrieval win is observable end-to-end until it's fixed.
     Filed: `glmp-q11-attribution-scored-2026-08-09.json`.
 
+    **Over-fetch fix implemented and verified end-to-end (2026-08-09).**
+    Root architectural problem: Firestore's `find_nearest` can't filter
+    on `acquisition_matches` (an array of maps) directly, so the old
+    code over-fetched a global top-K by raw query-similarity and
+    filtered to the question scope in Python — the exact bottleneck
+    named above. Fix: added a flat `question_scope_ids` array field
+    (mirroring `acquisition_matches[].question` + `cited_for_question`,
+    the same two sources `_question_matches()` already checked) so
+    Firestore *can* `array_contains`-query the scoped set directly, then
+    compute cosine similarity in-memory within that small set instead of
+    a global sample. Applied in both places sharing the pattern:
+    `vector_search.py`'s `search_semantic()` papers block, and
+    `knowledge_map_service.py`'s `_seed_papers_by_vector()` (the latter
+    hadn't even scaled its fetch window for a question scope — silently
+    more broken than the RAG path).
+    **Backfill dry-counted before writing, per standing practice.**
+    8,475 docs needed `question_scope_ids` (0 already had it, since the
+    field is new): 1,495 `glmp-q1`, 471 `glmp-q11`, 3,876 `glmp-q5`,
+    ~3,567 across ATAP's four questions/five frontiers. The `glmp-q1`
+    count (1,495 vs. the proven-exact 1,494 acquisition-write) is not a
+    discrepancy — checked directly: one paper
+    (`crossref_10.1016_j.bpj.2022.01.016`, `glmp-q1`'s own seed) carries
+    a separate `cited_for_question` tag from the earlier #43 backfill,
+    correctly unioned by `_question_matches()`'s own logic. Backfill
+    written (8,475), rollback proven both ways: pre-write dry-count
+    showed 8,475 needing it and 0 already correct; post-write re-scan
+    showed 0 needing it and exactly 8,475 already correct.
+    **A separate, real bug surfaced along the way, not fixed here:**
+    ATAP's `acquisition_matches[].question` values are stored as full
+    question *text*, not the stable `atap-qN` IDs — because those IDs
+    didn't exist yet when ATAP's first-pass sweep (item 51) ran. This
+    predates the over-fetch fix and is independent of it: scoping an
+    ATAP query by `atap-q1` today already silently fails to match,
+    before or after this fix, since the matching logic compares against
+    whatever string is actually stored. Not touched now — fixing it
+    means rewriting ~3,567 ATAP docs' stored `question` values against a
+    text→ID lookup, a separate write needing its own go-ahead. Recorded
+    here so it isn't lost.
+    **Live end-to-end verification, predicted then measured.** Predicted
+    the candidate pool searched would equal `glmp-q11`'s full scoped set
+    (471) rather than the old ~80-candidate window — measured 374–376
+    (the 2-count spread across otherwise-identical runs is within
+    OpenAI embedding API noise near the threshold boundary, not a bug);
+    the gap from 471 down to ~374 is fully explained by the pre-existing
+    `distance_threshold=0.7` filter (97 of the 471 scoped papers score
+    below it), not a new bottleneck. Calling `search_semantic()` with
+    `question="glmp-q11"` and `glmp-q11`'s own declared question text:
+    the ChIP-seq paper (`pubmed_26105820`) now ranks **6th of 471** by
+    raw query-cosine-similarity — present, just past the default
+    `limit=5` cutoff by a hair (0.4735 vs. 0.4857) — and appears cleanly
+    inside `limit=8`. This is a different number from the earlier
+    ad-hoc validation's "60th of 471," and worth being honest about
+    rather than quietly reconciling: that number came from whatever
+    literal query phrasing the earlier live-RAG-call test used, which
+    wasn't saved verbatim, so the two aren't the same measurement — the
+    architecture claim (search happens within the real scoped set, not
+    a global sample that could miss the paper entirely) is what both
+    runs actually confirm, and both confirm it. Cross-checked with
+    `knowledge_map_service._seed_papers_by_vector()` using a more
+    ChIP-seq-specific keyword phrase: candidate pool 471 (full scoped
+    set, distance_threshold there is 0.85 so nothing gets pre-filtered
+    out), ChIP-seq paper ranks **1st**.
+    **Bottom line: the fix does what it was built to do.** A
+    legitimately-attributed paper is no longer structurally excluded
+    from ever reaching the filtering step regardless of how it phrases
+    its title relative to the literal query — the residual gap that
+    remains (rank 6 vs. rank 1 depending on query phrasing) is the
+    already-named, milder, separate issue (literal-text similarity as a
+    lossy proxy for true relevance within an otherwise-correct
+    candidate set), not the over-fetch bottleneck this item targeted.
+    Going forward, every future write to `acquisition_matches` or
+    `cited_for_question` must also merge into `question_scope_ids` or
+    it silently re-opens this exact bottleneck for that one paper —
+    documented as a standing requirement in
+    `A2-standing-acquisition-contract.md`, and wired into both current
+    write paths (`ingest_papers_from_metadata_json.py` for new docs,
+    `researcher_cited_intake.py`'s re-citation path via `ArrayUnion` for
+    existing docs).
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
