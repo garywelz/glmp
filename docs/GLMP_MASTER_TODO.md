@@ -3148,6 +3148,67 @@ gated migration, verified at every phase, in `copernicus-web`:
     title-sampled falloff check, not 0.35 inherited by default) —
     named here, not done in this pass.
 
+    **`glmp-q1`'s attribution written and verified — mechanically sound,
+    and the specific verification produced a real, informative miss
+    rather than a clean pass (2026-08-09).** Rollback proven both ways:
+    0 pre-write (`acquisition_matches[].question == 'glmp-q1'`), exactly
+    1,494 post-write, matching the write log exactly.
+    **Method chosen deliberately, not by default:** scored the full
+    current corpus (70,380 docs, post-`glmp-q5`) against the *mean of
+    `glmp-q1`'s two seeds* (`pubmed_35648826`, Lents' citation) rather
+    than question-text similarity — question-text scoring for this
+    exact question was already shown contaminated (item 52's CRP/C-
+    reactive-protein finding). Falloff found by reading titles, same
+    rigor as `glmp-q5`: content is overwhelmingly *E. coli* regulatory-
+    circuit/stress-adaptation material through roughly rank 1,500
+    (score ≈0.49), then increasingly mixed with off-topic material
+    (rice immunity, periodontal inflammation, clinical MRSA isolates).
+    Cutoff set at 0.49 → 1,494 papers, written additively.
+    **The specific check — does the displaced ChIP-seq paper come
+    back — fails, and the reason is real, not a bug.** Checked
+    directly: `pubmed_26105820` ("Transcription Factor Binding Site
+    Mapping Using ChIP-Seq") scores 0.4138 against the seed-pair
+    anchor, rank 5,447 of 70,356 — below the 0.49 cutoff, not written.
+    **Root cause: `glmp-q1`'s two seeds anchor to the "regulatory-
+    circuit/global-regulator" facet of the question, not the "binding-
+    site-derivation methodology" facet** — the same paper is legitimate
+    for `glmp-q1` (ChIP-seq is literally one of its declared terms) but
+    thematically distant from what these two specific seeds emphasize.
+    Did not lower the cutoff or otherwise adjust it to force this paper
+    in — that would be reasoning backward from the expected answer,
+    exactly what this week's discipline exists to catch.
+    **A second, more consequential finding: the top of `glmp-q1`'s own
+    attributed set substantially overlaps with `glmp-q5`'s papers, for
+    real content reasons, not a scoping failure.** Re-ran the CRP query
+    scoped to `glmp-q1` expecting the ChIP-seq paper or its methodology
+    peers; instead got the same "Engineering Synthetic cis-Regulatory
+    Elements," "Expanding the logic of bacterial promoters using
+    engineered overlapping operators," etc. that dominated the
+    *unscoped* result. Checked directly, not assumed a bug: these 5
+    papers legitimately carry **both** `glmp-q5` and `glmp-q1`
+    attribution (`glmp-q1` scores 0.51–0.58, ranking 150–1,023 of
+    1,494 — solidly within the set, not marginal). **The scoping
+    mechanism is working correctly** (proven again: it's reading
+    `acquisition_matches` and restricting the candidate pool exactly
+    as coded) — **the two questions' attributed sets genuinely
+    intersect**, because papers about engineering promoters around
+    global regulators are authentically relevant to both "characterize
+    global-regulator binding sites" and "build synthetic circuits from
+    regulatory parts." Scoping fixes cross-question competition where
+    the sets don't overlap; it cannot manufacture separation where the
+    underlying content is genuinely shared.
+    **Net read:** question-scoped retrieval is real, verified working
+    infrastructure — proven on two independent tests now (`glmp-q5`
+    isolation, `glmp-q1` write). It does not, by itself, retrieve
+    "the methodologically closest paper" for a question whose own
+    anchor doesn't cover that facet, and it does not separate two
+    questions whose true subject matter overlaps. Both are properties
+    of the anchors and the declaration, not defects in the scoping
+    code just built. Filed:
+    `glmp-q1-attribution-scored-2026-08-09.json`,
+    `glmp-q1-falloff-samples-2026-08-09.txt`,
+    `glmp-q1-falloff-mid-samples-2026-08-09.txt`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
