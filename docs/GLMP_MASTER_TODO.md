@@ -3073,6 +3073,40 @@ gated migration, verified at every phase, in `copernicus-web`:
     `glmp-q5-spotcheck-post-2026-08-09.json`,
     `glmp-q5-spotcheck-prediction-2026-08-09.md`.
 
+    **Closing synthesis, same day (Claude Chat) — the displacement
+    finding generalizes and changes the sequencing of the remaining
+    work.** The clean part of the evidence: a ChIP-seq binding-site
+    mapping paper — `ChIP-seq` being one of `glmp-q1`'s own declared
+    terms — was displaced from `glmp-q1`'s top-5 by `glmp-q5` volume.
+    Named, not inferred.
+    **(1) The finding predicts recurrence across the remaining nine
+    questions, not just this one pair.** Every future sweep scores
+    thousands of papers against *its* question and then competes
+    corpus-wide for every other question's retrieval. `glmp-q1` was
+    starved (45 papers above 0.5 corpus-wide, item 52) and is now
+    partly won by `glmp-q5`'s volume; `glmp-q3`, `glmp-q6`, `glmp-q9`
+    will do the same to whatever was swept before them. **Argues for
+    building question-scoped retrieval before continuing the remaining
+    sweeps, not after** — each additional sweep without it compounds
+    the same defect rather than just repeating it once.
+    **(2) This is the design note's central claim (item 52), now with
+    empirical evidence rather than architectural reasoning alone.** The
+    note argued the missing dimension was "which question does this
+    serve." This run produced a concrete, named case — one displaced
+    paper, one displacing volume, one thin baseline — where corpus-wide
+    similarity gave a measurably worse answer than question-scoped
+    retrieval would have.
+    **(3) What didn't go wrong, worth stating as plainly as what did:**
+    the acquisition decision, the 0.35 cutoff, the attribution
+    provenance, the write itself — all sound, nothing to roll back. The
+    defect is entirely at retrieval-time ranking, not in the data,
+    which is the more fixable place for it to live.
+    **Not yet decided: whether to pause the remaining nine
+    `glmp-q`/`glmp-f` sweeps until question-scoped retrieval exists, or
+    continue sweeping and accept compounding displacement until it's
+    built.** Flagged for Gary; no sweep beyond `glmp-q5` is running
+    without that decision.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
