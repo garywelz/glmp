@@ -2842,6 +2842,86 @@ gated migration, verified at every phase, in `copernicus-web`:
     revising the ~16 flagged terms before re-dry-counting, not
     proceeding to acquisition on the current wording.
 
+    **Follow-up, same day — tightened per Claude Chat's three
+    suggestions, then a bigger surprise than the tightening itself.**
+    `Class II` removed from `glmp-f1` entirely (not reworded) — per
+    Claude Chat's diagnosis, its intended sense exists only inside
+    GLMP's own typology, so no rewording rescues it; `glmp-f1` already
+    has a seed (Lents' citation) and is now scored via that anchor for
+    this concept instead. `signal transduction transcription bacteria`
+    dropped from `glmp-q7` as redundant with its remaining four terms.
+    `operon re-anchoring`'s zero was kept, not chased — the third
+    genuine null this week, and per Claude Chat the most informative:
+    it means `glmp-f2` is asking a question in language the field
+    doesn't use, independent of any acquisition question.
+    **The other 14 outlier terms were bacterial/*E. coli*-scoped, each
+    tested live before being locked in** (`glmp-tightening-pilot-2026-08-08`,
+    folded into the tightened declaration file) — e.g.
+    `metabolic regulation transcription` (612,358) →
+    `metabolic operon regulation Escherichia coli` (6,957);
+    `competence regulation` (558,108) →
+    `competence regulation Bacillus subtilis` (1,391, since natural
+    competence is overwhelmingly studied in that organism specifically).
+    **Watched for the opposite failure, per Claude Chat's explicit
+    caution:** every reworded term's new count compared against its
+    sibling terms in the same question before accepting it — the
+    lowest, `cAMP receptor protein binding site prediction` at 263, is
+    in the same range as existing siblings (`DNase footprinting` 4,377,
+    `position weight matrix` 1,516) and `RegulonDB` was already 96
+    pre-tightening, so 263 reads as a real, narrow phrase, not an
+    over-tightened artifact. None of the 14 reworded terms landed
+    anywhere near the near-zero range this week's genuine artifacts
+    have occupied.
+    **Re-ran uncapped, per Claude Chat's explicit instruction that the
+    300/term cap made the first number a floor — and the result
+    reframes the question rather than answering it.** Full enumeration
+    hit a real PubMed API limit along the way: `esearch` refuses
+    `retstart` above 9,998, so `ChIP-seq` (14,028 hits) and
+    `two-component system` (11,257) could only be fetched to 9,999 each
+    — a genuine instrument ceiling, not a bug, disclosed rather than
+    silently capped. **Grand union across all 66 tightened terms:
+    121,327 unique papers** — not smaller than the capped estimate,
+    *ten times larger* than the previous 13,153, and roughly 30–40×
+    Claude Chat's own stated 3,000–5,000 target. Per-question range:
+    2,233 (`glmp-f2`) to 29,011 (`glmp-q1`).
+    **Why tightening succeeded per-term and still produced a bigger
+    union, worth stating plainly rather than treated as a tightening
+    failure:** every individual term is now well-behaved (no more
+    100K+ single-term catastrophes) — the size comes from the
+    declaration's breadth, not from bad wording. Ten genuinely
+    different biological subfields (CRP/PWM evidence, network motifs,
+    bistability, synthetic circuits, stress regulons, two-component
+    signaling, metabolic regulation, developmental commitment, network
+    inference methods) share very little vocabulary with each other, so
+    their term sets barely overlap and the union sums close to the
+    per-question totals rather than collapsing the way redundant terms
+    within one narrow topic would. **This is the structural difference
+    from ATAP that Claude Chat named at the outset, showing up as a
+    number rather than a description:** ATAP's 3,453 came from a
+    windowed sweep of a genuinely small corner of arXiv (`math.LO`,
+    `math.CT`, four related categories); GLMP's declaration, once it
+    actually spans "the field" the way Gary asked for, is spanning a
+    literature that is simply much larger. 3,000–5,000 was reasoned by
+    analogy to ATAP's raw number, not derived from GLMP's field's own
+    size — this dry-count is the first real measurement of that size,
+    and it says the analogy doesn't transfer.
+    **Not a tightening problem to keep chasing — a scope decision for
+    Gary, named rather than resolved unilaterally.** Two honest paths,
+    not decided here: (a) accept that comprehensive field coverage for
+    GLMP is genuinely a 100K+-paper undertaking and treat that as the
+    real number — matching the governance principle already on record
+    ("bounded by relevance, comprehensive within the field, size a
+    consequence rather than a target") — which changes what
+    "acquisition" even means at this scale (relevance-ranked triage
+    into the corpus, not "fetch everything"); or (b) narrow the
+    declaration's breadth itself (fewer of the 10 questions, or a
+    tighter cut within each) to trade field-spanning-ness for a
+    tractable sweep size closer to the original target. Both are
+    legitimate; picking between them is not a wording fix. Full
+    per-term and per-question numbers filed in
+    `glmp-expanded-dry-count-tightened-2026-08-08.json`. Nothing
+    written, no declaration committed, no sweep run.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
