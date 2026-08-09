@@ -2922,6 +2922,69 @@ gated migration, verified at every phase, in `copernicus-web`:
     `glmp-expanded-dry-count-tightened-2026-08-08.json`. Nothing
     written, no declaration committed, no sweep run.
 
+    **Follow-up, same day — Claude Chat rejected the size question
+    outright and redirected to a per-question relevance cutoff, tested
+    on one question end to end.** Her argument: top-k retrieval doesn't
+    degrade with corpus size the way a library does, embedding cost at
+    121K scale is trivial (~$1), and the real cost — an unviewable
+    knowledge graph — is fixed by per-question scoping, not by
+    shrinking the corpus. The actual risk is that 121,327 is a
+    *union* (matches any term), not a relevance ranking; nobody had
+    scored those papers against the questions yet. Her instruction:
+    acquire per question, rank by relevance, cut where each question's
+    own score distribution falls off — a measurement, not a guess —
+    starting with one question (`glmp-q5`, synthetic circuits, 39
+    charts, previously unrepresented) before committing the other nine.
+    **Ran `glmp-q5` end to end.** 7,561 unique PMIDs (already known,
+    uncapped, from the tightened dry-count). Fetched full metadata via
+    NCBI `efetch` for 7,557 (4 failed to parse). Deduped against the
+    corpus: only 250 already present, 7,307 genuinely new — consistent
+    with the design note's "previously unrepresented" read on this
+    category. Embedded all 7,557 (reusing existing embeddings for the
+    250 already-corpus papers) and scored every one against `glmp-q5`'s
+    question text.
+    **Found the falloff by reading titles, not by reading the curve.**
+    The decile breakdown was smooth, no visible cliff (0.73 → 0.05
+    across deciles, roughly even steps) — a numeric-only read would
+    have had to guess. Sampled actual titles at 2-point percentile
+    steps instead: unambiguously on-topic through ~48th percentile
+    (score ≈0.36 — "Microbial Dynamic Regulatory Tools," "dual-layer
+    signal amplifier... cellular sensors"), then a hard qualitative
+    turn by the mid-50s (melanoma classifiers, implantable neural
+    stimulators, oxytocin receptor comparisons in primates — clearly
+    off-topic despite continuous-looking scores). **Cutoff set at 0.35
+    — the boundary where the actual mix changes, not a round number
+    picked in advance.** Yields 3,876 papers: 3,642 new, 234 already in
+    the corpus (needing the attribution-merge treatment, same as item
+    51's 7 pre-existing ATAP docs — not yet executed).
+    **Dry-run clean:** 3,642 candidates, 0 failed to load, 0 gate hits,
+    0 skipped (skip-check is meaningless in dry-run per item 51's own
+    finding, but these were already corpus-deduped upstream during
+    scoring, so this dry-run only needed to catch load/gate problems,
+    not duplicates — and found none). Tagged with
+    `run_id: glmp-q5-firstpass-20260809`, `acquisition_channel`, and
+    `acquisition_matches` (originating PubMed term(s) + relevance score
+    per paper) — same provenance shape as item 51.
+    **Not yet written.** Holding for explicit go-ahead before the real
+    Firestore write, same as every production write this week — this
+    one would add 3,642 new documents (5.5% of the current ~66,738-doc
+    corpus, comparable in scale to ATAP's own first-pass run) plus 234
+    merges. Once written: re-run the spot-check method from item 51 —
+    predict which GLMP queries should sharpen given synthetic-circuit
+    coverage, measure, grade against the prediction — the same
+    discipline that validated ATAP's run.
+    **Separately flagged by Claude Chat, not yet started: the 216
+    missing flowchart-source papers.** A named list
+    (`collaborations/krampis-virtual-cell/flowchart-source-papers.tsv`,
+    482 rows with PMIDs/DOIs already identified) — "should be acquired
+    directly, not hoped for," independent of any breadth sweep since no
+    term-based search guarantees hitting a specific named paper. Likely
+    routes through #43 (known IDs, not a term sweep) rather than this
+    scoring pipeline. Not started this session.
+    Full scored dataset (7,557 rows) and the cutoff rationale filed as
+    `glmp-q5-full-scored-2026-08-09.json` /
+    `glmp-q5-scoring-summary-2026-08-09.json`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
