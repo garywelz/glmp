@@ -3014,37 +3014,61 @@ gated migration, verified at every phase, in `copernicus-web`:
     - Q2 (synthetic vs. natural circuit logic, predicted *sharpens*) —
       **confirmed decisively.** Same result, all 5 sampled citations
       from the new run.
-    - Q3 (CRP/PWM, predicted *should not move much*) — **wrong.** 4 of
-      5 sampled citations are `glmp-q5`-run papers — titles like
-      "Engineering Synthetic cis-Regulatory Elements for... Recognition
-      of Three Transcriptional Factors in Bacteria" and "Expanding the
-      logic of bacterial promoters using engineered overlapping
-      operators for global regulators." Real content, not noise —
-      synthetic-circuit engineering routinely uses and characterizes
-      native transcription-factor binding sites (including CRP-family
-      regulators) as parts, so this is genuine cross-relevance the
-      category-based q1/q5 split undersold, not an instrument error.
+    - Q3 (CRP/PWM, predicted *should not move much*) — **wrong, and my
+      first explanation for why was also wrong (Claude Chat's catch,
+      checked directly rather than accepted).** 4 of 5 sampled
+      citations are `glmp-q5`-run papers. First read: "genuine
+      cross-relevance the category split undersold." That reading is
+      unfalsifiable on its own — every surprise can be explained that
+      way after the fact — and the actual pre/post diff doesn't
+      support it. **What got displaced from the top-5 paper slots:**
+      "Transcription Factor Binding Site Mapping Using ChIP-Seq"
+      (ChIP-seq is literally one of `glmp-q1`'s own declared terms),
+      "Massively parallel characterization of transcriptional
+      regulatory elements" (direct MPRA-style site-validation
+      methodology), and a computational regulation-design-optimization
+      framework — all more specifically on-point for "validated
+      binding-site sets... by what methods were they derived and
+      validated" than what replaced them. **What replaced them** is
+      about *engineering* synthetic regulatory parts ("Engineering
+      Synthetic cis-Regulatory Elements for... Three Transcriptional
+      Factors," "Tuning promoter strength through RNA polymerase
+      binding site design") — design papers, not characterization-of-
+      natural-evidence papers, each scoring 0.36–0.48 against `glmp-q5`
+      (comfortably above its own 0.35 cutoff) but not obviously closer
+      to `glmp-q1`'s actual question than what they pushed out.
+      **Verdict: dilution wearing uptake's clothes, exactly as Claude
+      Chat's alternative hypothesis predicted.** Item 52 measured only
+      45 papers above 0.5 across the whole prior corpus for GLMP's
+      declared questions — `glmp-q1` was thin. 3,642 semantically-
+      adjacent papers arriving at once won top-k by sheer numerical
+      presence against a starved baseline, not by being better answers.
+      A researcher asking specifically how CRP binding sites were
+      derived and validated now gets four-fifths circuit-engineering
+      papers instead of the ChIP-seq/MPRA methodology papers that used
+      to rank there.
     - Q4 (heat shock/sigma factors, predicted *should not move at
-      all*) — **also wrong, though far more modestly.** 1 of the
-      sampled citations is a new q5-run paper ("Anti-Sigma Factors in
-      *E. coli*... Controlling Sigma Factors Availability") — sigma
-      factors do double duty as synthetic-circuit control parts, so
-      a small, real bleed-through rather than zero.
-    **Read plainly: the topic boundary between `glmp-q5` and GLMP's
-    other questions is more porous than the chart-category framing
-    suggested, specifically toward `glmp-q1` (binding-site engineering
-    is genuinely shared ground between "characterize natural CRP sites"
-    and "build synthetic circuits using engineered sites"), and only
-    slightly toward `glmp-q6` (stress-response regulon parts reused in
-    circuit design).** Not a failure of the method — a well-functioning
-    retrieval system should surface genuinely cross-relevant papers for
-    both questions where the content actually overlaps — but a real
-    correction to the assumption that the ten chart-derived questions
-    are as topically separate as their category labels imply. Worth
-    carrying into whichever question is scored next: expect some
-    cross-question bleed wherever GLMP's own subject matter is
-    genuinely interdisciplinary (synthetic biology explicitly reuses
-    natural regulatory parts), not just where wording is ambiguous.
+      all*) — **wrong, more modestly, and this one needs no such
+      caveat.** 1 of the sampled citations is a new q5-run paper
+      ("Anti-Sigma Factors in *E. coli*... Controlling Sigma Factors
+      Availability") — sigma factors genuinely are synthetic-circuit
+      control parts. Small, real, well-explained miss, no displacement
+      question needed at this scale (one addition, not four).
+    **Corrected read: this is a real regression risk from the write,
+    not a demonstration that the questions overlap.** Pure similarity
+    ranking let a numerically-abundant adjacent topic (synthetic
+    circuit engineering) outrank a numerically-scarce on-topic one
+    (CRP site characterization) for a query about the latter. This is
+    the concrete, empirical case *for* the project-oriented-attribution
+    design note's own proposal (item 52) — retrieval scoped to a
+    declared question, rather than corpus-wide similarity alone, is
+    what would have kept `glmp-q1`'s query from being won by
+    `glmp-q5`'s papers regardless of relative volume. Not yet acted on;
+    named as the reason the design note's navigation idea matters in
+    practice, not just in principle. Nothing rolled back — the papers
+    are correctly attributed to `glmp-q5` and the write itself is
+    sound; the finding is about retrieval-time ranking, not the
+    acquisition decision.
     Filed: `glmp-q5-spotcheck-pre-2026-08-09.json`,
     `glmp-q5-spotcheck-post-2026-08-09.json`,
     `glmp-q5-spotcheck-prediction-2026-08-09.md`.
