@@ -3308,6 +3308,81 @@ gated migration, verified at every phase, in `copernicus-web`:
     directly within the scoped set rather than filtering a global
     top-K sample) before this mechanism is trusted at the UI layer.
 
+    **The split executed, per Gary's naming and Claude Chat's three
+    conditions — and the pre-stated verification separated two
+    findings that had been tangled together (2026-08-09).**
+    `glmp-q1` (evidence, kept its ID, Lents' citation reference stays
+    valid unchanged) and `glmp-q11` (methods, new ID) split per spec:
+    seeds carry only their own facet (2 circuit seeds / Stormo's paper
+    alone — deliberately not also seeded by the ChIP-seq paper under
+    test, which would have made the verification circular), terms
+    split by facet (bare `CRP` also dropped from `glmp-q1` — ambiguous,
+    redundant with `cAMP receptor protein`/`CAP`), each question scored
+    and falloff-checked independently rather than inheriting a cutoff
+    (`glmp-q1`: 0.49, reused from its original 2-seed scoring, same
+    anchor as before the split; `glmp-q11`: 0.45, freshly derived by
+    title-sampling a visibly clean, coherent methodology cluster —
+    binding-site prediction tools, JASPAR, structural TF-binding
+    methods — through roughly rank 400). Old blended attribution fully
+    removed before either new one was written; the two writes run
+    sequentially, not concurrently, since both do non-atomic read-
+    modify-write on `acquisition_matches` and could have raced on any
+    paper qualifying for both. Rollback exact throughout: 1,326 → 0 →
+    1,494 (`glmp-q1`) + 471 (`glmp-q11`), both confirmed in one
+    combined scan.
+    **By the curated anchor score, the split worked decisively.** The
+    ChIP-seq paper: rank 5,447/70,356 (excluded, original 2-seed) →
+    rank 822/1,326, bottom third (blended 3-seed) → **rank 152/70,361
+    corpus-wide, rank 152 of 471 within its own qualifying set, top
+    third (methods-only, single-seed)**. This is the number the split
+    was designed to produce, and it landed as predicted.
+    **But the pre-stated live-query verification still didn't show it
+    — and chasing why separated the split's success from a second,
+    independent bug rather than letting one obscure the other.**
+    Scoping the actual methods question to `glmp-q11` in a live RAG
+    call still didn't surface the ChIP-seq paper in the top 5 — worse,
+    the raw result included clearly unrelated titles ("Random Matrix
+    Theory... Physics and Data Science," "Carbon's Unfolding
+    Mysteries... Martian Life"). Checked directly rather than
+    concluding the split failed: **those unrelated titles carry no
+    `glmp-q11` attribution at all** — they're podcast/explainer content
+    from a *different* content-type block in `search_semantic` that
+    the `question` scoping was only ever added to for papers (item 53's
+    original build note undersold this: "papers-only" was stated but
+    its consequence — other content types remaining fully unscoped and
+    able to crowd the same citation list — wasn't traced through to a
+    live-query test until now). Re-ran restricted to `content_types=
+    ['papers']`: every result was correctly `glmp-q11`-attributed — the
+    paper filter itself has no bug.
+    **With that noise removed, the real remaining cause is exactly the
+    over-fetch issue already named, now confirmed severe rather than
+    cosmetic.** The ChIP-seq paper isn't in the top 80 candidates by
+    raw similarity to the literal query text — it never reaches the
+    filtering step at all. Validated the actual fix directly: computing
+    similarity to the query *within* the 471-paper scoped set only
+    (bypassing the global pre-filter entirely) ranks it 60th of 471 —
+    solidly upper tier, a real and large improvement, though still not
+    top-8 against papers whose generic "binding site prediction"
+    wording happens to overlap the query's generic phrasing more
+    closely than ChIP-seq's more specific title does. That residual gap
+    is a milder instance of the week's recurring theme (literal-text
+    similarity as a lossy proxy for true relevance), not a new problem.
+    **Honest bottom line, holding both findings simultaneously rather
+    than picking one:** the split fixed exactly what it was diagnosed
+    to fix — measured by the curated attribution the split produced,
+    `glmp-q11` ranks the ChIP-seq paper in its top third, not "mid-
+    pack." It has not yet been *observed* in a live query, because the
+    separate over-fetch bug — confirmed today to be severe, not
+    secondary — prevents the improvement from reaching the surface.
+    Claude Chat's stated falsifiability condition ("if it lands mid-
+    pack again, the diagnosis needs revisiting") is not triggered: it
+    didn't land mid-pack, it didn't land at all, for a documented,
+    different reason. **The over-fetch fix (search within the scoped
+    set directly, per the validation above) is now the clear next
+    step, elevated from "worth its own item" to blocking** — no
+    scoped-retrieval win is observable end-to-end until it's fixed.
+    Filed: `glmp-q11-attribution-scored-2026-08-09.json`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
