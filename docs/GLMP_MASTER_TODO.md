@@ -3107,6 +3107,47 @@ gated migration, verified at every phase, in `copernicus-web`:
     built.** Flagged for Gary; no sweep beyond `glmp-q5` is running
     without that decision.
 
+    **Decided (Gary + Claude Chat): pause the remaining sweeps, build
+    question-scoped retrieval first, resume after.** Claude Chat's
+    reasoning for choosing a side rather than leaving both open: the
+    sweep-ordering effect is arbitrary (whichever question sweeps last
+    wins the queries of the ones swept first, for no better reason than
+    going later), GLMP retrieval is live for Gary and three
+    collaborators today, and the fix is bounded — the endpoint already
+    applies six filter parameters, so a seventh (question) is the same
+    shape as what already works. Proposed sequence: build the filter →
+    resume `glmp-q3`/`q6`/`q9`/the rest → re-run the `glmp-q1`
+    spot-check to confirm the displaced ChIP-seq paper returns. The
+    216 flowchart-source papers proceed regardless of this decision —
+    they have identifiers already and were never subject to a
+    relevance cutoff.
+    **Built and pushed same day** (`copernicus-web@9e7a02da6`): a
+    `question` filter on the knowledge-map graph endpoint/
+    `build_graph`, and a parallel `question_scope` param on the RAG
+    endpoint/`answer_question`/`search_semantic` for a scoped Node-
+    Explanation path. Matches `acquisition_matches[].question` or
+    `cited_for_question`. Firestore can't filter an array-of-maps field
+    inside `find_nearest`, so the papers block over-fetches (10×,
+    capped) and filters in Python — same shape `knowledge_map_service.py`
+    already uses in-memory for disciplines/sources.
+    **Verified working, but the specific check Claude Chat proposed
+    can't run yet — for a reason worth stating plainly rather than
+    working around quietly.** Scoping the CRP query to `glmp-q5`
+    returns exclusively `glmp-q5`-attributed papers in the top 5 —
+    proof the filter correctly isolates one question's papers. Scoping
+    the *same* query to `glmp-q1` returns **zero papers** — not a bug,
+    a fact: **`glmp-q1` has no written attribution at all.** Checked
+    directly (`run_id == 'glmp-q1'`: 0 docs; the flagged CRP seed
+    papers' own `acquisition_matches`: `None`). Item 52's retroactive-
+    attribution pass for `glmp-q1` was explicit about this at the
+    time — "no attribution written," report only — but it means the
+    ChIP-seq-returns check needs `glmp-q1`'s scores actually written to
+    Firestore first, not just measured. That's a small, separate next
+    step (item 52's numbers already exist; this is a write, and per
+    the pattern established for `glmp-q5`, its own cutoff needs its own
+    title-sampled falloff check, not 0.35 inherited by default) —
+    named here, not done in this pass.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
