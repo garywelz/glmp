@@ -3530,6 +3530,85 @@ gated migration, verified at every phase, in `copernicus-web`:
     architectural blocker in front of it, though that's a separate
     go-ahead, not implied by this one.
 
+    **Resumed: `glmp-q3` (network motifs) swept end to end, first of the
+    six remaining questions (2026-08-09).** Reused the tightened term set
+    from `glmp-research-focus-expanded-TIGHTENED-2026-08-08.json` and the
+    cached PMID lists from that day's dry-count checkpoint — no need to
+    re-query PubMed since the terms were already validated and the raw ID
+    lists were still on disk. 6,898 unique PMIDs (matching the tightened
+    dry-count's recorded per-question figure exactly); efetch metadata for
+    6,896 (2 failed to parse). Scored by question-text similarity (no
+    natural single-paper anchor in `flagged` for this question, unlike
+    `glmp-q1`/`glmp-f1`); 351 already in corpus, 6,545 newly embedded.
+    **Falloff noisier than `glmp-q5`'s, and said so rather than smoothed
+    over.** Decile bands were smooth (no visible cliff, same shape as
+    every question so far); 1-point percentile title-sampling from p15
+    to p50 found off-topic content (immune-system networks, disease
+    networks, protein-domain networks, physiological networks) mixed in
+    as early as p21 — earlier than any prior question's first contaminant
+    — but genuine bacterial-regulatory-network content (FNR, Fur, MalT,
+    ArcA-P regulons; Boolean-network dynamics; feed-forward loops) then
+    dominates again through p35, before trending off-topic from p36
+    onward (immune/viral/human-signaling content). Read as a real,
+    structural property of this question's term set (`network motif`,
+    `regulatory network`, `network topology` are generic enough to draw
+    genuine hits from unrelated network types), not an instrument defect
+    — same category as `glmp-q5`'s dilution finding, not the same
+    category as the CRP contamination that needed an anchor-based fix.
+    Cutoff set at 0.395, the measured p35/p36 transition: 2,468 papers
+    (2,219 new, 249 merged onto existing corpus docs).
+    **Prediction filed before the write** (`spotcheck_prediction.md`):
+    rollback should go 0 → 2,468; a scoped `glmp-q3` query should return
+    exclusively `glmp-q3`-attributed, on-topic papers, since that
+    mechanism is now fixed rather than being tested for the first time;
+    an *unscoped* query showing q3-adjacent volume against `glmp-q1`
+    would not be a new finding, just a re-demonstration of an already-
+    understood and already-addressed risk.
+    **Write executed with the current, corrected write path throughout —
+    `question_scope_ids` maintained at every step, not just the new-doc
+    path.** New docs went through `ingest_papers_from_metadata_json.py`,
+    which now computes `question_scope_ids` inline (this session's
+    earlier fix). The 249 merges onto existing docs used a direct
+    Firestore write outside that pipeline, so `merge_existing.py` was
+    written to recompute `question_scope_ids` explicitly at merge time —
+    the standing requirement from `A2-standing-acquisition-contract.md`,
+    exercised for the first time by an actual sweep rather than only a
+    backfill. Rollback query rewritten too: scans
+    `acquisition_matches[].question` directly rather than `run_id` alone
+    (`run_id` can be masked on a merge when the target doc already had an
+    earlier one — not assumed safe here after noticing it happened to
+    work for `glmp-q5` only because none of its 234 merge targets had a
+    prior `run_id`). Its `--delete` path distinguishes new docs (full
+    delete, safe) from merged-onto docs (strip the one attribution only,
+    identified from the build-time candidate lists, not inferred from
+    live state) — an inference from "no attributions left" would have
+    deleted real pre-existing corpus documents on rollback.
+    **Every step proven, not assumed.** Dry-run: 2,219 files, 0 failed to
+    load, 0 gate hits. Rollback pre-write: 0. Write: 2,219/2,219, 0
+    skipped, 0 failed. Merge: 249/249. Rollback post-write: exactly
+    2,468, corpus grew from 70,400 → 72,619 docs, matching exactly.
+    Embedding backfill: pin found exactly 2,219 unembedded docs (proof
+    the corpus was otherwise fully embedded, so the pin scoped correctly
+    without an explicit filter) → dry-run (2,219 would-embed, ~868K
+    tokens estimated, no API calls) → pilot 5 (5/5 succeeded, correct
+    dims/model) → live `find_nearest` proof (pilot doc ranked 1st on its
+    own title — not an empty-index false positive) → full run
+    (2,219/2,219 completed, 0 failed, 0 skipped).
+    **Scoped-retrieval spot-check confirmed the prediction exactly.**
+    `search_semantic(question="glmp-q3", ...)` requesting all 8 content
+    types: `content_types_searched` correctly narrowed to `["papers"]`,
+    the other 7 correctly named in `question_scope_skipped_content_types`.
+    Top 5 results unambiguously on-topic ("Motifs emerge from function in
+    model gene regulatory networks," "Network motifs in the
+    transcriptional regulation network of *E. coli*," "Evolvability of
+    feed-forward loop architecture..."). Checked directly rather than
+    trusted from the query response: all 5 carry a genuine `glmp-q3`
+    entry in `acquisition_matches` with scores matching the live query
+    scores within noise (0.7545 vs. 0.7578, 0.7562 vs. 0.7546, etc.) —
+    not a coincidental topical match without the underlying attribution.
+    `research_focus.json` updated with `glmp-q3`'s live entry (was
+    proposed-only until now). Five sweeps remain: `glmp-q4`, `q6`–`q10`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
