@@ -3209,6 +3209,50 @@ gated migration, verified at every phase, in `copernicus-web`:
     `glmp-q1-falloff-samples-2026-08-09.txt`,
     `glmp-q1-falloff-mid-samples-2026-08-09.txt`.
 
+    **Root-caused, same day (Claude Chat): both findings above trace to
+    one cause, and the qualification on "verified infrastructure" is
+    sharper than first stated.** `glmp-q1` is a two-clause question —
+    *what validated CRP binding-site sets exist* **and** *by what
+    methods were they derived and validated* — anchored by two seeds
+    that both sit on the regulatory-circuit clause. Neither represents
+    the methodology clause at all, so the anchor's reach covers half
+    the question by construction, and the ChIP-seq paper falling
+    outside it isn't a surprising edge case — it's the predictable
+    consequence of the seed choice.
+    **Generalizes beyond this one question:** a multi-facet question
+    needs seeds spanning its facets, and the `seeds` mechanism (item
+    52) has no way to notice when it doesn't — nothing currently checks
+    facet coverage, only that a seed exists at all. Worth carrying into
+    however `seeds` gets used for the next nine questions: a single
+    seed, or several seeds that all lean the same way, is a narrower
+    guarantee than "this question has an anchor."
+    **Sharper statement of what today actually demonstrated:** the
+    displacement problem wasn't solved, it moved. Corpus-wide, the
+    ChIP-seq paper lost to `glmp-q5`'s volume. Scoped, it's excluded
+    from `glmp-q1`'s attributed set entirely. Same paper, same loss,
+    different mechanism — both times traceable to anchor narrowness,
+    not to the retrieval path. **Scoped retrieval is built and proven
+    to do what it's coded to do; it has not yet been shown to fix the
+    actual case that motivated building it.** That test — add a
+    methodology-facet seed, re-attribute `glmp-q1`, check whether the
+    ChIP-seq paper enters the set and where it ranks — is designed but
+    not run.
+    **Deliberately not run automatically, and this is the reason:**
+    picking the ChIP-seq paper itself as the new seed would be the same
+    backward reasoning already declined once this session (choosing an
+    anchor to produce the desired retrieval, rather than reading the
+    result the anchor actually produces). The legitimate move is Gary
+    picking a paper he judges a genuine exemplar of CRP/regulator
+    site-derivation methodology, independently of whether it happens to
+    be the ChIP-seq paper — asked directly, not decided here.
+    **Accepted without qualification: the cross-question overlap
+    finding is a feature, not a defect.** Papers engineering promoters
+    around global regulators are authentically relevant to both
+    `glmp-q1` and `glmp-q5` — the whole suite's premise is that the
+    interesting material sits between fields, so genuinely overlapping
+    questions sharing papers is the system working, not a
+    contamination to eliminate.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
