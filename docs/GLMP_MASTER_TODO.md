@@ -3253,6 +3253,61 @@ gated migration, verified at every phase, in `copernicus-web`:
     questions sharing papers is the system working, not a
     contamination to eliminate.
 
+    **The test Claude Chat specified, run: added a methodology-facet
+    seed on Gary's own judgment, re-attributed, re-checked (2026-08-09).**
+    Gary named Stormo's "DNA binding sites: representation and
+    discovery" (confirmed in corpus, embedded, previously unattributed)
+    independently of the paper under test — not the ChIP-seq paper
+    itself, avoiding exactly the backward reasoning already declined
+    once. Added as `glmp-q1`'s third seed; also added the two
+    C-reactive-protein mute terms to the live declaration (they'd only
+    ever existed in scratch scoring scripts, never the canonical file).
+    Old 2-seed attribution fully removed (1,494 → 0, confirmed) before
+    the new 3-seed attribution was written, rather than layering
+    methodologies — rollback proven at each step: 0 → 1,494 (old) →
+    0 (removed) → 1,326 (new), every count exact.
+    **Real improvement, precisely measured: the ChIP-seq paper moved
+    from rank 5,447/70,356 (excluded) to rank 822/70,355 (included,
+    score 0.5487 vs. cutoff 0.53).** Confirmed live in Firestore.
+    **But re-running the actual scoped query still didn't surface it,
+    and chasing why found a second, more fundamental limit than the
+    first.** The scoped RAG path over-fetches a candidate pool by *raw
+    text similarity to the literal question*, then filters to attributed
+    papers — the ChIP-seq paper (candidate position 8) is correctly in
+    that pool, just past the `limit=5` cutoff before the filter even
+    applies. Tried the obvious fix — re-rank the filtered candidates by
+    their attribution score instead of raw similarity — and it still
+    didn't surface. **Checked the real reason directly: the ChIP-seq
+    paper ranks 822nd of 1,326 *within its own qualifying set*, by the
+    anchor score itself.** No retrieval architecture fix helps here —
+    candidate-pool bottleneck or not, the anchor genuinely doesn't rank
+    this paper near the top of what it considers `glmp-q1`-relevant.
+    **Root cause, precisely: the 3-seed mean anchor is imbalanced 2:1
+    toward the regulatory-circuit facet** (2 seeds) **over the
+    methodology facet** (1 seed), so methodology papers systematically
+    rank in the lower two-thirds of the qualifying set regardless of
+    how the retrieval path draws candidates from it. Adding one
+    methodology seed was enough to cross the *inclusion* threshold, not
+    enough to win *ranking* against a majority-regulatory-circuit
+    anchor.
+    **This is exactly the case for Claude Chat's structural alternative,
+    now with a number behind it rather than just reasoning:** splitting
+    `glmp-q1` into an evidence question and a methods question, each
+    with its own anchor, would let a methods-only anchor (Stormo's
+    paper, possibly alone) rank ChIP-seq and its methodological peers
+    at the top of *that* question — instead of averaging against
+    regulatory-circuit seeds that outnumber it and out-rank it 2:1. Not
+    done here; a declaration split is a real, separate change (new
+    question ID, its own falloff check, its own verification) — named
+    as the clear next step, not executed without a further go-ahead.
+    A smaller, separately worth-noting architectural gap found along
+    the way: the scoped RAG path's over-fetch-then-filter design can
+    only surface scoped papers that also rank well by raw literal-text
+    similarity to the query — a real limitation independent of the
+    anchor-balance issue, secondary here but worth fixing (search
+    directly within the scoped set rather than filtering a global
+    top-K sample) before this mechanism is trusted at the UI layer.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
