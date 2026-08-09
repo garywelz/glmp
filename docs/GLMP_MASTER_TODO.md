@@ -3493,6 +3493,43 @@ gated migration, verified at every phase, in `copernicus-web`:
     automation, sequential-circuit verification), confirming the fix
     closes the gap in practice, not just in the stored data shape.
 
+    **Multi-content-type scoping gap fixed (2026-08-09), the third and
+    final piece of item 53's retrieval-architecture work.** The gap:
+    `question` scoping was only ever built against `research_papers`
+    (`acquisition_matches`/`cited_for_question`/`question_scope_ids`) —
+    no other content type (podcasts, glmp/math/chemistry/physics/
+    computer_science/biology process explainers) has any such field, so
+    when a question scope was set, `search_semantic()` still ran those
+    other blocks unscoped and returned them as if they belonged, which
+    is exactly how "Random Matrix Theory" and "Carbon's Unfolding
+    Mysteries" podcast titles ended up crowding a `glmp-q11`-scoped
+    answer earlier in this item. Fix: when `question` is set,
+    `search_semantic()` now narrows `content_types` down to `["papers"]`
+    before running any block, and reports exactly what it dropped in a
+    new `question_scope_skipped_content_types` field — an empty result
+    from a skipped type should never be mistaken for "checked, found
+    nothing," so it's stated, not implied. Threaded that same field
+    through `rag_service.answer_question()`'s three response-metadata
+    sites so an API consumer scoping a RAG answer can see which content
+    types were excluded and why, not just get fewer citations than
+    expected with no explanation.
+    **Verified both directions, not just the scoped one.** Requesting
+    all 8 content types with `question="glmp-q11"` now returns papers
+    only (5 results) with `question_scope_skipped_content_types` listing
+    the other 7 by name — the same call with `question=None` still
+    returns papers (5), podcasts (3), glmp_processes (5),
+    chemistry_processes (5), and biology_processes (5) exactly as
+    before, `question_scope_skipped_content_types` empty. The fix
+    changes behavior only when a scope is actually requested.
+    **This closes item 53's retrieval-architecture thread**: the
+    over-fetch bottleneck, the ATAP text-vs-ID mismatch, and this
+    content-type gap were three independent bugs surfaced by the same
+    `glmp-q1`/`glmp-q11` split verification — all three are now fixed
+    and live-verified, not just diagnosed. Resuming the paused GLMP
+    question sweeps (`glmp-q3`, `q4`, `q6`–`q10`) no longer has an
+    architectural blocker in front of it, though that's a separate
+    go-ahead, not implied by this one.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
