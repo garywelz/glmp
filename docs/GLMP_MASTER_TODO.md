@@ -3462,6 +3462,37 @@ gated migration, verified at every phase, in `copernicus-web`:
     `researcher_cited_intake.py`'s re-citation path via `ArrayUnion` for
     existing docs).
 
+    **ATAP's question-text-vs-ID bug fixed (2026-08-09), separately from
+    the over-fetch fix above.** Built the text→ID lookup directly from
+    `atap/docs/research_focus.json` (9 entries: 4 `active_questions` by
+    their `q` field, 5 `frontier` by their `open` field — the field name
+    differs between the two, checked rather than assumed). Dry-counted
+    first: 3,460 docs / 3,690 individual `acquisition_matches` entries
+    matched a known text verbatim (0 already in `atap-*` ID form — clean
+    baseline, confirming the bug was total, not partial, for ATAP's
+    corpus). The entries-vs-docs gap (3,690 vs. 3,460) is 230 docs
+    carrying two separate `acquisition_matches` entries for the *same*
+    question — different matching terms from the original sweep, not a
+    duplicate-write bug. Checked the rest of the codebase for anything
+    hardcoding the literal question text before rewriting: none in
+    `copernicus-web` (one stale untracked root-level `research_focus.json`
+    copy has the text, but nothing reads it).
+    Rewrite: for each matching entry, replaced `question` (text → ID) in
+    place, preserving every other field on that match untouched, then
+    recomputed `question_scope_ids` from the doc's full post-rewrite
+    `acquisition_matches` + `cited_for_question` (a clean recompute
+    rather than an `ArrayUnion`/`ArrayRemove` pair, since removing the
+    stale text value needs an explicit replacement anyway). Rollback
+    proven both ways, exact: 3,460 docs / 3,690 entries needing rewrite
+    and 0 already in ID form before → 0 needing rewrite and 3,690
+    already in ID form after.
+    **Live-verified, not just counted:** `search_semantic(question=
+    "atap-q2")` — previously guaranteed to return nothing, since nothing
+    in the corpus stored the literal string `"atap-q2"` — now returns 5
+    correctly on-topic papers (Gödel incompleteness proofs, TLA+ proof
+    automation, sequential-circuit verification), confirming the fix
+    closes the gap in practice, not just in the stored data shape.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
