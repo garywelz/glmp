@@ -3609,6 +3609,80 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-q3`'s live entry (was
     proposed-only until now). Five sweeps remain: `glmp-q4`, `q6`–`q10`.
 
+    **`glmp-q4` (bistability/switch-like circuits) swept end to end,
+    second resumed sweep (2026-08-09).** 4,575 unique PMIDs from the
+    tightened dry-count checkpoint (matches the recorded per-question
+    figure exactly), 4,575 metadata-fetched (0 failed), 261 already in
+    corpus. **Falloff more interleaved than `glmp-q3`'s, not just
+    noisier.** `glmp-q3`'s mixed zone had a genuine recovery (a run of
+    bacterial-network-specific hits between two off-topic patches)
+    before trending off for good; `glmp-q4`'s does not — "switch" is
+    overloaded enough (antibody class-switch recombination, chemistry,
+    optogenetics) that false positives and genuine bistability content
+    interleave throughout, and scattered real hits (phase variation,
+    phenotypic switching) persist as late as ~p49 without the majority
+    ever swinging back on-topic. Read by 5-point percentile blocks
+    rather than single points for this reason: the on-topic majority
+    ends around p27/p28 (score ≈0.371–0.376) and does not clearly
+    return. Cutoff set at 0.375, yielding 1,241 papers (963 new, 278
+    merged) — a lower yield (27%) than `glmp-q3`'s (36%), named as the
+    expected cost of the noisier term set, not hidden.
+    **Prediction filed before the write, same discipline as `glmp-q3`.**
+    Write, merge, and rollback used the same hardened scripts (question
+    text scoring, `question_scope_ids` maintained at merge time,
+    rollback scanning `acquisition_matches` directly with new-vs-merged
+    doc lists tracked separately for safe `--delete`). Dry-run: 963
+    files, 0 failed, 0 gate hits. Rollback pre-write: 0. Write:
+    963/963, 0 skipped, 0 failed. Merge: 278/278. Rollback post-write:
+    exactly 1,241, corpus 72,619 → 73,582, matching exactly.
+    **Embedding backfill surfaced a real, unplanned finding: the corpus
+    is under live, independent, automated maintenance outside this
+    session's visibility.** Pin found exactly 963 unembedded docs
+    (correct scope) → dry-run clean (963 would-embed, ~354K tokens
+    estimated — a real number worth stating plainly: title+abstract text
+    over 963 docs, roughly $0.007 at `text-embedding-3-small` pricing,
+    not a cost concern) → pilot 5 (5/5 succeeded) → live `find_nearest`
+    proof (pilot doc ranked 1st on its own title) → full run. The full
+    run reported `completed=618, skipped=345` rather than
+    `completed=958` — checked directly rather than accepted: all 345
+    "skipped" docs carry a fully valid `embedding_model`/`embedding`
+    (1536-dim, correct model), so nothing was lost or corrupted, and the
+    `embedding_updated` timestamps on a sample fell squarely inside this
+    run's own execution window. No `claude.exe` or other local process
+    was found running the same script during that window (checked
+    directly), and the skip cluster forms one contiguous block by
+    document ID rather than a scattered pattern, consistent with a
+    second, independent process working through the same sorted ID
+    space concurrently. `backfill_research_paper_embeddings.py`'s own
+    docstring documents a separate scheduled `--auto` gap-fill cron
+    intended for "the Jetson," a device outside this session entirely —
+    the most likely explanation is that cron's own live census picked up
+    the newly-written `glmp-q4` docs on its regular schedule and
+    embedded a chunk of them independently, racing harmlessly against
+    this run. **Named as a real, standing gap, not resolved here:** the
+    "check `claude.exe` processes before every write" safety practice
+    cannot see this class of actor — it is neither a Claude process nor
+    on this machine — so a future write's rollback/embedding counts
+    could shift between a dry-run and its execution for reasons entirely
+    outside this session, and that possibility should be checked for
+    rather than assumed away if a future count ever comes back
+    unexpectedly low.
+    **Scoped-retrieval spot-check confirmed the prediction.**
+    `search_semantic(question="glmp-q4", ...)` requesting all 8 content
+    types: correctly narrowed to `["papers"]`, other 7 named as skipped.
+    Top 5 unambiguously on-topic ("Hysteresis vs. graded responses...,"
+    "Tweaking biological switches through a better understanding of
+    bistability behavior," "Bistable biochemical switching and the
+    control of the events of the cell cycle"). Checked directly: all 5
+    carry a genuine `glmp-q4` entry with scores matching the live query
+    within noise. One result, `pubmed_19910671`, carries both `glmp-q3`
+    *and* `glmp-q4` in `question_scope_ids` — a paper legitimately
+    relevant to both (feedback-loop structure and bistable switching),
+    confirming the multi-question union behaves correctly when a real
+    paper genuinely qualifies for more than one declared question.
+    `research_focus.json` updated with `glmp-q4`'s live entry. Four
+    sweeps remain: `glmp-q6`–`q10`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
