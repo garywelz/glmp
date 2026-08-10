@@ -3683,6 +3683,53 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-q4`'s live entry. Four
     sweeps remain: `glmp-q6`–`q10`.
 
+    **`glmp-q6` (stress-response regulons) swept end to end, third
+    resumed sweep — the cleanest of the three so far (2026-08-10).**
+    4,847 unique PMIDs (matches the recorded per-question figure
+    exactly), all metadata-fetched (0 failed), 51 already in corpus.
+    **Falloff was the cleanest yet:** unlike `glmp-q3`'s "network"/
+    "topology" and `glmp-q4`'s "switch," this question's terms (heat
+    shock/sigma factor/oxidative stress/envelope stress regulons,
+    stringent response `ppGpp`) are specific enough bacterial-biology
+    vocabulary that title-sampling found unambiguous on-topic content
+    through roughly p70, a real transition starting ~p74 ("From magic
+    spot ppGpp to MESH1" at p73, score 0.3656, was the last clearly
+    on-topic hit before a sustained off-topic run beginning at p74,
+    score 0.3598). Cutoff set at 0.36. Yields 3,583 papers (3,532 new,
+    51 merged) — the largest single write in this expansion (74% of
+    candidates passed, vs. 27–36% for `glmp-q3`/`q4`), a direct and
+    expected consequence of the cleaner term set, checked against the
+    actual title samples before accepting rather than assumed from the
+    percentage alone.
+    Every step proven: dry-run clean, rollback 0 → 3,583 exact, corpus
+    73,583 → 77,115 (the pre-write baseline itself ticked up by one
+    from `glmp-q4`'s post-write count, 73,582 → 73,583 — consistent
+    with the ordinary daily-scout acquisition pipeline adding one
+    unrelated paper in between, not chased further since it doesn't
+    touch `glmp-q6`'s own attribution count).
+    **Embedding backfill: pin found exactly 3,532 (correct scope) →
+    dry-run clean (3,532 would-embed, ~1.46M tokens estimated, ~$0.03 —
+    stated so the number isn't misread as concerning at this scale) →
+    pilot 5 (5/5) → live `find_nearest` proof (pilot doc ranked 1st on
+    its own title) → full run: 3,532/3,532 completed, 0 skipped, 0
+    failed.** No repeat of `glmp-q4`'s concurrent-cron collision this
+    time — noted since the absence of that pattern here is itself a
+    small data point (the external actor runs on its own schedule, not
+    triggered by this session's writes, consistent with the standing-
+    cron explanation rather than some artifact of this pipeline).
+    **Scoped-retrieval spot-check confirmed the prediction.** All 8
+    content types requested, correctly narrowed to `["papers"]`, other
+    7 named as skipped. Top 5 unambiguously on-topic ("Stress responses
+    of bacteria," "Discretely calibrated regulatory loops controlled by
+    ppGpp...," "Transcriptional regulation of stress-inducible genes in
+    procaryotes"). Checked directly: all 5 carry a genuine `glmp-q6`
+    entry with scores matching the live query within noise. One result
+    again carries two questions' scope ids (`glmp-q3` and `glmp-q6`),
+    the second such case this expansion, consistent with the
+    multi-question union behaving correctly rather than a one-off.
+    `research_focus.json` updated with `glmp-q6`'s live entry. Four
+    sweeps remain: `glmp-q7`–`q10`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
