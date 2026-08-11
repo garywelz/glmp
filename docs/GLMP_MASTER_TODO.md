@@ -3730,6 +3730,98 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-q6`'s live entry. Four
     sweeps remain: `glmp-q7`–`q10`.
 
+    **`glmp-q7` (two-component systems/phosphorelays) swept end to end,
+    fourth resumed sweep — by far the largest so far, and the one that
+    finally hit the scale limits of the scratch tooling itself
+    (2026-08-10/11).** 19,752 unique PMIDs (matches the recorded
+    per-question figure exactly) — two-component systems and quorum
+    sensing are each large fields on their own, and the question
+    combines both. `two-component system` hit PubMed `esearch`'s
+    `retstart>9998` ceiling (11,257 raw hits, only 9,999 fetched, sorted
+    by relevance so the truncated tail is the least-relevant papers) —
+    the same previously-disclosed instrument limit from the original
+    dry-count, not a new problem. 19,745 metadata-fetched (7 failed to
+    parse), 689 already in corpus.
+    **Three real bugs surfaced and fixed in this session's own scratch
+    tooling while scoring 19,745 candidates — worth recording precisely
+    since none were data-corrupting, but each would have been if not
+    caught:**
+    (1) The corpus-dedup checkpoint tried to serialize a Firestore
+    `Vector` object directly — `TypeError: Object of type Vector is not
+    JSON serializable`, caught immediately since it crashed before any
+    write, fixed by converting to `list()` first.
+    (2) That crash's own checkpoint write left a truncated, invalid
+    JSON file on disk (53 bytes, cut off mid-object) — caught by
+    checking the file's validity before resuming rather than assuming
+    a `.exists()` check was enough, and deleted rather than trusted.
+    (3) The embedding checkpoint (which grows to hold thousands of
+    1536-float vectors, unlike the smaller ID-only production
+    checkpoint) got corrupted the same way when a background job's own
+    timeout killed it mid-write — `json.dump()` to a directly-opened
+    file is not atomic, so a kill during the write of the *entire*
+    accumulated dict corrupts *all* of it, not just the newest batch.
+    Fixed properly this time (not just patched around): rewrote the
+    checkpoint write to `os.replace()` a temp file into place, which is
+    atomic on both POSIX and Windows — a kill mid-write now always
+    leaves either the complete old file or the complete new one, never
+    a partial one. **Checked whether this same vulnerability exists in
+    the canonical, shared production script
+    (`backfill_research_paper_embeddings.py`), not just this session's
+    scratch code — it does** (`path.write_text(...)` on the checkpoint,
+    same non-atomic pattern). Not patched in the shared script without
+    being asked, since it's relied on elsewhere (including the
+    external Jetson cron identified in item 53's `glmp-q4` entry); named
+    here as a real, standing latent bug for a future fix, with the
+    mitigating factor that its checkpoint only holds ID lists (much
+    smaller, much shorter write window) rather than full embedding
+    vectors, so the exposure is real but smaller than what this
+    session's own scratch script hit.
+    **Falloff, once scoring actually completed:** unambiguous on-topic
+    through ~p28, then a real mixed zone — false positives from
+    "component"/"system" as chemistry and physics homonyms
+    (multicomponent reactions, Turing systems, supramolecular
+    hydrogels) — with genuine two-component-system/quorum-sensing
+    content still frequent through ~p62 (last clearly-on hit: a
+    quinazolinone quorum-sensing-regulator inhibitor at p62, score
+    0.2721), decisively minority-on from p63 (score 0.2694) onward.
+    Cutoff set at 0.27. Yields 12,400 papers (11,711 new, 689 merged) —
+    by far the largest single write in this expansion, flagged
+    explicitly for go-ahead given the scale (would grow the corpus by
+    roughly 15% on its own) rather than proceeding on the strength of a
+    clean-looking falloff alone.
+    Every step proven despite the tooling bumps: dry-run clean (11,711
+    files, 0 failed, 0 gate hits), rollback pre-write 0, write
+    11,711/11,711 (0 skipped, 0 failed), merge 689/689, rollback
+    post-write exactly 12,400, corpus 77,127 → 88,838 exact.
+    **Embedding backfill needed three invocations, for three different
+    reasons, none of them data-corrupting once traced:** pin found
+    exactly 11,711 (correct scope) → dry-run clean (11,711 would-embed,
+    ~4.5M tokens, ~$0.09) → pilot 5 (5/5) → live `find_nearest` proof
+    (pilot doc ranked 1st on its own title) → full run. First
+    invocation: killed by its own timeout at 1,205/11,711, checkpoint
+    verified intact before resuming. Second invocation: a genuine
+    transient Firestore write timeout (`503 Stream removed`, the
+    script's own internal retry budget exhausted) hard-stopped it by
+    design at 1,205+~9,676 processed — the failed doc stays in the
+    checkpoint's remaining queue for retry, confirmed rather than
+    assumed. Along the way, 50 docs were found already embedded by
+    something else mid-run — same signature as `glmp-q4`'s finding
+    (external cron, not a local process, not corruption), the second
+    occurrence of that specific pattern this expansion, consistent
+    with an independent actor on its own schedule rather than a
+    one-off. Third invocation completed clean: 11,661 + 50 = 11,711,
+    exact, 0 failed.
+    **Scoped-retrieval spot-check confirmed the prediction.** All 8
+    content types requested, correctly narrowed to `["papers"]`, other
+    7 named as skipped. Top 5 unambiguously on-topic ("Analysis of
+    two-component signal transduction systems...," "Two-component and
+    phosphorelay signal transduction," "Phosphorelay signalling: new
+    tricks for an ancient pathway"). Checked directly: all 5 carry a
+    genuine `glmp-q7` entry with scores matching the live query within
+    noise.
+    `research_focus.json` updated with `glmp-q7`'s live entry. Three
+    sweeps remain: `glmp-q8`–`q10`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
