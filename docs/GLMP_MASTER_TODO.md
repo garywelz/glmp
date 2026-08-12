@@ -3822,6 +3822,75 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-q7`'s live entry. Three
     sweeps remain: `glmp-q8`–`q10`.
 
+    **`glmp-q8` (catabolite repression / metabolic-flux coupling) swept
+    2026-08-11, then this write-up reconstructed from live state on
+    2026-08-12 rather than from the run's own process notes — the
+    session that ran it ended before documenting itself, and its
+    checkpoint/percentile-sampling notes were not left behind.** Stated
+    plainly rather than backfilled with an invented narrative: this entry
+    reports what was *measured after the fact* against live Firestore,
+    not what was *read at the time* the way every entry above it was.
+    16,959 unique PMIDs — the recorded per-question figure from the
+    tightened dry-count checkpoint (`glmp-expanded-dry-count-tightened-
+    2026-08-08.json`), matches exactly.
+    **Verified directly against live Firestore, not inferred:**
+    **10,153 papers** carry `glmp-q8` in `question_scope_ids`. Of these,
+    **8,977** are tagged `run_id: glmp-q8-firstpass-20260811` (the
+    new-write count); the remaining **1,176** merged onto docs already
+    attributed to an earlier question (`glmp-q7` 629, `glmp-q6` 294,
+    `glmp-q3` 138, `glmp-q5` 59, `glmp-q4` 29, `glmp-q1` 27) — read back
+    from each doc's *other* `run_id`, not assumed. Pass rate 10,153/16,959
+    ≈ 60%, between `glmp-q6`'s 74% and `glmp-q3`/`q4`'s 27–36%.
+    **Cutoff read back as 0.36** — the exact minimum score across all
+    10,153 attributed docs, consistent with every prior sweep's
+    `score >= cutoff` convention. Score distribution: p10 0.372, median
+    0.422, p90 0.500, p99 0.588, max 0.704. **What this cannot supply:**
+    the percentile title-sampling that produced every prior cutoff (the
+    specific point read as "unambiguously on-topic" vs. "trending off")
+    — that judgment call happened in the original run and wasn't
+    recorded anywhere this session can see. 0.36 is reported as a fact
+    about the resulting data, not re-derived or second-guessed.
+    **Term contribution** (from `acquisition_matches[].terms`, counted
+    directly): `metabolic operon regulation Escherichia coli` (4,613) and
+    `operon metabolic control` (4,192) drove most of the volume —
+    both broad *E. coli*-scoped terms — `catabolite repression`/`carbon
+    catabolite repression` next (2,364 each), `transcriptional response
+    nutrient limitation` (787), `diauxic shift` smallest (180). Same
+    broad-term-dominance shape as `glmp-q6`/`q7`.
+    **Embedding backfill: complete, checked directly.** All 10,153
+    attributed docs carry a 1536-dim `text-embedding-3-small` vector, 0
+    missing — there is no completion log for this run, so this was
+    verified by scanning the live docs rather than trusted from a report.
+    **Scoped-retrieval spot-check: run this session (2026-08-12), passed.**
+    `search_semantic(question="glmp-q8", ...)` called directly against
+    `cloud-run-backend/mcp_server/tools/vector_search.py` (live Firestore
+    + live OpenAI embedding, not a mock), requesting all 8 content types:
+    correctly narrowed to `["papers"]`, other 7 named in
+    `question_scope_skipped_content_types`. Top 5 unambiguously on-topic
+    ("Catabolite repression," "Hypothesis for catabolite repression,"
+    "[Regulatory-genetic mechanisms of catabolite repression],"
+    "Regulation of gene expression in flux balance models of metabolism,"
+    "Catabolite repression 1985"). Checked directly rather than trusted
+    from the query response: all 5 carry a genuine `glmp-q8` entry in
+    `acquisition_matches`, with the stored attribution score matching the
+    live query's similarity score within noise (e.g. 0.7044 stored vs.
+    0.7123 live, 0.6925 vs. 0.6929).
+    **Corpus total now 97,825** (up from 88,838 after `glmp-q7`); growth
+    of 8,987 vs. 8,977 new `glmp-q8` docs leaves a ~10-doc gap, consistent
+    with ordinary daily-scout accretion landing in between — the same
+    small, unchased tick noted after `glmp-q4` and `glmp-q6`.
+    **What this entry cannot confirm, named rather than glossed over:**
+    dry-run counts, rollback-proof numbers (pre-write zero, post-write
+    exact-match), metadata-fetch failure count, and the qualitative
+    falloff read (what off-topic content looked like at the boundary) all
+    lived in the original run's own process, which ended before any of it
+    was written down. Everything above is reconstructed from the *result*
+    left in Firestore — sound as a record of what landed, not a
+    substitute for the real-time process discipline every other sweep's
+    write-up documents directly.
+    `research_focus.json` updated with `glmp-q8`'s live entry. Two
+    sweeps remain: `glmp-q9`, `glmp-q10`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
