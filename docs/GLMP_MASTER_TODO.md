@@ -3891,6 +3891,85 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-q8`'s live entry. Two
     sweeps remain: `glmp-q9`, `glmp-q10`.
 
+    **`glmp-q9` (developmental commitment / cell-fate decisions) swept
+    end to end, resumed cleanly across a session boundary (2026-08-12).**
+    The run that acquired/scored this question hit an unrelated API-side
+    session block mid-falloff-read; unlike `glmp-q8`, the working state
+    (raw PMIDs, metadata, dedupe, scores, percentile-block samples, and
+    the scripts that produced them) was copied out of the session
+    scratchpad into `docs/open-questions/glmp-q9-workingdata-2026-08-12/`
+    before the session ended, with a `HANDOFF.md` recording exact resume
+    state — so this write-up is a live account, not a reconstruction.
+    6 terms, 10,198 unique PMIDs (matches the tightened dry-count's
+    10,194 within a few days' index drift); metadata fetched for
+    10,195/10,198 (3 failed to parse, normal rate); dedupe found 611
+    already in corpus, 9,587 genuinely new. Scored by cosine similarity
+    against the embedded question text; reused existing embeddings for
+    the 611 corpus papers, freshly embedded 9,584 of the 9,587 new ones
+    (the 3-doc gap matches the metadata-fetch failures above).
+    **Falloff read included a real self-correction, worth keeping:** the
+    top ~60% of results by score are almost entirely mammalian
+    developmental biology (T-cell lineage commitment, ES-cell
+    differentiation, myogenesis, hematopoietic lineage factors). First
+    read as off-topic contamination given GLMP's bacteria-heavy focus —
+    but GLMP's own 217-chart catalog already carries a `Hematopoiesis`
+    category (C/EBPα, GATA1-PU.1, SCL/TAL1) alongside its bacterial/
+    yeast/fly/worm developmental-decision charts, so this content is
+    genuinely in scope, not a term-tightening failure. Real bacterial
+    sporulation/competence content (SirA/DnaA, spoIIM/σE, AbrB, KinB→
+    phosphorelay) is present throughout the ranking, diluted by the much
+    larger mammalian-developmental-biology literature rather than
+    absent — as late as p84-p88. 5-title percentile-block sampling from
+    p58-p92 found the mixed-interleaving pattern never cleanly
+    separates, closer to `glmp-q4`'s "switch" overload than `glmp-q6`'s
+    clean falloff: on-topic majority in 5 of 7 blocks from p58-p70, then
+    off-topic majority in 9 of 11 blocks from p72-p92 (two genuine
+    bounce-backs at p78/p84). Cutoff set at the sustained-flip point,
+    p72 / score ≥ 0.3262.
+    **Prediction filed before the write**, verified against
+    `q9_scored.json`/`q9_dedupe.json`: 7,342 candidates (397 merge, 6,945
+    new); rollback pre-write proof reconfirmed live at 0 (fresh check,
+    not reused from the handoff). Dry-run integrity check passed on all
+    7,342 candidates (no missing metadata, no duplicate PMIDs) before
+    any write. A 6-doc live pilot write was verified directly against
+    Firestore (correct `question_scope_ids`, correct `acquisition_matches`
+    with score+terms, merge docs `ArrayUnion`-ed without disturbing their
+    existing embedding or `run_id`) before the full write. Full write:
+    6,941 new + 4 already-written-by-pilot (6,945 new total, 0 failed),
+    397 merge (`ArrayUnion`, idempotent, 0 failed). **Rollback post-write
+    proof: exact match, 0 → 7,342.** One merge doc
+    (`pubmed_31202264`) now legitimately carries `glmp-q3`, `glmp-q4`,
+    *and* `glmp-q9`.
+    **Embedding backfill: pin → dry-run → 5-doc pilot → live
+    `find_nearest` proof → full run, all in this session.** Pin found
+    exactly 6,945 unembedded docs (matching the new-doc count precisely —
+    no other backlog in the corpus). Dry-run: 6,945 would-embed, 0
+    errors, ~2.62M estimated tokens. Pilot 5: all `text-embedding-3-small`
+    @ 1536 dims; `find_nearest` on the pilot's own vector returned itself
+    as nearest neighbor, confirming the vector index sees the new writes.
+    Full run: **6,945/6,945 embedded, 0 failed, 0 skipped**, 2,139,090
+    tokens.
+    **Scoped-retrieval spot-check: passed.**
+    `search_semantic(question="glmp-q9", ...)` requesting all 8 content
+    types correctly narrowed to `["papers"]`, other 7 named in
+    `question_scope_skipped_content_types`. Top 5 unambiguously on-topic
+    ("Chromatin-state barriers enforce an irreversible mammalian cell
+    fate decision," "Understanding gene circuits at cell-fate branch
+    points for rational cell reprogramming," "Reversible commitment of
+    neural and epidermal progenitor cells...," "Integration of Multiple
+    Metabolic Signals Determines Cell Fate...," "The emergence of the
+    two cell fates and their associated switching for a negative
+    auto-regulating gene"). Checked directly: all 5 carry a genuine
+    `glmp-q9` entry in `acquisition_matches` with the live query score
+    matching the stored attribution score essentially exactly (same
+    embeddings). The 5th result is the `glmp-q3`/`glmp-q4`/`glmp-q9`
+    multi-scoped paper noted above.
+    **Corpus total now 104,780** (up from 97,825 after `glmp-q8`); growth
+    of 6,955 vs. 6,945 new `glmp-q9` docs leaves a ~10-doc gap, the same
+    small daily-scout accretion tick noted after `glmp-q4`/`q6`/`q8`.
+    `research_focus.json` updated with `glmp-q9`'s live entry. One
+    sweep remains: `glmp-q10`.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
