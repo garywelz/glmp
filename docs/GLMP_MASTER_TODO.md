@@ -3970,6 +3970,164 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-q9`'s live entry. One
     sweep remains: `glmp-q10`.
 
+    **`glmp-q10` (computational network-inference methods) swept end to
+    end (2026-08-12) — the seventh and last of the resumed sweeps
+    (`glmp-q3`, `q4`, `q6`-`q10`), closing out this expansion.** 5 terms,
+    11,620 unique PMIDs (matches the tightened dry-count's 11,599 within
+    normal index drift; no term hit PubMed's retstart ceiling this time).
+    Metadata fetch: one batch hit a transient malformed-XML response (108
+    PMIDs marked failed at once, an unusually high single-batch spike);
+    retried directly rather than accepted, recovering all but 8 —
+    11,612/11,620 fetched, back to the normal ~0.1% baseline failure
+    rate. Dedupe: 845 already in corpus, 10,775 new. Scored by cosine
+    similarity against the embedded question text; 0 scoring errors.
+    **Falloff was the noisiest of any question swept so far, and by a
+    real margin, not just noisier-than-usual.** "Network" is the single
+    most overloaded term in the whole expanded set: 1-point percentile
+    sampling from p2-p18 was solidly on-topic (gene-regulatory-network-
+    inference papers, near-unanimous), but from p20 onward the ranking
+    genuinely oscillates between on-topic majority and off-topic
+    majority blocks rather than trending down — false-positive domains
+    include neuroscience ("neural network," brain connectivity, EEG),
+    general ML (spiking neural networks, graph neural networks, deep
+    learning classifiers), epidemiology/biomarker discovery, and generic
+    graph-science methods, all sharing "network"/"inference" vocabulary
+    with the genuine target (gene regulatory network reconstruction and
+    validation methods). A full 5/5-on-topic block recurred as late as
+    p50; the last on-majority bounce-back was p64; p66 onward is
+    sustained off-topic through p80. Cutoff set at p60 (score ≥ 0.3442),
+    the point after which on-majority blocks stop being reliable and
+    only one further bounce-back (p64) occurs in the following twelve
+    blocks — the same "sustained flip, tolerate isolated noise" standard
+    `glmp-q9` used, applied to a harder case.
+    **Dry-run integrity check passed on all 6,971 candidates** (no
+    missing metadata, no duplicate PMIDs) before any write; largest
+    merge-overlap of any sweep so far comes from `glmp-q3` (486 of 741
+    merge docs) — expected, since network-motif and network-inference
+    questions share the most overloaded word in the whole term set.
+    Rollback pre-write proof reconfirmed live at 0. A 6-doc live pilot
+    (all landed in the "new" bucket this time, no merge docs in the top
+    6) verified directly against Firestore before the full write. Full
+    write: 6,224 new + 6 already-written-by-pilot (6,230 new total, 0
+    failed), 741 merge (0 failed). **Rollback post-write proof: exact
+    match, 0 → 6,971.**
+    **Embedding backfill: pin → dry-run → 5-doc pilot → live
+    `find_nearest` proof → full run.** Pin found exactly 6,230
+    unembedded docs (matching the new-doc count precisely). Dry-run:
+    6,230 would-embed, 0 errors. Pilot 5 + `find_nearest` proof both
+    clean. Full run: **6,230/6,230 embedded, 0 failed, 0 skipped**,
+    1,881,227 tokens.
+    **Scoped-retrieval spot-check: passed.**
+    `search_semantic(question="glmp-q10", ...)` correctly narrowed to
+    `["papers"]`, other 7 content types skipped as expected. Top 5
+    unambiguously on-topic ("Validation of inference procedures for gene
+    regulatory networks," "Validation of gene regulatory networks:
+    scientific and inferential," "Validation of gene regulatory network
+    inference based on controllability," "Inference on the structure of
+    gene regulatory networks," "Inference and validation of predictive
+    gene networks from biomedical literature") — all 5 carry a genuine
+    `glmp-q10` entry in `acquisition_matches` with the live query score
+    matching the stored attribution score essentially exactly.
+    **Corpus total now 111,010** (up from 104,780 after `glmp-q9`);
+    growth of exactly 6,230, matching the new-doc count precisely — no
+    daily-scout accretion gap this time, unlike every prior sweep in
+    this expansion.
+    `research_focus.json` updated with `glmp-q10`'s live entry. **This
+    closes out the resumed-sweep expansion named at the top of this
+    item: `glmp-q3`, `q4`, `q6`, `q7`, `q8`, `q9`, `q10` are now all
+    attributed end to end**, each carrying a live `_acquisition_note` in
+    `research_focus.json`. Checked directly rather than assumed:
+    `glmp-q1`/`q11` carry `_split_note` instead (their own methods-split
+    accounting, not a sweep write-up) and `glmp-q2` carries neither —
+    it was never part of this resumed-sweep batch and remains unswept.
+
+    **Full-suite audit, prompted by Gary asking directly whether every
+    declared question had actually been swept (2026-08-13).** Checked
+    live against Firestore rather than trusted from docs, for every one
+    of `glmp-q1`–`q11` plus the two frontier questions: `glmp-q1` 1,495,
+    `glmp-q2` **0**, `glmp-q3` 2,468, `glmp-q4` 1,241, `glmp-q5` 3,876,
+    `glmp-q6` 3,583, `glmp-q7` 12,400, `glmp-q8` 10,153, `glmp-q9` 7,342,
+    `glmp-q10` 6,971, `glmp-q11` 471, `glmp-f1` 0, `glmp-f2` 0. Two real
+    findings: **`glmp-q5` was swept end to end back on 2026-08-09** (this
+    item's own earlier entry documents it, 3,876 matches exactly) but
+    was never added to `research_focus.json`'s `active_questions` array —
+    a bookkeeping gap, not a missing sweep, fixed by backfilling its
+    entry this session. **`glmp-q2` genuinely was never swept** — its
+    catastrophic-outlier term (`transcription activation`, 242,672 raw
+    hits) was tightened on 2026-08-08
+    (`glmp-tightening-pilot-2026-08-08.json`:
+    → `transcriptional activator binding site Escherichia coli`, 4,903
+    hits) alongside `glmp-q1`'s CRP fix, but the tightening was never
+    followed by an actual acquisition sweep — it fell through when the
+    "remaining sweeps" list jumped from `glmp-q1` straight to `glmp-q3`.
+    `glmp-f1`/`glmp-f2` are a different category by design (open
+    engineering/judgment questions about the Programming Framework
+    decoder, not literature-corpus questions); `glmp-f2`'s defining term
+    (`operon re-anchoring`) is GLMP's own internal terminology, not
+    literature vocabulary, so it is not a sweep candidate at all;
+    `glmp-f1` still carries its original un-tightened `Class II`/
+    `transcription activation` terms and was left out of scope per
+    Gary's explicit call this session, flagged rather than swept.
+
+    **`glmp-q2` swept end to end, closing the gap (2026-08-13).** 9
+    tightened terms, 29,008 unique PMIDs — the largest single-question
+    search pool of any sweep so far (`lac operon` alone contributes
+    8,121). Metadata fetch hit real network instability rather than the
+    usual single malformed-XML batch: two explicit connection-abort
+    errors near the end of the run pushed the first-pass failure count
+    to 504 (normal baseline is ~0.1%); retried directly rather than
+    accepted, recovering all but 4 — 29,004/29,008, back to baseline.
+    Dedupe: 2,959 already in corpus, 26,049 new. Scored by cosine
+    similarity; 0 scoring errors.
+    **Falloff was a third distinct shape, not a repeat of `glmp-q9`'s
+    noisy oscillation or `glmp-q10`'s extreme overload — a gradual,
+    steady dilution**, closer to `glmp-q3`/`glmp-q5`'s pattern:
+    unambiguously on-topic through the mid-teens percentiles (rpoS/
+    Salmonella virulence regulation, lac repressor operator specificity,
+    lacI UV mutagenesis — a clean 5/5 block as late as p16), then a
+    slow eroding mix from p18 onward rather than a sharp flip, declining
+    to a clear minority by the mid-30s with no further bounce-backs, and
+    reaching near-zero by p46-48. **Named finding worth keeping: `PWM`,
+    one of `glmp-q2`'s own declared terms, is a genuine homonym trap** —
+    it collides with "pokeweed mitogen," an unrelated immunology
+    reagent, producing false positives at multiple points in the
+    ranking (same failure class as the CRP/"Class II" contamination
+    found earlier, but this time inside a term that was never flagged
+    as an outlier by the raw-count screen, since "PWM" alone isn't
+    high-volume enough to trip that check). Cutoff set at p30
+    (score ≥ 0.4025), the point majority-on last roughly holds before
+    the sustained decline into clear-minority territory.
+    **Dry-run integrity check passed on all 8,702 candidates.** Largest
+    merge-overlap of any sweep so far comes from `glmp-q8` (1,692 of
+    2,411 merge docs) — expected, since catabolite repression and
+    lac-operon regulatory-circuit vocabulary overlap heavily. Rollback
+    pre-write proof reconfirmed live at 0. A 6-doc live pilot verified
+    directly against Firestore — one paper now legitimately carries
+    **four** question scopes (`glmp-q1`, `q3`, `q5`, `q2`), with
+    `ArrayUnion` correctly leaving `glmp-q1`'s differently-shaped
+    anchor-based match entry (`method` field instead of `terms`)
+    undisturbed. Full write: 6,287 new + 4 already-written-by-pilot
+    (6,291 new total, 0 failed), 2,411 merge (0 failed). **Rollback
+    post-write proof: exact match, 0 → 8,702.**
+    **Embedding backfill: pin → dry-run → 5-doc pilot → live
+    `find_nearest` proof → full run.** Pin found exactly 6,291
+    unembedded docs (matching the new-doc count precisely). Full run:
+    **6,291/6,291 embedded, 0 failed, 0 skipped**, 1,934,070 tokens.
+    **Scoped-retrieval spot-check: passed.** Correctly narrowed to
+    `["papers"]`; top 5 unambiguously on-topic (OmpR upstream-activation
+    binding sites, XylR repressor/activator dual activity, marA/soxS/rob
+    regulon genomics, CytR/CRP cooperative binding energetics, and the
+    four-question paper above) — all 5 carry a genuine `glmp-q2` entry
+    in `acquisition_matches` with the live query score matching the
+    stored attribution score essentially exactly.
+    **Corpus total now 117,316** (up from 111,010 after `glmp-q10`);
+    growth of 6,306 vs. 6,291 new `glmp-q2` docs, a ~15-doc gap
+    consistent with ordinary daily-scout accretion.
+    `research_focus.json` updated with both `glmp-q2`'s live entry and
+    the backfilled `glmp-q5` entry. **Every one of the 11 numbered
+    questions (`glmp-q1`–`q11`) is now attributed end to end.**
+    `glmp-f1`/`glmp-f2` remain explicitly out of scope, per Gary's call.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.

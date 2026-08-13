@@ -1,6 +1,6 @@
 {
   "project": "GLMP",
-  "updated": "2026-08-12",
+  "updated": "2026-08-13",
   "active_questions": [
     {
       "id": "glmp-q1",
@@ -21,8 +21,9 @@
     {
       "id": "glmp-q2",
       "q": "For which E. coli regulatory circuits does the literature provide activator binding-site evidence strong enough to build a PWM from?",
-      "terms": ["JASPAR", "PWM", "FIMO", "transcription activation", "lac operon", "trp operon", "SOS response", "LexA", "binding site evidence"],
-      "since": "2026-07-05"
+      "terms": ["JASPAR", "PWM", "FIMO", "transcriptional activator binding site Escherichia coli", "lac operon", "trp operon", "SOS response", "LexA", "activator binding site evidence bacteria"],
+      "since": "2026-07-05",
+      "_acquisition_note": "Swept 2026-08-13, closing a real gap: tightened on 2026-08-08 alongside glmp-q1's CRP fix (transcription activation, 242,672 raw hits -> transcriptional activator binding site Escherichia coli, 4,903) but never actually acquired until a full-suite audit found it at 0 docs. Largest single-question search pool so far, 29,008 unique PMIDs. Falloff was a gradual, steady dilution (closer to glmp-q3/glmp-q5's shape than glmp-q9/glmp-q10's noisy oscillation) -- unambiguous through the mid-teens percentiles, declining slowly to a clear minority by the mid-30s, near-zero by p46-48. Named finding: PWM, one of this question's own terms, collides with 'pokeweed mitogen' (an unrelated immunology reagent), producing scattered false positives -- same failure class as the CRP/Class II contamination, just below the raw-count outlier threshold. Cutoff p30 / score >= 0.4025 -> 8,702 papers (6,291 new, 2,411 merged, largest merge-overlap with glmp-q8). Rollback proof exact (0 -> 8,702), embedding backfill complete (6,291/6,291, 0 failed), scoped-retrieval spot-check passed live this session."
     },
     {
       "id": "glmp-q3",
@@ -37,6 +38,13 @@
       "terms": ["bistable switch gene", "bistability gene expression", "genetic toggle switch", "hysteresis gene expression", "phenotypic switching bacteria", "positive feedback bistability"],
       "since": "2026-07-05",
       "_acquisition_note": "First-pass swept 2026-08-09. 'Switch' is a heavily overloaded word: false positives from immunology (antibody class-switch recombination), chemistry, and optogenetics appear interleaved with genuine bistability content rather than cleanly separated (unlike glmp-q3's recovery-then-off pattern). 5-point percentile-block title reading found the on-topic majority ends around p27/p28 and never clearly regains it. Cutoff 0.375 -> 1,241 papers (963 new, 278 merged). One paper (pubmed_19910671) legitimately qualifies for both glmp-q3 and glmp-q4."
+    },
+    {
+      "id": "glmp-q5",
+      "q": "What synthetic gene circuits have been built and characterised, and how does their designed logic compare to natural circuits?",
+      "terms": ["synthetic gene circuit", "genetic logic gate", "repressilator", "synthetic oscillator", "genetic circuit design", "engineered transcriptional circuit"],
+      "since": "2026-07-05",
+      "_acquisition_note": "First-pass swept 2026-08-09 (the pilot question for this whole expansion, GLMP_MASTER_TODO.md item 53) -- backfilled into this file 2026-08-13 after a full-suite audit found it missing here despite being live in Firestore all along; a bookkeeping gap, not a missing sweep. 7,561 unique PMIDs. Decile scores were smooth with no visible cliff; falloff found by reading titles instead -- unambiguous through ~p48 (score ~0.36), a hard qualitative turn by the mid-50s (melanoma classifiers, neural stimulators, oxytocin receptor comparisons) despite continuous-looking scores. Cutoff 0.35, explicitly this question's own cutoff, not a reusable default -> 3,876 papers (3,642 new, 234 merged)."
     },
     {
       "id": "glmp-q6",
@@ -65,6 +73,13 @@
       "terms": ["cell fate decision network", "developmental switch commitment", "sporulation initiation regulation", "competence regulation Bacillus subtilis", "lineage commitment transcription factor", "epigenetic memory gene expression"],
       "since": "2026-07-05",
       "_acquisition_note": "Swept 2026-08-12, resumed cleanly across a session boundary via a durable handoff folder (docs/open-questions/glmp-q9-workingdata-2026-08-12/). 10,198-PMID candidate pool, 611 already in corpus. Falloff mixed the mammalian-developmental-biology literature (genuinely in scope -- GLMP's own catalog carries a Hematopoiesis category) with bacterial sporulation/competence content diluted rather than absent through p84-p88; interleaving never cleanly separated, closer to glmp-q4's 'switch' overload than glmp-q6's clean falloff. Cutoff at the sustained on-topic/off-topic majority flip, p72 / score >= 0.3262 -> 7,342 papers (6,945 new, 397 merged). Rollback proof exact (0 -> 7,342), embedding backfill complete (6,945/6,945, 0 failed), scoped-retrieval spot-check passed live this session."
+    },
+    {
+      "id": "glmp-q10",
+      "q": "What computational methods infer regulatory network structure from data, and how are the inferred networks validated?",
+      "terms": ["gene regulatory network inference", "regulatory network reconstruction", "Boolean network gene regulation", "network inference validation", "single-cell regulatory network inference"],
+      "since": "2026-07-05",
+      "_acquisition_note": "Swept 2026-08-12, the seventh and last of the resumed sweeps, closing out this expansion. 11,620-PMID candidate pool, 845 already in corpus. Noisiest falloff of any question swept so far -- 'network' is the most overloaded term in the whole expanded set, drawing false positives from neuroscience, general ML, and biomarker/epidemiology literature; on-topic and off-topic majority blocks genuinely oscillate from p20 to p64 (a full 5/5-on block recurs as late as p50) rather than trending down. Cutoff at the point on-majority blocks stop being reliable, p60 / score >= 0.3442 -> 6,971 papers (6,230 new, 741 merged, the largest merge-overlap of any sweep so far, mostly with glmp-q3). Rollback proof exact (0 -> 6,971), embedding backfill complete (6,230/6,230, 0 failed), scoped-retrieval spot-check passed live this session."
     }
   ],
   "flagged": [
