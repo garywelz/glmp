@@ -1,527 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genome Logic Modeling Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #0b0f14;
-      --surface:   #111820;
-      --border:    #1e2a38;
-      --accent:    #4fc3a1;
-      --accent2:   #2a7a62;
-      --text:      #d4dde8;
-      --muted:     #6b7f94;
-      --white:     #eaf0f8;
-      --seq:       #1a2a20;
-      --seq-text:  #6ee7b7;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(11,15,20,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 52px;
-    }
-    .nav-logo {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.8rem;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ── HERO ── */
-    .hero {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 5rem 2rem 3rem;
-    }
-    .hero-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      line-height: 1.15;
-      color: var(--white);
-      margin-bottom: 1.6rem;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-lead {
-      font-size: 1.08rem;
-      color: var(--text);
-      max-width: 640px;
-      margin-bottom: 2.4rem;
-    }
-
-    /* ── SEQUENCE DISPLAY — the signature element ── */
-    .seq-block {
-      background: var(--seq);
-      border: 1px solid var(--accent2);
-      border-radius: 6px;
-      padding: 1.2rem 1.6rem;
-      margin-bottom: 2.8rem;
-      overflow-x: auto;
-    }
-    .seq-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .seq-line {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.88rem;
-      color: var(--seq-text);
-      letter-spacing: 0.12em;
-      white-space: pre;
-    }
-    .seq-line .not-gate  { color: #f87171; font-weight: 500; }
-    .seq-line .gap       { color: var(--muted); }
-    .seq-line .and-gate  { color: #60a5fa; font-weight: 500; }
-    .seq-annotation {
-      display: flex;
-      gap: 2rem;
-      margin-top: 0.8rem;
-      flex-wrap: wrap;
-    }
-    .seq-ann-item {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
-    .seq-ann-item span { color: var(--seq-text); }
-
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 2rem;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3.5rem 2rem;
-    }
-    .section-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 1.4rem;
-    }
-    h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.7rem;
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
-
-    /* ── PAPER LIST ── */
-    .paper-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
-    .paper-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.2rem 1.4rem;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 1rem;
-      align-items: start;
-      margin-bottom: 0.5rem;
-      transition: border-color 0.2s;
-    }
-    .paper-item:hover { border-color: var(--accent2); }
-    .paper-badge {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--accent);
-      background: rgba(79,195,161,0.08);
-      border: 1px solid var(--accent2);
-      border-radius: 3px;
-      padding: 0.2rem 0.5rem;
-      white-space: nowrap;
-      margin-top: 0.15rem;
-    }
-    .paper-content {}
-    .paper-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      color: var(--white);
-      margin-bottom: 0.3rem;
-      line-height: 1.3;
-    }
-    .paper-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .paper-link {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      text-decoration: none;
-      white-space: nowrap;
-      margin-top: 0.15rem;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .paper-link:hover { opacity: 1; }
-    .paper-link.pending { color: var(--muted); cursor: default; }
-
-    /* ── STATS ROW ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 1.6rem;
-    }
-    .stat-cell {
-      background: var(--surface);
-      padding: 1.2rem 1.4rem;
-    }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* ── INFRA GRID ── */
-    .infra-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 0.5rem;
-    }
-    .infra-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.2rem 1.4rem;
-    }
-    .infra-card-title {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.06em;
-    }
-    .infra-card p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .infra-card a {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.8rem;
-      display: inline-block;
-      margin-top: 0.5rem;
-    }
-
-    /* ── CONTACT ── */
-    .contact-block {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.6rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-    .contact-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-    .contact-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .contact-value {
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-    .contact-value a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.4rem 2rem;
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    footer p {
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-family: 'IBM Plex Mono', monospace;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-
-    @media (max-width: 600px) {
-      .paper-item { grid-template-columns: 1fr; }
-      .paper-link { justify-self: start; }
-      nav { padding: 0 1rem; }
-      .nav-links { gap: 1rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLMP — Genome Logic Modeling Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --glmp-blue: #2d5a8e;
+            --glmp-blue-dark: #1a3d62;
+            --glmp-bg: #f7f6f2;
+            --glmp-surface: #ffffff;
+            --glmp-border: #e2dfd8;
+            --step-highlight-bg: #fff0f0;
+            --step-highlight-border: #8e2d2d;
+        }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--glmp-bg);
+            color: #1a1a1a;
+        }
+        .font-serif-headline {
+            font-family: Georgia, "Times New Roman", serif;
+        }
+        .glmp-header {
+            background: var(--glmp-blue);
+            border-bottom: 4px solid var(--glmp-blue-dark);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        .stat-number {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 2.75rem;
+            line-height: 1;
+            color: var(--glmp-blue);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6b6560;
+        }
+        .mermaid-wrap {
+            background: #fafaf8;
+            border: 1px solid var(--glmp-border);
+            border-radius: 6px;
+            padding: 1.5rem 1rem;
+            overflow-x: auto;
+        }
+        .color-key {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            font-size: 0.72rem;
+            color: #6b6560;
+            line-height: 1.5;
+        }
+        .stat-box {
+            background: #fafaf8;
+            border: 1px solid var(--glmp-border);
+            border-radius: 6px;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .stat-box .stat-number {
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+        .stat-box .stat-label {
+            text-align: right;
+            flex: 1;
+        }
+        .stats-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-bottom: 1.25rem;
+        }
+        .browse-card {
+            background: var(--glmp-surface);
+            border: 1px solid var(--glmp-border);
+            border-left: 4px solid var(--glmp-blue);
+            border-radius: 6px;
+            padding: 1.5rem;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-decoration: none !important;
+            color: #1a1a1a !important;
+            cursor: pointer;
+            height: 100%;
+        }
+        a.browse-card:hover,
+        a.browse-card:visited,
+        a.browse-card:active,
+        a.browse-card:focus {
+            text-decoration: none !important;
+            color: #1a1a1a !important;
+        }
+        .browse-card h3 {
+            color: var(--glmp-blue);
+            text-decoration: none;
+        }
+        .browse-card p {
+            color: #4b5563;
+            text-decoration: none;
+        }
+        .browse-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        @media (min-width: 768px) {
+            .browse-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .hero-columns {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .hero-columns {
+                flex-direction: row;
+                gap: 2rem;
+                align-items: flex-start;
+            }
+            .hero-col-left {
+                width: 28%;
+                flex-shrink: 0;
+            }
+            .hero-col-right {
+                width: 72%;
+                flex-shrink: 0;
+            }
+        }
+        .color-key span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .color-key i {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        .step-highlight {
+            background: var(--step-highlight-bg);
+            border-left: 4px solid var(--step-highlight-border);
+            border-radius: 0 6px 6px 0;
+        }
+        .section-card {
+            background: var(--glmp-surface);
+            border: 1px solid var(--glmp-border);
+            border-radius: 6px;
+        }
+        .section-title {
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--glmp-blue);
+        }
+        a.resource-link {
+            color: var(--glmp-blue);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        a.resource-link:hover {
+            color: var(--glmp-blue-dark);
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-  <span class="nav-logo">GLMP</span>
-  <ul class="nav-links">
-    <li><a href="#papers">Papers</a></li>
-    <li><a href="#corpus">Corpus</a></li>
-    <li><a href="#infrastructure">Infrastructure</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+    <!-- Header / Hero -->
+    <header class="glmp-header text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+            <p class="text-xs sm:text-sm tracking-widest uppercase opacity-75 mb-3">
+                Genome Logic Modeling Project · Gary Welz · CUNY Graduate Center
+            </p>
+            <h1 class="font-serif-headline text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight mb-5">
+                Decoding the logic of gene regulation
+            </h1>
+        </div>
+    </header>
 
-<!-- HERO -->
-<div class="hero">
-  <p class="hero-eyebrow">Genome Logic Modeling Project</p>
-  <h1>Reading regulatory logic<br><em>from sequence</em></h1>
-  <p class="hero-lead">
-    The control layer of the genome is written in a logical grammar. Transcription factor binding motifs are its alphabet; their spatial arrangement in promoter and enhancer sequences encodes AND, OR, NOT, and feedback. GLMP is a systematic program to decode that grammar — to build the corpus, infrastructure, and framework needed to read any regulatory sequence as a logical formula.
-  </p>
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10 sm:space-y-14">
 
-  <!-- THE SIGNATURE ELEMENT: an annotated DNA sequence -->
-  <div class="seq-block">
-    <p class="seq-label">E. coli lac operon — origin circuit · lacO1 operator (NOT gate) + CRP site (AND input)</p>
-    <div class="seq-line">5'–<span class="not-gate">AATTGTGAGCGGATAACAATT</span><span class="gap">···~60 bp···</span><span class="and-gate">TGTGANNNNNNTCACA</span>–3'</div>
-    <div class="seq-annotation">
-      <div class="seq-ann-item"><span>RED</span> &nbsp;lacO1 · NOT gate · LacI repressor binding · 21 bp</div>
-      <div class="seq-ann-item"><span>BLUE</span> &nbsp;CRP site · AND input · catabolite activation · ~22 bp</div>
-      <div class="seq-ann-item"><span>~60 bp</span> &nbsp;inter-site distance → OR-independent geometry → AND circuit logic</div>
-    </div>
-  </div>
-</div>
+        <!-- Current accomplishment: full-width text, positioned directly above the flowchart -->
+        <section class="section-card p-6 sm:p-8">
+            <div class="mb-6">
+                <div class="stat-box inline-flex mb-4" style="display:inline-flex;">
+                    <div class="stat-number" id="stat-biology-papers">29,184</div>
+                    <div class="stat-label" style="align-self:center;margin-left:0.6rem;">Biology papers in corpus</div>
+                </div>
+                <p class="text-gray-700 text-base leading-relaxed mb-3">
+                    GLMP's current methodological contribution is <strong>layered hybridization</strong>: reconciling
+                    literature-derived regulatory logic with database-grounded entity completeness, instead of
+                    treating them as competing choices. A literature-first flowchart makes a circuit's Boolean logic
+                    legible — AND/OR/NOT gates, explicit branch conditions — but tends to leave real biosynthesis
+                    steps implicit (a repressor "appears" without a drawn path from gene to protein). A
+                    RegulonDB-style wiring diagram has the opposite strength: complete regulatory entities, but no
+                    explicit gate logic. The hybrid keeps both — worked out in detail for the <em>E. coli</em>
+                    <em>lac</em> operon as a case study, comparing three deliberately different encodings side by
+                    side and recommending a four-step workflow (regulatory backbone → interpretive overlay → parts
+                    audit → identifier layer) for building one without collapsing distinct abstraction levels into
+                    an unreadable graph.
+                </p>
+                <p class="text-gray-700 text-base leading-relaxed">
+                    Read the full methods paper:
+                    <a class="resource-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/methods-mermaid-perturbation-design.md" target="_blank" rel="noopener">Mermaid Flowcharts for Smarter Perturbation Design</a>.
+                </p>
+            </div>
 
-<hr class="divider">
+            <div>
+                <h2 class="section-title text-lg sm:text-xl font-normal mb-4">
+                    The flowchart that started it
+                </h2>
+                <div class="mermaid-wrap mb-3">
+                    <div class="mermaid">
+graph TD
+    lacI_tx["lacI gene → LacI repressor"]
+    lacI_tx --> LacI[LacI repressor protein]
+    Lact[Lactose / allolactose]
+    Lact --> IndR{Repressor released?}
+    LacI --> IndR
+    IndR -->|No| Blocked[Operon blocked]
+    IndR -->|Yes| OpOK[Operator accessible]
+    Glc[Glucose / cAMP state]
+    Glc --> CAPs{CAP-cAMP assists?}
+    CAPs --> AND{Operator free AND CAP assist?}
+    OpOK --> AND
+    AND -->|Yes| Strong[lacZYA transcription ON]
+    AND -->|No| Weak[Basal transcription only]
+    style lacI_tx fill:#ffb74d,stroke:#e65100,color:#000
+    style LacI fill:#ffb74d,stroke:#e65100,color:#000
+    style IndR fill:#e1bee7,stroke:#4a148c,color:#000
+    style CAPs fill:#e1bee7,stroke:#4a148c,color:#000
+    style AND fill:#e1bee7,stroke:#4a148c,color:#000
+    style Strong fill:#c8e6c9,stroke:#1b5e20,color:#000
+    style Weak fill:#e8f5e9,stroke:#33691e,color:#000
+    style Blocked fill:#ffccbc,stroke:#bf360c,color:#000
+    style Lact fill:#fff9c4,stroke:#f9a825,color:#000
+    style Glc fill:#b3e5fc,stroke:#01579b,color:#000
+    style OpOK fill:#fff9c4,stroke:#f57f17,color:#000
+                    </div>
+                </div>
+                <div class="color-key">
+                    <span><i style="background:#ffb74d"></i> Orange = gene source</span>
+                    <span><i style="background:#e1bee7"></i> Purple = logic gate</span>
+                    <span><i style="background:#c8e6c9"></i> Green = active transcription</span>
+                    <span><i style="background:#ffccbc"></i> Red = repression</span>
+                    <span><i style="background:#b3e5fc"></i> Blue = environmental input</span>
+                </div>
+            </div>
+        </section>
 
-<!-- PAPERS -->
-<section id="papers">
-  <p class="section-label">Paper series</p>
-  <h2>The GLMP series</h2>
-  <p style="margin-bottom:1.8rem; color:var(--muted); font-size:0.92rem;">Five working papers form the foundation. The methods paper introduces the unit of representation. Papers I–II develop the grammar. Paper III delivers the first empirical test.</p>
+        <!-- Section 3 — How this works -->
+        <section class="section-card p-6 sm:p-8">
+            <h2 class="section-title text-xl sm:text-2xl font-normal mb-6">How this works</h2>
+            <ol class="space-y-4 list-none pl-0">
+                <li class="flex gap-4">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#2d5a8e] text-white flex items-center justify-center text-sm font-semibold">1</span>
+                    <p class="text-gray-700 pt-1">LLMs generate logic-gate flowcharts for regulatory circuits across organisms.</p>
+                </li>
+                <li class="step-highlight flex gap-4 p-4 -mx-1 sm:mx-0">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#8e2d2d] text-white flex items-center justify-center text-sm font-semibold">2</span>
+                    <div class="pt-0.5">
+                        <p class="text-gray-800">A qualified molecular biologist validates that the flowcharts accurately reflect observed molecular behavior. <strong>This is the pivotal open step.</strong> Neither PI is a molecular biologist, so the judgment has to come from outside; a student can attempt a first-pass review, but a biologist's sign-off is what this step requires.</p>
+                        <p class="text-sm text-[#8e2d2d] mt-2 font-medium">Your contribution here matters.</p>
+                    </div>
+                </li>
+                <li class="flex gap-4">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#2d5a8e] text-white flex items-center justify-center text-sm font-semibold">3</span>
+                    <p class="text-gray-700 pt-1">Computational methods extract and verify the logic directly from DNA sequences using motif scanning and a custom parser.</p>
+                </li>
+                <li class="flex gap-4">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#2d5a8e] text-white flex items-center justify-center text-sm font-semibold">4</span>
+                    <p class="text-gray-700 pt-1">Validated results are written up and scaled to advanced methods including Evo 2 and single-cell regulatory inference.</p>
+                </li>
+                <li class="flex gap-4">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-[#2d5a8e] text-white flex items-center justify-center text-sm font-semibold">5</span>
+                    <p class="text-gray-700 pt-1">At scale, the theory is either confirmed or refined — and the knowledge engine is built on solid ground.</p>
+                </li>
+            </ol>
+        </section>
 
-  <ul class="paper-list">
+        <!-- Section 4 — The research arc -->
+        <section class="section-card p-6 sm:p-8">
+            <h2 class="section-title text-xl sm:text-2xl font-normal mb-2">The research arc</h2>
+            <p class="text-sm text-gray-500 mb-5">Theory → framework → empirical test → synthesis → methods.</p>
+            <ul class="space-y-4">
+                <li>
+                    <a class="resource-link font-semibold" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md" target="_blank" rel="noopener">
+                        Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class
+                    </a>
+                    <p class="text-sm text-gray-600 mt-0.5">Paper I — foundational typology; the five-class complexity ladder.</p>
+                </li>
+                <li>
+                    <a class="resource-link font-semibold" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md" target="_blank" rel="noopener">
+                        The Genome as Computer
+                    </a>
+                    <p class="text-sm text-gray-600 mt-0.5">Paper II — a 22-primitive logical vocabulary; the transcriptome as runtime state; nine falsifiable predictions.</p>
+                </li>
+                <li>
+                    <a class="resource-link font-semibold" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-III-empirical-sequel.md" target="_blank" rel="noopener">
+                        Circuit Class Predicts Virtual Cell Model Accuracy
+                    </a>
+                    <p class="text-sm text-gray-600 mt-0.5">Paper III — 780 genes, K562 Perturb-seq: Class III genes are systematically harder to predict (t = −3.55, p = 0.0015).</p>
+                </li>
+                <li>
+                    <a class="resource-link font-semibold" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/synthesis-biorxiv.md" target="_blank" rel="noopener">
+                        Genomic Regulatory Complexity and the Limits of Perturbation Prediction
+                    </a>
+                    <p class="text-sm text-gray-600 mt-0.5">Synthesis — the biology-facing bioRxiv draft.</p>
+                </li>
+                <li>
+                    <a class="resource-link font-semibold" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/methods-mermaid-perturbation-design.md" target="_blank" rel="noopener">
+                        Mermaid Flowcharts for Smarter Perturbation Design
+                    </a>
+                    <p class="text-sm text-gray-600 mt-0.5">Methods — under active revision. A deposited, DOI-cited version (currently v1.6) is on Zenodo: <a class="resource-link" href="https://doi.org/10.5281/zenodo.20831780" target="_blank" rel="noopener">10.5281/zenodo.20831780</a>.</p>
+                </li>
+            </ul>
+        </section>
 
-    <li class="paper-item">
-      <span class="paper-badge">Methods</span>
-      <div class="paper-content">
-        <p class="paper-title">Reading Regulatory Logic from Sequence: Typed Flowcharts as the Unit of Representation</p>
-        <p class="paper-desc">Introduces typed Mermaid flowcharts as the representational unit of the grammar-decoding program. Demonstrates three encodings of the lac operon and the sequence annotation schema that transforms flowchart nodes into training data.</p>
-      </div>
-      <a class="paper-link" href="https://doi.org/10.5281/zenodo.20831780" target="_blank">Zenodo →</a>
-    </li>
+        <!-- Section 5 — Papers and links -->
+        <section class="section-card p-6 sm:p-8">
+            <h2 class="section-title text-xl sm:text-2xl font-normal mb-5">Papers and links</h2>
 
-    <li class="paper-item">
-      <span class="paper-badge">Paper I</span>
-      <div class="paper-content">
-        <p class="paper-title">Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</p>
-        <p class="paper-desc">Introduces the five-class computational complexity ladder and the core conjecture: gene regulatory circuits can be located on this ladder by topology, with measurable consequences for biological behavior.</p>
-      </div>
-      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md" target="_blank">GitHub →</a>
-    </li>
+            <div class="mb-6">
+                <h3 class="text-xs tracking-widest uppercase text-gray-500 mb-3">Also see</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a class="resource-link" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp/glmp-from-square-one-v2.html" target="_blank" rel="noopener">
+                            From Square One (overview)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://medium.com/@garywelz_47126/from-inspiration-to-ai-biology-as-visual-programming-520ee523029a" target="_blank" rel="noopener">
+                            From Inspiration to AI: Biology as Visual Programming (Medium)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://www.researchgate.net/profile/Gary-Welz-2/publication/394255600_Is_the_Genome_Like_a_Computer_Program/links/688f898858199117bcaa10a3/Is-the-Genome-Like-a-Computer-Program.pdf" target="_blank" rel="noopener">
+                            Is the Genome Like a Computer Program? (ResearchGate)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=3wTcI6EAAAAJ" target="_blank" rel="noopener">
+                            Google Scholar profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-    <li class="paper-item">
-      <span class="paper-badge">Paper II</span>
-      <div class="paper-content">
-        <p class="paper-title">The Genome as Computer: Logical Primitives, Runtime States, and the Limits of Biological Prediction</p>
-        <p class="paper-desc">Develops the full 22-primitive logical vocabulary, treats the transcriptome as a runtime state, and generates nine falsifiable predictions — including the grammar-aware sequence model that is the long-horizon goal.</p>
-      </div>
-      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md" target="_blank">GitHub →</a>
-    </li>
+            <div class="mb-6">
+                <h3 class="text-xs tracking-widest uppercase text-gray-500 mb-3">Circuit diagrams for review</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a class="resource-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/shared-diagrams-for-lents.md" target="_blank" rel="noopener">
+                            Shared circuit diagrams
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-    <li class="paper-item">
-      <span class="paper-badge">Paper III</span>
-      <div class="paper-content">
-        <p class="paper-title">Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Class Conjecture</p>
-        <p class="paper-desc">780 genes classified by circuit topology, evaluated against 16 virtual cell models on K562 Perturb-seq data. Class III genes are systematically harder to predict (<em>t</em> = −3.55, <em>p</em> = 0.0015).</p>
-      </div>
-      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-III-empirical-sequel.md" target="_blank">GitHub →</a>
-    </li>
+            <div class="mb-6">
+                <h3 class="text-xs tracking-widest uppercase text-gray-500 mb-3">Resources</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a class="resource-link" href="https://github.com/garywelz/glmp" target="_blank" rel="noopener">GitHub</a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp/lac-operon-annotation-review.html" target="_blank" rel="noopener">Annotation Review</a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/validation/README.md" target="_blank" rel="noopener">Validation Package</a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/glmp-database-table.html" target="_blank" rel="noopener">Full catalog — 217 processes</a>
+                        <p class="text-sm text-gray-600 mt-0.5">
+                            The Circuit Class (I–V) labels in this catalog are a first-pass stratification, and
+                            parts of it are already known to be wrong. Ongoing expert review is finding these
+                            errors case by case; once that review completes, the classification will be rebuilt
+                            from what it teaches us, not patched piecemeal. A marked limit is a finding, not a
+                            failure — this is exactly the kind of check the project is built to survive.
+                        </p>
+                    </li>
+                </ul>
+            </div>
 
-    <li class="paper-item">
-      <span class="paper-badge">Synthesis</span>
-      <div class="paper-content">
-        <p class="paper-title">Genomic Regulatory Complexity and the Limits of Perturbation Prediction</p>
-        <p class="paper-desc">Translates the full argument for a general biology audience. The most accessible entry point into the GLMP program for biologists arriving from bioRxiv or journal citations.</p>
-      </div>
-      <a class="paper-link" href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/synthesis-biorxiv.md" target="_blank">GitHub →</a>
-    </li>
+            <div>
+                <h3 class="text-xs tracking-widest uppercase text-gray-500 mb-3">GLMP in the suite</h3>
+                <p class="text-sm text-gray-600 mb-3">
+                    GLMP is a working engine of the CopernicusAI Knowledge Engine — it consumes the shared
+                    Knowledge Base (corpus, embeddings, search) and contributes its decoded circuits back into it.
+                </p>
+                <ul class="space-y-2">
+                    <li>
+                        <a class="resource-link" href="https://copernicus-frontend-phzp4ie2sq-uc.a.run.app/knowledge-engine" target="_blank" rel="noopener">Core Knowledge Base UI</a>
+                    </li>
+                    <li>
+                        <a class="resource-link" href="https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.html" target="_blank" rel="noopener">Suite status dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-  </ul>
-</section>
+    </main>
 
-<hr class="divider">
+    <!-- Footer -->
+    <footer class="border-t border-[#e2dfd8] bg-white mt-4">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-gray-600 leading-relaxed">
+            Gary Welz · CUNY Graduate Center / New Media Lab ·
+            <a href="mailto:gwelz@gc.cuny.edu" class="resource-link">gwelz@gc.cuny.edu</a> ·
+            ORCID: <a href="https://orcid.org/0009-0005-7806-0892" class="resource-link" target="_blank" rel="noopener">0009-0005-7806-0892</a> ·
+            Last updated: July 2026
+        </div>
+    </footer>
 
-<!-- CORPUS -->
-<section id="corpus">
-  <p class="section-label">Flowchart corpus</p>
-  <h2>217 circuits. 8 organisms.</h2>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
 
-  <div class="stats-row">
-    <div class="stat-cell">
-      <div class="stat-number">217</div>
-      <div class="stat-label">Typed flowcharts</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-number">8</div>
-      <div class="stat-label">Organisms</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-number">527</div>
-      <div class="stat-label">Feedback loops</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-number">5</div>
-      <div class="stat-label">Complexity classes</div>
-    </div>
-  </div>
-
-  <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.2rem;">
-    Each flowchart encodes the logical structure of a regulatory circuit — AND gates, NOT gates, feedback topology, and complexity class. The corpus is the training data construction phase of the grammar-decoding program. A sequence annotation layer is in progress, linking each binding-event node to its DNA sequence and position weight matrix.
-  </p>
-  <a href="https://huggingface.co/spaces/garywelz/glmp" target="_blank" style="color:var(--accent); font-size:0.9rem; text-decoration:none;">Browse the corpus on HuggingFace →</a>
-</section>
-
-<hr class="divider">
-
-<!-- INFRASTRUCTURE -->
-<section id="infrastructure">
-  <p class="section-label">Infrastructure</p>
-  <h2>CopernicusAI &amp; the DNA Decoder</h2>
-
-  <div class="infra-grid">
-    <div class="infra-card">
-      <p class="infra-card-title">CopernicusAI</p>
-      <p>~59,700 indexed research papers from PubMed, bioRxiv, and arXiv. Dense retrieval with OpenAI text-embedding-3-small (nDCG@10 = 0.828). Daily ingest pipeline running on a Jetson Nano edge compute node.</p>
-      <a href="https://huggingface.co/spaces/garywelz/copernicusai" target="_blank">Browse on HuggingFace →</a>
-    </div>
-    <div class="infra-card">
-      <p class="infra-card-title">DNA Decoder — prototype</p>
-      <p>A five-stage pipeline: sequence in → motif scanning (FIMO/JASPAR) → GLMP grammar rule parsing → protein annotation → Biolink-compliant property graph out. Prototype in development on prokaryotic ground-truth circuits.</p>
-    </div>
-    <div class="infra-card">
-      <p class="infra-card-title">GitHub Repository</p>
-      <p>Working papers, flowchart source files, sequence annotation schema, and collaboration infrastructure for the Welz &amp; Krampis collaboration.</p>
-      <a href="https://github.com/garywelz/glmp" target="_blank">github.com/garywelz/glmp →</a>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- CONTACT -->
-<section id="contact">
-  <p class="section-label">Contact &amp; affiliation</p>
-  <h2>Gary Welz</h2>
-  <div class="contact-block">
-    <div class="contact-item">
-      <span class="contact-label">Affiliation</span>
-      <span class="contact-value">New Media Lab, CUNY Graduate Center</span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-label">Email</span>
-      <span class="contact-value"><a href="mailto:gwelz@gc.cuny.edu">gwelz@gc.cuny.edu</a></span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-label">ORCID</span>
-      <span class="contact-value"><a href="https://orcid.org/0009-0005-7806-0892" target="_blank">0009-0005-7806-0892</a></span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-label">GitHub</span>
-      <span class="contact-value"><a href="https://github.com/garywelz/glmp" target="_blank">garywelz/glmp</a></span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-label">HuggingFace</span>
-      <span class="contact-value"><a href="https://huggingface.co/garywelz" target="_blank">huggingface.co/garywelz</a></span>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <p>Genome Logic Modeling Project · Gary Welz · CUNY Graduate Center</p>
-  <p><a href="https://github.com/garywelz/glmp">github.com/garywelz/glmp</a></p>
-</footer>
-
+        // Live-fetch the biology paper count so this page can't drift from the
+        // shared Knowledge Base status. Sourced from papers_by_discipline.biology
+        // (Firestore count aggregation, added to the daily-refreshed status JSON
+        // 2026-08-03). On fetch failure, the hardcoded value already in the
+        // markup stands as a static fallback.
+        //
+        // KNOWN BUG (found 2026-08-14, not yet fixed): knowledge-engine-status.json
+        // does not currently have a papers_by_discipline field at all, so this
+        // fetch always silently falls through to the hardcoded 29,184 fallback
+        // above -- with no visible error. True live discipline=="biology" count
+        // in Firestore was 80,138 as of 2026-08-14. Fix needs a
+        // papers_by_discipline field added to the status-JSON generator
+        // (Jetson/Cloud Run side) before this wiring will actually work.
+        fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json', { cache: 'no-store' })
+            .then(r => r.ok ? r.json() : Promise.reject(r.status))
+            .then(d => {
+                const biologyPapersEl = document.getElementById('stat-biology-papers');
+                const biologyCount = d.papers_by_discipline && d.papers_by_discipline.biology;
+                if (biologyPapersEl && typeof biologyCount === 'number') {
+                    biologyPapersEl.textContent = biologyCount.toLocaleString();
+                }
+            })
+            .catch(() => { /* keep static fallback value */ });
+    </script>
 </body>
 </html>

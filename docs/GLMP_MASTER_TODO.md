@@ -4302,6 +4302,67 @@ gated migration, verified at every phase, in `copernicus-web`:
     `research_focus.json` updated with `glmp-f1`'s live
     `_acquisition_note`.
 
+54. **FINDING — the live public `glmp` HF Space page shows a permanently
+    stuck, badly stale paper count; root cause diagnosed, not yet fixed
+    (2026-08-14).** Follow-up to Cursor's count-honesty flag from the
+    original three-way assessment ("AUTO-STATUS still says 62,312").
+    Checked every actual live artifact directly rather than trusted from
+    docs. **Not the problem:** the internal ops dashboards
+    (`GLMP_STATUS.html`, `knowledge-engine-status.html`/`.json` on GCS)
+    are all live, Jetson-cron-refreshed, and current — 117,334 as of
+    that morning, already past the 100,000-paper target. The "62,312"
+    text is just a frozen, dated snapshot embedded in this file's own
+    body (item 38 already explains why this file's own AUTO-STATUS block
+    always looks stale by design).
+    **The real bug, on the actual live public page**
+    (`huggingface.co/spaces/garywelz/glmp`, served from
+    `garywelz-glmp.static.hf.space/index.html` — confirmed via the
+    Space's iframe `src`, not guessed): it prominently displays "29,184
+    Biology papers in corpus." The page's own code comment says this is
+    live-fetched from `knowledge-engine-status.json`'s
+    `papers_by_discipline.biology` field, added 2026-08-03 — but **that
+    field does not exist in the live JSON at all.** The fetch succeeds,
+    the field lookup silently returns `undefined`, and the page falls
+    back to its hardcoded value with zero visible error — indistinguishable
+    from a working live wire unless someone checks the JSON directly.
+    True live count, checked directly against Firestore
+    (`discipline == "biology"`): **80,138** — the public page understates
+    reality by 63%, permanently, until the JSON schema or the page logic
+    changes.
+    **Bigger structural gap underneath it:** this HTML file's source does
+    not exist anywhere in the `glmp` GitHub repo — authored and deployed
+    straight to the HF Space's own separate git remote (confirmed:
+    `git remote -v` here shows only `origin` → GitHub, no HF remote).
+    This is the exact same "no repo source, authored and uploaded
+    directly" gap already named in `.github/published-artifacts.tsv` for
+    a different file (`validation/index.html`), now found to also apply
+    to the Space's actual main landing page — and per
+    `hf-audit/HF_SPACES_AUDIT_HANDOFF.md` (2026-07-02, gitignored local
+    audit only, never committed), this has been a known, unresolved
+    action item ("glmp: establish canonical sync path") for over six
+    weeks, predating even that stale audit — the page has been fully
+    redesigned at least once since without ever syncing back.
+    **Fixed so far:** pulled the actual live HTML into the repo at
+    `docs/index.html` (which previously held an unrelated, older,
+    equally-stale draft of the same landing-page concept — "~59,700
+    indexed research papers," last touched 2026-06-29, superseded and
+    never reconciled; old content preserved in git history, not lost).
+    Added an inline code comment at the fetch site documenting the exact
+    bug and true count for whoever fixes the JSON side. Also corrected
+    `README.md`'s separate, independently-stale "~62,700 indexed research
+    papers" line (last touched 2026-07-28) to the current figure, so the
+    two files stop contradicting each other.
+    **Not yet fixed — needs a decision, not just documentation:** (a) add
+    `papers_by_discipline` back to the status-JSON generator
+    (Jetson/Cloud Run pipeline work — Cursor's domain per
+    `AGENT_ROLES.md`); (b) once that's live, push a corrected
+    `docs/index.html` to the actual HF Space git remote (needs that
+    remote configured — not present in this checkout) or hand the deploy
+    to Cursor/Gary; (c) decide whether to also mirror the rest of the
+    live Space's ~535 files into a tracked repo location, per the
+    audit's original unresolved recommendation, or explicitly document
+    the HF-direct-deploy model as intentional instead.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this

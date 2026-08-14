@@ -14,7 +14,7 @@ This is a working research project, not a finished dataset. Some of the most imp
 
 - **A catalog of ~217 regulatory-logic flowcharts** across organisms (E. coli, yeast, and more), each rendering a circuit as gates and connections. Growing toward a target of 1,000+.
 - **A DNA decoder** that reads regulatory logic directly from sequence using motif scanning and a custom parser — currently validated against a first set of E. coli circuits.
-- **A corpus of ~62,700 indexed research papers**, searchable, that grounds the flowcharts in the primary literature.
+- **A corpus of ~117,600 indexed research papers** (as of 2026-08-14), searchable, that grounds the flowcharts in the primary literature.
 - **A three-paper arc** developing the framework, plus a posted methods paper.
 
 **See it live:** the public project page — with an interactive lac-operon flowchart, live counts, and the browsable circuit catalog — is at **[huggingface.co/spaces/garywelz/glmp](https://huggingface.co/spaces/garywelz/glmp)**.
