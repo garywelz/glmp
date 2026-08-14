@@ -4266,6 +4266,41 @@ gated migration, verified at every phase, in `copernicus-web`:
     clarification doesn't unblock that engineering work, only the
     literature-acquisition question. `research_focus.json`'s `glmp-f1`
     entry carries the full note.
+    **`glmp-f1` swept, same session, on Gary's go-ahead.** 2 terms,
+    3,795 unique PMIDs, no truncation. **Scored by paper-anchor cosine
+    similarity against `glmp-f1`'s own seed** (Lents' citation,
+    `crossref_10.1016_j.bpj.2022.01.016`) rather than question-text
+    embedding — the fix this same item already diagnosed and proved
+    decisive for `glmp-q1`'s CRP contamination problem, applied here for
+    the first time. Validated directly: the raw PubMed search pulled in
+    exactly the expected contamination (CRP → C-reactive protein
+    clinical/immunology literature; PWM → pokeweed mitogen lymphocyte
+    studies, the same collision class as `glmp-q2`'s bare `PWM` term),
+    but seed-anchor scoring pushed all of it to the bottom of the
+    ranking, not the top — direct confirmation the fix generalizes
+    beyond `glmp-q1`. **Cleanest falloff of any sweep so far** — a
+    single sharp flip, not an oscillation: on-topic majority held
+    reliably through p18 (score ≥0.3769), transitional at p19–20, then
+    flipped permanently off-topic from p21 on with no further
+    bounce-backs through p100. Cutoff set at ≥0.3769 → **684 papers**
+    (247 new, 437 merge — mostly `glmp-q2` and `glmp-q8`, both plausible
+    given shared CRP/catabolite-repression content). Dry-run integrity
+    check clean (0 missing metadata, no duplicate PMIDs, 0 already-
+    tagged, 0 zero-term candidates) before any write. 6-doc live pilot
+    (3 new, 3 merge) verified directly against Firestore — new docs
+    correct with no embedding yet, merge docs correctly `ArrayUnion`'d
+    without disturbing existing scope or embedding — before the full
+    write: 244 new + 434 merge, 0 failures. **Embedding backfill: pin
+    found exactly 247 unembedded docs (matching the new-doc count),
+    5-doc pilot + live `find_nearest` proof both clean, full run
+    242/242, 0 failed.** Rollback proof exact: 0 → 684. Corpus total
+    117,334 → 117,581, growth of exactly 247. Spot-check: top 5 scores
+    unambiguously on-topic; bottom 5 near cutoff 4/5 on-topic with one
+    genuine miss (an immunosuppressive-factor immunology paper at
+    0.3780) — normal edge-of-cutoff noise, not a defect. Working files
+    in `docs/open-questions/glmp-f1-workingdata-2026-08-14/`.
+    `research_focus.json` updated with `glmp-f1`'s live
+    `_acquisition_note`.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
