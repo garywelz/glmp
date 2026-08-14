@@ -4229,7 +4229,7 @@ gated migration, verified at every phase, in `copernicus-web`:
     `q10_all_scored_live.json`); full note on `glmp-q10`'s entry in
     `research_focus.json`.
     **`glmp-f1`/`glmp-f2` frontier-scope question picked up (2026-08-14,
-    same follow-up session) — `glmp-f2` resolved, `glmp-f1` held open.**
+    same follow-up session) — both resolved.**
     `glmp-f2` was never really a literature-corpus question in the sense
     `q1`–`q11` are: its actual open item is
     `docs/decodability-categorization-2026-07-04.md`, an already-written
@@ -4255,6 +4255,17 @@ gated migration, verified at every phase, in `copernicus-web`:
     retirement was a naming fix or a substance change. Held open pending
     Gary's read on where the Lents/typology conversation currently
     stands, rather than guessed at.
+    **Resolved, same day, on Gary's direct confirmation: the "Class I–V"
+    retirement was a naming fix only** — a label collision with existing
+    promoter-architecture "Class I/II" usage, not a substance change to
+    the underlying question. `glmp-f1`'s Class II reachability framing
+    stands. Since its terms are already clean and sweep-ready (2026-08-08
+    tightening), a literature sweep is unblocked and independent of the
+    separate CRP PWM decoder-engineering task (item 26, above), which
+    stays on hold pending Prof. Lents specifically — the typology
+    clarification doesn't unblock that engineering work, only the
+    literature-acquisition question. `research_focus.json`'s `glmp-f1`
+    entry carries the full note.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
