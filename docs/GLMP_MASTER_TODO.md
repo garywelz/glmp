@@ -4206,10 +4206,62 @@ gated migration, verified at every phase, in `copernicus-web`:
     pruned papers still exist as valid `research_papers` documents; only
     `glmp-q8`'s specific claim on them was removed. `research_focus.json`
     updated with the corrected `glmp-q8` entry.
+    **`glmp-q10` re-verified, same method, opposite outcome (2026-08-14,
+    follow-up session).** The `glmp-q8` prune raised an obvious question:
+    was `glmp-q10`'s cutoff similarly reconstructed rather than
+    title-verified, given the `glmp-q10`/`glmp-q3` distortion found
+    above? Ran the identical percentile-block read on all 6,971
+    live-attributed `glmp-q10` docs (5-point steps, then 2-point steps
+    through the p40–60 transition). Unlike `glmp-q8`, this cutoff was
+    genuinely title-verified at sweep time, and the fresh read reproduced
+    the originally-documented oscillation almost exactly — clean on-topic
+    blocks recur as late as p44/p48, dip at p46/50/52, recover at 54/56,
+    then settle into a stable off-topic majority from p58 on, never
+    recovering through p100. The recorded cutoff sits right at that
+    resolution point. The `glmp-q10`/`glmp-q3` boundary distortion still
+    holds but reads as a normal thresholding edge effect on the bottom
+    ~10% band (mixed genuine "network" cross-domain noise and
+    regulatory-mechanism papers closer to `glmp-q3`'s topic than
+    `glmp-q10`'s inference-methodology question), not evidence of
+    miscalibration. **Decision: no prune.** Working files in
+    `docs/open-questions/glmp-merge-quality-audit-2026-08-13/`
+    (`pull_q10_full_scores.py`, `_percentile_sample_q10.py`,
+    `q10_all_scored_live.json`); full note on `glmp-q10`'s entry in
+    `research_focus.json`.
+    **`glmp-f1`/`glmp-f2` frontier-scope question picked up (2026-08-14,
+    same follow-up session) — `glmp-f2` resolved, `glmp-f1` held open.**
+    `glmp-f2` was never really a literature-corpus question in the sense
+    `q1`–`q11` are: its actual open item is
+    `docs/decodability-categorization-2026-07-04.md`, an already-written
+    RegulonDB-grounded proposal explicitly marked PROVISIONAL/CONFOUNDED
+    (several circuits anchored on the TF's own autoregulatory promoter
+    rather than the operon it regulates; one promoter class, σ32, the
+    decoder wasn't built to handle) with "next steps: for review, not
+    execution" — biologist review and re-anchored manifests, not a
+    PubMed sweep. `operon re-anchoring` (`glmp-f2`'s defining term)
+    returning 0 in PubMed (see above, this item) already pointed the
+    same direction from the literature side. **Decision: `glmp-f2`
+    confirmed structurally out of the acquisition pipeline, permanently
+    — not a parked TBD.** `glmp-f1` is more tangled: its terms are clean
+    and sweep-ready since the 2026-08-08 tightening, but an uncommitted
+    working note in the repo
+    (`collaborations/krampis-virtual-cell/glmp-note-for-hunter.md`,
+    2026-07-20) describes Prof. Lents as now actively engaged and
+    reports the "Class I–V" typology itself — the exact vocabulary
+    `glmp-f1`'s open question is framed in — as having collided with an
+    existing promoter-architecture usage and been retired. That note
+    predates the 2026-08-08 tightening that kept "Class II" as `glmp-f1`'s
+    seed-driven framing, so it's unclear from the files alone whether the
+    retirement was a naming fix or a substance change. Held open pending
+    Gary's read on where the Lents/typology conversation currently
+    stands, rather than guessed at.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
-  out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.
+  out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
+  is `glmp-f2`'s actual open item, confirmed 2026-08-14 (item 53) as
+  permanently outside the literature-acquisition pipeline, not a sweep
+  candidate.
 - Build AraC PWM (recover an evidence-backed ara decode).
 - Scout inline-embed on ingest critical path (coverage still reopens each cycle
   until then; scheduled `--auto` slot reserved in post-ingest hooks).
