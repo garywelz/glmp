@@ -73,14 +73,23 @@ them, then acted on what the verification found.
    decision, and the exact execution numbers. **Not yet committed or
    pushed to GitHub** — that's the one remaining step.
 
-## Not yet decided (flagged, not resolved)
+## Resolved since this handoff was written
 
-- **`glmp-q10`–`glmp-q3` distortion**: found but not acted on. Same kind
-  of decision `glmp-q8` just went through (leave vs. re-verify-and-prune)
-  hasn't been asked of Gary yet for this pair. `glmp-q10`'s own cutoff
-  wasn't re-verified the way `glmp-q8`'s was — only the merge overlap
-  with `glmp-q3` was sampled. A parallel percentile re-read of `glmp-q10`
-  itself has not been run.
+- **`glmp-q10` re-verification (2026-08-14, follow-up session):** ran the
+  same independent re-verification sequence used on `glmp-q8` — full
+  percentile read of all 6,971 live-attributed docs (5-point steps, then
+  2-point steps through the p40–60 transition zone). **Different outcome
+  than `glmp-q8`: the cutoff holds up.** Unlike `glmp-q8`'s reconstructed
+  number, `glmp-q10`'s cutoff was genuinely title-verified at sweep time,
+  and the fresh read reproduced the documented oscillation almost exactly
+  (clean on-topic blocks recur as late as p44/p48, dip p46/50/52, recover
+  p54/56, then settle off-topic from p58 on, never recovering). The
+  `glmp-q10`–`glmp-q3` boundary distortion still holds but reads as a
+  normal thresholding edge effect on the bottom ~10% band, not a
+  miscalibration. **Decision: no prune.** Working files added to this
+  folder: `pull_q10_full_scores.py`, `_percentile_sample_q10.py`,
+  `q10_all_scored_live.json`. Full note appended to `glmp-q10`'s entry in
+  `research_focus.json`.
 - **`glmp-f1`/`glmp-f2` scope question** (tighten-and-sweep `f1` vs. leave
   frontier out of the pipeline entirely) — Gary's call this session was
   "leave out of scope for now," not a permanent decision. Still open per
