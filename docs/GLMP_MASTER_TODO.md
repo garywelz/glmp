@@ -4128,6 +4128,85 @@ gated migration, verified at every phase, in `copernicus-web`:
     questions (`glmp-q1`–`q11`) is now attributed end to end.**
     `glmp-f1`/`glmp-f2` remain explicitly out of scope, per Gary's call.
 
+    **Group assessment (Gary + Claude Chat + Cursor + Claude Code,
+    2026-08-13/14) and the first subtractive correction in this
+    expansion.** The `glmp-q10` write-up's own handoff prompted a
+    three-way review of what the eleven-question close-out actually
+    means. Two live findings, checked directly rather than assumed:
+    `glmp-f1`'s terms in `research_focus.json` still carried the
+    original catastrophic-overload strings (`Class II`, `transcription
+    activation`) even though the fix was decided and documented in this
+    same item back on 2026-08-08 — a "decided but never applied" gap,
+    a third failure shape alongside `glmp-q2`'s (tightened-but-unswept)
+    and `glmp-q5`'s (swept-but-unlisted). Confirmed the risk is real but
+    currently dormant: A2 says frontier terms drive acquisition the same
+    as active questions, but the live daily-scout cron still reads
+    `daily_scout_config.json`, not `research_focus.json`, directly —
+    migrating to make A2's claim operationally true is a separate,
+    still-open item. Fixed `glmp-f1`'s terms to match the 2026-08-08
+    decision (`activator PWM`, `CRP binding site` only, Class II now
+    seed-driven).
+    **Merge-quality audit, sampling boundary docs at the highest-overlap
+    pairs rather than trusting the aggregate counts.** `glmp-q2`–`glmp-q8`
+    (1,692 docs): clean. Every sampled doc's `glmp-q8` score sat
+    comfortably above `glmp-q8`'s own cutoff regardless of how weak or
+    strong its `glmp-q2` score was — no volume-artifact signature,
+    genuine independent dual-relevance. `glmp-q10`–`glmp-q3` (486 docs):
+    real distortion. Near `glmp-q10`'s boundary, `glmp-q3` scores
+    exceeded `glmp-q10` scores by ~0.10 on average; near `glmp-q10`'s top,
+    the reverse held by ~0.16. Boundary docs read as genuine `glmp-q3`
+    papers that only weakly crossed `glmp-q10`'s lower, noisier cutoff —
+    consistent with `glmp-q10`'s own already-diagnosed "network"
+    term-overload, not a new defect, but now confirmed in the
+    attribution data itself, not just the original falloff read.
+    **`glmp-q8`'s own cutoff, independently checked for the first time —
+    this is the significant finding.** `glmp-q8`'s write-up was always a
+    reconstruction: "cutoff reads back as 0.36 (exact minimum score)"
+    meant the number was reverse-engineered from what got written, never
+    verified by title-reading the way every other question's cutoff was.
+    A full percentile-block read across all 10,153 live-attributed docs
+    (fine-grained, 5-point steps, same discipline as `glmp-q2`/`glmp-q9`/
+    `glmp-q10`) found on-topic majority holding only through ~p10 (score
+    ≥0.5004) — pure catabolite-repression content ("Catabolite
+    repression," CytR/CRP binding energetics, cAMP-phosphodiesterase
+    release of repression). From p20 on, majority never recovers: generic
+    bacterial-regulation content (arginine biosynthesis, phage repressors,
+    quorum sensing, iron acquisition, circadian clocks) dominates, with
+    genuine catabolite-repression hits persisting only sparsely even deep
+    in the tail (matching every other sweep's falloff shape) rather than
+    holding a majority. Applying the same "majority flip" standard used
+    everywhere else in this expansion put the real cutoff at p10, not
+    p100 — a ~9,000-paper gap between what was live and what the
+    discipline actually supported.
+    **Decision (Gary): prune, not just re-document.** Considered leaving
+    the extra papers in place (no direct storage/embedding cost either
+    way) against two concrete downsides: degraded precision for anyone
+    querying `question=glmp-q8` specifically, and a documentation claim
+    ("10,153 attributed") that would be known-inflated the moment it was
+    checked — bearing directly on Goals Priority 2's "100,000+
+    *high-relevance*" corpus target, which both Claude Chat and Cursor
+    had independently flagged as the thing actually worth verifying.
+    Gary's call: fix it for real rather than compromise on either
+    principle.
+    **Executed as the first subtractive operation in this project —
+    same discipline as every additive write, run in reverse.** Dry-run
+    (9,137 below-cutoff docs identified, matching the percentile read
+    exactly) → live 6-doc pilot, verified directly against Firestore
+    (both `question_scope_ids` and `acquisition_matches` cleanly
+    emptied, documents themselves untouched — not deleted, embeddings
+    intact) → full run: 9,131 processed (+6 from pilot), 6,523 left with
+    no other question attribution (now unscoped corpus members, the same
+    normal state as any daily-scout paper not yet tied to an active
+    question — not removed from the corpus), 2,608 retained under other
+    questions' legitimate attribution, 0 failures. **Rollback proof
+    exact: 10,153 → 1,016.**
+    **Corpus total essentially unchanged (117,334, up marginally from
+    117,316)** — worth stating plainly so it isn't misread: this was a
+    scope/attribution correction, not a corpus-size reduction. The
+    pruned papers still exist as valid `research_papers` documents; only
+    `glmp-q8`'s specific claim on them was removed. `research_focus.json`
+    updated with the corrected `glmp-q8` entry.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED.

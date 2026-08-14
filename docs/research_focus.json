@@ -65,7 +65,7 @@
       "q": "How is metabolic flux coupled to transcriptional regulation, and where does catabolite repression set the logic?",
       "terms": ["catabolite repression", "carbon catabolite repression", "metabolic operon regulation Escherichia coli", "operon metabolic control", "diauxic shift", "transcriptional response nutrient limitation"],
       "since": "2026-07-05",
-      "_acquisition_note": "Swept 2026-08-11, write-up reconstructed 2026-08-12 from live Firestore state rather than from the run's own process notes (the session ended before documenting itself -- see GLMP_MASTER_TODO.md item 53 for the reconstruction caveat). 16,959-PMID candidate pool (matches the recorded per-question figure). 10,153 papers attributed (8,977 new, 1,176 merged onto docs already attributed to an earlier question). Cutoff reads back as 0.36 (exact minimum score); the percentile title-sampling that would explain *why* that cutoff was chosen is not available. Embedding backfill and scoped-retrieval spot-check both confirmed complete this session."
+      "_acquisition_note": "Swept 2026-08-11, write-up reconstructed 2026-08-12 from live Firestore state (the session ended before documenting itself). 16,959-PMID candidate pool. Originally 10,153 papers attributed at a reconstructed cutoff of 0.36 (exact minimum score, never independently verified by title-sampling -- the gap the reconstruction named but could not fill). A 2026-08-13/14 merge-quality audit (prompted by cross-question overlap checks on glmp-q2/glmp-q10) ran the missing percentile-sampled falloff read against the live corpus for the first time: majority-on-topic content held only through ~p10 (score >=0.5004), with the remaining ~90% skewing toward generic bacterial-regulation content not specifically about catabolite repression. Pruned to that verified cutoff -- glmp-q8 attribution removed (not the underlying papers, which remain valid corpus members) from 9,137 docs; 1,016 kept. Rollback proof exact: 10,153 -> 1,016. This is the first subtractive correction in this expansion; see GLMP_MASTER_TODO.md item 53 for the full falloff data and reasoning."
     },
     {
       "id": "glmp-q9",
@@ -108,15 +108,15 @@
     {
       "id": "glmp-f1",
       "open": "Whether Class II is reachable in practice for lac (and peers) with biologist-grade CRP site sets — or the decoder stays a repression detector by construction",
-      "terms": ["Class II", "activator PWM", "CRP binding site", "transcription activation"],
-      "why": "Decides if the Programming Framework can claim activation at all; needs RegulonDB/literature judgment Gary alone cannot certify",
+      "terms": ["activator PWM", "CRP binding site"],
+      "why": "Decides if the Programming Framework can claim activation at all; needs RegulonDB/literature judgment Gary alone cannot certify. 'Class II' and 'transcription activation' removed as search terms 2026-08-08 (GLMP_MASTER_TODO.md item 53) -- outranked in the literature by MHC Class II, drug classes, dental restorations, FDA device classifications, and (for 'transcription activation') 242,672 largely-unrelated raw hits; this question is seed-driven via Lents' citation for the Class II concept instead, since it exists only inside GLMP's own typology, not as literature vocabulary. This sync (2026-08-13) closes a gap where the tightening decision was made and documented but never applied to this live file -- see docs/GLMP_QUESTION_SWEEP_HANDOFF_2026-08-13.md.",
       "seeds": ["crossref_10.1016_j.bpj.2022.01.016"]
     },
     {
       "id": "glmp-f2",
       "open": "Whether the RegulonDB-grounded 3-bucket decodability categorization survives re-anchored re-decode + biologist review",
       "terms": ["decodability", "operon re-anchoring", "RegulonDB", "gene regulatory network"],
-      "why": "Currently PROVISIONAL/CONFOUNDED; treating it as settled would be the Constitution failure mode"
+      "why": "Currently PROVISIONAL/CONFOUNDED; treating it as settled would be the Constitution failure mode. 'operon re-anchoring' returns 0 in PubMed -- kept as a genuine finding (internal decoder vocabulary absent from the literature), not reworded or removed; not a sweep candidate for this reason."
     }
   ],
   "horizons": [
