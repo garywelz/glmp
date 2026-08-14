@@ -4404,9 +4404,15 @@ gated migration, verified at every phase, in `copernicus-web`:
     committing, confirmed single-file, nothing else in the ~535-file
     Space affected. Live at huggingface.co/spaces/garywelz/glmp,
     verified directly post-push: `stat-biology-papers` shows 80,138.
-    **Still open:** (d) commit + push the generator change on
-    `copernicus-web` and `git pull` on Jetson so the next automated pull
-    doesn't revert the scp'd fix — Cursor/Gary's side, not touched here.
+    **(d) resolved, same evening.** `copernicus-web@e834c8a7c` was
+    already on `origin/main`. Jetson
+    `/media/sdcard/copernicus-worker/copernicus-web` fast-forwarded
+    `8640e7983` → `e834c8a7c` (`git checkout --` of the two scp'd
+    scripts, then `git pull --ff-only origin main`). HEAD and
+    `origin/main` now both `e834c8a7cad10881fc4a29894f8671ba6bd20c28`.
+    Working tree matches (only leftover: pre-existing untracked
+    `ingest_metadata_to_firestore.sh.bak_observe_20260719`). Item 54's
+    count-honesty chain is closed.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
