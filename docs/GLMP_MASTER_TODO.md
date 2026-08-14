@@ -4385,13 +4385,28 @@ gated migration, verified at every phase, in `copernicus-web`:
     `docs/index.html` → the Space's `index.html` as a manifest row so
     future drift is caught automatically — not done yet, no remote to
     check against.
-    **Still open:** (b) push corrected `docs/index.html` (fallback now
-    80,138; bug comment updated) to the HF Space remote — blocked on
-    credentials for both agents that have tried; an HF write-scoped
-    token is being added to Secret Manager (`hf-token`, matching how
-    `openai-api-key` is stored) to unblock this; (d) commit + push the
-    generator change on `copernicus-web` and `git pull` on Jetson so the
-    next pull does not revert the scp'd file.
+    **(b) resolved, same day.** Gary generated a write-scoped HF token
+    (all-Spaces scope, not glmp-only — the fine-grained per-Space option
+    wasn't used) and it's now stored in Secret Manager as `hf-token`,
+    matching how `openai-api-key` is kept. Live JSON re-checked directly
+    before pushing: a cache-busted fetch already showed
+    `papers_by_discipline: {biology: 80138, mathematics: 18321}`, but a
+    plain fetch (matching what the Space page's own `cache: 'no-store'`
+    actually sees) still returned the old cached object with no such
+    field (`Age: 1835`, `max-age=3600` from before Cursor's fix) —
+    confirming the CDN cache, not the generator, was still the gate.
+    Pushed anyway since it's harmless either way: `docs/index.html`'s
+    fallback is already 80,138, so visitors see the right number
+    immediately regardless of whether the live-fetch or the fallback
+    wins, and the live wire self-heals once the CDN cache rolls over.
+    Pushed via a fresh shallow clone of the Space (not this checkout) so
+    only `index.html` could possibly be touched — diffed before
+    committing, confirmed single-file, nothing else in the ~535-file
+    Space affected. Live at huggingface.co/spaces/garywelz/glmp,
+    verified directly post-push: `stat-biology-papers` shows 80,138.
+    **Still open:** (d) commit + push the generator change on
+    `copernicus-web` and `git pull` on Jetson so the next automated pull
+    doesn't revert the scp'd fix — Cursor/Gary's side, not touched here.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
