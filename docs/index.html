@@ -202,7 +202,7 @@
         <section class="section-card p-6 sm:p-8">
             <div class="mb-6">
                 <div class="stat-box inline-flex mb-4" style="display:inline-flex;">
-                    <div class="stat-number" id="stat-biology-papers">29,184</div>
+                    <div class="stat-number" id="stat-biology-papers">80,138</div>
                     <div class="stat-label" style="align-self:center;margin-left:0.6rem;">Biology papers in corpus</div>
                 </div>
                 <p class="text-gray-700 text-base leading-relaxed mb-3">
@@ -439,17 +439,14 @@ graph TD
 
         // Live-fetch the biology paper count so this page can't drift from the
         // shared Knowledge Base status. Sourced from papers_by_discipline.biology
-        // (Firestore count aggregation, added to the daily-refreshed status JSON
-        // 2026-08-03). On fetch failure, the hardcoded value already in the
-        // markup stands as a static fallback.
+        // on the daily-refreshed status JSON. On fetch failure, the hardcoded
+        // value already in the markup stands as a static fallback.
         //
-        // KNOWN BUG (found 2026-08-14, not yet fixed): knowledge-engine-status.json
-        // does not currently have a papers_by_discipline field at all, so this
-        // fetch always silently falls through to the hardcoded 29,184 fallback
-        // above -- with no visible error. True live discipline=="biology" count
-        // in Firestore was 80,138 as of 2026-08-14. Fix needs a
-        // papers_by_discipline field added to the status-JSON generator
-        // (Jetson/Cloud Run side) before this wiring will actually work.
+        // Field was missing from the live JSON 2026-08-03 through 2026-08-14
+        // (Jetson publish tree had never pulled the generator that emits it).
+        // Restored 2026-08-14: generator now reads
+        // /api/content/browse?discipline=biology (same aggregation as the
+        // papers total). Fallback below is the 2026-08-14 verified count.
         fetch('https://storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/knowledge-engine-status.json', { cache: 'no-store' })
             .then(r => r.ok ? r.json() : Promise.reject(r.status))
             .then(d => {

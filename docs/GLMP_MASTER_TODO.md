@@ -4352,16 +4352,46 @@ gated migration, verified at every phase, in `copernicus-web`:
     `README.md`'s separate, independently-stale "~62,700 indexed research
     papers" line (last touched 2026-07-28) to the current figure, so the
     two files stop contradicting each other.
-    **Not yet fixed — needs a decision, not just documentation:** (a) add
-    `papers_by_discipline` back to the status-JSON generator
-    (Jetson/Cloud Run pipeline work — Cursor's domain per
-    `AGENT_ROLES.md`); (b) once that's live, push a corrected
-    `docs/index.html` to the actual HF Space git remote (needs that
-    remote configured — not present in this checkout) or hand the deploy
-    to Cursor/Gary; (c) decide whether to also mirror the rest of the
-    live Space's ~535 files into a tracked repo location, per the
-    audit's original unresolved recommendation, or explicitly document
-    the HF-direct-deploy model as intentional instead.
+    **Generator fix (Cursor, 2026-08-14, same day).** The function was
+    already in `copernicus-web` `generate_status_page.py` (commit
+    `27574fcac`, 2026-08-03). The live GCS JSON lacked the field because
+    Jetson's publish tree (`/home/gdubs/copernicus-web-public` →
+    `/media/sdcard/copernicus-worker/copernicus-web`) was still on
+    `8640e7983` and had never pulled it — confirmed 0 matches for
+    `papers_by_discipline` in the live script. Two further problems with
+    just pulling that commit: (1) it talks to Firestore directly, which
+    the cron venv may not have; (2) its fallback was still 29,184/17,153,
+    so a failed live query would republish the exact stale number the
+    Space page already shows. Rewired the generator to prefer the public
+    browse API (`/api/content/browse?discipline=biology`, same
+    aggregation as the papers total — live check returned 80,138,
+    matching item 54's Firestore count), Firestore second, updated
+    fallback last. Always emits the field. Copied onto Jetson and
+    republished: the GCS *object* has `papers_by_discipline.biology = 80138`
+    (client `reload()` 2026-08-14T23:29:18Z, size 2356). The public URL
+    can still serve the 15:39Z object for up to an hour — GCS was
+    publishing with `Cache-Control: public, max-age=3600`, and the
+    Space page's `cache: 'no-store'` does not bypass that CDN cache.
+    Upload script now sets `max-age=60, must-revalidate`. Re-check the
+    public URL after the old hour expires before treating Step 1 as
+    visitor-visible.
+    **(c) resolved, same day — Gary ratified Cursor's recommendation:
+    sync just `docs/index.html`, do not mirror the ~535-file Space.**
+    Keeps generated/media content out of the repo and matches the
+    existing `.github/published-artifacts.tsv` principle (one published
+    artifact, one repo source, one check) already applied to
+    `validation/index.html`'s identical gap. Once the HF Space remote is
+    actually configured and a push mechanism exists, add
+    `docs/index.html` → the Space's `index.html` as a manifest row so
+    future drift is caught automatically — not done yet, no remote to
+    check against.
+    **Still open:** (b) push corrected `docs/index.html` (fallback now
+    80,138; bug comment updated) to the HF Space remote — blocked on
+    credentials for both agents that have tried; an HF write-scoped
+    token is being added to Secret Manager (`hf-token`, matching how
+    `openai-api-key` is stored) to unblock this; (d) commit + push the
+    generator change on `copernicus-web` and `git pull` on Jetson so the
+    next pull does not revert the scp'd file.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
