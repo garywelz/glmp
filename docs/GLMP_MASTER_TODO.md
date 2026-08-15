@@ -4550,6 +4550,59 @@ gated migration, verified at every phase, in `copernicus-web`:
     has fired the fallback path yet). Nothing blocking — this closes item
     42.
 
+57. **GLMP/ATAP project toggle for the Knowledge Engine — plan reviewed by
+    both agents, decided, built, committed, same day (2026-08-15).** Full
+    plan and its revision history:
+    `docs/open-questions/knowledge-engine-project-toggle-plan-2026-08-15.md`.
+    Gary asked whether to customize the shared Knowledge Engine frontend
+    per project; decided on a toggle over separate frontends (shared
+    backend/corpus/RAG infrastructure — a fork would double the maintenance
+    just paid fixing three bugs across one instance, and per Claude Chat's
+    read of the Constitution, works against the suite's own stated
+    architecture of GLMP/ATAP as domain applications of one shared Core,
+    not separate umbrellas).
+    **First plan draft had a real error, caught by Cursor reading the
+    actual source rather than trusting the draft:** claimed the toggle
+    infrastructure was "~80% there," true only for Knowledge Map — Search
+    and Ask Questions don't filter by project/discipline at all today. More
+    importantly, **GLMP ≠ the biology discipline and ATAP ≠ the mathematics
+    discipline** — GLMP's real identity is the `glmp` process family +
+    `question_scope_ids`-scoped papers; ATAP's is `content_type=math` /
+    `atap_graphs`. A toggle built around discipline labels would have
+    misrepresented GLMP as "the biology library." Claude Chat independently
+    re-verified the corrected plan and added two more findings: a live,
+    already-visible bug in `StatsDashboard.tsx` (a "6 families" stat box
+    whose sub-label read "Firestore GLMP only," showing the GLMP-specific
+    count under a header promising the six-family sum), and an open
+    question (unresolved) on whether ATAP has anything like GLMP's declared-
+    question scaffolding yet.
+    **Decided (Gary, agreeing with both agents' recommendation): chrome-
+    first for v1** (framing copy, Quick Examples, Search placeholders
+    change per project; no Search/RAG retrieval changes — deferred as an
+    explicit later decision, not built), **`null`/both stays the default
+    landing state** (no forced pick on arrival — same count-honesty
+    philosophy as the "594" fix, a forced pick would hide chemistry/
+    physics/CS/non-GLMP-biology).
+    **Built same day, `copernicus-web@b04424784`:** new
+    `lib/knowledge-engine-projects.ts` (shared per-project config —
+    GLMP's three Quick Examples are the CRP-activation/lac-operon/
+    catabolite-repression queries tested live 2026-08-15, known good; ATAP's
+    two are carried over unchanged, deliberately not expanded without
+    live-testing new queries first); toggle UI + `?project=` URL support in
+    `page.tsx`; `KnowledgeMapView.tsx`'s Quick Examples now render from the
+    shared config; `SearchInterface.tsx` placeholder follows project;
+    `ContentBrowser.tsx`'s existing family-chip default follows project (no
+    new retrieval capability, just a smarter default on an existing
+    mechanism); `StatsDashboard.tsx`'s mislabel fixed as a sub-breakdown,
+    not a competing total. Full production build verified clean (`tsc
+    --noEmit` + `next build`, including the `/knowledge-engine` route)
+    before committing.
+    **Not deployed — needs Cursor's Cloud Build.** No backend changes.
+    Still open, not this session's to resolve: who writes/reviews the
+    example-query and framing copy as final (current set is explicitly
+    draft), and whether ATAP has GLMP-equivalent declared-question
+    scaffolding.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this

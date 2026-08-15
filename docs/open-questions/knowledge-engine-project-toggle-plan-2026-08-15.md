@@ -71,7 +71,9 @@ Gary decided both open questions (2026-08-15), agreeing with Cursor's and Claude
 
 **Decided (2026-08-15):** chrome-first for v1, `null`/both as the default landing state.
 
-1. Gary (or whoever knows each project's audience) supplies or reviews example queries + framing copy per project; someone confirms whether ATAP has a declared-question equivalent to GLMP's.
-2. I build the chrome-first toggle + config plumbing, wire all five tabs, and fix the `StatsDashboard.tsx` "Firestore GLMP only" mislabel along the way since it's the same underlying problem. Commit.
-3. Cursor deploys via Cloud Build.
+**Built and committed (2026-08-15), `copernicus-web@b04424784`:** the toggle plumbing, config, and all four component updates are done, including the `StatsDashboard.tsx` mislabel fix. Full production build verified clean before committing. Full write-up in `GLMP_MASTER_TODO.md` item 57.
+
+1. ~~Gary (or whoever knows each project's audience) supplies or reviews example queries + framing copy per project~~ — current set is a tested-but-draft placeholder (GLMP's three queries were live-tested 2026-08-15; ATAP's two are unchanged from the original). **Still open:** final review, and whether ATAP has a declared-question equivalent to GLMP's.
+2. ~~I build the chrome-first toggle + config plumbing, wire all five tabs~~ — done.
+3. **Cursor deploys via Cloud Build — not yet done.**
 4. Everyone spot-checks the live result before calling it done — same discipline as today's KE fixes (visually confirmed live, not just trusted from a commit).
