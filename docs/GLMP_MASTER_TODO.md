@@ -4471,6 +4471,28 @@ gated migration, verified at every phase, in `copernicus-web`:
       `podcast_jobs` has a 1536-vs-768 embedding-dimension index mismatch;
       an orphan `math_processes` index is `READY` but has 0 docs. Neither
       fixed here.
+    **Visually confirmed live by Gary, same day, both fixes present after a
+    hard refresh.** A pre-refresh screen-scrape (from a browser session
+    predating today's deploys) still showed the old "594" header and no
+    source-paper link — traced directly, not guessed: a fresh `curl` of the
+    live page (bypassing any browser cache) already returned the correct
+    "692" in the raw HTML at the time, proving the deploy itself was
+    correct and the discrepancy was Gary's browser serving a stale cached
+    copy. Root cause of *why* a stale copy could persist: the page is
+    served with `cache-control: s-maxage=31536000` (one year) and
+    `x-nextjs-cache: HIT`. Not what broke this rollout — a fresh visitor
+    today would have received the correct content immediately — but a real
+    latent risk for every future frontend fix to this route: anyone with
+    an existing cached visit won't see a new deploy for up to a year
+    without a hard refresh. Gary hard-refreshed and confirmed both fixes
+    render correctly: header shows 692, and a real "Open source paper"
+    link now appears in the Node Explanation panel
+    (`pubmed_...glutamate- and arginine-dependent acid-resistance
+    systems...`, live-tested). **Not fixed here — flagged for Cursor:**
+    tighten the `Cache-Control`/`s-maxage` on `/knowledge-engine` (and
+    plausibly other Next.js App Router pages on `copernicus-frontend`) to
+    something that actually revalidates on deploy, same failure class as
+    the GCS 1-hour cache bug fixed yesterday (item 54).
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
