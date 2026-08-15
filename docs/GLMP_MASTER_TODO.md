@@ -4530,12 +4530,25 @@ gated migration, verified at every phase, in `copernicus-web`:
     fallback firing with a real `focus_id` (⚠️ with count + timestamp +
     id), and total unavailability (⚠️ unavailable, correctly marks
     `focus_fallback` stale). All three rendered correctly.
-    **Committed, not deployed.** `copernicus-web@1802eb4bf` has pieces
-    (1) and (2) — needs a Cloud Build to actually start counting in
-    production, not done here (backend deploy — Cursor's domain per
-    `AGENT_ROLES.md`, same division as every other backend fix today).
-    Piece (3), in this repo, takes effect automatically on Jetson's next
-    `git pull` — no separate deploy step.
+    **Deployed end to end, same day, by Cursor.** Backend Cloud Build
+    `25ef89d4` (4m37s) — `_record_focus_fallback()` live on
+    `copernicus-podcast-api-00248-f4n`, counting from now. Jetson
+    `copernicus-web` fast-forwarded `e834c8a7c` → `1802eb4bf` so the status
+    generator has `fetch_focus_fallback_metric()`. Jetson `glmp` was
+    separately found **120 commits stale** (still on `2410175`, 2026-07-30)
+    — characterized before touching, per this session's standing
+    discipline (yesterday's dirty-scp'd-scripts situation was the reason
+    to check first): two tracked files showed CRLF-only diffs with zero
+    real content change and untouched by the incoming commits, plus a pile
+    of disposable June/July scratch in untracked files. Confirmed safe,
+    fast-forwarded `2410175` → `4f60eab` clean, untracked scratch left
+    alone as agreed. Fixes a bigger gap than just this item — that cron
+    had been running a 120-commits-stale `build_master_todo.py` since
+    July 30, now current.
+    **All three pieces confirmed live; only the first cron cycle's actual
+    render is still pending** (expected reading: `count: 0`, since nothing
+    has fired the fallback path yet). Nothing blocking — this closes item
+    42.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
