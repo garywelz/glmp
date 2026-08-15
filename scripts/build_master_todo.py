@@ -188,6 +188,8 @@ def parse_last_good(existing: Optional[str]) -> Dict[str, Any]:
         ("findability_anchors", "Anchor queries"),
         ("findability_warnings", "Coverage/index warnings"),
         ("findability_run", "Last probe run"),
+        ("focus_fallback_count", "Fallback count"),
+        ("focus_fallback_last", "Last fired"),
     ]:
         val = table_cell(label)
         if val:
@@ -416,6 +418,40 @@ def read_findability_status() -> SourceResult:
         return SourceResult(False, error=str(exc))
 
 
+def read_focus_fallback_status() -> SourceResult:
+    """Read the RAG focus_id silent-fallback counter (item 42) from the same
+    knowledge-engine-status.json GCS object read_corpus_status() already
+    fetches -- a second small GCS GET rather than plumbing the parsed dict
+    between functions, matching this file's one-function-one-concern
+    pattern for every other read_*() source. generate_status_page.py
+    (copernicus-web) writes the field from system_metrics/rag_focus_fallback
+    in Firestore; rag_service.py's _record_focus_fallback() is what
+    increments it, on every Knowledge Map node click whose focus_id doesn't
+    resolve against any known collection."""
+    try:
+        client = gcs_client()
+        text = (
+            client.bucket(GCS_PUBLIC_BUCKET)
+            .blob(STATUS_JSON_BLOB)
+            .download_as_text(encoding="utf-8")
+        )
+        data = json.loads(text)
+        ff = data.get("rag_focus_fallback")
+        if not isinstance(ff, dict):
+            return SourceResult(False, error="rag_focus_fallback missing from status JSON")
+        return SourceResult(
+            True,
+            {
+                "count": ff.get("count", 0),
+                "last_fired_at": ff.get("last_fired_at"),
+                "last_focus_id": ff.get("last_focus_id"),
+            },
+            data.get("last_updated"),
+        )
+    except Exception as exc:
+        return SourceResult(False, error=str(exc))
+
+
 def _stale_cell(live: Optional[str], lg_key: str, state: RunState, source: str) -> str:
     if live is not None:
         return live
@@ -434,6 +470,7 @@ def build_auto_status(
     regression: SourceResult,
     batch_log: SourceResult,
     findability: SourceResult,
+    focus_fallback: SourceResult,
     state: RunState,
 ) -> str:
     now_display = datetime.now(ET).isoformat(timespec="seconds")
@@ -446,6 +483,7 @@ def build_auto_status(
     rdata = regression.value if regression.ok and isinstance(regression.value, dict) else {}
     bdata = batch_log.value if batch_log.ok and isinstance(batch_log.value, dict) else {}
     fdata = findability.value if findability.ok and isinstance(findability.value, dict) else {}
+    ffdata = focus_fallback.value if focus_fallback.ok and isinstance(focus_fallback.value, dict) else {}
 
     papers = cdata.get("papers")
     if isinstance(papers, int):
@@ -593,6 +631,24 @@ def build_auto_status(
         warnings_cell = "⚠️ unavailable"
         findability_run_cell = "⚠️ unavailable"
 
+    if "count" in ffdata:
+        count = ffdata.get("count", 0)
+        icon = "⚠️" if count > 0 else "✅"
+        focus_fallback_count_cell = f"{icon} {count}"
+        last_fired = ffdata.get("last_fired_at")
+        last_focus_id = ffdata.get("last_focus_id")
+        focus_fallback_last_cell = (
+            f"{last_fired} (`{last_focus_id}`)" if last_fired else "never"
+        )
+    elif lg.get("focus_fallback_count"):
+        state.stale_sources.append("focus_fallback")
+        focus_fallback_count_cell = f"⚠️ stale — last good: {lg['focus_fallback_count']}"
+        focus_fallback_last_cell = lg.get("focus_fallback_last", "⚠️ unavailable")
+    else:
+        state.stale_sources.append("focus_fallback")
+        focus_fallback_count_cell = "⚠️ unavailable"
+        focus_fallback_last_cell = "⚠️ unavailable"
+
     count_source = cdata.get("count_source", "api")
     status_source = f"`knowledge-engine-status.json` on GCS (`count_source: {count_source}`)"
 
@@ -640,6 +696,13 @@ def build_auto_status(
         f"| Anchor queries | {anchors_cell} |",
         f"| Coverage/index warnings | {warnings_cell} |",
         f"| Last probe run | {findability_run_cell} |",
+        "",
+        "### RAG grounding (item 42)",
+        "",
+        "| Signal | Value |",
+        "|--------|-------|",
+        f"| Fallback count | {focus_fallback_count_cell} |",
+        f"| Last fired | {focus_fallback_last_cell} |",
         "",
     ]
     return "\n".join(lines)
@@ -814,9 +877,10 @@ def run(dry_run: bool = False) -> int:
     regression = read_regression_summary()
     batch_log = read_batch_decoder_log()
     findability = read_findability_status()
+    focus_fallback = read_focus_fallback_status()
 
     auto_status = build_auto_status(
-        corpus, scout, decoder, queue, regression, batch_log, findability, state
+        corpus, scout, decoder, queue, regression, batch_log, findability, focus_fallback, state
     )
     document = assemble_document(curated_block, auto_status)
     ok, reason = validate_document(document)

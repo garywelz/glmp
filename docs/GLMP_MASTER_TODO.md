@@ -4494,6 +4494,49 @@ gated migration, verified at every phase, in `copernicus-web`:
     something that actually revalidates on deploy, same failure class as
     the GCS 1-hour cache bug fixed yesterday (item 54).
 
+56. **Item 42 built — RAG `focus_id` silent-fallback now persisted and
+    surfaced, three pieces, same day (2026-08-15).** Picked up per Gary's
+    explicit ask, after Cursor's item-55 follow-up flagged it as more
+    urgent given how fast the corpus is growing. Was previously only a
+    `structured_logger.warning` in `rag_service.py`'s fallback branch —
+    invisible to anyone not reading Cloud Run logs by hand; exactly item
+    34's original symptom (misdirected/absent grounding) recurring
+    silently if it ever fires regularly.
+    **(1) Write:** `cloud-run-backend/services/rag_service.py`'s
+    `_record_focus_fallback()` increments a Firestore counter
+    (`system_metrics/rag_focus_fallback`: `count`, `last_fired_at`,
+    `last_focus_id`) at the existing fallback call site. Fail-soft by
+    design — a metrics-write failure can never break the actual RAG
+    response, only logs.
+    **(2) Surface into the shared status JSON:**
+    `huggingface-space/scripts/generate_status_page.py`'s new
+    `fetch_focus_fallback_metric()` reads that counter (lazy-imported
+    Firestore, same pattern already used for `papers_by_discipline`'s
+    fallback path) into `knowledge-engine-status.json` as
+    `rag_focus_fallback`. Deliberately no last-known-good fallback value
+    on read failure — unlike a content count, a stale number for an
+    ever-incrementing counter would actively mislead about whether this
+    is currently firing, so it's simply omitted instead. **Ran end to end
+    against live production before committing** (not just compiled):
+    confirmed the field appears correctly shaped (`count: 0` — expected,
+    since the write side isn't deployed yet).
+    **(3) Read into AUTO-STATUS:** `scripts/build_master_todo.py`'s new
+    `read_focus_fallback_status()` + a "RAG grounding (item 42)" section,
+    following the exact same read → render → stale-fallback pattern
+    already proven for Findability (item 21) — same `SourceResult` shape,
+    same `parse_last_good()` table-cell re-parsing for the stale path, no
+    new state-file mechanism invented. **Unit-tested against three
+    scenarios** before committing: fresh zero count (✅), an actual
+    fallback firing with a real `focus_id` (⚠️ with count + timestamp +
+    id), and total unavailability (⚠️ unavailable, correctly marks
+    `focus_fallback` stale). All three rendered correctly.
+    **Committed, not deployed.** `copernicus-web@1802eb4bf` has pieces
+    (1) and (2) — needs a Cloud Build to actually start counting in
+    production, not done here (backend deploy — Cursor's domain per
+    `AGENT_ROLES.md`, same division as every other backend fix today).
+    Piece (3), in this repo, takes effect automatically on Jetson's next
+    `git pull` — no separate deploy step.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
