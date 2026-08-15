@@ -8,7 +8,7 @@
 
 ## Headline finding
 
-**The corpus/retrieval pipeline itself is healthy. This is not a "the new papers didn't get indexed" problem.** Every backend endpoint tested returned correct, on-topic, current data reflecting the full 117,581-paper corpus, including papers from sweeps that finished within the last 24–48 hours. The actual problems are narrower and more specific — one confirmed, root-caused backend bug; one confirmed stale hardcoded UI string; and a couple of items that need a clean human look rather than more automated probing.
+**The corpus/retrieval pipeline itself is healthy. This is not a "the new papers didn't get indexed" problem.** Every backend endpoint tested returned correct, on-topic, current data reflecting the full 117,581-paper corpus, including papers from sweeps that finished within the last 24–48 hours. Gary independently confirmed the same from the live UI: Build Map produces a correct graph and node clicks produce accurately-grounded explanations. The actual problems are three specific, now-root-caused bugs (two backend, one frontend) plus a couple of items that still need a clean human look.
 
 ---
 
@@ -64,15 +64,35 @@ This is a Cloud Run backend fix — Cursor's domain per `AGENT_ROLES.md`, not at
 ```tsx
 Papers, podcasts, videos, and 594 process charts across six scientific families
 ```
-This is a literal static string, not fetched from anything live. The actual live counts (checked against `knowledge-engine-status.json` right now) don't match it either way: `process_databases.sum` is **692** across all six families, or **217** for the `glmp_v2` family alone (`processes` field / what `/api/content/browse?content_type=processes` actually returns). None of the three numbers agree. Same failure class as the "594" — I mean the biology-paper-count bug fixed yesterday (`GLMP_MASTER_TODO.md` item 54): a hardcoded number that drifts from reality over time.
+This is a literal static string, not fetched from anything live. The actual live counts (checked against `knowledge-engine-status.json` right now) don't match it either way: `process_databases.sum` is **692** across all six families, or **217** for the `glmp_v2` family alone (`processes` field / what `/api/content/browse?content_type=processes` actually returns). None of the three numbers agree — same failure class as the biology-paper-count bug fixed yesterday (`GLMP_MASTER_TODO.md` item 54): a hardcoded number that drifts from reality over time.
 
 This is front-end copy — my domain per `AGENT_ROLES.md`, not Cursor's. I can fix it (either update the static number or wire it to `knowledge-engine-status.json` the same way the biology-papers stat already is) once there's agreement on which of 692/217/something-else is the number that should actually be shown, and Gary's go-ahead to push it live.
+
+### 3. Knowledge Map nodes have no link out to the actual paper — data is already there, just discarded
+
+Gary confirmed "Build Map" works correctly (21 nodes, 101 edges, matching this session's own direct API test exactly) and clicking a node produces a real, accurately-grounded RAG explanation (re-confirms bug-free retrieval and item 34's focus_id fix, live, from the actual UI). But the node/explanation panel gives no way to open the real source paper — a user can read an AI summary but can't verify it or read the original.
+
+**Root cause, found in `components/knowledge-engine/KnowledgeMapView.tsx`:** the `/api/knowledge-map/graph` response already includes `doi` and `arxiv_id` on every paper node (confirmed directly — e.g. `{"id": "pubmed_10860739", ..., "doi": "10.1006/jmbi.2000.3736", "arxiv_id": null}`), and the node's own `id` carries the PMID for PubMed papers (`pubmed_<pmid>`). But the click handler (line 588 `cyRef.current.on('tap', 'node', ...)`) narrows the full node data down to just three fields before storing it:
+
+```tsx
+// line 593-595
+const nodeId = data.id || data.paper_id || data.concept_id
+const nodeType = data.type || data.nodeType || 'unknown'
+const nodeLabel = data.label || data.title || 'Untitled'
+// line 602
+setSelectedNode({ id: nodeId, type: nodeType, label: nodeLabel })
+```
+
+`selectedNode`'s state type (line 59) is literally `{ id: string; type: string; label: string }` — `doi`/`arxiv_id`/`pmid` are available on `data` at the point of the click (line 590: `const data = node.data()`) but never carried through, and the Node Explanation panel (lines 1206–1252) never renders a link.
+
+**This isn't a new problem to solve — `ContentBrowser.tsx` already solved it**, for the Browse Content tab, in the 2026-07-17 session (`docs/KNOWLEDGE_ENGINE_BROWSE_LINKS_HANDOFF_2026-07-17.md`): a small resolver function, `paperExternalUrl()` (`ContentBrowser.tsx` lines 40–68), does exactly DOI → PubMed → arXiv → raw `url` priority-ordered link resolution. The Knowledge Map's node-click path just never got the same treatment.
+
+**Fix:** widen `selectedNode`'s type to also carry `doi`, `arxiv_id`, `url` (already present on `data` at line 590 — just stop discarding them at line 602), then render a link in the Node Explanation panel using the same `paperExternalUrl()` priority logic (import/reuse it, or reimplement the same four-line priority chain).
 
 ---
 
 ## Needs a clean human check, not more automated probing
 
-- **"Build Map" appeared to still show "Building..." after ~4 seconds** in one screenshot attempt from this session — inconclusive, browser automation in this session was unreliable today. The backend endpoint it calls (`/api/knowledge-map/graph`) completes correctly in ~4–5 seconds with real data when called directly, so this may just be normal in-progress state caught mid-request rather than an actual hang. **Ask:** does it ever finish and render a graph for you, or does it genuinely hang?
 - **`/api/knowledge-map/stats` returns all-zero (`papers: 0, concepts: 0, nodes: 0, edges: 0`) until a graph has actually been built by a query** (`"note": "Load the Knowledge Map tab to build/cache the graph."` — this is by-design lazy caching, confirmed live). If the Statistics tab displays this literally before any search has run, a first-time visitor would see an all-zero knowledge graph and reasonably conclude the engine is empty/broken, even though the underlying corpus is fully healthy. Worth Claude Chat checking the Statistics tab's component source to see whether it triggers a build before displaying, or just renders whatever `/stats` currently reports.
 
 ---
@@ -86,13 +106,14 @@ This is front-end copy — my domain per `AGENT_ROLES.md`, not Cursor's. I can f
 
 ## Suggested division of labor
 
-- **Cursor:** fix the 12 `find_nearest()` call sites (bug #1) in `cloud-run-backend/mcp_server/tools/vector_search.py`; SSH to Jetson to pull the actual text of the 2 findability coverage/index warnings.
+- **Cursor:** fix the 12 `find_nearest()` call sites (bug #1) in `cloud-run-backend/mcp_server/tools/vector_search.py`; fix the Knowledge Map node-link gap (bug #3) in `components/knowledge-engine/KnowledgeMapView.tsx` (both are Cloud Run/`copernicus-web` deploys, matching how the original Browse-card-linking work in the 2026-07-17 handoff was done); SSH to Jetson to pull the actual text of the 2 findability coverage/index warnings.
 - **Claude Chat:** check the Statistics tab's frontend source for the zero-stats-on-first-load question; independently re-confirm the papers-browse 422 was transient, not reproducible.
 - **Claude Code (me):** fix the hardcoded "594 process charts" string (bug #2) once there's agreement on the right live number, pending Gary's go-ahead — same pattern as yesterday's biology-paper-count fix.
-- **Gary:** one-line confirmation on whether "Build Map" genuinely hangs or just takes a few seconds longer than my screenshot caught.
+
+**Gary already confirmed live** that Build Map completes correctly and node explanations are accurately grounded — that closed the one open question from the original draft of this report, and surfaced bug #3 in the process.
 
 ---
 
 ## Bottom line
 
-Nothing about this week's corpus growth (117,581 papers, 100% embedded) broke the Knowledge Engine's ability to find and use the new content — every retrieval path tested returns correct, current, on-topic results including papers from sweeps that finished yesterday. What's actually wrong is older and narrower than "papers not integrated": a since-August-4th relevance-score bug now fully root-caused, one stale hardcoded number in the page header, and two open questions that need a person (not another API probe) to resolve.
+Nothing about this week's corpus growth (117,581 papers, 100% embedded) broke the Knowledge Engine's ability to find and use the new content — every retrieval path tested returns correct, current, on-topic results including papers from sweeps that finished yesterday, confirmed both by direct API calls and by Gary's own use of the live UI. What's actually wrong is three specific, now-fixable bugs — a since-August-4th relevance-score bug, a stale hardcoded header number, and a missing link-out on Knowledge Map nodes (each root-caused down to the exact line) — plus one open question (the findability warnings) that needs Jetson access to resolve.
