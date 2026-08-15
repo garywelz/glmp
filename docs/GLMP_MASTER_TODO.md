@@ -4414,6 +4414,64 @@ gated migration, verified at every phase, in `copernicus-web`:
     `ingest_metadata_to_firestore.sh.bak_observe_20260719`). Item 54's
     count-honesty chain is closed.
 
+55. **Knowledge Engine integration assessment — three bugs found, root-caused,
+    fixed, deployed, and committed, same day (2026-08-15).** Gary asked
+    whether this week's corpus growth (117,581 papers, up from ~62k) is
+    well-integrated into the live frontend
+    (`copernicus-frontend-.../knowledge-engine`), reported as not working
+    as intended. Full write-up:
+    `docs/open-questions/knowledge-engine-integration-assessment-2026-08-15.md`.
+    **Headline: the corpus/retrieval pipeline was never the problem.** Every
+    backend endpoint tested live (`content/stats`, `content/browse`,
+    `vector-search/semantic`, `rag/answer` both general and
+    `paper_explanation`/`focus_id` modes, `knowledge-map/graph`) returned
+    correct, current data including papers from sweeps that finished within
+    24–48 hours — re-verified item 34's `focus_id` grounding fix against
+    content that didn't exist when that fix was written, still correct.
+    Gary independently confirmed the same from the live UI: Build Map
+    renders a correct graph, node clicks produce accurately-grounded
+    explanations.
+    **Three specific bugs found instead, all fixed and deployed same day:**
+    (1) `similarity_score` always exactly `0.0` on non-scoped semantic
+    search — root-caused to 12 `find_nearest()` calls across
+    `cloud-run-backend/mcp_server/tools/vector_search.py` missing
+    Firestore's `distance_result_field` param (confirmed against the SDK's
+    own signature, not guessed), so `paper_data.get("distance", 1.0)`
+    always hit the `1.0` default. First flagged as an unfixed side-note in
+    item 34 (2026-08-04); live today with real scores (0.716/0.702/0.699
+    on a test query) after Cursor's fix (backend Cloud Build `494b2056`).
+    (2) Hardcoded, stale "594 process charts" in the page header,
+    matching neither live count (692 sum across six families, 217 for
+    `glmp_v2` alone) — fixed by Claude Code (`copernicus-web@dd51b619b`),
+    now live-fetches `knowledge-engine-status.json` the same way the
+    `glmp` Space's biology-papers stat does, deployed via frontend Cloud
+    Build `2ceda8db`.
+    (3) Knowledge Map nodes had no link to the actual source paper despite
+    the graph API already returning `doi`/`arxiv_id` per node — the click
+    handler discarded them before display. Fixed by Cursor: `selectedNode`
+    now carries `doi`/`pmid`/`arxiv_id`/`url` through, renders "Open source
+    paper" using the same `paperExternalUrl()` priority resolver
+    `ContentBrowser.tsx` already had from the 2026-07-17 Browse-linking
+    session. Live on the same frontend Cloud Build as fix #2.
+    **Process note worth keeping:** fixes #1 and #3 were deployed live via
+    Cloud Build but sat as *uncommitted* local changes on the shared Yoga
+    checkout — a fresh Cloud Build from clean `main` would have silently
+    reverted both. Cursor flagged this explicitly rather than let it ride;
+    Claude Code verified both diffs directly (`py_compile` clean on the
+    Python file; the TypeScript file's correctness already proven by its
+    own successful production Cloud Build) before committing
+    (`copernicus-web@e83c19dda`). Same shared-checkout pattern as item 54 —
+    see the memory note on this if a future session hits it again.
+    **Still open, not this session's to close:**
+    - **Item 42** (RAG `focus_id` silent-fallback monitoring, proposed,
+      never built) — Cursor's read: more urgent now given how fast the
+      corpus is growing, not new but worth re-prioritizing.
+    - **Findability probe's 2 persistent coverage/index warnings, now
+      identified by Cursor (pre-existing, not this week's growth):**
+      `podcast_jobs` has a 1536-vs-768 embedding-dimension index mismatch;
+      an orphan `math_processes` index is `READY` but has 0 docs. Neither
+      fixed here.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
