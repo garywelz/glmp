@@ -4597,11 +4597,62 @@ gated migration, verified at every phase, in `copernicus-web`:
     not a competing total. Full production build verified clean (`tsc
     --noEmit` + `next build`, including the `/knowledge-engine` route)
     before committing.
-    **Not deployed — needs Cursor's Cloud Build.** No backend changes.
+    **Overnight (2026-08-15 night, same day, Cursor's KE-ingest session —
+    see `papers/cursor_handoff_2026-08-15_ke_ingest.md` in `copernicus-web`)
+    — deployed, extended, and one framing correction landed as a locked
+    product decision, folded into the same broader session that wired
+    videos through the whole Knowledge Engine.** Verified directly against
+    live production before writing this, not taken from the handoff's word
+    alone:
+    - **ATAP's identity corrected again, this time locked.** The chrome-
+      first build's ATAP examples (Nilpotent Groups, Spectral Sequences)
+      were themselves still just generic-mathematics placeholders — this
+      session's own plan doc had already flagged GLMP≠biology/ATAP≠math as
+      a real error, but hadn't yet learned what ATAP's audience actually
+      *is*. Locked decision from the handoff: **ATAP = Axiomatic Theories,
+      Algorithms and Proofs** (`content_type=math` → `atap_graphs`) — for
+      logicians, foundations researchers, proof theorists, and theoretical
+      computer scientists, not "mathematics as a second process
+      collection." New examples (Proof Nets, Gödel Incompleteness, Curry-
+      Howard correspondence) replace the old ones; `ATAP_DISCIPLINES` now
+      spans mathematics + computer_science (ATAP papers sit in math.LO and
+      cs.LO/cs.PL/cs.DM — a mathematics-only filter drops the proof-theory
+      hits). Spot-checked one example directly against live
+      `/api/vector-search/semantic` before writing this note: "Curry-Howard
+      correspondence proof assistant" returns real papers correctly
+      carrying `cited_project: atap`, `question_scope_ids: ['atap-q1']` —
+      confirming the code comment's testing claim, not just trusting it.
+    - **Scope quietly widened past chrome-first for processes specifically
+      (not papers).** A new `searchContentTypesForProject()` helper, used
+      by both `SearchInterface.tsx` and `RAGInterface.tsx`, now scopes the
+      process-family `content_types` sent to Search and Ask Questions to
+      the selected project — labeled in-code "Layer A... papers stay
+      unscoped until Layer B." This is real retrieval scoping, not chrome,
+      for the process dimension specifically; papers remain unscoped in
+      both projects, matching the original chrome-first boundary for that
+      part. Worth flagging as a documented departure from yesterday's
+      explicit "no Search/RAG retrieval changes in v1" decision, even
+      though it's narrower than full scoped retrieval.
+    - **`RAGInterface.tsx` and `StatsDashboard.tsx` now wired too** (both
+      left untouched in the original chrome-first build). Ask Questions
+      swaps its example questions via the new `askExamples` config field
+      and scopes processes per project. Statistics highlights the selected
+      project's own family stat rather than either hiding the suite-wide
+      six-family view or mixing totals — avoids the exact "594"-style
+      confusion the plan warned against.
+    - **Deployed:** folded into tonight's shipped commits (backend Cloud
+      Build `b94f9f93` and later revisions; frontend serving revision
+      confirmed live, `copernicus-podcast-api-00253-rd2` at 100% traffic
+      as of this check). Working tree in the shared `copernicus-web`
+      checkout is clean — nothing left uncommitted from this thread.
     Still open, not this session's to resolve: who writes/reviews the
-    example-query and framing copy as final (current set is explicitly
-    draft), and whether ATAP has GLMP-equivalent declared-question
-    scaffolding.
+    example-query and framing copy as fully final (GLMP's and the new
+    ATAP set are tested-and-working, still not the same as a considered
+    final copy pass), and the still-unfixed one-year
+    `Cache-Control: s-maxage=31536000` on `/knowledge-engine` (flagged
+    yesterday, re-confirmed live today) — visitors with a stale cached
+    copy won't see any of this, including tonight's video work, without a
+    hard refresh.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32

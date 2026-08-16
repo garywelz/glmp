@@ -71,7 +71,9 @@ Gary decided both open questions (2026-08-15), agreeing with Cursor's and Claude
 
 **Decided (2026-08-15):** chrome-first for v1, `null`/both as the default landing state.
 
-**Built and committed (2026-08-15), `copernicus-web@b04424784`:** the toggle plumbing, config, and all four component updates are done, including the `StatsDashboard.tsx` mislabel fix. Full production build verified clean before committing. Full write-up in `GLMP_MASTER_TODO.md` item 57.
+**Built and committed (2026-08-15), `copernicus-web@b04424784`:** the toggle plumbing, config, and all four component updates are done, including the `StatsDashboard.tsx` mislabel fix. Full production build verified clean before committing.
+
+**Extended and deployed overnight, same day, in Cursor's broader KE-ingest session:** ATAP's identity corrected again and locked as a product decision ("Axiomatic Theories, Algorithms and Proofs," not mathematics) with new live-verified examples; `RAGInterface.tsx`/`StatsDashboard.tsx` wired in; Search and Ask Questions now scope process `content_types` per project ("Layer A" — a real, if narrow, departure from pure chrome-first, since papers stay unscoped/"Layer B"). Deployed and confirmed live. Full write-up, including independent verification, in `GLMP_MASTER_TODO.md` item 57.
 
 1. ~~Gary (or whoever knows each project's audience) supplies or reviews example queries + framing copy per project~~ — current set is a tested-but-draft placeholder (GLMP's three queries were live-tested 2026-08-15; ATAP's two are unchanged from the original). **Still open:** final review, and whether ATAP has a declared-question equivalent to GLMP's.
 2. ~~I build the chrome-first toggle + config plumbing, wire all five tabs~~ — done.
