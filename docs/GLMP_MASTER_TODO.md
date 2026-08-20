@@ -592,8 +592,11 @@ gated migration, verified at every phase, in `copernicus-web`:
     lac operon reach an evidence-backed Class II call from sequence rather
     than curated biology alone. Real molecular-biology work: per the
     Reminder to Self below, needs a qualified biologist's judgment, not
-    something to execute unilaterally. **On hold pending Prof. Lents'
-    feedback** (2026-07-30) — do not proceed until he's weighed in.
+    something to execute unilaterally. **Was on hold pending Prof. Lents'
+    feedback** (2026-07-30) — **unblocked 2026-08-19, see item 58**: Lents
+    sent 10 foundational CRP-lac binding-site papers, now ingested. Next
+    steps on actually building the PWM are still undecided, not resolved
+    by the ingest alone.
 27. ~~**sciencevideodb quality**~~ — DONE (2026-07-30, split from former item
     12). Scoped as 4 quick fixes; the discipline-naming check led straight
     into a much larger finding: **43% of the 753-video catalog (322 videos)
@@ -4653,6 +4656,71 @@ gated migration, verified at every phase, in `copernicus-web`:
     yesterday, re-confirmed live today) — visitors with a stale cached
     copy won't see any of this, including tonight's video work, without a
     hard refresh.
+
+58. **Lents' 10 CRP-lac binding-site papers ingested — item #26 (CRP PWM)
+    unblocked, 2026-08-19.** Follow-up to items #26 (on hold since
+    2026-07-30, waiting specifically on Prof. Lents' feedback) and #43
+    (researcher-cited intake). Lents sent 10 foundational CRP-lac papers by
+    email — DNase footprinting, EMSA, first PWM method, first consensus-
+    site + 3-D model, ChIP-chip, massively parallel binding assay — the
+    feedback item #26 was blocked on. Handed off by Claude Chat; run via
+    `researcher_cited_intake.py` (item #43's own script), Claude Code only,
+    no Cursor role per the handoff (one-off manual intake, not cron/
+    pipeline).
+    **Pre-flight, per the handoff's explicit instruction — confirmed item
+    #45 (re-citation of an already-in-corpus paper dropping provenance) is
+    actually fixed and deployed, not just historically resolved:** read
+    the live script on disk (not trusted from the 2026-08-05 record alone)
+    — `merge_citation_onto_firestore_doc()` and `merge_citation()` both
+    present and wired into `main()`'s flow. This batch was a real test of
+    that path, not hypothetical: 7 of the 10 papers turned out to already
+    be in the corpus.
+    **One correction to the handoff's exact instructions, made before
+    running anything:** it specified `--cited-project glmp-q1`, but
+    `--cited-project` is the script's *project* field (e.g. "GLMP") — a
+    question id there would have written `glmp-q1` into a field meant to
+    hold `glmp`/`atap`, exactly the kind of casing/value-hygiene bug item
+    #43 already burned a whole entry on (the 2026-08-08 GLMP/glmp split).
+    Checked `research_focus.json` first: `glmp-q1` is a real declared
+    question ("What validated CRP/CAP binding-site sets exist in the
+    literature?") — a precise topical match. Used
+    `--cited-project GLMP --cited-for-question glmp-q1` instead, the two
+    separate fields the script actually defines for this.
+    **All 10 dry-run first, held for Gary's go before `--write`, per the
+    handoff's own gate.** Every paper resolved to a clean, confident,
+    manually-verified match against Lents' one-line description — no
+    ambiguity, no mismatches:
+    - **7 already in corpus, all merged via item #45's path, all
+      independently re-verified live in Firestore after writing** (not
+      just the exit code): Majors 1975 (`pubmed_1097944`), Dickson et al.
+      1975 (`pubmed_1088926`), Garner & Revzin ×2 (`pubmed_6269071`,
+      `pubmed_6295452`), O'Neill et al. 1981 (`pubmed_6941280`), Kinney et
+      al. 2010 (`pubmed_20439748`), Grainger/Busby 2005
+      (`pubmed_16301522`). Each doc's `citations` array confirmed to carry
+      the new Lents event, `question_scope_ids` confirmed correctly
+      `ArrayUnion`'d with `glmp-q1` alongside whatever the doc already
+      carried (e.g. `glmp-q2`, `glmp-q8`, `glmp-f1` on different docs) —
+      original title/metadata confirmed untouched.
+    - **3 genuinely new — notably, exactly the three method-inventing
+      papers, not the evidentiary ones:** Galas & Schmitz 1978 (DNase
+      footprinting, resolved via Crossref free-text search since no link
+      was given — top candidate was an exact title/journal/volume/issue/
+      page match, re-run as a direct DOI), Gunasekera/Ebright/Ebright 1992
+      (base-by-base binding-energy mutagenesis, resolved from the PII
+      embedded in the JBC URL), Stormo & Hartzell 1989 (first PWM/matrix
+      method — its own abstract literally uses CRP binding sites as the
+      worked example). Written to Firestore via
+      `ingest_papers_from_metadata_json.py` (dry-run first, then live);
+      confirmed live with correct provenance and `question_scope_ids`.
+      **Embedding backfill run and `find_nearest`-verified for all three**
+      (not left for a later cron cycle, given the small batch size) — all
+      three return genuinely on-topic nearest neighbors (footprinting
+      methods, CAP-binding-site papers, and TF-binding-site-representation
+      methods respectively).
+    **Item #26 (CRP PWM) is now unblocked** — Lents has weighed in, these
+    10 papers are the evidence base it was waiting on. Flagged to Gary and
+    Cursor per the handoff's instruction; deciding next steps on #26 is
+    not this item's call.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
