@@ -4732,70 +4732,96 @@ gated migration, verified at every phase, in `copernicus-web`:
     citation event invented. #26 PWM construction still not started.
 
 59. **GLMP validation package, computation track, run directly — 2026-08-20,
-    Claude Code.** The validation package
-    (`storage.googleapis.com/.../validation/index.html`) assigned the
-    computation track (RegulonDB cross-reference for lac/ara/trp) to Prof.
-    Krampis's student assistant. No response after an extended period. Gary
-    asked whether this was something he could do himself; confirmed yes —
-    purely computational, every input file already staged locally, no
-    biological judgment calls (those belong to the separate, still-open
-    biology track). Gary said go; ran it.
+    Claude Code, revised same day after Cursor's cross-check.** The
+    validation package (`storage.googleapis.com/.../validation/index.html`)
+    assigned the computation track (RegulonDB cross-reference for
+    lac/ara/trp) to Prof. Krampis's student assistant. No response after an
+    extended period. Gary asked whether this was something he could do
+    himself; confirmed yes — purely computational, every input file already
+    staged locally, no biological judgment calls (those belong to the
+    separate, still-open biology track). Gary said go; ran it.
     **Built** `dna-decoder/scripts/regulondb_crossref_analysis.py` following
     `task-brief-computation.md`'s four-step protocol against
     `TF-RISet.tsv` (RegulonDB v14.5.0, local) and the three
     `ecoli_{lac,ara,trp}_operon_logic_20260708.json` decode files.
-    **Two methodological corrections made before trusting any output, both
-    verified by hand rather than assumed:**
+    **Methodological corrections made before trusting the final output:**
     - The raw `binding_sites` arrays are FIMO's full scan output, not
       pre-filtered — comparing all raw hits against RegulonDB (first pass)
       gave a misleading precision/recall (8.6%/18.8%). Verified by direct
-      sequence cross-check that only hits passing the review packet's own
-      locked threshold (p ≤ 0.0001, `CRP_PWM_BIOLOGIST_REVIEW.md`) have
-      real matching sequences in RegulonDB. Threshold-filtered from there.
+      sequence cross-check that only hits passing a locked threshold have
+      real matching sequences in RegulonDB.
     - Pure position-based overlap matching (±20 bp, same TF, per the task
       brief) silently scored all 4 threshold-passing lac predictions as
       false positives, despite their sequences matching real RegulonDB
-      sites exactly — the lac decode file's coordinates don't share
-      RegulonDB's reference frame (non-constant offset, direction inverted
-      relative to RegulonDB, though internal spacing between sites matches
-      exactly in both systems). Added a sequence-identity fallback check
-      (matched_seq vs. RegulonDB's `tfrsSeq`, forward + reverse-complement)
-      used only when position matching fails, and labeled every such match
-      explicitly rather than folding it in silently. Also found the trp
-      decode file's scanned window misses RegulonDB's real `trpLp` TrpR
-      sites by ~3.4 kb — a second, independent coordinate issue, not
-      present in the ara file. Fixed the false-negative search to also
-      anchor on the circuit's real regulated promoter name(s)
-      (`lacZp1/2/3`, `araBp`/`araCp`, `trpLp`), not just the decode file's
-      own (possibly wrong) scanned window.
-    **Final result, locked-threshold predictions only:** 5 predictions
-    across lac (4) and ara (1); all 5 correct by sequence identity; **0
-    false positives**. Trp made 0 threshold-passing predictions (best raw
-    p = 0.001, ~10x too weak). Precision 100.0%, recall 19.2% against
-    RegulonDB's row-level count (RegulonDB records one row per TF×promoter
-    ×role combination, so a single physical site is often counted 2–4×;
-    lac's 6 false-negative rows resolve to 3 physical loci, ara's 13 to 6 —
-    noted explicitly in the report so the recall figure isn't
-    misread as a decoder shortfall).
-    **Two discrepancies flagged as decoder-pipeline (not biology, not this
-    item's to fix — explicitly out of scope per this session's own
-    constraint against touching `crp_cap.meme` or decoder internals):**
-    the lac coordinate-frame mismatch, and the trp window/coordinate gap.
-    A third, distinct finding: a real Confirmed LacI site (365922–365942)
-    sits entirely outside the lac file's scanned window — never scanned,
-    not just mis-anchored.
-    **Deliverable:** full report written to
+      sites exactly. Added a sequence-identity fallback check (matched_seq
+      vs. RegulonDB's `tfrsSeq`, forward + reverse-complement), used only
+      when position matching fails and labeled explicitly. Also fixed the
+      false-negative search to anchor on each circuit's real regulated
+      promoter name(s) (`lacZp1/2/3`, `araBp`/`araCp`, `trpLp`), not just
+      each decode file's own scanned window.
+    - **Real bug, caught by Cursor, not self-found:** the threshold used
+      above was a single p ≤ 0.0001 taken only from
+      `CRP_PWM_BIOLOGIST_REVIEW.md` and applied to all three motifs.
+      Cursor read `motifs/custom_pwm_registry.yaml` directly and found the
+      decoder's locked thresholds are per-motif — LacI 1e-5, CRP 1e-4,
+      **TrpR 0.05** — not global. Confirmed directly against that file
+      before correcting. This was silently wrong for trp: at the incorrect
+      global 1e-4, trp showed 0 threshold-passing predictions; at its real
+      0.05 lock, all 10 raw hits pass. Script and report corrected to use
+      per-motif thresholds.
+    **Two other things the first version of this report presented as new
+    findings were already known — caught by Cursor reading the 2026-07-08
+    B1 re-anchoring notebook
+    (`lab-notebook-2026-07-08-phase-b1-reanchor.md`) directly, verified
+    against that source before accepting:**
+    - **Lac coordinate-frame mismatch** (decode positions 367051–367163 vs.
+      RegulonDB's 366323–366435 for the identical sequences, non-constant
+      offset, inverted direction) — the notebook's own Step 6 already flags
+      this as a deferred "follow-up hygiene item," with the correct
+      transform for this minus-strand window already written down
+      (`367343 − seq_pos + 1`, vs. the additive mapping actually used).
+      This item's contribution is independent reconfirmation via a
+      different method, plus the exact three offsets, not discovery.
+    - **Trp window gap** (scanned window 1319737–1320275 misses the real
+      `trpLp` TrpR sites at 1323103–1323136 by ~3.4 kb) — the notebook's
+      Step 3 already documents this as a deliberate "metadata only" sync,
+      same `glmp-f2`-class anchoring gap. Not new.
+    - **Also corrected:** the first version flagged the LacI site at
+      365922–365942 (lacO2) as a possible unscanned gap. The notebook's
+      Step 1 shows it was deliberately excluded from the window by design.
+      Removed as an open item.
+    **Final, corrected result:** lac + ara are clean — 5 predictions, all 5
+    correct by sequence identity, 0 false positives. Trp is not clean, but
+    not a PWM-accuracy finding either: all 10 raw TrpR hits clear their own
+    0.05 lock, but FIMO q-values run 0.68–1.0 (statistically indistinguish-
+    able from chance) and none land near a real RegulonDB site — because
+    the scanned window doesn't reach `trpLp` at all (the already-known gap
+    above). Whether TrpR's PWM itself is well-calibrated cannot be assessed
+    until that window is fixed. Overall: precision 33.3% (5/15), recall
+    19.2% (5/26 RegulonDB RI-rows; RegulonDB records one row per
+    TF×promoter×role combination, so lac's 6 false-negative rows resolve to
+    3 physical loci, ara's 13 to 6 — noted in the report so recall isn't
+    misread as a decoder shortfall for lac/ara specifically).
+    **What requires decoder-pipeline action (not this item's to fix,
+    explicitly out of scope per this session's constraint against touching
+    `crp_cap.meme` or decoder internals) — both already tracked, not new
+    tickets:** the lac coordinate-frame fix (B1's deferred hygiene item)
+    and the trp re-anchoring (`glmp-f2`-class gap).
+    **Deliverable:** full report, revised, at
     `dna-decoder/docs/crp_lac_ara_trp_regulondb_validation_report.md`,
     following `report-template.md`'s structure. Biology-track annotation
     checklist items (gate typing, Class II question, quantitative values,
     attenuation) explicitly marked "not assessed — biology track" rather
     than guessed at; that track remains open and unaddressed by this item.
     Not sent anywhere — sitting for Gary's review before any distribution
-    to Krampis/Lents.
-    **Not yet decided:** whether to route the coordinate-frame finding to
-    Cursor as a new tracked item, and whether this report factors into the
-    #26 sign-off conversation alongside the Lents papers (item 58) — Gary's
-    call, not made here.
+    to Krampis/Lents. Cursor's full cross-check, received before the link
+    to this item was shared, confirmed: "Item 59, the report, the JSON, and
+    the 8 July B1 notebook agree. Claude Code was right not to patch" (i.e.
+    right not to have attempted a decoder-side fix itself).
+    **Not yet decided:** whether the Lents email draft (bundling this item
+    with #26 and #33, `copernicus-web/papers/lents_email_draft_2026-08-20.md`)
+    needs its item-3 paragraph revised now that trp's picture has changed —
+    Gary's call, not made here.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32

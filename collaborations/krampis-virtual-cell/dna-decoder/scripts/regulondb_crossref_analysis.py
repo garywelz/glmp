@@ -80,17 +80,20 @@ def reverse_complement(seq):
 CONFIDENT_LEVELS = {"C", "S"}
 
 
-# The decoder's own locked operative threshold, per
-# CRP_PWM_BIOLOGIST_REVIEW.md: "Locked FIMO threshold: p-value <= 0.0001
-# (calibrated before any decode)". Confirmed by direct sequence cross-check
-# before trusting this split (not assumed): every raw binding_sites entry
-# below this threshold, across all three circuits, has NO matching sequence
-# anywhere in RegulonDB's real promoter-region rows; every entry passing it
-# does. The raw JSON is FIMO's full scan output, not yet threshold-filtered
-# -- comparing all raw hits against RegulonDB (as an earlier pass of this
-# script did) produces a misleading precision figure by counting sub-
-# threshold noise as if it were a real prediction.
-LOCKED_PVALUE_THRESHOLD = 0.0001
+# The decoder's own locked operative thresholds are per-motif, not global --
+# confirmed directly against motifs/custom_pwm_registry.yaml (not assumed
+# from CRP_PWM_BIOLOGIST_REVIEW.md alone, which only documents CRP's own
+# lock). An earlier pass of this script applied CRP's 1e-4 lock to every
+# motif, which was silently wrong for TrpR (real lock 0.05, an order of
+# magnitude looser) and scored trp as having zero threshold-passing
+# predictions when several of its raw hits actually clear TrpR's own lock.
+# Caught by Cursor reading the registry directly (2026-08-20) and confirmed
+# here against the same source before correcting.
+MOTIF_PVALUE_THRESHOLD = {
+    "LacI_lacO": 1.0e-5,
+    "CRP_CAP": 1.0e-4,
+    "TrpR_trpO": 0.05,
+}
 
 
 def load_predicted_sites(circuit_key):
@@ -110,7 +113,8 @@ def load_predicted_sites(circuit_key):
             "matched_seq": s["matched_seq"],
         }
         all_sites.append(rec)
-        if s["pvalue"] <= LOCKED_PVALUE_THRESHOLD:
+        threshold = MOTIF_PVALUE_THRESHOLD.get(s["motif_id"])
+        if threshold is not None and s["pvalue"] <= threshold:
             passing_sites.append(rec)
     return data, all_sites, passing_sites
 
@@ -163,7 +167,8 @@ def main():
     for circuit_key in CIRCUITS:
         decode_data, all_sites, predicted = load_predicted_sites(circuit_key)
         print(f"\n=== {circuit_key} ({decode_data['circuit_name']}) ===")
-        print(f"Raw FIMO hits: {len(all_sites)}  |  Passing locked p<=0.0001 threshold: {len(predicted)}")
+        thresholds_used = sorted({MOTIF_PVALUE_THRESHOLD[m] for m in set(s["motif_id"] for s in all_sites) if m in MOTIF_PVALUE_THRESHOLD})
+        print(f"Raw FIMO hits: {len(all_sites)}  |  Passing per-motif locked threshold ({thresholds_used}): {len(predicted)}")
 
         # Window is based on the full raw scan (all_sites), not just the
         # threshold-passing subset -- this is what the decoder actually
