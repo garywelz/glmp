@@ -4841,6 +4841,74 @@ gated migration, verified at every phase, in `copernicus-web`:
     arithmetic all check out; draft's item 3 confirmed accurate and calm.
     Still Gary's call whether/when to send.
 
+60. **Synthesis-paper status: Papers I/II/III read, three fixes applied, the
+    methods-paper/bioRxiv premise corrected — 2026-08-20, Claude Code.**
+    Separate thread from items 26/33/59 — the K562/virtual-cell paper
+    series, not the E. coli decoder. Follow-up to the same day's
+    `synthesis-biorxiv.md` retirement (in favor of `synthesis_genomic_
+    logic.md`, the correctly-linked, more current draft).
+    **Read Papers I, II, and III in full, on Gary's request.** Paper III
+    (the empirical K562 piece — 780 genes, 16 model evaluations, Class III
+    harder to predict, *t*=−3.55, *p*=0.0015) is the strongest of the
+    three: genuinely rigorous, reports a robustness test that killed its
+    own signal (Class III expansion 14→22 genes abolished the effect) and
+    correctly diagnoses why (persistent vs. transient bistability) rather
+    than hiding it, and reports two hypotheses (H4, H5) as **not
+    supported** with honest explanations. Papers I/II are explicit that
+    the complexity-ladder conjecture is a "motivated hypothesis," not a
+    theorem — a 7-rung epistemic ladder, "none of these proofs exist yet"
+    stated plainly.
+    **Three fixes made and pushed (`glmp@1edee4a`):**
+    - The same broken-link bug found in the retired synthesis draft exists
+      *inside* Papers II and III themselves (9 instances, each pointing at
+      the other's pre-rename filename) plus a third instance in
+      `synthesis_genomic_logic.md` (linked to the methods paper's
+      pre-rename filename). All 10 fixed.
+    - Verified Paper III's Data and Code Availability section against the
+      actual repo — `gene_circuit_classes.tsv`, all 7
+      `k562-empirical-sequel/scripts/` scripts, all 5 cited `results/*.tsv`
+      files genuinely exist. No changes needed; reproducibility claims
+      check out.
+    - Paper I's "108-graph sample" (8 instances) was stale. Verified the
+      live corpus directly (`glmp-v2/processes/**/*.json` = **220**, not
+      the 217 from the 2026-08-04 loop-audit) and updated all 8 to 220.
+    **The methods paper's premise needed correcting, not just reviewing.**
+    Gary asked for a review of `methods-mermaid-perturbation-design.md`,
+    calling it "the paper most likely to be postable." It is not an
+    unposted draft — it's **already live on Zenodo**, v1.6, 2026-06-28,
+    DOI `10.5281/zenodo.20831780`. Per `glmp-collaboration-plan-2026.md`
+    (last touched 2026-06-29): **bioRxiv declined it outright as a
+    methods-only submission** — "they accept research articles only." It
+    cannot be the bioRxiv posting regardless of quality. The plan's own
+    candidate for the next bioRxiv submission is a different, not-yet-
+    written paper: the **RPE1 replication study** (Priority 1 in the
+    plan), testing whether the Class III effect replicates outside K562,
+    ~1–2 months out, joint task with Krampis. Gary confirmed he does not
+    want the GitHub methods-paper draft re-edited right now — the README
+    already flags it "under active revision," and editing risks drifting
+    from what's archived at the Zenodo DOI. Left untouched.
+    **Class I–V rename — confirmed real, still nowhere implemented,
+    deliberately parked.** `glmp-note-for-hunter.md` (2026-07-20,
+    untracked, not yet committed): "'Class I–V' collided with an existing
+    promoter-architecture usage — inverted, for lac. Now retired." Applies
+    to the Papers I–III complexity-ladder typology specifically, not to
+    the decoder's own real-biology "lac Class II" usage (item 26's CRP
+    promoter architecture), which stays as-is. Nine weeks later, none of
+    it has actually been renamed — not Papers I/II/III's core typology,
+    not `flowchart-circuit-classes.tsv`'s `class (I–V)` column, and the
+    collaboration plan's own "Class IIIa/IIIb" language (Priorities 3–4)
+    predates the July 20 retirement note, so it's stale on this point too.
+    **Gary's explicit call: do nothing yet — wait for Lents to propose the
+    actual replacement term** before any rename, rather than guessing
+    (Gary's own tentative memory, "tiers," already means something else in
+    `glmp-note-for-hunter.md` — a 3-way epistemic distinction, not the
+    5-level ladder — so reusing it would create a second collision, not
+    fix the first one).
+    **Not decided:** whether/when the GitHub methods-paper draft gets
+    reconciled with the archived Zenodo v1.6; whether/when the RPE1
+    replication paper gets started (Krampis-joint, not to begin
+    unprompted); the Class I–V replacement term itself.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
