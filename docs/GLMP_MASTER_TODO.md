@@ -4721,6 +4721,15 @@ gated migration, verified at every phase, in `copernicus-web`:
     10 papers are the evidence base it was waiting on. Flagged to Gary and
     Cursor per the handoff's instruction; deciding next steps on #26 is
     not this item's call.
+    **Follow-up 2026-08-20 (Gary's go, Cursor):** the three method-inventing
+    papers were tagged `glmp-q1` only at ingest. Live `question_scope_ids`
+    ArrayUnion'd with `glmp-q11` (methods split, 2026-08-09) — Galas &
+    Schmitz 1978 `crossref_10.1093_nar_5.9.3157`, Stormo & Hartzell 1989
+    `crossref_10.1073_pnas.86.4.1183`, Gunasekera/Ebright/Ebright 1992
+    `crossref_10.1016_s0021-9258(18)42099-6`. Re-read live: each now
+    `['glmp-q1', 'glmp-q11']`. Lents citation event, singular
+    `cited_for_question=glmp-q1`, title, and metadata untouched. No new
+    citation event invented. #26 PWM construction still not started.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
