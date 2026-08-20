@@ -4731,6 +4731,72 @@ gated migration, verified at every phase, in `copernicus-web`:
     `cited_for_question=glmp-q1`, title, and metadata untouched. No new
     citation event invented. #26 PWM construction still not started.
 
+59. **GLMP validation package, computation track, run directly — 2026-08-20,
+    Claude Code.** The validation package
+    (`storage.googleapis.com/.../validation/index.html`) assigned the
+    computation track (RegulonDB cross-reference for lac/ara/trp) to Prof.
+    Krampis's student assistant. No response after an extended period. Gary
+    asked whether this was something he could do himself; confirmed yes —
+    purely computational, every input file already staged locally, no
+    biological judgment calls (those belong to the separate, still-open
+    biology track). Gary said go; ran it.
+    **Built** `dna-decoder/scripts/regulondb_crossref_analysis.py` following
+    `task-brief-computation.md`'s four-step protocol against
+    `TF-RISet.tsv` (RegulonDB v14.5.0, local) and the three
+    `ecoli_{lac,ara,trp}_operon_logic_20260708.json` decode files.
+    **Two methodological corrections made before trusting any output, both
+    verified by hand rather than assumed:**
+    - The raw `binding_sites` arrays are FIMO's full scan output, not
+      pre-filtered — comparing all raw hits against RegulonDB (first pass)
+      gave a misleading precision/recall (8.6%/18.8%). Verified by direct
+      sequence cross-check that only hits passing the review packet's own
+      locked threshold (p ≤ 0.0001, `CRP_PWM_BIOLOGIST_REVIEW.md`) have
+      real matching sequences in RegulonDB. Threshold-filtered from there.
+    - Pure position-based overlap matching (±20 bp, same TF, per the task
+      brief) silently scored all 4 threshold-passing lac predictions as
+      false positives, despite their sequences matching real RegulonDB
+      sites exactly — the lac decode file's coordinates don't share
+      RegulonDB's reference frame (non-constant offset, direction inverted
+      relative to RegulonDB, though internal spacing between sites matches
+      exactly in both systems). Added a sequence-identity fallback check
+      (matched_seq vs. RegulonDB's `tfrsSeq`, forward + reverse-complement)
+      used only when position matching fails, and labeled every such match
+      explicitly rather than folding it in silently. Also found the trp
+      decode file's scanned window misses RegulonDB's real `trpLp` TrpR
+      sites by ~3.4 kb — a second, independent coordinate issue, not
+      present in the ara file. Fixed the false-negative search to also
+      anchor on the circuit's real regulated promoter name(s)
+      (`lacZp1/2/3`, `araBp`/`araCp`, `trpLp`), not just the decode file's
+      own (possibly wrong) scanned window.
+    **Final result, locked-threshold predictions only:** 5 predictions
+    across lac (4) and ara (1); all 5 correct by sequence identity; **0
+    false positives**. Trp made 0 threshold-passing predictions (best raw
+    p = 0.001, ~10x too weak). Precision 100.0%, recall 19.2% against
+    RegulonDB's row-level count (RegulonDB records one row per TF×promoter
+    ×role combination, so a single physical site is often counted 2–4×;
+    lac's 6 false-negative rows resolve to 3 physical loci, ara's 13 to 6 —
+    noted explicitly in the report so the recall figure isn't
+    misread as a decoder shortfall).
+    **Two discrepancies flagged as decoder-pipeline (not biology, not this
+    item's to fix — explicitly out of scope per this session's own
+    constraint against touching `crp_cap.meme` or decoder internals):**
+    the lac coordinate-frame mismatch, and the trp window/coordinate gap.
+    A third, distinct finding: a real Confirmed LacI site (365922–365942)
+    sits entirely outside the lac file's scanned window — never scanned,
+    not just mis-anchored.
+    **Deliverable:** full report written to
+    `dna-decoder/docs/crp_lac_ara_trp_regulondb_validation_report.md`,
+    following `report-template.md`'s structure. Biology-track annotation
+    checklist items (gate typing, Class II question, quantitative values,
+    attenuation) explicitly marked "not assessed — biology track" rather
+    than guessed at; that track remains open and unaddressed by this item.
+    Not sent anywhere — sitting for Gary's review before any distribution
+    to Krampis/Lents.
+    **Not yet decided:** whether to route the coordinate-frame finding to
+    Cursor as a new tracked item, and whether this report factors into the
+    #26 sign-off conversation alongside the Lents papers (item 58) — Gary's
+    call, not made here.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
