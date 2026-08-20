@@ -586,17 +586,30 @@ gated migration, verified at every phase, in `copernicus-web`:
     covers anything he notices on any chart. States the true, low-key
     result (no error found here) rather than raising a concern that the
     analysis itself didn't support.
-26. **BACK BURNER — CRP PWM** (split from former item 12). Build a
-    position-weight-matrix for CRP binding sites from RegulonDB data — the
-    highest-leverage remaining science move on the decoder, would let the
-    lac operon reach an evidence-backed Class II call from sequence rather
-    than curated biology alone. Real molecular-biology work: per the
-    Reminder to Self below, needs a qualified biologist's judgment, not
-    something to execute unilaterally. **Was on hold pending Prof. Lents'
-    feedback** (2026-07-30) — **unblocked 2026-08-19, see item 58**: Lents
-    sent 10 foundational CRP-lac binding-site papers, now ingested. Next
-    steps on actually building the PWM are still undecided, not resolved
-    by the ingest alone.
+26. **CRP PWM — sign-off pending Lents, decoder already integrated
+    preliminarily** (split from former item 12). A CRP/CAP position-weight-
+    matrix (54 RegulonDB training sites) was built 2026-07-07 and
+    integrated into the decoder 2026-07-08, ahead of the review packet's
+    own "do not integrate until signed off" condition — lac's Class II
+    call has run PROVISIONAL since, specifically because sign-off hadn't
+    happened. Real molecular-biology work: per the Reminder to Self below,
+    needs a qualified biologist's judgment, not something to execute
+    unilaterally. **On hold since 2026-07-30** pending Prof. Lents'
+    feedback on three specific review-packet questions (training-site
+    quality; the `RDBECOLIRIC06347` lacO-overlap holdout; whether
+    lac/ara/flhDC holdout coverage is enough to support a non-circularity
+    claim). **2026-08-19 (item 58):** Lents sent 10 foundational CRP-lac
+    papers, now ingested — filled a methodology gap but did not itself
+    resolve the sign-off. **2026-08-20:** Cursor laid out four options
+    (A — ask Lents to review the existing packet; B — keep as-is, cite the
+    papers, stay PROVISIONAL without asking this week; C — rebuild from a
+    different site set, only if Lents flags the RegulonDB 54 as wrong;
+    D — promote Class II without him, not recommended, against the
+    standing biologist-judgment rule); chose A. Email sent to Lents same
+    day with the three questions verbatim, bundled with items #33 and #59.
+    **No new PWM construction (option C) has started** — the existing
+    RegulonDB-based PWM remains the one live in the decoder, still
+    PROVISIONAL. No further action on our side until Lents replies.
 27. ~~**sciencevideodb quality**~~ — DONE (2026-07-30, split from former item
     12). Scoped as 4 quick fixes; the discipline-naming check led straight
     into a much larger finding: **43% of the 753-video catalog (322 videos)
