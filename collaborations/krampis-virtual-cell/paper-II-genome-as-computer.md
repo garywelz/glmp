@@ -2,7 +2,7 @@ GLMP Working Paper 2026 · Sequel
 
 # The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction
 
-Sequel to: <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a>
+Sequel to: <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a>
 
 Gary Welz  
 Researcher, New Media Lab, CUNY Graduate Center  
@@ -15,7 +15,7 @@ The companion paper established that the choice of primitive relations determine
 
 Scope and Relationship to Companion Paper
 
-This paper is the direct sequel to [*Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class*](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md) (Welz, 2026). Readers are assumed familiar with the companion paper's framework: the foundational dependency DAG, the five-class complexity ladder, the epistemic rung table, and the mathematical instruments of Reverse Mathematics, ordinal analysis, forcing, and computability theory. Where the companion paper established the theoretical framework and stated the central conjecture, this paper takes the conjecture as a working hypothesis and develops its consequences to the level of specific, falsifiable predictions. All predictions are explicitly labeled by confidence level. The companion paper's seven-rung epistemic ladder applies here — the predictions of this paper sit at Rungs 3 through 7.
+This paper is the direct sequel to [*Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class*](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md) (Welz, 2026). Readers are assumed familiar with the companion paper's framework: the foundational dependency DAG, the five-class complexity ladder, the epistemic rung table, and the mathematical instruments of Reverse Mathematics, ordinal analysis, forcing, and computability theory. Where the companion paper established the theoretical framework and stated the central conjecture, this paper takes the conjecture as a working hypothesis and develops its consequences to the level of specific, falsifiable predictions. All predictions are explicitly labeled by confidence level. The companion paper's seven-rung epistemic ladder applies here — the predictions of this paper sit at Rungs 3 through 7.
 
 <span class="part-label">Part I</span> <span class="part-title">The Two-Layer Genome</span>
 
@@ -356,7 +356,7 @@ Either outcome advances the field.
 
 This paper builds on references 1–33 of the companion paper. New references for this sequel:
 
-**Companion paper:** Welz, G. *Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.* GLMP Working Paper, 2026. [Full text](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md).
+**Companion paper:** Welz, G. *Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.* GLMP Working Paper, 2026. [Full text](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md).
 
 1.  Jacob, F. & Monod, J. Genetic regulatory mechanisms in the synthesis of proteins. *Journal of Molecular Biology,* 3(3), 1961. [DOI](https://doi.org/10.1016/S0022-2836(61)80072-7). Founding paper of molecular regulatory logic; establishes the repressor-operator NOT gate.
 2.  Ptashne, M. *A Genetic Switch: Phage Lambda Revisited.* 3rd ed. Cold Spring Harbor Laboratory Press, 2004. Bistable Class III circuit as biconditional with negation.
@@ -379,4 +379,4 @@ This paper builds on references 1–33 of the companion paper. New references fo
 19. Bintu, L. et al. Transcriptional regulation by the numbers: models. *Current Opinion in Genetics & Development,* 15(2), 2005. [DOI](https://doi.org/10.1016/j.gde.2005.02.007). Quantitative treatment of promoter logic as combinatorial input-output functions.
 
 Genome Logic Modeling Project — Gary Welz — CUNY Graduate Center / New Media Lab — Working Paper 2026  
-Sequel to: [*Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class*](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md)
+Sequel to: [*Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class*](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md)

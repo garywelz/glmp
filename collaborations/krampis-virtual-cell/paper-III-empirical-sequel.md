@@ -2,7 +2,7 @@ GLMP Working Paper 2026 · Empirical Companion · Results
 
 # Circuit Class Predicts Virtual Cell Model Accuracy: An Empirical Test of the Genomic Computational Complexity Hypothesis
 
-Empirical companion to: <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a> and <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/genome-as-computer.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>The Genome as Computer</em></a>
+Empirical companion to: <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class</em></a> and <a href="https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md" style="color:inherit;text-decoration:underline;text-decoration-color:#a8c4e0;"><em>The Genome as Computer</em></a>
 
 Gary Welz  
 Researcher, New Media Lab, CUNY Graduate Center  
@@ -588,7 +588,7 @@ All data and code necessary to reproduce the analyses in this paper are availabl
 
 - **Repository:** [github.com/garywelz/glmp](https://github.com/garywelz/glmp) (GLMP: K562 empirical sequel bundle under `k562-empirical-sequel/`; tabulated scores and figures in `results/`; `gene_circuit_classes.tsv` at repository root for script compatibility)
 - **Gene circuit classifications:** `gene_circuit_classes.tsv` (repository root) — GLMP complexity class (I–V) for each of the 780 benchmark genes, with classification rationale and literature references
-- **Working paper:** canonical Markdown on GitHub [`circuit-class-predicts-virtual-cell-model-accuracy.md`](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/circuit-class-predicts-virtual-cell-model-accuracy.md); HTML companion `k562-empirical-sequel/empirical_sequel_draft_v2.html`
+- **Working paper:** canonical Markdown on GitHub [`paper-III-empirical-sequel.md`](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-III-empirical-sequel.md); HTML companion `k562-empirical-sequel/empirical_sequel_draft_v2.html`
 - **Per-gene accuracy scores:** `results/merged_scores.tsv` (14 benchmark methods), `results/state_k562_per_gene_scores.tsv` (STATE HVG), `results/state_k562_de20_scores.tsv` (STATE DE20), `results/grn_propagation_scores.tsv` (TRRUST signed propagation, DE20 metric), `results/celloracle_grammar_advantage.tsv` (CellOracle vs 14-method mean)
 - **GRN topology features:** `results/grn_topology_features.tsv`, `results/grn_topology_vs_accuracy.tsv`
 - **Bimodality analysis:** `results/bimodality_analysis.tsv`, `results/bimodality_report.txt`
@@ -617,7 +617,7 @@ All analyses were performed using Python 3.12 with NumPy, SciPy, pandas, scanpy,
 
 ## References
 
-**Companion papers:** Welz, G. *Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.* GLMP Working Paper, 2026. [Paper I](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md). — Welz, G. *The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction.* GLMP Working Paper, 2026. [Paper II](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/genome-as-computer.md). — Welz, G. *Circuit Class Predicts Virtual Cell Model Accuracy* (this empirical sequel). [Paper III](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/circuit-class-predicts-virtual-cell-model-accuracy.md).
+**Companion papers:** Welz, G. *Primitive Relations, Computational Complexity, and a Conjecture on the Genomic Computational Class.* GLMP Working Paper, 2026. [Paper I](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md). — Welz, G. *The Genome as Computer: Logical Primitives, Runtime States, and the Computational Limits of Biological Prediction.* GLMP Working Paper, 2026. [Paper II](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md). — Welz, G. *Circuit Class Predicts Virtual Cell Model Accuracy* (this empirical sequel). [Paper III](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-III-empirical-sequel.md).
 
 1.  Replogle, J.M. et al. Mapping information-rich genotype-phenotype landscapes with genome-scale Perturb-seq. *Cell,* 185(14), 2022. [DOI](https://doi.org/10.1016/j.cell.2022.05.013).
 2.  Norman, T.M. et al. Exploring genetic interaction manifolds constructed from rich single-cell phenotypes. *Science,* 365(6455), 2019. [DOI](https://doi.org/10.1126/science.aax4438).
@@ -642,4 +642,4 @@ All analyses were performed using Python 3.12 with NumPy, SciPy, pandas, scanpy,
 21. Istrate A-M *et al.* rbio-1: training scientific reasoning LLMs with biological world models as soft verifiers. *bioRxiv,* 2025. [DOI](https://doi.org/10.1101/2025.08.18.670981).
 
 Genome Logic Modeling Project — Gary Welz — CUNY Graduate Center / New Media Lab — Working Paper 2026  
-Empirical companion to: [Paper I](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/primitive-relations-genomic-computational-class.md) and [Paper II](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/genome-as-computer.md)
+Empirical companion to: [Paper I](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-I-foundational-typology.md) and [Paper II](https://github.com/garywelz/glmp/blob/main/collaborations/krampis-virtual-cell/paper-II-genome-as-computer.md)
