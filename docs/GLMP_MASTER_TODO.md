@@ -4818,10 +4818,15 @@ gated migration, verified at every phase, in `copernicus-web`:
     to this item was shared, confirmed: "Item 59, the report, the JSON, and
     the 8 July B1 notebook agree. Claude Code was right not to patch" (i.e.
     right not to have attempted a decoder-side fix itself).
-    **Not yet decided:** whether the Lents email draft (bundling this item
-    with #26 and #33, `copernicus-web/papers/lents_email_draft_2026-08-20.md`)
-    needs its item-3 paragraph revised now that trp's picture has changed —
-    Gary's call, not made here.
+    **Lents email draft already revised, same day:** item-3 paragraph in
+    `copernicus-web/papers/lents_email_draft_2026-08-20.md` (bundling this
+    item with #26 and #33) rewritten to reflect trp's corrected picture —
+    "isn't a clean result, but for a mundane, already-known reason... the
+    trp comparison isn't meaningful yet" — not left as an open question.
+    Independently verified against the live file by Claude Chat, 2026-08-20:
+    thresholds, trp q-values, window coordinates, and precision/recall
+    arithmetic all check out; draft's item 3 confirmed accurate and calm.
+    Still Gary's call whether/when to send.
 
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
