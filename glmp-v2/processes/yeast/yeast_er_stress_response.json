@@ -46,11 +46,11 @@
   "mermaid": "graph TD\n    %% ER Stress Triggers\n    A[Protein Synthesis Increase] --> B[ER Protein Load]\n    C[Mutations in Proteins] --> D[Misfolded Proteins]\n    E[Calcium Depletion] --> F[Chaperone Dysfunction]\n    G[Reducing Agents DTT] --> H[Disulfide Bond Disruption]\n    I[Tunicamycin Treatment] --> J[/Glycosylation Block/]\n    \n    %% OR Gate 1: ER Stress Detection\n    B --> K{OR: Unfolded<br/>Proteins in ER?}\n    D --> K\n    F --> K\n    H --> K\n    J --> K\n    K -->|No| L[Normal ER Homeostasis]\n    K -->|Yes| M[ER Stress Condition]\n    \n    %% Ire1 Sensing\n    M --> N[Ire1 Binds Unfolded Proteins]\n    N --> O[Ire1 Oligomerization]\n    \n    %% AND Gate 1: Ire1 Trans-autophosphorylation\n    O --> P{AND: Ire1 Dimers<br/>Formed?}\n    P -->|No - Monomers| L\n    P -->|Yes - Oligomers| Q[Ire1 Trans-autophosphorylation]\n    \n    Q --> R[Ire1 Kinase Domain Active]\n    R --> S[Ire1 RNase Domain Activated]\n    \n    %% HAC1 mRNA Splicing\n    S --> T[Constitutive HAC1u mRNA]\n    T --> U[Ire1 Recognizes Stem-Loops]\n    \n    %% AND Gate 2: Both Splice Sites\n    U --> V{AND: 5' Site<br/>AND 3' Site?}\n    V -->|No| W[No Splicing]\n    V -->|Yes| X[Ire1 Cleaves Both Sites]\n    \n    X --> Y[Intron Released]\n    Y --> Z[Exon Ligation]\n    \n    %% AND Gate 3: tRNA Ligase Required\n    Z --> AA{AND: Rlg1/Trl1<br/>Ligase Present?}\n    AA -->|No| AB[Splicing Incomplete]\n    AA -->|Yes| AC[HAC1i mRNA Formed]\n    \n    %% Translation Difference\n    W --> AD[HAC1u has Intron]\n    AD --> AE[Translation Stalled]\n    AE --> AF[No Hac1 Protein]\n    \n    AC --> AG[HAC1i mRNA Translated]\n    AG --> AH[Hac1 Protein Produced]\n    AH --> AI[Hac1 Homodimerization]\n    \n    %% Nuclear Localization\n    AI --> AJ{AND: NLS<br/>Functional?}\n    AJ -->|No| AK[Cytoplasmic Retention]\n    AJ -->|Yes| AL[Hac1 Nuclear Import]\n    \n    AL --> AM[Hac1 DNA Binding]\n    AM --> AN[UPRE Element Recognition]\n    AN --> AO[UPR Target Gene Transcription]\n    \n    %% OR Gate 2: Which UPR Target?\n    AO --> AP{OR: Which Gene<br/>Class?}\n    AP -->|Chaperones| AQ[KAR2 PDI1 Expression]\n    AP -->|ERAD| AR[DER1 HRD1 Expression]\n    AP -->|Lipid Synthesis| AS[INO1 OPI3 Expression]\n    AP -->|Quality Control| AT[EUG1 SCJ1 Expression]\n    \n    %% Chaperone Upregulation\n    AQ --> AU[Kar2/BiP Production]\n    AU --> AV[Pdi1 Disulfide Isomerase]\n    AV --> AW[Enhanced Folding Capacity]\n    \n    %% ERAD Enhancement\n    AR --> AX[Der1 Rhomboid Pseudoprotease]\n    AX --> AY[Hrd1 E3 Ubiquitin Ligase]\n    AY --> AZ[ERAD Complex Assembly]\n    AZ --> BA[/Misfolded Protein Degradation/]\n    \n    %% ER Expansion\n    AS --> BB[Phospholipid Synthesis]\n    BB --> BC[ER Membrane Expansion]\n    BC --> BD[Increased ER Volume]\n    \n    %% AND Gate 4: Resolution Check\n    AW --> BE{AND: Folding Improved<br/>AND ERAD Active?}\n    BA --> BE\n    BE -->|No| BF[Sustained UPR]\n    BE -->|Yes| BG[ER Stress Resolution]\n    \n    %% Feedback Inhibition\n    BG --> BH[Unfolded Proteins Cleared]\n    BH --> BI[Ire1 Deactivation]\n    BI --> BJ[No HAC1 Splicing]\n    BJ --> BK[Hac1 Protein Decay]\n    BK --> BL[/UPR Termination/]\n    \n    L --> BM([No UPR Needed])\n    AF --> BM\n    BF --> BN[Chronic ER Stress]\n    BN --> BO{OR: Apoptosis<br/>Pathway?}\n    BO -->|Yes| BP([Cell Death])\n    BO -->|No| BF\n    \n    %% Normal Resolution\n    BD --> BG\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ffd43b,color:#000\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style L fill:#b197fc,color:#fff\n    style M fill:#ff6b6b,color:#fff\n    style N fill:#ffd43b,color:#000\n    style O fill:#74c0fc,color:#fff\n    style Q fill:#51cf66,color:#fff\n    style R fill:#51cf66,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AB fill:#b197fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#ffd43b,color:#000\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#ffd43b,color:#000\n    style AI fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#b197fc,color:#fff\n    style AV fill:#51cf66,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AX fill:#51cf66,color:#fff\n    style AY fill:#51cf66,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#51cf66,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#ff6b6b,color:#fff\n    style BH fill:#ffd43b,color:#000\n    style BI fill:#51cf66,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#ffd43b,color:#000\n    style BL fill:#74c0fc,color:#fff\n    style BM fill:#74c0fc,color:#fff\n    style BN fill:#ff6b6b,color:#fff\n    style BP fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "The unfolded protein response in yeast",
+      "title": "Signalling pathways in the unfolded protein response: development from yeast to mammals.",
       "authors": "Mori K",
-      "journal": "J Biochem",
+      "journal": "Journal of biochemistry",
       "year": 2009,
-      "pmid": "19762341",
+      "pmid": "19861400",
       "doi": "10.1093/jb/mvp166",
       "relevance": "Comprehensive review of UPR in yeast"
     }
@@ -67,7 +67,7 @@
     "yeast_protein_folding"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "ER stress response shows high AND gates for Ire1 oligomerization and RNA splicing requirements.",
@@ -89,9 +89,9 @@
   "loops": 3,
   "copernicusIntegration": {
     "canonicalSourceDoi": "10.1093/jb/mvp166",
-    "canonicalSourcePmid": "19762341",
-    "canonicalSourceTitle": "The unfolded protein response in yeast",
-    "expectedFirestoreId": "pubmed_19762341",
+    "canonicalSourcePmid": "19861400",
+    "canonicalSourceTitle": "Signalling pathways in the unfolded protein response: development from yeast to mammals.",
+    "expectedFirestoreId": "pubmed_19861400",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",

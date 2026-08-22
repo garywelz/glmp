@@ -46,12 +46,12 @@
   "mermaid": "graph TD\n    %% Fatty Acid Entry\n    A[External Fatty Acid] --> B{OR: Chain<br/>Length?}\n    B -->|Long C12-C18| C[Long-Chain FA]\n    B -->|Medium C6-C12| D[Medium-Chain FA]\n    B -->|Short C4-C6| E[Short-Chain FA]\n    \n    %% Uptake\n    C --> F[FadL Outer Membrane Transporter]\n    D --> F\n    E --> G[Passive Diffusion]\n    F --> H[Periplasm]\n    G --> H\n    H --> I[Inner Membrane Transport]\n    I --> J[Cytoplasm]\n    \n    %% FadR Regulation\n    J --> K[/FadR Repressor Bound to DNA/]\n    K --> L{AND: Acyl-CoA<br/>Present?}\n    L -->|No - Glucose Growth| M[\\fadD/fadE/fadBA Repressed/]\n    L -->|Yes - FA Growth| N[Acyl-CoA Binds FadR]\n    \n    N --> O[FadR Releases DNA]\n    O --> P[\\fadD/fadE/fadBA Derepressed/]\n    P --> Q[Fad Enzyme Expression]\n    \n    %% Activation Step\n    Q --> R[FadD Acyl-CoA Synthetase]\n    J --> R\n    R --> S{AND: ATP + CoA<br/>Available?}\n    S -->|No| T[No Activation]\n    S -->|Yes| U[Fatty Acid + ATP + CoA]\n    U --> V[Acyl-AMP Intermediate]\n    V --> W[Acyl-CoA + AMP + PPi]\n    W --> X[Activated Fatty Acid]\n    \n    %% β-Oxidation Cycle Entry\n    X --> Y{OR: Saturation<br/>State?}\n    Y -->|Saturated| Z[Enter Normal β-Oxidation]\n    Y -->|Unsaturated| AA[Additional Isomerases Needed]\n    Y -->|Odd-Chain| AB[Special Propionyl-CoA Step]\n    \n    %% Cycle Step 1: Oxidation\n    Z --> AC[FadE Acyl-CoA Dehydrogenase]\n    AC --> AD{AND: FAD<br/>Available?}\n    AD -->|No| AE[/Cycle Blocked/]\n    AD -->|Yes| AF[Acyl-CoA → trans-2-Enoyl-CoA]\n    AF --> AG[FADH2 Produced]\n    \n    %% Cycle Step 2: Hydration\n    AF --> AH[FadB Enoyl-CoA Hydratase]\n    AH --> AI[Water Addition]\n    AI --> AJ[L-3-Hydroxyacyl-CoA]\n    \n    %% Cycle Step 3: Oxidation\n    AJ --> AK[FadB 3-Hydroxyacyl-CoA DH]\n    AK --> AL{AND: NAD+<br/>Available?}\n    AL -->|No| AE\n    AL -->|Yes| AM[/3-Ketoacyl-CoA/]\n    AM --> AN[NADH Produced]\n    \n    %% Cycle Step 4: Thiolysis\n    AM --> AO[FadA β-Ketothiolase]\n    AO --> AP[\"{AND: CoA-SH<br/>Available?\"]}\n    AP -->|No| AE\n    AP -->|Yes| AQ[Acetyl-CoA + Acyl-CoA n-2]\n    \n    AQ --> AR[Acetyl-CoA Released]\n    AQ --> AS[Shortened Acyl-CoA]\n    \n    %% Cycle Decision\n    AS --> AT{OR: Continue<br/>Oxidation?}\n    AT -->|Chain > C4| AC\n    AT -->|Chain = C4| AU[Butyryl-CoA]\n    AU --> AV[Final Cycle]\n    AV --> AW[2 Acetyl-CoA]\n    \n    %% Energy Production\n    AR --> AX[Acetyl-CoA to TCA Cycle]\n    AW --> AX\n    AX --> AY[TCA Cycle Oxidation]\n    AG --> AZ[FADH2 to ETC]\n    AN --> AZ\n    AZ --> BA[Electron Transport Chain]\n    BA --> BB[~2.5 ATP per FADH2]\n    AY --> BC[~10 ATP per Acetyl-CoA]\n    BB --> BD[Total ATP Generation]\n    BC --> BD\n    \n    %% Unsaturated FA Branch\n    AA --> BE[Enoyl-CoA Isomerase]\n    BE --> BF[Double Bond Repositioning]\n    BF --> AH\n    \n    %% Odd-Chain FA\n    AB --> AG2[Normal Cycles]\n    AG2 --> BH[Final Product Propionyl-CoA]\n    BH --> BI[Methylmalonyl-CoA Mutase]\n    BI --> BJ[Succinyl-CoA]\n    BJ --> AY\n    \n    %% Oxygen Requirement\n    BA --> BK{AND: O2<br/>Available?}\n    BK -->|No - Anaerobic| BL[/β-Oxidation Blocked/]\n    BK -->|Yes - Aerobic| BD\n    \n    BD --> BM([Energy from Fatty Acids])\n    M --> BN([Glucose Metabolism])\n    T --> BO[/(Blocked - No ATP/CoA)/]\n    AE --> BO\n    BL --> BP[/Fermentation Only/]\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#ffd43b,color:#000\n    style R fill:#ffd43b,color:#000\n    style T fill:#51cf66,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AG2 fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#b197fc,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#51cf66,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BH fill:#b197fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BL fill:#74c0fc,color:#fff\n    style BM fill:#b197fc,color:#fff\n    style BN fill:#74c0fc,color:#fff\n    style BO fill:#74c0fc,color:#fff\n    style BP fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "Fatty acid degradation in Escherichia coli",
+      "title": "Two-Carbon Compounds and Fatty Acids as Carbon Sources.",
       "authors": "Clark DP, Cronan JE",
-      "journal": "J Bacteriol",
+      "journal": "EcoSal Plus",
       "year": 2005,
-      "pmid": "15659673",
-      "doi": "10.1128/JB.187.4.1124-1133.2005",
+      "pmid": "26443509",
+      "doi": "10.1128/ecosalplus.3.4.4",
       "relevance": "Comprehensive review of E. coli fatty acid degradation"
     }
   ],
@@ -69,7 +69,7 @@
     "ecoli_tca_cycle"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "β-oxidation shows OR gates for different chain lengths and saturation states.",
@@ -90,10 +90,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 14,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1128/jb.187.4.1124-1133.2005",
-    "canonicalSourcePmid": "15659673",
-    "canonicalSourceTitle": "Fatty acid degradation in Escherichia coli",
-    "expectedFirestoreId": "pubmed_15659673",
+    "canonicalSourceDoi": "10.1128/ecosalplus.3.4.4",
+    "canonicalSourcePmid": "26443509",
+    "canonicalSourceTitle": "Two-Carbon Compounds and Fatty Acids as Carbon Sources.",
+    "expectedFirestoreId": "pubmed_26443509",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",

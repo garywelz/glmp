@@ -46,12 +46,12 @@
   "mermaid": "graph TD\n    %% Heat Stress\n    A[Temperature Increase] --> B{OR: Stress<br/>Level?}\n    B -->|Normal 37°C| C[Homeostasis]\n    B -->|Heat Shock >42°C| D[Protein Stress]\n    \n    %% Normal Conditions\n    C --> E[σ32 RpoH Basal Level]\n    E --> F[DnaK/DnaJ Chaperones Available]\n    F --> G[DnaK Binds σ32]\n    G --> H[DnaJ Stimulates ATPase]\n    H --> I[DnaK-ADP-σ32 Complex]\n    I --> J[GrpE Nucleotide Exchange]\n    J --> K[DnaK Releases σ32]\n    K --> L[FtsH Protease Access]\n    L --> M[/σ32 Degradation/]\n    M --> N[Low σ32 t1/2 ~1 min]\n    N --> O([Basal Heat Shock Genes])\n    \n    %% Heat Shock - Protein Misfolding\n    D --> P[Proteins Unfold]\n    P --> Q[Hydrophobic Residues Exposed]\n    Q --> R[Misfolded Protein Accumulation]\n    \n    %% Chaperone Titration\n    R --> S[DnaK/DnaJ Bind Misfolded Proteins]\n    S --> T[Chaperones Sequestered]\n    T --> U[/σ32 Not Bound by DnaK/]\n    U --> V[σ32 Stabilized]\n    V --> W[σ32 Accumulates]\n    \n    %% σ32-RNAP Complex\n    W --> X[σ32 Binds Core RNAP]\n    X --> Y{AND: σ32 + Core<br/>RNAP?}\n    Y -->|No| Z[/No Transcription/]\n    Y -->|Yes| AA[Eσ32 Holoenzyme]\n    \n    %% Heat Shock Promoter Recognition\n    AA --> AB[Eσ32 Recognizes Heat Shock Promoters]\n    AB --> AC[-35 CTTGAAA]\n    AC --> AD[-10 CCCCATNT]\n    AD --> AE[Heat Shock Gene Transcription]\n    \n    %% OR Gate: Which Heat Shock Gene?\n    AE --> AF{OR: Which<br/>Gene Class?}\n    AF -->|dnaK/dnaJ/grpE| AG[DnaK Chaperone System]\n    AF -->|groEL/groES| AH[GroEL Chaperonin System]\n    AF -->|clpB| AI[ClpB Disaggregase]\n    AF -->|lon/ftsH| AJ[ATP-Dependent Proteases]\n    AF -->|htpG| AK[HtpG Hsp90 Homolog]\n    AF -->|ibpAB| AL[Small Heat Shock Proteins]\n    \n    %% DnaK System Upregulation\n    AG --> AM[DnaK/DnaJ/GrpE Production]\n    AM --> AN[Enhanced Chaperone Capacity]\n    AN --> AO[Protein Refolding]\n    \n    %% GroEL System\n    AH --> AP[GroEL/ES Production]\n    AP --> AQ[GroEL Barrel Complex]\n    AQ --> AR[Anfinsen Cage]\n    AR --> AS[Substrate Encapsulation]\n    AS --> AT[ATP-Dependent Folding]\n    AT --> AO\n    \n    %% ClpB Disaggregase\n    AI --> AU[ClpB AAA+ ATPase]\n    AU --> AV[Aggregate Recognition]\n    AV --> AW{AND: ClpB + DnaK<br/>Cooperation?}\n    AW -->|No| AX[Aggregates Persist]\n    AW -->|Yes| AY[Aggregate Disassembly]\n    AY --> AZ[Proteins Extracted]\n    AZ --> AO\n    \n    %% Proteolytic Quality Control\n    AJ --> BA[Lon/FtsH Proteases]\n    BA --> BB[Recognize Misfolded Proteins]\n    BB --> BC[Irreversibly Damaged]\n    BC --> BD[/Protease Degradation/]\n    BD --> BE[Amino Acids Recycled]\n    \n    %% Negative Feedback\n    AM --> BF[Newly Synthesized DnaK]\n    BF --> BG[Excess Chaperone Capacity]\n    BG --> BH[DnaK Rebinds σ32]\n    BH --> BI[σ32 Destabilization]\n    BI --> BJ[/FtsH Degrades σ32/]\n    BJ --> BK[σ32 Levels Drop]\n    BK --> BL[Heat Shock Response OFF]\n    \n    %% Resolution\n    AO --> BM[Proteins Refolded]\n    BE --> BM\n    BM --> BN[Proteome Restored]\n    BN --> BO[Temperature Normalized]\n    BO --> BP([Recovery])\n    \n    AX --> BQ[Inclusion Bodies]\n    BQ --> BR[Permanent Aggregates]\n    BR --> BS([Cell Death])\n    \n    Z --> BT([No Response])\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#ff6b6b,color:#fff\n    style P fill:#ffd43b,color:#000\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#ffd43b,color:#000\n    style S fill:#ffd43b,color:#000\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#ffd43b,color:#000\n    style AB fill:#ff6b6b,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AE fill:#ff6b6b,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#51cf66,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#ff6b6b,color:#fff\n    style AM fill:#b197fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#ffd43b,color:#000\n    style AP fill:#b197fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#51cf66,color:#fff\n    style AZ fill:#ffd43b,color:#000\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#ffd43b,color:#000\n    style BC fill:#ff6b6b,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#74c0fc,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#74c0fc,color:#fff\n    style BL fill:#ff6b6b,color:#fff\n    style BM fill:#ffd43b,color:#000\n    style BN fill:#74c0fc,color:#fff\n    style BO fill:#74c0fc,color:#fff\n    style BP fill:#74c0fc,color:#fff\n    style BQ fill:#74c0fc,color:#fff\n    style BR fill:#74c0fc,color:#fff\n    style BS fill:#b197fc,color:#fff\n    style BT fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Heat shock response in E. coli",
+      "title": "Regulation of the heat-shock response in bacteria.",
       "authors": "Yura T, Nagai H, Mori H",
-      "journal": "Annu Rev Microbiol",
+      "journal": "Annual review of microbiology",
       "year": 1993,
-      "pmid": "8257110",
-      "doi": "10.1146/annurev.mi.47.100193.002223",
+      "pmid": "7504905",
+      "doi": "10.1146/annurev.mi.47.100193.001541",
       "relevance": "Comprehensive review of heat shock regulation"
     }
   ],
@@ -68,7 +68,7 @@
     "ecoli_protein_folding_chaperones"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "Classic example of post-translational regulation via protein stability. Shows negative feedback loop.",
@@ -89,10 +89,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 0,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1146/annurev.mi.47.100193.002223",
-    "canonicalSourcePmid": "8257110",
-    "canonicalSourceTitle": "Heat shock response in E. coli",
-    "expectedFirestoreId": "pubmed_8257110",
+    "canonicalSourceDoi": "10.1146/annurev.mi.47.100193.001541",
+    "canonicalSourcePmid": "7504905",
+    "canonicalSourceTitle": "Regulation of the heat-shock response in bacteria.",
+    "expectedFirestoreId": "pubmed_7504905",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
