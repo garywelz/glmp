@@ -46,12 +46,12 @@
   "mermaid": "graph TD\n    Start([TCA Cycle]) --> A1[Acetyl-CoA enters cycle]\n    A1 --> A2[\"Acetyl-CoA from: glycolysis, fatty acids, amino acids\"]\n    \n    A2 --> A3[\"Step 1: Citrate Synthase GltA\"]\n    A3 --> A4[Acetyl-CoA + Oxaloacetate + H2O]\n    A4 --> A5[Citrate + CoA-SH]\n    A5 --> A6[ΔG°' = -31.4 kJ/mol - irreversible]\n    \n    A6 --> A7[\"Step 2: Aconitase AcnA AcnB\"]\n    A7 --> A8{Which aconitase isoform?}\n    A8 -->|AcnA - aerobic| A9[Iron-sulfur cluster intact]\n    A8 -->|AcnB - stationary phase| A10[Alternative isoform]\n    \n    A9 --> A11[Citrate ⇌ cis-Aconitate + H2O]\n    A10 --> A11\n    A11 --> A12[cis-Aconitate ⇌ Isocitrate]\n    A12 --> A13[Isocitrate formed]\n    \n    A13 --> A14[\"Step 3: Isocitrate Dehydrogenase\"]\n    A14 --> A15{Which Icd isoform?}\n    A15 -->|Icd NADP+ dependent| A16[Produces NADPH for biosynthesis]\n    A15 -->|IcdA NAD+ dependent| A17[Produces NADH for energy]\n    \n    A16 --> A18[Isocitrate + NADP+ → α-Ketoglutarate + CO2 + NADPH]\n    A17 --> A19[Isocitrate + NAD+ → α-Ketoglutarate + CO2 + NADH]\n    \n    A18 --> A20[α-Ketoglutarate formed]\n    A19 --> A20\n    A20 --> A21[First CO2 released, first NADH/NADPH]\n    \n    A20 --> A22{Branch point at α-ketoglutarate}\n    A22 -->|Biosynthetic| A23[α-Ketoglutarate → Glutamate]\n    A22 -->|Oxidative - continue cycle| A24[\"Step 4: α-Ketoglutarate Dehydrogenase Complex\"]\n    \n    A23 --> A25[Biosynthetic withdrawal for amino acids]\n    \n    A24 --> A26[α-Ketoglutarate Dehydrogenase KDH complex]\n    A26 --> A27[\"E1: SucA - decarboxylase\"]\n    A27 --> A28[\"E2: SucB - dihydrolipoyl transsuccinylase\"]\n    A28 --> A29[\"E3: LpdA - dihydrolipoyl dehydrogenase shared with PDH\"]\n    \n    A29 --> A30{Substrates available?}\n    A30 -->|α-KG + NAD+ + CoA| A31[Complex reaction proceeds]\n    A30 -->|Missing substrate| Wait1[Wait for substrates]\n    Wait1 --> A30\n    \n    A31 --> A32[α-Ketoglutarate + NAD+ + CoA-SH → Succinyl-CoA + CO2 + NADH]\n    A32 --> A33[Second CO2 released, second NADH]\n    A33 --> A34[Succinyl-CoA formed - high energy thioester]\n    \n    A34 --> A35{Succinyl-CoA fate}\n    A35 -->|Biosynthetic| A36[Porphyrin synthesis]\n    A35 -->|Oxidative - continue| A37[\"Step 5: Succinyl-CoA Synthetase SucCD\"]\n    \n    A36 --> A38[Biosynthetic withdrawal for heme]\n    \n    A37 --> A39[Succinyl-CoA + GDP + Pi → Succinate + CoA + GTP]\n    A39 --> A40[Substrate-level phosphorylation - only ATP equivalent]\n    A40 --> A41[GTP formed can phosphorylate ADP]\n    \n    A41 --> A42[\"Step 6: Succinate Dehydrogenase SdhABCD\"]\n    A42 --> A43[Membrane-bound complex II]\n    A43 --> A44[Contains FAD, Fe-S clusters, heme b]\n    \n    A44 --> A45[Succinate + FAD → Fumarate + FADH2]\n    A45 --> A46[FADH2 directly feeds electrons to quinone pool]\n    A46 --> A47[Part of electron transport chain]\n    \n    A47 --> A48{Oxygen availability?}\n    A48 -->|Aerobic| A49[Electrons to O2 via ETC]\n    A48 -->|Anaerobic| A50[Reverse to fumarate reductase FrdABCD]\n    \n    A50 --> A51[Fumarate → Succinate using NADH]\n    A51 --> A52[Anaerobic respiration with fumarate as acceptor]\n    \n    A49 --> A53[\"Step 7: Fumarase FumABC\"]\n    A53 --> A54{Which fumarase?}\n    A54 -->|FumA - aerobic| A55[Class I fumarase]\n    A54 -->|FumB - all conditions| A56[Class I fumarase]\n    A54 -->|FumC - aerobic Fe-S resistant| A57[Class II fumarase]\n    \n    A55 --> A58[Fumarate + H2O ⇌ L-Malate]\n    A56 --> A58\n    A57 --> A58\n    \n    A58 --> A59[L-Malate formed]\n    \n    A59 --> A60[\"Step 8: Malate Dehydrogenase Mdh\"]\n    A60 --> A61[L-Malate + NAD+ ⇌ Oxaloacetate + NADH + H+]\n    A61 --> A62[Third NADH produced]\n    \n    A62 --> A63[Oxaloacetate regenerated]\n    A63 --> A64[Cycle complete - ready for next acetyl-CoA]\n    \n    A64 --> A65{Continue cycling?}\n    A65 -->|Yes - acetyl-CoA available| A3\n    A65 -->|No| End1([Cycle paused])\n    \n    A21 --> A66[Reducing equivalents summary per cycle]\n    A33 --> A66\n    A40 --> A66\n    A46 --> A66\n    A62 --> A66\n    \n    A66 --> A67[3 NADH produced]\n    A67 --> A68[1 FADH2 produced]\n    A68 --> A69[1 GTP produced]\n    A69 --> A70[2 CO2 released]\n    \n    A70 --> A71[\"Total: 3 NADH + 1 FADH2 + 1 GTP = ~10 ATP from ETC\"]\n    \n    A71 --> End2([Energy and biosynthetic output])\n    \n    A25 --> A72[Biosynthetic outputs]\n    A38 --> A72\n    A72 --> A73[α-KG → Glu → Pro, Arg]\n    A73 --> A74[Succinyl-CoA → Heme]\n    A74 --> A75[Oxaloacetate → Asp → Asn, Met, Thr, Ile, Lys]\n    \n    A75 --> End3([Biosynthetic precursors])\n    \n    A52 --> A76[Anaerobic TCA cycle modifications]\n    A76 --> A77[Glyoxylate shunt bypasses CO2 steps]\n    A77 --> End4([Alternative modes])\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A1 fill:#74c0fc,color:#fff\n    style A2 fill:#74c0fc,color:#fff\n    style A3 fill:#51cf66,color:#fff\n    style A4 fill:#74c0fc,color:#fff\n    style A5 fill:#74c0fc,color:#fff\n    style A6 fill:#74c0fc,color:#fff\n    style A7 fill:#74c0fc,color:#fff\n    style A9 fill:#74c0fc,color:#fff\n    style A10 fill:#74c0fc,color:#fff\n    style A11 fill:#74c0fc,color:#fff\n    style A12 fill:#74c0fc,color:#fff\n    style A13 fill:#74c0fc,color:#fff\n    style A14 fill:#74c0fc,color:#fff\n    style A16 fill:#51cf66,color:#fff\n    style A17 fill:#b197fc,color:#fff\n    style A18 fill:#74c0fc,color:#fff\n    style A19 fill:#74c0fc,color:#fff\n    style A20 fill:#74c0fc,color:#fff\n    style A21 fill:#74c0fc,color:#fff\n    style A23 fill:#74c0fc,color:#fff\n    style A24 fill:#74c0fc,color:#fff\n    style A25 fill:#74c0fc,color:#fff\n    style A26 fill:#74c0fc,color:#fff\n    style A27 fill:#74c0fc,color:#fff\n    style A28 fill:#74c0fc,color:#fff\n    style A29 fill:#74c0fc,color:#fff\n    style A31 fill:#74c0fc,color:#fff\n    style A32 fill:#74c0fc,color:#fff\n    style A33 fill:#74c0fc,color:#fff\n    style A34 fill:#b197fc,color:#fff\n    style A36 fill:#51cf66,color:#fff\n    style A37 fill:#ffd43b,color:#000\n    style A38 fill:#74c0fc,color:#fff\n    style A39 fill:#74c0fc,color:#fff\n    style A40 fill:#51cf66,color:#fff\n    style A41 fill:#74c0fc,color:#fff\n    style A42 fill:#74c0fc,color:#fff\n    style A43 fill:#74c0fc,color:#fff\n    style A44 fill:#74c0fc,color:#fff\n    style A45 fill:#74c0fc,color:#fff\n    style A46 fill:#74c0fc,color:#fff\n    style A47 fill:#51cf66,color:#fff\n    style A49 fill:#74c0fc,color:#fff\n    style A50 fill:#51cf66,color:#fff\n    style A51 fill:#74c0fc,color:#fff\n    style A52 fill:#74c0fc,color:#fff\n    style A53 fill:#74c0fc,color:#fff\n    style A55 fill:#74c0fc,color:#fff\n    style A56 fill:#74c0fc,color:#fff\n    style A57 fill:#74c0fc,color:#fff\n    style A58 fill:#74c0fc,color:#fff\n    style A59 fill:#74c0fc,color:#fff\n    style A60 fill:#74c0fc,color:#fff\n    style A61 fill:#74c0fc,color:#fff\n    style A62 fill:#74c0fc,color:#fff\n    style A63 fill:#74c0fc,color:#fff\n    style A64 fill:#b197fc,color:#fff\n    style A66 fill:#74c0fc,color:#fff\n    style A67 fill:#74c0fc,color:#fff\n    style A68 fill:#74c0fc,color:#fff\n    style A69 fill:#74c0fc,color:#fff\n    style A70 fill:#74c0fc,color:#fff\n    style A71 fill:#74c0fc,color:#fff\n    style A72 fill:#b197fc,color:#fff\n    style A73 fill:#74c0fc,color:#fff\n    style A74 fill:#74c0fc,color:#fff\n    style A75 fill:#74c0fc,color:#fff\n    style A76 fill:#51cf66,color:#fff\n    style A77 fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "The tricarboxylic acid cycle in Escherichia coli",
+      "title": "The PEP-pyruvate-oxaloacetate node as the switch point for carbon flux distribution in bacteria.",
       "authors": "Sauer U, Eikmanns BJ",
-      "journal": "Biotechnol Bioeng",
+      "journal": "FEMS microbiology reviews",
       "year": 2005,
-      "pmid": "16003780",
-      "doi": "10.1002/bit.20632",
+      "pmid": "16102602",
+      "doi": "10.1016/j.femsre.2004.11.002",
       "relevance": "Comprehensive review of TCA cycle regulation and flux in E. coli"
     },
     {
@@ -59,9 +59,10 @@
       "authors": "Gruer MJ, Artymiuk PJ, Guest JR",
       "journal": "Microbiology",
       "year": 1997,
-      "pmid": "9335278",
-      "doi": "10.1099/00221287-143-10-3301",
-      "relevance": "Discovery and characterization of AcnA and AcnB isoenzymes"
+      "pmid": "",
+      "doi": "",
+      "relevance": "Discovery and characterization of AcnA and AcnB isoenzymes",
+      "note": "Second-pass: Gruer+Guest 1997 has several aconitase papers. Identifiers remain stripped."
     },
     {
       "title": "Isocitrate dehydrogenase of Escherichia coli",
@@ -104,7 +105,7 @@
     "ecoli_glyoxylate_shunt"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "The TCA cycle is the central hub of aerobic metabolism, integrating energy production with biosynthesis. E. coli's cycle has unique features: isoenzymes for different conditions (AcnA vs AcnB, FumA/B/C), NADP+-dependent Icd for NADPH production, and reversibility under anaerobic conditions (fumarate reductase). Branch points at α-ketoglutarate and succinyl-CoA provide biosynthetic precursors. The cycle is regulated by substrate availability, energy charge (NADH/NAD+ ratio), and catabolite repression (ArcAB, Cra). Under anaerobiosis or on acetate, the glyoxylate shunt bypasses the CO2-producing steps. This metabolic flexibility allows E. coli to thrive in diverse environments.",
@@ -125,10 +126,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 56,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1002/bit.20632",
-    "canonicalSourcePmid": "16003780",
-    "canonicalSourceTitle": "The tricarboxylic acid cycle in Escherichia coli",
-    "expectedFirestoreId": "pubmed_16003780",
+    "canonicalSourceDoi": "10.1016/j.femsre.2004.11.002",
+    "canonicalSourcePmid": "16102602",
+    "canonicalSourceTitle": "The PEP-pyruvate-oxaloacetate node as the switch point for carbon flux distribution in bacteria.",
+    "expectedFirestoreId": "pubmed_16102602",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
