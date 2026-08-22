@@ -46,12 +46,12 @@
   "mermaid": "graph TD\n    %% Glucose Sensing\n    A[Glucose Level] --> B{OR: Glucose<br/>Status?}\n    B -->|High| C[/Glucose Repression/]\n    B -->|Low| D[Energy Stress]\n    \n    %% High Glucose - Snf1 Inactive\n    C --> E[High ATP/AMP Ratio]\n    E --> F[Reg1 Phosphatase Active]\n    F --> G[Reg1 Dephosphorylates Snf1]\n    G --> H[/Snf1 Inactive/]\n    H --> I[/Mig1 Repressor Active/]\n    I --> J[/Alternative Carbon Genes Repressed/]\n    \n    %% Low Glucose - Snf1 Activation\n    D --> K[Low ATP/AMP Ratio]\n    K --> L[AMP/ADP Accumulation]\n    L --> M[Snf4 Binds AMP]\n    \n    M --> N{AND: Snf1/Snf4/β<br/>Complex?}\n    N -->|No| O[No Activation]\n    N -->|Yes| P[Snf1 Heterotrimer]\n    \n    P --> Q{OR: Which<br/>β-Subunit?}\n    Q -->|Gal83| R[Cytoplasmic Localization]\n    Q -->|Sip1| S[Stress Granules]\n    Q -->|Sip2| T[Vacuolar Membrane]\n    \n    %% Upstream Kinase Activation\n    R --> U{OR: Which<br/>Upstream Kinase?}\n    S --> U\n    T --> U\n    \n    U -->|Sak1| V[Sak1 Kinase]\n    U -->|Elm1| W[Elm1 Kinase]\n    U -->|Tos3| X[Tos3 Kinase]\n    \n    V --> Y[Sak1 Phosphorylates Snf1-Thr210]\n    W --> Y\n    X --> Y\n    Y --> Z[Snf1 Activated]\n    \n    %% Mig1 Regulation\n    Z --> AA[Snf1 Phosphorylates Mig1]\n    AA --> AB[Mig1-P Nuclear Export]\n    AB --> AC[Mig1 Cytoplasmic]\n    AC --> AD[\\SUC2/GAL Genes Derepressed/]\n    \n    AD --> AE{OR: Which Gene<br/>Class?}\n    AE -->|SUC2| AF[Invertase - Sucrose Use]\n    AE -->|GAL1-10| AG[Galactose Metabolism]\n    AE -->|MAL| AH[/Maltose Utilization/]\n    \n    AF --> AI[Sucrose Catabolism]\n    AG --> AJ[/Galactose Catabolism/]\n    AH --> AK[Maltose Catabolism]\n    \n    AI --> AL([Alternative Carbon Source Use])\n    AJ --> AL\n    AK --> AL\n    \n    %% Adr1 Activation\n    Z --> AM[Snf1 Phosphorylates Adr1]\n    AM --> AN[Adr1-P Nuclear Import]\n    AN --> AO[Adr1 Active TF]\n    AO --> AP[ADH2/POX1/CTA1 Expression]\n    AP --> AQ[Ethanol Oxidation]\n    AQ --> AR[Peroxisomal Fatty Acid β-Oxidation]\n    AR --> AS([Gluconeogenesis])\n    \n    %% Cat8 Activation\n    Z --> AT[Snf1 Activates Cat8]\n    AT --> AU[Cat8 TF Nuclear]\n    AU --> AV[Gluconeogenic Genes]\n    AV --> AW[FBP1/PCK1/ICL1]\n    AW --> AS\n    \n    %% Metabolic Enzyme Regulation\n    Z --> AX{OR: Which<br/>Enzyme?}\n    AX -->|Acc1| AY[Acc1 Acetyl-CoA Carboxylase]\n    AX -->|Hmg1| AZ[Hmg1 HMG-CoA Reductase]\n    \n    AY --> BA[Snf1 Phosphorylates Acc1]\n    BA --> BB[/Acc1 Inhibited/]\n    BB --> BC[Fatty Acid Synthesis Reduced]\n    \n    AZ --> BD[Snf1 Phosphorylates Hmg1]\n    BD --> BE[/Hmg1 Inhibited/]\n    BE --> BF[Sterol Synthesis Reduced]\n    \n    BC --> BG[Energy Conservation]\n    BF --> BG\n    BG --> BH([Metabolic Remodeling])\n    \n    %% Integration with TOR\n    D --> BI[/TORC1 Inhibition/]\n    BI --> BJ[Autophagy Induction]\n    Z --> BJ\n    BJ --> BK[/Protein Degradation/]\n    BK --> BL[Amino Acid Recycling]\n    BL --> BM([Survival])\n    \n    %% Feedback Regulation\n    Z --> BN[Snf1 Autophosphorylation]\n    BN --> BO[Enhanced Activity]\n    BO --> Z\n    \n    AL --> BP[Glucose Restored]\n    BP --> BQ[ATP/AMP Ratio Increases]\n    BQ --> F\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#51cf66,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style O fill:#51cf66,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#ff6b6b,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#51cf66,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#51cf66,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#51cf66,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#51cf66,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#51cf66,color:#fff\n    style BG fill:#b197fc,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#74c0fc,color:#fff\n    style BL fill:#74c0fc,color:#fff\n    style BM fill:#b197fc,color:#fff\n    style BN fill:#51cf66,color:#fff\n    style BO fill:#74c0fc,color:#fff\n    style BP fill:#74c0fc,color:#fff\n    style BQ fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "The Snf1 kinase and energy homeostasis",
+      "title": "SNF1/AMPK pathways in yeast.",
       "authors": "Hedbacker K, Carlson M",
-      "journal": "Biochim Biophys Acta",
+      "journal": "Frontiers in bioscience : a journal and virtual library",
       "year": 2008,
-      "pmid": "18299209",
-      "doi": "10.1016/j.bbapap.2008.01.013",
+      "pmid": "17981722",
+      "doi": "10.2741/2854",
       "relevance": "Comprehensive review of Snf1/AMPK pathway"
     }
   ],
@@ -68,7 +68,7 @@
     "yeast_pka_pathway"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "Shows high AND gates (7) for Snf1 complex assembly. Conserved energy sensor (AMPK in humans).",
@@ -89,10 +89,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 3,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1016/j.bbapap.2008.01.013",
-    "canonicalSourcePmid": "18299209",
-    "canonicalSourceTitle": "The Snf1 kinase and energy homeostasis",
-    "expectedFirestoreId": "pubmed_18299209",
+    "canonicalSourceDoi": "10.2741/2854",
+    "canonicalSourcePmid": "17981722",
+    "canonicalSourceTitle": "SNF1/AMPK pathways in yeast.",
+    "expectedFirestoreId": "pubmed_17981722",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",

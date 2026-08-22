@@ -46,11 +46,11 @@
   "mermaid": "graph TD\n    %% Phage Infection\n    A[Bacteriophage Attachment] --> B[Phage DNA Injection]\n    B --> C[Foreign DNA Enters Cell]\n    \n    %% OR Gate 1: Which Defense System?\n    C --> D{OR: Which<br/>Defense Active?}\n    D -->|R-M System| E[Restriction-Modification]\n    D -->|CRISPR-Cas| F[Adaptive Immunity]\n    D -->|Abortive Infection| G[Suicide System]\n    D -->|None| H[Infection Succeeds]\n    \n    %% R-M System Branch\n    E --> I[Foreign DNA Recognition]\n    I --> J{AND: DNA Unmethylated<br/>at Recognition Site?}\n    J -->|No - Methylated| K[DNA Protected]\n    J -->|Yes - Unmethylated| L[Restriction Enzyme Cleavage]\n    \n    L --> M{OR: Which<br/>Restriction Enzyme?}\n    M -->|EcoRI| N[GAATTC Site Cleavage]\n    M -->|EcoRV| O[GATATC Site Cleavage]\n    M -->|Other| P[Other Sequence Cleavage]\n    \n    N --> Q[Phage DNA Fragmented]\n    O --> Q\n    P --> Q\n    Q --> R[/DNA Degradation/]\n    R --> S([Phage Destroyed])\n    \n    %% Self DNA Protection\n    K --> T[Host DNA Methyltransferase]\n    T --> U[Recognition Site Methylation]\n    U --> V[Self DNA Protected]\n    V --> W([Host Survives])\n    \n    %% CRISPR-Cas Branch\n    F --> X{OR: Prior<br/>Exposure?}\n    X -->|No - First Infection| Y[Adaptation Phase]\n    X -->|Yes - Memory| Z[Interference Phase]\n    \n    %% CRISPR Adaptation\n    Y --> AA[Cas1/Cas2 Complex]\n    AA --> AB[Phage DNA Fragment Selection]\n    AB --> AC[Protospacer Selection]\n    AC --> AD{AND: PAM Sequence<br/>Adjacent?}\n    AD -->|No| AE[/Not Suitable/]\n    AD -->|Yes| AF[Spacer Integration]\n    \n    AF --> AG[CRISPR Array Expansion]\n    AG --> AH[New Spacer Added]\n    AH --> AI[Heritable Memory]\n    AI --> AJ[Future Protection Acquired]\n    \n    %% CRISPR Interference\n    Z --> AK[CRISPR Locus Transcription]\n    AK --> AL[Pre-crRNA Synthesis]\n    AL --> AM[Cas6 Endonuclease]\n    AM --> AN[crRNA Processing]\n    AN --> AO[Mature crRNAs]\n    \n    %% Cascade Complex Assembly\n    AO --> AP{AND: All Cas Proteins<br/>Present?}\n    AP -->|No| AQ[No Immunity]\n    AP -->|Yes| AR[Cascade Complex Assembly]\n    \n    AR --> AS[Cas8/Cas11/Cas7 Complex]\n    AS --> AT{AND: crRNA<br/>Loaded?}\n    AT -->|No| AQ\n    AT -->|Yes| AU[Active Surveillance Complex]\n    \n    %% Target Recognition\n    AU --> AV[Foreign DNA Scanning]\n    AV --> AW{AND: Spacer Match<br/>AND PAM Present?}\n    AW -->|No| AX[No Match - Scanning Continues]\n    AW -->|Yes| AY[Target Recognition]\n    \n    AY --> AZ[R-loop Formation]\n    AZ --> BA[Cas3 Helicase-Nuclease Recruitment]\n    BA --> BB[/Target DNA Degradation/]\n    BB --> BC[Phage Genome Destroyed]\n    BC --> BD([Phage Neutralized])\n    \n    %% Abortive Infection\n    G --> BE[Infection Detected]\n    BE --> BF[Toxin Activation]\n    BF --> BG[Cell Suicide]\n    BG --> BH[/DNA Replication Halted/]\n    BH --> BI[/Phage Cannot Replicate/]\n    BI --> BJ([Colony Protected])\n    \n    %% Failed Defense\n    H --> BK[Phage Replication]\n    BK --> BL[Progeny Phage Assembly]\n    BL --> BM[Cell Lysis]\n    BM --> BN([Infection Spreads])\n    \n    %% Self/Non-self Discrimination\n    V --> BO{OR: Target<br/>DNA?}\n    BO -->|Self| BP[Methylation Protects]\n    BO -->|Foreign| BQ[Restriction Cleaves]\n    BP --> W\n    BQ --> S\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#ffd43b,color:#000\n    style N fill:#51cf66,color:#fff\n    style O fill:#51cf66,color:#fff\n    style P fill:#51cf66,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#51cf66,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style Y fill:#b197fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#51cf66,color:#fff\n    style AL fill:#51cf66,color:#fff\n    style AM fill:#51cf66,color:#fff\n    style AN fill:#51cf66,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#51cf66,color:#fff\n    style BG fill:#b197fc,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#51cf66,color:#fff\n    style BL fill:#51cf66,color:#fff\n    style BM fill:#b197fc,color:#fff\n    style BN fill:#74c0fc,color:#fff\n    style BP fill:#74c0fc,color:#fff\n    style BQ fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "CRISPR-Cas systems in bacteria and archaea",
+      "title": "CRISPR interference: RNA-directed adaptive immunity in bacteria and archaea.",
       "authors": "Marraffini LA, Sontheimer EJ",
-      "journal": "Nat Rev Genet",
+      "journal": "Nature reviews. Genetics",
       "year": 2010,
-      "pmid": "20548291",
+      "pmid": "20125085",
       "doi": "10.1038/nrg2749",
       "relevance": "Review of CRISPR mechanisms"
     }
@@ -66,7 +66,7 @@
     "ecoli_dna_modification"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "Phage defense shows high OR gates for multiple defense mechanisms.",
@@ -88,9 +88,9 @@
   "loops": 0,
   "copernicusIntegration": {
     "canonicalSourceDoi": "10.1038/nrg2749",
-    "canonicalSourcePmid": "20548291",
-    "canonicalSourceTitle": "CRISPR-Cas systems in bacteria and archaea",
-    "expectedFirestoreId": "pubmed_20548291",
+    "canonicalSourcePmid": "20125085",
+    "canonicalSourceTitle": "CRISPR interference: RNA-directed adaptive immunity in bacteria and archaea.",
+    "expectedFirestoreId": "pubmed_20125085",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",

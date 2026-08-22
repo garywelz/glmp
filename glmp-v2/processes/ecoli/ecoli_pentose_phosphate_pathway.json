@@ -46,12 +46,12 @@
   "mermaid": "graph TD\n    %% Entry Points\n    A[Glucose-6-Phosphate] --> B{OR: Which<br/>Pathway?}\n    B -->|Oxidative PPP| C[Enter Oxidative Phase]\n    B -->|Glycolysis| D[Phosphoglucose Isomerase]\n    B -->|Both| E[Flux Split]\n    \n    %% Oxidative Phase Step 1\n    C --> F[\"Zwf: G6P Dehydrogenase\"]\n    F --> G{AND: NADP+<br/>Available?}\n    G -->|No| H[\\Enzyme Inhibited/]\n    G -->|Yes| I[6-Phosphogluconolactone]\n    I --> J[NADPH #1 Produced]\n    \n    %% Oxidative Phase Step 2\n    I --> K[\"Pgl: 6-Phosphogluconolactonase\"]\n    K --> L[6-Phosphogluconate]\n    \n    %% Oxidative Phase Step 3\n    L --> M[\"Gnd: 6PG Dehydrogenase\"]\n    M --> N{AND: NADP+<br/>Available?}\n    N -->|No| O[\\Enzyme Inhibited/]\n    N -->|Yes| P[Ribulose-5-Phosphate]\n    P --> Q[NADPH #2 Produced]\n    P --> R[CO2 Released]\n    \n    %% Branch Point\n    P --> S{OR: Cellular<br/>Need?}\n    S -->|NADPH for Biosynthesis| T[End Oxidative - NADPH Output]\n    S -->|Ribose-5-P for Nucleotides| U[Enter Isomerization]\n    S -->|Recycle to Glycolysis| V[Enter Non-oxidative Phase]\n    \n    %% Isomerization\n    U --> W[\"Rpe: Ru5P Epimerase\"]\n    W --> X[Xylulose-5-Phosphate]\n    U --> Y[\"Rpi: Ru5P Isomerase\"]\n    Y --> Z[Ribose-5-Phosphate]\n    \n    %% OR Gate: Nucleotide Synthesis\n    Z --> AA{OR: Which<br/>Nucleotide?}\n    AA -->|Purine| AB[PRPP Synthetase]\n    AA -->|Pyrimidine| AC[UMP Synthesis]\n    AA -->|Histidine| AD[Histidine Biosynthesis]\n    AB --> AE([Nucleotide Biosynthesis])\n    AC --> AE\n    AD --> AE\n    \n    %% Non-oxidative Phase\n    V --> AF[Mix of Sugar Phosphates]\n    X --> AF\n    Z --> AF\n    \n    %% Transketolase Reaction 1\n    AF --> AG[\"TktA: Transketolase\"]\n    AG --> AH[/X5P + R5P → S7P + G3P/]\n    AH --> AI[Sedoheptulose-7-P]\n    AH --> AJ[Glyceraldehyde-3-P]\n    \n    %% Transaldolase Reaction\n    AI --> AK[\"TalB: Transaldolase\"]\n    AJ --> AK\n    AK --> AL[S7P + G3P → F6P + E4P]\n    AL --> AM[Fructose-6-Phosphate]\n    AL --> AN[Erythrose-4-Phosphate]\n    \n    %% Transketolase Reaction 2\n    AN --> AO[\"/TktB: Transketolase\"]\n    X --> AO\n    AO --> AP[E4P + X5P → F6P + G3P]\n    AP --> AQ[Fructose-6-Phosphate #2]\n    AP --> AR[Glyceraldehyde-3-P #2]\n    \n    %% Return to Glycolysis\n    AM --> AS{OR: Which<br/>Fate?}\n    AQ --> AS\n    AS -->|Lower Glycolysis| AT[Fructose-1,6-Bisphosphate]\n    AS -->|Gluconeogenesis| AU[Glucose-6-Phosphate]\n    \n    AJ --> AV{OR: Glycolysis<br/>Fate?}\n    AR --> AV\n    AV -->|Pyruvate| AW[Lower Glycolysis]\n    AV -->|Recycle| AU\n    \n    %% Operational Modes\n    AT --> AX[\"Mode 1: Max NADPH\"]\n    AU --> AY[\"Mode 2: Max Ribose-5-P\"]\n    AU --> AZ[\"Mode 3: Recycle to Glycolysis\"]\n    \n    %% Outputs\n    T --> BA([NADPH for Fatty Acid Synthesis])\n    J --> BA\n    Q --> BA\n    AW --> BB([Pyruvate to TCA])\n    AX --> BB\n    AY --> BC([Pentose Sugars])\n    AZ --> BD([Glycolytic Intermediates])\n    \n    %% Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style T fill:#b197fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AB fill:#ffd43b,color:#000\n    style AC fill:#51cf66,color:#fff\n    style AD fill:#51cf66,color:#fff\n    style AE fill:#51cf66,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "The pentose phosphate pathway",
-      "authors": "Stincone A, Prigione A, Cramer T, et al.",
-      "journal": "Nat Rev Mol Cell Biol",
+      "title": "The return of metabolism: biochemistry and physiology of the pentose phosphate pathway.",
+      "authors": "Stincone A, Prigione A, Cramer T, Wamelink MM, Campbell K, Cheung E, Olin-Sandoval V, Grüning NM, Krüger A, Tauqeer Alam M, Keller MA, Breitenbach M, Brindle KM, Rabinowitz JD, Ralser M",
+      "journal": "Biological reviews of the Cambridge Philosophical Society",
       "year": 2015,
-      "pmid": "25585159",
-      "doi": "10.1038/nrm3934",
+      "pmid": "25243985",
+      "doi": "10.1111/brv.12140",
       "relevance": "Comprehensive review of PPP function"
     }
   ],
@@ -67,7 +67,7 @@
     "ecoli_nucleotide_biosynthesis"
   ],
   "created": "2025-10-15",
-  "lastUpdated": "2025-10-15",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Claude-4-Sonnet",
   "notes": "PPP shows high OR gates for multiple operational modes and branch points.",
@@ -88,10 +88,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 0,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1038/nrm3934",
-    "canonicalSourcePmid": "25585159",
-    "canonicalSourceTitle": "The pentose phosphate pathway",
-    "expectedFirestoreId": "pubmed_25585159",
+    "canonicalSourceDoi": "10.1111/brv.12140",
+    "canonicalSourcePmid": "25243985",
+    "canonicalSourceTitle": "The return of metabolism: biochemistry and physiology of the pentose phosphate pathway.",
+    "expectedFirestoreId": "pubmed_25243985",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
