@@ -46,16 +46,15 @@
   "mermaid": "graph TD\n    %% Transcription Elongation Context\n    A[Active Transcription Elongation] --> B[RNAP Approaching Gene End]\n    B --> C[/Termination Signal<br/>Type?/]\n    \n    %% Intrinsic Termination Pathway\n    C -->|Intrinsic| D[Hairpin Formation in RNA]\n    D --> E[U-Rich Sequence]\n    E --> F[RNA-DNA Hybrid Destabilization]\n    F --> G[Transcript Release]\n    G --> H[Core RNAP Release]\n    \n    %% Rho-Dependent Termination Pathway\n    C -->|Rho-Dependent| I[Rho Binding to rut Site]\n    I --> J[Rho Hexamer Assembly]\n    J --> K[ATP-Dependent Translocation]\n    K --> L[Rho Catches RNAP]\n    L --> M[RNA-DNA Unwinding]\n    M --> N[Transcript Release]\n    N --> O[Core RNAP Release]\n    \n    %% Core Enzyme State\n    H --> P[Free Core Enzyme]\n    O --> P\n    P --> Q[Core RNAP in Cytoplasm]\n    \n    %% Sigma Factor Availability\n    R[Sigma Factor Pool] --> S{Which Sigma<br/>Factor?}\n    S -->|σ70| T[Sigma-70 Available]\n    S -->|σ38| U[Sigma-38 Available]\n    S -->|σ32| V[Sigma-32 Available]\n    S -->|Other| W[Alternative Sigma]\n    \n    %% Anti-Sigma Regulation\n    T --> X{Anti-Sigma<br/>Present?}\n    X -->|No| Y[Free Sigma-70]\n    X -->|Yes| Z[Sigma Sequestered]\n    \n    %% Holoenzyme Formation\n    Q --> AA{Core RNAP<br/>Available?}\n    Y --> AA\n    \n    AA --> ANDGATE1{Core Available AND<br/>Sigma Available?}\n    ANDGATE1 -->|Yes| AB[Core-Sigma Association]\n    ANDGATE1 -->|No| AC[Wait State]\n    \n    AB --> AD[RNAP Holoenzyme Formation]\n    AD --> AE[Holoenzyme in Cytoplasm]\n    \n    %% Promoter Recognition\n    AF[Promoter DNA] --> AG{Promoter<br/>Accessible?}\n    AG -->|Yes| AH[Open Promoter]\n    AG -->|No| AI[\\Blocked Promoter/]\n    \n    AE --> AJ{Holoenzyme Finds<br/>Promoter?}\n    AH --> AJ\n    \n    AJ -->|Yes| AK[Promoter Recognition]\n    AK --> AL[Closed Complex Formation]\n    AL --> AM[DNA Melting]\n    AM --> AN[Open Complex Formation]\n    \n    %% Transcription Initiation\n    AN --> AO{NTPs and<br/>Factors Ready?}\n    AO --> ANDGATE2{Open Complex AND<br/>NTPs Available?}\n    \n    ANDGATE2 -->|Yes| AP[Abortive Initiation Cycles]\n    AP --> AQ[Promoter Clearance]\n    AQ --> AR[Sigma Release]\n    AR --> AS[Elongation Complex]\n    \n    %% Recycling Complete\n    AS --> AT[New Transcript Synthesis]\n    AR --> AU[Sigma Returns to Pool]\n    AU --> R\n    \n    %% Failed Paths\n    Z --> AV[Reduced Transcription]\n    AC --> AW[Delayed Reinitiation]\n    AI --> AX[/No Transcription/]\n    \n    %% Styling - GLMP Color Scheme\n    %% Red: Triggers & Inputs\n    \n    %% Yellow: Structures & Objects\n    \n    %% Green: Processing & Operations\n    \n    %% Blue: Intermediates & States\n    \n    %% Orange: OR Logic Gates\n    \n    %% Lavender: AND Logic Gates\n    \n    %% Violet: Products & Outputs\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#74c0fc,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#51cf66,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style M fill:#74c0fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style O fill:#74c0fc,color:#fff\n    style P fill:#ffd43b,color:#000\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#ffd43b,color:#000\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AD fill:#ffd43b,color:#000\n    style AE fill:#ffd43b,color:#000\n    style AF fill:#74c0fc,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AL fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AQ fill:#74c0fc,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#51cf66,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#51cf66,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "Mechanism of transcription termination by E. coli RNA polymerase",
+      "title": "Mechanisms of Bacterial Transcription Termination.",
       "authors": "Roberts JW",
-      "journal": "Proceedings of the National Academy of Sciences",
+      "journal": "Journal of molecular biology",
       "year": 2019,
       "volume": "116",
       "issue": "18",
       "pages": "8838-8843",
-      "pmid": "30971490",
-      "doi": "10.1073/pnas.1903846116",
-      "note": "Comprehensive review of intrinsic and Rho-dependent termination mechanisms"
+      "pmid": "30978344",
+      "doi": "10.1016/j.jmb.2019.04.003"
     },
     {
       "title": "A model for sigma factor competition in bacterial cells.",
@@ -85,9 +84,9 @@
       "year": 2016,
       "volume": "5",
       "pages": "e13684",
-      "pmid": "27074666",
-      "doi": "10.7554/eLife.13684",
-      "note": "Single-molecule study of RNAP recycling kinetics and sigma factor dynamics"
+      "pmid": "",
+      "doi": "",
+      "note": "Second-pass: Harden 2016 recycling title does not uniquely match the sigma70-retention paper. Identifiers remain stripped."
     }
   ],
   "keywords": [
@@ -130,10 +129,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 21,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1073/pnas.1903846116",
-    "canonicalSourcePmid": "30971490",
-    "canonicalSourceTitle": "Mechanism of transcription termination by E. coli RNA polymerase",
-    "expectedFirestoreId": "pubmed_30971490",
+    "canonicalSourceDoi": "10.1016/j.jmb.2019.04.003",
+    "canonicalSourcePmid": "30978344",
+    "canonicalSourceTitle": "Mechanisms of Bacterial Transcription Termination.",
+    "expectedFirestoreId": "pubmed_30978344",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
