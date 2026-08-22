@@ -46,47 +46,52 @@
   "mermaid": "graph TD\n    %% Environmental Inputs\n    A[Lactose in Environment] --> B[Lactose Transport]\n    C[Glucose in Environment] --> D[Glucose Transport]\n    E[Low Energy Status] --> F[Energy Stress Signal]\n    \n    %% Transport Processes\n    B --> G[Lactose Permease LacY]\n    G --> H[Lactose Inside Cell]\n    H --> I[Lactose Availability]\n    D --> J[Glucose Transporters]\n    J --> K[Glucose Inside Cell]\n    K --> L[High Glucose Status]\n    \n    %% Regulatory Logic Gates - OR Gates\n    I --> M{Is Lactose Present?}\n    L --> N{Is Glucose Present?}\n    F --> O{Is Energy Low?}\n    \n    %% AND Gate 1: High cAMP Formation\n    N -->|No| ANDGATE1{Low Energy AND<br/>No Glucose?}\n    O -->|Yes| ANDGATE1\n    O -->|No| V\n    ANDGATE1 -->|Yes| W[High cAMP Levels]\n    ANDGATE1 -->|No| V[Low cAMP Levels]\n    N -->|Yes| V\n    \n    %% Repressor Logic\n    M -->|No| P[/Lac Repressor Active/]\n    M -->|Yes| Q[\\Lac Repressor Inactive/]\n    P --> R[/Repressor Binds Operator/]\n    R --> S[\\Transcription Blocked/]\n    Q --> T[/Repressor Released/]\n    T --> U[Operator Free]\n    \n    %% CAP-cAMP Logic\n    W --> X[cAMP-CAP Complex]\n    V --> Y[No CAP Binding State]\n    X --> Z[CAP Binds Promoter]\n    Y --> AA[CAP Binding Absent]\n    \n    %% AND Gate 2: Strong Transcription Requires Both Conditions\n    U --> ANDGATE2{Operator Free AND<br/>CAP Bound?}\n    Z --> ANDGATE2\n    ANDGATE2 -->|Yes| FF[Strong Transcription]\n    ANDGATE2 -->|No| GG[/Weak/No Transcription/]\n    \n    %% Alternative path: operator blocked\n    AA --> GG\n    \n    %% Gene Expression\n    FF --> II[lacZ mRNA Synthesis]\n    FF --> JJ[lacY mRNA Synthesis]\n    FF --> KK[lacA mRNA Synthesis]\n    \n    %% Protein Synthesis\n    II --> LL[LacZ Translation]\n    JJ --> MM[LacY Translation]\n    KK --> NN[LacA Translation]\n    \n    %% Functional Proteins\n    LL --> OO[Beta-Galactosidase Enzyme]\n    MM --> PP[Lactose Permease]\n    NN --> QQ[/Galactoside Acetyltransferase/]\n    \n    %% Metabolic Functions\n    OO --> RR[Lactose Hydrolysis]\n    PP --> SS[/Lactose Transport/]\n    QQ --> TT[Galactoside Modification]\n    \n    %% Final Products\n    RR --> UU[Glucose + Galactose]\n    SS --> VV2[Enhanced Lactose Uptake]\n    TT --> WW[Detoxification]\n    \n    %% Energy Production\n    UU --> XX[Glycolysis]\n    VV2 --> YY[Lactose Processing]\n    WW --> ZZ[Cell Protection]\n    \n    %% System Equilibrium\n    XX --> AAA[Energy Production]\n    YY --> BBB[Lactose Consumption]\n    ZZ --> CCC[Cell Survival]\n    \n    %% Feedback Control\n    AAA --> DDD[Energy Status Improved]\n    BBB --> EEE[Lactose Depletion]\n    CCC --> FFF[Reduced Stress]\n    \n    %% Dynamic Equilibrium\n    DDD --> GGG[Reduced Lactose Signal]\n    EEE --> HHH[Homeostasis]\n    FFF --> III[System Equilibrium]\n    \n    %% Styling - Programming Framework Color Scheme\n    %% Red (#ff6b6b): Triggers & Inputs\n    \n    %% Yellow (#ffd43b): Structures & Objects\n    \n    %% Green (#51cf66): Processing & Operations\n    \n    %% Blue (#74c0fc): Intermediates & States\n    \n    %% Orange (#ff9f43): OR Logic Gates\n    \n    %% Lavender (#b4b4dc): AND Logic Gates\n    \n    %% Violet (#b197fc): Products & Outputs\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#ff6b6b,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#ff6b6b,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#ff6b6b,color:#fff\n    style L fill:#74c0fc,color:#fff\n    style W fill:#74c0fc,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style U fill:#74c0fc,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#51cf66,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#51cf66,color:#fff\n    style FF fill:#51cf66,color:#fff\n    style GG fill:#74c0fc,color:#fff\n    style II fill:#51cf66,color:#fff\n    style JJ fill:#51cf66,color:#fff\n    style KK fill:#51cf66,color:#fff\n    style LL fill:#51cf66,color:#fff\n    style MM fill:#51cf66,color:#fff\n    style NN fill:#51cf66,color:#fff\n    style OO fill:#ffd43b,color:#000\n    style PP fill:#74c0fc,color:#fff\n    style QQ fill:#51cf66,color:#fff\n    style RR fill:#51cf66,color:#fff\n    style SS fill:#51cf66,color:#fff\n    style TT fill:#51cf66,color:#fff\n    style UU fill:#74c0fc,color:#fff\n    style VV2 fill:#74c0fc,color:#fff\n    style WW fill:#74c0fc,color:#fff\n    style XX fill:#74c0fc,color:#fff\n    style YY fill:#51cf66,color:#fff\n    style ZZ fill:#b197fc,color:#fff\n    style AAA fill:#b197fc,color:#fff\n    style BBB fill:#74c0fc,color:#fff\n    style CCC fill:#b197fc,color:#fff\n    style DDD fill:#b197fc,color:#fff\n    style EEE fill:#ff6b6b,color:#fff\n    style FFF fill:#ff6b6b,color:#fff\n    style GGG fill:#ff6b6b,color:#fff\n    style HHH fill:#b197fc,color:#fff\n    style III fill:#b197fc,color:#fff",
   "sources": [
     {
-      "title": "Genetic regulatory mechanisms in the synthesis of proteins",
+      "title": "RegulonDB",
+      "url": "https://regulondb.ccg.unam.mx",
+      "note": "E. coli regulatory network; used for validation and alignment of regulator–gene relationships."
+    },
+    {
       "authors": "Jacob F, Monod J",
-      "journal": "Journal of Molecular Biology",
-      "year": 1961,
-      "volume": "3",
-      "pages": "318-356",
-      "pmid": "13718526",
       "doi": "10.1016/S0022-2836(61)80072-7",
-      "note": "Original description of the lac operon model and operon theory - Nobel Prize winning work (1965)"
-    },
-    {
-      "title": "The lactose operon",
-      "authors": "Müller-Hill B",
-      "journal": "Walter de Gruyter",
-      "year": 1996,
-      "isbn": "3-11-014713-1",
-      "note": "Comprehensive modern review of lac operon molecular biology"
-    },
-    {
-      "title": "Indirect readout of DNA sequence at the primary-kink site in the CAP-DNA complex: recognition of pyrimidine-purine and purine-purine steps",
-      "authors": "Napoli AA, Lawson CL, Ebright RH, Berman HM",
       "journal": "Journal of Molecular Biology",
-      "year": 2006,
-      "volume": "357",
-      "issue": "1",
-      "pages": "173-183",
-      "pmid": "16427082",
-      "doi": "10.1016/j.jmb.2005.12.051",
-      "note": "Crystal structures of CAP-DNA complexes; indirect-readout mechanism of CAP-induced DNA kinking at the primary-kink site. Corrected 2026-08-21 -- the previously listed title/journal/PMID/DOI (Structure 14(3):519-526, PMID 16531234, DOI 10.1016/j.str.2005.11.021) belonged to an unrelated paper (Iengar, Joshi & Balaram, beta-helix protein conformational signatures); PMID 16531234 was in fact a third, also-unrelated paper. Found while resolving this paper for a paper-sourced podcast seed."
+      "note": "Original description of the lac operon model and operon theory - Nobel Prize winning work (1965)",
+      "pages": "318-356",
+      "paper_id": "crossref_10_1016_S0022-2836(61)80072-7",
+      "pmid": "13718526",
+      "title": "Genetic regulatory mechanisms in the synthesis of proteins",
+      "volume": "3",
+      "year": 1961
     },
     {
-      "title": "Allostery in the LacI/GalR family: variations on a theme",
+      "authors": "Müller-Hill B",
+      "isbn": "3-11-014713-1",
+      "journal": "Walter de Gruyter",
+      "note": "Comprehensive modern review of lac operon molecular biology",
+      "title": "The lactose operon",
+      "year": 1996
+    },
+    {
+      "authors": "Napoli AA, Lawson CL, Ebright RH, Berman HM",
+      "doi": "10.1016/j.jmb.2005.12.051",
+      "issue": "1",
+      "journal": "Journal of Molecular Biology",
+      "note": "CAP-DNA kink / indirect readout. Chart previously pointed at a Structure DOI that is a different paper.",
+      "pages": "173-183",
+      "paper_id": "pubmed_16427082",
+      "pmid": "16427082",
+      "title": "Indirect readout of DNA sequence at the primary-kink site in the CAP-DNA complex: recognition of pyrimidine-purine and purine-purine steps",
+      "volume": "357",
+      "year": 2006
+    },
+    {
       "authors": "Swint-Kruse L, Matthews KS",
-      "journal": "Current Opinion in Microbiology",
-      "year": 2009,
-      "volume": "12",
-      "issue": "2",
-      "pages": "129-137",
-      "pmid": "19269243",
       "doi": "10.1016/j.mib.2009.01.009",
-      "note": "Review of allosteric regulation across the LacI/GalR transcription factor family. Corrected 2026-08-21 -- the previously listed citation (\"Mechanism of the allosteric regulation of the lac repressor,\" Adv Appl Microbiol 67:1-24, PMID 19245934, DOI 10.1016/S0065-2164(08)01001-8) does not exist under any resolvable identifier: that DOI 404s at doi.org and is absent from Crossref/PubMed under that title, and that PMID belongs to an unrelated hematology paper. Replaced with the real, PubMed-indexed 2009 Swint-Kruse & Matthews review on the same subject."
+      "journal": "Current Opinion in Microbiology",
+      "note": "Unique Swint-Kruse+Matthews 2009 paper. Chart title/journal were garbled.",
+      "paper_id": "pubmed_19269243",
+      "pmid": "19269243",
+      "title": "Allostery in the LacI/GalR family: variations on a theme",
+      "year": 2009
     }
   ],
   "keywords": [
@@ -110,7 +115,7 @@
     "ecoli_catabolite_repression"
   ],
   "created": "2025-10-08",
-  "lastUpdated": "2026-07-20",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Literature review and comparison with primary sources",
   "revisionStatus": "revision pending expert review",

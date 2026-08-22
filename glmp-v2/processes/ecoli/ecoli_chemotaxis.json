@@ -46,36 +46,38 @@
   "mermaid": "graph TD\n    A[Chemical Gradient] -->|Attractant| B[Serine, Aspartate]\n    A -->|Repellent| C[Ni2+, Co2+]\n    \n    B --> D[MCP Receptors]\n    C --> D\n    D -->|Tsr, Tar, Trg, Tap| E{Ligand Binding?}\n    \n    E -->|Attractant Bound| F[MCP Conformational Change]\n    E -->|Repellent Bound| G[Opposite Conformation]\n    E -->|No Ligand| H[Basal State]\n    \n    F --> I[Reduced CheA Activity]\n    G --> J[Increased CheA Activity]\n    H --> K[Moderate CheA Activity]\n    \n    K --> L[CheA Histidine Kinase]\n    J --> L\n    I --> L\n    \n    L -->|Requires| M[CheW Coupling Protein]\n    M --> N[Receptor-CheW-CheA Complex]\n    N --> O{CheA Autophosphorylation?}\n    \n    O -->|High Activity| P[CheA~P]\n    O -->|Low Activity| Q[Unphosphorylated CheA]\n    \n    P --> R{Phosphotransfer Branch?}\n    R -->|To CheY| S[CheY~P]\n    R -->|To CheB| T[CheB~P]\n    \n    S --> U{CheY~P Concentration?}\n    U -->|High| V[Enhanced Motor Binding]\n    U -->|Low| W[Reduced Motor Binding]\n    \n    V --> X[FliM FliN FliG Motor Complex]\n    W --> X\n    X --> Y{Motor Rotation?}\n    \n    Y -->|CheY~P Bound| Z[Clockwise CW Rotation]\n    Y -->|CheY~P Unbound| AA[Counterclockwise CCW Rotation]\n    \n    Z --> AB[Tumbling]\n    AA --> AC[Smooth Swimming Run]\n    \n    AB --> AD{New Direction?}\n    AD -->|Random| AE[Reorientation]\n    AE --> AF{Gradient Assessment?}\n    \n    AF -->|Better| AC\n    AF -->|Worse| AB\n    \n    AC --> AG{Continue Run?}\n    AG -->|Favorable Gradient| AC\n    AG -->|Unfavorable| AB\n    \n    S --> AH[CheZ Phosphatase]\n    AH --> AI[CheY Dephosphorylation]\n    AI --> AJ[/Rapid Signal Termination/]\n    \n    T --> AK[Active CheB Methylesterase]\n    AK --> AL{Adaptation Mechanism?}\n    \n    AL -->|Demethylation| AM[Remove Methyl Groups]\n    AM --> AN[MCP Glutamate Residues]\n    AN --> AO[Reduced Sensitivity]\n    \n    D --> AP[CheR Methyltransferase]\n    AP --> AQ{Constitutive Methylation?}\n    AQ -->|Yes| AR[Add Methyl Groups]\n    AR --> AS[MCP Glutamine Residues]\n    AS --> AT[Increased Sensitivity]\n    \n    AO --> AU{Adaptation Balance?}\n    AT --> AU\n    AU -->|Equilibrium| AV[Restored Basal Activity]\n    AV --> L\n    \n    F --> AW{Temporal Sensing?}\n    AW -->|Increasing Attractant| AX[Sustained Low CheA]\n    AW -->|Decreasing Attractant| AY[Sustained High CheA]\n    \n    AX --> AZ[Prolonged Runs]\n    AY --> BA[Frequent Tumbles]\n    \n    AZ --> BB{Gradient Climbing?}\n    BA --> BB\n    BB -->|Successful| BC[Accumulation at Peak]\n    BB -->|Unsuccessful| BD[Continue Searching]\n    \n    BC --> BE[Optimal Environment]\n    BE --> BF[Enhanced Growth]\n    \n    D --> BG{Receptor Clustering?}\n    BG -->|Cooperative| BH[Receptor Arrays]\n    BH --> BI[Signal Amplification]\n    BI --> BJ[Enhanced Sensitivity]\n    BJ --> N\n    \n    N --> BK{Allosteric Coupling?}\n    BK -->|Team Response| BL[Coordinated Activity]\n    BL --> O\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style C fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style G fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#74c0fc,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style L fill:#51cf66,color:#fff\n    style M fill:#ffd43b,color:#000\n    style N fill:#74c0fc,color:#fff\n    style P fill:#74c0fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style S fill:#74c0fc,color:#fff\n    style T fill:#74c0fc,color:#fff\n    style V fill:#51cf66,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Z fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#74c0fc,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AH fill:#51cf66,color:#fff\n    style AI fill:#51cf66,color:#fff\n    style AJ fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#74c0fc,color:#fff\n    style AP fill:#51cf66,color:#fff\n    style AR fill:#74c0fc,color:#fff\n    style AS fill:#74c0fc,color:#fff\n    style AT fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AX fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BD fill:#74c0fc,color:#fff\n    style BE fill:#ff6b6b,color:#fff\n    style BF fill:#b197fc,color:#fff\n    style BH fill:#74c0fc,color:#fff\n    style BI fill:#ff6b6b,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BL fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "Chemotaxis in Escherichia coli analyzed by three-dimensional tracking",
-      "authors": "Berg HC",
+      "authors": "Berg HC, Brown DA",
+      "doi": "10.1038/239500a0",
       "journal": "Nature",
-      "year": 1972,
-      "pmid": "4628819",
-      "doi": ""
+      "pmid": "4563019",
+      "title": "Chemotaxis in Escherichia coli analysed by three-dimensional tracking",
+      "year": 1972
     },
     {
+      "authors": "Falke JJ, Bass RB, Butler SL, Chervitz SA, Danielson MA",
+      "doi": "10.1146/annurev.cellbio.13.1.457",
+      "journal": "Annual Review of Cell and Developmental Biology",
+      "note": "Exact title. Chart PMID 9442869 is a microtubule paper; real PMID is 9442881.",
+      "pmid": "9442881",
       "title": "The two-component signaling pathway of bacterial chemotaxis: a molecular view of signal transduction by receptors, kinases, and adaptation enzymes",
-      "authors": "Falke JJ",
-      "journal": "Annual review of cell and developmental biology",
-      "year": 1997,
-      "pmid": "9442869",
-      "doi": ""
+      "year": 1997
     },
     {
-      "title": "Chemotaxis",
       "authors": "Sourjik V",
+      "doi": "",
       "journal": "Current biology : CB",
-      "year": 2004,
-      "pmid": "15242626",
-      "doi": ""
+      "note": "Second-pass: Sourjik 2004 hits are Receptor clustering… (TIM) and Functional interactions… (Nature), not a Current Biology primer titled Chemotaxis. Identifiers remain stripped.",
+      "pmid": "",
+      "title": "Chemotaxis",
+      "year": 2004
     },
     {
-      "title": "Receptor sensitivity in bacterial chemotaxis",
-      "authors": "Sourjik V",
+      "authors": "Sourjik V, Berg HC",
+      "doi": "10.1073/pnas.011589998",
       "journal": "Proceedings of the National Academy of Sciences of the United States of America",
-      "year": 2002,
-      "pmid": "12379844",
-      "doi": ""
+      "pmid": "11742065",
+      "title": "Receptor sensitivity in bacterial chemotaxis",
+      "year": 2002
     }
   ],
   "keywords": [
@@ -93,7 +95,7 @@
     "ecoli_two_component_signaling"
   ],
   "created": "2025-10-14",
-  "lastUpdated": "2025-10-14",
+  "lastUpdated": "2026-08-22",
   "verified": true,
   "verifiedBy": "Manual creation with PubMed literature review",
   "notes": "Created based on classic and contemporary research on E. coli chemotaxis, including the foundational work by Berg and Brown and subsequent molecular studies.",
@@ -114,10 +116,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 22,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "",
-    "canonicalSourcePmid": "4628819",
-    "canonicalSourceTitle": "Chemotaxis in Escherichia coli analyzed by three-dimensional tracking",
-    "expectedFirestoreId": "pubmed_4628819",
+    "canonicalSourceDoi": "10.1038/239500a0",
+    "canonicalSourcePmid": "4563019",
+    "canonicalSourceTitle": "Chemotaxis in Escherichia coli analysed by three-dimensional tracking",
+    "expectedFirestoreId": "pubmed_4563019",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
