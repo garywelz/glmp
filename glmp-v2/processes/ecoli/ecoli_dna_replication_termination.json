@@ -46,16 +46,15 @@
   "mermaid": "graph TD\n    A[Opposing Replication Forks] --> B[Convergence in Terminus Region]\n    B --> C{Ter Site Encounter?}\n    \n    C -->|TerA-J Sites Present| D[Tus Protein Binding]\n    C -->|No Ter Sites| E[Continue Until Collision]\n    \n    D --> F[Tus-Ter Complex Formation]\n    F --> G{Fork Orientation?}\n    \n    G -->|Permissive| H[Fork Passes Through]\n    G -->|Non-permissive| I[Fork Arrest]\n    \n    I --> J[Replication Fork Pausing]\n    H --> B\n    E --> K[Direct Fork Collision]\n    \n    J --> L{Opposing Fork Arrives?}\n    K --> L\n    L -->|Yes| M[Fork Convergence Complete]\n    L -->|No| N[Wait State]\n    \n    M --> O{Replication Completion Check?}\n    O -->|Leading Strands Meet| P[Final Synthesis]\n    O -->|Gap Remaining| Q[Gap Filling]\n    \n    Q --> R[DNA Pol I]\n    R --> S[Nick Translation]\n    S --> T[DNA Ligase]\n    T --> P\n    \n    P --> U{Replisome Disassembly?}\n    U -->|Signal| V[Pol III Dissociation]\n    V --> W[Helicase Release]\n    W --> X[Primase Dissociation]\n    X --> Y[Clamp Loader Release]\n    \n    Y --> Z{Sister Chromosomes Status?}\n    Z -->|Catenated| AA[Topological Linkage]\n    Z -->|Free| AB[Skip Decatenation]\n    \n    AA --> AC[Topoisomerase IV Recognition]\n    AC --> AD{ParC-ParE Activity?}\n    AD -->|Active| AE[Decatenation Reaction]\n    AD -->|Inhibited| AF[\\Delayed Resolution/]\n    \n    AE --> AG[ATP Hydrolysis]\n    AG --> AH[DNA Strand Passage]\n    AH --> AI[Catenane Resolution]\n    AI --> AJ{Complete Separation?}\n    AJ -->|No| AE\n    AJ -->|Yes| AK[Free Sister Chromosomes]\n    \n    %% Chromosome Dimer Resolution\n    AK --> AL{Chromosome Dimer?}\n    AL -->|Yes Dimer| AM[XerC-XerD Recognition]\n    AL -->|No Dimer| AN[Monomeric Chromosomes]\n    \n    AM --> AO[dif Site Binding]\n    AO --> AP[FtsK Translocation]\n    AP --> AQ{FtsK at dif?}\n    AQ -->|Yes| AR[XerCD Activation]\n    AQ -->|No| AS[Continue Transport]\n    \n    AR --> AT{Recombination Conditions?}\n    AT -->|Both XerCD AND FtsK| AU[Strand Exchange]\n    AU --> AV[Holliday Junction Formation]\n    AV --> AW[Resolution]\n    AW --> AN\n    \n    %% Final Checks and Segregation\n    AN --> AX{Replication Complete?}\n    AB --> AX\n    \n    AX -->|All Checks Pass| AY[Segregation Competent]\n    AX -->|Issues Detected| AZ[Checkpoint Arrest]\n    \n    AY --> BA[FtsZ Ring Assembly]\n    BA --> BB[Divisome Formation]\n    BB --> BC[Chromosome Partitioning]\n    \n    BC --> BD{Par System Active?}\n    BD -->|ParABS| BE[Active Segregation]\n    BD -->|Passive| BF[Diffusion-Based]\n    \n    BE --> BG[Chromosome Migration]\n    BF --> BG\n    \n    BG --> BH{Nucleoid Occlusion?}\n    BH -->|Clear| BI[Division Proceeds]\n    BH -->|Blocked| BJ[\\Wait for Clearance/]\n    \n    BI --> BK[Sister Chromosome Separation]\n    BK --> BL[Cell Division]\n    BL --> BM[Two Daughter Cells]\n    \n    %% Error Handling\n    AZ --> BN{Error Type?}\n    BN -->|Incomplete Replication| BO[DNA Damage Response]\n    BN -->|Unresolved Catenanes| BP[Topoisomerase Recruitment]\n    BN -->|Persistent Dimer| BQ[Enhanced XerCD Activity]\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A fill:#ff6b6b,color:#fff\n    style B fill:#ff6b6b,color:#fff\n    style D fill:#ff6b6b,color:#fff\n    style E fill:#ff6b6b,color:#fff\n    style F fill:#74c0fc,color:#fff\n    style H fill:#74c0fc,color:#fff\n    style I fill:#74c0fc,color:#fff\n    style J fill:#51cf66,color:#fff\n    style K fill:#74c0fc,color:#fff\n    style M fill:#b197fc,color:#fff\n    style N fill:#74c0fc,color:#fff\n    style P fill:#b197fc,color:#fff\n    style Q fill:#74c0fc,color:#fff\n    style R fill:#74c0fc,color:#fff\n    style S fill:#51cf66,color:#fff\n    style T fill:#51cf66,color:#fff\n    style V fill:#74c0fc,color:#fff\n    style W fill:#51cf66,color:#fff\n    style X fill:#74c0fc,color:#fff\n    style Y fill:#74c0fc,color:#fff\n    style AA fill:#74c0fc,color:#fff\n    style AB fill:#74c0fc,color:#fff\n    style AC fill:#51cf66,color:#fff\n    style AE fill:#74c0fc,color:#fff\n    style AF fill:#74c0fc,color:#fff\n    style AG fill:#51cf66,color:#fff\n    style AH fill:#74c0fc,color:#fff\n    style AI fill:#74c0fc,color:#fff\n    style AK fill:#74c0fc,color:#fff\n    style AM fill:#74c0fc,color:#fff\n    style AN fill:#74c0fc,color:#fff\n    style AO fill:#51cf66,color:#fff\n    style AP fill:#74c0fc,color:#fff\n    style AR fill:#51cf66,color:#fff\n    style AS fill:#51cf66,color:#fff\n    style AU fill:#74c0fc,color:#fff\n    style AV fill:#74c0fc,color:#fff\n    style AW fill:#74c0fc,color:#fff\n    style AY fill:#74c0fc,color:#fff\n    style AZ fill:#74c0fc,color:#fff\n    style BA fill:#51cf66,color:#fff\n    style BB fill:#74c0fc,color:#fff\n    style BC fill:#74c0fc,color:#fff\n    style BE fill:#74c0fc,color:#fff\n    style BF fill:#74c0fc,color:#fff\n    style BG fill:#74c0fc,color:#fff\n    style BI fill:#74c0fc,color:#fff\n    style BJ fill:#74c0fc,color:#fff\n    style BK fill:#74c0fc,color:#fff\n    style BL fill:#b197fc,color:#fff\n    style BM fill:#b197fc,color:#fff\n    style BO fill:#ff6b6b,color:#fff\n    style BP fill:#51cf66,color:#fff\n    style BQ fill:#74c0fc,color:#fff",
   "sources": [
     {
-      "title": "Termination of DNA replication in Escherichia coli",
+      "title": "Termination structures in the Escherichia coli chromosome replication fork trap.",
       "authors": "Duggin IG, Bell SD",
-      "journal": "Molecular Microbiology",
+      "journal": "Journal of molecular biology",
       "year": 2009,
       "volume": "70",
       "issue": "6",
       "pages": "1323-1333",
-      "pmid": "19220742",
-      "doi": "10.1111/j.1365-2958.2008.06478.x",
-      "note": "Comprehensive review of bacterial replication termination"
+      "pmid": "19233209",
+      "doi": "10.1016/j.jmb.2009.02.027"
     },
     {
       "title": "Replication termination in Escherichia coli: structure and antihelicase activity of the Tus-Ter complex.",
@@ -131,10 +130,10 @@
   "circuitClassEvidence": "curated_literature",
   "loops": 11,
   "copernicusIntegration": {
-    "canonicalSourceDoi": "10.1111/j.1365-2958.2008.06478.x",
-    "canonicalSourcePmid": "19220742",
-    "canonicalSourceTitle": "Termination of DNA replication in Escherichia coli",
-    "expectedFirestoreId": "pubmed_19220742",
+    "canonicalSourceDoi": "10.1016/j.jmb.2009.02.027",
+    "canonicalSourcePmid": "19233209",
+    "canonicalSourceTitle": "Termination structures in the Escherichia coli chromosome replication fork trap.",
+    "expectedFirestoreId": "pubmed_19233209",
     "copernicusPaperId": "",
     "manifestStatus": "ok",
     "corpusCoverage": "missing_ingest",
