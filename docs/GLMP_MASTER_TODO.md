@@ -4909,6 +4909,85 @@ gated migration, verified at every phase, in `copernicus-web`:
     replication paper gets started (Krampis-joint, not to begin
     unprompted); the Class I–V replacement term itself.
 
+61. **PR #6 merged (chart-identity fixes + Gaifman episodes), glmp synced,
+    TTS pronunciation fix — 2026-08-25, Claude Code.** This item exists
+    because this file had gone five days undocumented — item 60 was the
+    last entry (2026-08-20) despite substantial work in between; the gap
+    itself is part of what this item closes (see "Meta-finding" below).
+    **`copernicus-web` PR #6, reviewed commit-by-commit, merged into
+    `main` (`57fd620e8`), branch deleted both sides:**
+    - `120863824` — `citations[]` synthesized from flat `cited_project`
+      fields on paper ingest, so `/resolve-paper` scopes correctly instead
+      of researcher-cited metadata landing as `identifier_wrong_project`.
+      `test_ingest_papers_id_stability.py` extended and passing.
+    - `f9dd6a05f` — the 23 August leftover-pick chart attaches (13 process
+      files) plus `papers/LEFTOVER_HUMAN_PICK_2026-08-22.md` and
+      `papers/claude_code_handoff_2026-08-23_leftover_picks.md`.
+    - `5625d780f` / `18d4c6a9d` — Gaifman Gödel (`ever-math-260001`) and
+      Cantor-walk (`ever-math-260002`) episodes listed on the site,
+      correct Gaifman paper (`crossref_10.1093_jigpal_jzl006`) attached to
+      both `cantor-diagonal-proofs` and `godel-first-incompleteness` ATAP
+      proof graphs.
+    - `00e6bcd4a` — opt-in player credits (`package_credits.py`, locked
+      against retrofitting existing episodes); `--self-test` run and
+      passing before merge.
+    All five commits' diffs reviewed individually, not merged on the
+    strength of the branch name; both test scripts (`test_ingest_papers_
+    id_stability.py`, `package_credits.py --self-test`) run locally and
+    passing before push.
+    **`glmp` synced to match, same session.** The identical 12 process-
+    chart citation fixes (Sourjik, Levine/Kroemer, Xie/Klionsky, etc. —
+    diffed against the `copernicus-web` versions to confirm byte-identical
+    resolution) were sitting uncommitted in the working tree, per the
+    "both trees" instruction standing since item 58/the 22-23 August
+    handoffs. Committed (`63a6e76`), pushed. A separate, unrelated doc fix
+    — `docs/open-questions/loop-audit-candidates-2026-08-04.md` corrected
+    (`0cf417d`): the "second known limitation" was misdiagnosed as
+    near-duplicate case/whitespace matching, when `normalize()` already
+    collapses both before comparing; the actual gap is same-entity-
+    different-wording with no shared substring, which the lac operon
+    example (found *because* it shares a substring) doesn't illustrate.
+    **23 August reply block confirmed applied, not stale.** Exchanged
+    handoffs with Cursor (`papers/cursor_handoff_2026-08-25_pr6_merge_
+    and_glmp_sync.md`, reply `papers/cursor_handoff_2026-08-25_reply_
+    pr6_and_leftover_status.md`, both committed): the markdown checkboxes
+    in the 23 August handoff were never ticked, which is why the block
+    looked open, but Gary + Claude Code decided and Cursor applied all
+    five picks the same day (4a Qi `16105880` → `yeast_cell_cycle_control`;
+    Cox RecA B4b `10506835` → `ecoli_sos_response`; Zeng→DiRusso `1569108`
+    keep; Section C leave all; remainder accepted, identity+GAL goal
+    closed 23 Aug). Spot-verified live against both chart JSONs before
+    accepting the claim.
+    **TTS-only pronunciation fix for Gödel/Kleene, committed, pushed, and
+    deployed (`a3ab3933d`).** `content_fixes.py` gains
+    `apply_tts_pronunciation_hints()` (Gödel/Godel/Goedel → "Girdle",
+    Kleene → "Klaynee", possessive- and case-preserving), wired into
+    `elevenlabs_voice_service.py`'s `_preprocess_text_for_natural_speech`
+    — audio path only; stored scripts/transcripts keep the scholarly
+    spelling. 21/21 unit tests pass (`tests/unit/test_content_fixes.py`).
+    Code was finished and reviewed by Cursor on 23 August but held per
+    Gary's "not for now" on more math episodes; deployed same day as this
+    item via `gcloud builds submit` (build `5e1a6501`, `SUCCESS`,
+    5m21s) to `copernicus-podcast-api`; `/health` re-checked live post-
+    deploy (`elevenlabs_available: true`). Existing `260001`/`260002`
+    audio unaffected — no regenerate has run.
+    **Meta-finding: this file's own update discipline is the real gap.**
+    Nothing between item 60 (2026-08-20) and this item was recorded here,
+    despite five days of merged, tested, deployed work. Separately, the
+    `AUTO-STATUS` section below is labeled "rebuilt each run" but is still
+    timestamped **2026-07-05** — eight weeks stale, the same staleness the
+    2026-08-20 Cursor handoff already flagged on the "zero activator PWMs"
+    line, unchanged since. The regeneration cron
+    (`scripts/master_todo_cron_python.sh`) runs on the Jetson; nobody in
+    this session has SSH access to check whether it's still firing or
+    just not landing its output here. Cursor-shaped: confirm the cron is
+    alive before assuming the manual/curated section is the only thing
+    that needs discipline.
+    **Item 26 (CRP PWM) is not neglected — explicitly not this item's to
+    chase.** Gary has already sent Lents a follow-up email past the
+    2026-08-20 note above and is waiting on his reply. No new action
+    needed on our side; do not re-raise it as overdue.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
