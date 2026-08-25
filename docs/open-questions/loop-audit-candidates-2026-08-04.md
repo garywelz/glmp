@@ -59,10 +59,16 @@ shipped pipeline is silently merging distinct entities. The audit heuristic
 itself has not been corrected; the two known false positives are recorded here
 instead.
 
-**Second known limitation:** the heuristic keys on *exact* label matches, so
-near-duplicates differing by case, whitespace, or the very characters
-normalization strips are missed. **The nine candidates below are a floor, not a
-ceiling.**
+**Second known limitation:** the heuristic's `normalize()` step already lowercases
+and collapses whitespace before comparing, so case and whitespace variants are
+*not* the gap. What's actually missed is same-entity-different-wording with no
+shared substring at all — two labels for the same thing that don't literally
+contain one another. The lac operon case that started this audit doesn't
+illustrate the gap; it illustrates what the heuristic *can* catch: `Lactose
+Permease LacY` and `Lactose Permease` share a substring, which is exactly why
+it was found. A genuine synonym pair — two names for the same entity with no
+overlapping text — would pass through undetected. **The nine candidates below
+are a floor, not a ceiling.**
 
 ---
 
