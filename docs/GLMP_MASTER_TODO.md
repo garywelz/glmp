@@ -4998,11 +4998,26 @@ gated migration, verified at every phase, in `copernicus-web`:
     per-cycle success/failure, error rates, or whether individual AM/PM
     runs have been silently failing — that detail only exists in
     Jetson-local logs (`pubmed_am`/`pubmed_pm`), which nobody in this
-    session can reach (no SSH). The specific thing still worth Cursor
-    confirming directly on the Jetson is narrower than "is ingestion
-    running" (yes) — it's **why `scripts/master_todo_cron_python.sh`
-    isn't landing a fresh AUTO-STATUS block in this file**, a
-    reporting-path bug, not a pipeline outage.
+    session can reach (no SSH).
+    **Second correction, same day: the "why isn't AUTO-STATUS landing
+    here" question above was already asked and closed — item 38,
+    2026-08-03/04.** Missed it before asking Cursor to re-check the
+    Jetson. Item 38's finding, still true: `build_master_todo.py` fires
+    every AM/PM cycle, but **by design** it never overwrites this
+    git-tracked file's `AUTO-STATUS` block — it writes to
+    `/media/sdcard/status/GLMP_MASTER_TODO.md` and GCS instead. The
+    `2026-07-05` stamp here is a frozen committed snapshot, not a dead
+    cron; this block will always look stale unless someone deliberately
+    commits a fresh one, which the design intentionally avoids. Live
+    self-reporting lives at `/media/sdcard/status/` + GCS (confirmed
+    above), not in this file. **Cursor confirmed directly (2026-08-27):
+    no AUTO-STATUS patch is needed or in flight; do not re-raise this as
+    a cron problem again.** The two 2026-08-26 `fix/auto-status-
+    findability` commits Cursor pointed to (`copernicus-web` PR #8) are
+    unrelated — one retargets a single findability-probe search query
+    after corpus drift, the other adds a doc comment about a Jetson venv
+    dependency (`google-cloud-firestore`) for `rag_focus_fallback`; PR #8
+    is not an AUTO-STATUS fix and shouldn't be merged as one.
     **Item 26 (CRP PWM) is not neglected — explicitly not this item's to
     chase.** Gary has already sent Lents a follow-up email past the
     2026-08-20 note above and is waiting on his reply. No new action
