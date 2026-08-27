@@ -4977,12 +4977,32 @@ gated migration, verified at every phase, in `copernicus-web`:
     `AUTO-STATUS` section below is labeled "rebuilt each run" but is still
     timestamped **2026-07-05** — eight weeks stale, the same staleness the
     2026-08-20 Cursor handoff already flagged on the "zero activator PWMs"
-    line, unchanged since. The regeneration cron
-    (`scripts/master_todo_cron_python.sh`) runs on the Jetson; nobody in
-    this session has SSH access to check whether it's still firing or
-    just not landing its output here. Cursor-shaped: confirm the cron is
-    alive before assuming the manual/curated section is the only thing
-    that needs discipline.
+    line, unchanged since.
+    **Correction, 2026-08-27: the underlying ingestion pipeline is not
+    stalled — only this file's AUTO-STATUS regeneration is.** Fetched the
+    live public `knowledge-engine-status.json` directly
+    (`storage.googleapis.com/regal-scholar-453620-r7-podcast-storage/
+    knowledge-engine-status.json`): `last_updated` was hours old at check
+    time (2026-08-27T11:38:46), papers 62,312 (2026-07-05 baseline) →
+    **118,066**, embedding coverage 97.26% → **100%**, videos ~582
+    (2026-07-30 post-cleanup) → **918**. Biology papers barely moved
+    (80,138 on 2026-08-14 → 80,474), so the growth is mostly elsewhere
+    (mathematics/ATAP now 18,342, plus other disciplines this endpoint
+    doesn't break out) — consistent with the scout cron still running on
+    its normal cycle, not with a stopped pipeline. The video jump lines up
+    with Gary's report that Cursor added a lot of videos manually — item
+    35 already established that video ingestion has no automated cron, so
+    that growth is separate from the paper-scout question.
+    **What this does and doesn't confirm:** the pipeline is alive and
+    producing current output as of this check. It does **not** show
+    per-cycle success/failure, error rates, or whether individual AM/PM
+    runs have been silently failing — that detail only exists in
+    Jetson-local logs (`pubmed_am`/`pubmed_pm`), which nobody in this
+    session can reach (no SSH). The specific thing still worth Cursor
+    confirming directly on the Jetson is narrower than "is ingestion
+    running" (yes) — it's **why `scripts/master_todo_cron_python.sh`
+    isn't landing a fresh AUTO-STATUS block in this file**, a
+    reporting-path bug, not a pipeline outage.
     **Item 26 (CRP PWM) is not neglected — explicitly not this item's to
     chase.** Gary has already sent Lents a follow-up email past the
     2026-08-20 note above and is waiting on his reply. No new action
