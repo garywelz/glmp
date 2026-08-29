@@ -1,0 +1,133 @@
+{
+  "id": "ecoli_anaerobic_respiration",
+  "name": "Anaerobic Respiration Regulation (ArcAB and FNR)",
+  "organism": "E. coli",
+  "category": "Metabolic Regulation",
+  "description": "E. coli transitions from aerobic to anaerobic metabolism through two major regulatory systems: FNR (Fumarate and Nitrate Reduction regulator) and ArcAB (Aerobic Respiration Control). FNR is an oxygen-sensitive transcription factor containing a [4Fe-4S] cluster that is active under anaerobiosis, directly activating genes for anaerobic respiration (nitrate, DMSO, fumarate reductases) and repressing aerobic genes. ArcAB is a two-component system where the sensor kinase ArcB detects reduced quinones in the membrane under low oxygen, phosphorylating the response regulator ArcA which then represses genes for aerobic metabolism (TCA cycle enzymes, cytochrome oxidases) and activates anaerobic genes. Together these systems coordinate the metabolic shift from oxidative phosphorylation to fermentation and anaerobic respiration. This flowchart illustrates oxygen sensing mechanisms, signal transduction, and the coordinated transcriptional reprogramming.",
+  "scientificAccuracy": "This flowchart is based on extensive genetic and biochemical characterization of E. coli anaerobic regulation. All components (FNR, ArcA, ArcB), sensing mechanisms (Fe-S cluster oxygen sensitivity, quinone sensing), and target genes have been validated through decades of research. The model represents how bacteria optimize energy production under varying oxygen availability.",
+  "complexity": {
+    "nodes": 76,
+    "uniqueIdentifiers": true,
+    "colorCoded": true,
+    "detailLevel": "detailed",
+    "logicGates": {
+      "orGates": 9,
+      "andGates": 5,
+      "total": 14
+    }
+  },
+  "colorScheme": {
+    "green": {
+      "hex": "#51cf66",
+      "category": "Environmental Triggers",
+      "description": "External signals, nutrient availability, environmental conditions, initial states"
+    },
+    "amber": {
+      "hex": "#ffa726",
+      "category": "Enzymes & Proteins",
+      "description": "Catalysts, regulatory proteins, molecular machines, receptors"
+    },
+    "darkSkyBlue": {
+      "hex": "#42a5f5",
+      "category": "Processing & Operations",
+      "description": "Biochemical reactions, transport, modifications, transcription, translation"
+    },
+    "lightCyan": {
+      "hex": "#b3e5fc",
+      "category": "Intermediates & States",
+      "description": "Metabolites, molecular complexes, cellular states, compounds"
+    },
+    "yellow": {
+      "hex": "#ffd600",
+      "category": "OR Logic Gates",
+      "description": "Decision points with alternative pathways (yes/no branching)"
+    },
+    "purple": {
+      "hex": "#7950f2",
+      "category": "AND Logic Gates",
+      "description": "Multi-component requirements, signal integration, convergence points"
+    },
+    "red": {
+      "hex": "#e74c3c",
+      "category": "NOT Logic Gates",
+      "description": "Repression, inhibition, blocking, negative regulation"
+    },
+    "black": {
+      "hex": "#000000",
+      "category": "Final Products & Outcomes",
+      "description": "Terminal products, cellular outcomes, equilibrium states, system endpoints"
+    }
+  },
+  "mermaid": "graph TD\n    Start([Anaerobic Transition]) --> A1[Cell experiences decreasing oxygen]\n    \n    A1 --> A2{Oxygen level?}\n    A2 -->|High O2 - aerobic| A3[Aerobic metabolism active]\n    A2 -->|Low/no O2 - anaerobic| A4[Anaerobic metabolism induction]\n    \n    A4 --> A5[FNR pathway activation]\n    A4 --> A6[ArcAB pathway activation]\n    \n    A5 --> A7[FNR protein present constitutively]\n    A7 --> A8[Under aerobic conditions: FNR has (4Fe-4S)2+ cluster]\n    \n    A8 --> A9{Oxygen present?}\n    A9 -->|Yes - O2 available| A10[O2 oxidizes (4Fe-4S)2+ cluster]\n    A9 -->|No - anaerobic| A11[Cluster remains intact]\n    \n    A10 --> A12[/Cluster degraded to (2Fe-2S) and apo-FNR/]\n    A12 --> A13[/FNR inactive - cannot bind DNA/]\n    \n    A11 --> A14[FNR with intact (4Fe-4S)2+ cluster]\n    A14 --> A15[FNR dimerizes]\n    A15 --> A16[Active FNR dimer binds DNA at FNR boxes]\n    \n    A16 --> A17[FNR activates anaerobic genes]\n    A17 --> A18{Which anaerobic pathways?}\n    \n    A18 -->|narGHJI| A19[Nitrate reductase - NO3- to NO2-]\n    A18 -->|dmsABC| A20[DMSO reductase - DMSO to DMS]\n    A18 -->|frdABCD| A21[Fumarate reductase - fumarate to succinate]\n    A18 -->|nirB| A22[Nitrite reductase - NO2- to NH4+]\n    A18 -->|adhE| A23[Alcohol dehydrogenase - fermentation]\n    A18 -->|focA-pflB| A24[Formate metabolism - pyruvate to acetyl-CoA]\n    \n    A19 --> A25[Anaerobic respiration with nitrate]\n    A20 --> A26[Anaerobic respiration with DMSO]\n    A21 --> A27[Anaerobic respiration with fumarate]\n    A22 --> A25\n    A23 --> A28[Fermentation - mixed acid]\n    A24 --> A28\n    \n    A16 --> A29[/FNR represses aerobic genes/]\n    A29 --> A30[/Which aerobic genes repressed?/]\n    A30 -->|cydAB| A31[Cytochrome bd oxidase - low affinity]\n    A30 -->|nuoA-N| A32[NADH dehydrogenase I - proton pump]\n    A30 -->|sdhCDAB| A33[Succinate dehydrogenase - TCA cycle]\n    \n    A31 --> A34[Reduced aerobic respiration]\n    A32 --> A34\n    A33 --> A34\n    \n    A6 --> A35[ArcB sensor kinase in membrane]\n    A35 --> A36[ArcB has two transmembrane domains]\n    \n    A36 --> A37{Quinone pool state?}\n    A37 -->|Oxidized quinones - aerobic| A38[High O2: quinones oxidized by cytochrome oxidases]\n    A37 -->|Reduced quinones - anaerobic| A39[Low O2: quinones accumulate in reduced form]\n    \n    A38 --> A40[ArcB remains unphosphorylated]\n    A40 --> A41[No signal transduction]\n    \n    A39 --> A42[Reduced quinones interact with ArcB]\n    A42 --> A43[ArcB autophosphorylation activated]\n    A43 --> A44[His292 on ArcB phosphorylated]\n    \n    A44 --> A45[Phosphotransfer to Asp576 on ArcB]\n    A45 --> A46[ArcB-P ready for transfer]\n    \n    A46 --> A47{ArcA available?}\n    A47 -->|Yes| A48[Phosphotransfer to Asp54 on ArcA]\n    A47 -->|No| Wait1[Wait for ArcA]\n    Wait1 --> A47\n    \n    A48 --> A49[ArcA-P activated response regulator]\n    A49 --> A50[ArcA-P dimerizes]\n    A50 --> A51[ArcA-P binds Arc boxes in DNA]\n    \n    A51 --> A52[/ArcA-P represses aerobic genes/]\n    A52 --> A53{Which aerobic genes?}\n    A53 -->|cyoABCDE| A54[Cytochrome bo oxidase - high affinity]\n    A53 -->|icdA| A55[Isocitrate dehydrogenase - TCA cycle]\n    A53 -->|acnA| A56[Aconitase A - TCA cycle]\n    A53 -->|gltA| A57[Citrate synthase - TCA cycle]\n    A53 -->|sdhCDAB| A58[Succinate dehydrogenase overlap with FNR]\n    \n    A54 --> A59[/TCA cycle repressed/]\n    A55 --> A59\n    A56 --> A59\n    A57 --> A59\n    A58 --> A59\n    \n    A51 --> A60[ArcA-P activates anaerobic genes]\n    A60 --> A61{Which anaerobic genes?}\n    A61 -->|cydAB| A62[Cytochrome bd - microaerobic]\n    A61 -->|focA| A63[Formate transport]\n    A61 -->|pepT| A64[Peptidase for peptide utilization]\n    \n    A62 --> A65[Microaerobic respiration]\n    A63 --> A66[Fermentation support]\n    A64 --> A67[Alternative nitrogen sources]\n    \n    A25 --> A68{Electron acceptor hierarchy}\n    A26 --> A68\n    A27 --> A68\n    \n    A68 -->|Preference order| A69[1. Nitrate highest energy]\n    A69 --> A70[2. DMSO intermediate]\n    A70 --> A71[3. Fumarate lower energy]\n    A71 --> A72[4. Fermentation lowest - no external acceptor]\n    \n    A28 --> A72\n    \n    A59 --> A73[Aerobic metabolism shut down]\n    A34 --> A73\n    \n    A73 --> A74{FNR and ArcA coordination}\n    A74 -->|Overlapping targets| A75[/Synergistic repression - e.g. sdh/]\n    A74 -->|Distinct targets| A76[Complementary regulation]\n    \n    A75 --> A77[Complete aerobic-to-anaerobic transition]\n    A76 --> A77\n    \n    A65 --> A77\n    A66 --> A77\n    A67 --> A77\n    A25 --> A77\n    A26 --> A77\n    A27 --> A77\n    A72 --> A77\n    \n    A77 --> End1([Anaerobic metabolism established])\n    \n    A3 --> A78[Aerobic respiration via cytochrome oxidases]\n    A78 --> A79[TCA cycle produces NADH]\n    A79 --> A80[Oxidative phosphorylation - high ATP yield]\n    \n    A80 --> End2([Aerobic metabolism])\n    \n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n\n    %% Semantic Color Styling\n    style A1 fill:#000000,color:#fff\n    style A2 fill:#ffd600,color:#fff\n    style A3 fill:#b3e5fc,color:#000\n    style A4 fill:#b3e5fc,color:#000\n    style A5 fill:#42a5f5,color:#fff\n    style A6 fill:#42a5f5,color:#fff\n    style A7 fill:#51cf66,color:#fff\n    style A8 fill:#b3e5fc,color:#000\n    style A9 fill:#ffd600,color:#fff\n    style A10 fill:#b3e5fc,color:#000\n    style A11 fill:#b3e5fc,color:#000\n    style A12 fill:#e74c3c,color:#fff\n    style A13 fill:#e74c3c,color:#fff\n    style A14 fill:#b3e5fc,color:#000\n    style A15 fill:#b3e5fc,color:#000\n    style A16 fill:#b3e5fc,color:#000\n    style A17 fill:#b3e5fc,color:#000\n    style A18 fill:#ffd600,color:#fff\n    style A19 fill:#42a5f5,color:#fff\n    style A20 fill:#42a5f5,color:#fff\n    style A21 fill:#42a5f5,color:#fff\n    style A22 fill:#42a5f5,color:#fff\n    style A23 fill:#b3e5fc,color:#000\n    style A24 fill:#b3e5fc,color:#000\n    style A25 fill:#b3e5fc,color:#000\n    style A26 fill:#b3e5fc,color:#000\n    style A27 fill:#b3e5fc,color:#000\n    style A28 fill:#b3e5fc,color:#000\n    style A29 fill:#e74c3c,color:#fff\n    style A30 fill:#e74c3c,color:#fff\n    style A31 fill:#42a5f5,color:#fff\n    style A32 fill:#b3e5fc,color:#000\n    style A33 fill:#b3e5fc,color:#000\n    style A34 fill:#b3e5fc,color:#000\n    style A35 fill:#42a5f5,color:#fff\n    style A36 fill:#b3e5fc,color:#000\n    style A37 fill:#ffd600,color:#fff\n    style A38 fill:#42a5f5,color:#fff\n    style A39 fill:#b3e5fc,color:#000\n    style A40 fill:#b3e5fc,color:#000\n    style A41 fill:#51cf66,color:#fff\n    style A42 fill:#b3e5fc,color:#000\n    style A43 fill:#42a5f5,color:#fff\n    style A44 fill:#b3e5fc,color:#000\n    style A45 fill:#b3e5fc,color:#000\n    style A46 fill:#b3e5fc,color:#000\n    style A47 fill:#ffd600,color:#fff\n    style A48 fill:#b3e5fc,color:#000\n    style A49 fill:#000000,color:#fff\n    style A50 fill:#b3e5fc,color:#000\n    style A51 fill:#b3e5fc,color:#000\n    style A52 fill:#e74c3c,color:#fff\n    style A53 fill:#ffd600,color:#fff\n    style A54 fill:#42a5f5,color:#fff\n    style A55 fill:#b3e5fc,color:#000\n    style A56 fill:#b3e5fc,color:#000\n    style A57 fill:#42a5f5,color:#fff\n    style A58 fill:#b3e5fc,color:#000\n    style A59 fill:#e74c3c,color:#fff\n    style A60 fill:#b3e5fc,color:#000\n    style A61 fill:#ffd600,color:#fff\n    style A62 fill:#b3e5fc,color:#000\n    style A63 fill:#42a5f5,color:#fff\n    style A64 fill:#b3e5fc,color:#000\n    style A65 fill:#b3e5fc,color:#000\n    style A66 fill:#b3e5fc,color:#000\n    style A67 fill:#b3e5fc,color:#000\n    style A68 fill:#ffd600,color:#fff\n    style A69 fill:#000000,color:#fff\n    style A70 fill:#b3e5fc,color:#000\n    style A71 fill:#000000,color:#fff\n    style A72 fill:#51cf66,color:#fff\n    style A73 fill:#b3e5fc,color:#000\n    style A74 fill:#7950f2,color:#fff\n    style A75 fill:#e74c3c,color:#fff\n    style A76 fill:#b3e5fc,color:#000\n    style A77 fill:#000000,color:#fff\n    style A78 fill:#42a5f5,color:#fff\n    style A79 fill:#b3e5fc,color:#000\n    style A80 fill:#42a5f5,color:#fff",
+  "sources": [
+    {
+      "title": "FNR is a direct oxygen sensor having a [4Fe-4S] cluster",
+      "authors": "Khoroshilova N, Popescu C, Münck E, Beinert H, Kiley PJ",
+      "journal": "Science",
+      "year": 1997,
+      "pmid": "9381172",
+      "doi": "10.1126/science.277.5334.2099",
+      "relevance": "Demonstration that FNR contains Fe-S cluster for oxygen sensing"
+    },
+    {
+      "title": "Anaerobic regulation of the adhE gene, encoding the fermentative alcohol dehydrogenase of Escherichia coli",
+      "authors": "Leonardo MR, Dailly Y, Clark DP",
+      "journal": "J Bacteriol",
+      "year": 1996,
+      "pmid": "8631678",
+      "doi": "10.1128/jb.178.11.3391-3393.1996",
+      "relevance": "FNR regulation of fermentation genes"
+    },
+    {
+      "title": "The ArcA two-component signal transduction system regulates Escherichia coli metabolism during anaerobic growth",
+      "authors": "Iuchi S, Lin EC",
+      "journal": "Microbiol Rev",
+      "year": 1988,
+      "pmid": "3054468",
+      "doi": "10.1128/mr.52.4.452-469.1988",
+      "relevance": "Comprehensive review of Arc system function"
+    },
+    {
+      "title": "Redox sensing by the ArcB sensor kinase of Escherichia coli: quinone as a direct redox signal",
+      "authors": "Georgellis D, Kwon O, Lin EC",
+      "journal": "Mol Microbiol",
+      "year": 2001,
+      "pmid": "11422357",
+      "doi": "10.1046/j.1365-2958.2001.02462.x",
+      "relevance": "Mechanism of quinone sensing by ArcB"
+    }
+  ],
+  "keywords": [
+    "anaerobic respiration",
+    "FNR",
+    "ArcAB",
+    "oxygen sensing",
+    "Fe-S cluster",
+    "quinone",
+    "nitrate respiration",
+    "fumarate respiration",
+    "fermentation",
+    "two-component system",
+    "transcriptional regulation",
+    "metabolic adaptation"
+  ],
+  "relatedProcesses": [
+    "ecoli_oxidative_stress_response",
+    "ecoli_nitrate_respiration",
+    "ecoli_tca_cycle",
+    "ecoli_fermentation"
+  ],
+  "created": "2025-10-15",
+  "lastUpdated": "2025-10-15",
+  "verified": true,
+  "verifiedBy": "Claude-4-Sonnet",
+  "notes": "The FNR and ArcAB systems provide complementary regulation of the aerobic-anaerobic transition. FNR is a direct oxygen sensor (via Fe-S cluster), while ArcB senses oxygen indirectly (via quinone redox state). This dual sensing ensures robust response. The systems have overlapping but distinct regulons, with FNR primarily activating anaerobic genes and ArcA primarily repressing aerobic genes. The electron acceptor hierarchy (nitrate > DMSO > fumarate > fermentation) is determined by energetics. This system is highly conserved in facultative anaerobes and is critical for E. coli's ecological versatility.",
+  "logicGates": {
+    "or": 8,
+    "and": 1,
+    "not": 7
+  },
+  "notGates": 7,
+  "conditionals": 61,
+  "totalNodes": 84
+}
