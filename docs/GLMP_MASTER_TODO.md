@@ -5023,6 +5023,32 @@ gated migration, verified at every phase, in `copernicus-web`:
     2026-08-20 note above and is waiting on his reply. No new action
     needed on our side; do not re-raise it as overdue.
 
+62. **CRP PWM sign-off — stop waiting on Prof. Lents, route to a new
+    reviewer (2026-09-09, Gary's call).** Follow-up to items #26 (CRP PWM,
+    on hold since 2026-07-30) and #58 (Lents' 10 papers ingested,
+    2026-08-19). No reply to the 2026-08-20 email (bundled with items #33/
+    #59) after ~3 weeks. Gary's read: too busy to reply or unsure what to
+    say, not a "no." **Decision: go silent on Lents — no further follow-up
+    — and hand the open questions to a new reviewer instead.** Lents' 10
+    papers stay in the corpus as-is (`glmp-q1`/`glmp-q11`, item #58);
+    credited by name in the new review package; nothing about his
+    contribution is being walked back.
+    **Consolidated into one self-contained package** (not raw project
+    history) at `dna-decoder/docs/CRP_PWM_NEW_REVIEWER_PACKAGE.md`: the
+    original 3 sign-off questions from `CRP_PWM_BIOLOGIST_REVIEW.md`
+    (training-site quality; `RDBECOLIRIC06347` lacO-overlap holdout
+    disposition; lac/ara/flhDC holdout sufficiency for the non-circularity
+    claim) plus the 3 biology-track checklist items item #59's validation
+    report left explicitly unassessed (lac gate/quantitative/Class II; ara
+    loop-topology/Class III; trp repression-fold/attenuation — trp flagged
+    **not fair to assess yet**, blocked on the already-known scan-window
+    bug, not on PWM quality).
+    **PWM construction still not started** (item 26's standing note) —
+    this item only changes who's being asked to sign off, not the decoder.
+    **Reviewer sourcing is Gary's own research, not automated or posted
+    publicly** (Biostars explicitly ruled out this round) — candidate
+    selection and cold-email drafting to follow once he has names.
+
 ## Parked / backlog
 - Decoder follow-ups: operon re-anchoring; trp LacI motif contamination; σ32
   out of scope; RegulonDB 3-bucket decodability PROVISIONAL/CONFOUNDED — this
