@@ -7,9 +7,13 @@ Follows validation/task-brief-computation.md's four-step protocol exactly
 crp_lac_ara_trp_regulondb_validation_report.md, not generated text -- the
 findings need to be read and stated, not templated).
 
-Run against local copies of the decoder output (dna-decoder/results/) and
-the RegulonDB v14.5.0 flat file already staged locally (.tmp/regulondb-v14/
-TF-RISet.tsv) -- both already present, no download needed.
+Run against local copies of the decoder output (dna-decoder/results/,
+committed to this repo) and the RegulonDB v14.5.0 flat file (TF-RISet.tsv),
+which is NOT committed here -- download it yourself from RegulonDB
+(regulondb.ccg.unam.mx, "Regulatory Interactions" dataset, TF-RISet.tsv) and
+place it at <repo root>/.tmp/regulondb-v14/TF-RISet.tsv. See
+REPRODUCE_REGULONDB_CROSSREF.md (same directory as this script) for the full
+walkthrough.
 """
 
 import csv
@@ -17,7 +21,9 @@ import json
 import sys
 from pathlib import Path
 
-GLMP_ROOT = Path(r"C:\Users\garyw\glmp")
+# Repo root, derived from this script's own location so this runs on any
+# checkout -- do not hardcode a machine-specific path here again.
+GLMP_ROOT = Path(__file__).resolve().parents[4]
 RESULTS_DIR = GLMP_ROOT / "collaborations/krampis-virtual-cell/dna-decoder/results"
 REGULONDB_TSV = GLMP_ROOT / ".tmp/regulondb-v14/TF-RISet.tsv"
 
