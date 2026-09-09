@@ -2,7 +2,7 @@
 
 > **Status: internally validated, pending biologist site-quality sign-off.**
 > Do not integrate into decoder or interpret Class II claims until signed off.
-> This package supersedes the earlier round sent to Prof. Jonathan Lents — see
+> This package supersedes the earlier round sent to Prof. Nathan Lents — see
 > "Prior review round" below for what's already settled.
 
 ## What this project is
@@ -17,7 +17,7 @@ downstream. No prior familiarity with the project is needed to answer it.
 
 ## Prior review round (credit + status)
 
-Prof. Jonathan Lents (CUNY) reviewed an earlier version of this package and,
+Prof. Nathan Lents (CUNY) reviewed an earlier version of this package and,
 in August 2026, sent 10 foundational CRP-lac binding-site papers (DNase
 footprinting, EMSA, the original PWM method paper, the first consensus-site +
 3-D model, ChIP-chip, and a massively parallel binding assay) that fill the
