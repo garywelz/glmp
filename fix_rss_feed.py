@@ -76,9 +76,23 @@ def clean_html_description(description):
     
     # Truncate if too long (Apple Podcasts has 4000 char limit)
     if len(cleaned) > 3800:  # Leave some buffer
-        cleaned = cleaned[:3800] + "..."
-    
+        cleaned = truncate_html_safely(cleaned, 3800) + "..."
+
     return cleaned
+
+
+def truncate_html_safely(text, max_length):
+    """Truncate text to at most max_length characters without cutting inside
+    an HTML tag (e.g. a hard slice landing in the middle of '<a href="...').
+    """
+    truncated = text[:max_length]
+    last_lt = truncated.rfind('<')
+    last_gt = truncated.rfind('>')
+    # An unmatched '<' after the last '>' means we sliced into an open tag;
+    # back up to just before that tag started.
+    if last_lt > last_gt:
+        truncated = truncated[:last_lt]
+    return truncated
 
 
 def fix_hashtags(description):
@@ -102,10 +116,13 @@ def fix_hashtags(description):
 
 def generate_past_date(episode_number, total_episodes):
     """Generate a realistic past publication date"""
-    # Start from 3 months ago and space episodes weekly
-    base_date = datetime.now() - timedelta(days=90)
+    # Base window scales with the episode count, spacing episodes weekly,
+    # so the most recent episode still lands safely in the past regardless
+    # of how many episodes exist (a fixed 90-day window produced future
+    # dates once total_episodes * 7 exceeded 90 days).
+    base_date = datetime.now() - timedelta(days=total_episodes * 7)
     episode_date = base_date + timedelta(days=episode_number * 7)
-    
+
     # Format as RFC 822
     return episode_date.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
