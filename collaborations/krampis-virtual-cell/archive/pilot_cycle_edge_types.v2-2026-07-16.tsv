@@ -1,0 +1,239 @@
+chart_id	source_id	source_label	target_id	target_label	edge_label	edge_type	confidence	rule_applied	rationale	prior_type
+drosophila_gap_gene_network	B	hunchback (hb)	F	Gap genes mutual repression		proceeds	med	none	unlabeled process step	represses
+drosophila_gap_gene_network	C	Krüppel (Kr)	F	Gap genes mutual repression		proceeds	med	none	unlabeled process step	represses
+drosophila_gap_gene_network	D	giant (gt)	F	Gap genes mutual repression		proceeds	med	none	unlabeled process step	represses
+drosophila_gap_gene_network	E	knirps (kni)	F	Gap genes mutual repression		proceeds	med	none	unlabeled process step	represses
+drosophila_gap_gene_network	F	Gap genes mutual repression	B	hunchback (hb)	⊣	represses	high	1	Rule1 explicit bar-head inhibition	represses
+drosophila_gap_gene_network	F	Gap genes mutual repression	C	Krüppel (Kr)	⊣	represses	high	1	Rule1 explicit bar-head inhibition	represses
+drosophila_gap_gene_network	F	Gap genes mutual repression	D	giant (gt)	⊣	represses	high	1	Rule1 explicit bar-head inhibition	represses
+drosophila_gap_gene_network	F	Gap genes mutual repression	E	knirps (kni)	⊣	represses	high	1	Rule1 explicit bar-head inhibition	represses
+ecoli_base_excision_repair	AS	Ligation Ready?	AU	Additional Processing	No	represses	high	2	Rule2 gate outcome No -> represses	proceeds
+ecoli_base_excision_repair	AU	Additional Processing	BG	Issue Type?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_base_excision_repair	BG	Issue Type?	BH	Polynucleotide Kinase	Blocked 3' End	represses	high	2	Rule2 gate outcome Blocked 3' End -> represses	proceeds
+ecoli_base_excision_repair	BG	Issue Type?	BI	Additional Endonucleases	Modified 5' End	activates	high	2	Rule2 gate outcome Modified 5' End -> activates	proceeds
+ecoli_base_excision_repair	BH	Polynucleotide Kinase	AS	Ligation Ready?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_base_excision_repair	BI	Additional Endonucleases	AS	Ligation Ready?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_iron_homeostasis	AA	Ferric Reductase Activity	X	Cytoplasmic Ferrous Iron (Fe2+)		proceeds	med	none	unlabeled process step	produces
+ecoli_iron_homeostasis	AH	Is Cytoplasmic Fe2+ level high?	Yes	Yes		proceeds	med	none	gate continues without outcome label	proceeds
+ecoli_iron_homeostasis	B	Environmental Iron Availability (Fe3+)	D	E. coli Cell		proceeds	med	none	unlabeled process step	proceeds
+ecoli_iron_homeostasis	BB	Derepression of Iron Efflux Genes	BC	Iron Efflux Proteins & Export		produces	high	3	Rule3 expression yields own machinery	produces
+ecoli_iron_homeostasis	BC	Iron Efflux Proteins & Export	B	Environmental Iron Availability (Fe3+)		produces	med	none	material production/appearance	produces
+ecoli_iron_homeostasis	C1	AND: Cytoplasmic Iron Pool	AH	Is Cytoplasmic Fe2+ level high?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_iron_homeostasis	D	E. coli Cell	E	Is environmental iron low?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_iron_homeostasis	E	Is environmental iron low?	Yes	Yes		proceeds	med	none	gate continues without outcome label	proceeds
+ecoli_iron_homeostasis	F	Low Iron Condition	N	Apo-Fur Dissociates from DNA		proceeds	med	none	unlabeled process step	proceeds
+ecoli_iron_homeostasis	N	Apo-Fur Dissociates from DNA	O	Transcriptional Derepression by Apo-Fur		proceeds	med	none	unlabeled process step	activates
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	BB	Derepression of Iron Efflux Genes		activates	high	none	regulator controls different expression	activates
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	P	Upregulation of Siderophore Systems (ent, fep)		activates	high	none	regulator controls different expression	activates
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	V	Upregulation of Feo System (Ferrous Iron Uptake)		activates	high	none	regulator controls different expression	activates
+ecoli_iron_homeostasis	O	Transcriptional Derepression by Apo-Fur	Y	Upregulation of Heme Uptake Systems (chu, shu)		activates	high	none	regulator controls different expression	activates
+ecoli_iron_homeostasis	P	Upregulation of Siderophore Systems (ent, fep)	Q	Siderophore Biosynthesis & Secretion Enzymes		produces	high	3	Rule3 expression yields own machinery	produces
+ecoli_iron_homeostasis	Q	Siderophore Biosynthesis & Secretion Enzymes	R	Siderophores (e.g., Enterobactin)		proceeds	med	none	unlabeled process step	produces
+ecoli_iron_homeostasis	R	Siderophores (e.g., Enterobactin)	S	Iron-Siderophore Complex		proceeds	med	none	unlabeled process step	produces
+ecoli_iron_homeostasis	S	Iron-Siderophore Complex	T	Siderophore Uptake Systems (Fhu, Fec, Fep)		proceeds	med	none	unlabeled process step	proceeds
+ecoli_iron_homeostasis	T	Siderophore Uptake Systems (Fhu, Fec, Fep)	U	Cytoplasmic Ferric Iron (Fe3+) from siderophores		proceeds	med	none	unlabeled process step	produces
+ecoli_iron_homeostasis	U	Cytoplasmic Ferric Iron (Fe3+) from siderophores	AA	Ferric Reductase Activity		proceeds	med	none	unlabeled process step	proceeds
+ecoli_iron_homeostasis	U	Cytoplasmic Ferric Iron (Fe3+) from siderophores	C1	AND: Cytoplasmic Iron Pool		proceeds	med	none	unlabeled process step	proceeds
+ecoli_iron_homeostasis	V	Upregulation of Feo System (Ferrous Iron Uptake)	W	FeoAB/C System		produces	high	3	Rule3 expression yields own machinery	produces
+ecoli_iron_homeostasis	W	FeoAB/C System	X	Cytoplasmic Ferrous Iron (Fe2+)		proceeds	med	none	unlabeled process step	produces
+ecoli_iron_homeostasis	X	Cytoplasmic Ferrous Iron (Fe2+)	AH	Is Cytoplasmic Fe2+ level high?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_iron_homeostasis	Y	Upregulation of Heme Uptake Systems (chu, shu)	Z	Heme Uptake & Iron Release (HemO)		produces	high	3	Rule3 expression yields own machinery	produces
+ecoli_iron_homeostasis	Yes	Yes	F	Low Iron Condition		proceeds	med	none	unlabeled process step	proceeds
+ecoli_iron_homeostasis	Z	Heme Uptake & Iron Release (HemO)	X	Cytoplasmic Ferrous Iron (Fe2+)		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	AC	High Intracellular Pi	AD	Impact on PTS Phosphorylation		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	AD	Impact on PTS Phosphorylation	AE	Is Glucose Available?		modifies	med	none	covalent modification event	proceeds
+ecoli_phosphate_regulation	AE	Is Glucose Available?	No	No		proceeds	med	none	gate continues without outcome label	proceeds
+ecoli_phosphate_regulation	AE	Is Glucose Available?	Yes	Yes		proceeds	med	none	gate continues without outcome label	proceeds
+ecoli_phosphate_regulation	AX	Intracellular Pi Pool (General)	BA	Synthesis of Polyphosphate (PolyP)		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	AX	Intracellular Pi Pool (General)	High	High		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	BA	Synthesis of Polyphosphate (PolyP)	BB	PolyP Storage (Pi Reserve)		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	BB	PolyP Storage (Pi Reserve)	BC	Polyphosphate Exopolyphosphatase (PPX)		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	BC	Polyphosphate Exopolyphosphatase (PPX)	BD	Degradation of PolyP		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	BD	Degradation of PolyP	BE	Release of Intracellular Pi from PolyP		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	BE	Release of Intracellular Pi from PolyP	AX	Intracellular Pi Pool (General)		produces	med	none	material production/appearance	produces
+ecoli_phosphate_regulation	BH	Pyridoxal Kinase	BI	PL + ATP -> PLP + ADP Reaction		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	BI	PL + ATP -> PLP + ADP Reaction	BJ	Pyridoxal 5'-Phosphate (PLP)		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	BJ	Pyridoxal 5'-Phosphate (PLP)	BK	PLP Feedback Inhibits Pyridoxal Kinase		induces	med	none	effector as signal to sensor	induces
+ecoli_phosphate_regulation	BK	PLP Feedback Inhibits Pyridoxal Kinase	BH	Pyridoxal Kinase		proceeds	med	none	unlabeled process step	represses
+ecoli_phosphate_regulation	C	Pst System Activity Decreased	D	Pst System (sensor) Inactive		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	D	Pst System (sensor) Inactive	E	PhoR (Histidine Kinase)		proceeds	med	none	unlabeled process step	activates
+ecoli_phosphate_regulation	E	PhoR (Histidine Kinase)	F	PhoR Autophosphorylation		activates	med	none	regulator changes target capacity	modifies
+ecoli_phosphate_regulation	F	PhoR Autophosphorylation	G	PhoR-P		modifies	med	none	covalent modification event	modifies
+ecoli_phosphate_regulation	G	PhoR-P	I	PhoR-P transfers P to PhoB		proceeds	med	none	unlabeled process step	modifies
+ecoli_phosphate_regulation	High	High	AC	High Intracellular Pi		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	I	PhoR-P transfers P to PhoB	J	PhoB-P		proceeds	med	none	unlabeled process step	modifies
+ecoli_phosphate_regulation	J	PhoB-P	K	PhoB-P binds to Pho boxes		proceeds	med	none	unlabeled process step	activates
+ecoli_phosphate_regulation	K	PhoB-P binds to Pho boxes	L	Activation of Pho Regulon Genes		proceeds	high	none	process feeds decision gate	activates
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	M	Increased Pi Uptake Genes (e.g., Pst, Pit)		proceeds	med	none	gate continues without outcome label	activates
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	N	Increased Pi Scavenging Genes (e.g., PhoA, UgpB)		proceeds	med	none	gate continues without outcome label	activates
+ecoli_phosphate_regulation	L	Activation of Pho Regulon Genes	O	Increased Membrane Remodeling Genes		proceeds	med	none	gate continues without outcome label	activates
+ecoli_phosphate_regulation	M	Increased Pi Uptake Genes (e.g., Pst, Pit)	Q	Enhanced Pi Uptake		produces	high	3	Rule3 expression yields own machinery	produces
+ecoli_phosphate_regulation	N	Increased Pi Scavenging Genes (e.g., PhoA, UgpB)	S	Phosphate Scavenging		produces	high	3	Rule3 expression yields own machinery	produces
+ecoli_phosphate_regulation	No	No	Y	Normal/High External Pi		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	O	Increased Membrane Remodeling Genes	U	Replacement of Phospholipids		proceeds	med	none	pathway/state advances	produces
+ecoli_phosphate_regulation	Q	Enhanced Pi Uptake	R	Intracellular Pi from Uptake		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	R	Intracellular Pi from Uptake	AX	Intracellular Pi Pool (General)		produces	med	none	material production/appearance	produces
+ecoli_phosphate_regulation	S	Phosphate Scavenging	T	Liberation of Pi from Organic Sources		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	T	Liberation of Pi from Organic Sources	AX	Intracellular Pi Pool (General)		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	U	Replacement of Phospholipids	V	Conservation of Intracellular Pi		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	V	Conservation of Intracellular Pi	AX	Intracellular Pi Pool (General)		proceeds	med	none	unlabeled process step	produces
+ecoli_phosphate_regulation	Y	Normal/High External Pi	AC	High Intracellular Pi		proceeds	med	none	unlabeled process step	proceeds
+ecoli_phosphate_regulation	Yes	Yes	C	Pst System Activity Decreased		proceeds	med	none	unlabeled process step	proceeds
+ecoli_sos_lexa	A	DNA damage: ssDNA	B	RecA* filament		proceeds	med	none	unlabeled process step	activates
+ecoli_sos_lexa	B	RecA* filament	C	Stimulates LexA autocleavage		proceeds	med	none	unlabeled process step	modifies
+ecoli_sos_lexa	C	Stimulates LexA autocleavage	D	SOS repair genes derepressed	⊣ LexA off	represses	high	1	Rule1 explicit bar-head inhibition	activates
+ecoli_sos_lexa	D	SOS repair genes derepressed	E	Repair removes ssDNA signal		proceeds	med	none	unlabeled process step	activates
+ecoli_sos_lexa	E	Repair removes ssDNA signal	A	DNA damage: ssDNA	⊣ feedback	represses	high	1	Rule1 explicit bar-head inhibition	represses
+ecoli_tca_cycle	A10	Alternative isoform	A11	Citrate ⇌ cis-Aconitate + H2O		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A11	Citrate ⇌ cis-Aconitate + H2O	A12	cis-Aconitate ⇌ Isocitrate		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A12	cis-Aconitate ⇌ Isocitrate	A13	Isocitrate formed		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A13	Isocitrate formed	A14	Step 3: Isocitrate Dehydrogenase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A14	Step 3: Isocitrate Dehydrogenase	A15	Which Icd isoform?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A15	Which Icd isoform?	A16	Produces NADPH for biosynthesis	Icd NADP+ dependent	activates	high	2	Rule2 gate outcome Icd NADP+ dependent -> activates	proceeds
+ecoli_tca_cycle	A15	Which Icd isoform?	A17	Produces NADH for energy	IcdA NAD+ dependent	activates	high	2	Rule2 gate outcome IcdA NAD+ dependent -> activates	proceeds
+ecoli_tca_cycle	A16	Produces NADPH for biosynthesis	A18	Isocitrate + NADP+ → α-Ketoglutarate + CO2 + NADPH		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A17	Produces NADH for energy	A19	Isocitrate + NAD+ → α-Ketoglutarate + CO2 + NADH		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A18	Isocitrate + NADP+ → α-Ketoglutarate + CO2 + NADPH	A20	α-Ketoglutarate formed		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A19	Isocitrate + NAD+ → α-Ketoglutarate + CO2 + NADH	A20	α-Ketoglutarate formed		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A20	α-Ketoglutarate formed	A22	Branch point at α-ketoglutarate		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A22	Branch point at α-ketoglutarate	A24	Step 4: α-Ketoglutarate Dehydrogenase Complex	Oxidative - continue cycle	activates	high	2	Rule2 gate outcome Oxidative - continue cycle -> activates	proceeds
+ecoli_tca_cycle	A24	Step 4: α-Ketoglutarate Dehydrogenase Complex	A26	α-Ketoglutarate Dehydrogenase KDH complex		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A26	α-Ketoglutarate Dehydrogenase KDH complex	A27	E1: SucA - decarboxylase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A27	E1: SucA - decarboxylase	A28	E2: SucB - dihydrolipoyl transsuccinylase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A28	E2: SucB - dihydrolipoyl transsuccinylase	A29	E3: LpdA - dihydrolipoyl dehydrogenase shared with PDH		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A29	E3: LpdA - dihydrolipoyl dehydrogenase shared with PDH	A30	Substrates available?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A3	Step 1: Citrate Synthase GltA	A4	Acetyl-CoA + Oxaloacetate + H2O		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A30	Substrates available?	A31	Complex reaction proceeds	α-KG + NAD+ + CoA	activates	high	2	Rule2 gate outcome α-KG + NAD+ + CoA -> activates	proceeds
+ecoli_tca_cycle	A30	Substrates available?	Wait1	Wait for substrates	Missing substrate	activates	high	2	Rule2 gate outcome Missing substrate -> activates	proceeds
+ecoli_tca_cycle	A31	Complex reaction proceeds	A32	α-Ketoglutarate + NAD+ + CoA-SH → Succinyl-CoA + CO2 + NADH		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A32	α-Ketoglutarate + NAD+ + CoA-SH → Succinyl-CoA + CO2 + NADH	A33	Second CO2 released, second NADH		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A33	Second CO2 released, second NADH	A34	Succinyl-CoA formed - high energy thioester		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A34	Succinyl-CoA formed - high energy thioester	A35	Succinyl-CoA fate		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A35	Succinyl-CoA fate	A37	Step 5: Succinyl-CoA Synthetase SucCD	Oxidative - continue	activates	high	2	Rule2 gate outcome Oxidative - continue -> activates	proceeds
+ecoli_tca_cycle	A37	Step 5: Succinyl-CoA Synthetase SucCD	A39	Succinyl-CoA + GDP + Pi → Succinate + CoA + GTP		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A39	Succinyl-CoA + GDP + Pi → Succinate + CoA + GTP	A40	Substrate-level phosphorylation - only ATP equivalent		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A4	Acetyl-CoA + Oxaloacetate + H2O	A5	Citrate + CoA-SH		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A40	Substrate-level phosphorylation - only ATP equivalent	A41	GTP formed can phosphorylate ADP		modifies	med	none	covalent modification event	produces
+ecoli_tca_cycle	A41	GTP formed can phosphorylate ADP	A42	Step 6: Succinate Dehydrogenase SdhABCD		modifies	med	none	covalent modification event	proceeds
+ecoli_tca_cycle	A42	Step 6: Succinate Dehydrogenase SdhABCD	A43	Membrane-bound complex II		proceeds	med	none	pathway/state advances	proceeds
+ecoli_tca_cycle	A43	Membrane-bound complex II	A44	Contains FAD, Fe-S clusters, heme b		proceeds	med	none	pathway/state advances	proceeds
+ecoli_tca_cycle	A44	Contains FAD, Fe-S clusters, heme b	A45	Succinate + FAD → Fumarate + FADH2		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A45	Succinate + FAD → Fumarate + FADH2	A46	FADH2 directly feeds electrons to quinone pool		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A46	FADH2 directly feeds electrons to quinone pool	A47	Part of electron transport chain		proceeds	med	none	pathway/state advances	proceeds
+ecoli_tca_cycle	A47	Part of electron transport chain	A48	Oxygen availability?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A48	Oxygen availability?	A49	Electrons to O2 via ETC	Aerobic	activates	high	2	Rule2 gate outcome Aerobic -> activates	proceeds
+ecoli_tca_cycle	A49	Electrons to O2 via ETC	A53	Step 7: Fumarase FumABC		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A5	Citrate + CoA-SH	A6	ΔG°' = -31.4 kJ/mol - irreversible		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A53	Step 7: Fumarase FumABC	A54	Which fumarase?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A54	Which fumarase?	A55	Class I fumarase	FumA - aerobic	activates	high	2	Rule2 gate outcome FumA - aerobic -> activates	proceeds
+ecoli_tca_cycle	A54	Which fumarase?	A56	Class I fumarase	FumB - all conditions	activates	high	2	Rule2 gate outcome FumB - all conditions -> activates	proceeds
+ecoli_tca_cycle	A54	Which fumarase?	A57	Class II fumarase	FumC - aerobic Fe-S resistant	activates	high	2	Rule2 gate outcome FumC - aerobic Fe-S resistant -> activates	proceeds
+ecoli_tca_cycle	A55	Class I fumarase	A58	Fumarate + H2O ⇌ L-Malate		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A56	Class I fumarase	A58	Fumarate + H2O ⇌ L-Malate		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A57	Class II fumarase	A58	Fumarate + H2O ⇌ L-Malate		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A58	Fumarate + H2O ⇌ L-Malate	A59	L-Malate formed		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A59	L-Malate formed	A60	Step 8: Malate Dehydrogenase Mdh		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A6	ΔG°' = -31.4 kJ/mol - irreversible	A7	Step 2: Aconitase AcnA AcnB		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A60	Step 8: Malate Dehydrogenase Mdh	A61	L-Malate + NAD+ ⇌ Oxaloacetate + NADH + H+		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A61	L-Malate + NAD+ ⇌ Oxaloacetate + NADH + H+	A62	Third NADH produced		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	A62	Third NADH produced	A63	Oxaloacetate regenerated		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tca_cycle	A63	Oxaloacetate regenerated	A64	Cycle complete - ready for next acetyl-CoA		proceeds	med	none	pathway/state advances	proceeds
+ecoli_tca_cycle	A64	Cycle complete - ready for next acetyl-CoA	A65	Continue cycling?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A65	Continue cycling?	A3	Step 1: Citrate Synthase GltA	Yes - acetyl-CoA available	activates	high	2	Rule2 gate outcome Yes - acetyl-CoA available -> activates	proceeds
+ecoli_tca_cycle	A7	Step 2: Aconitase AcnA AcnB	A8	Which aconitase isoform?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tca_cycle	A8	Which aconitase isoform?	A10	Alternative isoform	AcnB - stationary phase	activates	high	2	Rule2 gate outcome AcnB - stationary phase -> activates	proceeds
+ecoli_tca_cycle	A8	Which aconitase isoform?	A9	Iron-sulfur cluster intact	AcnA - aerobic	activates	high	2	Rule2 gate outcome AcnA - aerobic -> activates	proceeds
+ecoli_tca_cycle	A9	Iron-sulfur cluster intact	A11	Citrate ⇌ cis-Aconitate + H2O		proceeds	med	none	unlabeled process step	produces
+ecoli_tca_cycle	Wait1	Wait for substrates	A30	Substrates available?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tryptophan_biosynthesis	AA	TrpA: IGP → Indole + G3P	AB	Indole Intermediate		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AB	Indole Intermediate	AC	Indole Channeled to TrpB		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	AC	Indole Channeled to TrpB	AD	TrpB: Serine Dehydration		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	AD	TrpB: Serine Dehydration	AE	Serine + PLP → Aminoacrylate		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AE	Serine + PLP → Aminoacrylate	AF	Indole + Aminoacrylate		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	AF	Indole + Aminoacrylate	AG	C-C Bond Formation		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AG	C-C Bond Formation	AH	L-Tryptophan		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AH	L-Tryptophan	AJ	Tryptophan Accumulation		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	AJ	Tryptophan Accumulation	AK	OR: Trp<br/>Level?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tryptophan_biosynthesis	AK	OR: Trp<br/>Level?	AM	TrpR Inactive	Low	activates	high	2	Rule2 gate outcome Low -> activates	proceeds
+ecoli_tryptophan_biosynthesis	AM	TrpR Inactive	AR	No Repression		proceeds	med	none	unlabeled process step	activates
+ecoli_tryptophan_biosynthesis	AR	No Repression	AS	trp Operon Transcription		represses	med	none	repression of expression	activates
+ecoli_tryptophan_biosynthesis	AS	trp Operon Transcription	AT	TrpEDCBA mRNA		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AS	trp Operon Transcription	AV	trpL Leader Sequence		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	AT	TrpEDCBA mRNA	AU	Enzyme Synthesis		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AU	Enzyme Synthesis	C	TrpE/D Anthranilate Synthase		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	AV	trpL Leader Sequence	AW	OR: Trp-tRNA<br/>Charged?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tryptophan_biosynthesis	AW	OR: Trp-tRNA<br/>Charged?	AY	Ribosome Stalls at Trp Codons	No - Low Trp	activates	high	2	Rule2 gate outcome No - Low Trp -> activates	proceeds
+ecoli_tryptophan_biosynthesis	AY	Ribosome Stalls at Trp Codons	BC	Stem-Loop 2:3 Forms		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	BC	Stem-Loop 2:3 Forms	BD	Antiterminator		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	BD	Antiterminator	BE	Transcription Continues		proceeds	med	none	unlabeled process step	activates
+ecoli_tryptophan_biosynthesis	BE	Transcription Continues	AT	TrpEDCBA mRNA		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	C	TrpE/D Anthranilate Synthase	D	AND: Chorismate + Gln<br/>AND TrpE/D?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tryptophan_biosynthesis	D	AND: Chorismate + Gln<br/>AND TrpE/D?	F	TrpE Amidotransferase	Yes	activates	high	2	Rule2 gate outcome Yes -> activates	proceeds
+ecoli_tryptophan_biosynthesis	F	TrpE Amidotransferase	G	Glutamine → Glutamate + NH3		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	G	Glutamine → Glutamate + NH3	H	NH3 Attacks Chorismate		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	H	NH3 Attacks Chorismate	I	Anthranilate Formation		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	I	Anthranilate Formation	K	TrpD Phosphoribosyltransferase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	K	TrpD Phosphoribosyltransferase	L	AND: Anthranilate + PRPP<br/>AND TrpD?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tryptophan_biosynthesis	L	AND: Anthranilate + PRPP<br/>AND TrpD?	M	PRPP Transfer	Yes	activates	high	2	Rule2 gate outcome Yes -> activates	proceeds
+ecoli_tryptophan_biosynthesis	M	PRPP Transfer	N	N-5'-Phosphoribosyl-anthranilate		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	N	N-5'-Phosphoribosyl-anthranilate	P	TrpF Phosphoribosylanthranilate Isomerase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	P	TrpF Phosphoribosylanthranilate Isomerase	Q	Amadori Rearrangement		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	Q	Amadori Rearrangement	R	1-O-Carboxyphenylamino-1-deoxyribulose-5-P		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	R	1-O-Carboxyphenylamino-1-deoxyribulose-5-P	S	CDRP		proceeds	med	none	unlabeled process step	produces
+ecoli_tryptophan_biosynthesis	S	CDRP	T	TrpC Indole-3-Glycerol-P Synthase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	T	TrpC Indole-3-Glycerol-P Synthase	U	Ring Closure + Decarboxylation		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	U	Ring Closure + Decarboxylation	V	Indole-3-Glycerol Phosphate		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	V	Indole-3-Glycerol Phosphate	X	TrpA/B Tryptophan Synthase		proceeds	med	none	unlabeled process step	proceeds
+ecoli_tryptophan_biosynthesis	X	TrpA/B Tryptophan Synthase	Y	AND: TrpA α-Subunit<br/>AND TrpB β-Subunit?		proceeds	high	none	process feeds decision gate	proceeds
+ecoli_tryptophan_biosynthesis	Y	AND: TrpA α-Subunit<br/>AND TrpB β-Subunit?	Z	α2β2 Tetramer	Yes	activates	high	2	Rule2 gate outcome Yes -> activates	proceeds
+ecoli_tryptophan_biosynthesis	Z	α2β2 Tetramer	AA	TrpA: IGP → Indole + G3P		proceeds	med	none	unlabeled process step	produces
+human_ampk_energy_homeostat	B	AMPK activated	C	Catabolism up, anabolism down		proceeds	med	none	unlabeled process step	activates
+human_ampk_energy_homeostat	C	Catabolism up, anabolism down	D	ATP regenerated		produces	med	none	material production/appearance	produces
+human_ampk_energy_homeostat	D	ATP regenerated	E	Rising ATP inactivates AMPK		induces	med	none	effector as signal to sensor	induces
+human_ampk_energy_homeostat	E	Rising ATP inactivates AMPK	B	AMPK activated	⊣ feedback	represses	high	1	Rule1 explicit bar-head inhibition	represses
+human_camp_pka_desensitization	A	Agonist binds GPCR	B	cAMP rises, PKA active		proceeds	med	none	unlabeled process step	activates
+human_camp_pka_desensitization	B	cAMP rises, PKA active	D	GRK + β-arrestin desensitize receptor		induces	med	none	effector as signal to sensor	activates
+human_camp_pka_desensitization	B	cAMP rises, PKA active	E	PDE degrades cAMP		proceeds	med	none	unlabeled process step	activates
+human_camp_pka_desensitization	D	GRK + β-arrestin desensitize receptor	A	Agonist binds GPCR	⊣ feedback	represses	high	1	Rule1 explicit bar-head inhibition	represses
+human_camp_pka_desensitization	E	PDE degrades cAMP	B	cAMP rises, PKA active	⊣	represses	high	1	Rule1 explicit bar-head inhibition	represses
+human_iron_irp_ire	B	IRP1/2 bind IRE elements	C	Transferrin-receptor mRNA stabilized		activates	med	none	binding stabilizes capacity	activates
+human_iron_irp_ire	C	Transferrin-receptor mRNA stabilized	E	Iron uptake rises		proceeds	med	none	unlabeled process step	produces
+human_iron_irp_ire	E	Iron uptake rises	F	Rising iron inactivates IRPs		proceeds	med	none	unlabeled process step	induces
+human_iron_irp_ire	F	Rising iron inactivates IRPs	B	IRP1/2 bind IRE elements	⊣ feedback	represses	high	1	Rule1 explicit bar-head inhibition	represses
+human_mtorc1_nutrient	A	Amino acids + growth factors	B	mTORC1 active		induces	med	none	effector as signal to sensor	activates
+human_mtorc1_nutrient	B	mTORC1 active	C	S6K1 / 4E-BP1		proceeds	med	none	unlabeled process step	activates
+human_mtorc1_nutrient	C	S6K1 / 4E-BP1	E	S6K1 inhibits IRS-1		proceeds	med	none	unlabeled process step	activates
+human_mtorc1_nutrient	E	S6K1 inhibits IRS-1	A	Amino acids + growth factors	⊣ feedback	represses	high	1	Rule1 explicit bar-head inhibition	represses
+human_nfkb_ikb_oscillator	D	NF-κB nuclear	F	IκBα resynthesized		proceeds	med	none	unlabeled process step	activates
+human_nfkb_ikb_oscillator	F	IκBα resynthesized	G	IκB resequesters NF-κB		sequesters	high	none	physical sequestration/binding	sequesters
+human_nfkb_ikb_oscillator	G	IκB resequesters NF-κB	D	NF-κB nuclear	⊣ delayed	sequesters	high	1	Rule1 bar-head sequestration mechanism	sequesters
+human_oct4_sox2_nanog_pluripotency	B	OCT4-SOX2 heterodimer	C	NANOG		proceeds	med	none	unlabeled process step	activates
+human_oct4_sox2_nanog_pluripotency	B	OCT4-SOX2 heterodimer	D	OCT4-SOX2 autoactivation		proceeds	med	none	unlabeled process step	activates
+human_oct4_sox2_nanog_pluripotency	C	NANOG	B	OCT4-SOX2 heterodimer	+	activates	high	1	Rule1 explicit Activates/+ marker	activates
+human_oct4_sox2_nanog_pluripotency	D	OCT4-SOX2 autoactivation	B	OCT4-SOX2 heterodimer	+	activates	high	1	Rule1 explicit Activates/+ marker	activates
+yeast_cell_cycle_control	APC	APC/C Activation<br/>Cdc20	CyclinDegradation	Cyclin B<br/>Degradation		proceeds	med	none	unlabeled process step	modifies
+yeast_cell_cycle_control	Anaphase	Anaphase<br/>Sister Separation	Telophase	Telophase<br/>Cytokinesis		proceeds	med	none	unlabeled process step	transitions
+yeast_cell_cycle_control	BudFormation	Bud Formation<br/>Spindle Pole Duplication	SPhase	S Phase Entry<br/>DNA Replication		proceeds	med	none	pathway/state advances	transitions
+yeast_cell_cycle_control	CDKInactivation	CDK Inactivation	Anaphase	Anaphase<br/>Sister Separation		proceeds	med	none	unlabeled process step	transitions
+yeast_cell_cycle_control	Cdc28Activation	Cdc28-Cln<br/>Activation	BudFormation	Bud Formation<br/>Spindle Pole Duplication		proceeds	med	none	unlabeled process step	activates
+yeast_cell_cycle_control	ClbCyclins	Clb5/6 Cyclins<br/>S-phase CDK	G2Phase	G2 Phase<br/>Growth & Preparation		proceeds	med	none	unlabeled process step	transitions
+yeast_cell_cycle_control	CyclinDegradation	Cyclin B<br/>Degradation	CDKInactivation	CDK Inactivation		proceeds	med	none	unlabeled process step	represses
+yeast_cell_cycle_control	G1Cyclins	G1 Cyclins<br/>Cln1/2/3	Cdc28Activation	Cdc28-Cln<br/>Activation		proceeds	med	none	unlabeled process step	activates
+yeast_cell_cycle_control	G1Phase	G1 Phase<br/>Cell Growth	StartCheck	Start Checkpoint<br/>Size & Nutrients?		proceeds	high	none	process feeds decision gate	proceeds
+yeast_cell_cycle_control	G1Return	Return to G1	G1Phase	G1 Phase<br/>Cell Growth		proceeds	med	none	unlabeled process step	transitions
+yeast_cell_cycle_control	G2Phase	G2 Phase<br/>Growth & Preparation	MitCyclins	Clb1/2 Cyclins<br/>Mitotic CDK		proceeds	med	none	unlabeled process step	activates
+yeast_cell_cycle_control	MitCyclins	Clb1/2 Cyclins<br/>Mitotic CDK	Mitosis	M Phase<br/>Chromosome Segregation		proceeds	med	none	unlabeled process step	transitions
+yeast_cell_cycle_control	Mitosis	M Phase<br/>Chromosome Segregation	SpindleCheck	Spindle Assembly<br/>Checkpoint?		proceeds	high	none	process feeds decision gate	proceeds
+yeast_cell_cycle_control	SCheckpoint	DNA Replication<br/>Complete?	ClbCyclins	Clb5/6 Cyclins<br/>S-phase CDK	Yes	activates	high	2	Rule2 gate outcome Yes -> activates	activates
+yeast_cell_cycle_control	SPhase	S Phase Entry<br/>DNA Replication	SCheckpoint	DNA Replication<br/>Complete?		proceeds	high	none	process feeds decision gate	proceeds
+yeast_cell_cycle_control	SpindleCheck	Spindle Assembly<br/>Checkpoint?	APC	APC/C Activation<br/>Cdc20	Passed	activates	high	2	Rule2 gate outcome Passed -> activates	activates
+yeast_cell_cycle_control	StartCheck	Start Checkpoint<br/>Size & Nutrients?	G1Cyclins	G1 Cyclins<br/>Cln1/2/3	Yes	activates	high	2	Rule2 gate outcome Yes -> activates	activates
+yeast_cell_cycle_control	Telophase	Telophase<br/>Cytokinesis	G1Return	Return to G1		proceeds	med	none	unlabeled process step	transitions
+yeast_yeast_glycolysis_regulation	B	Hexokinase (Hxk)	C	G6P pool		proceeds	med	none	unlabeled process step	produces
+yeast_yeast_glycolysis_regulation	C	G6P pool	D	G6P inhibits Hxk		proceeds	med	none	unlabeled process step	induces
+yeast_yeast_glycolysis_regulation	D	G6P inhibits Hxk	B	Hexokinase (Hxk)	−	represses	high	1	Rule1 explicit bar-head inhibition	represses
+yeast_yeast_glycolysis_regulation	E	Phosphofructokinase (Pfk-1)	F	F1,6BP		proceeds	med	none	unlabeled process step	produces
+yeast_yeast_glycolysis_regulation	F	F1,6BP	G	Pyruvate kinase (Pyk)		proceeds	med	none	unlabeled process step	proceeds
+yeast_yeast_glycolysis_regulation	G	Pyruvate kinase (Pyk)	H	ATP / glycolytic flux		proceeds	med	none	unlabeled process step	produces
+yeast_yeast_glycolysis_regulation	H	ATP / glycolytic flux	I	High ATP inhibits Pfk-1		proceeds	med	none	unlabeled process step	induces
+yeast_yeast_glycolysis_regulation	I	High ATP inhibits Pfk-1	E	Phosphofructokinase (Pfk-1)	−	represses	high	1	Rule1 explicit bar-head inhibition	represses
