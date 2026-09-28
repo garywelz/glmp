@@ -5,6 +5,7 @@ Tests each component and the complete workflow
 """
 
 import json
+import re
 import requests
 import time
 import logging
@@ -53,7 +54,6 @@ class PodcastSystemTester:
                     logger.info(f"  📁 {filename} ({blob.size} bytes, {blob.time_created})")
                     
                     # Extract number for filename analysis
-                    import re
                     match = re.search(r'ever-\w+-(\d+)', filename)
                     if match:
                         number = int(match.group(1))

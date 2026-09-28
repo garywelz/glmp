@@ -272,7 +272,7 @@ class PodcastGenerator:
         logger.info(f"Parsed {len(segments)} segments from script")
         return segments
     
-    def generate_audio(self, segments: List[Dict[str, str]]) -> bytes:
+    def generate_audio(self, segments: List[Dict[str, str]]) -> tuple:
         """Generate multi-voice audio with proper voice assignments"""
         logger.info(f"Generating audio for {len(segments)} segments")
         
@@ -349,8 +349,8 @@ class PodcastGenerator:
         
         duration_minutes = len(final_audio) / (1000 * 60)  # Convert ms to minutes
         logger.info(f"Final audio: {duration_minutes:.1f} minutes, {len(mp3_data)} bytes")
-        
-        return mp3_data
+
+        return mp3_data, duration_minutes
     
     def upload_to_storage(self, filename: str, audio_data: bytes, metadata: Dict[str, Any]) -> str:
         """Upload podcast to Google Cloud Storage with metadata"""
@@ -415,8 +415,8 @@ class PodcastGenerator:
             )
             
             # Generate audio with multiple voices
-            audio_data = self.generate_audio(content_result['segments'])
-            
+            audio_data, duration_minutes = self.generate_audio(content_result['segments'])
+
             # Prepare metadata
             metadata = {
                 'job_id': job_id,
@@ -424,7 +424,7 @@ class PodcastGenerator:
                 'subject': subject,
                 'category': category,
                 'duration_requested': duration,
-                'duration_minutes': len(audio_data) / (1000 * 60 * 128 * 1024 / 8),  # Rough estimate
+                'duration_minutes': duration_minutes,
                 'speakers': speakers,
                 'difficulty': difficulty,
                 'source_links': source_links,
@@ -503,7 +503,7 @@ def get_job_status(job_id):
     """Get status of a podcast generation job"""
     try:
         # Check if metadata file exists
-        metadata_blobs = list(self.bucket.list_blobs(prefix=f"podcasts/"))
+        metadata_blobs = list(storage_client.bucket(BUCKET_NAME).list_blobs(prefix="podcasts/"))
         
         for blob in metadata_blobs:
             if blob.name.endswith('_metadata.json'):
