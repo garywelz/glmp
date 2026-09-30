@@ -294,7 +294,7 @@ not baked into the identifier, to keep IDs lean and URL-safe.
 
 | Component | Location | Notes |
 |---|---|---|
-| Jetson Nano | gary@192.168.1.222 | Edge compute; runs cron scouts and decoder |
+| Jetson Nano | gary@192.168.1.223 | Edge compute; runs cron scouts and decoder |
 | Firestore | regal-scholar-453620-r7 / copernicusai | research_papers (62k+), glmp_processes (217) |
 | GCS bucket | regal-scholar-453620-r7-podcast-storage | Static assets, HTML viewers, metadata |
 | Cloud Run API | copernicus-podcast-api-phzp4ie2sq-uc.a.run.app | Browse/search API |

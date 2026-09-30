@@ -142,7 +142,7 @@ Activate worker venv:
   export GOOGLE_APPLICATION_CREDENTIALS=${SA_FILE}
 
 Smoke test — acquire 3 GLMP priority DOIs (copy list from glmp repo first):
-  scp collaborations/krampis-virtual-cell/curated-doi-ingest-priority.txt gary@192.168.1.222:~/
+  scp collaborations/krampis-virtual-cell/curated-doi-ingest-priority.txt gary@192.168.1.223:~/
   head -3 ~/curated-doi-ingest-priority.txt > /tmp/doi-smoke.txt
   cd ${LEGACY_ROOT}/huggingface-space/scripts/acquire_papers
   python3 acquire_crossref_batch.py --doi-file /tmp/doi-smoke.txt
@@ -163,5 +163,5 @@ Not yet in repo (Jetson Phase 2):
 
 GCP project: regal-scholar-453620-r7
 Firestore DB: copernicusai
-Jetson SSH:   gary@192.168.1.222
+Jetson SSH:   gary@192.168.1.223
 EOF
