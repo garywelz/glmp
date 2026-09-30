@@ -1,0 +1,483 @@
+{
+  "process_name": "Glucose Repression",
+  "analysis_type": "Programming Framework Analysis",
+  "description": "Analysis of glucose repression as a biological program, identifying computational constructs and control flow patterns",
+  
+  "program_summary": {
+    "paradigm": "Event-driven state machine with feedback control",
+    "language_features": [
+      "Conditional branching (IF-THEN-ELSE)",
+      "Boolean logic (AND, OR, NOT)",
+      "State machines (Snf1 active/inactive, Mig1 phosphorylated/dephosphorylated)",
+      "Feedback loops (WHILE loops)",
+      "Signal transduction (function call chains)",
+      "Error handling (checkpoint mechanisms)"
+    ],
+    "complexity_metrics": {
+      "cyclomatic_complexity": 8,
+      "decision_points": 5,
+      "state_transitions": 4,
+      "feedback_loops": 2,
+      "parallel_pathways": 1
+    }
+  },
+  
+  "pseudocode": {
+    "high_level": [
+      "FUNCTION glucose_repression(glucose_concentration):",
+      "  // Main decision point",
+      "  IF (glucose_concentration > THRESHOLD):",
+      "    // High glucose pathway",
+      "    CALL repress_alternative_carbon_genes()",
+      "    CALL activate_glucose_metabolism()",
+      "    RETURN fermentation_active",
+      "  ELSE:",
+      "    // Low glucose pathway",
+      "    CALL activate_alternative_carbon_genes()",
+      "    CALL activate_respiration()",
+      "    RETURN respiration_active",
+      "",
+      "FUNCTION repress_alternative_carbon_genes():",
+      "  // Sensor activation",
+      "  sensor_signal = glucose_sensors.sense(glucose)",
+      "  ",
+      "  // AND gate - both conditions required",
+      "  IF (glucose_high AND sensor_activated):",
+      "    // Inactivate Snf1 kinase (NOT gate)",
+      "    snf1.state = INACTIVE  // via Reg1 phosphatase",
+      "    ",
+      "    // Without Snf1, Mig1 remains dephosphorylated",
+      "    mig1.phosphorylation = LOW",
+      "    ",
+      "    // Nuclear import",
+      "    mig1.localization = NUCLEUS",
+      "    ",
+      "    // DNA binding and repression",
+      "    mig1.bind_dna(target_promoters)",
+      "    mig1.recruit_corepressor(ssn6_tup1)",
+      "    ssn6_tup1.modify_chromatin(REPRESSIVE)",
+      "    ",
+      "    // Transcription blocked",
+      "    gal_genes.expression = OFF",
+      "    suc2.expression = OFF",
+      "    mal_genes.expression = OFF",
+      "    ",
+      "    // WHILE loop - maintain state",
+      "    WHILE (glucose > THRESHOLD):",
+      "      MAINTAIN repression_state",
+      "      MONITOR glucose_levels",
+      "    ",
+      "    // When glucose drops, reverse process",
+      "    IF (glucose < THRESHOLD):",
+      "      CALL derepress_genes()",
+      "",
+      "FUNCTION activate_glucose_metabolism():",
+      "  glycolysis.flux = MAXIMUM",
+      "  fermentation.active = TRUE",
+      "  RETURN ethanol_production"
+    ],
+    
+    "detailed_flow": [
+      "// INPUT LAYER - Environmental Sensing",
+      "glucose_concentration = environment.sense()",
+      "",
+      "// SENSOR LAYER",
+      "snf3_signal = snf3.sense_glucose(glucose)  // High affinity sensor",
+      "rgt2_signal = rgt2.sense_glucose(glucose)  // Low affinity sensor",
+      "",
+      "// LOGIC LAYER - AND Gate",
+      "sensor_active = (glucose > 0.2) AND (rgt2_signal == HIGH)",
+      "",
+      "// REGULATION LAYER - State Machine",
+      "IF (sensor_active):",
+      "  // Snf1 inactivation pathway",
+      "  reg1_phosphatase.activate()",
+      "  snf1.phosphorylation_T210 = LOW",
+      "  snf1.activity = INACTIVE  // State transition",
+      "  ",
+      "  // NOT gate - inverse relationship",
+      "  mig1.phosphorylation = NOT(snf1.activity)",
+      "  ",
+      "  // Conditional transport",
+      "  IF (mig1.phosphorylation == LOW):",
+      "    // Nuclear import",
+      "    import_signal = TRUE",
+      "    msn5_exportin.activity = LOW",
+      "    srp1_importin.bind(mig1)",
+      "    mig1.localization = transport_to_nucleus(mig1)",
+      "    ",
+      "    // DNA binding cascade",
+      "    IF (mig1.localization == NUCLEUS):",
+      "      // Find target sites",
+      "      target_sites = scan_genome(GC_RICH_MOTIF)",
+      "      ",
+      "      FOR site IN target_sites:",
+      "        mig1.bind(site)",
+      "        ",
+      "        // Recruit corepressor",
+      "        ssn6_tup1_complex = recruit_corepressor()",
+      "        ",
+      "        // Chromatin modification",
+      "        hdac = ssn6_tup1_complex.recruit_hdac()",
+      "        chromatin.deacetylate(site.region)",
+      "        chromatin.state = REPRESSIVE",
+      "        ",
+      "        // Block transcription",
+      "        rna_pol2.recruitment = BLOCKED",
+      "        gene.transcription = OFF",
+      "      ",
+      "      // OUTPUT - Gene expression changes",
+      "      GAL1.expression = 0.001 * basal  // 1000x repression",
+      "      SUC2.expression = 0.01 * basal   // 100x repression",
+      "      ",
+      "      // Activate glucose pathway",
+      "      glucose_metabolism.state = ACTIVE",
+      "      ",
+      "      // FEEDBACK LOOP - Monitor and maintain",
+      "      WHILE (glucose > THRESHOLD):",
+      "        current_state = check_repression()",
+      "        IF (current_state != REPRESSED):",
+      "          reinforce_repression()",
+      "        glucose = sense_glucose()",
+      "        SLEEP(check_interval)"
+    ]
+  },
+  
+  "logic_gates_catalog": {
+    "and_gates": [
+      {
+        "id": "and_gate_1",
+        "location": "Glucose sensing",
+        "inputs": ["glucose_concentration > threshold", "sensor_activated"],
+        "output": "snf1_inactivation_signal",
+        "boolean_expression": "(glucose > 0.2) AND (sensor_active)",
+        "biological_mechanism": "Both high glucose and sensor activation required to trigger Reg1 phosphatase",
+        "confidence": 0.92,
+        "citations": [2, 4]
+      },
+      {
+        "id": "and_gate_2",
+        "location": "Transcriptional repression",
+        "inputs": ["mig1_bound_to_dna", "ssn6_tup1_recruited"],
+        "output": "transcription_blocked",
+        "boolean_expression": "mig1.dna_bound AND corepressor.recruited",
+        "biological_mechanism": "Both Mig1 DNA binding and corepressor recruitment required for effective repression",
+        "confidence": 0.95,
+        "citations": [6, 18]
+      }
+    ],
+    
+    "or_gates": [
+      {
+        "id": "or_gate_1",
+        "location": "Glucose sensing (sensor redundancy)",
+        "inputs": ["snf3_activated", "rgt2_activated"],
+        "output": "glucose_detected",
+        "boolean_expression": "snf3.active OR rgt2.active",
+        "biological_mechanism": "Either sensor can detect glucose (redundancy), though at different concentration ranges",
+        "confidence": 0.88,
+        "citations": [4, 5],
+        "note": "Partial redundancy - sensors have different affinities"
+      }
+    ],
+    
+    "not_gates": [
+      {
+        "id": "not_gate_1",
+        "location": "Snf1-Mig1 relationship",
+        "input": "snf1_active",
+        "output": "mig1_nuclear",
+        "boolean_expression": "mig1_nuclear = NOT(snf1_active)",
+        "biological_mechanism": "Snf1 phosphorylation of Mig1 causes nuclear export; absence of Snf1 activity results in nuclear localization",
+        "confidence": 0.94,
+        "citations": [9, 10, 11],
+        "implementation": "Inverse phosphorylation state"
+      },
+      {
+        "id": "not_gate_2",
+        "location": "Transcriptional control",
+        "input": "repression_active",
+        "output": "gene_expression",
+        "boolean_expression": "gene_ON = NOT(repression_active)",
+        "biological_mechanism": "Repressor blocks transcription - repression ON means gene expression OFF",
+        "confidence": 0.97,
+        "citations": [1, 15, 23],
+        "implementation": "Physical blocking of RNA polymerase"
+      }
+    ],
+    
+    "xor_gates": [
+      {
+        "id": "xor_gate_1",
+        "location": "Metabolic pathway selection",
+        "inputs": ["fermentation", "respiration"],
+        "output": "primary_metabolism",
+        "boolean_expression": "fermentation XOR respiration",
+        "biological_mechanism": "Cell preferentially uses fermentation (high glucose) OR respiration (low glucose), but not both efficiently simultaneously",
+        "confidence": 0.85,
+        "citations": [1, 2],
+        "note": "Soft XOR - can co-occur but one dominates (Crabtree effect)"
+      }
+    ],
+    
+    "nand_gates": [
+      {
+        "id": "nand_gate_1",
+        "location": "Alternative gene activation",
+        "inputs": ["glucose_high", "snf1_inactive"],
+        "output": "alternative_genes_on",
+        "boolean_expression": "genes_active = NOT(glucose_high AND snf1_inactive)",
+        "biological_mechanism": "Genes are ON unless both glucose is high AND Snf1 is inactive",
+        "confidence": 0.90,
+        "citations": [2, 6],
+        "note": "Universal gate equivalent - demonstrates computational completeness"
+      }
+    ]
+  },
+  
+  "control_structures": {
+    "conditionals": [
+      {
+        "type": "IF-THEN-ELSE",
+        "id": "master_conditional",
+        "condition": "glucose_concentration > 0.2% (w/v)",
+        "then_branch": "Repress alternative carbon genes, activate glucose metabolism",
+        "else_branch": "Activate alternative carbon genes, activate respiration",
+        "location": "System entry point",
+        "confidence": 0.94,
+        "citations": [1, 2, 3],
+        "biological_implementation": "Glucose threshold detection → differential gene expression programs"
+      },
+      {
+        "type": "IF-THEN",
+        "id": "nuclear_import_conditional",
+        "condition": "mig1.phosphorylation == LOW",
+        "then_branch": "Nuclear import via Srp1 importin",
+        "location": "Mig1 localization control",
+        "confidence": 0.96,
+        "citations": [10, 13],
+        "biological_implementation": "Phosphorylation state determines nuclear transport"
+      }
+    ],
+    
+    "loops": [
+      {
+        "type": "WHILE",
+        "id": "maintenance_loop",
+        "condition": "glucose_concentration > threshold",
+        "body": "Maintain repression state, monitor glucose levels",
+        "exit_condition": "glucose_concentration <= threshold",
+        "location": "Feedback maintenance",
+        "confidence": 0.90,
+        "citations": [2, 25],
+        "biological_implementation": "Continuous glucose sensing with stable repression state",
+        "loop_frequency": "Continuous (seconds to minutes timescale)"
+      },
+      {
+        "type": "FOR-EACH",
+        "id": "target_gene_loop",
+        "iterable": "target_promoters[]",
+        "body": "Bind Mig1, recruit Ssn6-Tup1, modify chromatin, repress transcription",
+        "location": "Multi-gene repression",
+        "confidence": 0.95,
+        "citations": [15, 23],
+        "biological_implementation": "Sequential/parallel binding to multiple genomic sites (>200 genes)",
+        "note": "Parallel execution - many Mig1 molecules act simultaneously"
+      }
+    ],
+    
+    "state_machines": [
+      {
+        "id": "snf1_state_machine",
+        "states": ["inactive", "active"],
+        "transitions": [
+          {
+            "from": "active",
+            "to": "inactive",
+            "trigger": "high_glucose",
+            "mechanism": "Reg1 dephosphorylation of T210"
+          },
+          {
+            "from": "inactive",
+            "to": "active",
+            "trigger": "low_glucose",
+            "mechanism": "Upstream kinase phosphorylation of T210"
+          }
+        ],
+        "initial_state": "depends on glucose",
+        "confidence": 0.93,
+        "citations": [7, 8]
+      },
+      {
+        "id": "mig1_localization_machine",
+        "states": ["nuclear", "cytoplasmic"],
+        "transitions": [
+          {
+            "from": "cytoplasmic",
+            "to": "nuclear",
+            "trigger": "snf1_inactive (dephosphorylated_mig1)",
+            "mechanism": "Srp1 importin recognition"
+          },
+          {
+            "from": "nuclear",
+            "to": "cytoplasmic",
+            "trigger": "snf1_active (phosphorylated_mig1)",
+            "mechanism": "Msn5 exportin recognition"
+          }
+        ],
+        "initial_state": "depends on glucose/Snf1 state",
+        "confidence": 0.96,
+        "citations": [10, 12]
+      }
+    ],
+    
+    "feedback_loops": [
+      {
+        "type": "negative_feedback",
+        "id": "metabolic_feedback",
+        "components": ["glucose_metabolism", "glucose_concentration", "repression_state"],
+        "description": "Active glucose metabolism depletes glucose, which eventually triggers derepression",
+        "time_scale": "Hours",
+        "confidence": 0.85,
+        "citations": [25],
+        "biological_mechanism": "Glucose consumption → lower glucose → Snf1 activation → Mig1 export → derepression"
+      },
+      {
+        "type": "positive_feedback",
+        "id": "repression_maintenance",
+        "components": ["chromatin_state", "transcription_blocked", "low_expression"],
+        "description": "Repressive chromatin reinforces low expression state",
+        "time_scale": "Minutes to hours",
+        "confidence": 0.82,
+        "citations": [20, 21],
+        "biological_mechanism": "Histone deacetylation creates stable repressive state"
+      }
+    ]
+  },
+  
+  "function_calls": {
+    "signal_transduction_cascade": [
+      "glucose_sensor.sense()",
+      "activate_reg1_phosphatase()",
+      "inactivate_snf1()",
+      "dephosphorylate_mig1()",
+      "import_mig1_to_nucleus()",
+      "bind_target_promoters()",
+      "recruit_ssn6_tup1()",
+      "modify_chromatin()",
+      "block_transcription()"
+    ],
+    "description": "Sequential function call chain from environmental signal to transcriptional output",
+    "parallels": "Similar to event-driven programming with callback chain",
+    "error_handling": "Checkpoints at multiple steps (e.g., phosphorylation state verification)"
+  },
+  
+  "data_types": {
+    "boolean": [
+      "glucose_high (TRUE/FALSE)",
+      "snf1_active (TRUE/FALSE)",
+      "mig1_nuclear (TRUE/FALSE)",
+      "gene_on (TRUE/FALSE)"
+    ],
+    "float": [
+      "glucose_concentration (0.0 - 20.0 % w/v)",
+      "snf1_activity (0.0 - 1.0 normalized)",
+      "mig1_phosphorylation_level (0.0 - 1.0)",
+      "gene_expression_level (0.0 - 1.0 normalized)"
+    ],
+    "enum": [
+      "snf1_state {INACTIVE, ACTIVE}",
+      "mig1_localization {NUCLEAR, CYTOPLASMIC}",
+      "chromatin_state {REPRESSIVE, PERMISSIVE}",
+      "metabolic_mode {FERMENTATION, RESPIRATION}"
+    ],
+    "concentration": [
+      "glucose [% w/v or mM]",
+      "proteins [molecules per cell or nM]",
+      "mRNA [copies per cell]"
+    ]
+  },
+  
+  "computational_completeness": {
+    "turing_completeness": "Approaching Turing complete",
+    "evidence": [
+      "Boolean logic (AND, OR, NOT, NAND)",
+      "Conditional branching (IF-THEN-ELSE)",
+      "Loops (WHILE)",
+      "State machines",
+      "Function calls (signal cascades)",
+      "Memory (chromatin state, protein modifications)"
+    ],
+    "limitations": [
+      "No arbitrary recursion (but feedback loops exist)",
+      "Limited memory (epigenetic state, not arbitrary storage)",
+      "Bounded computation (finite molecular species)"
+    ],
+    "note": "Demonstrates sufficient computational primitives for complex information processing"
+  },
+  
+  "programming_paradigms_observed": [
+    {
+      "paradigm": "Event-driven programming",
+      "evidence": "Glucose signal triggers cascade of responses",
+      "biological_analog": "Environmental signal → cellular response program"
+    },
+    {
+      "paradigm": "State machine",
+      "evidence": "Discrete states (Snf1 active/inactive, Mig1 nuclear/cytoplasmic) with defined transitions",
+      "biological_analog": "Protein modification states and localization"
+    },
+    {
+      "paradigm": "Object-oriented",
+      "evidence": "Proteins as objects with properties (state, localization) and methods (phosphorylate, bind)",
+      "biological_analog": "Protein structure and function encapsulation"
+    },
+    {
+      "paradigm": "Functional programming",
+      "evidence": "Signal transduction as function composition",
+      "biological_analog": "Cascade of enzymatic reactions as composed functions"
+    },
+    {
+      "paradigm": "Declarative/Logic programming",
+      "evidence": "Boolean logic gates specify conditions",
+      "biological_analog": "Regulatory logic encoded in binding sites and protein interactions"
+    }
+  ],
+  
+  "syntax_elements": {
+    "operators": {
+      "logical": ["AND", "OR", "NOT", "XOR", "NAND"],
+      "comparison": [">", "<", "==", "!="],
+      "assignment": ["protein.state = VALUE", "gene.expression = VALUE"]
+    },
+    "keywords": {
+      "control_flow": ["IF", "THEN", "ELSE", "WHILE", "FOR"],
+      "state": ["ACTIVE", "INACTIVE", "ON", "OFF"],
+      "location": ["NUCLEAR", "CYTOPLASMIC", "MEMBRANE"]
+    },
+    "data_structures": {
+      "scalars": ["glucose_concentration", "activity_level"],
+      "arrays": ["target_genes[]", "phosphorylation_sites[]"],
+      "objects": ["protein{state, localization, activity}", "gene{expression, chromatin_state}"]
+    }
+  },
+  
+  "runtime_environment": {
+    "execution_engine": "Cellular machinery (ribosomes, kinases, transporters, etc.)",
+    "memory": "Epigenetic state, protein modifications, metabolite concentrations",
+    "operating_system": "Cellular homeostasis and regulatory networks",
+    "garbage_collection": "Protein degradation, mRNA decay",
+    "error_handling": "Quality control mechanisms, checkpoints",
+    "clock_speed": "Seconds to hours (much slower than silicon)",
+    "parallelism": "Massive parallelism (thousands of molecules acting simultaneously)",
+    "fault_tolerance": "High (redundancy, error correction, graceful degradation)"
+  },
+  
+  "analysis_metadata": {
+    "analysis_date": "2025-09-30",
+    "analyzer": "GLMP Programming Framework Analysis",
+    "confidence": "high",
+    "validation_status": "prototype",
+    "notes": "This analysis demonstrates that glucose repression exhibits clear computational structure with identifiable programming constructs. The biological implementation uses molecular interactions to create logic gates, state machines, and control flow - validating the Programming Framework theory."
+  }
+}

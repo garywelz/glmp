@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glucose Repression - Interactive Process Viewer | GLMP</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header .metadata {
+            margin-top: 15px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+        
+        .metadata-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .controls {
+            background: #f8f9fa;
+            padding: 25px 30px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .control-group label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        
+        .zoom-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .zoom-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .zoom-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .zoom-button.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-button {
+            padding: 10px 20px;
+            border: 2px solid #6c757d;
+            background: white;
+            color: #6c757d;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-button:hover {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .filter-button.active {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .info-panel {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .info-panel h3 {
+            color: #1565c0;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        
+        .info-panel p {
+            color: #424242;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .info-panel ul {
+            margin-left: 20px;
+            color: #424242;
+            line-height: 1.6;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            margin-bottom: 25px;
+            min-height: 500px;
+            overflow-x: auto;
+        }
+        
+        .legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+        
+        .legend h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 2px solid rgba(0,0,0,0.2);
+        }
+        
+        .legend-text {
+            font-size: 0.9rem;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .confidence-legend {
+            margin-top: 20px;
+        }
+        
+        .confidence-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .confidence-box {
+            width: 60px;
+            height: 30px;
+            background: #ddd;
+            border-radius: 4px;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 25px 30px;
+            text-align: center;
+            border-top: 2px solid #e9ecef;
+            color: #6c757d;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header .metadata {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .zoom-buttons, .filter-buttons {
+                flex-direction: column;
+            }
+            
+            .zoom-button, .filter-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧬 Glucose Repression in <em>S. cerevisiae</em></h1>
+            <div class="subtitle">Interactive Programming Framework Analysis</div>
+            <div class="metadata">
+                <div class="metadata-item">
+                    <strong>Process ID:</strong> yeast_sc_glucose_repression_001
+                </div>
+                <div class="metadata-item">
+                    <strong>Confidence:</strong> 89% (High)
+                </div>
+                <div class="metadata-item">
+                    <strong>Citations:</strong> 25 papers
+                </div>
+                <div class="metadata-item">
+                    <strong>Version:</strong> 1.0.0
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>🔍 Zoom Level (Detail):</label>
+                <div class="zoom-buttons">
+                    <button class="zoom-button" onclick="showLevel(0)">Level 0: Pseudocode</button>
+                    <button class="zoom-button active" onclick="showLevel(1)">Level 1: Overview (20 nodes)</button>
+                    <button class="zoom-button" onclick="showLevel(2)">Level 2: Molecular (60 nodes)</button>
+                    <button class="zoom-button" onclick="showLevel(3)">Level 3: Complete (100+ nodes)</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>🎯 Filter by Confidence:</label>
+                <div class="filter-buttons">
+                    <button class="filter-button active" onclick="filterConfidence('all')">Show All</button>
+                    <button class="filter-button" onclick="filterConfidence('high')">High Only (95-100%)</button>
+                    <button class="filter-button" onclick="filterConfidence('good')">Good+ (80-100%)</button>
+                    <button class="filter-button" onclick="filterConfidence('moderate')">Moderate+ (60-100%)</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label>🔧 Highlight:</label>
+                <div class="filter-buttons">
+                    <button class="filter-button" onclick="highlightLogic()">Logic Gates</button>
+                    <button class="filter-button" onclick="highlightEnzymes()">Enzymes</button>
+                    <button class="filter-button" onclick="resetHighlight()">Reset</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="info-panel" id="info-panel">
+                <h3>📖 About This Process</h3>
+                <p><strong>Glucose repression</strong> is a regulatory mechanism where glucose presence represses genes for alternative carbon sources. This demonstrates clear <strong>IF-THEN-ELSE</strong> programming logic in biology.</p>
+                <p><strong>Programming Framework Insights:</strong></p>
+                <ul>
+                    <li><strong>Logic Gates:</strong> AND, OR, NOT, IF-THEN-ELSE identified</li>
+                    <li><strong>Control Structures:</strong> WHILE loops for feedback maintenance</li>
+                    <li><strong>State Machines:</strong> Snf1 (active/inactive), Mig1 (nuclear/cytoplasmic)</li>
+                    <li><strong>Complexity:</strong> 8 decision points, 2 feedback loops</li>
+                </ul>
+            </div>
+            
+            <div class="chart-container">
+                <div id="chart-display" class="loading">
+                    Loading process diagram...
+                </div>
+            </div>
+            
+            <div class="legend">
+                <h3>🎨 Color Legend (Node Types)</h3>
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #ff6b6b; border-color: #c0392b;"></div>
+                        <span class="legend-text">Triggers & Signals</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #ffd43b; border-color: #f39c12;"></div>
+                        <span class="legend-text">Enzymes & Catalysts</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #51cf66; border-color: #27ae60;"></div>
+                        <span class="legend-text">Processing & Reactions</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #74c0fc; border-color: #2980b9;"></div>
+                        <span class="legend-text">Intermediates</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #b197fc; border-color: #8e44ad;"></div>
+                        <span class="legend-text">Products & Outputs</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-box" style="background: #fff3e0; border-color: #ff9800;"></div>
+                        <span class="legend-text">Logic Gates (AND/OR/NOT)</span>
+                    </div>
+                </div>
+                
+                <div class="confidence-legend">
+                    <h3>📊 Confidence Encoding (Border Styles)</h3>
+                    <div class="confidence-item">
+                        <div class="confidence-box" style="border: 4px solid #2c3e50;"></div>
+                        <span class="legend-text"><strong>High (95-100%):</strong> Solid 4px border</span>
+                    </div>
+                    <div class="confidence-item">
+                        <div class="confidence-box" style="border: 3px solid #2c3e50;"></div>
+                        <span class="legend-text"><strong>Good (80-94%):</strong> Solid 3px border</span>
+                    </div>
+                    <div class="confidence-item">
+                        <div class="confidence-box" style="border: 3px dashed #2c3e50;"></div>
+                        <span class="legend-text"><strong>Moderate (60-79%):</strong> Dashed 3px border</span>
+                    </div>
+                    <div class="confidence-item">
+                        <div class="confidence-box" style="border: 2px dotted #2c3e50;"></div>
+                        <span class="legend-text"><strong>Hypothesized (&lt;40%):</strong> Dotted border</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>GLMP - Genome Logic Modeling Project</strong></p>
+            <p>Demonstrating biological processes as executable programs</p>
+            <p><a href="https://huggingface.co/datasets/garywelz/glmp-biological-processes" target="_blank">HuggingFace Dataset</a> | <a href="#" onclick="alert('Citations available in citations.json'); return false;">View Citations</a> | <a href="#" onclick="alert('Metadata available in metadata.json'); return false;">View Metadata</a></p>
+            <p style="margin-top: 15px; font-size: 0.9rem;">Version 1.0.0 | Last Updated: 2025-09-30 | Status: Prototype</p>
+        </div>
+    </div>
+    
+    <script>
+        // Mermaid configuration
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                nodeSpacing: 60,
+                rankSpacing: 80,
+                padding: 20
+            },
+            themeVariables: {
+                fontFamily: 'Segoe UI, Arial, sans-serif',
+                fontSize: '14px'
+            },
+            securityLevel: 'loose'
+        });
+        
+        // Process levels (simplified versions for demo)
+        const processLevels = {
+            0: {
+                title: "Level 0: Pseudocode View",
+                description: "Programming language representation showing the algorithm and logic flow",
+                diagram: `<pre style="background: #2d2d2d; color: #f8f8f2; padding: 25px; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6;">
+<span style="color: #66d9ef;">FUNCTION</span> <span style="color: #a6e22e;">glucose_repression</span>(glucose_concentration):
+    
+    <span style="color: #75715e;">// PRIMARY DECISION POINT - IF-THEN-ELSE</span>
+    <span style="color: #f92672;">IF</span> (glucose_concentration > <span style="color: #ae81ff;">0.2</span>% w/v):
+        <span style="color: #75715e;">──── HIGH GLUCOSE BRANCH ────</span>
+        <span style="color: #75715e;">// Repress alternative carbon source genes</span>
+        <span style="color: #66d9ef;">CALL</span> repress_gal_genes()
+        <span style="color: #66d9ef;">CALL</span> repress_suc2()
+        
+        <span style="color: #75715e;">// Activate glucose metabolism</span>
+        glycolysis.flux = <span style="color: #ae81ff;">MAXIMUM</span>
+        fermentation.state = <span style="color: #ae81ff;">ACTIVE</span>
+        
+        <span style="color: #75715e;">// Maintain state with feedback</span>
+        <span style="color: #f92672;">WHILE</span> (glucose > threshold):
+            <span style="color: #66d9ef;">MAINTAIN</span> repression
+            <span style="color: #66d9ef;">MONITOR</span> glucose_level
+        
+        <span style="color: #f92672;">RETURN</span> glucose_metabolism_active
+    
+    <span style="color: #f92672;">ELSE</span>:
+        <span style="color: #75715e;">──── LOW GLUCOSE BRANCH ────</span>
+        <span style="color: #66d9ef;">CALL</span> activate_gal_genes()
+        <span style="color: #66d9ef;">CALL</span> activate_respiration()
+        
+        <span style="color: #f92672;">RETURN</span> alternative_metabolism_active
+
+<span style="color: #75715e;">─────────────────────────────────────────────────────</span>
+
+<span style="color: #66d9ef;">FUNCTION</span> <span style="color: #a6e22e;">repress_gal_genes</span>():
+    <span style="color: #75715e;">// STEP 1: Glucose sensing (AND gate)</span>
+    <span style="color: #f92672;">IF</span> (glucose_high <span style="color: #f92672;">AND</span> sensor_activated):
+        
+        <span style="color: #75715e;">// STEP 2: Inactivate Snf1 (NOT gate)</span>
+        snf1.state = <span style="color: #ae81ff;">INACTIVE</span>
+        
+        <span style="color: #75715e;">// STEP 3: Mig1 dephosphorylation</span>
+        mig1.phosphorylation = <span style="color: #ae81ff;">LOW</span>
+        
+        <span style="color: #75715e;">// STEP 4: Nuclear localization</span>
+        mig1.localization = <span style="color: #ae81ff;">NUCLEUS</span>
+        
+        <span style="color: #75715e;">// STEP 5: DNA binding & repression</span>
+        <span style="color: #f92672;">FOR EACH</span> target_promoter <span style="color: #f92672;">IN</span> gal_promoters:
+            mig1.bind_dna(target_promoter)
+            mig1.recruit(ssn6_tup1_corepressor)
+            chromatin.deacetylate()
+            transcription.state = <span style="color: #ae81ff;">BLOCKED</span>
+        
+        <span style="color: #75715e;">// OUTPUT: Genes OFF</span>
+        GAL1.expression = <span style="color: #ae81ff;">OFF</span>  <span style="color: #75715e;">// >1000x repression</span>
+        SUC2.expression = <span style="color: #ae81ff;">OFF</span>  <span style="color: #75715e;">// >100x repression</span>
+    
+    <span style="color: #f92672;">RETURN</span> repression_complete
+
+<span style="color: #75715e;">─────────────────────────────────────────────────────</span>
+
+<span style="color: #e6db74;">LOGIC GATES IDENTIFIED:</span>
+• <span style="color: #a6e22e;">AND:</span>  (glucose_high) AND (sensor_active) → snf1_inactivation
+• <span style="color: #a6e22e;">NOT:</span>  NOT(snf1_active) → mig1_nuclear
+• <span style="color: #a6e22e;">NOT:</span>  NOT(repression) → gene_expression
+• <span style="color: #a6e22e;">WHILE:</span> Maintain state while glucose present
+• <span style="color: #a6e22e;">IF-THEN-ELSE:</span> Primary pathway selection
+
+<span style="color: #e6db74;">COMPUTATIONAL COMPLEXITY:</span>
+• Decision points: <span style="color: #ae81ff;">5</span>
+• State machines: <span style="color: #ae81ff;">2</span> (Snf1, Mig1 localization)
+• Feedback loops: <span style="color: #ae81ff;">2</span>
+• Cyclomatic complexity: <span style="color: #ae81ff;">8</span>
+</pre>`
+            },
+            1: {
+                title: "Level 1: Pathway Overview",
+                description: "High-level architecture showing major steps and logic gates (15-20 nodes)",
+                diagram: `graph TD
+    A["🔴 High Glucose<br/>&gt;0.2% w/v<br/><small>Conf: 98%</small><br/><sup>[1,2,3]</sup>"]
+    B["Glucose Sensors<br/>Snf3/Rgt2<br/><small>Conf: 95%</small>"]
+    C{"◆ AND Gate<br/>[Glucose + Signal]<br/><small>Conf: 92%</small>"}
+    D["🟡 Snf1 Kinase<br/>[INACTIVE]<br/><small>Conf: 93%</small>"]
+    E{"⊣ NOT Gate<br/>[Snf1 inhibited]<br/><small>Conf: 91%</small>"}
+    F["Mig1<br/>[Dephosphorylated]<br/><small>Conf: 94%</small>"]
+    G["🟢 Mig1 Nuclear<br/>Localization<br/><small>Conf: 96%</small>"]
+    H["🟢 Mig1 DNA Binding<br/>[GC-rich boxes]<br/><small>Conf: 97%</small>"]
+    I["🔵 Transcription<br/>Repression<br/><small>Conf: 96%</small>"]
+    J["🟣 GAL Genes OFF<br/>SUC2 OFF<br/><small>Conf: 98%</small>"]
+    K["🟣 Glucose<br/>Metabolism<br/>ACTIVE<br/><small>Conf: 99%</small>"]
+    L{"⬥ IF-THEN-ELSE<br/>[Glucose decision]<br/><small>Conf: 94%</small>"}
+    M["↻ WHILE Loop<br/>[Maintain<br/>repression]<br/><small>Conf: 90%</small>"]
+    
+    A -->|"Sensing"| B
+    B --> C
+    C -->|"Reg1 activates"| D
+    D --> E
+    E -->|"No phosphorylation"| F
+    F -->|"Nuclear import"| G
+    G -->|"Promoter binding"| H
+    H -->|"Block Pol II"| I
+    I -->|"Gene repression"| J
+    I -->|"Pathway active"| K
+    J -.->|"Monitor state"| M
+    M -.->|"While glucose high"| C
+    L -.->|"Decision point"| C
+    
+    style A fill:#ff6b6b,stroke:#c0392b,stroke-width:4px,color:#fff
+    style B fill:#e8f5e9,stroke:#4caf50,stroke-width:3px,color:#000
+    style C fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold
+    style D fill:#ffd43b,stroke:#f39c12,stroke-width:3px,color:#000
+    style E fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold
+    style F fill:#51cf66,stroke:#27ae60,stroke-width:3px,color:#fff
+    style G fill:#51cf66,stroke:#27ae60,stroke-width:3px,color:#fff
+    style H fill:#51cf66,stroke:#27ae60,stroke-width:4px,color:#fff
+    style I fill:#74c0fc,stroke:#2980b9,stroke-width:4px,color:#fff
+    style J fill:#b197fc,stroke:#8e44ad,stroke-width:4px,color:#fff
+    style K fill:#b197fc,stroke:#8e44ad,stroke-width:4px,color:#fff
+    style L fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold
+    style M fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold`
+            },
+            2: {
+                title: "Level 2: Molecular Detail",
+                description: "Detailed molecular interactions including corepressor recruitment (40-60 nodes)",
+                diagram: `<div style="text-align: center; padding: 50px; color: #6c757d;">
+                    <h3>Level 2: Molecular Detail View</h3>
+                    <p style="margin: 20px 0;">This level includes 60+ nodes showing:</p>
+                    <ul style="text-align: left; max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                        <li>Reg1-Glc7 phosphatase complex</li>
+                        <li>Snf1 T210 dephosphorylation</li>
+                        <li>Mig1 phosphorylation sites (S311, S381, etc.)</li>
+                        <li>Srp1 importin and Msn5 exportin</li>
+                        <li>Ssn6-Tup1 corepressor complex</li>
+                        <li>Histone deacetylase recruitment</li>
+                        <li>Chromatin modifications</li>
+                        <li>Individual target genes (GAL1, GAL2, SUC2, MAL)</li>
+                        <li>Alternative pathway (low glucose, dashed lines)</li>
+                    </ul>
+                    <p style="margin-top: 30px;"><em>Full diagram available in process.mmd file</em></p>
+                </div>`
+            },
+            3: {
+                title: "Level 3: Mechanistic Detail",
+                description: "Complete molecular mechanism with protein domains and quantitative data (100+ nodes)",
+                diagram: `<div style="text-align: center; padding: 50px; color: #6c757d;">
+                    <h3>Level 3: Mechanistic Detail View</h3>
+                    <p style="margin: 20px 0;">This level includes 100+ nodes showing:</p>
+                    <ul style="text-align: left; max-width: 700px; margin: 0 auto; line-height: 1.8;">
+                        <li><strong>Glucose transport:</strong> HXT family permeases, hexokinase phosphorylation</li>
+                        <li><strong>Sensor details:</strong> Snf3 (Km ~200 μM) vs Rgt2 (Km ~2 mM)</li>
+                        <li><strong>Snf1 complex:</strong> Snf1-Snf4-Gal83 heterotrimer, T210 site</li>
+                        <li><strong>Mig1 domains:</strong> Zinc fingers (C2H2 type), 4 phospho-sites</li>
+                        <li><strong>DNA binding:</strong> SYGGRG consensus, Kd ~10 nM</li>
+                        <li><strong>Corepressor assembly:</strong> Ssn6:Tup1 1:4 stoichiometry, TPR motifs</li>
+                        <li><strong>Chromatin mods:</strong> H3/H2B deacetylation at K9, K14, K18</li>
+                        <li><strong>Quantitative data:</strong> Repression fold-changes, kinetic parameters</li>
+                        <li><strong>Alternative branch:</strong> Complete low-glucose pathway with confidence</li>
+                        <li><strong>Feedback loops:</strong> Metabolic consumption, chromatin memory</li>
+                    </ul>
+                    <p style="margin-top: 30px;"><em>Full diagram with all quantitative details available in process.mmd file</em></p>
+                </div>`
+            }
+        };
+        
+        let currentLevel = 1;
+        
+        function showLevel(level) {
+            currentLevel = level;
+            
+            // Update active button
+            const buttons = document.querySelectorAll('.zoom-button');
+            buttons.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === level);
+            });
+            
+            // Update info panel
+            const infoPanel = document.getElementById('info-panel');
+            infoPanel.innerHTML = `
+                <h3>📖 ${processLevels[level].title}</h3>
+                <p>${processLevels[level].description}</p>
+            `;
+            
+            // Update chart
+            const chartDisplay = document.getElementById('chart-display');
+            
+            if (level === 0) {
+                chartDisplay.innerHTML = processLevels[level].diagram;
+            } else if (level === 1) {
+                chartDisplay.innerHTML = '<div class="mermaid">' + processLevels[level].diagram + '</div>';
+                setTimeout(() => {
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                }, 100);
+            } else {
+                chartDisplay.innerHTML = processLevels[level].diagram;
+            }
+        }
+        
+        function filterConfidence(level) {
+            // Update active button
+            const buttons = document.querySelectorAll('.filter-button');
+            buttons[0].classList.toggle('active', level === 'all');
+            buttons[1].classList.toggle('active', level === 'high');
+            buttons[2].classList.toggle('active', level === 'good');
+            buttons[3].classList.toggle('active', level === 'moderate');
+            
+            // In a real implementation, this would filter the Mermaid diagram
+            alert(`Filtering to show: ${level === 'all' ? 'All nodes' : level + ' confidence and above'}\n\n(Filtering functionality would be implemented with custom Mermaid rendering)`);
+        }
+        
+        function highlightLogic() {
+            alert('Highlighting logic gates (AND, OR, NOT, IF-THEN-ELSE, WHILE)\n\n(Highlighting functionality would be implemented with custom CSS classes)');
+        }
+        
+        function highlightEnzymes() {
+            alert('Highlighting enzymes and catalysts (yellow nodes)\n\n(Highlighting functionality would be implemented with custom CSS classes)');
+        }
+        
+        function resetHighlight() {
+            alert('Resetting all highlights');
+        }
+        
+        // Initialize with Level 1
+        document.addEventListener('DOMContentLoaded', () => {
+            showLevel(1);
+        });
+    </script>
+</body>
+</html>

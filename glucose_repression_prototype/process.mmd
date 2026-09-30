@@ -1,0 +1,455 @@
+%% ============================================================================
+%% GLUCOSE REPRESSION IN SACCHAROMYCES CEREVISIAE
+%% Multi-Level Process Flowchart
+%% 
+%% This file contains 4 zoom levels separated by LEVEL markers
+%% Each level provides progressively more molecular detail
+%% 
+%% Color Coding (Node Type):
+%%   RED (#ff6b6b)    - Triggers & Environmental Signals
+%%   YELLOW (#ffd43b) - Enzymes & Catalysts
+%%   GREEN (#51cf66)  - Chemical Processing & Reactions
+%%   BLUE (#74c0fc)   - Intermediates
+%%   PURPLE (#b197fc) - Products & Outputs
+%%   ORANGE (#fff3e0) - Logic Gates (AND, OR, NOT, IF-THEN)
+%%
+%% Confidence Encoding (Border Style):
+%%   Solid 4px       - High confidence (95-100%) with percentage
+%%   Solid 3px       - Good confidence (80-94%) with percentage
+%%   Dashed 3px      - Moderate confidence (60-79%) with percentage
+%%   Dashed 2px      - Low confidence (40-59%) with percentage
+%%   Dotted          - Hypothesized (<40%) with percentage
+%%
+%% Citations: Superscript numbers [1,2,3] refer to citations.json
+%% ============================================================================
+
+%% ============================================================================
+%% LEVEL 0: PSEUDOCODE VIEW
+%% Programming language representation of the biological process
+%% ============================================================================
+
+```
+PROGRAM: Glucose Repression
+ORGANISM: Saccharomyces cerevisiae
+FUNCTION: Regulate carbon source utilization based on glucose availability
+
+MAIN ALGORITHM:
+─────────────────────────────────────────────────────────────────
+FUNCTION glucose_repression(glucose_concentration):
+    
+    // PRIMARY DECISION POINT - IF-THEN-ELSE
+    IF (glucose_concentration > 0.2% w/v):
+        ───── HIGH GLUCOSE BRANCH ─────
+        // Repress alternative carbon source genes
+        CALL repress_gal_genes()
+        CALL repress_suc2()
+        CALL repress_maltose_genes()
+        
+        // Activate glucose metabolism
+        glycolysis.flux = MAXIMUM
+        fermentation.state = ACTIVE
+        
+        // Maintain state with feedback
+        WHILE (glucose > threshold):
+            MAINTAIN repression
+            MONITOR glucose_level
+        
+        RETURN glucose_metabolism_active
+        
+    ELSE:
+        ───── LOW GLUCOSE BRANCH ─────
+        // Activate alternative carbon genes
+        CALL activate_gal_genes()
+        CALL activate_suc2()
+        
+        // Switch to respiration
+        respiration.state = ACTIVE
+        
+        RETURN alternative_metabolism_active
+
+───────────────────────────────────────────────────────────────────
+
+FUNCTION repress_gal_genes():
+    // STEP 1: Glucose sensing (AND gate)
+    IF (glucose_high AND sensor_activated):
+        
+        // STEP 2: Inactivate Snf1 kinase (NOT gate)
+        snf1.state = INACTIVE  // via Reg1 phosphatase
+        
+        // STEP 3: Mig1 remains dephosphorylated
+        mig1.phosphorylation = LOW
+        
+        // STEP 4: Conditional nuclear import
+        IF (mig1.phosphorylation == LOW):
+            mig1.localization = NUCLEUS  // via Srp1 importin
+            
+            // STEP 5: DNA binding and corepressor recruitment
+            FOR EACH target_promoter IN gal_promoters:
+                mig1.bind_dna(target_promoter)
+                mig1.recruit(ssn6_tup1_corepressor)
+                
+                // STEP 6: Chromatin modification
+                ssn6_tup1.recruit_hdac()
+                chromatin.deacetylate()
+                chromatin.state = REPRESSIVE
+                
+                // STEP 7: Block transcription
+                transcription.state = BLOCKED
+            
+            // OUTPUT: Genes OFF
+            GAL1.expression = OFF  // >1000x repression
+            GAL2.expression = OFF
+            SUC2.expression = OFF
+    
+    RETURN repression_complete
+
+───────────────────────────────────────────────────────────────────
+
+LOGIC GATES IDENTIFIED:
+• AND:  (glucose_high) AND (sensor_active) → snf1_inactivation
+• NOT:  NOT(snf1_active) → mig1_nuclear
+• NOT:  NOT(repression) → gene_expression
+• WHILE: Maintain state while glucose present
+• IF-THEN-ELSE: Primary pathway selection
+
+COMPUTATIONAL COMPLEXITY:
+• Decision points: 5
+• State machines: 2 (Snf1, Mig1 localization)
+• Feedback loops: 2
+• Cyclomatic complexity: 8
+```
+
+%% ============================================================================
+%% LEVEL 1: PATHWAY OVERVIEW
+%% High-level architecture showing major steps (15-20 nodes)
+%% Best for understanding overall logic flow
+%% ============================================================================
+
+graph TD
+    %% Input Layer
+    A["🔴 High Glucose<br/>&gt;0.2% w/v<br/><small>Conf: 98%</small><br/><sup>[1,2,3]</sup>"]:::trigger
+    
+    %% Sensor Layer
+    B["Glucose Sensors<br/>Snf3/Rgt2<br/><small>Conf: 95%</small><br/><sup>[4,5]</sup>"]:::sensor
+    
+    %% Logic Gates
+    C{"◆ AND Gate<br/>[Glucose + Signal]<br/><small>Conf: 92%</small><br/><sup>[2,4]</sup>"}:::logic
+    
+    %% Regulatory Layer
+    D["🟡 Snf1 Kinase<br/>[INACTIVE]<br/><small>Conf: 93%</small><br/><sup>[6,7,8]</sup>"]:::enzyme
+    
+    E{"⊣ NOT Gate<br/>[Snf1 inhibited]<br/><small>Conf: 91%</small><br/><sup>[6,7]</sup>"}:::logic
+    
+    F["Mig1<br/>[Dephosphorylated]<br/><small>Conf: 94%</small><br/><sup>[9,10,11]</sup>"]:::processing
+    
+    %% Nuclear Import
+    G["🟢 Mig1 Nuclear<br/>Localization<br/><small>Conf: 96%</small><br/><sup>[10,12,13]</sup>"]:::processing
+    
+    %% DNA Binding
+    H["🟢 Mig1 DNA Binding<br/>[GC-rich boxes]<br/><small>Conf: 97%</small><br/><sup>[14,15,16]</sup>"]:::processing
+    
+    %% Repression Complex
+    I["🔵 Transcription<br/>Repression<br/><small>Conf: 96%</small><br/><sup>[1,2,22]</sup>"]:::intermediate
+    
+    %% Outputs
+    J["🟣 GAL Genes OFF<br/>SUC2 OFF<br/>MAL OFF<br/><small>Conf: 98%</small><br/><sup>[1,23,24]</sup>"]:::product
+    
+    K["🟣 Glucose<br/>Metabolism<br/>ACTIVE<br/><small>Conf: 99%</small><br/><sup>[1,2]</sup>"]:::product
+    
+    %% Master Conditional
+    L{"⬥ IF-THEN-ELSE<br/>[Glucose decision]<br/><small>Conf: 94%</small><br/><sup>[1,2,3]</sup>"}:::logic
+    
+    %% Feedback Loop
+    M["↻ WHILE Loop<br/>[Maintain while<br/>glucose present]<br/><small>Conf: 90%</small><br/><sup>[2,25]</sup>"]:::logic
+    
+    %% Connections
+    A -->|"Sensing"| B
+    B --> C
+    C -->|"Reg1 activates"| D
+    D --> E
+    E -->|"No phosphorylation"| F
+    F -->|"Nuclear import"| G
+    G -->|"Promoter binding"| H
+    H -->|"Block Pol II"| I
+    I -->|"Gene repression"| J
+    I -->|"Pathway active"| K
+    J -.->|"Monitor state"| M
+    M -.->|"While glucose high"| C
+    L -.->|"Decision point"| C
+    
+    %% Style Definitions
+    classDef trigger fill:#ff6b6b,stroke:#c0392b,stroke-width:4px,color:#fff
+    classDef sensor fill:#e8f5e9,stroke:#4caf50,stroke-width:3px,color:#000
+    classDef logic fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold
+    classDef enzyme fill:#ffd43b,stroke:#f39c12,stroke-width:3px,color:#000
+    classDef processing fill:#51cf66,stroke:#27ae60,stroke-width:3px,color:#fff
+    classDef intermediate fill:#74c0fc,stroke:#2980b9,stroke-width:4px,color:#fff
+    classDef product fill:#b197fc,stroke:#8e44ad,stroke-width:4px,color:#fff
+
+%% ============================================================================
+%% LEVEL 2: MOLECULAR DETAIL
+%% Detailed molecular interactions showing all major components
+%% Includes corepressor recruitment and chromatin modification
+%% ============================================================================
+
+graph TD
+    %% Input & Sensing
+    A1["🔴 High Glucose<br/>&gt;0.2% w/v<br/><small>Conf: 98%</small><br/><sup>[1,2,3]</sup>"]:::trigger
+    
+    A2["Glucose Sensors<br/>Snf3 (high affinity)<br/>Rgt2 (low affinity)<br/><small>Conf: 95%</small><br/><sup>[4,5]</sup>"]:::sensor
+    
+    %% Signal Processing
+    B1{"◆ AND Gate<br/>[Glucose + Signal]<br/><small>Conf: 92%</small><br/><sup>[2,4]</sup>"}:::logic
+    
+    B2["🟡 Reg1-Glc7<br/>Phosphatase<br/>Activated<br/><small>Conf: 90%</small><br/><sup>[8]</sup>"]:::enzyme
+    
+    %% Snf1 Regulation
+    C1["🟡 Snf1 Kinase<br/>[INACTIVE]<br/>T210 dephosphorylated<br/><small>Conf: 93%</small><br/><sup>[6,7,8]</sup>"]:::enzyme
+    
+    C2{"⊣ NOT Gate<br/>[Snf1 inhibited]<br/><small>Conf: 91%</small><br/><sup>[6,7]</sup>"}:::logic
+    
+    %% Mig1 Regulation
+    D1["Mig1 Transcription<br/>Factor<br/>[Dephosphorylated]<br/>S311, S381 sites<br/><small>Conf: 94%</small><br/><sup>[9,10,11]</sup>"]:::processing
+    
+    D2["🟢 Mig1 Nuclear<br/>Import<br/>via Srp1 Importin<br/><small>Conf: 96%</small><br/><sup>[10,12,13]</sup>"]:::processing
+    
+    D3["🟢 Mig1 DNA Binding<br/>GC-rich motifs<br/>SYGGRG consensus<br/>Kd ~10 nM<br/><small>Conf: 97%</small><br/><sup>[14,15,16]</sup>"]:::processing
+    
+    %% Corepressor Complex
+    E1["🟢 Ssn6-Tup1<br/>Corepressor<br/>Recruitment<br/>1:4 stoichiometry<br/><small>Conf: 95%</small><br/><sup>[17,18,19]</sup>"]:::processing
+    
+    E2["🟢 Chromatin<br/>Deacetylation &<br/>Remodeling<br/>HDAC recruitment<br/><small>Conf: 88%</small><br/><sup>[20,21]</sup>"]:::processing
+    
+    %% Transcriptional Block
+    F1["🔵 Transcription<br/>Repression<br/>100-1000x<br/>Pol II blocked<br/><small>Conf: 96%</small><br/><sup>[1,2,22]</sup>"]:::intermediate
+    
+    %% Outputs
+    G1["🟣 GAL1 OFF<br/>&lt;0.1% expression<br/><small>Conf: 98%</small><br/><sup>[23]</sup>"]:::product
+    
+    G2["🟣 SUC2 OFF<br/>&lt;1% expression<br/><small>Conf: 98%</small><br/><sup>[24]</sup>"]:::product
+    
+    G3["🟣 MAL Genes OFF<br/>&lt;5% expression<br/><small>Conf: 97%</small><br/><sup>[1]</sup>"]:::product
+    
+    H1["🟣 Glycolysis ACTIVE<br/>100% flux<br/><small>Conf: 99%</small><br/><sup>[1,2]</sup>"]:::product
+    
+    H2["🟣 Fermentation<br/>Ethanol production<br/><small>Conf: 99%</small><br/><sup>[1]</sup>"]:::product
+    
+    %% Logic & Feedback
+    I1{"⬥ IF-THEN-ELSE<br/>[Master decision]<br/><small>Conf: 94%</small><br/><sup>[1,2,3]</sup>"}:::logic
+    
+    I2["↻ WHILE Loop<br/>[Maintain repression<br/>while glucose present]<br/><small>Conf: 90%</small><br/><sup>[2,25]</sup>"]:::logic
+    
+    %% Flow Connections
+    A1 -->|"Glucose sensing"| A2
+    A2 -->|"Sensor activation"| B1
+    B1 -->|"Signal transduction"| B2
+    B2 -->|"T210 dephosphorylation"| C1
+    C1 -->|"State change"| C2
+    C2 -->|"No Mig1 phosphorylation"| D1
+    D1 -->|"Nuclear import signal"| D2
+    D2 -->|"Zinc finger binding"| D3
+    D3 -->|"Protein recruitment"| E1
+    E1 -->|"HDAC activity"| E2
+    E2 -->|"Chromatin compaction"| F1
+    F1 -->|"Target gene 1"| G1
+    F1 -->|"Target gene 2"| G2
+    F1 -->|"Target gene 3"| G3
+    F1 -->|"Metabolic switch"| H1
+    H1 -->|"Fermentation"| H2
+    G1 -.->|"State monitoring"| I2
+    G2 -.->|"Feedback"| I2
+    I2 -.->|"Continuous check"| B1
+    I1 -.->|"Binary decision"| B1
+    
+    %% Alternative Pathway (Low Glucose) - shown as dashed
+    C1 -.->|"If Snf1 ACTIVE<br/>(low glucose)"| D1A["Mig1<br/>[Phosphorylated]<br/>Nuclear Export"]:::processing_alt
+    D1A -.->|"Msn5 exportin"| G1A["🟣 GAL Genes ON<br/>Alternative pathway"]:::product_alt
+    
+    %% Style Definitions
+    classDef trigger fill:#ff6b6b,stroke:#c0392b,stroke-width:4px,color:#fff
+    classDef sensor fill:#e8f5e9,stroke:#4caf50,stroke-width:3px,color:#000
+    classDef logic fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold
+    classDef enzyme fill:#ffd43b,stroke:#f39c12,stroke-width:3px,color:#000
+    classDef processing fill:#51cf66,stroke:#27ae60,stroke-width:3px,color:#fff
+    classDef intermediate fill:#74c0fc,stroke:#2980b9,stroke-width:4px,color:#fff
+    classDef product fill:#b197fc,stroke:#8e44ad,stroke-width:4px,color:#fff
+    classDef processing_alt fill:#51cf66,stroke:#27ae60,stroke-width:2px,stroke-dasharray: 5 3,color:#fff
+    classDef product_alt fill:#b197fc,stroke:#8e44ad,stroke-width:2px,stroke-dasharray: 5 3,color:#fff
+
+%% ============================================================================
+%% LEVEL 3: MECHANISTIC DETAIL
+%% Maximum detail with protein domains, binding sites, and quantitative data
+%% For specialist researchers needing complete molecular mechanism
+%% ============================================================================
+
+graph TD
+    %% Environmental Input
+    AA1["🔴 Extracellular<br/>Glucose<br/>0.2-2.0% w/v<br/>11-110 mM<br/><small>Conf: 99%</small><br/><sup>[1]</sup>"]:::trigger
+    
+    AA2["Glucose Transport<br/>HXT family<br/>permeases<br/><small>Conf: 98%</small><br/><sup>[5]</sup>"]:::processing
+    
+    AA3["Intracellular<br/>Glucose<br/>Phosphorylation<br/>by Hexokinase<br/><small>Conf: 99%</small><br/><sup>[1]</sup>"]:::processing
+    
+    %% Sensing Mechanism
+    AB1["Snf3 Sensor<br/>(High affinity)<br/>Km ~ 200 μM<br/>GPCR-like<br/><small>Conf: 95%</small><br/><sup>[4]</sup>"]:::sensor
+    
+    AB2["Rgt2 Sensor<br/>(Low affinity)<br/>Km ~ 2 mM<br/>GPCR-like<br/><small>Conf: 95%</small><br/><sup>[4]</sup>"]:::sensor
+    
+    AB3{"◇ OR Gate<br/>[Either sensor]<br/><small>Conf: 88%</small><br/><sup>[4,5]</sup>"}:::logic
+    
+    %% Signal Integration
+    AC1{"◆ AND Gate<br/>[Glucose + Sensor]<br/>Both required<br/><small>Conf: 92%</small><br/><sup>[2,4]</sup>"}:::logic
+    
+    AC2["🟡 Reg1-Glc7<br/>PP1 Phosphatase<br/>Complex<br/>Activated by glucose<br/><small>Conf: 90%</small><br/><sup>[8]</sup>"]:::enzyme
+    
+    %% Snf1 Complex Regulation
+    AD1["🟡 Snf1 Kinase<br/>Complex<br/>(Snf1-Snf4-Gal83)<br/>T210 phosphorylation<br/>site<br/><small>Conf: 93%</small><br/><sup>[6,7]</sup>"]:::enzyme
+    
+    AD2["Snf1 T210<br/>Dephosphorylation<br/>by Reg1-Glc7<br/>Activity &lt; 5%<br/><small>Conf: 93%</small><br/><sup>[7,8]</sup>"]:::processing
+    
+    AD3["🟡 Snf1<br/>[INACTIVE STATE]<br/>No kinase activity<br/><small>Conf: 93%</small><br/><sup>[6,7,8]</sup>"]:::enzyme
+    
+    %% NOT Logic
+    AE1{"⊣ NOT Gate<br/>NOT(Snf1_active)<br/>= Mig1_nuclear<br/><small>Conf: 91%</small><br/><sup>[6,7]</sup>"}:::logic
+    
+    %% Mig1 Regulation Detail
+    AF1["Mig1<br/>Zinc Finger TF<br/>4 phospho-sites:<br/>S311, S381, S494, S556<br/><small>Conf: 94%</small><br/><sup>[9,11]</sup>"]:::processing
+    
+    AF2["Mig1<br/>[Unphosphorylated]<br/>All 4 sites<br/>dephosphorylated<br/><small>Conf: 94%</small><br/><sup>[10,11]</sup>"]:::processing
+    
+    AF3["🟢 Nuclear Import<br/>Srp1/Kap60<br/>Importin-α<br/>Recognition of<br/>NLS signal<br/><small>Conf: 96%</small><br/><sup>[13]</sup>"]:::processing
+    
+    AF4["🟢 Mig1 in Nucleus<br/>Concentrated<br/>90% nuclear<br/>localization<br/><small>Conf: 96%</small><br/><sup>[10]</sup>"]:::processing
+    
+    %% DNA Binding Detail
+    AG1["🟢 DNA Binding<br/>Zinc finger domains<br/>C2H2 type<br/>SYGGRG consensus<br/>(S=C/G, Y=C/T, R=A/G)<br/><small>Conf: 97%</small><br/><sup>[14,15,16]</sup>"]:::processing
+    
+    AG2["Mig1-DNA Complex<br/>Kd ~10 nM<br/>High specificity<br/>Multiple sites<br/>per promoter<br/><small>Conf: 97%</small><br/><sup>[15,16]</sup>"]:::processing
+    
+    %% Corepressor Assembly
+    AH1["🟢 Ssn6 (Cyc8)<br/>Recruitment<br/>TPR motifs<br/>interact with Mig1<br/><small>Conf: 95%</small><br/><sup>[17,18]</sup>"]:::processing
+    
+    AH2["🟢 Tup1 Complex<br/>Assembly<br/>Ssn6:Tup1 = 1:4<br/>tetrameric structure<br/><small>Conf: 95%</small><br/><sup>[18,19]</sup>"]:::processing
+    
+    AH3["🟢 Histone<br/>Deacetylase<br/>Recruitment<br/>Hda1, Rpd3<br/>complexes<br/><small>Conf: 88%</small><br/><sup>[20,21]</sup>"]:::processing
+    
+    %% Chromatin Modification
+    AI1["🟢 H3/H2B<br/>Deacetylation<br/>K9, K14, K18<br/>80% reduction<br/>in acetylation<br/><small>Conf: 88%</small><br/><sup>[21]</sup>"]:::processing
+    
+    AI2["🟢 Chromatin<br/>Compaction<br/>Nucleosome<br/>positioning<br/>Repressive state<br/><small>Conf: 85%</small><br/><sup>[20]</sup>"]:::processing
+    
+    %% Transcriptional Repression
+    AJ1["🔵 RNA Pol II<br/>Recruitment<br/>BLOCKED<br/>or premature<br/>termination<br/><small>Conf: 96%</small><br/><sup>[1,22]</sup>"]:::intermediate
+    
+    AJ2["🔵 Transcription<br/>Initiation<br/>Prevented<br/>TBP binding<br/>blocked<br/><small>Conf: 94%</small><br/><sup>[22]</sup>"]:::intermediate
+    
+    %% Target Genes (Specific Examples)
+    AK1["🟣 GAL1 Gene<br/>Expression<br/>&lt; 0.1% of induced<br/>&gt;1000x repression<br/><small>Conf: 98%</small><br/><sup>[23]</sup>"]:::product
+    
+    AK2["🟣 GAL2 Gene<br/>(Galactose<br/>permease)<br/>Repressed<br/><small>Conf: 97%</small><br/><sup>[23]</sup>"]:::product
+    
+    AK3["🟣 GAL7 Gene<br/>(Galactose-1-P<br/>uridylyltransferase)<br/>Repressed<br/><small>Conf: 97%</small><br/><sup>[23]</sup>"]:::product
+    
+    AK4["🟣 SUC2 Gene<br/>(Invertase)<br/>&lt; 1% expression<br/>100x repression<br/><small>Conf: 98%</small><br/><sup>[24]</sup>"]:::product
+    
+    AK5["🟣 MAL Genes<br/>(Maltose<br/>utilization)<br/>&lt; 5% expression<br/><small>Conf: 97%</small><br/><sup>[1]</sup>"]:::product
+    
+    %% Metabolic Outputs
+    AL1["🟣 Glycolysis<br/>MAXIMUM Flux<br/>10 enzymatic<br/>steps active<br/><small>Conf: 99%</small><br/><sup>[1,2]</sup>"]:::product
+    
+    AL2["🟣 Pyruvate<br/>Decarboxylase<br/>Active<br/>Ethanol pathway<br/><small>Conf: 99%</small><br/><sup>[1]</sup>"]:::product
+    
+    AL3["🟣 Fermentation<br/>Ethanol + CO₂<br/>Production<br/>Crabtree effect<br/><small>Conf: 99%</small><br/><sup>[1]</sup>"]:::product
+    
+    %% Control Logic
+    AM1{"⬥ IF-THEN-ELSE<br/>[Master Decision]<br/>IF glucose &gt; 0.2%<br/>THEN repress<br/>ELSE activate<br/><small>Conf: 94%</small><br/><sup>[1,2,3]</sup>"}:::logic
+    
+    AM2["↻ WHILE Loop<br/>WHILE (glucose &gt; threshold):<br/>  MAINTAIN repression<br/>  MONITOR glucose<br/>  CHECK state<br/><small>Conf: 90%</small><br/><sup>[2,25]</sup>"}:::logic
+    
+    AM3["Negative Feedback<br/>Glucose consumption<br/>→ Lower glucose<br/>→ Derepression<br/>(Hours timescale)<br/><small>Conf: 85%</small><br/><sup>[25]</sup>"]:::logic
+    
+    %% Alternative Branch (Low Glucose) - shown as dashed/hypothetical
+    AN1["Snf1 ACTIVE<br/>(low glucose)<br/>T210 phosphorylated<br/>Kinase active<br/><small>Conf: 93%</small><br/><sup>[7]</sup>"]:::enzyme_alt
+    
+    AN2["Mig1 Phosphorylation<br/>at S311, S381<br/>4 sites modified<br/><small>Conf: 94%</small><br/><sup>[9,11]</sup>"]:::processing_alt
+    
+    AN3["Msn5 Exportin<br/>Recognition<br/>Nuclear export<br/>signal created<br/><small>Conf: 93%</small><br/><sup>[12]</sup>"]:::processing_alt
+    
+    AN4["🟣 Mig1 Cytoplasmic<br/>Sequestered<br/>No repression<br/><small>Conf: 96%</small><br/><sup>[10]</sup>"]:::product_alt
+    
+    AN5["🟣 GAL Genes ACTIVE<br/>Galactose metabolism<br/>Alternative carbon<br/>utilization<br/><small>Conf: 98%</small><br/><sup>[23]</sup>"]:::product_alt
+    
+    AN6["🟣 Respiration ACTIVE<br/>Mitochondrial<br/>oxidative<br/>phosphorylation<br/><small>Conf: 98%</small><br/><sup>[1]</sup>"]:::product_alt
+    
+    %% Flow Connections (High Glucose Path)
+    AA1 -->|"Uptake"| AA2
+    AA2 -->|"Import"| AA3
+    AA3 -->|"G6P signal"| AB1
+    AA3 -->|"G6P signal"| AB2
+    AB1 --> AB3
+    AB2 --> AB3
+    AB3 -->|"Sensor active"| AC1
+    AA3 -->|"Glucose high"| AC1
+    AC1 -->|"Activate"| AC2
+    AC2 -->|"Target"| AD1
+    AD1 -->|"Dephosphorylate"| AD2
+    AD2 -->|"Inactivate"| AD3
+    AD3 --> AE1
+    AE1 -->|"No phosphorylation"| AF1
+    AF1 -->|"Remains unmodified"| AF2
+    AF2 -->|"NLS recognition"| AF3
+    AF3 -->|"Transport"| AF4
+    AF4 -->|"Scan genome"| AG1
+    AG1 -->|"Specific binding"| AG2
+    AG2 -->|"Protein interaction"| AH1
+    AH1 -->|"Complex assembly"| AH2
+    AH2 -->|"Enzyme recruitment"| AH3
+    AH3 -->|"Deacetylase activity"| AI1
+    AI1 -->|"Structural change"| AI2
+    AI2 -->|"Block access"| AJ1
+    AJ1 -->|"Prevent initiation"| AJ2
+    AJ2 -->|"Target 1"| AK1
+    AJ2 -->|"Target 2"| AK2
+    AJ2 -->|"Target 3"| AK3
+    AJ2 -->|"Target 4"| AK4
+    AJ2 -->|"Target 5"| AK5
+    AA3 -->|"Metabolic flux"| AL1
+    AL1 -->|"Pyruvate production"| AL2
+    AL2 -->|"Fermentation"| AL3
+    AK1 -.->|"Monitor"| AM2
+    AM2 -.->|"Feedback"| AC1
+    AM1 -.->|"Decision"| AC1
+    AL1 -->|"Consume glucose"| AM3
+    AM3 -.->|"Negative feedback"| AA1
+    
+    %% Alternative Path (Low Glucose) - dashed connections
+    AD3 -.->|"Alternative:<br/>If Snf1 ACTIVE"| AN1
+    AN1 -.->|"Phosphorylate"| AN2
+    AN2 -.->|"Export signal"| AN3
+    AN3 -.->|"Export"| AN4
+    AN4 -.->|"No repression"| AN5
+    AN4 -.->|"Switch metabolism"| AN6
+    
+    %% Style Definitions
+    classDef trigger fill:#ff6b6b,stroke:#c0392b,stroke-width:4px,color:#fff
+    classDef sensor fill:#e8f5e9,stroke:#4caf50,stroke-width:3px,color:#000
+    classDef logic fill:#fff3e0,stroke:#ff9800,stroke-width:3px,color:#000,font-weight:bold
+    classDef enzyme fill:#ffd43b,stroke:#f39c12,stroke-width:3px,color:#000
+    classDef processing fill:#51cf66,stroke:#27ae60,stroke-width:3px,color:#fff
+    classDef intermediate fill:#74c0fc,stroke:#2980b9,stroke-width:4px,color:#fff
+    classDef product fill:#b197fc,stroke:#8e44ad,stroke-width:4px,color:#fff
+    classDef enzyme_alt fill:#ffd43b,stroke:#f39c12,stroke-width:2px,stroke-dasharray: 5 3,color:#000
+    classDef processing_alt fill:#51cf66,stroke:#27ae60,stroke-width:2px,stroke-dasharray: 5 3,color:#fff
+    classDef product_alt fill:#b197fc,stroke:#8e44ad,stroke-width:2px,stroke-dasharray: 5 3,color:#fff
+
+%% ============================================================================
+%% END OF MULTI-LEVEL PROCESS DIAGRAM
+%% 
+%% NOTES:
+%% - This file demonstrates the Programming Framework concept
+%% - Logic gates (AND, OR, NOT, IF-THEN-ELSE, WHILE) are explicitly shown
+%% - Confidence scores based on literature evidence (see citations.json)
+%% - Quantitative data included where available
+%% - Alternative pathway (low glucose) shown with dashed lines
+%% - Can be rendered at different zoom levels for different audiences
+%% ============================================================================
