@@ -3,7 +3,7 @@
 # Does NOT modify crontab — see install_scout_cron.example.sh
 set -euo pipefail
 
-JETSON="${JETSON:-gary@192.168.1.222}"
+JETSON="${JETSON:-gary@192.168.1.223}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REMOTE="/media/sdcard/scheduler"
 

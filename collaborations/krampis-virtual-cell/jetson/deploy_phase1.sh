@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Deploy Phase 1 scheduler scripts from glmp repo staging to Jetson SD paths.
 # Run from Yoga: bash deploy_phase1.sh
-# Requires: passwordless SSH to gary@192.168.1.222
+# Requires: passwordless SSH to gary@192.168.1.223
 
 set -euo pipefail
 
-JETSON="${JETSON:-gary@192.168.1.222}"
+JETSON="${JETSON:-gary@192.168.1.223}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REMOTE_SCHED="/media/sdcard/scheduler"
 
