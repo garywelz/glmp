@@ -2,8 +2,9 @@
 """
 select_batch.py — GLMP batch decoder circuit selection algorithm
 
-Reads glmp_processes, ranks circuits by decode confidence,
-writes YAML manifests to queue/pending/ for run_batch.py to execute.
+Reads glmp_processes for ranking metadata, skips circuits already
+present in glmp_circuits, and writes YAML manifests to queue/pending/
+for run_batch.py to execute.
 
 Usage:
   python3 select_batch.py --top 10        # queue top 10 by priority
@@ -137,8 +138,10 @@ def already_queued(circuit_id: str) -> bool:
     return False
 
 
-def already_decoded(data: dict) -> bool:
-    return bool(data.get("dna_topology_class"))
+def already_decoded(circuit_id: str, db) -> bool:
+    snap = db.collection("glmp_circuits").document(circuit_id).get()
+    data = snap.to_dict() or {}
+    return snap.exists and bool(data.get("dna_topology_class"))
 
 
 def manifest_status(manifest: dict) -> str:
@@ -246,7 +249,7 @@ def main():
             if data is None:
                 missing.append(circuit_id)
                 continue
-            if already_decoded(data):
+            if already_decoded(circuit_id, db):
                 skipped_decoded += 1
                 print(f"  Skip {circuit_id}: already decoded")
                 continue
@@ -266,7 +269,7 @@ def main():
 
         for doc in docs:
             data = doc.to_dict() or {}
-            if already_decoded(data):
+            if already_decoded(doc.id, db):
                 skipped_decoded += 1
                 continue
             if already_queued(doc.id):
