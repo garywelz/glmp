@@ -32,7 +32,9 @@ except ImportError:
 SCRIPT_DIR = Path(__file__).parent
 DECODER_DIR = SCRIPT_DIR.parent
 sys.path.insert(0, str(SCRIPT_DIR))
+sys.path.insert(0, str(DECODER_DIR))
 from genbank_fetch import fetch_from_manifest  # noqa: E402
+from glmp_logic_parser import __version__ as PARSER_VERSION  # noqa: E402
 
 QUEUE = DECODER_DIR / "queue"
 SEQUENCES_DIR = Path(os.environ.get("GLMP_SEQUENCES_DIR", DECODER_DIR / "sequences"))
@@ -283,7 +285,7 @@ def run_parser(manifest: dict, fimo_hits, prok_hits: list, dry_run: bool = False
 
 
 def write_to_firestore(manifest: dict, parse_result: dict, status: str, error_log: str = None):
-    """Write decode result to glmp_circuits and update glmp_processes."""
+    """Write decode result to glmp_circuits only. Charts stay in glmp_processes."""
     if firestore is None:
         raise RuntimeError("google-cloud-firestore not installed")
 
@@ -292,18 +294,14 @@ def write_to_firestore(manifest: dict, parse_result: dict, status: str, error_lo
     now = datetime.now(timezone.utc).isoformat()
 
     # SOS regulon: two promoter-level glmp_circuits docs (ecoli_sos_reca,
-    # ecoli_sos_lexa) share one glmp_processes entry (ecoli_sos_lexa).
-    # Both manifests use process_id biology:process:ecoli-sos-lexa.
-    process_doc_id = circuit_id
-    if circuit_id == "ecoli_sos_reca":
-        process_doc_id = "ecoli_sos_lexa"
-
+    # ecoli_sos_lexa). Each writes to its own circuit_id. Do not fold RecA
+    # into the lexA circuit document.
     circuit_doc = {
         "circuit_id": circuit_id,
         "process_id": manifest.get("process_id"),
         "organism": manifest.get("organism"),
         "decode_date": now[:10],
-        "decoder_version": "v0.2.2",
+        "decoder_version": f"v{PARSER_VERSION}",
         "sequence_file": manifest.get("sequence_file"),
         "genomic_region": manifest.get("genomic_region"),
         "sequence_source": f"NCBI {manifest.get('ncbi_accession', 'unknown')}",
@@ -332,23 +330,6 @@ def write_to_firestore(manifest: dict, parse_result: dict, status: str, error_lo
 
     db.collection("glmp_circuits").document(circuit_id).set(circuit_doc)
     log.info("  Written to glmp_circuits: %s (status=%s)", circuit_id, status)
-
-    if status == "complete" and parse_result.get("dna_topology_class"):
-        process_update = {
-            "dna_topology_class": parse_result.get("dna_topology_class"),
-            "dna_topology_note": parse_result.get("dna_topology_note"),
-            "dna_topology_confidence": parse_result.get("dna_topology_confidence"),
-            "glmp_biological_class": parse_result.get("glmp_biological_class"),
-            "glmp_biological_subclass": parse_result.get("glmp_biological_subclass"),
-            "glmp_biological_class_source": parse_result.get("glmp_biological_class_source"),
-            "glmp_biological_class_note": parse_result.get("glmp_biological_class_note"),
-            "circuit_class": parse_result.get("circuit_class"),
-            "decoder_version": "v0.2.2",
-            "decode_date": now[:10],
-            "updated_at": firestore.SERVER_TIMESTAMP,
-        }
-        db.collection("glmp_processes").document(process_doc_id).set(process_update, merge=True)
-        log.info("  Updated glmp_processes: %s", process_doc_id)
 
 
 def process_manifest(manifest_path: Path, dry_run: bool = False) -> bool:
