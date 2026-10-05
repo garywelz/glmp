@@ -1,5 +1,7 @@
 # Quick Start - Deploy GLMP Cloud Service
 
+Do not deploy; public access closed 2026-10-04. This service is retired — see `RETIRED.md`.
+
 ## 🚀 Single Command Deploy
 
 From your desktop (with gcloud authenticated):
@@ -15,7 +17,7 @@ gcloud run deploy glmp-service \
   --source . \
   --platform managed \
   --region us-central1 \
-  --allow-unauthenticated \
+  --no-allow-unauthenticated \
   --set-env-vars PROJECT_ID=regal-scholar-453620-r7,BUCKET_NAME=regal-scholar-453620-r7-podcast-storage \
   --project regal-scholar-453620-r7
 
