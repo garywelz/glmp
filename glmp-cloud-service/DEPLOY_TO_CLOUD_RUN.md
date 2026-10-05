@@ -1,5 +1,7 @@
 # Deploy GLMP Service to Cloud Run
 
+Do not deploy; public access closed 2026-10-04. This service is retired — see `RETIRED.md`.
+
 ## ✅ Prerequisites
 
 1. **Google Cloud SDK** installed (you already have this)
@@ -21,7 +23,7 @@ gcloud run deploy glmp-service \
   --source . \
   --platform managed \
   --region us-central1 \
-  --allow-unauthenticated \
+  --no-allow-unauthenticated \
   --set-env-vars PROJECT_ID=regal-scholar-453620-r7,BUCKET_NAME=regal-scholar-453620-r7-podcast-storage \
   --memory 512Mi \
   --timeout 300 \
@@ -49,7 +51,7 @@ gcloud run deploy glmp-service \
   --image gcr.io/regal-scholar-453620-r7/glmp-service \
   --platform managed \
   --region us-central1 \
-  --allow-unauthenticated \
+  --no-allow-unauthenticated \
   --set-env-vars PROJECT_ID=regal-scholar-453620-r7,BUCKET_NAME=regal-scholar-453620-r7-podcast-storage
 ```
 

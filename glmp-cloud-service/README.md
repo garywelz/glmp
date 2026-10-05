@@ -58,7 +58,7 @@ gcloud run deploy glmp-service \
   --source . \
   --platform managed \
   --region us-central1 \
-  --allow-unauthenticated \
+  --no-allow-unauthenticated \
   --set-env-vars PROJECT_ID=regal-scholar-453620-r7,BUCKET_NAME=regal-scholar-453620-r7-podcast-storage
 ```
 
