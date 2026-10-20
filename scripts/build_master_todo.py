@@ -186,6 +186,7 @@ def parse_last_good(existing: Optional[str]) -> Dict[str, Any]:
         ("decoder_source_note", "decoder_source_note"),
         ("findability_overall", "Overall"),
         ("findability_anchors", "Anchor queries"),
+        ("findability_stale", "Stale anchors"),
         ("findability_warnings", "Coverage/index warnings"),
         ("findability_run", "Last probe run"),
         ("focus_fallback_count", "Fallback count"),
@@ -392,6 +393,76 @@ def read_batch_decoder_log() -> SourceResult:
         return SourceResult(False, error=str(exc))
 
 
+def parse_findability_report(report: Dict[str, Any]) -> Dict[str, Any]:
+    """Normalize a findability_probe.py JSON report for AUTO-STATUS cells.
+
+    Stale anchors (severity ``STALE ANCHOR`` / ``check_a_stale``) are counted
+    separately from alerts so ``passing = total - alerts - stale`` never treats
+    a missing expected document as a pass.
+    """
+    summary = report.get("summary") or {}
+    alerts = int(summary.get("check_a_alerts", 0) or 0)
+    total = int(summary.get("check_a_total", 0) or 0)
+    # Prefer the probe's summary count; fall back to scanning Check A rows so
+    # older reports without check_a_stale still classify honestly.
+    if "check_a_stale" in summary:
+        stale = int(summary.get("check_a_stale", 0) or 0)
+    else:
+        stale = 0
+    stale_ids: List[str] = []
+    for row in report.get("check_a_positive_findability") or []:
+        if not isinstance(row, dict):
+            continue
+        sev = str(row.get("severity") or "")
+        if sev == "STALE ANCHOR" or sev.startswith("STALE ANCHOR"):
+            eid = row.get("expected_id")
+            if eid:
+                stale_ids.append(str(eid))
+            if "check_a_stale" not in summary:
+                stale += 1
+    # De-dupe while preserving order
+    seen = set()
+    ordered_ids: List[str] = []
+    for eid in stale_ids:
+        if eid not in seen:
+            seen.add(eid)
+            ordered_ids.append(eid)
+    passing = max(total - alerts - stale, 0)
+    return {
+        "overall": summary.get("overall", "UNKNOWN"),
+        "alerts": alerts,
+        "stale": stale,
+        "stale_ids": ordered_ids,
+        "anchors_total": total,
+        "passing": passing,
+        "warnings": int(summary.get("check_c_warnings", 0) or 0),
+    }
+
+
+def format_findability_anchor_cells(fdata: Dict[str, Any]) -> Tuple[str, Optional[str]]:
+    """Return (anchors_cell, optional stale-anchors line for the Findability table)."""
+    total = fdata.get("anchors_total", "?")
+    passing = fdata.get("passing")
+    if passing is None:
+        alerts = int(fdata.get("alerts", 0) or 0)
+        stale = int(fdata.get("stale", 0) or 0)
+        try:
+            passing = max(int(total) - alerts - stale, 0)
+        except (TypeError, ValueError):
+            passing = "?"
+    anchors_cell = f"{passing}/{total} passing"
+    stale = int(fdata.get("stale", 0) or 0)
+    if stale <= 0:
+        return anchors_cell, None
+    ids = fdata.get("stale_ids") or []
+    if ids:
+        id_part = ", ".join(f"`{eid}`" for eid in ids)
+        stale_line = f"stale anchors: {stale} ({id_part})"
+    else:
+        stale_line = f"stale anchors: {stale}"
+    return anchors_cell, stale_line
+
+
 def read_findability_status() -> SourceResult:
     """Read the findability probe's JSON report (written by
     findability_probe.py as a post-ingest hook step). Missing or malformed
@@ -403,15 +474,9 @@ def read_findability_status() -> SourceResult:
             return SourceResult(False, error="no findability report found")
         with FINDABILITY_REPORT.open(encoding="utf-8") as fh:
             report = json.load(fh)
-        summary = report.get("summary", {})
         return SourceResult(
             True,
-            {
-                "overall": summary.get("overall", "UNKNOWN"),
-                "alerts": summary.get("check_a_alerts", 0),
-                "anchors_total": summary.get("check_a_total", 0),
-                "warnings": summary.get("check_c_warnings", 0),
-            },
+            parse_findability_report(report),
             report.get("generated_at"),
         )
     except Exception as exc:
@@ -611,17 +676,24 @@ def build_auto_status(
         state.stale_sources.append("batch_log")
         batch_cell = "⚠️ unavailable"
 
+    findability_stale_row: Optional[str] = None
     if fdata.get("overall"):
         overall = fdata["overall"]
         icon = {"ALERT": "🔴", "WARNING": "⚠️", "OK": "✅"}.get(overall, "❓")
         findability_overall_cell = f"{icon} {overall}"
-        anchors_cell = f"{fdata.get('anchors_total', '?') - fdata.get('alerts', 0)}/{fdata.get('anchors_total', '?')} passing"
+        anchors_cell, stale_line = format_findability_anchor_cells(fdata)
+        if stale_line:
+            findability_stale_row = f"| Stale anchors | {stale_line} |"
         warnings_cell = str(fdata.get("warnings", 0))
         findability_run_cell = findability.source_time or "unknown"
     elif lg.get("findability_overall"):
         state.stale_sources.append("findability")
         findability_overall_cell = f"⚠️ stale — last good: {lg['findability_overall']}"
         anchors_cell = lg.get("findability_anchors", "⚠️ unavailable")
+        if lg.get("findability_stale"):
+            findability_stale_row = (
+                f"| Stale anchors | ⚠️ stale — last good: {lg['findability_stale']} |"
+            )
         warnings_cell = lg.get("findability_warnings", "⚠️ unavailable")
         findability_run_cell = lg.get("findability_run", "⚠️ unavailable")
     else:
@@ -694,6 +766,7 @@ def build_auto_status(
         "|--------|-------|",
         f"| Overall | {findability_overall_cell} |",
         f"| Anchor queries | {anchors_cell} |",
+        *([findability_stale_row] if findability_stale_row else []),
         f"| Coverage/index warnings | {warnings_cell} |",
         f"| Last probe run | {findability_run_cell} |",
         "",
